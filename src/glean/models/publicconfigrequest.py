@@ -14,6 +14,8 @@ class PublicConfigRequestTypedDict(TypedDict):
     r"""A list of theme keys to include in the response."""
     bool_keys: NotRequired[List[str]]
     r"""A list of boolean flag keys to include in the response."""
+    integer_keys: NotRequired[List[str]]
+    r"""A list of integer flag keys to include in the response."""
 
 
 class PublicConfigRequest(BaseModel):
@@ -24,3 +26,8 @@ class PublicConfigRequest(BaseModel):
 
     bool_keys: Annotated[Optional[List[str]], pydantic.Field(alias="boolKeys")] = None
     r"""A list of boolean flag keys to include in the response."""
+
+    integer_keys: Annotated[
+        Optional[List[str]], pydantic.Field(alias="integerKeys")
+    ] = None
+    r"""A list of integer flag keys to include in the response."""

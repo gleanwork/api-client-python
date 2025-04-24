@@ -37,6 +37,8 @@ class FeedbackPayloadTypedDict(TypedDict):
     r"""Images uploaded by the user when submitting feedback"""
     issue_type: NotRequired[str]
     r"""The type of issue being reported, e.g. RESULT_MISSING or OTHER for search feedback."""
+    issues: NotRequired[List[str]]
+    r"""The type(s) of issue being reported."""
     query: NotRequired[str]
     r"""The query the reporter tried when feedback was sent."""
     tracking_token: NotRequired[str]
@@ -59,8 +61,17 @@ class FeedbackPayload(BaseModel):
     image_urls: Annotated[Optional[List[str]], pydantic.Field(alias="imageUrls")] = None
     r"""Images uploaded by the user when submitting feedback"""
 
-    issue_type: Annotated[Optional[str], pydantic.Field(alias="issueType")] = None
+    issue_type: Annotated[
+        Optional[str],
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible.",
+            alias="issueType",
+        ),
+    ] = None
     r"""The type of issue being reported, e.g. RESULT_MISSING or OTHER for search feedback."""
+
+    issues: Optional[List[str]] = None
+    r"""The type(s) of issue being reported."""
 
     query: Optional[str] = None
     r"""The query the reporter tried when feedback was sent."""
@@ -82,6 +93,8 @@ class ChatFeedbackPayloadTypedDict(TypedDict):
 
     rating: NotRequired[str]
     r"""Rating given to the conversation (currently either \"upvoted\" or \"downvoted\")."""
+    issues: NotRequired[List[str]]
+    r"""The type(s) of issue being reported."""
     comments: NotRequired[str]
     r"""Additional freeform comments provided by the reporter."""
     previous_messages: NotRequired[List[str]]
@@ -94,6 +107,9 @@ class ChatFeedbackPayload(BaseModel):
 
     rating: Optional[str] = None
     r"""Rating given to the conversation (currently either \"upvoted\" or \"downvoted\")."""
+
+    issues: Optional[List[str]] = None
+    r"""The type(s) of issue being reported."""
 
     comments: Optional[str] = None
     r"""Additional freeform comments provided by the reporter."""

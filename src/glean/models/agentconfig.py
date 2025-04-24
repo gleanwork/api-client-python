@@ -7,11 +7,12 @@ from typing import Optional
 from typing_extensions import NotRequired, TypedDict
 
 
-class Agent(str, Enum):
+class AgentEnum(str, Enum):
     r"""Name of the agent."""
 
     DEFAULT = "DEFAULT"
     GPT = "GPT"
+    DEEP_RESEARCH = "DEEP_RESEARCH"
 
 
 class Mode(str, Enum):
@@ -24,7 +25,7 @@ class Mode(str, Enum):
 class AgentConfigTypedDict(TypedDict):
     r"""Describes the agent that executes the request."""
 
-    agent: NotRequired[Agent]
+    agent: NotRequired[AgentEnum]
     r"""Name of the agent."""
     mode: NotRequired[Mode]
     r"""Top level modes to run GleanChat in."""
@@ -33,7 +34,7 @@ class AgentConfigTypedDict(TypedDict):
 class AgentConfig(BaseModel):
     r"""Describes the agent that executes the request."""
 
-    agent: Optional[Agent] = None
+    agent: Optional[AgentEnum] = None
     r"""Name of the agent."""
 
     mode: Optional[Mode] = None

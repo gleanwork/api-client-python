@@ -17,7 +17,7 @@ class IDType(str, Enum):
 
 
 class Direction(str, Enum):
-    r"""The direction of the results asked with respect to the reference timestamp. Missing field defaults to OLDER."""
+    r"""The direction of the results asked with respect to the reference timestamp. Missing field defaults to OLDER. Only applicable when using a message_id."""
 
     OLDER = "OLDER"
     NEWER = "NEWER"
@@ -36,12 +36,12 @@ class MessagesRequestTypedDict(TypedDict):
     r"""Type of the id in the incoming request."""
     id: str
     r"""ID corresponding to the requested idType. Note that channel and threads are represented by the underlying datasource's ID and conversations are represented by their document's ID."""
-    timestamp_millis: int
-    r"""Timestamp in millis of the reference message."""
     workspace_id: NotRequired[str]
     r"""Id for the for the workspace in case of multiple workspaces."""
     direction: NotRequired[Direction]
-    r"""The direction of the results asked with respect to the reference timestamp. Missing field defaults to OLDER."""
+    r"""The direction of the results asked with respect to the reference timestamp. Missing field defaults to OLDER. Only applicable when using a message_id."""
+    timestamp_millis: NotRequired[int]
+    r"""Timestamp in millis of the reference message. Only applicable when using a message_id."""
     include_root_message: NotRequired[bool]
     r"""Whether to include root message in response."""
     datasource: NotRequired[Datasource]
@@ -57,14 +57,16 @@ class MessagesRequest(BaseModel):
     id: str
     r"""ID corresponding to the requested idType. Note that channel and threads are represented by the underlying datasource's ID and conversations are represented by their document's ID."""
 
-    timestamp_millis: Annotated[int, pydantic.Field(alias="timestampMillis")]
-    r"""Timestamp in millis of the reference message."""
-
     workspace_id: Annotated[Optional[str], pydantic.Field(alias="workspaceId")] = None
     r"""Id for the for the workspace in case of multiple workspaces."""
 
     direction: Optional[Direction] = None
-    r"""The direction of the results asked with respect to the reference timestamp. Missing field defaults to OLDER."""
+    r"""The direction of the results asked with respect to the reference timestamp. Missing field defaults to OLDER. Only applicable when using a message_id."""
+
+    timestamp_millis: Annotated[
+        Optional[int], pydantic.Field(alias="timestampMillis")
+    ] = None
+    r"""Timestamp in millis of the reference message. Only applicable when using a message_id."""
 
     include_root_message: Annotated[
         Optional[bool], pydantic.Field(alias="includeRootMessage")

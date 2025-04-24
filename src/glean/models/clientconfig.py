@@ -114,7 +114,7 @@ class ClientConfigTypedDict(TypedDict):
     brandings: NotRequired[BrandingsTypedDict]
     r"""Branding customizations applicable to the current user, such as custom company logos and background images for light and dark mode or company-specific product terminology."""
     greeting_format: NotRequired[str]
-    r"""Describes how to format the web app greeting. Possible format options include - the user's first name"""
+    r"""Describes how to format the web app greeting. Possible format options include \%t - timely greeting \%n - the user's first name"""
     task_see_all_label: NotRequired[str]
     r"""Label for the external link at the end of the Task card in order to guide user to the source."""
     task_see_all_link: NotRequired[str]
@@ -266,7 +266,7 @@ class ClientConfig(BaseModel):
     greeting_format: Annotated[
         Optional[str], pydantic.Field(alias="greetingFormat")
     ] = None
-    r"""Describes how to format the web app greeting. Possible format options include - the user's first name"""
+    r"""Describes how to format the web app greeting. Possible format options include \%t - timely greeting \%n - the user's first name"""
 
     task_see_all_label: Annotated[
         Optional[str], pydantic.Field(alias="taskSeeAllLabel")

@@ -22,13 +22,29 @@ class ManualFeedbackInfoSource(str, Enum):
     EXPERT_DETECTION = "EXPERT_DETECTION"
     FEED = "FEED"
     GENERATED_Q_AND_A = "GENERATED_Q_AND_A"
+    INLINE_MENU = "INLINE_MENU"
     NATIVE_RESULT = "NATIVE_RESULT"
     Q_AND_A = "Q_AND_A"
     RELATED_QUESTIONS = "RELATED_QUESTIONS"
     REPORT_ISSUE = "REPORT_ISSUE"
     SCIOBOT = "SCIOBOT"
     SEARCH = "SEARCH"
+    SIDEBAR = "SIDEBAR"
     SUMMARY = "SUMMARY"
+
+
+class Issue(str, Enum):
+    INACCURATE_RESPONSE = "INACCURATE_RESPONSE"
+    INCOMPLETE_OR_NO_ANSWER = "INCOMPLETE_OR_NO_ANSWER"
+    INCORRECT_CITATION = "INCORRECT_CITATION"
+    MISSING_CITATION = "MISSING_CITATION"
+    OTHER = "OTHER"
+    OUTDATED_RESPONSE = "OUTDATED_RESPONSE"
+    RESULT_MISSING = "RESULT_MISSING"
+    RESULT_SHOULD_NOT_APPEAR = "RESULT_SHOULD_NOT_APPEAR"
+    RESULTS_HELPFUL = "RESULTS_HELPFUL"
+    RESULTS_POOR_ORDER = "RESULTS_POOR_ORDER"
+    TOO_MUCH_ONE_KIND = "TOO_MUCH_ONE_KIND"
 
 
 class Vote(str, Enum):
@@ -45,6 +61,8 @@ class ManualFeedbackInfoTypedDict(TypedDict):
     r"""The source associated with the Feedback.event.MANUAL_FEEDBACK event."""
     issue: NotRequired[str]
     r"""The issue the user indicated in the feedback."""
+    issues: NotRequired[List[Issue]]
+    r"""The issue(s) the user indicated in the feedback."""
     image_urls: NotRequired[List[str]]
     r"""URLs of images uploaded by user when providing feedback"""
     query: NotRequired[str]
@@ -80,8 +98,16 @@ class ManualFeedbackInfo(BaseModel):
     source: Optional[ManualFeedbackInfoSource] = None
     r"""The source associated with the Feedback.event.MANUAL_FEEDBACK event."""
 
-    issue: Optional[str] = None
+    issue: Annotated[
+        Optional[str],
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+        ),
+    ] = None
     r"""The issue the user indicated in the feedback."""
+
+    issues: Optional[List[Issue]] = None
+    r"""The issue(s) the user indicated in the feedback."""
 
     image_urls: Annotated[Optional[List[str]], pydantic.Field(alias="imageUrls")] = None
     r"""URLs of images uploaded by user when providing feedback"""

@@ -15,6 +15,7 @@ class MeetingTypedDict(TypedDict):
     id: NotRequired[str]
     title: NotRequired[str]
     description: NotRequired[str]
+    url: NotRequired[str]
     start_time: NotRequired[datetime]
     end_time: NotRequired[datetime]
     attendees: NotRequired["CalendarAttendeesTypedDict"]
@@ -26,6 +27,8 @@ class Meeting(BaseModel):
     title: Optional[str] = None
 
     description: Optional[str] = None
+
+    url: Optional[str] = None
 
     start_time: Annotated[Optional[datetime], pydantic.Field(alias="startTime")] = None
 

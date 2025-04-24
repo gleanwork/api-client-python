@@ -14,11 +14,11 @@ class Messages(BaseSDK):
         *,
         id_type: models.IDType,
         id: str,
-        timestamp_millis: int,
         x_scio_actas: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         workspace_id: Optional[str] = None,
         direction: Optional[models.Direction] = None,
+        timestamp_millis: Optional[int] = None,
         include_root_message: Optional[bool] = None,
         datasource: Optional[models.Datasource] = None,
         datasource_instance_display_name: Optional[str] = None,
@@ -33,11 +33,11 @@ class Messages(BaseSDK):
 
         :param id_type: Type of the id in the incoming request.
         :param id: ID corresponding to the requested idType. Note that channel and threads are represented by the underlying datasource's ID and conversations are represented by their document's ID.
-        :param timestamp_millis: Timestamp in millis of the reference message.
         :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param workspace_id: Id for the for the workspace in case of multiple workspaces.
-        :param direction: The direction of the results asked with respect to the reference timestamp. Missing field defaults to OLDER.
+        :param direction: The direction of the results asked with respect to the reference timestamp. Missing field defaults to OLDER. Only applicable when using a message_id.
+        :param timestamp_millis: Timestamp in millis of the reference message. Only applicable when using a message_id.
         :param include_root_message: Whether to include root message in response.
         :param datasource: The type of the data source. Missing field defaults to SLACK.
         :param datasource_instance_display_name: The datasource instance display name from which the document was extracted. This is used for appinstance facet filter for datasources that support multiple instances.
@@ -139,11 +139,11 @@ class Messages(BaseSDK):
         *,
         id_type: models.IDType,
         id: str,
-        timestamp_millis: int,
         x_scio_actas: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         workspace_id: Optional[str] = None,
         direction: Optional[models.Direction] = None,
+        timestamp_millis: Optional[int] = None,
         include_root_message: Optional[bool] = None,
         datasource: Optional[models.Datasource] = None,
         datasource_instance_display_name: Optional[str] = None,
@@ -158,11 +158,11 @@ class Messages(BaseSDK):
 
         :param id_type: Type of the id in the incoming request.
         :param id: ID corresponding to the requested idType. Note that channel and threads are represented by the underlying datasource's ID and conversations are represented by their document's ID.
-        :param timestamp_millis: Timestamp in millis of the reference message.
         :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param workspace_id: Id for the for the workspace in case of multiple workspaces.
-        :param direction: The direction of the results asked with respect to the reference timestamp. Missing field defaults to OLDER.
+        :param direction: The direction of the results asked with respect to the reference timestamp. Missing field defaults to OLDER. Only applicable when using a message_id.
+        :param timestamp_millis: Timestamp in millis of the reference message. Only applicable when using a message_id.
         :param include_root_message: Whether to include root message in response.
         :param datasource: The type of the data source. Missing field defaults to SLACK.
         :param datasource_instance_display_name: The datasource instance display name from which the document was extracted. This is used for appinstance facet filter for datasources that support multiple instances.

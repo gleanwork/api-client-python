@@ -81,10 +81,10 @@ with Glean(
 
 ### Errors
 
-| Error Type            | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| errors.GleanDataError | 403, 422              | application/json      |
-| errors.GleanError     | 4XX, 5XX              | \*/\*                 |
+| Error Type        | Status Code       | Content Type      |
+| ----------------- | ----------------- | ----------------- |
+| errors.ErrorInfo  | 403, 422          | application/json  |
+| errors.GleanError | 4XX, 5XX          | \*/\*             |
 
 ## autocomplete
 
@@ -522,7 +522,7 @@ with Glean(
 
 ### Errors
 
-| Error Type            | Status Code           | Content Type          |
-| --------------------- | --------------------- | --------------------- |
-| errors.GleanDataError | 403, 422              | application/json      |
-| errors.GleanError     | 4XX, 5XX              | \*/\*                 |
+| Error Type        | Status Code       | Content Type      |
+| ----------------- | ----------------- | ----------------- |
+| errors.ErrorInfo  | 403, 422          | application/json  |
+| errors.GleanError | 4XX, 5XX          | \*/\*             |

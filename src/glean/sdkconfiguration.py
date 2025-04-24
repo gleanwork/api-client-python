@@ -17,7 +17,7 @@ from typing import Callable, Dict, List, Optional, Tuple, Union
 
 
 SERVERS = [
-    "https://{domain}-be.glean.com/",
+    "https://{domain}-be.glean.com",
 ]
 """Contains the list of servers available to the SDK"""
 

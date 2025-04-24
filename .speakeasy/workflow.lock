@@ -1,5 +1,11 @@
-speakeasyVersion: 1.538.0
+speakeasyVersion: 1.539.2
 sources:
+    Glean API:
+        sourceNamespace: glean-api-specs
+        sourceRevisionDigest: sha256:49dd73012a99d842607d337673c76e0cc9b18dc0a7e0c33cb5cec1b0c5d9a561
+        sourceBlobDigest: sha256:f4388f0070e7a6340fbe209d9171ee18eee5d5b19d46d2c42b827727ae5e5888
+        tags:
+            - latest
     Glean Client API:
         sourceNamespace: glean-client-api
         sourceRevisionDigest: sha256:4edc63ad559e4f2c9fb9ebf5edaaaaa9269f1874d271cfd84b441d6dacac43d2
@@ -8,27 +14,27 @@ sources:
             - latest
 targets:
     glean:
-        source: Glean Client API
-        sourceNamespace: glean-client-api
-        sourceRevisionDigest: sha256:4edc63ad559e4f2c9fb9ebf5edaaaaa9269f1874d271cfd84b441d6dacac43d2
-        sourceBlobDigest: sha256:caa5ffc81b230bfbba8f7861b0eac961f47c18be02a5cf1d4f7bd51bc734c419
-        codeSamplesNamespace: glean-client-api-python-code-samples
-        codeSamplesRevisionDigest: sha256:b318bf54aab7139bbe2093c8f7a9a1e7ec4bc1a44ad1178806fe7855a16fe7d3
+        source: Glean API
+        sourceNamespace: glean-api-specs
+        sourceRevisionDigest: sha256:49dd73012a99d842607d337673c76e0cc9b18dc0a7e0c33cb5cec1b0c5d9a561
+        sourceBlobDigest: sha256:f4388f0070e7a6340fbe209d9171ee18eee5d5b19d46d2c42b827727ae5e5888
+        codeSamplesNamespace: glean-api-specs-python-code-samples
+        codeSamplesRevisionDigest: sha256:0f7cd29466c0784592338c9d38c5bbf530f8b012ed98a5724a64161d0ae34731
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
     sources:
-        Glean Client API:
+        Glean API:
             inputs:
-                - location: registry.speakeasyapi.dev/glean-el2/sdk/glean-client-api
+                - location: registry.speakeasyapi.dev/glean-el2/sdk/glean-api-specs
             output: .speakeasy/glean-merged-spec.yaml
     targets:
         glean:
             target: python
-            source: Glean Client API
+            source: Glean API
             codeSamples:
                 registry:
-                    location: registry.speakeasyapi.dev/glean-el2/sdk/glean-client-api-python-code-samples
+                    location: registry.speakeasyapi.dev/glean-el2/sdk/glean-api-specs-python-code-samples
                 labelOverride:
                     fixedValue: Python (SDK)
                 blocking: false

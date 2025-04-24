@@ -1,11 +1,14 @@
 # Agent
 
-Name of the agent.
 
+## Fields
 
-## Values
-
-| Name      | Value     |
-| --------- | --------- |
-| `DEFAULT` | DEFAULT   |
-| `GPT`     | GPT       |
+| Field                                                                | Type                                                                 | Required                                                             | Description                                                          | Example                                                              |
+| -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `author`                                                             | [Optional[models.Person]](../models/person.md)                       | :heavy_minus_sign:                                                   | N/A                                                                  | {<br/>"name": "George Clooney",<br/>"obfuscatedId": "abc123"<br/>}   |
+| `create_timestamp`                                                   | *Optional[int]*                                                      | :heavy_minus_sign:                                                   | Server Unix timestamp of the creation time.                          |                                                                      |
+| `last_update_timestamp`                                              | *Optional[int]*                                                      | :heavy_minus_sign:                                                   | Server Unix timestamp of the last update time.                       |                                                                      |
+| `last_updated_by`                                                    | [Optional[models.Person]](../models/person.md)                       | :heavy_minus_sign:                                                   | N/A                                                                  | {<br/>"name": "George Clooney",<br/>"obfuscatedId": "abc123"<br/>}   |
+| `id`                                                                 | *Optional[str]*                                                      | :heavy_minus_sign:                                                   | The ID of the agent.                                                 |                                                                      |
+| `name`                                                               | *Optional[str]*                                                      | :heavy_minus_sign:                                                   | The name of the agent.                                               |                                                                      |
+| `permissions`                                                        | [Optional[models.ObjectPermissions]](../models/objectpermissions.md) | :heavy_minus_sign:                                                   | N/A                                                                  |                                                                      |

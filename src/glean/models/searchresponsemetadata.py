@@ -31,6 +31,8 @@ class SearchResponseMetadataTypedDict(TypedDict):
     search_warning: NotRequired[SearchWarningTypedDict]
     triggered_expert_detection: NotRequired[bool]
     r"""Whether the query triggered expert detection results in the People tab."""
+    is_no_quotes_suggestion: NotRequired[bool]
+    r"""Whether the query was modified to remove quotes"""
 
 
 class SearchResponseMetadata(BaseModel):
@@ -86,3 +88,8 @@ class SearchResponseMetadata(BaseModel):
         Optional[bool], pydantic.Field(alias="triggeredExpertDetection")
     ] = None
     r"""Whether the query triggered expert detection results in the People tab."""
+
+    is_no_quotes_suggestion: Annotated[
+        Optional[bool], pydantic.Field(alias="isNoQuotesSuggestion")
+    ] = None
+    r"""Whether the query was modified to remove quotes"""

@@ -20,11 +20,11 @@ The speakeasy CLI allows you to generate more usage snippets. Here's how:
 - To generate a sample for a specific operation by providing an operation ID, use:
 
 ```
-speakeasy generate usage -s ./glean.openapi.yaml -l python -i {INPUT_OPERATION_ID} -o ./samples
+speakeasy generate usage -s registry.speakeasyapi.dev/glean-el2/sdk/glean-api-specs -l python -i {INPUT_OPERATION_ID} -o ./samples
 ```
 
 - To generate samples for an entire namespace (like a tag or group name), use:
 
 ```
-speakeasy generate usage -s ./glean.openapi.yaml -l python -n {INPUT_TAG_NAME} -o ./samples
+speakeasy generate usage -s registry.speakeasyapi.dev/glean-el2/sdk/glean-api-specs -l python -n {INPUT_TAG_NAME} -o ./samples
 ```

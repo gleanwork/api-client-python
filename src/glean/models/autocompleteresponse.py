@@ -6,7 +6,7 @@ from .autocompleteresultgroup import (
     AutocompleteResultGroup,
     AutocompleteResultGroupTypedDict,
 )
-from .gleandataerror import GleanDataError, GleanDataErrorTypedDict
+from .errorinfo import ErrorInfo, ErrorInfoTypedDict
 from .sessioninfo import SessionInfo, SessionInfoTypedDict
 from glean.types import BaseModel
 import pydantic
@@ -23,7 +23,7 @@ class AutocompleteResponseTypedDict(TypedDict):
     results: NotRequired[List[AutocompleteResultTypedDict]]
     groups: NotRequired[List[AutocompleteResultGroupTypedDict]]
     r"""Subsections of the results list from which distinct sections should be created."""
-    glean_data_error: NotRequired[GleanDataErrorTypedDict]
+    error_info: NotRequired[ErrorInfoTypedDict]
     backend_time_millis: NotRequired[int]
     r"""Time in milliseconds the backend took to respond to the request."""
 
@@ -48,9 +48,7 @@ class AutocompleteResponse(BaseModel):
     groups: Optional[List[AutocompleteResultGroup]] = None
     r"""Subsections of the results list from which distinct sections should be created."""
 
-    glean_data_error: Annotated[
-        Optional[GleanDataError], pydantic.Field(alias="errorInfo")
-    ] = None
+    error_info: Annotated[Optional[ErrorInfo], pydantic.Field(alias="errorInfo")] = None
 
     backend_time_millis: Annotated[
         Optional[int], pydantic.Field(alias="backendTimeMillis")

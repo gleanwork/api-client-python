@@ -100,7 +100,7 @@ def test_chat_sdk_ask():
                         url="https://www.example.com/",
                     ),
                 ],
-                glean_data_error=models.GleanDataError(
+                error_info=models.ErrorInfo(
                     error_messages=[
                         models.ErrorMessage(
                             source="gmail",
@@ -161,7 +161,7 @@ def test_chat_sdk_ask():
                 messages=[
                     models.ChatMessage(
                         agent_config=models.AgentConfig(
-                            agent=models.Agent.DEFAULT,
+                            agent=models.AgentEnum.DEFAULT,
                             mode=models.Mode.DEFAULT,
                         ),
                         citations=[
@@ -517,7 +517,7 @@ def test_chat_sdk_chat_gpt_agent_example():
                 },
             ],
             agent_config={
-                "agent": models.Agent.GPT,
+                "agent": models.AgentEnum.GPT,
             },
             timeout_millis=30000,
         )

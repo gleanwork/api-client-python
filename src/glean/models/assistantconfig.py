@@ -2,6 +2,10 @@
 
 from __future__ import annotations
 from .agentclientconfig import AgentClientConfig, AgentClientConfigTypedDict
+from .agentmigrationstatuses import (
+    AgentMigrationStatuses,
+    AgentMigrationStatusesTypedDict,
+)
 from .fileuploadconfig import FileUploadConfig, FileUploadConfigTypedDict
 from .websearchconfig import WebSearchConfig, WebSearchConfigTypedDict
 from glean.types import BaseModel
@@ -40,6 +44,8 @@ class AssistantConfigTypedDict(TypedDict):
     r"""Whether prompt templates feature are enabled for the deployment."""
     default_user_can_share_prompts: NotRequired[bool]
     r"""Whether a default user can share prompts to the prompt library."""
+    default_user_can_share_agents: NotRequired[bool]
+    r"""Whether a default user can share agents to the agent library."""
     file_upload_enabled: NotRequired[bool]
     r"""Whether file upload for Chat is enabled for the deployment"""
     web_search: NotRequired[WebSearchConfigTypedDict]
@@ -48,6 +54,7 @@ class AssistantConfigTypedDict(TypedDict):
     r"""Whether admin has enabled Chat Bar V3 for the deployment. This shall eventually go away when we launch Chat Bar V3 to all customers."""
     chat_bar_placeholder_text: NotRequired[str]
     r"""Placeholder text for the chat bar"""
+    agent_migration_statuses: NotRequired[AgentMigrationStatusesTypedDict]
 
 
 class AssistantConfig(BaseModel):
@@ -122,6 +129,11 @@ class AssistantConfig(BaseModel):
     ] = None
     r"""Whether a default user can share prompts to the prompt library."""
 
+    default_user_can_share_agents: Annotated[
+        Optional[bool], pydantic.Field(alias="defaultUserCanShareAgents")
+    ] = None
+    r"""Whether a default user can share agents to the agent library."""
+
     file_upload_enabled: Annotated[
         Optional[bool],
         pydantic.Field(
@@ -145,3 +157,7 @@ class AssistantConfig(BaseModel):
         Optional[str], pydantic.Field(alias="chatBarPlaceholderText")
     ] = None
     r"""Placeholder text for the chat bar"""
+
+    agent_migration_statuses: Annotated[
+        Optional[AgentMigrationStatuses], pydantic.Field(alias="agentMigrationStatuses")
+    ] = None

@@ -7,6 +7,7 @@ from .utils.logger import Logger, get_default_logger
 from .utils.retries import RetryConfig
 from glean import models, utils
 from glean._hooks import SDKHooks
+from glean.agents import Agents
 from glean.client import Client
 from glean.index import Index
 from glean.types import OptionalNullable, UNSET
@@ -16,9 +17,17 @@ import weakref
 
 
 class Glean(BaseSDK):
-    r"""Glean Index and Client APIs: In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This SDK also supports acustom client interface to the Glean system."""
+    r"""Glean API: # Introduction
+    In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This is useful, for example, for doing permissions-aware search over content in internal tools that reside on-prem as well as for searching over applications that Glean does not currently support first class. In addition these APIs allow the customer to push organization data (people info, organization structure etc) into Glean.
+
+    # Usage guidelines
+    This API is evolving fast. Glean will provide advance notice of any planned backwards incompatible changes along
+    with a 6-month sunset period for anything that requires developers to adopt the new versions.
+
+    """
 
     client: Client
+    agents: Agents
     index: Index
 
     def __init__(
@@ -126,6 +135,7 @@ class Glean(BaseSDK):
 
     def _init_sdks(self):
         self.client = Client(self.sdk_configuration)
+        self.agents = Agents(self.sdk_configuration)
         self.index = Index(self.sdk_configuration)
 
     def __enter__(self):

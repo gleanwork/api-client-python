@@ -289,7 +289,7 @@ def test_messages_messages():
                 generated_qna_result=models.GeneratedQna(
                     ranges=[],
                 ),
-                glean_data_error=models.GleanDataError(
+                error_info=models.ErrorInfo(
                     error_messages=[
                         models.ErrorMessage(
                             source="gmail",

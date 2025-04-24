@@ -97,10 +97,8 @@ class ClientChat(BaseSDK):
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(http_res.text, models.AskResponse)
         if utils.match_response(http_res, ["403", "422"], "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GleanDataErrorData
-            )
-            raise errors.GleanDataError(data=response_data)
+            response_data = utils.unmarshal_json(http_res.text, errors.ErrorInfoData)
+            raise errors.ErrorInfo(data=response_data)
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.GleanError(
@@ -209,10 +207,8 @@ class ClientChat(BaseSDK):
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(http_res.text, models.AskResponse)
         if utils.match_response(http_res, ["403", "422"], "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GleanDataErrorData
-            )
-            raise errors.GleanDataError(data=response_data)
+            response_data = utils.unmarshal_json(http_res.text, errors.ErrorInfoData)
+            raise errors.ErrorInfo(data=response_data)
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.GleanError(

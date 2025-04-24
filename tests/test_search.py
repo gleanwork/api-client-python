@@ -59,7 +59,7 @@ def test_search_adminsearch():
                     url="https://www.example.com/",
                 ),
             ],
-            glean_data_error=models.GleanDataError(
+            error_info=models.ErrorInfo(
                 error_messages=[
                     models.ErrorMessage(
                         source="gmail",
@@ -154,7 +154,7 @@ def test_search_autocomplete():
                     tracking_token="abcd",
                 ),
             ],
-            glean_data_error=models.GleanDataError(
+            error_info=models.ErrorInfo(
                 error_messages=[
                     models.ErrorMessage(
                         source="gmail",
@@ -328,33 +328,7 @@ def test_search_feed():
                             ),
                         ),
                         workflow=models.WorkflowResult(
-                            workflow=models.Workflow(
-                                roles=[],
-                                schema_=models.WorkflowSchema(
-                                    steps=[],
-                                    trigger=models.Trigger(
-                                        config=models.Config(
-                                            chat_message=models.WorkflowTriggerChatMessageConfig(
-                                                slack_config=models.WorkflowSlackConfig(
-                                                    instance_channels={
-                                                        "key": [
-                                                            '{"slack-workspace-1":["C12345678","C87654321"],"enterprise-grid-1":["C98765432","C23456789"]}',
-                                                        ],
-                                                        "key1": [
-                                                            '{"slack-workspace-1":["C12345678","C87654321"],"enterprise-grid-1":["C98765432","C23456789"]}',
-                                                        ],
-                                                        "key2": [
-                                                            '{"slack-workspace-1":["C12345678","C87654321"],"enterprise-grid-1":["C98765432","C23456789"]}',
-                                                        ],
-                                                    },
-                                                ),
-                                            ),
-                                        ),
-                                    ),
-                                ),
-                                added_roles=[],
-                                removed_roles=[],
-                            ),
+                            workflow=models.Workflow(),
                         ),
                         activities=[
                             models.UserActivity(
@@ -387,33 +361,7 @@ def test_search_feed():
                                 ),
                             ),
                             workflow=models.WorkflowResult(
-                                workflow=models.Workflow(
-                                    roles=[],
-                                    schema_=models.WorkflowSchema(
-                                        steps=[],
-                                        trigger=models.Trigger(
-                                            config=models.Config(
-                                                chat_message=models.WorkflowTriggerChatMessageConfig(
-                                                    slack_config=models.WorkflowSlackConfig(
-                                                        instance_channels={
-                                                            "key": [
-                                                                '{"slack-workspace-1":["C12345678","C87654321"],"enterprise-grid-1":["C98765432","C23456789"]}',
-                                                            ],
-                                                            "key1": [
-                                                                '{"slack-workspace-1":["C12345678","C87654321"],"enterprise-grid-1":["C98765432","C23456789"]}',
-                                                            ],
-                                                            "key2": [
-                                                                '{"slack-workspace-1":["C12345678","C87654321"],"enterprise-grid-1":["C98765432","C23456789"]}',
-                                                            ],
-                                                        },
-                                                    ),
-                                                ),
-                                            ),
-                                        ),
-                                    ),
-                                    added_roles=[],
-                                    removed_roles=[],
-                                ),
+                                workflow=models.Workflow(),
                             ),
                             activities=[],
                         ),
@@ -436,33 +384,7 @@ def test_search_feed():
                                 ),
                             ),
                             workflow=models.WorkflowResult(
-                                workflow=models.Workflow(
-                                    roles=[],
-                                    schema_=models.WorkflowSchema(
-                                        steps=[],
-                                        trigger=models.Trigger(
-                                            config=models.Config(
-                                                chat_message=models.WorkflowTriggerChatMessageConfig(
-                                                    slack_config=models.WorkflowSlackConfig(
-                                                        instance_channels={
-                                                            "key": [
-                                                                '{"slack-workspace-1":["C12345678","C87654321"],"enterprise-grid-1":["C98765432","C23456789"]}',
-                                                            ],
-                                                            "key1": [
-                                                                '{"slack-workspace-1":["C12345678","C87654321"],"enterprise-grid-1":["C98765432","C23456789"]}',
-                                                            ],
-                                                            "key2": [
-                                                                '{"slack-workspace-1":["C12345678","C87654321"],"enterprise-grid-1":["C98765432","C23456789"]}',
-                                                            ],
-                                                        },
-                                                    ),
-                                                ),
-                                            ),
-                                        ),
-                                    ),
-                                    added_roles=[],
-                                    removed_roles=[],
-                                ),
+                                workflow=models.Workflow(),
                             ),
                             activities=[],
                         ),
@@ -485,33 +407,7 @@ def test_search_feed():
                                 ),
                             ),
                             workflow=models.WorkflowResult(
-                                workflow=models.Workflow(
-                                    roles=[],
-                                    schema_=models.WorkflowSchema(
-                                        steps=[],
-                                        trigger=models.Trigger(
-                                            config=models.Config(
-                                                chat_message=models.WorkflowTriggerChatMessageConfig(
-                                                    slack_config=models.WorkflowSlackConfig(
-                                                        instance_channels={
-                                                            "key": [
-                                                                '{"slack-workspace-1":["C12345678","C87654321"],"enterprise-grid-1":["C98765432","C23456789"]}',
-                                                            ],
-                                                            "key1": [
-                                                                '{"slack-workspace-1":["C12345678","C87654321"],"enterprise-grid-1":["C98765432","C23456789"]}',
-                                                            ],
-                                                            "key2": [
-                                                                '{"slack-workspace-1":["C12345678","C87654321"],"enterprise-grid-1":["C98765432","C23456789"]}',
-                                                            ],
-                                                        },
-                                                    ),
-                                                ),
-                                            ),
-                                        ),
-                                    ),
-                                    added_roles=[],
-                                    removed_roles=[],
-                                ),
+                                workflow=models.Workflow(),
                             ),
                             activities=[],
                         ),
@@ -538,33 +434,7 @@ def test_search_feed():
                             ),
                         ),
                         workflow=models.WorkflowResult(
-                            workflow=models.Workflow(
-                                roles=[],
-                                schema_=models.WorkflowSchema(
-                                    steps=[],
-                                    trigger=models.Trigger(
-                                        config=models.Config(
-                                            chat_message=models.WorkflowTriggerChatMessageConfig(
-                                                slack_config=models.WorkflowSlackConfig(
-                                                    instance_channels={
-                                                        "key": [
-                                                            '{"slack-workspace-1":["C12345678","C87654321"],"enterprise-grid-1":["C98765432","C23456789"]}',
-                                                        ],
-                                                        "key1": [
-                                                            '{"slack-workspace-1":["C12345678","C87654321"],"enterprise-grid-1":["C98765432","C23456789"]}',
-                                                        ],
-                                                        "key2": [
-                                                            '{"slack-workspace-1":["C12345678","C87654321"],"enterprise-grid-1":["C98765432","C23456789"]}',
-                                                        ],
-                                                    },
-                                                ),
-                                            ),
-                                        ),
-                                    ),
-                                ),
-                                added_roles=[],
-                                removed_roles=[],
-                            ),
+                            workflow=models.Workflow(),
                         ),
                         activities=[],
                     ),
@@ -1068,7 +938,7 @@ def test_search_recommendations():
             generated_qna_result=models.GeneratedQna(
                 ranges=[],
             ),
-            glean_data_error=models.GleanDataError(
+            error_info=models.ErrorInfo(
                 error_messages=[
                     models.ErrorMessage(
                         source="gmail",
@@ -1136,7 +1006,7 @@ def test_search_search():
                     url="https://www.example.com/",
                 ),
             ],
-            glean_data_error=models.GleanDataError(
+            error_info=models.ErrorInfo(
                 error_messages=[
                     models.ErrorMessage(
                         source="gmail",

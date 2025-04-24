@@ -3,49 +3,27 @@
 from __future__ import annotations
 from .objectpermissions import ObjectPermissions, ObjectPermissionsTypedDict
 from .person import Person, PersonTypedDict
-from .userrolespecification import UserRoleSpecification, UserRoleSpecificationTypedDict
-from .workflowinputfield import WorkflowInputField, WorkflowInputFieldTypedDict
-from .workflowschema import WorkflowSchema, WorkflowSchemaTypedDict
-from .workflowstep import WorkflowStep, WorkflowStepTypedDict
 from glean.types import BaseModel
 import pydantic
-from typing import List, Optional
+from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class WorkflowTypedDict(TypedDict):
-    r"""Metadata of a workflow."""
-
     author: NotRequired[PersonTypedDict]
     create_timestamp: NotRequired[int]
     r"""Server Unix timestamp of the creation time."""
     last_update_timestamp: NotRequired[int]
     r"""Server Unix timestamp of the last update time."""
     last_updated_by: NotRequired[PersonTypedDict]
-    roles: NotRequired[List[UserRoleSpecificationTypedDict]]
-    r"""A list of roles for this prompt template explicitly granted."""
     permissions: NotRequired[ObjectPermissionsTypedDict]
     name: NotRequired[str]
     r"""The name of the workflow."""
-    schema_: NotRequired[WorkflowSchemaTypedDict]
-    r"""The schema of a workflow, such as the goal and the steps."""
-    application_id: NotRequired[str]
-    r"""The Application Id the workflow should be created under. Empty for default assistant."""
-    added_roles: NotRequired[List[UserRoleSpecificationTypedDict]]
-    r"""A list of added user roles for the Workflow."""
-    removed_roles: NotRequired[List[UserRoleSpecificationTypedDict]]
-    r"""A list of removed user roles for the Workflow."""
-    fields: NotRequired[List[WorkflowInputFieldTypedDict]]
-    r"""Use schema instead."""
-    steps: NotRequired[List[WorkflowStepTypedDict]]
-    r"""Use schema instead."""
     id: NotRequired[str]
     r"""The ID of the workflow."""
 
 
 class Workflow(BaseModel):
-    r"""Metadata of a workflow."""
-
     author: Optional[Person] = None
 
     create_timestamp: Annotated[
@@ -62,47 +40,10 @@ class Workflow(BaseModel):
         Optional[Person], pydantic.Field(alias="lastUpdatedBy")
     ] = None
 
-    roles: Optional[List[UserRoleSpecification]] = None
-    r"""A list of roles for this prompt template explicitly granted."""
-
     permissions: Optional[ObjectPermissions] = None
 
     name: Optional[str] = None
     r"""The name of the workflow."""
-
-    schema_: Annotated[Optional[WorkflowSchema], pydantic.Field(alias="schema")] = None
-    r"""The schema of a workflow, such as the goal and the steps."""
-
-    application_id: Annotated[Optional[str], pydantic.Field(alias="applicationId")] = (
-        None
-    )
-    r"""The Application Id the workflow should be created under. Empty for default assistant."""
-
-    added_roles: Annotated[
-        Optional[List[UserRoleSpecification]], pydantic.Field(alias="addedRoles")
-    ] = None
-    r"""A list of added user roles for the Workflow."""
-
-    removed_roles: Annotated[
-        Optional[List[UserRoleSpecification]], pydantic.Field(alias="removedRoles")
-    ] = None
-    r"""A list of removed user roles for the Workflow."""
-
-    fields: Annotated[
-        Optional[List[WorkflowInputField]],
-        pydantic.Field(
-            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
-        ),
-    ] = None
-    r"""Use schema instead."""
-
-    steps: Annotated[
-        Optional[List[WorkflowStep]],
-        pydantic.Field(
-            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
-        ),
-    ] = None
-    r"""Use schema instead."""
 
     id: Optional[str] = None
     r"""The ID of the workflow."""

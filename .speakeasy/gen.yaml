@@ -2,7 +2,7 @@ configVersion: 2.0.0
 generation:
   devContainers:
     enabled: true
-    schemaPath: ./glean.openapi.yaml
+    schemaPath: registry.speakeasyapi.dev/glean-el2/sdk/glean-api-specs
   sdkClassName: Glean
   maintainOpenAPIOrder: true
   usageSnippets:
@@ -22,7 +22,7 @@ generation:
   tests:
     generateNewTests: true
 python:
-  version: 0.7.3
+  version: 0.8.5
   additionalDependencies:
     dev: {}
     main: {}

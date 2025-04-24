@@ -7,12 +7,18 @@
 <!-- Start Summary [summary] -->
 ## Summary
 
-Glean Index and Client APIs: In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This SDK also supports acustom client interface to the Glean system.
+Glean API: # Introduction
+In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This is useful, for example, for doing permissions-aware search over content in internal tools that reside on-prem as well as for searching over applications that Glean does not currently support first class. In addition these APIs allow the customer to push organization data (people info, organization structure etc) into Glean.
+
+# Usage guidelines
+This API is evolving fast. Glean will provide advance notice of any planned backwards incompatible changes along
+with a 6-month sunset period for anything that requires developers to adopt the new versions.
 <!-- End Summary [summary] -->
 
 <!-- Start Table of Contents [toc] -->
 ## Table of Contents
 <!-- $toc-max-depth=2 -->
+* [Usage guidelines](#usage-guidelines)
   * [SDK Installation](#sdk-installation)
   * [IDE Support](#ide-support)
   * [SDK Example Usage](#sdk-example-usage)
@@ -111,6 +117,7 @@ Generally, the SDK will work well with most IDEs out of the box. However, when u
 ```python
 # Synchronous Example
 from glean import Glean, models
+from glean.utils import parse_datetime
 import os
 
 
@@ -118,18 +125,32 @@ with Glean(
     bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
 ) as g_client:
 
-    res = g_client.client.chat.start(messages=[
+    g_client.client.activity.report(events=[
         {
-            "fragments": [
-                models.ChatMessageFragment(
-                    text="What are the company holidays this year?",
-                ),
-            ],
+            "action": models.ActivityEventAction.HISTORICAL_VIEW,
+            "timestamp": parse_datetime("2000-01-23T04:56:07.000Z"),
+            "url": "https://example.com/",
         },
-    ], timeout_millis=30000)
+        {
+            "action": models.ActivityEventAction.SEARCH,
+            "params": {
+                "query": "query",
+            },
+            "timestamp": parse_datetime("2000-01-23T04:56:07.000Z"),
+            "url": "https://example.com/search?q=query",
+        },
+        {
+            "action": models.ActivityEventAction.VIEW,
+            "params": {
+                "duration": 20,
+                "referrer": "https://example.com/document",
+            },
+            "timestamp": parse_datetime("2000-01-23T04:56:07.000Z"),
+            "url": "https://example.com/",
+        },
+    ])
 
-    # Handle response
-    print(res)
+    # Use the SDK ...
 ```
 
 </br>
@@ -139,6 +160,7 @@ The same SDK client can also be used to make asychronous requests by importing a
 # Asynchronous Example
 import asyncio
 from glean import Glean, models
+from glean.utils import parse_datetime
 import os
 
 async def main():
@@ -147,18 +169,32 @@ async def main():
         bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
     ) as g_client:
 
-        res = await g_client.client.chat.start_async(messages=[
+        await g_client.client.activity.report_async(events=[
             {
-                "fragments": [
-                    models.ChatMessageFragment(
-                        text="What are the company holidays this year?",
-                    ),
-                ],
+                "action": models.ActivityEventAction.HISTORICAL_VIEW,
+                "timestamp": parse_datetime("2000-01-23T04:56:07.000Z"),
+                "url": "https://example.com/",
             },
-        ], timeout_millis=30000)
+            {
+                "action": models.ActivityEventAction.SEARCH,
+                "params": {
+                    "query": "query",
+                },
+                "timestamp": parse_datetime("2000-01-23T04:56:07.000Z"),
+                "url": "https://example.com/search?q=query",
+            },
+            {
+                "action": models.ActivityEventAction.VIEW,
+                "params": {
+                    "duration": 20,
+                    "referrer": "https://example.com/document",
+                },
+                "timestamp": parse_datetime("2000-01-23T04:56:07.000Z"),
+                "url": "https://example.com/",
+            },
+        ])
 
-        # Handle response
-        print(res)
+        # Use the SDK ...
 
 asyncio.run(main())
 ```
@@ -221,6 +257,12 @@ with Glean(
 
 <details open>
 <summary>Available methods</summary>
+
+### [agents](docs/sdks/agents/README.md)
+
+* [runagent](docs/sdks/agents/README.md#runagent) - Runs an Agent.
+* [listagents](docs/sdks/agents/README.md#listagents) - Lists all agents.
+* [getagentinputs](docs/sdks/agents/README.md#getagentinputs) - Gets the inputs to an agent.
 
 ### [client](docs/sdks/client/README.md)
 
@@ -627,7 +669,7 @@ By default, an API error will raise a errors.GleanError exception, which has the
 
 ### Server Variables
 
-The default server `https://{domain}-be.glean.com/` contains variables and is set to `https://domain-be.glean.com/` by default. To override default values, the following parameters are available when initializing the SDK client instance:
+The default server `https://{domain}-be.glean.com` contains variables and is set to `https://domain-be.glean.com` by default. To override default values, the following parameters are available when initializing the SDK client instance:
 
 | Variable | Parameter     | Default    | Description                                                              |
 | -------- | ------------- | ---------- | ------------------------------------------------------------------------ |
@@ -685,7 +727,7 @@ import os
 
 
 with Glean(
-    server_url="https://domain-be.glean.com/",
+    server_url="https://domain-be.glean.com",
     bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
 ) as g_client:
 

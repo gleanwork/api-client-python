@@ -18,6 +18,8 @@ class DocumentStatusResponseTypedDict(TypedDict):
     r"""Indexing status, enum of NOT_INDEXED, INDEXED, STATUS_UNKNOWN"""
     last_indexed_at: NotRequired[str]
     r"""Time of last successful indexing for the document, in ISO 8601 format"""
+    permission_identity_status: NotRequired[str]
+    r"""Permission identity status, enum of NOT_UPLOADED, UPLOADED, STATUS_UNKNOWN (Always unknown if `identityDatasourceName` is set). Document visibility may be affected status is `NOT_UPLOADED`."""
 
 
 class DocumentStatusResponse(BaseModel):
@@ -40,3 +42,8 @@ class DocumentStatusResponse(BaseModel):
         None
     )
     r"""Time of last successful indexing for the document, in ISO 8601 format"""
+
+    permission_identity_status: Annotated[
+        Optional[str], pydantic.Field(alias="permissionIdentityStatus")
+    ] = None
+    r"""Permission identity status, enum of NOT_UPLOADED, UPLOADED, STATUS_UNKNOWN (Always unknown if `identityDatasourceName` is set). Document visibility may be affected status is `NOT_UPLOADED`."""
