@@ -1,0 +1,36 @@
+speakeasyVersion: 1.538.0
+sources:
+    Glean Client API:
+        sourceNamespace: glean-client-api
+        sourceRevisionDigest: sha256:4edc63ad559e4f2c9fb9ebf5edaaaaa9269f1874d271cfd84b441d6dacac43d2
+        sourceBlobDigest: sha256:caa5ffc81b230bfbba8f7861b0eac961f47c18be02a5cf1d4f7bd51bc734c419
+        tags:
+            - latest
+targets:
+    glean:
+        source: Glean Client API
+        sourceNamespace: glean-client-api
+        sourceRevisionDigest: sha256:4edc63ad559e4f2c9fb9ebf5edaaaaa9269f1874d271cfd84b441d6dacac43d2
+        sourceBlobDigest: sha256:caa5ffc81b230bfbba8f7861b0eac961f47c18be02a5cf1d4f7bd51bc734c419
+        codeSamplesNamespace: glean-client-api-python-code-samples
+        codeSamplesRevisionDigest: sha256:b318bf54aab7139bbe2093c8f7a9a1e7ec4bc1a44ad1178806fe7855a16fe7d3
+workflow:
+    workflowVersion: 1.0.0
+    speakeasyVersion: latest
+    sources:
+        Glean Client API:
+            inputs:
+                - location: registry.speakeasyapi.dev/glean-el2/sdk/glean-client-api
+            output: .speakeasy/glean-merged-spec.yaml
+    targets:
+        glean:
+            target: python
+            source: Glean Client API
+            codeSamples:
+                registry:
+                    location: registry.speakeasyapi.dev/glean-el2/sdk/glean-client-api-python-code-samples
+                labelOverride:
+                    fixedValue: Python (SDK)
+                blocking: false
+            testing:
+                enabled: true

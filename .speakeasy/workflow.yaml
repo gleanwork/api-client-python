@@ -1,0 +1,19 @@
+workflowVersion: 1.0.0
+speakeasyVersion: latest
+sources:
+    Glean API:
+        inputs:
+            - location: registry.speakeasyapi.dev/glean-el2/sdk/glean-api-specs
+        output: .speakeasy/glean-merged-spec.yaml
+targets:
+    glean:
+        target: python
+        source: Glean API
+        codeSamples:
+            registry:
+                location: registry.speakeasyapi.dev/glean-el2/sdk/glean-api-specs-python-code-samples
+            labelOverride:
+                fixedValue: Python (SDK)
+            blocking: false
+        testing:
+            enabled: true

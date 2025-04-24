@@ -1,0 +1,11 @@
+# UserActivity
+
+
+## Fields
+
+| Field                                                                  | Type                                                                   | Required                                                               | Description                                                            | Example                                                                |
+| ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| `actor`                                                                | [Optional[models.Person]](../models/person.md)                         | :heavy_minus_sign:                                                     | N/A                                                                    | {<br/>"name": "George Clooney",<br/>"obfuscatedId": "abc123"<br/>}     |
+| `timestamp`                                                            | *Optional[int]*                                                        | :heavy_minus_sign:                                                     | Unix timestamp of the activity (in seconds since epoch UTC).           |                                                                        |
+| `action`                                                               | [Optional[models.UserActivityAction]](../models/useractivityaction.md) | :heavy_minus_sign:                                                     | The action for the activity                                            |                                                                        |
+| `aggregate_visit_count`                                                | [Optional[models.CountInfo]](../models/countinfo.md)                   | :heavy_minus_sign:                                                     | N/A                                                                    |                                                                        |

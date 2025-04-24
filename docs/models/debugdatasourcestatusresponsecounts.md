@@ -1,0 +1,9 @@
+# DebugDatasourceStatusResponseCounts
+
+
+## Fields
+
+| Field                                                                                                      | Type                                                                                                       | Required                                                                                                   | Description                                                                                                |
+| ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `uploaded`                                                                                                 | List[[models.DatasourceObjectTypeDocumentCountEntry](../models/datasourceobjecttypedocumentcountentry.md)] | :heavy_minus_sign:                                                                                         | A list of object types and corresponding upload counts                                                     |
+| `indexed`                                                                                                  | List[[models.DatasourceObjectTypeDocumentCountEntry](../models/datasourceobjecttypedocumentcountentry.md)] | :heavy_minus_sign:                                                                                         | The number of documents indexed, grouped by objectType                                                     |

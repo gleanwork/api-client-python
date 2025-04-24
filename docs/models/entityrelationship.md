@@ -1,0 +1,11 @@
+# EntityRelationship
+
+Describes a relationship edge between a source and destination entity
+
+
+## Fields
+
+| Field                                                                                                                                  | Type                                                                                                                                   | Required                                                                                                                               | Description                                                                                                                            |
+| -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `name`                                                                                                                                 | *str*                                                                                                                                  | :heavy_check_mark:                                                                                                                     | The title or type of relationship. Currently an enum of `CHIEF_OF_STAFF`, `EXECUTIVE_ASSISTANT`                                        |
+| `email`                                                                                                                                | *str*                                                                                                                                  | :heavy_check_mark:                                                                                                                     | Email of the person with whom the relationship exists. Per the example above, either `B` or `C`'s email depending on the relationship. |
