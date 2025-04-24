@@ -1,19 +1,8 @@
-<div align="center">
-    <img width="300px" src="https://github.com/user-attachments/assets/92f4902e-c951-4d8b-ba08-0ad731f408c6">
-    <h1>Glean Python SDK</h1>
-    <p>Developer-friendly & type-safe Python SDK specifically catered to leverage the <strong>Glean</strong> API.</p>
-    <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge" /></a>
-</div>
-<!-- Start Summary [summary] -->
-## Summary
+# Glean Python API Client
 
-Glean API: # Introduction
-In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This is useful, for example, for doing permissions-aware search over content in internal tools that reside on-prem as well as for searching over applications that Glean does not currently support first class. In addition these APIs allow the customer to push organization data (people info, organization structure etc) into Glean.
+<!-- no [summary] -->
 
-# Usage guidelines
-This API is evolving fast. Glean will provide advance notice of any planned backwards incompatible changes along
-with a 6-month sunset period for anything that requires developers to adopt the new versions.
-<!-- End Summary [summary] -->
+The Glean Python SDK provides convenient access to the Glean REST API from any Python 3.8+ application. It includes type hints for all request parameters and response fields, and supports both synchronous and asynchronous usage via [httpx](https://www.python-httpx.org/).
 
 <!-- Start Table of Contents [toc] -->
 ## Table of Contents
