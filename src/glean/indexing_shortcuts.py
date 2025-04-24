@@ -8,7 +8,7 @@ from glean.utils import get_security_from_env
 from typing import List, Mapping, Optional, Union
 
 
-class IndexShortcuts(BaseSDK):
+class IndexingShortcuts(BaseSDK):
     def bulk_index(
         self,
         *,

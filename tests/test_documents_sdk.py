@@ -362,7 +362,7 @@ def test_documents_sdk_post_api_index_v1_indexdocument():
     ) as g_client:
         assert g_client is not None
 
-        g_client.index.documents.add_or_update(
+        g_client.indexing.documents.add_or_update(
             document=models.DocumentDefinition(
                 datasource="<value>",
             )
@@ -378,7 +378,7 @@ def test_documents_sdk_post_api_index_v1_indexdocuments():
     ) as g_client:
         assert g_client is not None
 
-        g_client.index.documents.index(
+        g_client.indexing.documents.index(
             datasource="<value>",
             documents=[
                 models.DocumentDefinition(
@@ -397,7 +397,7 @@ def test_documents_sdk_post_api_index_v1_bulkindexdocuments():
     ) as g_client:
         assert g_client is not None
 
-        g_client.index.documents.bulk_index(
+        g_client.indexing.documents.bulk_index(
             upload_id="<id>",
             datasource="<value>",
             documents=[
@@ -423,7 +423,7 @@ def test_documents_sdk_post_api_index_v1_updatepermissions():
     ) as g_client:
         assert g_client is not None
 
-        g_client.index.permissions.update_permissions(
+        g_client.indexing.permissions.update_permissions(
             datasource="<value>", permissions={}
         )
 
@@ -437,7 +437,7 @@ def test_documents_sdk_post_api_index_v1_processalldocuments():
     ) as g_client:
         assert g_client is not None
 
-        g_client.index.documents.process_all()
+        g_client.indexing.documents.process_all()
 
 
 def test_documents_sdk_post_api_index_v1_deletedocument():
@@ -449,6 +449,6 @@ def test_documents_sdk_post_api_index_v1_deletedocument():
     ) as g_client:
         assert g_client is not None
 
-        g_client.index.documents.delete(
+        g_client.indexing.documents.delete(
             datasource="<value>", object_type="<value>", id="<id>"
         )

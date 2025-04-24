@@ -9,7 +9,7 @@ from glean import models, utils
 from glean._hooks import SDKHooks
 from glean.agents import Agents
 from glean.client import Client
-from glean.index import Index
+from glean.indexing import Indexing
 from glean.types import OptionalNullable, UNSET
 import httpx
 from typing import Any, Callable, Dict, List, Optional, Union, cast
@@ -28,7 +28,7 @@ class Glean(BaseSDK):
 
     client: Client
     agents: Agents
-    index: Index
+    indexing: Indexing
 
     def __init__(
         self,
@@ -136,7 +136,7 @@ class Glean(BaseSDK):
     def _init_sdks(self):
         self.client = Client(self.sdk_configuration)
         self.agents = Agents(self.sdk_configuration)
-        self.index = Index(self.sdk_configuration)
+        self.indexing = Indexing(self.sdk_configuration)
 
     def __enter__(self):
         return self

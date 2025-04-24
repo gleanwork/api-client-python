@@ -8,7 +8,7 @@ from glean.utils import get_security_from_env
 from typing import Mapping, Optional
 
 
-class IndexAuthentication(BaseSDK):
+class IndexingAuthentication(BaseSDK):
     def rotate_token(
         self,
         *,

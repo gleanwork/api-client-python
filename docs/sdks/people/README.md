@@ -1,5 +1,5 @@
 # People
-(*index.people*)
+(*indexing.people*)
 
 ## Overview
 
@@ -29,7 +29,7 @@ with Glean(
     bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
 ) as g_client:
 
-    g_client.index.people.index(employee={
+    g_client.indexing.people.index(employee={
         "email": "Santos.Turcotte@yahoo.com",
         "department": "<value>",
         "datasource_profiles": [
@@ -77,7 +77,7 @@ with Glean(
     bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
 ) as g_client:
 
-    g_client.index.people.bulk_index_employees(upload_id="<id>", employees=[])
+    g_client.indexing.people.bulk_index_employees(upload_id="<id>", employees=[])
 
     # Use the SDK ...
 
@@ -118,7 +118,7 @@ with Glean(
     bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
 ) as g_client:
 
-    g_client.index.people.bulk_index(request={
+    g_client.indexing.people.bulk_index(request={
         "employees": [
             {
                 "employee": {
@@ -192,7 +192,7 @@ with Glean(
     bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
 ) as g_client:
 
-    g_client.index.people.process_all_employees_and_teams()
+    g_client.indexing.people.process_all_employees_and_teams()
 
     # Use the SDK ...
 
@@ -225,7 +225,7 @@ with Glean(
     bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
 ) as g_client:
 
-    g_client.index.people.delete(employee_email="<value>")
+    g_client.indexing.people.delete(employee_email="<value>")
 
     # Use the SDK ...
 
@@ -260,7 +260,7 @@ with Glean(
     bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
 ) as g_client:
 
-    g_client.index.people.index_team(team={
+    g_client.indexing.people.index_team(team={
         "id": "<id>",
         "name": "<value>",
         "datasource_profiles": [
@@ -323,7 +323,7 @@ with Glean(
     bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
 ) as g_client:
 
-    g_client.index.people.delete_team(id="<id>")
+    g_client.indexing.people.delete_team(id="<id>")
 
     # Use the SDK ...
 
@@ -357,7 +357,7 @@ with Glean(
     bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
 ) as g_client:
 
-    g_client.index.people.bulk_index_teams(upload_id="<id>", teams=[])
+    g_client.indexing.people.bulk_index_teams(upload_id="<id>", teams=[])
 
     # Use the SDK ...
 

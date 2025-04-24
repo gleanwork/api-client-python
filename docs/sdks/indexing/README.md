@@ -1,5 +1,5 @@
-# Index
-(*index*)
+# Indexing
+(*indexing*)
 
 ## Overview
 

@@ -24,4 +24,4 @@ def test_people_post_api_index_v1_processallemployeesandteams():
     ) as g_client:
         assert g_client is not None
 
-        g_client.index.people.process_all_employees_and_teams()
+        g_client.indexing.people.process_all_employees_and_teams()

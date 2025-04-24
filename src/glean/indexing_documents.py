@@ -8,7 +8,7 @@ from glean.utils import get_security_from_env
 from typing import List, Mapping, Optional, Union, cast
 
 
-class IndexDocuments(BaseSDK):
+class IndexingDocuments(BaseSDK):
     def add_or_update(
         self,
         *,

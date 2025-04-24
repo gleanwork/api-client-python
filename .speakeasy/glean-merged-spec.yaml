@@ -3667,7 +3667,7 @@ paths:
                 "429":
                     description: Too Many Requests
             x-speakeasy-name-override: addOrUpdate
-            x-speakeasy-group: index.documents
+            x-speakeasy-group: indexing.documents
     /api/index/v1/indexdocuments:
         post:
             summary: Index documents
@@ -3693,7 +3693,7 @@ paths:
                 "429":
                     description: Too Many Requests
             x-speakeasy-name-override: index
-            x-speakeasy-group: index.documents
+            x-speakeasy-group: indexing.documents
     /api/index/v1/bulkindexdocuments:
         post:
             summary: Bulk index documents
@@ -3717,7 +3717,7 @@ paths:
                 "409":
                     description: Conflict
             x-speakeasy-name-override: bulkIndex
-            x-speakeasy-group: index.documents
+            x-speakeasy-group: indexing.documents
     /api/index/v1/updatepermissions:
         post:
             x-beta: true
@@ -3744,7 +3744,7 @@ paths:
                 "429":
                     description: Too Many Requests
             x-speakeasy-name-override: updatePermissions
-            x-speakeasy-group: index.permissions
+            x-speakeasy-group: indexing.permissions
     /api/index/v1/processalldocuments:
         post:
             summary: Schedules the processing of uploaded documents
@@ -3778,7 +3778,7 @@ paths:
                 "429":
                     description: Too Many Requests
             x-speakeasy-name-override: processAll
-            x-speakeasy-group: index.documents
+            x-speakeasy-group: indexing.documents
     /api/index/v1/deletedocument:
         post:
             summary: Delete document
@@ -3802,7 +3802,7 @@ paths:
                 "409":
                     description: Conflict
             x-speakeasy-name-override: delete
-            x-speakeasy-group: index.documents
+            x-speakeasy-group: indexing.documents
     /api/index/v1/indexuser:
         post:
             summary: Index user
@@ -3826,7 +3826,7 @@ paths:
                 "409":
                     description: Conflict
             x-speakeasy-name-override: indexUser
-            x-speakeasy-group: index.permissions
+            x-speakeasy-group: indexing.permissions
     /api/index/v1/bulkindexusers:
         post:
             summary: Bulk index users
@@ -3850,7 +3850,7 @@ paths:
                 "409":
                     description: Conflict
             x-speakeasy-name-override: bulkIndexUsers
-            x-speakeasy-group: index.permissions
+            x-speakeasy-group: indexing.permissions
     /api/index/v1/indexgroup:
         post:
             summary: Index group
@@ -3874,7 +3874,7 @@ paths:
                 "409":
                     description: Conflict
             x-speakeasy-name-override: indexGroup
-            x-speakeasy-group: index.permissions
+            x-speakeasy-group: indexing.permissions
     /api/index/v1/bulkindexgroups:
         post:
             summary: Bulk index groups
@@ -3898,7 +3898,7 @@ paths:
                 "409":
                     description: Conflict
             x-speakeasy-name-override: bulkIndexGroups
-            x-speakeasy-group: index.permissions
+            x-speakeasy-group: indexing.permissions
     /api/index/v1/indexmembership:
         post:
             summary: Index membership
@@ -3922,7 +3922,7 @@ paths:
                 "409":
                     description: Conflict
             x-speakeasy-name-override: indexMembership
-            x-speakeasy-group: index.permissions
+            x-speakeasy-group: indexing.permissions
     /api/index/v1/bulkindexmemberships:
         post:
             summary: Bulk index memberships for a group
@@ -3946,7 +3946,7 @@ paths:
                 "409":
                     description: Conflict
             x-speakeasy-name-override: bulkIndexMemberships
-            x-speakeasy-group: index.permissions
+            x-speakeasy-group: indexing.permissions
     /api/index/v1/processallmemberships:
         post:
             summary: Schedules the processing of group memberships
@@ -3968,7 +3968,7 @@ paths:
                 "401":
                     description: Not Authorized
             x-speakeasy-name-override: processMemberships
-            x-speakeasy-group: index.permissions
+            x-speakeasy-group: indexing.permissions
     /api/index/v1/deleteuser:
         post:
             summary: Delete user
@@ -3992,7 +3992,7 @@ paths:
                 "409":
                     description: Conflict
             x-speakeasy-name-override: deleteUser
-            x-speakeasy-group: index.permissions
+            x-speakeasy-group: indexing.permissions
     /api/index/v1/deletegroup:
         post:
             summary: Delete group
@@ -4016,7 +4016,7 @@ paths:
                 "409":
                     description: Conflict
             x-speakeasy-name-override: deleteGroup
-            x-speakeasy-group: index.permissions
+            x-speakeasy-group: indexing.permissions
     /api/index/v1/deletemembership:
         post:
             summary: Delete membership
@@ -4040,7 +4040,7 @@ paths:
                 "409":
                     description: Conflict
             x-speakeasy-name-override: deleteMembership
-            x-speakeasy-group: index.permissions
+            x-speakeasy-group: indexing.permissions
     /api/index/v1/debug/{datasource}/status:
         post:
             x-beta: true
@@ -4071,7 +4071,7 @@ paths:
                 "401":
                     description: Not Authorized
             x-speakeasy-name-override: getDatasourceStatus
-            x-speakeasy-group: index.troubleshooting
+            x-speakeasy-group: indexing.troubleshooting
     /api/index/v1/debug/{datasource}/document:
         post:
             x-beta: true
@@ -4109,7 +4109,7 @@ paths:
                 "401":
                     description: Not Authorized
             x-speakeasy-name-override: postDocumentDebug
-            x-speakeasy-group: index.troubleshooting
+            x-speakeasy-group: indexing.troubleshooting
     /api/index/v1/debug/{datasource}/documents:
         post:
             x-beta: true
@@ -4147,7 +4147,7 @@ paths:
                 "401":
                     description: Not Authorized
             x-speakeasy-name-override: postDocumentsDebug
-            x-speakeasy-group: index.troubleshooting
+            x-speakeasy-group: indexing.troubleshooting
     /api/index/v1/debug/{datasource}/user:
         post:
             x-beta: true
@@ -4185,7 +4185,7 @@ paths:
                 "401":
                     description: Not Authorized
             x-speakeasy-name-override: debugUser
-            x-speakeasy-group: index.troubleshooting
+            x-speakeasy-group: indexing.troubleshooting
     /api/index/v1/checkdocumentaccess:
         post:
             summary: Check document access
@@ -4215,7 +4215,7 @@ paths:
                     description: Not Authorized
                 "429":
                     description: Too Many Requests
-            x-speakeasy-group: index.troubleshooting
+            x-speakeasy-group: indexing.troubleshooting
             x-speakeasy-name-override: checkAccess
     /api/index/v1/getdocumentstatus:
         post:
@@ -4248,7 +4248,7 @@ paths:
                 "429":
                     description: Too Many Requests
             x-speakeasy-name-override: getStatus
-            x-speakeasy-group: index.troubleshooting
+            x-speakeasy-group: indexing.troubleshooting
     /api/index/v1/getdocumentcount:
         post:
             deprecated: true
@@ -4280,7 +4280,7 @@ paths:
                 "409":
                     description: Conflict
             x-speakeasy-name-override: getDocumentCount
-            x-speakeasy-group: index.troubleshooting
+            x-speakeasy-group: indexing.troubleshooting
     /api/index/v1/getusercount:
         post:
             deprecated: true
@@ -4312,7 +4312,7 @@ paths:
                 "409":
                     description: Conflict
             x-speakeasy-name-override: getUserCount
-            x-speakeasy-group: index.troubleshooting
+            x-speakeasy-group: indexing.troubleshooting
     /api/index/v1/betausers:
         post:
             summary: Beta users
@@ -4336,7 +4336,7 @@ paths:
                 "409":
                     description: Conflict
             x-speakeasy-name-override: authorizeBetaUsers
-            x-speakeasy-group: index.permissions
+            x-speakeasy-group: indexing.permissions
     /api/index/v1/adddatasource:
         post:
             summary: Add or update datasource
@@ -4358,7 +4358,7 @@ paths:
                 "401":
                     description: Not Authorized
             x-speakeasy-name-override: add
-            x-speakeasy-group: index.datasources
+            x-speakeasy-group: indexing.datasources
     /api/index/v1/getdatasourceconfig:
         post:
             summary: Get datasource config
@@ -4386,7 +4386,7 @@ paths:
                 "409":
                     description: Conflict
             x-speakeasy-name-override: getConfig
-            x-speakeasy-group: index.datasources
+            x-speakeasy-group: indexing.datasources
     /api/index/v1/rotatetoken:
         post:
             summary: Rotate token
@@ -4405,7 +4405,7 @@ paths:
                 "401":
                     description: Not Authorized
             x-speakeasy-name-override: rotateToken
-            x-speakeasy-group: index.authentication
+            x-speakeasy-group: indexing.authentication
     /api/index/v1/indexemployee:
         post:
             summary: Index employee
@@ -4429,7 +4429,7 @@ paths:
                 "409":
                     description: Conflict
             x-speakeasy-name-override: index
-            x-speakeasy-group: index.people
+            x-speakeasy-group: indexing.people
     /api/index/v1/bulkindexemployees:
         post:
             summary: Bulk index employees
@@ -4452,7 +4452,7 @@ paths:
                     description: Not Authorized
                 "409":
                     description: Conflict
-            x-speakeasy-group: index.people
+            x-speakeasy-group: indexing.people
             x-speakeasy-name-override: bulkIndexEmployees
     /api/index/v1/indexemployeelist:
         post:
@@ -4478,7 +4478,7 @@ paths:
                 "409":
                     description: Conflict
             x-speakeasy-name-override: bulkIndex
-            x-speakeasy-group: index.people
+            x-speakeasy-group: indexing.people
     /api/index/v1/processallemployeesandteams:
         post:
             summary: Schedules the processing of uploaded employees and teams
@@ -4496,7 +4496,7 @@ paths:
                 "429":
                     description: Too Many Requests
             x-speakeasy-name-override: processAllEmployeesAndTeams
-            x-speakeasy-group: index.people
+            x-speakeasy-group: indexing.people
     /api/index/v1/deleteemployee:
         post:
             summary: Delete employee
@@ -4520,7 +4520,7 @@ paths:
                 "409":
                     description: Conflict
             x-speakeasy-name-override: delete
-            x-speakeasy-group: index.people
+            x-speakeasy-group: indexing.people
     /api/index/v1/indexteam:
         post:
             summary: Index team
@@ -4544,7 +4544,7 @@ paths:
                 "409":
                     description: Conflict
             x-speakeasy-name-override: indexTeam
-            x-speakeasy-group: index.people
+            x-speakeasy-group: indexing.people
     /api/index/v1/deleteteam:
         post:
             summary: Delete team
@@ -4568,7 +4568,7 @@ paths:
                 "409":
                     description: Conflict
             x-speakeasy-name-override: deleteTeam
-            x-speakeasy-group: index.people
+            x-speakeasy-group: indexing.people
     /api/index/v1/bulkindexteams:
         post:
             summary: Bulk index teams
@@ -4592,7 +4592,7 @@ paths:
                 "409":
                     description: Conflict
             x-speakeasy-name-override: bulkIndexTeams
-            x-speakeasy-group: index.people
+            x-speakeasy-group: indexing.people
     /api/index/v1/bulkindexshortcuts:
         post:
             summary: Bulk index external shortcuts
@@ -4616,7 +4616,7 @@ paths:
                 "409":
                     description: Conflict
             x-speakeasy-name-override: bulkIndex
-            x-speakeasy-group: index.shortcuts
+            x-speakeasy-group: indexing.shortcuts
     /api/index/v1/uploadshortcuts:
         post:
             summary: Upload shortcuts

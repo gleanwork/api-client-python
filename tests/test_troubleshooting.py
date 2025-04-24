@@ -57,7 +57,7 @@ def test_troubleshooting_post_api_index_v1_checkdocumentaccess():
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.index.troubleshooting.check_access(
+        res = g_client.indexing.troubleshooting.check_access(
             datasource="<value>",
             object_type="<value>",
             doc_id="<id>",
@@ -76,7 +76,7 @@ def test_troubleshooting_post_api_index_v1_getdocumentstatus():
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.index.troubleshooting.get_status(
+        res = g_client.indexing.troubleshooting.get_status(
             datasource="<value>", object_type="<value>", doc_id="<id>"
         )
         assert res is not None
@@ -92,7 +92,7 @@ def test_troubleshooting_post_api_index_v1_getdocumentcount():
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.index.troubleshooting.get_document_count(datasource="<value>")
+        res = g_client.indexing.troubleshooting.get_document_count(datasource="<value>")
         assert res is not None
         assert res == models.GetDocumentCountResponse()
 
@@ -106,6 +106,6 @@ def test_troubleshooting_post_api_index_v1_getusercount():
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.index.troubleshooting.get_user_count(datasource="<value>")
+        res = g_client.indexing.troubleshooting.get_user_count(datasource="<value>")
         assert res is not None
         assert res == models.GetUserCountResponse()

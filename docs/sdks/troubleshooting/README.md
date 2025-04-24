@@ -1,5 +1,5 @@
 # Troubleshooting
-(*index.troubleshooting*)
+(*indexing.troubleshooting*)
 
 ## Overview
 
@@ -36,7 +36,7 @@ with Glean(
     bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
 ) as g_client:
 
-    res = g_client.index.troubleshooting.get_datasource_status(datasource="<value>")
+    res = g_client.indexing.troubleshooting.get_datasource_status(datasource="<value>")
 
     # Handle response
     print(res)
@@ -78,7 +78,7 @@ with Glean(
     bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
 ) as g_client:
 
-    res = g_client.index.troubleshooting.post_document_debug(datasource="<value>", object_type="Article", doc_id="art123")
+    res = g_client.indexing.troubleshooting.post_document_debug(datasource="<value>", object_type="Article", doc_id="art123")
 
     # Handle response
     print(res)
@@ -122,7 +122,7 @@ with Glean(
     bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
 ) as g_client:
 
-    res = g_client.index.troubleshooting.post_documents_debug(datasource="<value>", debug_documents=[
+    res = g_client.indexing.troubleshooting.post_documents_debug(datasource="<value>", debug_documents=[
         {
             "object_type": "Article",
             "doc_id": "art123",
@@ -174,7 +174,7 @@ with Glean(
     bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
 ) as g_client:
 
-    res = g_client.index.troubleshooting.debug_user(datasource="<value>", email="u1@foo.com")
+    res = g_client.indexing.troubleshooting.debug_user(datasource="<value>", email="u1@foo.com")
 
     # Handle response
     print(res)
@@ -217,7 +217,7 @@ with Glean(
     bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
 ) as g_client:
 
-    res = g_client.index.troubleshooting.check_access(datasource="<value>", object_type="<value>", doc_id="<id>", user_email="<value>")
+    res = g_client.indexing.troubleshooting.check_access(datasource="<value>", object_type="<value>", doc_id="<id>", user_email="<value>")
 
     # Handle response
     print(res)
@@ -264,7 +264,7 @@ with Glean(
     bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
 ) as g_client:
 
-    res = g_client.index.troubleshooting.get_status(datasource="<value>", object_type="<value>", doc_id="<id>")
+    res = g_client.indexing.troubleshooting.get_status(datasource="<value>", object_type="<value>", doc_id="<id>")
 
     # Handle response
     print(res)
@@ -310,7 +310,7 @@ with Glean(
     bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
 ) as g_client:
 
-    res = g_client.index.troubleshooting.get_document_count(datasource="<value>")
+    res = g_client.indexing.troubleshooting.get_document_count(datasource="<value>")
 
     # Handle response
     print(res)
@@ -354,7 +354,7 @@ with Glean(
     bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
 ) as g_client:
 
-    res = g_client.index.troubleshooting.get_user_count(datasource="<value>")
+    res = g_client.indexing.troubleshooting.get_user_count(datasource="<value>")
 
     # Handle response
     print(res)

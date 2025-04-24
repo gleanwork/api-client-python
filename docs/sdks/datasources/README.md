@@ -1,5 +1,5 @@
 # Datasources
-(*index.datasources*)
+(*indexing.datasources*)
 
 ## Overview
 
@@ -23,7 +23,7 @@ with Glean(
     bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
 ) as g_client:
 
-    g_client.index.datasources.add(name="<value>", url_regex="https://example-company.datasource.com/.*", quicklinks=[
+    g_client.indexing.datasources.add(name="<value>", url_regex="https://example-company.datasource.com/.*", quicklinks=[
         {
             "icon_config": {
                 "color": "#343CED",
@@ -100,7 +100,7 @@ with Glean(
     bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
 ) as g_client:
 
-    res = g_client.index.datasources.get_config(datasource="<value>")
+    res = g_client.indexing.datasources.get_config(datasource="<value>")
 
     # Handle response
     print(res)

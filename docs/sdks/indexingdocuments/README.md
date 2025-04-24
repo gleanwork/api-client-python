@@ -1,5 +1,5 @@
-# IndexDocuments
-(*index.documents*)
+# IndexingDocuments
+(*indexing.documents*)
 
 ## Overview
 
@@ -26,7 +26,7 @@ with Glean(
     bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
 ) as g_client:
 
-    g_client.index.documents.add_or_update(document=models.DocumentDefinition(
+    g_client.indexing.documents.add_or_update(document=models.DocumentDefinition(
         datasource="<value>",
     ))
 
@@ -63,7 +63,7 @@ with Glean(
     bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
 ) as g_client:
 
-    g_client.index.documents.index(datasource="<value>", documents=[
+    g_client.indexing.documents.index(datasource="<value>", documents=[
         models.DocumentDefinition(
             datasource="<value>",
         ),
@@ -103,7 +103,7 @@ with Glean(
     bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
 ) as g_client:
 
-    g_client.index.documents.bulk_index(upload_id="<id>", datasource="<value>", documents=[
+    g_client.indexing.documents.bulk_index(upload_id="<id>", datasource="<value>", documents=[
         models.DocumentDefinition(
             datasource="<value>",
         ),
@@ -158,7 +158,7 @@ with Glean(
     bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
 ) as g_client:
 
-    g_client.index.documents.process_all()
+    g_client.indexing.documents.process_all()
 
     # Use the SDK ...
 
@@ -192,7 +192,7 @@ with Glean(
     bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
 ) as g_client:
 
-    g_client.index.documents.delete(datasource="<value>", object_type="<value>", id="<id>")
+    g_client.indexing.documents.delete(datasource="<value>", object_type="<value>", id="<id>")
 
     # Use the SDK ...
 

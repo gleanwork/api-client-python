@@ -429,27 +429,27 @@ with Glean(
 * [verify](docs/sdks/clientverification/README.md#verify) - Update verification
 
 
-### [index](docs/sdks/index/README.md)
+### [indexing](docs/sdks/indexing/README.md)
 
 
-#### [index.authentication](docs/sdks/indexauthentication/README.md)
+#### [indexing.authentication](docs/sdks/indexingauthentication/README.md)
 
-* [rotate_token](docs/sdks/indexauthentication/README.md#rotate_token) - Rotate token
+* [rotate_token](docs/sdks/indexingauthentication/README.md#rotate_token) - Rotate token
 
-#### [index.datasources](docs/sdks/datasources/README.md)
+#### [indexing.datasources](docs/sdks/datasources/README.md)
 
 * [add](docs/sdks/datasources/README.md#add) - Add or update datasource
 * [get_config](docs/sdks/datasources/README.md#get_config) - Get datasource config
 
-#### [index.documents](docs/sdks/indexdocuments/README.md)
+#### [indexing.documents](docs/sdks/indexingdocuments/README.md)
 
-* [add_or_update](docs/sdks/indexdocuments/README.md#add_or_update) - Index document
-* [index](docs/sdks/indexdocuments/README.md#index) - Index documents
-* [bulk_index](docs/sdks/indexdocuments/README.md#bulk_index) - Bulk index documents
-* [process_all](docs/sdks/indexdocuments/README.md#process_all) - Schedules the processing of uploaded documents
-* [delete](docs/sdks/indexdocuments/README.md#delete) - Delete document
+* [add_or_update](docs/sdks/indexingdocuments/README.md#add_or_update) - Index document
+* [index](docs/sdks/indexingdocuments/README.md#index) - Index documents
+* [bulk_index](docs/sdks/indexingdocuments/README.md#bulk_index) - Bulk index documents
+* [process_all](docs/sdks/indexingdocuments/README.md#process_all) - Schedules the processing of uploaded documents
+* [delete](docs/sdks/indexingdocuments/README.md#delete) - Delete document
 
-#### [index.people](docs/sdks/people/README.md)
+#### [indexing.people](docs/sdks/people/README.md)
 
 * [index](docs/sdks/people/README.md#index) - Index employee
 * [bulk_index_employees](docs/sdks/people/README.md#bulk_index_employees) - Bulk index employees
@@ -460,26 +460,26 @@ with Glean(
 * [delete_team](docs/sdks/people/README.md#delete_team) - Delete team
 * [bulk_index_teams](docs/sdks/people/README.md#bulk_index_teams) - Bulk index teams
 
-#### [index.permissions](docs/sdks/indexpermissions/README.md)
+#### [indexing.permissions](docs/sdks/indexingpermissions/README.md)
 
-* [update_permissions](docs/sdks/indexpermissions/README.md#update_permissions) - Update document permissions
-* [index_user](docs/sdks/indexpermissions/README.md#index_user) - Index user
-* [bulk_index_users](docs/sdks/indexpermissions/README.md#bulk_index_users) - Bulk index users
-* [index_group](docs/sdks/indexpermissions/README.md#index_group) - Index group
-* [bulk_index_groups](docs/sdks/indexpermissions/README.md#bulk_index_groups) - Bulk index groups
-* [index_membership](docs/sdks/indexpermissions/README.md#index_membership) - Index membership
-* [bulk_index_memberships](docs/sdks/indexpermissions/README.md#bulk_index_memberships) - Bulk index memberships for a group
-* [process_memberships](docs/sdks/indexpermissions/README.md#process_memberships) - Schedules the processing of group memberships
-* [delete_user](docs/sdks/indexpermissions/README.md#delete_user) - Delete user
-* [delete_group](docs/sdks/indexpermissions/README.md#delete_group) - Delete group
-* [delete_membership](docs/sdks/indexpermissions/README.md#delete_membership) - Delete membership
-* [authorize_beta_users](docs/sdks/indexpermissions/README.md#authorize_beta_users) - Beta users
+* [update_permissions](docs/sdks/indexingpermissions/README.md#update_permissions) - Update document permissions
+* [index_user](docs/sdks/indexingpermissions/README.md#index_user) - Index user
+* [bulk_index_users](docs/sdks/indexingpermissions/README.md#bulk_index_users) - Bulk index users
+* [index_group](docs/sdks/indexingpermissions/README.md#index_group) - Index group
+* [bulk_index_groups](docs/sdks/indexingpermissions/README.md#bulk_index_groups) - Bulk index groups
+* [index_membership](docs/sdks/indexingpermissions/README.md#index_membership) - Index membership
+* [bulk_index_memberships](docs/sdks/indexingpermissions/README.md#bulk_index_memberships) - Bulk index memberships for a group
+* [process_memberships](docs/sdks/indexingpermissions/README.md#process_memberships) - Schedules the processing of group memberships
+* [delete_user](docs/sdks/indexingpermissions/README.md#delete_user) - Delete user
+* [delete_group](docs/sdks/indexingpermissions/README.md#delete_group) - Delete group
+* [delete_membership](docs/sdks/indexingpermissions/README.md#delete_membership) - Delete membership
+* [authorize_beta_users](docs/sdks/indexingpermissions/README.md#authorize_beta_users) - Beta users
 
-#### [index.shortcuts](docs/sdks/indexshortcuts/README.md)
+#### [indexing.shortcuts](docs/sdks/indexingshortcuts/README.md)
 
-* [bulk_index](docs/sdks/indexshortcuts/README.md#bulk_index) - Bulk index external shortcuts
+* [bulk_index](docs/sdks/indexingshortcuts/README.md#bulk_index) - Bulk index external shortcuts
 
-#### [index.troubleshooting](docs/sdks/troubleshooting/README.md)
+#### [indexing.troubleshooting](docs/sdks/troubleshooting/README.md)
 
 * [get_datasource_status](docs/sdks/troubleshooting/README.md#get_datasource_status) - Beta: Get datasource status
 

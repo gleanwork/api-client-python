@@ -92,7 +92,7 @@ def test_permissions_sdk_post_api_index_v1_indexuser():
     ) as g_client:
         assert g_client is not None
 
-        g_client.index.permissions.index_user(
+        g_client.indexing.permissions.index_user(
             datasource="<value>",
             user={
                 "email": "Aracely40@hotmail.com",
@@ -110,7 +110,7 @@ def test_permissions_sdk_post_api_index_v1_bulkindexusers():
     ) as g_client:
         assert g_client is not None
 
-        g_client.index.permissions.bulk_index_users(
+        g_client.indexing.permissions.bulk_index_users(
             upload_id="<id>", datasource="<value>", users=[]
         )
 
@@ -124,7 +124,7 @@ def test_permissions_sdk_post_api_index_v1_indexgroup():
     ) as g_client:
         assert g_client is not None
 
-        g_client.index.permissions.index_group(
+        g_client.indexing.permissions.index_group(
             datasource="<value>",
             group={
                 "name": "<value>",
@@ -141,7 +141,7 @@ def test_permissions_sdk_post_api_index_v1_bulkindexgroups():
     ) as g_client:
         assert g_client is not None
 
-        g_client.index.permissions.bulk_index_groups(
+        g_client.indexing.permissions.bulk_index_groups(
             upload_id="<id>", datasource="<value>", groups=[]
         )
 
@@ -155,7 +155,7 @@ def test_permissions_sdk_post_api_index_v1_indexmembership():
     ) as g_client:
         assert g_client is not None
 
-        g_client.index.permissions.index_membership(
+        g_client.indexing.permissions.index_membership(
             datasource="<value>",
             membership={
                 "group_name": "<value>",
@@ -174,7 +174,7 @@ def test_permissions_sdk_post_api_index_v1_bulkindexmemberships():
     ) as g_client:
         assert g_client is not None
 
-        g_client.index.permissions.bulk_index_memberships(
+        g_client.indexing.permissions.bulk_index_memberships(
             upload_id="<id>",
             datasource="<value>",
             memberships=[
@@ -194,7 +194,7 @@ def test_permissions_sdk_post_api_index_v1_processallmemberships():
     ) as g_client:
         assert g_client is not None
 
-        g_client.index.permissions.process_memberships()
+        g_client.indexing.permissions.process_memberships()
 
 
 def test_permissions_sdk_post_api_index_v1_deleteuser():
@@ -206,7 +206,7 @@ def test_permissions_sdk_post_api_index_v1_deleteuser():
     ) as g_client:
         assert g_client is not None
 
-        g_client.index.permissions.delete_user(
+        g_client.indexing.permissions.delete_user(
             datasource="<value>", email="Kendra.Cole57@hotmail.com"
         )
 
@@ -220,7 +220,7 @@ def test_permissions_sdk_post_api_index_v1_deletegroup():
     ) as g_client:
         assert g_client is not None
 
-        g_client.index.permissions.delete_group(
+        g_client.indexing.permissions.delete_group(
             datasource="<value>", group_name="<value>"
         )
 
@@ -234,7 +234,7 @@ def test_permissions_sdk_post_api_index_v1_deletemembership():
     ) as g_client:
         assert g_client is not None
 
-        g_client.index.permissions.delete_membership(
+        g_client.indexing.permissions.delete_membership(
             datasource="<value>",
             membership={
                 "group_name": "<value>",
@@ -251,7 +251,7 @@ def test_permissions_sdk_post_api_index_v1_betausers():
     ) as g_client:
         assert g_client is not None
 
-        g_client.index.permissions.authorize_beta_users(
+        g_client.indexing.permissions.authorize_beta_users(
             datasource="<value>",
             emails=[
                 "Casper50@yahoo.com",

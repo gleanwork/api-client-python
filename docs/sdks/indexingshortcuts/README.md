@@ -1,5 +1,5 @@
-# IndexShortcuts
-(*index.shortcuts*)
+# IndexingShortcuts
+(*indexing.shortcuts*)
 
 ## Overview
 
@@ -22,7 +22,7 @@ with Glean(
     bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
 ) as g_client:
 
-    g_client.index.shortcuts.bulk_index(upload_id="<id>", shortcuts=[
+    g_client.indexing.shortcuts.bulk_index(upload_id="<id>", shortcuts=[
         {
             "input_alias": "<value>",
             "destination_url": "https://only-juggernaut.com/",

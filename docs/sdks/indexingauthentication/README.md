@@ -1,5 +1,5 @@
-# IndexAuthentication
-(*index.authentication*)
+# IndexingAuthentication
+(*indexing.authentication*)
 
 ## Overview
 
@@ -22,7 +22,7 @@ with Glean(
     bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
 ) as g_client:
 
-    res = g_client.index.authentication.rotate_token()
+    res = g_client.indexing.authentication.rotate_token()
 
     # Handle response
     print(res)

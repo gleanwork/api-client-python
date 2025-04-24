@@ -56,6 +56,6 @@ def test_authentication_post_api_index_v1_rotatetoken():
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.index.authentication.rotate_token()
+        res = g_client.indexing.authentication.rotate_token()
         assert res is not None
         assert res == models.RotateTokenResponse()

@@ -29,7 +29,7 @@ def test_datasources_post_api_index_v1_adddatasource():
     ) as g_client:
         assert g_client is not None
 
-        g_client.index.datasources.add(
+        g_client.indexing.datasources.add(
             name="<value>",
             url_regex="https://example-company.datasource.com/.*",
             quicklinks=[
@@ -54,7 +54,7 @@ def test_datasources_post_api_index_v1_getdatasourceconfig():
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.index.datasources.get_config(datasource="<value>")
+        res = g_client.indexing.datasources.get_config(datasource="<value>")
         assert res is not None
         assert res == models.CustomDatasourceConfig(
             name="<value>",

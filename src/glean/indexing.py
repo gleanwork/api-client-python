@@ -3,22 +3,22 @@
 from .basesdk import BaseSDK
 from .sdkconfiguration import SDKConfiguration
 from glean.datasources import Datasources
-from glean.index_authentication import IndexAuthentication
-from glean.index_documents import IndexDocuments
-from glean.index_permissions import IndexPermissions
-from glean.index_shortcuts import IndexShortcuts
+from glean.indexing_authentication import IndexingAuthentication
+from glean.indexing_documents import IndexingDocuments
+from glean.indexing_permissions import IndexingPermissions
+from glean.indexing_shortcuts import IndexingShortcuts
 from glean.people import People
 from glean.troubleshooting import Troubleshooting
 
 
-class Index(BaseSDK):
-    documents: IndexDocuments
-    permissions: IndexPermissions
+class Indexing(BaseSDK):
+    documents: IndexingDocuments
+    permissions: IndexingPermissions
     troubleshooting: Troubleshooting
     datasources: Datasources
-    authentication: IndexAuthentication
+    authentication: IndexingAuthentication
     people: People
-    shortcuts: IndexShortcuts
+    shortcuts: IndexingShortcuts
 
     def __init__(self, sdk_config: SDKConfiguration) -> None:
         BaseSDK.__init__(self, sdk_config)
@@ -26,10 +26,10 @@ class Index(BaseSDK):
         self._init_sdks()
 
     def _init_sdks(self):
-        self.documents = IndexDocuments(self.sdk_configuration)
-        self.permissions = IndexPermissions(self.sdk_configuration)
+        self.documents = IndexingDocuments(self.sdk_configuration)
+        self.permissions = IndexingPermissions(self.sdk_configuration)
         self.troubleshooting = Troubleshooting(self.sdk_configuration)
         self.datasources = Datasources(self.sdk_configuration)
-        self.authentication = IndexAuthentication(self.sdk_configuration)
+        self.authentication = IndexingAuthentication(self.sdk_configuration)
         self.people = People(self.sdk_configuration)
-        self.shortcuts = IndexShortcuts(self.sdk_configuration)
+        self.shortcuts = IndexingShortcuts(self.sdk_configuration)

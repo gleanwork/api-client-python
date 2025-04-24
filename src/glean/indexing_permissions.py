@@ -8,7 +8,7 @@ from glean.utils import get_security_from_env
 from typing import List, Mapping, Optional, Union, cast
 
 
-class IndexPermissions(BaseSDK):
+class IndexingPermissions(BaseSDK):
     def update_permissions(
         self,
         *,
