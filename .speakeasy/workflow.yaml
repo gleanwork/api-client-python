@@ -9,6 +9,9 @@ targets:
     glean:
         target: python
         source: Glean API
+        publish:
+            pypi:
+                token: $pypi_token
         codeSamples:
             registry:
                 location: registry.speakeasyapi.dev/glean-el2/sdk/glean-api-specs-python-code-samples
