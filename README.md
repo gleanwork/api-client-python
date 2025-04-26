@@ -4,9 +4,21 @@
 
 The Glean Python SDK provides convenient access to the Glean REST API from any Python 3.8+ application. It includes type hints for all request parameters and response fields, and supports both synchronous and asynchronous usage via [httpx](https://www.python-httpx.org/).
 
+<!-- Start Summary [summary] -->
+## Summary
+
+Glean API: # Introduction
+In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This is useful, for example, for doing permissions-aware search over content in internal tools that reside on-prem as well as for searching over applications that Glean does not currently support first class. In addition these APIs allow the customer to push organization data (people info, organization structure etc) into Glean.
+
+# Usage guidelines
+This API is evolving fast. Glean will provide advance notice of any planned backwards incompatible changes along
+with a 6-month sunset period for anything that requires developers to adopt the new versions.
+<!-- End Summary [summary] -->
+
 <!-- Start Table of Contents [toc] -->
 ## Table of Contents
 <!-- $toc-max-depth=2 -->
+* [Glean Python API Client](#glean-python-api-client)
 * [Usage guidelines](#usage-guidelines)
   * [SDK Installation](#sdk-installation)
   * [IDE Support](#ide-support)
@@ -29,10 +41,6 @@ The Glean Python SDK provides convenient access to the Glean REST API from any P
 <!-- Start SDK Installation [installation] -->
 ## SDK Installation
 
-> [!TIP]
-> To finish publishing your SDK to PyPI you must [run your first generation action](https://www.speakeasy.com/docs/github-setup#step-by-step-guide).
-
-
 > [!NOTE]
 > **Python version upgrade policy**
 >
@@ -45,7 +53,7 @@ The SDK can be installed with either *pip* or *poetry* package managers.
 *PIP* is the default package installer for Python, enabling easy installation and management of packages from PyPI via the command line.
 
 ```bash
-pip install git+https://github.com/gleanwork/api-client-python.git
+pip install glean
 ```
 
 ### Poetry
@@ -53,7 +61,7 @@ pip install git+https://github.com/gleanwork/api-client-python.git
 *Poetry* is a modern tool that simplifies dependency management and package publishing by using a single `pyproject.toml` file to handle project metadata and dependencies.
 
 ```bash
-poetry add git+https://github.com/gleanwork/api-client-python.git
+poetry add glean
 ```
 
 ### Shell and script usage with `uv`
