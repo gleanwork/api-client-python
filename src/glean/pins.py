@@ -12,7 +12,7 @@ class Pins(BaseSDK):
     def edit(
         self,
         *,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         queries: Optional[List[str]] = None,
         audience_filters: Optional[
@@ -28,7 +28,7 @@ class Pins(BaseSDK):
 
         Update an existing user-generated pin.
 
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param queries: The query strings for which the pinned result will show.
         :param audience_filters: Filters which restrict who should see the pinned document. Values are taken from the corresponding filters in people search.
@@ -49,7 +49,7 @@ class Pins(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.EditpinRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             edit_pin_request=models.EditPinRequest(
                 queries=queries,
@@ -126,7 +126,7 @@ class Pins(BaseSDK):
     async def edit_async(
         self,
         *,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         queries: Optional[List[str]] = None,
         audience_filters: Optional[
@@ -142,7 +142,7 @@ class Pins(BaseSDK):
 
         Update an existing user-generated pin.
 
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param queries: The query strings for which the pinned result will show.
         :param audience_filters: Filters which restrict who should see the pinned document. Values are taken from the corresponding filters in people search.
@@ -163,7 +163,7 @@ class Pins(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.EditpinRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             edit_pin_request=models.EditPinRequest(
                 queries=queries,
@@ -240,7 +240,7 @@ class Pins(BaseSDK):
     def get(
         self,
         *,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -252,7 +252,7 @@ class Pins(BaseSDK):
 
         Read pin details given its ID.
 
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param id: The opaque id of the pin to be fetched.
         :param retries: Override the default retry configuration for this method
@@ -271,7 +271,7 @@ class Pins(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetpinRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             get_pin_request=models.GetPinRequest(
                 id=id,
@@ -344,7 +344,7 @@ class Pins(BaseSDK):
     async def get_async(
         self,
         *,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -356,7 +356,7 @@ class Pins(BaseSDK):
 
         Read pin details given its ID.
 
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param id: The opaque id of the pin to be fetched.
         :param retries: Override the default retry configuration for this method
@@ -375,7 +375,7 @@ class Pins(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetpinRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             get_pin_request=models.GetPinRequest(
                 id=id,
@@ -451,7 +451,7 @@ class Pins(BaseSDK):
         request_body: Union[
             models.ListpinsRequestBody, models.ListpinsRequestBodyTypedDict
         ],
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -463,7 +463,7 @@ class Pins(BaseSDK):
         Lists all pins.
 
         :param request_body: List pins request
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -481,7 +481,7 @@ class Pins(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.ListpinsRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             request_body=utils.get_pydantic_model(
                 request_body, models.ListpinsRequestBody
@@ -557,7 +557,7 @@ class Pins(BaseSDK):
         request_body: Union[
             models.ListpinsRequestBody, models.ListpinsRequestBodyTypedDict
         ],
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -569,7 +569,7 @@ class Pins(BaseSDK):
         Lists all pins.
 
         :param request_body: List pins request
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -587,7 +587,7 @@ class Pins(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.ListpinsRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             request_body=utils.get_pydantic_model(
                 request_body, models.ListpinsRequestBody
@@ -660,7 +660,7 @@ class Pins(BaseSDK):
     def create(
         self,
         *,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         queries: Optional[List[str]] = None,
         audience_filters: Optional[
@@ -676,7 +676,7 @@ class Pins(BaseSDK):
 
         Pin a document as a result for a given search query.Pin results that are known to be a good match.
 
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param queries: The query strings for which the pinned result will show.
         :param audience_filters: Filters which restrict who should see the pinned document. Values are taken from the corresponding filters in people search.
@@ -697,7 +697,7 @@ class Pins(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.PinRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             pin_request=models.PinRequest(
                 queries=queries,
@@ -774,7 +774,7 @@ class Pins(BaseSDK):
     async def create_async(
         self,
         *,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         queries: Optional[List[str]] = None,
         audience_filters: Optional[
@@ -790,7 +790,7 @@ class Pins(BaseSDK):
 
         Pin a document as a result for a given search query.Pin results that are known to be a good match.
 
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param queries: The query strings for which the pinned result will show.
         :param audience_filters: Filters which restrict who should see the pinned document. Values are taken from the corresponding filters in people search.
@@ -811,7 +811,7 @@ class Pins(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.PinRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             pin_request=models.PinRequest(
                 queries=queries,
@@ -888,7 +888,7 @@ class Pins(BaseSDK):
     def remove(
         self,
         *,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -900,7 +900,7 @@ class Pins(BaseSDK):
 
         Unpin a previously pinned result.
 
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param id: The opaque id of the pin to be unpinned.
         :param retries: Override the default retry configuration for this method
@@ -919,7 +919,7 @@ class Pins(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.UnpinRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             unpin=models.Unpin(
                 id=id,
@@ -992,7 +992,7 @@ class Pins(BaseSDK):
     async def remove_async(
         self,
         *,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1004,7 +1004,7 @@ class Pins(BaseSDK):
 
         Unpin a previously pinned result.
 
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param id: The opaque id of the pin to be unpinned.
         :param retries: Override the default retry configuration for this method
@@ -1023,7 +1023,7 @@ class Pins(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.UnpinRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             unpin=models.Unpin(
                 id=id,

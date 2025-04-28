@@ -12,7 +12,6 @@ class AgentEnum(str, Enum):
 
     DEFAULT = "DEFAULT"
     GPT = "GPT"
-    DEEP_RESEARCH = "DEEP_RESEARCH"
 
 
 class Mode(str, Enum):

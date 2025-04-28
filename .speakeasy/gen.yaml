@@ -14,13 +14,15 @@ generation:
     parameterOrderingFeb2024: true
     requestResponseComponentNamesFeb2024: true
     securityFeb2025: true
+    sharedErrorComponentsApr2025: true
   auth:
     oAuth2ClientCredentialsEnabled: false
     oAuth2PasswordEnabled: false
   mockServer:
-    disabled: true
+    disabled: false
   tests:
     generateNewTests: true
+    skipResponseBodyAssertions: true
 python:
   version: 0.1.0-beta
   additionalDependencies:

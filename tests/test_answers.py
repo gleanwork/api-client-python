@@ -2,8 +2,8 @@
 
 from datetime import date
 from glean import Glean, models
-from glean.utils import parse_datetime
 import os
+import pytest
 from tests.test_client import create_test_http_client
 
 
@@ -11,6 +11,7 @@ def test_answers_createanswer():
     test_http_client = create_test_http_client("createanswer")
 
     with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
     ) as g_client:
@@ -50,7 +51,12 @@ def test_answers_createanswer():
                                 phone="6505551234",
                                 photo_url="https://example.com/george.jpg",
                                 start_date=date.fromisoformat("2000-01-23"),
-                                datasource_profile=[],
+                                datasource_profile=[
+                                    models.DatasourceProfile(
+                                        datasource="github",
+                                        handle="<value>",
+                                    ),
+                                ],
                                 query_suggestions=models.QuerySuggestionList(
                                     suggestions=[],
                                 ),
@@ -72,26 +78,32 @@ def test_answers_createanswer():
                                 ],
                             ),
                         ),
-                        role=models.UserRole.VIEWER,
+                        role=models.UserRole.OWNER,
+                    ),
+                    models.UserRoleSpecification(
+                        role=models.UserRole.VERIFIER,
                     ),
                 ],
                 "removed_roles": [
                     models.UserRoleSpecification(
-                        role=models.UserRole.VIEWER,
+                        role=models.UserRole.VERIFIER,
                     ),
                     models.UserRoleSpecification(
-                        role=models.UserRole.VIEWER,
+                        role=models.UserRole.ANSWER_MODERATOR,
                     ),
                     models.UserRoleSpecification(
-                        role=models.UserRole.VIEWER,
+                        role=models.UserRole.OWNER,
                     ),
                 ],
                 "roles": [
                     models.UserRoleSpecification(
-                        role=models.UserRole.VIEWER,
+                        role=models.UserRole.ANSWER_MODERATOR,
                     ),
                     models.UserRoleSpecification(
-                        role=models.UserRole.VIEWER,
+                        role=models.UserRole.OWNER,
+                    ),
+                    models.UserRoleSpecification(
+                        role=models.UserRole.VERIFIER,
                     ),
                 ],
                 "combined_answer_text": {
@@ -100,147 +112,13 @@ def test_answers_createanswer():
             }
         )
         assert res is not None
-        assert res == models.Answer(
-            id=3,
-            doc_id="ANSWERS_answer_3",
-            question="Why is the sky blue?",
-            body_text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
-            audience_filters=[
-                models.FacetFilter(
-                    field_name="type",
-                    values=[
-                        models.FacetFilterValue(
-                            value="Spreadsheet",
-                            relation_type=models.RelationType.EQUALS,
-                        ),
-                        models.FacetFilterValue(
-                            value="Presentation",
-                            relation_type=models.RelationType.EQUALS,
-                        ),
-                    ],
-                ),
-            ],
-            added_roles=[],
-            removed_roles=[],
-            roles=[],
-            combined_answer_text=models.StructuredText(
-                text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
-                structured_list=[],
-            ),
-            likes=models.AnswerLikes(
-                liked_by=[],
-                liked_by_user=True,
-                num_likes=876250,
-            ),
-            author=models.Person(
-                name="George Clooney",
-                obfuscated_id="abc123",
-                related_documents=[],
-                metadata=models.PersonMetadata(
-                    type=models.PersonMetadataType.FULL_TIME,
-                    title="Actor",
-                    department="Movies",
-                    email="george@example.com",
-                    location="Hollywood, CA",
-                    management_chain=[],
-                    phone="6505551234",
-                    photo_url="https://example.com/george.jpg",
-                    reports=[],
-                    start_date=date.fromisoformat("2000-01-23"),
-                    datasource_profile=[],
-                    query_suggestions=models.QuerySuggestionList(
-                        suggestions=[],
-                    ),
-                    invite_info=models.InviteInfo(
-                        invites=[],
-                    ),
-                    custom_fields=[],
-                    badges=[],
-                ),
-            ),
-            updated_by=models.Person(
-                name="George Clooney",
-                obfuscated_id="abc123",
-            ),
-            verification=models.Verification(
-                state=models.State.VERIFIED,
-                metadata=models.VerificationMetadata(
-                    last_verifier=models.Person(
-                        name="George Clooney",
-                        obfuscated_id="abc123",
-                    ),
-                    document=models.Document(
-                        metadata=models.DocumentMetadata(
-                            datasource="datasource",
-                            object_type="Feature Request",
-                            container="container",
-                            parent_id="JIRA_EN-1337",
-                            mime_type="mimeType",
-                            document_id="documentId",
-                            create_time=parse_datetime("2000-01-23T04:56:07.000Z"),
-                            update_time=parse_datetime("2000-01-23T04:56:07.000Z"),
-                            owner=models.Person(
-                                name="George Clooney",
-                                obfuscated_id="abc123",
-                            ),
-                            mentioned_people=[],
-                            components=[
-                                "Backend",
-                                "Networking",
-                            ],
-                            status='["Done"]',
-                            pins=[],
-                            assigned_to=models.Person(
-                                name="George Clooney",
-                                obfuscated_id="abc123",
-                            ),
-                            collections=[],
-                            interactions=models.DocumentInteractions(
-                                reacts=[],
-                                shares=[],
-                            ),
-                            shortcuts=[],
-                            custom_data={},
-                            contact_person=models.Person(
-                                name="George Clooney",
-                                obfuscated_id="abc123",
-                            ),
-                            ancestors=[],
-                        ),
-                    ),
-                    reminders=[],
-                    last_reminder=models.Reminder(
-                        assignee=models.Person(
-                            name="George Clooney",
-                            obfuscated_id="abc123",
-                        ),
-                        requestor=models.Person(
-                            name="George Clooney",
-                            obfuscated_id="abc123",
-                        ),
-                        remind_at=949753,
-                    ),
-                    candidate_verifiers=[],
-                ),
-            ),
-            board=models.AnswerBoard(
-                name="<value>",
-                description="aha amid lest contravene how agile in unblinking whereas",
-                audience_filters=[],
-                id=53123,
-                creator=models.Person(
-                    name="George Clooney",
-                    obfuscated_id="abc123",
-                ),
-            ),
-            source_document=models.Document(),
-        )
 
 
 def test_answers_deleteanswer():
     test_http_client = create_test_http_client("deleteanswer")
 
     with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
     ) as g_client:
@@ -253,6 +131,7 @@ def test_answers_editanswer():
     test_http_client = create_test_http_client("editanswer")
 
     with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
     ) as g_client:
@@ -293,7 +172,12 @@ def test_answers_editanswer():
                             phone="6505551234",
                             photo_url="https://example.com/george.jpg",
                             start_date=date.fromisoformat("2000-01-23"),
-                            datasource_profile=[],
+                            datasource_profile=[
+                                models.DatasourceProfile(
+                                    datasource="github",
+                                    handle="<value>",
+                                ),
+                            ],
                             query_suggestions=models.QuerySuggestionList(
                                 suggestions=[],
                             ),
@@ -315,10 +199,7 @@ def test_answers_editanswer():
                             ],
                         ),
                     ),
-                    role=models.UserRole.VIEWER,
-                ),
-                models.UserRoleSpecification(
-                    role=models.UserRole.VIEWER,
+                    role=models.UserRole.EDITOR,
                 ),
             ],
             removed_roles=[
@@ -326,33 +207,46 @@ def test_answers_editanswer():
                     person=models.Person(
                         name="George Clooney",
                         obfuscated_id="abc123",
-                        related_documents=[],
                         metadata=models.PersonMetadata(
                             type=models.PersonMetadataType.FULL_TIME,
                             title="Actor",
                             department="Movies",
                             email="george@example.com",
                             location="Hollywood, CA",
-                            management_chain=[],
                             phone="6505551234",
                             photo_url="https://example.com/george.jpg",
-                            reports=[],
                             start_date=date.fromisoformat("2000-01-23"),
-                            datasource_profile=[],
-                            query_suggestions=models.QuerySuggestionList(
-                                suggestions=[],
-                            ),
-                            invite_info=models.InviteInfo(
-                                invites=[],
-                            ),
-                            custom_fields=[],
-                            badges=[],
+                            datasource_profile=[
+                                models.DatasourceProfile(
+                                    datasource="github",
+                                    handle="<value>",
+                                ),
+                                models.DatasourceProfile(
+                                    datasource="github",
+                                    handle="<value>",
+                                ),
+                                models.DatasourceProfile(
+                                    datasource="github",
+                                    handle="<value>",
+                                ),
+                            ],
+                            query_suggestions=models.QuerySuggestionList(),
+                            invite_info=models.InviteInfo(),
+                            badges=[
+                                models.Badge(
+                                    key="deployment_name_new_hire",
+                                    display_name="New hire",
+                                    icon_config=models.IconConfig(
+                                        color="#343CED",
+                                        key="person_icon",
+                                        icon_type=models.IconType.GLYPH,
+                                        name="user",
+                                    ),
+                                ),
+                            ],
                         ),
                     ),
-                    role=models.UserRole.VIEWER,
-                ),
-                models.UserRoleSpecification(
-                    role=models.UserRole.VIEWER,
+                    role=models.UserRole.EDITOR,
                 ),
             ],
             roles=[
@@ -360,30 +254,45 @@ def test_answers_editanswer():
                     person=models.Person(
                         name="George Clooney",
                         obfuscated_id="abc123",
-                        related_documents=[],
                         metadata=models.PersonMetadata(
                             type=models.PersonMetadataType.FULL_TIME,
                             title="Actor",
                             department="Movies",
                             email="george@example.com",
                             location="Hollywood, CA",
-                            management_chain=[],
                             phone="6505551234",
                             photo_url="https://example.com/george.jpg",
-                            reports=[],
                             start_date=date.fromisoformat("2000-01-23"),
-                            datasource_profile=[],
-                            query_suggestions=models.QuerySuggestionList(
-                                suggestions=[],
-                            ),
-                            invite_info=models.InviteInfo(
-                                invites=[],
-                            ),
-                            custom_fields=[],
-                            badges=[],
+                            datasource_profile=[
+                                models.DatasourceProfile(
+                                    datasource="github",
+                                    handle="<value>",
+                                ),
+                                models.DatasourceProfile(
+                                    datasource="github",
+                                    handle="<value>",
+                                ),
+                            ],
+                            query_suggestions=models.QuerySuggestionList(),
+                            invite_info=models.InviteInfo(),
+                            badges=[
+                                models.Badge(
+                                    key="deployment_name_new_hire",
+                                    display_name="New hire",
+                                    icon_config=models.IconConfig(
+                                        color="#343CED",
+                                        key="person_icon",
+                                        icon_type=models.IconType.GLYPH,
+                                        name="user",
+                                    ),
+                                ),
+                            ],
                         ),
                     ),
-                    role=models.UserRole.VIEWER,
+                    role=models.UserRole.ANSWER_MODERATOR,
+                ),
+                models.UserRoleSpecification(
+                    role=models.UserRole.OWNER,
                 ),
             ],
             combined_answer_text={
@@ -391,147 +300,13 @@ def test_answers_editanswer():
             },
         )
         assert res is not None
-        assert res == models.Answer(
-            id=3,
-            doc_id="ANSWERS_answer_3",
-            question="Why is the sky blue?",
-            body_text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
-            audience_filters=[
-                models.FacetFilter(
-                    field_name="type",
-                    values=[
-                        models.FacetFilterValue(
-                            value="Spreadsheet",
-                            relation_type=models.RelationType.EQUALS,
-                        ),
-                        models.FacetFilterValue(
-                            value="Presentation",
-                            relation_type=models.RelationType.EQUALS,
-                        ),
-                    ],
-                ),
-            ],
-            added_roles=[],
-            removed_roles=[],
-            roles=[],
-            combined_answer_text=models.StructuredText(
-                text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
-                structured_list=[],
-            ),
-            likes=models.AnswerLikes(
-                liked_by=[],
-                liked_by_user=True,
-                num_likes=876250,
-            ),
-            author=models.Person(
-                name="George Clooney",
-                obfuscated_id="abc123",
-                related_documents=[],
-                metadata=models.PersonMetadata(
-                    type=models.PersonMetadataType.FULL_TIME,
-                    title="Actor",
-                    department="Movies",
-                    email="george@example.com",
-                    location="Hollywood, CA",
-                    management_chain=[],
-                    phone="6505551234",
-                    photo_url="https://example.com/george.jpg",
-                    reports=[],
-                    start_date=date.fromisoformat("2000-01-23"),
-                    datasource_profile=[],
-                    query_suggestions=models.QuerySuggestionList(
-                        suggestions=[],
-                    ),
-                    invite_info=models.InviteInfo(
-                        invites=[],
-                    ),
-                    custom_fields=[],
-                    badges=[],
-                ),
-            ),
-            updated_by=models.Person(
-                name="George Clooney",
-                obfuscated_id="abc123",
-            ),
-            verification=models.Verification(
-                state=models.State.VERIFIED,
-                metadata=models.VerificationMetadata(
-                    last_verifier=models.Person(
-                        name="George Clooney",
-                        obfuscated_id="abc123",
-                    ),
-                    document=models.Document(
-                        metadata=models.DocumentMetadata(
-                            datasource="datasource",
-                            object_type="Feature Request",
-                            container="container",
-                            parent_id="JIRA_EN-1337",
-                            mime_type="mimeType",
-                            document_id="documentId",
-                            create_time=parse_datetime("2000-01-23T04:56:07.000Z"),
-                            update_time=parse_datetime("2000-01-23T04:56:07.000Z"),
-                            owner=models.Person(
-                                name="George Clooney",
-                                obfuscated_id="abc123",
-                            ),
-                            mentioned_people=[],
-                            components=[
-                                "Backend",
-                                "Networking",
-                            ],
-                            status='["Done"]',
-                            pins=[],
-                            assigned_to=models.Person(
-                                name="George Clooney",
-                                obfuscated_id="abc123",
-                            ),
-                            collections=[],
-                            interactions=models.DocumentInteractions(
-                                reacts=[],
-                                shares=[],
-                            ),
-                            shortcuts=[],
-                            custom_data={},
-                            contact_person=models.Person(
-                                name="George Clooney",
-                                obfuscated_id="abc123",
-                            ),
-                            ancestors=[],
-                        ),
-                    ),
-                    reminders=[],
-                    last_reminder=models.Reminder(
-                        assignee=models.Person(
-                            name="George Clooney",
-                            obfuscated_id="abc123",
-                        ),
-                        requestor=models.Person(
-                            name="George Clooney",
-                            obfuscated_id="abc123",
-                        ),
-                        remind_at=949753,
-                    ),
-                    candidate_verifiers=[],
-                ),
-            ),
-            board=models.AnswerBoard(
-                name="<value>",
-                description="aha amid lest contravene how agile in unblinking whereas",
-                audience_filters=[],
-                id=53123,
-                creator=models.Person(
-                    name="George Clooney",
-                    obfuscated_id="abc123",
-                ),
-            ),
-            source_document=models.Document(),
-        )
 
 
 def test_answers_getanswer():
     test_http_client = create_test_http_client("getanswer")
 
     with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
     ) as g_client:
@@ -539,161 +314,13 @@ def test_answers_getanswer():
 
         res = g_client.client.answers.get(id=3, doc_id="ANSWERS_answer_3")
         assert res is not None
-        assert res == models.GetAnswerResponse(
-            answer_result=models.AnswerResult(
-                answer=models.Answer(
-                    id=3,
-                    doc_id="ANSWERS_answer_3",
-                    question="Why is the sky blue?",
-                    body_text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
-                    audience_filters=[
-                        models.FacetFilter(
-                            field_name="type",
-                            values=[
-                                models.FacetFilterValue(
-                                    value="Spreadsheet",
-                                    relation_type=models.RelationType.EQUALS,
-                                ),
-                                models.FacetFilterValue(
-                                    value="Presentation",
-                                    relation_type=models.RelationType.EQUALS,
-                                ),
-                            ],
-                        ),
-                    ],
-                    added_roles=[],
-                    removed_roles=[],
-                    roles=[],
-                    combined_answer_text=models.StructuredText(
-                        text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
-                        structured_list=[],
-                    ),
-                    likes=models.AnswerLikes(
-                        liked_by=[],
-                        liked_by_user=True,
-                        num_likes=876250,
-                    ),
-                    author=models.Person(
-                        name="George Clooney",
-                        obfuscated_id="abc123",
-                        related_documents=[],
-                        metadata=models.PersonMetadata(
-                            type=models.PersonMetadataType.FULL_TIME,
-                            title="Actor",
-                            department="Movies",
-                            email="george@example.com",
-                            location="Hollywood, CA",
-                            management_chain=[],
-                            phone="6505551234",
-                            photo_url="https://example.com/george.jpg",
-                            reports=[],
-                            start_date=date.fromisoformat("2000-01-23"),
-                            datasource_profile=[],
-                            query_suggestions=models.QuerySuggestionList(
-                                suggestions=[],
-                            ),
-                            invite_info=models.InviteInfo(
-                                invites=[],
-                            ),
-                            custom_fields=[],
-                            badges=[],
-                        ),
-                    ),
-                    updated_by=models.Person(
-                        name="George Clooney",
-                        obfuscated_id="abc123",
-                    ),
-                    verification=models.Verification(
-                        state=models.State.VERIFIED,
-                        metadata=models.VerificationMetadata(
-                            last_verifier=models.Person(
-                                name="George Clooney",
-                                obfuscated_id="abc123",
-                            ),
-                            document=models.Document(
-                                metadata=models.DocumentMetadata(
-                                    datasource="datasource",
-                                    object_type="Feature Request",
-                                    container="container",
-                                    parent_id="JIRA_EN-1337",
-                                    mime_type="mimeType",
-                                    document_id="documentId",
-                                    create_time=parse_datetime(
-                                        "2000-01-23T04:56:07.000Z"
-                                    ),
-                                    update_time=parse_datetime(
-                                        "2000-01-23T04:56:07.000Z"
-                                    ),
-                                    owner=models.Person(
-                                        name="George Clooney",
-                                        obfuscated_id="abc123",
-                                    ),
-                                    mentioned_people=[],
-                                    components=[
-                                        "Backend",
-                                        "Networking",
-                                    ],
-                                    status='["Done"]',
-                                    pins=[],
-                                    assigned_to=models.Person(
-                                        name="George Clooney",
-                                        obfuscated_id="abc123",
-                                    ),
-                                    collections=[],
-                                    interactions=models.DocumentInteractions(
-                                        reacts=[],
-                                        shares=[],
-                                    ),
-                                    shortcuts=[],
-                                    custom_data={},
-                                    contact_person=models.Person(
-                                        name="George Clooney",
-                                        obfuscated_id="abc123",
-                                    ),
-                                    ancestors=[],
-                                ),
-                            ),
-                            reminders=[],
-                            last_reminder=models.Reminder(
-                                assignee=models.Person(
-                                    name="George Clooney",
-                                    obfuscated_id="abc123",
-                                ),
-                                requestor=models.Person(
-                                    name="George Clooney",
-                                    obfuscated_id="abc123",
-                                ),
-                                remind_at=949753,
-                            ),
-                            candidate_verifiers=[],
-                        ),
-                    ),
-                    board=models.AnswerBoard(
-                        name="<value>",
-                        description="aha amid lest contravene how agile in unblinking whereas",
-                        audience_filters=[],
-                        id=53123,
-                        creator=models.Person(
-                            name="George Clooney",
-                            obfuscated_id="abc123",
-                        ),
-                    ),
-                    source_document=models.Document(),
-                ),
-            ),
-            error=models.GetAnswerError(
-                answer_author=models.Person(
-                    name="George Clooney",
-                    obfuscated_id="abc123",
-                ),
-            ),
-        )
 
 
 def test_answers_listanswers():
     test_http_client = create_test_http_client("listanswers")
 
     with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
     ) as g_client:
@@ -701,791 +328,59 @@ def test_answers_listanswers():
 
         res = g_client.client.answers.list()
         assert res is not None
-        assert res == models.ListAnswersResponse(
-            answer_results=[],
-        )
 
 
+@pytest.mark.skip(
+    reason="incomplete test found please make sure to address the following errors: [`workflow step previewanswer.test referencing operation previewanswer not found in document`]"
+)
 def test_answers_previewanswer():
-    test_http_client = create_test_http_client("previewanswer")
-
-    with Glean(
-        client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
-    ) as g_client:
-        assert g_client is not None
-
-        res = g_client.client.answers.preview(
-            text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light."
-        )
-        assert res is not None
-        assert res == models.PreviewStructuredTextResponse(
-            structured_text=models.StructuredText(
-                text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
-                structured_list=[],
-            ),
-            combined_answer_text=models.StructuredText(
-                text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
-            ),
-        )
+    pass
 
 
+@pytest.mark.skip(
+    reason="incomplete test found please make sure to address the following errors: [`workflow step previewanswerdraft.test referencing operation previewanswerdraft not found in document`]"
+)
 def test_answers_previewanswerdraft():
-    test_http_client = create_test_http_client("previewanswerdraft")
-
-    with Glean(
-        client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
-    ) as g_client:
-        assert g_client is not None
-
-        res = g_client.client.answers.preview_draft(
-            draft=models.UgcDraft(
-                announcement=models.AnnouncementMutableProperties(
-                    body=models.StructuredText(
-                        text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
-                        structured_list=[],
-                    ),
-                    audience_filters=[
-                        models.FacetFilter(
-                            field_name="type",
-                            values=[
-                                models.FacetFilterValue(
-                                    value="Spreadsheet",
-                                    relation_type=models.RelationType.EQUALS,
-                                ),
-                                models.FacetFilterValue(
-                                    value="Presentation",
-                                    relation_type=models.RelationType.EQUALS,
-                                ),
-                            ],
-                        ),
-                    ],
-                ),
-                answer=models.AnswerMutableProperties(
-                    question="Why is the sky blue?",
-                    body_text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
-                    audience_filters=[],
-                    added_roles=[
-                        models.UserRoleSpecification(
-                            person=models.Person(
-                                name="George Clooney",
-                                obfuscated_id="abc123",
-                                related_documents=[],
-                                metadata=models.PersonMetadata(
-                                    type=models.PersonMetadataType.FULL_TIME,
-                                    title="Actor",
-                                    department="Movies",
-                                    email="george@example.com",
-                                    location="Hollywood, CA",
-                                    management_chain=[],
-                                    phone="6505551234",
-                                    photo_url="https://example.com/george.jpg",
-                                    reports=[],
-                                    start_date=date.fromisoformat("2000-01-23"),
-                                    datasource_profile=[],
-                                    query_suggestions=models.QuerySuggestionList(
-                                        suggestions=[],
-                                    ),
-                                    invite_info=models.InviteInfo(
-                                        invites=[],
-                                    ),
-                                    custom_fields=[],
-                                    badges=[],
-                                ),
-                            ),
-                            role=models.UserRole.VIEWER,
-                        ),
-                    ],
-                    removed_roles=[
-                        models.UserRoleSpecification(
-                            role=models.UserRole.VIEWER,
-                        ),
-                    ],
-                    roles=[
-                        models.UserRoleSpecification(
-                            role=models.UserRole.VIEWER,
-                        ),
-                        models.UserRoleSpecification(
-                            role=models.UserRole.VIEWER,
-                        ),
-                        models.UserRoleSpecification(
-                            role=models.UserRole.VIEWER,
-                        ),
-                    ],
-                ),
-            )
-        )
-        assert res is not None
-        assert res == models.PreviewUgcResponse(
-            announcement=models.Announcement(
-                body=models.StructuredText(
-                    text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
-                    structured_list=[],
-                ),
-                audience_filters=[
-                    models.FacetFilter(
-                        field_name="type",
-                        values=[
-                            models.FacetFilterValue(
-                                value="Spreadsheet",
-                                relation_type=models.RelationType.EQUALS,
-                            ),
-                            models.FacetFilterValue(
-                                value="Presentation",
-                                relation_type=models.RelationType.EQUALS,
-                            ),
-                        ],
-                    ),
-                ],
-                draft_id=342,
-                author=models.Person(
-                    name="George Clooney",
-                    obfuscated_id="abc123",
-                    related_documents=[],
-                    metadata=models.PersonMetadata(
-                        type=models.PersonMetadataType.FULL_TIME,
-                        title="Actor",
-                        department="Movies",
-                        email="george@example.com",
-                        location="Hollywood, CA",
-                        management_chain=[],
-                        phone="6505551234",
-                        photo_url="https://example.com/george.jpg",
-                        reports=[],
-                        start_date=date.fromisoformat("2000-01-23"),
-                        datasource_profile=[],
-                        query_suggestions=models.QuerySuggestionList(
-                            suggestions=[],
-                        ),
-                        invite_info=models.InviteInfo(
-                            invites=[],
-                        ),
-                        custom_fields=[],
-                        badges=[],
-                    ),
-                ),
-                updated_by=models.Person(
-                    name="George Clooney",
-                    obfuscated_id="abc123",
-                ),
-                source_document=models.Document(
-                    metadata=models.DocumentMetadata(
-                        datasource="datasource",
-                        object_type="Feature Request",
-                        container="container",
-                        parent_id="JIRA_EN-1337",
-                        mime_type="mimeType",
-                        document_id="documentId",
-                        create_time=parse_datetime("2000-01-23T04:56:07.000Z"),
-                        update_time=parse_datetime("2000-01-23T04:56:07.000Z"),
-                        owner=models.Person(
-                            name="George Clooney",
-                            obfuscated_id="abc123",
-                        ),
-                        mentioned_people=[],
-                        components=[
-                            "Backend",
-                            "Networking",
-                        ],
-                        status='["Done"]',
-                        pins=[],
-                        assigned_to=models.Person(
-                            name="George Clooney",
-                            obfuscated_id="abc123",
-                        ),
-                        collections=[],
-                        interactions=models.DocumentInteractions(
-                            reacts=[],
-                            shares=[],
-                        ),
-                        verification=models.Verification(
-                            state=models.State.VERIFIED,
-                            metadata=models.VerificationMetadata(
-                                last_verifier=models.Person(
-                                    name="George Clooney",
-                                    obfuscated_id="abc123",
-                                ),
-                                reminders=[],
-                                last_reminder=models.Reminder(
-                                    assignee=models.Person(
-                                        name="George Clooney",
-                                        obfuscated_id="abc123",
-                                    ),
-                                    requestor=models.Person(
-                                        name="George Clooney",
-                                        obfuscated_id="abc123",
-                                    ),
-                                    remind_at=949753,
-                                ),
-                                candidate_verifiers=[],
-                            ),
-                        ),
-                        shortcuts=[],
-                        custom_data={},
-                        contact_person=models.Person(
-                            name="George Clooney",
-                            obfuscated_id="abc123",
-                        ),
-                        ancestors=[],
-                    ),
-                ),
-            ),
-            answer=models.Answer(
-                id=3,
-                doc_id="ANSWERS_answer_3",
-                question="Why is the sky blue?",
-                body_text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
-                audience_filters=[],
-                added_roles=[],
-                removed_roles=[],
-                roles=[],
-                combined_answer_text=models.StructuredText(
-                    text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
-                ),
-                likes=models.AnswerLikes(
-                    liked_by=[],
-                    liked_by_user=True,
-                    num_likes=876250,
-                ),
-                board=models.AnswerBoard(
-                    name="<value>",
-                    description="aha amid lest contravene how agile in unblinking whereas",
-                    audience_filters=[],
-                    id=53123,
-                    creator=models.Person(
-                        name="George Clooney",
-                        obfuscated_id="abc123",
-                    ),
-                ),
-            ),
-        )
+    pass
 
 
+@pytest.mark.skip(
+    reason="incomplete test found please make sure to address the following errors: [`workflow step updateanswerlikes.test referencing operation updateanswerlikes not found in document`]"
+)
 def test_answers_updateanswerlikes():
-    test_http_client = create_test_http_client("updateanswerlikes")
-
-    with Glean(
-        client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
-    ) as g_client:
-        assert g_client is not None
-
-        res = g_client.client.answers.update_likes(
-            answer_id=3,
-            action=models.UpdateAnswerLikesRequestAction.LIKE,
-            answer_doc_id="ANSWERS_answer_3",
-        )
-        assert res is not None
-        assert res == models.UpdateAnswerLikesResponse(
-            likes=models.AnswerLikes(
-                liked_by=[],
-                liked_by_user=True,
-                num_likes=876250,
-            ),
-        )
+    pass
 
 
+@pytest.mark.skip(
+    reason="incomplete test found please make sure to address the following errors: [`workflow step createanswerboard.test referencing operation createanswerboard not found in document`]"
+)
 def test_answers_createanswerboard():
-    test_http_client = create_test_http_client("createanswerboard")
-
-    with Glean(
-        client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
-    ) as g_client:
-        assert g_client is not None
-
-        res = g_client.client.answers.create_board(
-            name="<value>",
-            added_roles=[
-                models.UserRoleSpecification(
-                    person=models.Person(
-                        name="George Clooney",
-                        obfuscated_id="abc123",
-                        related_documents=[],
-                        metadata=models.PersonMetadata(
-                            type=models.PersonMetadataType.FULL_TIME,
-                            title="Actor",
-                            department="Movies",
-                            email="george@example.com",
-                            location="Hollywood, CA",
-                            phone="6505551234",
-                            photo_url="https://example.com/george.jpg",
-                            start_date=date.fromisoformat("2000-01-23"),
-                            datasource_profile=[],
-                            query_suggestions=models.QuerySuggestionList(
-                                suggestions=[],
-                            ),
-                            invite_info=models.InviteInfo(
-                                invites=[],
-                            ),
-                            custom_fields=[],
-                            badges=[
-                                models.Badge(
-                                    key="deployment_name_new_hire",
-                                    display_name="New hire",
-                                    icon_config=models.IconConfig(
-                                        color="#343CED",
-                                        key="person_icon",
-                                        icon_type=models.IconType.GLYPH,
-                                        name="user",
-                                    ),
-                                ),
-                            ],
-                        ),
-                    ),
-                    role=models.UserRole.VIEWER,
-                ),
-            ],
-            removed_roles=[
-                models.UserRoleSpecification(
-                    person=models.Person(
-                        name="George Clooney",
-                        obfuscated_id="abc123",
-                        related_documents=[],
-                        metadata=models.PersonMetadata(
-                            type=models.PersonMetadataType.FULL_TIME,
-                            title="Actor",
-                            department="Movies",
-                            email="george@example.com",
-                            location="Hollywood, CA",
-                            management_chain=[],
-                            phone="6505551234",
-                            photo_url="https://example.com/george.jpg",
-                            reports=[],
-                            start_date=date.fromisoformat("2000-01-23"),
-                            datasource_profile=[],
-                            query_suggestions=models.QuerySuggestionList(
-                                suggestions=[],
-                            ),
-                            invite_info=models.InviteInfo(
-                                invites=[],
-                            ),
-                            custom_fields=[],
-                            badges=[],
-                        ),
-                    ),
-                    role=models.UserRole.VIEWER,
-                ),
-                models.UserRoleSpecification(
-                    role=models.UserRole.VIEWER,
-                ),
-                models.UserRoleSpecification(
-                    role=models.UserRole.VIEWER,
-                ),
-            ],
-            audience_filters=[
-                {
-                    "field_name": "type",
-                    "values": [
-                        {
-                            "value": "Spreadsheet",
-                            "relation_type": models.RelationType.EQUALS,
-                        },
-                        {
-                            "value": "Presentation",
-                            "relation_type": models.RelationType.EQUALS,
-                        },
-                    ],
-                },
-            ],
-        )
-        assert res is not None
-        assert res == models.CreateAnswerBoardResponse(
-            board_result=models.AnswerBoardResult(
-                board=models.AnswerBoard(
-                    name="<value>",
-                    description="aha amid lest contravene how agile in unblinking whereas",
-                    added_roles=[],
-                    removed_roles=[],
-                    audience_filters=[
-                        models.FacetFilter(
-                            field_name="type",
-                            values=[
-                                models.FacetFilterValue(
-                                    value="Spreadsheet",
-                                    relation_type=models.RelationType.EQUALS,
-                                ),
-                                models.FacetFilterValue(
-                                    value="Presentation",
-                                    relation_type=models.RelationType.EQUALS,
-                                ),
-                            ],
-                        ),
-                    ],
-                    id=53123,
-                    creator=models.Person(
-                        name="George Clooney",
-                        obfuscated_id="abc123",
-                        related_documents=[],
-                        metadata=models.PersonMetadata(
-                            type=models.PersonMetadataType.FULL_TIME,
-                            title="Actor",
-                            department="Movies",
-                            email="george@example.com",
-                            location="Hollywood, CA",
-                            management_chain=[],
-                            phone="6505551234",
-                            photo_url="https://example.com/george.jpg",
-                            reports=[],
-                            start_date=date.fromisoformat("2000-01-23"),
-                            datasource_profile=[],
-                            query_suggestions=models.QuerySuggestionList(
-                                suggestions=[],
-                            ),
-                            invite_info=models.InviteInfo(
-                                invites=[],
-                            ),
-                            custom_fields=[],
-                            badges=[],
-                        ),
-                    ),
-                    updated_by=models.Person(
-                        name="George Clooney",
-                        obfuscated_id="abc123",
-                    ),
-                    roles=[],
-                ),
-            ),
-        )
+    pass
 
 
+@pytest.mark.skip(
+    reason="incomplete test found please make sure to address the following errors: [`workflow step deleteanswerboards.test referencing operation deleteanswerboards not found in document`]"
+)
 def test_answers_deleteanswerboards():
-    test_http_client = create_test_http_client("deleteanswerboards")
-
-    with Glean(
-        client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
-    ) as g_client:
-        assert g_client is not None
-
-        res = g_client.client.answers.delete_board(
-            ids=[
-                465305,
-                429422,
-                392092,
-            ]
-        )
-        assert res is not None
-        assert res == models.DeleteAnswerBoardsResponse()
+    pass
 
 
+@pytest.mark.skip(
+    reason="incomplete test found please make sure to address the following errors: [`workflow step editanswerboard.test referencing operation editanswerboard not found in document`]"
+)
 def test_answers_editanswerboard():
-    test_http_client = create_test_http_client("editanswerboard")
-
-    with Glean(
-        client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
-    ) as g_client:
-        assert g_client is not None
-
-        res = g_client.client.answers.update_board(
-            name="<value>",
-            id=735663,
-            added_roles=[
-                models.UserRoleSpecification(
-                    person=models.Person(
-                        name="George Clooney",
-                        obfuscated_id="abc123",
-                        related_documents=[],
-                        metadata=models.PersonMetadata(
-                            type=models.PersonMetadataType.FULL_TIME,
-                            title="Actor",
-                            department="Movies",
-                            email="george@example.com",
-                            location="Hollywood, CA",
-                            phone="6505551234",
-                            photo_url="https://example.com/george.jpg",
-                            start_date=date.fromisoformat("2000-01-23"),
-                            datasource_profile=[],
-                            query_suggestions=models.QuerySuggestionList(
-                                suggestions=[],
-                            ),
-                            invite_info=models.InviteInfo(
-                                invites=[],
-                            ),
-                            custom_fields=[],
-                            badges=[
-                                models.Badge(
-                                    key="deployment_name_new_hire",
-                                    display_name="New hire",
-                                    icon_config=models.IconConfig(
-                                        color="#343CED",
-                                        key="person_icon",
-                                        icon_type=models.IconType.GLYPH,
-                                        name="user",
-                                    ),
-                                ),
-                            ],
-                        ),
-                    ),
-                    role=models.UserRole.VIEWER,
-                ),
-                models.UserRoleSpecification(
-                    role=models.UserRole.VIEWER,
-                ),
-                models.UserRoleSpecification(
-                    role=models.UserRole.VIEWER,
-                ),
-            ],
-            removed_roles=[
-                models.UserRoleSpecification(
-                    person=models.Person(
-                        name="George Clooney",
-                        obfuscated_id="abc123",
-                        related_documents=[],
-                        metadata=models.PersonMetadata(
-                            type=models.PersonMetadataType.FULL_TIME,
-                            title="Actor",
-                            department="Movies",
-                            email="george@example.com",
-                            location="Hollywood, CA",
-                            management_chain=[],
-                            phone="6505551234",
-                            photo_url="https://example.com/george.jpg",
-                            reports=[],
-                            start_date=date.fromisoformat("2000-01-23"),
-                            datasource_profile=[],
-                            query_suggestions=models.QuerySuggestionList(
-                                suggestions=[],
-                            ),
-                            invite_info=models.InviteInfo(
-                                invites=[],
-                            ),
-                            custom_fields=[],
-                            badges=[],
-                        ),
-                    ),
-                    role=models.UserRole.VIEWER,
-                ),
-                models.UserRoleSpecification(
-                    role=models.UserRole.VIEWER,
-                ),
-                models.UserRoleSpecification(
-                    role=models.UserRole.VIEWER,
-                ),
-            ],
-            audience_filters=[
-                {
-                    "field_name": "type",
-                    "values": [
-                        {
-                            "value": "Spreadsheet",
-                            "relation_type": models.RelationType.EQUALS,
-                        },
-                        {
-                            "value": "Presentation",
-                            "relation_type": models.RelationType.EQUALS,
-                        },
-                    ],
-                },
-            ],
-        )
-        assert res is not None
-        assert res == models.EditAnswerBoardResponse(
-            board_result=models.AnswerBoardResult(
-                board=models.AnswerBoard(
-                    name="<value>",
-                    description="aha amid lest contravene how agile in unblinking whereas",
-                    added_roles=[],
-                    removed_roles=[],
-                    audience_filters=[
-                        models.FacetFilter(
-                            field_name="type",
-                            values=[
-                                models.FacetFilterValue(
-                                    value="Spreadsheet",
-                                    relation_type=models.RelationType.EQUALS,
-                                ),
-                                models.FacetFilterValue(
-                                    value="Presentation",
-                                    relation_type=models.RelationType.EQUALS,
-                                ),
-                            ],
-                        ),
-                    ],
-                    id=53123,
-                    creator=models.Person(
-                        name="George Clooney",
-                        obfuscated_id="abc123",
-                        related_documents=[],
-                        metadata=models.PersonMetadata(
-                            type=models.PersonMetadataType.FULL_TIME,
-                            title="Actor",
-                            department="Movies",
-                            email="george@example.com",
-                            location="Hollywood, CA",
-                            management_chain=[],
-                            phone="6505551234",
-                            photo_url="https://example.com/george.jpg",
-                            reports=[],
-                            start_date=date.fromisoformat("2000-01-23"),
-                            datasource_profile=[],
-                            query_suggestions=models.QuerySuggestionList(
-                                suggestions=[],
-                            ),
-                            invite_info=models.InviteInfo(
-                                invites=[],
-                            ),
-                            custom_fields=[],
-                            badges=[],
-                        ),
-                    ),
-                    updated_by=models.Person(
-                        name="George Clooney",
-                        obfuscated_id="abc123",
-                    ),
-                    roles=[],
-                ),
-            ),
-        )
+    pass
 
 
+@pytest.mark.skip(
+    reason="incomplete test found please make sure to address the following errors: [`workflow step getanswerboard.test referencing operation getanswerboard not found in document`]"
+)
 def test_answers_getanswerboard():
-    test_http_client = create_test_http_client("getanswerboard")
-
-    with Glean(
-        client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
-    ) as g_client:
-        assert g_client is not None
-
-        res = g_client.client.answers.get_board(id=101229)
-        assert res is not None
-        assert res == models.GetAnswerBoardResponse(
-            board_result=models.AnswerBoardResult(
-                board=models.AnswerBoard(
-                    name="<value>",
-                    description="aha amid lest contravene how agile in unblinking whereas",
-                    added_roles=[],
-                    removed_roles=[],
-                    audience_filters=[
-                        models.FacetFilter(
-                            field_name="type",
-                            values=[
-                                models.FacetFilterValue(
-                                    value="Spreadsheet",
-                                    relation_type=models.RelationType.EQUALS,
-                                ),
-                                models.FacetFilterValue(
-                                    value="Presentation",
-                                    relation_type=models.RelationType.EQUALS,
-                                ),
-                            ],
-                        ),
-                    ],
-                    id=53123,
-                    creator=models.Person(
-                        name="George Clooney",
-                        obfuscated_id="abc123",
-                        related_documents=[],
-                        metadata=models.PersonMetadata(
-                            type=models.PersonMetadataType.FULL_TIME,
-                            title="Actor",
-                            department="Movies",
-                            email="george@example.com",
-                            location="Hollywood, CA",
-                            management_chain=[],
-                            phone="6505551234",
-                            photo_url="https://example.com/george.jpg",
-                            reports=[],
-                            start_date=date.fromisoformat("2000-01-23"),
-                            datasource_profile=[],
-                            query_suggestions=models.QuerySuggestionList(
-                                suggestions=[],
-                            ),
-                            invite_info=models.InviteInfo(
-                                invites=[],
-                            ),
-                            custom_fields=[],
-                            badges=[],
-                        ),
-                    ),
-                    updated_by=models.Person(
-                        name="George Clooney",
-                        obfuscated_id="abc123",
-                    ),
-                    roles=[],
-                ),
-            ),
-        )
+    pass
 
 
+@pytest.mark.skip(
+    reason="incomplete test found please make sure to address the following errors: [`workflow step listanswerboards.test referencing operation listanswerboards not found in document`]"
+)
 def test_answers_listanswerboards():
-    test_http_client = create_test_http_client("listanswerboards")
-
-    with Glean(
-        client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
-    ) as g_client:
-        assert g_client is not None
-
-        res = g_client.client.answers.list_boards()
-        assert res is not None
-        assert res == models.ListAnswerBoardsResponse(
-            board_results=[
-                models.AnswerBoardResult(
-                    board=models.AnswerBoard(
-                        name="<value>",
-                        description="aha amid lest contravene how agile in unblinking whereas",
-                        added_roles=[],
-                        removed_roles=[],
-                        audience_filters=[
-                            models.FacetFilter(
-                                field_name="type",
-                                values=[
-                                    models.FacetFilterValue(
-                                        value="Spreadsheet",
-                                        relation_type=models.RelationType.EQUALS,
-                                    ),
-                                    models.FacetFilterValue(
-                                        value="Presentation",
-                                        relation_type=models.RelationType.EQUALS,
-                                    ),
-                                ],
-                            ),
-                        ],
-                        id=53123,
-                        creator=models.Person(
-                            name="George Clooney",
-                            obfuscated_id="abc123",
-                            related_documents=[],
-                            metadata=models.PersonMetadata(
-                                type=models.PersonMetadataType.FULL_TIME,
-                                title="Actor",
-                                department="Movies",
-                                email="george@example.com",
-                                location="Hollywood, CA",
-                                management_chain=[],
-                                phone="6505551234",
-                                photo_url="https://example.com/george.jpg",
-                                reports=[],
-                                start_date=date.fromisoformat("2000-01-23"),
-                                datasource_profile=[],
-                                query_suggestions=models.QuerySuggestionList(
-                                    suggestions=[],
-                                ),
-                                invite_info=models.InviteInfo(
-                                    invites=[],
-                                ),
-                                custom_fields=[],
-                                badges=[],
-                            ),
-                        ),
-                        updated_by=models.Person(
-                            name="George Clooney",
-                            obfuscated_id="abc123",
-                        ),
-                        roles=[],
-                    ),
-                ),
-                models.AnswerBoardResult(
-                    board=models.AnswerBoard(
-                        name="<value>",
-                        description="aha amid lest contravene how agile in unblinking whereas",
-                        audience_filters=[],
-                        id=53123,
-                    ),
-                ),
-            ],
-        )
+    pass

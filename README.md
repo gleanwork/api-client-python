@@ -25,7 +25,6 @@ with a 6-month sunset period for anything that requires developers to adopt the 
   * [SDK Example Usage](#sdk-example-usage)
   * [Authentication](#authentication)
   * [Available Resources and Operations](#available-resources-and-operations)
-  * [File uploads](#file-uploads)
   * [Retries](#retries)
   * [Error Handling](#error-handling)
   * [Server Selection](#server-selection)
@@ -38,7 +37,6 @@ with a 6-month sunset period for anything that requires developers to adopt the 
 
 <!-- End Table of Contents [toc] -->
 
-<!-- Start SDK Installation [installation] -->
 ## SDK Installation
 
 > [!NOTE]
@@ -53,7 +51,7 @@ The SDK can be installed with either *pip* or *poetry* package managers.
 *PIP* is the default package installer for Python, enabling easy installation and management of packages from PyPI via the command line.
 
 ```bash
-pip install glean
+pip install api-client-glean
 ```
 
 ### Poetry
@@ -61,7 +59,7 @@ pip install glean
 *Poetry* is a modern tool that simplifies dependency management and package publishing by using a single `pyproject.toml` file to handle project metadata and dependencies.
 
 ```bash
-poetry add glean
+poetry add api-client-glean
 ```
 
 ### Shell and script usage with `uv`
@@ -69,7 +67,7 @@ poetry add glean
 You can use this SDK in a Python shell with [uv](https://docs.astral.sh/uv/) and the `uvx` command that comes with it like so:
 
 ```shell
-uvx --from glean python
+uvx --from api-client-glean python
 ```
 
 It's also possible to write a standalone Python script without needing to set up a whole project like so:
@@ -79,7 +77,7 @@ It's also possible to write a standalone Python script without needing to set up
 # /// script
 # requires-python = ">=3.9"
 # dependencies = [
-#     "glean",
+#     "api-client-glean",
 # ]
 # ///
 
@@ -94,7 +92,7 @@ sdk = Glean(
 
 Once that is saved to a file, you can run it with `uv run script.py` where
 `script.py` can be replaced with the actual file name.
-<!-- End SDK Installation [installation] -->
+<!-- No SDK Installation [installation] -->
 
 <!-- Start IDE Support [idesupport] -->
 ## IDE Support
@@ -275,18 +273,8 @@ with Glean(
 #### [client.announcements](docs/sdks/announcements/README.md)
 
 * [create](docs/sdks/announcements/README.md#create) - Create Announcement
-* [create_draft](docs/sdks/announcements/README.md#create_draft) - Create draft Announcement
 * [delete](docs/sdks/announcements/README.md#delete) - Delete Announcement
-* [delete_draft](docs/sdks/announcements/README.md#delete_draft) - Delete draft Announcement
-* [get](docs/sdks/announcements/README.md#get) - Read Announcement
-* [get_draft](docs/sdks/announcements/README.md#get_draft) - Read draft Announcement
-* [list](docs/sdks/announcements/README.md#list) - List Announcements
-* [preview](docs/sdks/announcements/README.md#preview) - Preview Announcement
-* [preview_draft](docs/sdks/announcements/README.md#preview_draft) - Preview draft Announcement
-* [publish](docs/sdks/announcements/README.md#publish) - Publish draft Announcement
-* [unpublish](docs/sdks/announcements/README.md#unpublish) - Unpublish Announcement
 * [update](docs/sdks/announcements/README.md#update) - Update Announcement
-* [update_draft](docs/sdks/announcements/README.md#update_draft) - Update draft Announcement
 
 #### [client.answers](docs/sdks/answers/README.md)
 
@@ -295,27 +283,13 @@ with Glean(
 * [edit](docs/sdks/answers/README.md#edit) - Update Answer
 * [get](docs/sdks/answers/README.md#get) - Read Answer
 * [list](docs/sdks/answers/README.md#list) - List Answers
-* [preview](docs/sdks/answers/README.md#preview) - Preview Answer
-* [preview_draft](docs/sdks/answers/README.md#preview_draft) - Preview draft Answer
-* [update_likes](docs/sdks/answers/README.md#update_likes) - Update Answer likes
-* [~~create_board~~](docs/sdks/answers/README.md#create_board) - Create Answer Board :warning: **Deprecated**
-* [~~delete_board~~](docs/sdks/answers/README.md#delete_board) - Delete Answer Board :warning: **Deprecated**
-* [~~update_board~~](docs/sdks/answers/README.md#update_board) - Update Answer Board :warning: **Deprecated**
-* [~~get_board~~](docs/sdks/answers/README.md#get_board) - Read Answer Board :warning: **Deprecated**
-* [~~list_boards~~](docs/sdks/answers/README.md#list_boards) - List Answer Boards :warning: **Deprecated**
 
 #### [client.authentication](docs/sdks/clientauthentication/README.md)
 
-* [create_anonymous_token](docs/sdks/clientauthentication/README.md#create_anonymous_token) - Create anonymous token
 * [create_token](docs/sdks/clientauthentication/README.md#create_token) - Create authentication token
-
-#### [client.calendar](docs/sdks/calendar/README.md)
-
-* [get_events](docs/sdks/calendar/README.md#get_events) - Read events
 
 #### [client.chat](docs/sdks/clientchat/README.md)
 
-* [ask](docs/sdks/clientchat/README.md#ask) - Detect and answer questions
 * [start](docs/sdks/clientchat/README.md#start) - Chat
 * [delete_all](docs/sdks/clientchat/README.md#delete_all) - Deletes all saved Chats owned by a user
 * [delete](docs/sdks/clientchat/README.md#delete) - Deletes saved Chats
@@ -334,36 +308,19 @@ with Glean(
 * [delete_item](docs/sdks/collections/README.md#delete_item) - Delete Collection item
 * [update](docs/sdks/collections/README.md#update) - Update Collection
 * [edit_item](docs/sdks/collections/README.md#edit_item) - Update Collection item
-* [edit](docs/sdks/collections/README.md#edit) - Update document Collections
 * [get](docs/sdks/collections/README.md#get) - Read Collection
 * [list](docs/sdks/collections/README.md#list) - List Collections
-* [move_item](docs/sdks/collections/README.md#move_item) - Move Collection item
-* [pin](docs/sdks/collections/README.md#pin) - Pin Collection
-
-#### [client.displayable_lists](docs/sdks/displayablelists/README.md)
-
-* [create](docs/sdks/displayablelists/README.md#create) - Create displayable lists
-* [delete](docs/sdks/displayablelists/README.md#delete) - Delete displayable lists
-* [get](docs/sdks/displayablelists/README.md#get) - Read displayable lists
-* [update](docs/sdks/displayablelists/README.md#update) - Update displayable lists
 
 #### [client.documents](docs/sdks/clientdocuments/README.md)
 
 * [get_permissions](docs/sdks/clientdocuments/README.md#get_permissions) - Read document permissions
 * [get](docs/sdks/clientdocuments/README.md#get) - Read documents
 * [get_by_facets](docs/sdks/clientdocuments/README.md#get_by_facets) - Read documents by facets
-* [get_analytics](docs/sdks/clientdocuments/README.md#get_analytics) - Read document analytics
 
 #### [client.entities](docs/sdks/entities/README.md)
 
 * [list](docs/sdks/entities/README.md#list) - List entities
 * [read_people](docs/sdks/entities/README.md#read_people) - Read people
-* [get_teams](docs/sdks/entities/README.md#get_teams) - Read teams
-
-#### [client.images](docs/sdks/images/README.md)
-
-* [get](docs/sdks/images/README.md#get) - Get image
-* [upload](docs/sdks/images/README.md#upload) - Upload images
 
 #### [client.insights](docs/sdks/insights/README.md)
 
@@ -386,8 +343,6 @@ with Glean(
 * [admin](docs/sdks/search/README.md#admin) - Search the index (admin)
 * [autocomplete](docs/sdks/search/README.md#autocomplete) - Autocomplete
 * [get_feed](docs/sdks/search/README.md#get_feed) - Feed of documents and events
-* [suggest_people](docs/sdks/search/README.md#suggest_people) - Suggest people
-* [suggest_people_admin](docs/sdks/search/README.md#suggest_people_admin) - Suggest people (admin)
 * [recommendations](docs/sdks/search/README.md#recommendations) - Recommend documents
 * [execute](docs/sdks/search/README.md#execute) - Search
 
@@ -396,28 +351,13 @@ with Glean(
 * [create](docs/sdks/clientshortcuts/README.md#create) - Create shortcut
 * [delete](docs/sdks/clientshortcuts/README.md#delete) - Delete shortcut
 * [get](docs/sdks/clientshortcuts/README.md#get) - Read shortcut
-* [get_similar](docs/sdks/clientshortcuts/README.md#get_similar) - Get similar shortcuts
 * [list](docs/sdks/clientshortcuts/README.md#list) - List shortcuts
-* [preview](docs/sdks/clientshortcuts/README.md#preview) - Preview shortcut
 * [update](docs/sdks/clientshortcuts/README.md#update) - Update shortcut
 * [upload](docs/sdks/clientshortcuts/README.md#upload) - Upload shortcuts
 
 #### [client.summarize](docs/sdks/summarize/README.md)
 
 * [generate](docs/sdks/summarize/README.md#generate) - Summarize documents
-
-#### [client.tools](docs/sdks/tools/README.md)
-
-* [execute_action](docs/sdks/tools/README.md#execute_action) - Execute Action Tool
-
-#### [client.user](docs/sdks/clientuser/README.md)
-
-* [add_credential](docs/sdks/clientuser/README.md#add_credential) - Create credentials
-* [delete_query_history](docs/sdks/clientuser/README.md#delete_query_history) - Delete query history
-* [invite](docs/sdks/clientuser/README.md#invite) - Send invitation
-* [get_public_config](docs/sdks/clientuser/README.md#get_public_config) - Read public client configuration
-* [remove_credential](docs/sdks/clientuser/README.md#remove_credential) - Delete credentials
-* [send_support_email](docs/sdks/clientuser/README.md#send_support_email) - Send support email
 
 #### [client.verification](docs/sdks/clientverification/README.md)
 
@@ -493,33 +433,6 @@ with Glean(
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
-
-<!-- Start File uploads [file-upload] -->
-## File uploads
-
-Certain SDK methods accept file objects as part of a request body or multi-part request. It is possible and typically recommended to upload files as a stream rather than reading the entire contents into memory. This avoids excessive memory consumption and potentially crashing with out-of-memory errors when working with very large files. The following example demonstrates how to attach a file stream to a request.
-
-> [!TIP]
->
-> For endpoints that handle file uploads bytes arrays can also be used. However, using streams is recommended for large files.
->
-
-```python
-from glean import Glean
-import os
-
-
-with Glean(
-    bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
-) as g_client:
-
-    res = g_client.client.images.upload(request_body=open("example.file", "rb"))
-
-    # Handle response
-    print(res)
-
-```
-<!-- End File uploads [file-upload] -->
 
 <!-- Start Retries [retries] -->
 ## Retries

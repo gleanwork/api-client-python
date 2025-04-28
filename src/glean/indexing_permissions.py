@@ -27,7 +27,7 @@ class IndexingPermissions(BaseSDK):
     ):
         r"""Update document permissions
 
-        Updates the permissions for a given document without modifying document content. **This endpoint is not yet generally available. Please contact Glean support to enable this feature.**
+        Updates the permissions for a given document without modifying document content.
 
         :param datasource:
         :param permissions: describes the access control details of the document
@@ -140,7 +140,7 @@ class IndexingPermissions(BaseSDK):
     ):
         r"""Update document permissions
 
-        Updates the permissions for a given document without modifying document content. **This endpoint is not yet generally available. Please contact Glean support to enable this feature.**
+        Updates the permissions for a given document without modifying document content.
 
         :param datasource:
         :param permissions: describes the access control details of the document

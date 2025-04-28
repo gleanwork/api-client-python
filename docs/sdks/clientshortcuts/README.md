@@ -8,9 +8,7 @@
 * [create](#create) - Create shortcut
 * [delete](#delete) - Delete shortcut
 * [get](#get) - Read shortcut
-* [get_similar](#get_similar) - Get similar shortcuts
 * [list](#list) - List shortcuts
-* [preview](#preview) - Preview shortcut
 * [update](#update) - Update shortcut
 * [upload](#upload) - Upload shortcuts
 
@@ -102,7 +100,7 @@ with Glean(
 | Parameter                                                                                                                | Type                                                                                                                     | Required                                                                                                                 | Description                                                                                                              |
 | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
 | `data`                                                                                                                   | [models.ShortcutMutableProperties](../../models/shortcutmutableproperties.md)                                            | :heavy_check_mark:                                                                                                       | N/A                                                                                                                      |
-| `x_scio_actas`                                                                                                           | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens). |
+| `x_glean_act_as`                                                                                                         | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens). |
 | `x_glean_auth_type`                                                                                                      | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | Auth type being used to access the endpoint (should be non-empty only for global tokens).                                |
 | `retries`                                                                                                                | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                         | :heavy_minus_sign:                                                                                                       | Configuration to override the default retry behavior of the client.                                                      |
 
@@ -142,7 +140,7 @@ with Glean(
 | Parameter                                                                                                                | Type                                                                                                                     | Required                                                                                                                 | Description                                                                                                              |
 | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
 | `id`                                                                                                                     | *int*                                                                                                                    | :heavy_check_mark:                                                                                                       | The opaque id of the user generated content.                                                                             |
-| `x_scio_actas`                                                                                                           | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens). |
+| `x_glean_act_as`                                                                                                         | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens). |
 | `x_glean_auth_type`                                                                                                      | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | Auth type being used to access the endpoint (should be non-empty only for global tokens).                                |
 | `retries`                                                                                                                | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                         | :heavy_minus_sign:                                                                                                       | Configuration to override the default retry behavior of the client.                                                      |
 
@@ -181,54 +179,13 @@ with Glean(
 | Parameter                                                                                                                | Type                                                                                                                     | Required                                                                                                                 | Description                                                                                                              |
 | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
 | `get_shortcut_request`                                                                                                   | [models.GetShortcutRequest](../../models/getshortcutrequest.md)                                                          | :heavy_check_mark:                                                                                                       | GetShortcut request                                                                                                      |
-| `x_scio_actas`                                                                                                           | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens). |
+| `x_glean_act_as`                                                                                                         | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens). |
 | `x_glean_auth_type`                                                                                                      | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | Auth type being used to access the endpoint (should be non-empty only for global tokens).                                |
 | `retries`                                                                                                                | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                         | :heavy_minus_sign:                                                                                                       | Configuration to override the default retry behavior of the client.                                                      |
 
 ### Response
 
 **[models.GetShortcutResponse](../../models/getshortcutresponse.md)**
-
-### Errors
-
-| Error Type        | Status Code       | Content Type      |
-| ----------------- | ----------------- | ----------------- |
-| errors.GleanError | 4XX, 5XX          | \*/\*             |
-
-## get_similar
-
-Get shortcuts with similar aliases to a given alias.
-
-### Example Usage
-
-```python
-from glean import Glean
-import os
-
-
-with Glean(
-    bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
-) as g_client:
-
-    res = g_client.client.shortcuts.get_similar(alias="<value>")
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                                                                                | Type                                                                                                                     | Required                                                                                                                 | Description                                                                                                              |
-| ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
-| `alias`                                                                                                                  | *str*                                                                                                                    | :heavy_check_mark:                                                                                                       | Link text following go/ prefix.                                                                                          |
-| `x_scio_actas`                                                                                                           | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens). |
-| `x_glean_auth_type`                                                                                                      | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | Auth type being used to access the endpoint (should be non-empty only for global tokens).                                |
-| `retries`                                                                                                                | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                         | :heavy_minus_sign:                                                                                                       | Configuration to override the default retry behavior of the client.                                                      |
-
-### Response
-
-**[models.GetSimilarShortcutsResponse](../../models/getsimilarshortcutsresponse.md)**
 
 ### Errors
 
@@ -277,7 +234,7 @@ with Glean(
 | Parameter                                                                                                                                                                             | Type                                                                                                                                                                                  | Required                                                                                                                                                                              | Description                                                                                                                                                                           | Example                                                                                                                                                                               |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `page_size`                                                                                                                                                                           | *int*                                                                                                                                                                                 | :heavy_check_mark:                                                                                                                                                                    | N/A                                                                                                                                                                                   | 10                                                                                                                                                                                    |
-| `x_scio_actas`                                                                                                                                                                        | *Optional[str]*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                    | Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).                                                              |                                                                                                                                                                                       |
+| `x_glean_act_as`                                                                                                                                                                      | *Optional[str]*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                    | Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).                                                              |                                                                                                                                                                                       |
 | `x_glean_auth_type`                                                                                                                                                                   | *Optional[str]*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                    | Auth type being used to access the endpoint (should be non-empty only for global tokens).                                                                                             |                                                                                                                                                                                       |
 | `include_fields`                                                                                                                                                                      | List[[models.ListShortcutsPaginatedRequestIncludeField](../../models/listshortcutspaginatedrequestincludefield.md)]                                                                   | :heavy_minus_sign:                                                                                                                                                                    | Array of fields/data to be included in response that are not included by default                                                                                                      |                                                                                                                                                                                       |
 | `cursor`                                                                                                                                                                              | *Optional[str]*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                    | A token specifying the position in the overall results to start at. Received from the endpoint and iterated back. Currently being used as page no (as we implement offset pagination) |                                                                                                                                                                                       |
@@ -289,158 +246,6 @@ with Glean(
 ### Response
 
 **[models.ListShortcutsPaginatedResponse](../../models/listshortcutspaginatedresponse.md)**
-
-### Errors
-
-| Error Type        | Status Code       | Content Type      |
-| ----------------- | ----------------- | ----------------- |
-| errors.GleanError | 4XX, 5XX          | \*/\*             |
-
-## preview
-
-Preview a shortcut that contains an alias and destination URL.
-
-### Example Usage
-
-```python
-from datetime import date
-from glean import Glean, models
-import os
-
-
-with Glean(
-    bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
-) as g_client:
-
-    res = g_client.client.shortcuts.preview(added_roles=[
-        models.UserRoleSpecification(
-            person=models.Person(
-                name="George Clooney",
-                obfuscated_id="abc123",
-                related_documents=[],
-                metadata=models.PersonMetadata(
-                    type=models.PersonMetadataType.FULL_TIME,
-                    title="Actor",
-                    department="Movies",
-                    email="george@example.com",
-                    location="Hollywood, CA",
-                    phone="6505551234",
-                    photo_url="https://example.com/george.jpg",
-                    start_date=date.fromisoformat("2000-01-23"),
-                    datasource_profile=[
-                        models.DatasourceProfile(
-                            datasource="github",
-                            handle="<value>",
-                        ),
-                        models.DatasourceProfile(
-                            datasource="github",
-                            handle="<value>",
-                        ),
-                    ],
-                    query_suggestions=models.QuerySuggestionList(
-                        suggestions=[],
-                    ),
-                    invite_info=models.InviteInfo(
-                        invites=[],
-                    ),
-                    custom_fields=[],
-                    badges=[
-                        models.Badge(
-                            key="deployment_name_new_hire",
-                            display_name="New hire",
-                            icon_config=models.IconConfig(
-                                color="#343CED",
-                                key="person_icon",
-                                icon_type=models.IconType.GLYPH,
-                                name="user",
-                            ),
-                        ),
-                    ],
-                ),
-            ),
-            role=models.UserRole.ANSWER_MODERATOR,
-        ),
-        models.UserRoleSpecification(
-            role=models.UserRole.VIEWER,
-        ),
-    ], removed_roles=[
-        models.UserRoleSpecification(
-            person=models.Person(
-                name="George Clooney",
-                obfuscated_id="abc123",
-                related_documents=[],
-                metadata=models.PersonMetadata(
-                    type=models.PersonMetadataType.FULL_TIME,
-                    title="Actor",
-                    department="Movies",
-                    email="george@example.com",
-                    location="Hollywood, CA",
-                    management_chain=[],
-                    phone="6505551234",
-                    photo_url="https://example.com/george.jpg",
-                    reports=[],
-                    start_date=date.fromisoformat("2000-01-23"),
-                    datasource_profile=[
-                        models.DatasourceProfile(
-                            datasource="github",
-                            handle="<value>",
-                        ),
-                    ],
-                    query_suggestions=models.QuerySuggestionList(
-                        suggestions=[],
-                    ),
-                    invite_info=models.InviteInfo(
-                        invites=[],
-                    ),
-                    custom_fields=[],
-                    badges=[
-                        models.Badge(
-                            key="deployment_name_new_hire",
-                            display_name="New hire",
-                            icon_config=models.IconConfig(
-                                color="#343CED",
-                                key="person_icon",
-                                icon_type=models.IconType.GLYPH,
-                                name="user",
-                            ),
-                        ),
-                    ],
-                ),
-            ),
-            role=models.UserRole.OWNER,
-        ),
-        models.UserRoleSpecification(
-            role=models.UserRole.ANSWER_MODERATOR,
-        ),
-        models.UserRoleSpecification(
-            role=models.UserRole.VERIFIER,
-        ),
-    ])
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                                                                                | Type                                                                                                                     | Required                                                                                                                 | Description                                                                                                              |
-| ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
-| `x_scio_actas`                                                                                                           | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens). |
-| `x_glean_auth_type`                                                                                                      | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | Auth type being used to access the endpoint (should be non-empty only for global tokens).                                |
-| `input_alias`                                                                                                            | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | Link text following go/ prefix as entered by the user.                                                                   |
-| `destination_url`                                                                                                        | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | Destination URL for the shortcut.                                                                                        |
-| `destination_document_id`                                                                                                | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | Glean Document ID for the URL, if known.                                                                                 |
-| `description`                                                                                                            | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | A short, plain text blurb to help people understand the intent of the shortcut.                                          |
-| `unlisted`                                                                                                               | *Optional[bool]*                                                                                                         | :heavy_minus_sign:                                                                                                       | Whether this shortcut is unlisted or not. Unlisted shortcuts are visible to author + admins only.                        |
-| `url_template`                                                                                                           | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | For variable shortcuts, contains the URL template; note, `destinationUrl` contains default URL.                          |
-| `added_roles`                                                                                                            | List[[models.UserRoleSpecification](../../models/userrolespecification.md)]                                              | :heavy_minus_sign:                                                                                                       | A list of user roles added for the Shortcut.                                                                             |
-| `removed_roles`                                                                                                          | List[[models.UserRoleSpecification](../../models/userrolespecification.md)]                                              | :heavy_minus_sign:                                                                                                       | A list of user roles removed for the Shortcut.                                                                           |
-| `retries`                                                                                                                | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                         | :heavy_minus_sign:                                                                                                       | Configuration to override the default retry behavior of the client.                                                      |
-
-### Response
-
-**[models.PreviewShortcutResponse](../../models/previewshortcutresponse.md)**
 
 ### Errors
 
@@ -516,17 +321,14 @@ with Glean(
             person=models.Person(
                 name="George Clooney",
                 obfuscated_id="abc123",
-                related_documents=[],
                 metadata=models.PersonMetadata(
                     type=models.PersonMetadataType.FULL_TIME,
                     title="Actor",
                     department="Movies",
                     email="george@example.com",
                     location="Hollywood, CA",
-                    management_chain=[],
                     phone="6505551234",
                     photo_url="https://example.com/george.jpg",
-                    reports=[],
                     start_date=date.fromisoformat("2000-01-23"),
                     datasource_profile=[
                         models.DatasourceProfile(
@@ -542,13 +344,8 @@ with Glean(
                             handle="<value>",
                         ),
                     ],
-                    query_suggestions=models.QuerySuggestionList(
-                        suggestions=[],
-                    ),
-                    invite_info=models.InviteInfo(
-                        invites=[],
-                    ),
-                    custom_fields=[],
+                    query_suggestions=models.QuerySuggestionList(),
+                    invite_info=models.InviteInfo(),
                     badges=[
                         models.Badge(
                             key="deployment_name_new_hire",
@@ -580,7 +377,7 @@ with Glean(
 | Parameter                                                                                                                | Type                                                                                                                     | Required                                                                                                                 | Description                                                                                                              |
 | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
 | `id`                                                                                                                     | *int*                                                                                                                    | :heavy_check_mark:                                                                                                       | The opaque id of the user generated content.                                                                             |
-| `x_scio_actas`                                                                                                           | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens). |
+| `x_glean_act_as`                                                                                                         | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens). |
 | `x_glean_auth_type`                                                                                                      | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | Auth type being used to access the endpoint (should be non-empty only for global tokens).                                |
 | `input_alias`                                                                                                            | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | Link text following go/ prefix as entered by the user.                                                                   |
 | `destination_url`                                                                                                        | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | Destination URL for the shortcut.                                                                                        |

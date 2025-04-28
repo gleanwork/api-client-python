@@ -2,28 +2,14 @@
 
 from glean import Glean, models
 import os
-import pytest
 from tests.test_client import create_test_http_client
-
-
-@pytest.mark.skip(
-    reason="incomplete test found please make sure to address the following errors: [`workflow step post_/adddatasource.test referencing operation post_/adddatasource not found in document`]"
-)
-def test_datasources_post_adddatasource():
-    pass
-
-
-@pytest.mark.skip(
-    reason="incomplete test found please make sure to address the following errors: [`workflow step post_/getdatasourceconfig.test referencing operation post_/getdatasourceconfig not found in document`]"
-)
-def test_datasources_post_getdatasourceconfig():
-    pass
 
 
 def test_datasources_post_api_index_v1_adddatasource():
     test_http_client = create_test_http_client("post_/api/index/v1/adddatasource")
 
     with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
     ) as g_client:
@@ -41,6 +27,14 @@ def test_datasources_post_api_index_v1_adddatasource():
                         "name": "user",
                     },
                 },
+                {
+                    "icon_config": {
+                        "color": "#343CED",
+                        "key": "person_icon",
+                        "icon_type": models.IconType.GLYPH,
+                        "name": "user",
+                    },
+                },
             ],
         )
 
@@ -49,6 +43,7 @@ def test_datasources_post_api_index_v1_getdatasourceconfig():
     test_http_client = create_test_http_client("post_/api/index/v1/getdatasourceconfig")
 
     with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
     ) as g_client:
@@ -56,25 +51,3 @@ def test_datasources_post_api_index_v1_getdatasourceconfig():
 
         res = g_client.indexing.datasources.get_config(datasource="<value>")
         assert res is not None
-        assert res == models.CustomDatasourceConfig(
-            name="<value>",
-            url_regex="https://example-company.datasource.com/.*",
-            quicklinks=[
-                models.Quicklink(
-                    icon_config=models.IconConfig(
-                        color="#343CED",
-                        key="person_icon",
-                        icon_type=models.IconType.GLYPH,
-                        name="user",
-                    ),
-                ),
-                models.Quicklink(
-                    icon_config=models.IconConfig(
-                        color="#343CED",
-                        key="person_icon",
-                        icon_type=models.IconType.GLYPH,
-                        name="user",
-                    ),
-                ),
-            ],
-        )

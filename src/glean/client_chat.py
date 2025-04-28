@@ -5,235 +5,15 @@ from glean import errors, models, utils
 from glean._hooks import HookContext
 from glean.types import OptionalNullable, UNSET
 from glean.utils import get_security_from_env
-from typing import Any, List, Mapping, Optional, Union
+from typing import List, Mapping, Optional, Union
 
 
 class ClientChat(BaseSDK):
-    def ask(
-        self,
-        *,
-        x_scio_actas: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
-        ask_request: Optional[
-            Union[models.AskRequest, models.AskRequestTypedDict]
-        ] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.AskResponse:
-        r"""Detect and answer questions
-
-        Classify a query as information seeking or not. If so, generate an AI answer and/or provide relevant documents. Useful for integrating into existing chat interfaces.
-
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
-        :param ask_request: Ask request
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.AskRequestRequest(
-            x_scio_actas=x_scio_actas,
-            x_glean_auth_type=x_glean_auth_type,
-            ask_request=utils.get_pydantic_model(
-                ask_request, Optional[models.AskRequest]
-            ),
-        )
-
-        req = self._build_request(
-            method="POST",
-            path="/rest/api/v1/ask",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.ask_request, False, True, "json", Optional[models.AskRequest]
-            ),
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                base_url=base_url or "",
-                operation_id="ask",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["400", "401", "403", "422", "429", "4XX", "5XX"],
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(http_res.text, models.AskResponse)
-        if utils.match_response(http_res, ["403", "422"], "application/json"):
-            response_data = utils.unmarshal_json(http_res.text, errors.ErrorInfoData)
-            raise errors.ErrorInfo(data=response_data)
-        if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
-
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
-
-    async def ask_async(
-        self,
-        *,
-        x_scio_actas: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
-        ask_request: Optional[
-            Union[models.AskRequest, models.AskRequestTypedDict]
-        ] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.AskResponse:
-        r"""Detect and answer questions
-
-        Classify a query as information seeking or not. If so, generate an AI answer and/or provide relevant documents. Useful for integrating into existing chat interfaces.
-
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
-        :param ask_request: Ask request
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.AskRequestRequest(
-            x_scio_actas=x_scio_actas,
-            x_glean_auth_type=x_glean_auth_type,
-            ask_request=utils.get_pydantic_model(
-                ask_request, Optional[models.AskRequest]
-            ),
-        )
-
-        req = self._build_request_async(
-            method="POST",
-            path="/rest/api/v1/ask",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.ask_request, False, True, "json", Optional[models.AskRequest]
-            ),
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                base_url=base_url or "",
-                operation_id="ask",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["400", "401", "403", "422", "429", "4XX", "5XX"],
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(http_res.text, models.AskResponse)
-        if utils.match_response(http_res, ["403", "422"], "application/json"):
-            response_data = utils.unmarshal_json(http_res.text, errors.ErrorInfoData)
-            raise errors.ErrorInfo(data=response_data)
-        if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
-
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
-
     def start(
         self,
         *,
         messages: Union[List[models.ChatMessage], List[models.ChatMessageTypedDict]],
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         save_chat: Optional[bool] = None,
@@ -260,7 +40,7 @@ class ClientChat(BaseSDK):
         Have a conversation with Glean AI.
 
         :param messages: A list of chat messages, from most recent to least recent. It can be assumed that the first chat message in the list is the user's most recent query.
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param save_chat: Save the current interaction as a Chat for the user to access and potentially continue later.
@@ -287,7 +67,7 @@ class ClientChat(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.ChatRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             timezone_offset=timezone_offset,
             chat_request=models.ChatRequest(
@@ -376,7 +156,7 @@ class ClientChat(BaseSDK):
         self,
         *,
         messages: Union[List[models.ChatMessage], List[models.ChatMessageTypedDict]],
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         save_chat: Optional[bool] = None,
@@ -403,7 +183,7 @@ class ClientChat(BaseSDK):
         Have a conversation with Glean AI.
 
         :param messages: A list of chat messages, from most recent to least recent. It can be assumed that the first chat message in the list is the user's most recent query.
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param save_chat: Save the current interaction as a Chat for the user to access and potentially continue later.
@@ -430,7 +210,7 @@ class ClientChat(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.ChatRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             timezone_offset=timezone_offset,
             chat_request=models.ChatRequest(
@@ -518,7 +298,7 @@ class ClientChat(BaseSDK):
     def delete_all(
         self,
         *,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -530,7 +310,7 @@ class ClientChat(BaseSDK):
 
         Deletes all saved Chats a user has had and all their contained conversational content.
 
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param retries: Override the default retry configuration for this method
@@ -549,7 +329,7 @@ class ClientChat(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.DeleteallchatsRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             timezone_offset=timezone_offset,
         )
@@ -617,7 +397,7 @@ class ClientChat(BaseSDK):
     async def delete_all_async(
         self,
         *,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -629,7 +409,7 @@ class ClientChat(BaseSDK):
 
         Deletes all saved Chats a user has had and all their contained conversational content.
 
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param retries: Override the default retry configuration for this method
@@ -648,7 +428,7 @@ class ClientChat(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.DeleteallchatsRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             timezone_offset=timezone_offset,
         )
@@ -717,7 +497,7 @@ class ClientChat(BaseSDK):
         self,
         *,
         ids: List[str],
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -730,7 +510,7 @@ class ClientChat(BaseSDK):
         Deletes saved Chats and all their contained conversational content.
 
         :param ids: A non-empty list of ids of the Chats to be deleted.
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param retries: Override the default retry configuration for this method
@@ -749,7 +529,7 @@ class ClientChat(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.DeletechatsRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             timezone_offset=timezone_offset,
             delete_chats_request=models.DeleteChatsRequest(
@@ -828,7 +608,7 @@ class ClientChat(BaseSDK):
         self,
         *,
         ids: List[str],
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -841,7 +621,7 @@ class ClientChat(BaseSDK):
         Deletes saved Chats and all their contained conversational content.
 
         :param ids: A non-empty list of ids of the Chats to be deleted.
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param retries: Override the default retry configuration for this method
@@ -860,7 +640,7 @@ class ClientChat(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.DeletechatsRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             timezone_offset=timezone_offset,
             delete_chats_request=models.DeleteChatsRequest(
@@ -939,7 +719,7 @@ class ClientChat(BaseSDK):
         self,
         *,
         id: str,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -952,7 +732,7 @@ class ClientChat(BaseSDK):
         Retrieves the chat history between Glean Assistant and the user for a given Chat.
 
         :param id: The id of the Chat to be retrieved.
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param retries: Override the default retry configuration for this method
@@ -971,7 +751,7 @@ class ClientChat(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetchatRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             timezone_offset=timezone_offset,
             get_chat_request=models.GetChatRequest(
@@ -1046,7 +826,7 @@ class ClientChat(BaseSDK):
         self,
         *,
         id: str,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1059,7 +839,7 @@ class ClientChat(BaseSDK):
         Retrieves the chat history between Glean Assistant and the user for a given Chat.
 
         :param id: The id of the Chat to be retrieved.
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param retries: Override the default retry configuration for this method
@@ -1078,7 +858,7 @@ class ClientChat(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetchatRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             timezone_offset=timezone_offset,
             get_chat_request=models.GetChatRequest(
@@ -1152,7 +932,7 @@ class ClientChat(BaseSDK):
     def list(
         self,
         *,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1164,7 +944,7 @@ class ClientChat(BaseSDK):
 
         Retrieves all the saved Chats between Glean Assistant and the user. The returned Chats contain only metadata and no conversational content.
 
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param retries: Override the default retry configuration for this method
@@ -1183,7 +963,7 @@ class ClientChat(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.ListchatsRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             timezone_offset=timezone_offset,
         )
@@ -1251,7 +1031,7 @@ class ClientChat(BaseSDK):
     async def list_async(
         self,
         *,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1263,7 +1043,7 @@ class ClientChat(BaseSDK):
 
         Retrieves all the saved Chats between Glean Assistant and the user. The returned Chats contain only metadata and no conversational content.
 
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param retries: Override the default retry configuration for this method
@@ -1282,7 +1062,7 @@ class ClientChat(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.ListchatsRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             timezone_offset=timezone_offset,
         )
@@ -1351,7 +1131,7 @@ class ClientChat(BaseSDK):
         self,
         *,
         id: str,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1364,7 +1144,7 @@ class ClientChat(BaseSDK):
         Gets the Chat application details for the specified application ID.
 
         :param id: The id of the Chat application to be retrieved.
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param retries: Override the default retry configuration for this method
@@ -1383,7 +1163,7 @@ class ClientChat(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetchatapplicationRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             timezone_offset=timezone_offset,
             get_chat_application_request=models.GetChatApplicationRequest(
@@ -1464,7 +1244,7 @@ class ClientChat(BaseSDK):
         self,
         *,
         id: str,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1477,7 +1257,7 @@ class ClientChat(BaseSDK):
         Gets the Chat application details for the specified application ID.
 
         :param id: The id of the Chat application to be retrieved.
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param retries: Override the default retry configuration for this method
@@ -1496,7 +1276,7 @@ class ClientChat(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetchatapplicationRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             timezone_offset=timezone_offset,
             get_chat_application_request=models.GetChatApplicationRequest(
@@ -1577,7 +1357,7 @@ class ClientChat(BaseSDK):
         self,
         *,
         files: Union[List[models.File], List[models.FileTypedDict]],
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1590,7 +1370,7 @@ class ClientChat(BaseSDK):
         Upload files for Chat.
 
         :param files: Raw files to be uploaded for chat in binary format.
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param retries: Override the default retry configuration for this method
@@ -1609,7 +1389,7 @@ class ClientChat(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.UploadchatfilesRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             timezone_offset=timezone_offset,
             upload_chat_files_request=models.UploadChatFilesRequest(
@@ -1688,7 +1468,7 @@ class ClientChat(BaseSDK):
         self,
         *,
         files: Union[List[models.File], List[models.FileTypedDict]],
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1701,7 +1481,7 @@ class ClientChat(BaseSDK):
         Upload files for Chat.
 
         :param files: Raw files to be uploaded for chat in binary format.
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param retries: Override the default retry configuration for this method
@@ -1720,7 +1500,7 @@ class ClientChat(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.UploadchatfilesRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             timezone_offset=timezone_offset,
             upload_chat_files_request=models.UploadChatFilesRequest(
@@ -1799,7 +1579,7 @@ class ClientChat(BaseSDK):
         self,
         *,
         file_ids: List[str],
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1812,7 +1592,7 @@ class ClientChat(BaseSDK):
         Get files uploaded by a user for Chat.
 
         :param file_ids: IDs of files to fetch.
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param retries: Override the default retry configuration for this method
@@ -1831,7 +1611,7 @@ class ClientChat(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetchatfilesRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             timezone_offset=timezone_offset,
             get_chat_files_request=models.GetChatFilesRequest(
@@ -1910,7 +1690,7 @@ class ClientChat(BaseSDK):
         self,
         *,
         file_ids: List[str],
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1923,7 +1703,7 @@ class ClientChat(BaseSDK):
         Get files uploaded by a user for Chat.
 
         :param file_ids: IDs of files to fetch.
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param retries: Override the default retry configuration for this method
@@ -1942,7 +1722,7 @@ class ClientChat(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetchatfilesRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             timezone_offset=timezone_offset,
             get_chat_files_request=models.GetChatFilesRequest(
@@ -2021,7 +1801,7 @@ class ClientChat(BaseSDK):
         self,
         *,
         file_ids: List[str],
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2034,7 +1814,7 @@ class ClientChat(BaseSDK):
         Delete files uploaded by a user for Chat.
 
         :param file_ids: IDs of files to delete.
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param retries: Override the default retry configuration for this method
@@ -2053,7 +1833,7 @@ class ClientChat(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.DeletechatfilesRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             timezone_offset=timezone_offset,
             delete_chat_files_request=models.DeleteChatFilesRequest(
@@ -2132,7 +1912,7 @@ class ClientChat(BaseSDK):
         self,
         *,
         file_ids: List[str],
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2145,7 +1925,7 @@ class ClientChat(BaseSDK):
         Delete files uploaded by a user for Chat.
 
         :param file_ids: IDs of files to delete.
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param retries: Override the default retry configuration for this method
@@ -2164,7 +1944,7 @@ class ClientChat(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.DeletechatfilesRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             timezone_offset=timezone_offset,
             delete_chat_files_request=models.DeleteChatFilesRequest(

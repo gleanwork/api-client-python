@@ -15,7 +15,7 @@ from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class AnnouncementChannel1(str, Enum):
+class AnnouncementChannel(str, Enum):
     r"""This determines whether this is a Social Feed post or a regular announcement."""
 
     MAIN = "MAIN"
@@ -62,7 +62,7 @@ class AnnouncementTypedDict(TypedDict):
     r"""The Glean Document ID of the source document this Announcement was created from (e.g. Slack thread)."""
     hide_attribution: NotRequired[bool]
     r"""Whether or not to hide an author attribution."""
-    channel: NotRequired[AnnouncementChannel1]
+    channel: NotRequired[AnnouncementChannel]
     r"""This determines whether this is a Social Feed post or a regular announcement."""
     post_type: NotRequired[AnnouncementPostType]
     r"""This determines whether this is an external-link post or a regular announcement post. TEXT - Regular announcement that can contain rich text. LINK - Announcement that is linked to an external site."""
@@ -121,7 +121,7 @@ class Announcement(BaseModel):
     ] = None
     r"""Whether or not to hide an author attribution."""
 
-    channel: Optional[AnnouncementChannel1] = None
+    channel: Optional[AnnouncementChannel] = None
     r"""This determines whether this is a Social Feed post or a regular announcement."""
 
     post_type: Annotated[

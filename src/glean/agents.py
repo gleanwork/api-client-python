@@ -12,7 +12,7 @@ class Agents(BaseSDK):
     def runagent(
         self,
         *,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         agent_id: Optional[str] = None,
@@ -27,7 +27,7 @@ class Agents(BaseSDK):
 
         Trigger an Agent with a given id.
 
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param agent_id: The ID of the agent to be run.
@@ -49,7 +49,7 @@ class Agents(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.RunagentRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             timezone_offset=timezone_offset,
             run_agent_request=models.RunAgentRequest(
@@ -125,7 +125,7 @@ class Agents(BaseSDK):
     async def runagent_async(
         self,
         *,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         agent_id: Optional[str] = None,
@@ -140,7 +140,7 @@ class Agents(BaseSDK):
 
         Trigger an Agent with a given id.
 
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param agent_id: The ID of the agent to be run.
@@ -162,7 +162,7 @@ class Agents(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.RunagentRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             timezone_offset=timezone_offset,
             run_agent_request=models.RunAgentRequest(
@@ -238,7 +238,7 @@ class Agents(BaseSDK):
     def listagents(
         self,
         *,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         request_body: Optional[Any] = None,
@@ -251,7 +251,7 @@ class Agents(BaseSDK):
 
         Lists all agents that are available.
 
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param request_body:
@@ -271,7 +271,7 @@ class Agents(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.ListagentsRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             timezone_offset=timezone_offset,
             request_body=request_body,
@@ -343,7 +343,7 @@ class Agents(BaseSDK):
     async def listagents_async(
         self,
         *,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         request_body: Optional[Any] = None,
@@ -356,7 +356,7 @@ class Agents(BaseSDK):
 
         Lists all agents that are available.
 
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param request_body:
@@ -376,7 +376,7 @@ class Agents(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.ListagentsRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             timezone_offset=timezone_offset,
             request_body=request_body,
@@ -448,7 +448,7 @@ class Agents(BaseSDK):
     def getagentinputs(
         self,
         *,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         agent_id: Optional[str] = None,
@@ -461,7 +461,7 @@ class Agents(BaseSDK):
 
         Get the inputs to an agent with a given id.
 
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param agent_id: The id of the agent.
@@ -481,7 +481,7 @@ class Agents(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetagentinputsRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             timezone_offset=timezone_offset,
             get_agent_inputs_request=models.GetAgentInputsRequest(
@@ -559,7 +559,7 @@ class Agents(BaseSDK):
     async def getagentinputs_async(
         self,
         *,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         agent_id: Optional[str] = None,
@@ -572,7 +572,7 @@ class Agents(BaseSDK):
 
         Get the inputs to an agent with a given id.
 
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param agent_id: The id of the agent.
@@ -592,7 +592,7 @@ class Agents(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetagentinputsRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             timezone_offset=timezone_offset,
             get_agent_inputs_request=models.GetAgentInputsRequest(

@@ -13,6 +13,7 @@ from typing import Dict, List, Optional, TYPE_CHECKING
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 if TYPE_CHECKING:
+    from .customfielddata import CustomFieldData, CustomFieldDataTypedDict
     from .persontoteamrelationship import (
         PersonToTeamRelationship,
         PersonToTeamRelationshipTypedDict,
@@ -53,6 +54,8 @@ class TeamTypedDict(TypedDict):
     r"""Number of members on this team (recursive; includes all individuals that belong to this team, and all individuals that belong to a subteam within this team)"""
     emails: NotRequired[List[TeamEmailTypedDict]]
     r"""The emails for this team"""
+    custom_fields: NotRequired[List["CustomFieldDataTypedDict"]]
+    r"""Customizable fields for additional team information."""
     datasource_profiles: NotRequired[List[DatasourceProfileTypedDict]]
     r"""The datasource profiles of the team"""
     datasource: NotRequired[str]
@@ -109,6 +112,11 @@ class Team(BaseModel):
 
     emails: Optional[List[TeamEmail]] = None
     r"""The emails for this team"""
+
+    custom_fields: Annotated[
+        Optional[List["CustomFieldData"]], pydantic.Field(alias="customFields")
+    ] = None
+    r"""Customizable fields for additional team information."""
 
     datasource_profiles: Annotated[
         Optional[List[DatasourceProfile]], pydantic.Field(alias="datasourceProfiles")

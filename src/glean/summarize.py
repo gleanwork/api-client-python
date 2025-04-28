@@ -16,7 +16,7 @@ class Summarize(BaseSDK):
         document_specs: Union[
             List[models.DocumentSpecUnion], List[models.DocumentSpecUnionTypedDict]
         ],
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         timestamp: Optional[datetime] = None,
         query: Optional[str] = None,
@@ -32,7 +32,7 @@ class Summarize(BaseSDK):
         Generate an AI summary of the requested documents.
 
         :param document_specs: Specifications of documents to summarize
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param timestamp: The ISO 8601 timestamp associated with the client request.
         :param query: Optional query that the summary should be about
@@ -54,7 +54,7 @@ class Summarize(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.SummarizeRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             summarize_request=models.SummarizeRequest(
                 timestamp=timestamp,
@@ -136,7 +136,7 @@ class Summarize(BaseSDK):
         document_specs: Union[
             List[models.DocumentSpecUnion], List[models.DocumentSpecUnionTypedDict]
         ],
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         timestamp: Optional[datetime] = None,
         query: Optional[str] = None,
@@ -152,7 +152,7 @@ class Summarize(BaseSDK):
         Generate an AI summary of the requested documents.
 
         :param document_specs: Specifications of documents to summarize
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param timestamp: The ISO 8601 timestamp associated with the client request.
         :param query: Optional query that the summary should be about
@@ -174,7 +174,7 @@ class Summarize(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.SummarizeRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             summarize_request=models.SummarizeRequest(
                 timestamp=timestamp,

@@ -3,7 +3,7 @@
 
 ## Values
 
-| Name              | Value             |
-| ----------------- | ----------------- |
-| `GLEAN_CHANNEL`   | GLEAN_CHANNEL     |
-| `COMPANY_CHANNEL` | COMPANY_CHANNEL   |
+| Name      | Value     |
+| --------- | --------- |
+| `COMPANY` | COMPANY   |
+| `GLEAN`   | GLEAN     |

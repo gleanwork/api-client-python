@@ -13,7 +13,7 @@ class ClientVerification(BaseSDK):
         self,
         *,
         document_id: str,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         assignee: Optional[str] = None,
         remind_in_days: Optional[int] = None,
@@ -28,7 +28,7 @@ class ClientVerification(BaseSDK):
         Creates a verification reminder for the document. Users can create verification reminders from different product surfaces.
 
         :param document_id: The document which the verification is for new reminders and/or update.
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param assignee: The obfuscated id of the person this verification is assigned to.
         :param remind_in_days: Reminder for the next verifications in terms of days. For deletion, this will be omitted.
@@ -49,7 +49,7 @@ class ClientVerification(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.AddverificationreminderRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             reminder_request=models.ReminderRequest(
                 document_id=document_id,
@@ -126,7 +126,7 @@ class ClientVerification(BaseSDK):
         self,
         *,
         document_id: str,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         assignee: Optional[str] = None,
         remind_in_days: Optional[int] = None,
@@ -141,7 +141,7 @@ class ClientVerification(BaseSDK):
         Creates a verification reminder for the document. Users can create verification reminders from different product surfaces.
 
         :param document_id: The document which the verification is for new reminders and/or update.
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param assignee: The obfuscated id of the person this verification is assigned to.
         :param remind_in_days: Reminder for the next verifications in terms of days. For deletion, this will be omitted.
@@ -162,7 +162,7 @@ class ClientVerification(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.AddverificationreminderRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             reminder_request=models.ReminderRequest(
                 document_id=document_id,
@@ -238,7 +238,7 @@ class ClientVerification(BaseSDK):
     def list(
         self,
         *,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         count: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -250,7 +250,7 @@ class ClientVerification(BaseSDK):
 
         Returns the information to be rendered in verification dashboard. Includes information for each document owned by user regarding their verifications.
 
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param count: Maximum number of documents to return
         :param retries: Override the default retry configuration for this method
@@ -269,7 +269,7 @@ class ClientVerification(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.ListverificationsRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             count=count,
         )
@@ -337,7 +337,7 @@ class ClientVerification(BaseSDK):
     async def list_async(
         self,
         *,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         count: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -349,7 +349,7 @@ class ClientVerification(BaseSDK):
 
         Returns the information to be rendered in verification dashboard. Includes information for each document owned by user regarding their verifications.
 
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param count: Maximum number of documents to return
         :param retries: Override the default retry configuration for this method
@@ -368,7 +368,7 @@ class ClientVerification(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.ListverificationsRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             count=count,
         )
@@ -437,7 +437,7 @@ class ClientVerification(BaseSDK):
         self,
         *,
         document_id: str,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         action: Optional[models.VerifyRequestAction] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -450,7 +450,7 @@ class ClientVerification(BaseSDK):
         Verify documents to keep the knowledge up to date within customer corpus.
 
         :param document_id: The document which is verified.
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param action: The verification action requested.
         :param retries: Override the default retry configuration for this method
@@ -469,7 +469,7 @@ class ClientVerification(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.VerifyRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             verify_request=models.VerifyRequest(
                 document_id=document_id,
@@ -544,7 +544,7 @@ class ClientVerification(BaseSDK):
         self,
         *,
         document_id: str,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         action: Optional[models.VerifyRequestAction] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -557,7 +557,7 @@ class ClientVerification(BaseSDK):
         Verify documents to keep the knowledge up to date within customer corpus.
 
         :param document_id: The document which is verified.
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param action: The verification action requested.
         :param retries: Override the default retry configuration for this method
@@ -576,7 +576,7 @@ class ClientVerification(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.VerifyRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             verify_request=models.VerifyRequest(
                 document_id=document_id,

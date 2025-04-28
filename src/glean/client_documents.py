@@ -12,7 +12,7 @@ class ClientDocuments(BaseSDK):
     def get_permissions(
         self,
         *,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         document_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -24,7 +24,7 @@ class ClientDocuments(BaseSDK):
 
         Read the emails of all users who have access to the given document.
 
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param document_id: The Glean Document ID to retrieve permissions for.
         :param retries: Override the default retry configuration for this method
@@ -43,7 +43,7 @@ class ClientDocuments(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetdocpermissionsRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             get_doc_permissions_request=models.GetDocPermissionsRequest(
                 document_id=document_id,
@@ -120,7 +120,7 @@ class ClientDocuments(BaseSDK):
     async def get_permissions_async(
         self,
         *,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         document_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -132,7 +132,7 @@ class ClientDocuments(BaseSDK):
 
         Read the emails of all users who have access to the given document.
 
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param document_id: The Glean Document ID to retrieve permissions for.
         :param retries: Override the default retry configuration for this method
@@ -151,7 +151,7 @@ class ClientDocuments(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetdocpermissionsRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             get_doc_permissions_request=models.GetDocPermissionsRequest(
                 document_id=document_id,
@@ -228,7 +228,7 @@ class ClientDocuments(BaseSDK):
     def get(
         self,
         *,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         get_documents_request: Optional[
             Union[models.GetDocumentsRequest, models.GetDocumentsRequestTypedDict]
@@ -242,7 +242,7 @@ class ClientDocuments(BaseSDK):
 
         Read the documents including metadata (does not include enhanced metadata via `/documentmetadata`) for the given list of Glean Document IDs or URLs specified in the request.
 
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param get_documents_request: Information about documents requested.
         :param retries: Override the default retry configuration for this method
@@ -261,7 +261,7 @@ class ClientDocuments(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetdocumentsRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             get_documents_request=utils.get_pydantic_model(
                 get_documents_request, Optional[models.GetDocumentsRequest]
@@ -338,7 +338,7 @@ class ClientDocuments(BaseSDK):
     async def get_async(
         self,
         *,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         get_documents_request: Optional[
             Union[models.GetDocumentsRequest, models.GetDocumentsRequestTypedDict]
@@ -352,7 +352,7 @@ class ClientDocuments(BaseSDK):
 
         Read the documents including metadata (does not include enhanced metadata via `/documentmetadata`) for the given list of Glean Document IDs or URLs specified in the request.
 
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param get_documents_request: Information about documents requested.
         :param retries: Override the default retry configuration for this method
@@ -371,7 +371,7 @@ class ClientDocuments(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetdocumentsRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             get_documents_request=utils.get_pydantic_model(
                 get_documents_request, Optional[models.GetDocumentsRequest]
@@ -448,7 +448,7 @@ class ClientDocuments(BaseSDK):
     def get_by_facets(
         self,
         *,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         get_documents_by_facets_request: Optional[
             Union[
@@ -465,7 +465,7 @@ class ClientDocuments(BaseSDK):
 
         Read the documents including metadata (does not include enhanced metadata via `/documentmetadata`) macthing the given facet conditions.
 
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param get_documents_by_facets_request: Information about facet conditions for documents to be retrieved.
         :param retries: Override the default retry configuration for this method
@@ -484,7 +484,7 @@ class ClientDocuments(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetdocumentsbyfacetsRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             get_documents_by_facets_request=utils.get_pydantic_model(
                 get_documents_by_facets_request,
@@ -564,7 +564,7 @@ class ClientDocuments(BaseSDK):
     async def get_by_facets_async(
         self,
         *,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         get_documents_by_facets_request: Optional[
             Union[
@@ -581,7 +581,7 @@ class ClientDocuments(BaseSDK):
 
         Read the documents including metadata (does not include enhanced metadata via `/documentmetadata`) macthing the given facet conditions.
 
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param get_documents_by_facets_request: Information about facet conditions for documents to be retrieved.
         :param retries: Override the default retry configuration for this method
@@ -600,7 +600,7 @@ class ClientDocuments(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetdocumentsbyfacetsRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             get_documents_by_facets_request=utils.get_pydantic_model(
                 get_documents_by_facets_request,
@@ -658,238 +658,6 @@ class ClientDocuments(BaseSDK):
                 http_res.text, models.GetDocumentsByFacetsResponse
             )
         if utils.match_response(http_res, ["400", "401", "404", "429", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
-
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
-
-    def get_analytics(
-        self,
-        *,
-        x_scio_actas: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
-        get_document_analytics_request: Optional[
-            Union[
-                models.GetDocumentAnalyticsRequest,
-                models.GetDocumentAnalyticsRequestTypedDict,
-            ]
-        ] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.GetDocumentAnalyticsResponse:
-        r"""Read document analytics
-
-        Read the document analytics information for the given list of Glean Document IDs or URLs specified in the request
-
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
-        :param get_document_analytics_request: Information about analytics requested.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.GetdocumentanalyticsRequestRequest(
-            x_scio_actas=x_scio_actas,
-            x_glean_auth_type=x_glean_auth_type,
-            get_document_analytics_request=utils.get_pydantic_model(
-                get_document_analytics_request,
-                Optional[models.GetDocumentAnalyticsRequest],
-            ),
-        )
-
-        req = self._build_request(
-            method="POST",
-            path="/rest/api/v1/getdocumentanalytics",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.get_document_analytics_request,
-                False,
-                True,
-                "json",
-                Optional[models.GetDocumentAnalyticsRequest],
-            ),
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                base_url=base_url or "",
-                operation_id="getdocumentanalytics",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["400", "401", "429", "4XX", "5XX"],
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(
-                http_res.text, models.GetDocumentAnalyticsResponse
-            )
-        if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
-
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
-
-    async def get_analytics_async(
-        self,
-        *,
-        x_scio_actas: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
-        get_document_analytics_request: Optional[
-            Union[
-                models.GetDocumentAnalyticsRequest,
-                models.GetDocumentAnalyticsRequestTypedDict,
-            ]
-        ] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.GetDocumentAnalyticsResponse:
-        r"""Read document analytics
-
-        Read the document analytics information for the given list of Glean Document IDs or URLs specified in the request
-
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
-        :param get_document_analytics_request: Information about analytics requested.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.GetdocumentanalyticsRequestRequest(
-            x_scio_actas=x_scio_actas,
-            x_glean_auth_type=x_glean_auth_type,
-            get_document_analytics_request=utils.get_pydantic_model(
-                get_document_analytics_request,
-                Optional[models.GetDocumentAnalyticsRequest],
-            ),
-        )
-
-        req = self._build_request_async(
-            method="POST",
-            path="/rest/api/v1/getdocumentanalytics",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.get_document_analytics_request,
-                False,
-                True,
-                "json",
-                Optional[models.GetDocumentAnalyticsRequest],
-            ),
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                base_url=base_url or "",
-                operation_id="getdocumentanalytics",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["400", "401", "429", "4XX", "5XX"],
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(
-                http_res.text, models.GetDocumentAnalyticsResponse
-            )
-        if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.GleanError(
                 "API error occurred", http_res.status_code, http_res_text, http_res

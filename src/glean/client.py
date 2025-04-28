@@ -5,24 +5,19 @@ from .sdkconfiguration import SDKConfiguration
 from glean.activities import Activities
 from glean.announcements import Announcements
 from glean.answers import Answers
-from glean.calendar import Calendar
 from glean.client_activity import ClientActivity
 from glean.client_authentication import ClientAuthentication
 from glean.client_chat import ClientChat
 from glean.client_documents import ClientDocuments
 from glean.client_shortcuts import ClientShortcuts
-from glean.client_user import ClientUser
 from glean.client_verification import ClientVerification
 from glean.collections import Collections
-from glean.displayablelists import DisplayableLists
 from glean.entities import Entities
-from glean.images import Images
 from glean.insights import Insights
 from glean.messages import Messages
 from glean.pins import Pins
 from glean.search import Search
 from glean.summarize import Summarize
-from glean.tools import Tools
 
 
 class Client(BaseSDK):
@@ -31,12 +26,9 @@ class Client(BaseSDK):
     announcements: Announcements
     answers: Answers
     authentication: ClientAuthentication
-    calendar: Calendar
     chat: ClientChat
     collections: Collections
-    displayable_lists: DisplayableLists
     documents: ClientDocuments
-    images: Images
     insights: Insights
     messages: Messages
     pins: Pins
@@ -44,8 +36,6 @@ class Client(BaseSDK):
     entities: Entities
     shortcuts: ClientShortcuts
     summarize: Summarize
-    tools: Tools
-    user: ClientUser
     verification: ClientVerification
 
     def __init__(self, sdk_config: SDKConfiguration) -> None:
@@ -59,12 +49,9 @@ class Client(BaseSDK):
         self.announcements = Announcements(self.sdk_configuration)
         self.answers = Answers(self.sdk_configuration)
         self.authentication = ClientAuthentication(self.sdk_configuration)
-        self.calendar = Calendar(self.sdk_configuration)
         self.chat = ClientChat(self.sdk_configuration)
         self.collections = Collections(self.sdk_configuration)
-        self.displayable_lists = DisplayableLists(self.sdk_configuration)
         self.documents = ClientDocuments(self.sdk_configuration)
-        self.images = Images(self.sdk_configuration)
         self.insights = Insights(self.sdk_configuration)
         self.messages = Messages(self.sdk_configuration)
         self.pins = Pins(self.sdk_configuration)
@@ -72,6 +59,4 @@ class Client(BaseSDK):
         self.entities = Entities(self.sdk_configuration)
         self.shortcuts = ClientShortcuts(self.sdk_configuration)
         self.summarize = Summarize(self.sdk_configuration)
-        self.tools = Tools(self.sdk_configuration)
-        self.user = ClientUser(self.sdk_configuration)
         self.verification = ClientVerification(self.sdk_configuration)

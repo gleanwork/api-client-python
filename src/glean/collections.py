@@ -13,7 +13,7 @@ class Collections(BaseSDK):
         self,
         *,
         collection_id: float,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         added_collection_item_descriptors: Optional[
             Union[
@@ -31,7 +31,7 @@ class Collections(BaseSDK):
         Add items to a Collection.
 
         :param collection_id: The ID of the Collection to add items to.
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param added_collection_item_descriptors: The CollectionItemDescriptors of the items being added.
         :param retries: Override the default retry configuration for this method
@@ -50,7 +50,7 @@ class Collections(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.AddcollectionitemsRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             add_collection_items_request=models.AddCollectionItemsRequest(
                 collection_id=collection_id,
@@ -134,7 +134,7 @@ class Collections(BaseSDK):
         self,
         *,
         collection_id: float,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         added_collection_item_descriptors: Optional[
             Union[
@@ -152,7 +152,7 @@ class Collections(BaseSDK):
         Add items to a Collection.
 
         :param collection_id: The ID of the Collection to add items to.
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param added_collection_item_descriptors: The CollectionItemDescriptors of the items being added.
         :param retries: Override the default retry configuration for this method
@@ -171,7 +171,7 @@ class Collections(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.AddcollectionitemsRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             add_collection_items_request=models.AddCollectionItemsRequest(
                 collection_id=collection_id,
@@ -255,7 +255,7 @@ class Collections(BaseSDK):
         self,
         *,
         name: str,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         description: Optional[str] = None,
         added_roles: Optional[
@@ -289,7 +289,7 @@ class Collections(BaseSDK):
         Create a publicly visible (empty) Collection of documents.
 
         :param name: The unique name of the Collection.
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param description: A brief summary of the Collection's contents.
         :param added_roles: A list of added user roles for the Collection.
@@ -317,7 +317,7 @@ class Collections(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.CreatecollectionRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             create_collection_request=models.CreateCollectionRequest(
                 name=name,
@@ -419,7 +419,7 @@ class Collections(BaseSDK):
         self,
         *,
         name: str,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         description: Optional[str] = None,
         added_roles: Optional[
@@ -453,7 +453,7 @@ class Collections(BaseSDK):
         Create a publicly visible (empty) Collection of documents.
 
         :param name: The unique name of the Collection.
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param description: A brief summary of the Collection's contents.
         :param added_roles: A list of added user roles for the Collection.
@@ -481,7 +481,7 @@ class Collections(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.CreatecollectionRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             create_collection_request=models.CreateCollectionRequest(
                 name=name,
@@ -583,7 +583,7 @@ class Collections(BaseSDK):
         self,
         *,
         ids: List[int],
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         allowed_datasource: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -596,7 +596,7 @@ class Collections(BaseSDK):
         Delete a Collection given the Collection's ID.
 
         :param ids: The IDs of the Collections to delete.
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param allowed_datasource: The datasource allowed in the Collection to be deleted.
         :param retries: Override the default retry configuration for this method
@@ -615,7 +615,7 @@ class Collections(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.DeletecollectionRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             delete_collection_request=models.DeleteCollectionRequest(
                 ids=ids,
@@ -700,7 +700,7 @@ class Collections(BaseSDK):
         self,
         *,
         ids: List[int],
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         allowed_datasource: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -713,7 +713,7 @@ class Collections(BaseSDK):
         Delete a Collection given the Collection's ID.
 
         :param ids: The IDs of the Collections to delete.
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param allowed_datasource: The datasource allowed in the Collection to be deleted.
         :param retries: Override the default retry configuration for this method
@@ -732,7 +732,7 @@ class Collections(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.DeletecollectionRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             delete_collection_request=models.DeleteCollectionRequest(
                 ids=ids,
@@ -818,7 +818,7 @@ class Collections(BaseSDK):
         *,
         collection_id: float,
         item_id: str,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         document_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -832,7 +832,7 @@ class Collections(BaseSDK):
 
         :param collection_id: The ID of the Collection to remove an item in.
         :param item_id: The item ID of the CollectionItem to remove from this Collection.
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param document_id: The (optional) Glean Document ID of the CollectionItem to remove from this Collection if this is an indexed document.
         :param retries: Override the default retry configuration for this method
@@ -851,7 +851,7 @@ class Collections(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.DeletecollectionitemRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             delete_collection_item_request=models.DeleteCollectionItemRequest(
                 collection_id=collection_id,
@@ -934,7 +934,7 @@ class Collections(BaseSDK):
         *,
         collection_id: float,
         item_id: str,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         document_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -948,7 +948,7 @@ class Collections(BaseSDK):
 
         :param collection_id: The ID of the Collection to remove an item in.
         :param item_id: The item ID of the CollectionItem to remove from this Collection.
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param document_id: The (optional) Glean Document ID of the CollectionItem to remove from this Collection if this is an indexed document.
         :param retries: Override the default retry configuration for this method
@@ -967,7 +967,7 @@ class Collections(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.DeletecollectionitemRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             delete_collection_item_request=models.DeleteCollectionItemRequest(
                 collection_id=collection_id,
@@ -1050,7 +1050,7 @@ class Collections(BaseSDK):
         *,
         name: str,
         id: int,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         description: Optional[str] = None,
         added_roles: Optional[
@@ -1084,7 +1084,7 @@ class Collections(BaseSDK):
 
         :param name: The unique name of the Collection.
         :param id: The ID of the Collection to modify.
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param description: A brief summary of the Collection's contents.
         :param added_roles: A list of added user roles for the Collection.
@@ -1111,7 +1111,7 @@ class Collections(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.EditcollectionRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             edit_collection_request=models.EditCollectionRequest(
                 name=name,
@@ -1214,7 +1214,7 @@ class Collections(BaseSDK):
         *,
         name: str,
         id: int,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         description: Optional[str] = None,
         added_roles: Optional[
@@ -1248,7 +1248,7 @@ class Collections(BaseSDK):
 
         :param name: The unique name of the Collection.
         :param id: The ID of the Collection to modify.
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param description: A brief summary of the Collection's contents.
         :param added_roles: A list of added user roles for the Collection.
@@ -1275,7 +1275,7 @@ class Collections(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.EditcollectionRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             edit_collection_request=models.EditCollectionRequest(
                 name=name,
@@ -1378,7 +1378,7 @@ class Collections(BaseSDK):
         *,
         collection_id: int,
         item_id: str,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         name: Optional[str] = None,
         description: Optional[str] = None,
@@ -1394,7 +1394,7 @@ class Collections(BaseSDK):
 
         :param collection_id: The ID of the Collection to edit CollectionItems in.
         :param item_id: The ID of the CollectionItem to edit.
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param name: The optional name of the Collection item.
         :param description: A helpful description of why this CollectionItem is in the Collection that it's in.
@@ -1415,7 +1415,7 @@ class Collections(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.EditcollectionitemRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             edit_collection_item_request=models.EditCollectionItemRequest(
                 name=name,
@@ -1500,7 +1500,7 @@ class Collections(BaseSDK):
         *,
         collection_id: int,
         item_id: str,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         name: Optional[str] = None,
         description: Optional[str] = None,
@@ -1516,7 +1516,7 @@ class Collections(BaseSDK):
 
         :param collection_id: The ID of the Collection to edit CollectionItems in.
         :param item_id: The ID of the CollectionItem to edit.
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param name: The optional name of the Collection item.
         :param description: A helpful description of why this CollectionItem is in the Collection that it's in.
@@ -1537,7 +1537,7 @@ class Collections(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.EditcollectionitemRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             edit_collection_item_request=models.EditCollectionItemRequest(
                 name=name,
@@ -1617,261 +1617,11 @@ class Collections(BaseSDK):
             http_res,
         )
 
-    def edit(
-        self,
-        *,
-        x_scio_actas: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
-        added_collections: Optional[List[int]] = None,
-        removed_collections: Optional[List[int]] = None,
-        document_id: Optional[str] = None,
-        url: Optional[str] = None,
-        name: Optional[str] = None,
-        description: Optional[str] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.EditDocumentCollectionsResponse:
-        r"""Update document Collections
-
-        Update the Collections that a document belongs to.
-
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
-        :param added_collections: IDs of Collections to which a document is added.
-        :param removed_collections: IDs of Collections from which a document is removed.
-        :param document_id: The Glean Document ID of the item being added to or removed from Collections if it's an indexed document.
-        :param url: The URL of the item being added to or removed from Collections.
-        :param name: Custom title of the document if adding a non-indexed URL.
-        :param description: The description of this CollectionItem.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.EditdocumentcollectionsRequestRequest(
-            x_scio_actas=x_scio_actas,
-            x_glean_auth_type=x_glean_auth_type,
-            edit_document_collections_request=models.EditDocumentCollectionsRequest(
-                added_collections=added_collections,
-                removed_collections=removed_collections,
-                document_id=document_id,
-                url=url,
-                name=name,
-                description=description,
-            ),
-        )
-
-        req = self._build_request(
-            method="POST",
-            path="/rest/api/v1/editdocumentcollections",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=True,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.edit_document_collections_request,
-                False,
-                False,
-                "json",
-                models.EditDocumentCollectionsRequest,
-            ),
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                base_url=base_url or "",
-                operation_id="editdocumentcollections",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["400", "401", "429", "4XX", "5XX"],
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(
-                http_res.text, models.EditDocumentCollectionsResponse
-            )
-        if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
-
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
-
-    async def edit_async(
-        self,
-        *,
-        x_scio_actas: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
-        added_collections: Optional[List[int]] = None,
-        removed_collections: Optional[List[int]] = None,
-        document_id: Optional[str] = None,
-        url: Optional[str] = None,
-        name: Optional[str] = None,
-        description: Optional[str] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.EditDocumentCollectionsResponse:
-        r"""Update document Collections
-
-        Update the Collections that a document belongs to.
-
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
-        :param added_collections: IDs of Collections to which a document is added.
-        :param removed_collections: IDs of Collections from which a document is removed.
-        :param document_id: The Glean Document ID of the item being added to or removed from Collections if it's an indexed document.
-        :param url: The URL of the item being added to or removed from Collections.
-        :param name: Custom title of the document if adding a non-indexed URL.
-        :param description: The description of this CollectionItem.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.EditdocumentcollectionsRequestRequest(
-            x_scio_actas=x_scio_actas,
-            x_glean_auth_type=x_glean_auth_type,
-            edit_document_collections_request=models.EditDocumentCollectionsRequest(
-                added_collections=added_collections,
-                removed_collections=removed_collections,
-                document_id=document_id,
-                url=url,
-                name=name,
-                description=description,
-            ),
-        )
-
-        req = self._build_request_async(
-            method="POST",
-            path="/rest/api/v1/editdocumentcollections",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=True,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.edit_document_collections_request,
-                False,
-                False,
-                "json",
-                models.EditDocumentCollectionsRequest,
-            ),
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                base_url=base_url or "",
-                operation_id="editdocumentcollections",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["400", "401", "429", "4XX", "5XX"],
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(
-                http_res.text, models.EditDocumentCollectionsResponse
-            )
-        if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
-
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
-
     def get(
         self,
         *,
         id: int,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         with_items: Optional[bool] = None,
         with_hierarchy: Optional[bool] = None,
@@ -1886,7 +1636,7 @@ class Collections(BaseSDK):
         Read the details of a Collection given its ID. Does not fetch items in this Collection.
 
         :param id: The ID of the Collection to be retrieved.
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param with_items: Whether or not to include the Collection Items in this Collection. Only request if absolutely required, as this is expensive.
         :param with_hierarchy: Whether or not to include the top level Collection in this Collection's hierarchy.
@@ -1907,7 +1657,7 @@ class Collections(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetcollectionRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             get_collection_request=models.GetCollectionRequest(
                 id=id,
@@ -1988,7 +1738,7 @@ class Collections(BaseSDK):
         self,
         *,
         id: int,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         with_items: Optional[bool] = None,
         with_hierarchy: Optional[bool] = None,
@@ -2003,7 +1753,7 @@ class Collections(BaseSDK):
         Read the details of a Collection given its ID. Does not fetch items in this Collection.
 
         :param id: The ID of the Collection to be retrieved.
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param with_items: Whether or not to include the Collection Items in this Collection. Only request if absolutely required, as this is expensive.
         :param with_hierarchy: Whether or not to include the top level Collection in this Collection's hierarchy.
@@ -2024,7 +1774,7 @@ class Collections(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetcollectionRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             get_collection_request=models.GetCollectionRequest(
                 id=id,
@@ -2104,7 +1854,7 @@ class Collections(BaseSDK):
     def list(
         self,
         *,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         include_audience: Optional[bool] = None,
         include_roles: Optional[bool] = None,
@@ -2118,7 +1868,7 @@ class Collections(BaseSDK):
 
         List all existing Collections.
 
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param include_audience: Whether to include the audience filters with the listed Collections.
         :param include_roles: Whether to include the editor roles with the listed Collections.
@@ -2139,7 +1889,7 @@ class Collections(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.ListcollectionsRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             list_collections_request=models.ListCollectionsRequest(
                 include_audience=include_audience,
@@ -2218,7 +1968,7 @@ class Collections(BaseSDK):
     async def list_async(
         self,
         *,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         include_audience: Optional[bool] = None,
         include_roles: Optional[bool] = None,
@@ -2232,7 +1982,7 @@ class Collections(BaseSDK):
 
         List all existing Collections.
 
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param include_audience: Whether to include the audience filters with the listed Collections.
         :param include_roles: Whether to include the editor roles with the listed Collections.
@@ -2253,7 +2003,7 @@ class Collections(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.ListcollectionsRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             list_collections_request=models.ListCollectionsRequest(
                 include_audience=include_audience,
@@ -2309,472 +2059,6 @@ class Collections(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(http_res.text, models.ListCollectionsResponse)
-        if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
-
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
-
-    def move_item(
-        self,
-        *,
-        collection_id: int,
-        item_id: str,
-        x_scio_actas: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
-        new_next_item_id: Optional[str] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.MoveCollectionItemResponse:
-        r"""Move Collection item
-
-        Reorder a Collection by moving a CollectionItem below another CollectionItem.
-
-        :param collection_id: The ID of the Collection to move items in.
-        :param item_id: The item ID of the item being moved.
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
-        :param new_next_item_id: The (optional) item ID of the item that is the new next of itemId, or empty if this is now the last item. This item does not move, it's used as a reference position to put the itemId in the right position.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.MovecollectionitemRequestRequest(
-            x_scio_actas=x_scio_actas,
-            x_glean_auth_type=x_glean_auth_type,
-            move_collection_item_request=models.MoveCollectionItemRequest(
-                collection_id=collection_id,
-                item_id=item_id,
-                new_next_item_id=new_next_item_id,
-            ),
-        )
-
-        req = self._build_request(
-            method="POST",
-            path="/rest/api/v1/movecollectionitem",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=True,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.move_collection_item_request,
-                False,
-                False,
-                "json",
-                models.MoveCollectionItemRequest,
-            ),
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                base_url=base_url or "",
-                operation_id="movecollectionitem",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["400", "401", "422", "429", "4XX", "5XX"],
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(
-                http_res.text, models.MoveCollectionItemResponse
-            )
-        if utils.match_response(http_res, ["400", "401", "422", "429", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
-
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
-
-    async def move_item_async(
-        self,
-        *,
-        collection_id: int,
-        item_id: str,
-        x_scio_actas: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
-        new_next_item_id: Optional[str] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.MoveCollectionItemResponse:
-        r"""Move Collection item
-
-        Reorder a Collection by moving a CollectionItem below another CollectionItem.
-
-        :param collection_id: The ID of the Collection to move items in.
-        :param item_id: The item ID of the item being moved.
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
-        :param new_next_item_id: The (optional) item ID of the item that is the new next of itemId, or empty if this is now the last item. This item does not move, it's used as a reference position to put the itemId in the right position.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.MovecollectionitemRequestRequest(
-            x_scio_actas=x_scio_actas,
-            x_glean_auth_type=x_glean_auth_type,
-            move_collection_item_request=models.MoveCollectionItemRequest(
-                collection_id=collection_id,
-                item_id=item_id,
-                new_next_item_id=new_next_item_id,
-            ),
-        )
-
-        req = self._build_request_async(
-            method="POST",
-            path="/rest/api/v1/movecollectionitem",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=True,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.move_collection_item_request,
-                False,
-                False,
-                "json",
-                models.MoveCollectionItemRequest,
-            ),
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                base_url=base_url or "",
-                operation_id="movecollectionitem",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["400", "401", "422", "429", "4XX", "5XX"],
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(
-                http_res.text, models.MoveCollectionItemResponse
-            )
-        if utils.match_response(http_res, ["400", "401", "422", "429", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
-
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
-
-    def pin(
-        self,
-        *,
-        x_scio_actas: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
-        action: Optional[
-            models.PinCollectionRequestAction
-        ] = models.PinCollectionRequestAction.PIN,
-        data: Optional[
-            Union[models.CollectionPinMetadata, models.CollectionPinMetadataTypedDict]
-        ] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.GetCollectionResponse:
-        r"""Pin Collection
-
-        Given the Collection id and category, pins the Collection to the home page for all company users.
-
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
-        :param action: Whether to pin or unpin
-        :param data:
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.PincollectionRequestRequest(
-            x_scio_actas=x_scio_actas,
-            x_glean_auth_type=x_glean_auth_type,
-            pin_collection_request=models.PinCollectionRequest(
-                action=action,
-                data=utils.get_pydantic_model(
-                    data, Optional[models.CollectionPinMetadata]
-                ),
-            ),
-        )
-
-        req = self._build_request(
-            method="POST",
-            path="/rest/api/v1/pincollection",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=True,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.pin_collection_request,
-                False,
-                False,
-                "json",
-                models.PinCollectionRequest,
-            ),
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                base_url=base_url or "",
-                operation_id="pincollection",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["400", "401", "429", "4XX", "5XX"],
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(http_res.text, models.GetCollectionResponse)
-        if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
-
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
-
-    async def pin_async(
-        self,
-        *,
-        x_scio_actas: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
-        action: Optional[
-            models.PinCollectionRequestAction
-        ] = models.PinCollectionRequestAction.PIN,
-        data: Optional[
-            Union[models.CollectionPinMetadata, models.CollectionPinMetadataTypedDict]
-        ] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.GetCollectionResponse:
-        r"""Pin Collection
-
-        Given the Collection id and category, pins the Collection to the home page for all company users.
-
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
-        :param action: Whether to pin or unpin
-        :param data:
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.PincollectionRequestRequest(
-            x_scio_actas=x_scio_actas,
-            x_glean_auth_type=x_glean_auth_type,
-            pin_collection_request=models.PinCollectionRequest(
-                action=action,
-                data=utils.get_pydantic_model(
-                    data, Optional[models.CollectionPinMetadata]
-                ),
-            ),
-        )
-
-        req = self._build_request_async(
-            method="POST",
-            path="/rest/api/v1/pincollection",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=True,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.pin_collection_request,
-                False,
-                False,
-                "json",
-                models.PinCollectionRequest,
-            ),
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                base_url=base_url or "",
-                operation_id="pincollection",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["400", "401", "429", "4XX", "5XX"],
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(http_res.text, models.GetCollectionResponse)
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.GleanError(

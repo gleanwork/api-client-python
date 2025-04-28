@@ -20,7 +20,7 @@
 
 ## update_permissions
 
-Updates the permissions for a given document without modifying document content. **This endpoint is not yet generally available. Please contact Glean support to enable this feature.**
+Updates the permissions for a given document without modifying document content.
 
 ### Example Usage
 

@@ -13,7 +13,7 @@ class Insights(BaseSDK):
         self,
         *,
         categories: List[models.InsightsRequestCategory],
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         departments: Optional[List[str]] = None,
         day_range: Optional[Union[models.Period, models.PeriodTypedDict]] = None,
@@ -21,6 +21,12 @@ class Insights(BaseSDK):
             Union[
                 models.InsightsAiAppRequestOptions,
                 models.InsightsAiAppRequestOptionsTypedDict,
+            ]
+        ] = None,
+        agents_request_options: Optional[
+            Union[
+                models.InsightsAgentsRequestOptions,
+                models.InsightsAgentsRequestOptionsTypedDict,
             ]
         ] = None,
         assistant_activity_types: Optional[List[models.AssistantActivityType]] = None,
@@ -35,11 +41,12 @@ class Insights(BaseSDK):
         Reads the aggregate information for each user, query, and content.
 
         :param categories: Categories of data requested. Request can include single or multiple types.
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param departments: Departments that the data is requested for. If this is empty, corresponds to whole company.
         :param day_range:
         :param ai_app_request_options:
+        :param agents_request_options:
         :param assistant_activity_types: Types of activity that should count in the definition of an Assistant Active User. Affects only insights for AI category.
         :param disable_per_user_insights: If true, suppresses the generation of per-user Insights in the response. Default is false.
         :param retries: Override the default retry configuration for this method
@@ -58,7 +65,7 @@ class Insights(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.InsightsRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             insights_request=models.InsightsRequest(
                 categories=categories,
@@ -66,6 +73,10 @@ class Insights(BaseSDK):
                 day_range=utils.get_pydantic_model(day_range, Optional[models.Period]),
                 ai_app_request_options=utils.get_pydantic_model(
                     ai_app_request_options, Optional[models.InsightsAiAppRequestOptions]
+                ),
+                agents_request_options=utils.get_pydantic_model(
+                    agents_request_options,
+                    Optional[models.InsightsAgentsRequestOptions],
                 ),
                 assistant_activity_types=assistant_activity_types,
                 disable_per_user_insights=disable_per_user_insights,
@@ -139,7 +150,7 @@ class Insights(BaseSDK):
         self,
         *,
         categories: List[models.InsightsRequestCategory],
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         departments: Optional[List[str]] = None,
         day_range: Optional[Union[models.Period, models.PeriodTypedDict]] = None,
@@ -147,6 +158,12 @@ class Insights(BaseSDK):
             Union[
                 models.InsightsAiAppRequestOptions,
                 models.InsightsAiAppRequestOptionsTypedDict,
+            ]
+        ] = None,
+        agents_request_options: Optional[
+            Union[
+                models.InsightsAgentsRequestOptions,
+                models.InsightsAgentsRequestOptionsTypedDict,
             ]
         ] = None,
         assistant_activity_types: Optional[List[models.AssistantActivityType]] = None,
@@ -161,11 +178,12 @@ class Insights(BaseSDK):
         Reads the aggregate information for each user, query, and content.
 
         :param categories: Categories of data requested. Request can include single or multiple types.
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param departments: Departments that the data is requested for. If this is empty, corresponds to whole company.
         :param day_range:
         :param ai_app_request_options:
+        :param agents_request_options:
         :param assistant_activity_types: Types of activity that should count in the definition of an Assistant Active User. Affects only insights for AI category.
         :param disable_per_user_insights: If true, suppresses the generation of per-user Insights in the response. Default is false.
         :param retries: Override the default retry configuration for this method
@@ -184,7 +202,7 @@ class Insights(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.InsightsRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             insights_request=models.InsightsRequest(
                 categories=categories,
@@ -192,6 +210,10 @@ class Insights(BaseSDK):
                 day_range=utils.get_pydantic_model(day_range, Optional[models.Period]),
                 ai_app_request_options=utils.get_pydantic_model(
                     ai_app_request_options, Optional[models.InsightsAiAppRequestOptions]
+                ),
+                agents_request_options=utils.get_pydantic_model(
+                    agents_request_options,
+                    Optional[models.InsightsAgentsRequestOptions],
                 ),
                 assistant_activity_types=assistant_activity_types,
                 disable_per_user_insights=disable_per_user_insights,

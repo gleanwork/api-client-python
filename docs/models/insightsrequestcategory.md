@@ -5,6 +5,7 @@
 
 | Name            | Value           |
 | --------------- | --------------- |
+| `AGENTS`        | AGENTS          |
 | `AI`            | AI              |
 | `AI_APPS`       | AI_APPS         |
 | `ANNOUNCEMENTS` | ANNOUNCEMENTS   |

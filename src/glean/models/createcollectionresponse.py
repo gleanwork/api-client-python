@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 from .collection import Collection, CollectionTypedDict
-from .collectionerror_1 import CollectionError1, CollectionError1TypedDict
+from .collectionerror import CollectionError, CollectionErrorTypedDict
 from .collectionitem import CollectionItem, CollectionItemTypedDict
 from .collectionpinnedmetadata import (
     CollectionPinnedMetadata,
@@ -73,7 +73,7 @@ class CreateCollectionResponseTypedDict(TypedDict):
     roles: NotRequired[List[UserRoleSpecificationTypedDict]]
     r"""A list of user roles for the Collection."""
     collection: NotRequired[CollectionTypedDict]
-    error: NotRequired[CollectionError1TypedDict]
+    error: NotRequired[CollectionErrorTypedDict]
 
 
 class CreateCollectionResponse(BaseModel):
@@ -159,4 +159,4 @@ class CreateCollectionResponse(BaseModel):
 
     collection: Optional[Collection] = None
 
-    error: Optional[CollectionError1] = None
+    error: Optional[CollectionError] = None
