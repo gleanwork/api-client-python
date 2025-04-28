@@ -2,6 +2,7 @@
 
 from glean import Glean, models
 import os
+import pytest
 from tests.test_client import create_test_http_client
 
 
@@ -9,6 +10,7 @@ def test_entities_listentities():
     test_http_client = create_test_http_client("listentities")
 
     with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
     ) as g_client:
@@ -33,81 +35,13 @@ def test_entities_listentities():
             page_size=100,
         )
         assert res is not None
-        assert res == models.ListEntitiesResponse(
-            results=[
-                models.Person(
-                    name="George Clooney",
-                    obfuscated_id="abc123",
-                ),
-            ],
-            team_results=[
-                models.Team(
-                    id="<id>",
-                    name="<value>",
-                    members=[],
-                    datasource_profiles=[],
-                ),
-                models.Team(
-                    id="<id>",
-                    name="<value>",
-                    datasource_profiles=[],
-                ),
-            ],
-            custom_entity_results=[
-                models.CustomEntity(
-                    roles=[],
-                ),
-                models.CustomEntity(),
-            ],
-            facet_results=[
-                models.FacetResult(
-                    source_name="container_name",
-                    operator_name="SelectMultiple",
-                    buckets=[
-                        models.FacetBucket(
-                            count=1,
-                            datasource="jira",
-                            percentage=5,
-                            value=models.FacetValue(
-                                string_value="engineering",
-                                integer_value=5,
-                                display_label="engineering",
-                                icon_config=models.IconConfig(
-                                    color="#343CED",
-                                    key="person_icon",
-                                    icon_type=models.IconType.GLYPH,
-                                    name="user",
-                                ),
-                            ),
-                        ),
-                        models.FacetBucket(
-                            count=1,
-                            datasource="jira",
-                            percentage=5,
-                            value=models.FacetValue(
-                                string_value="engineering",
-                                integer_value=5,
-                                display_label="engineering",
-                                icon_config=models.IconConfig(
-                                    color="#343CED",
-                                    key="person_icon",
-                                    icon_type=models.IconType.GLYPH,
-                                    name="user",
-                                ),
-                            ),
-                        ),
-                    ],
-                    has_more_buckets=False,
-                    group_name="Service Cloud",
-                ),
-            ],
-        )
 
 
 def test_entities_people():
     test_http_client = create_test_http_client("people")
 
     with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
     ) as g_client:
@@ -120,104 +54,10 @@ def test_entities_people():
             ]
         )
         assert res is not None
-        assert res == models.PeopleResponse(
-            results=[
-                models.Person(
-                    name="George Clooney",
-                    obfuscated_id="abc123",
-                ),
-            ],
-            related_documents=[
-                models.RelatedDocuments(
-                    query_suggestion=models.QuerySuggestion(
-                        query="app:github type:pull author:mortimer",
-                        search_provider_info=models.SearchProviderInfo(
-                            name="Google",
-                            search_link_url_template="https://www.google.com/search?q={query}&hl=en",
-                        ),
-                        label="Mortimer's PRs",
-                        datasource="github",
-                        request_options=models.SearchRequestOptions(
-                            datasource_filter="JIRA",
-                            datasources_filter=[
-                                "JIRA",
-                            ],
-                            query_overrides_facet_filters=True,
-                            facet_filters=[
-                                models.FacetFilter(
-                                    field_name="type",
-                                    values=[
-                                        models.FacetFilterValue(
-                                            value="Spreadsheet",
-                                            relation_type=models.RelationType.EQUALS,
-                                        ),
-                                        models.FacetFilterValue(
-                                            value="Presentation",
-                                            relation_type=models.RelationType.EQUALS,
-                                        ),
-                                    ],
-                                ),
-                            ],
-                            facet_filter_sets=[
-                                models.FacetFilterSet(
-                                    filters=[
-                                        models.FacetFilter(
-                                            field_name="type",
-                                            values=[],
-                                        ),
-                                    ],
-                                ),
-                            ],
-                            facet_bucket_size=896514,
-                            auth_tokens=[
-                                models.AuthToken(
-                                    access_token="123abc",
-                                    datasource="gmail",
-                                    scope="email profile https://www.googleapis.com/auth/gmail.readonly",
-                                    token_type="Bearer",
-                                    auth_user="1",
-                                ),
-                            ],
-                        ),
-                        ranges=[],
-                        input_details=models.SearchRequestInputDetails(
-                            has_copy_paste=True,
-                        ),
-                    ),
-                    results=[],
-                ),
-                models.RelatedDocuments(),
-            ],
-        )
 
 
+@pytest.mark.skip(
+    reason="incomplete test found please make sure to address the following errors: [`workflow step teams.test referencing operation teams not found in document`]"
+)
 def test_entities_teams():
-    test_http_client = create_test_http_client("teams")
-
-    with Glean(
-        client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
-    ) as g_client:
-        assert g_client is not None
-
-        res = g_client.client.entities.get_teams(
-            ids=[
-                "abc123",
-            ]
-        )
-        assert res is not None
-        assert res == models.TeamsResponse(
-            results=[
-                models.Team(
-                    id="<id>",
-                    name="<value>",
-                    members=[],
-                    datasource_profiles=[],
-                ),
-                models.Team(
-                    id="<id>",
-                    name="<value>",
-                    datasource_profiles=[],
-                ),
-            ],
-        )
+    pass

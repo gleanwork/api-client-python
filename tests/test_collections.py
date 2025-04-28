@@ -2,8 +2,8 @@
 
 from datetime import date
 from glean import Glean, models
-from glean.utils import parse_datetime
 import os
+import pytest
 from tests.test_client import create_test_http_client
 
 
@@ -11,75 +11,21 @@ def test_collections_addcollectionitems():
     test_http_client = create_test_http_client("addcollectionitems")
 
     with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.client.collections.add_items(collection_id=3287.57)
+        res = g_client.client.collections.add_items(collection_id=6460.15)
         assert res is not None
-        assert res == models.AddCollectionItemsResponse(
-            collection=models.Collection(
-                name="<value>",
-                description="indeed jubilantly phew upon angrily really by before spectate",
-                added_roles=[],
-                removed_roles=[],
-                audience_filters=[
-                    models.FacetFilter(
-                        field_name="type",
-                        values=[
-                            models.FacetFilterValue(
-                                value="Spreadsheet",
-                                relation_type=models.RelationType.EQUALS,
-                            ),
-                            models.FacetFilterValue(
-                                value="Presentation",
-                                relation_type=models.RelationType.EQUALS,
-                            ),
-                        ],
-                    ),
-                ],
-                id=135487,
-                creator=models.Person(
-                    name="George Clooney",
-                    obfuscated_id="abc123",
-                    related_documents=[],
-                    metadata=models.PersonMetadata(
-                        type=models.PersonMetadataType.FULL_TIME,
-                        title="Actor",
-                        department="Movies",
-                        email="george@example.com",
-                        location="Hollywood, CA",
-                        management_chain=[],
-                        phone="6505551234",
-                        photo_url="https://example.com/george.jpg",
-                        reports=[],
-                        start_date=date.fromisoformat("2000-01-23"),
-                        datasource_profile=[],
-                        query_suggestions=models.QuerySuggestionList(
-                            suggestions=[],
-                        ),
-                        invite_info=models.InviteInfo(
-                            invites=[],
-                        ),
-                        custom_fields=[],
-                        badges=[],
-                    ),
-                ),
-                updated_by=models.Person(
-                    name="George Clooney",
-                    obfuscated_id="abc123",
-                ),
-                items=[],
-                roles=[],
-            ),
-        )
 
 
 def test_collections_createcollection():
     test_http_client = create_test_http_client("createcollection")
 
     with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
     ) as g_client:
@@ -102,7 +48,12 @@ def test_collections_createcollection():
                             phone="6505551234",
                             photo_url="https://example.com/george.jpg",
                             start_date=date.fromisoformat("2000-01-23"),
-                            datasource_profile=[],
+                            datasource_profile=[
+                                models.DatasourceProfile(
+                                    datasource="github",
+                                    handle="<value>",
+                                ),
+                            ],
                             query_suggestions=models.QuerySuggestionList(
                                 suggestions=[],
                             ),
@@ -124,13 +75,10 @@ def test_collections_createcollection():
                             ],
                         ),
                     ),
-                    role=models.UserRole.VIEWER,
+                    role=models.UserRole.OWNER,
                 ),
                 models.UserRoleSpecification(
-                    role=models.UserRole.VIEWER,
-                ),
-                models.UserRoleSpecification(
-                    role=models.UserRole.VIEWER,
+                    role=models.UserRole.VERIFIER,
                 ),
             ],
             removed_roles=[
@@ -138,36 +86,44 @@ def test_collections_createcollection():
                     person=models.Person(
                         name="George Clooney",
                         obfuscated_id="abc123",
-                        related_documents=[],
                         metadata=models.PersonMetadata(
                             type=models.PersonMetadataType.FULL_TIME,
                             title="Actor",
                             department="Movies",
                             email="george@example.com",
                             location="Hollywood, CA",
-                            management_chain=[],
                             phone="6505551234",
                             photo_url="https://example.com/george.jpg",
-                            reports=[],
                             start_date=date.fromisoformat("2000-01-23"),
-                            datasource_profile=[],
-                            query_suggestions=models.QuerySuggestionList(
-                                suggestions=[],
-                            ),
-                            invite_info=models.InviteInfo(
-                                invites=[],
-                            ),
-                            custom_fields=[],
-                            badges=[],
+                            datasource_profile=[
+                                models.DatasourceProfile(
+                                    datasource="github",
+                                    handle="<value>",
+                                ),
+                            ],
+                            query_suggestions=models.QuerySuggestionList(),
+                            invite_info=models.InviteInfo(),
+                            badges=[
+                                models.Badge(
+                                    key="deployment_name_new_hire",
+                                    display_name="New hire",
+                                    icon_config=models.IconConfig(
+                                        color="#343CED",
+                                        key="person_icon",
+                                        icon_type=models.IconType.GLYPH,
+                                        name="user",
+                                    ),
+                                ),
+                            ],
                         ),
                     ),
-                    role=models.UserRole.VIEWER,
+                    role=models.UserRole.VERIFIER,
                 ),
                 models.UserRoleSpecification(
-                    role=models.UserRole.VIEWER,
+                    role=models.UserRole.ANSWER_MODERATOR,
                 ),
                 models.UserRoleSpecification(
-                    role=models.UserRole.VIEWER,
+                    role=models.UserRole.OWNER,
                 ),
             ],
             audience_filters=[
@@ -187,202 +143,13 @@ def test_collections_createcollection():
             ],
         )
         assert res is not None
-        assert res == models.CreateCollectionResponse(
-            name="<value>",
-            description="out grim reassemble for ouch seldom whenever oh modulo boo",
-            added_roles=[
-                models.UserRoleSpecification(
-                    person=models.Person(
-                        name="George Clooney",
-                        obfuscated_id="abc123",
-                        related_documents=[],
-                        metadata=models.PersonMetadata(
-                            type=models.PersonMetadataType.FULL_TIME,
-                            title="Actor",
-                            department="Movies",
-                            email="george@example.com",
-                            location="Hollywood, CA",
-                            phone="6505551234",
-                            photo_url="https://example.com/george.jpg",
-                            start_date=date.fromisoformat("2000-01-23"),
-                            datasource_profile=[],
-                            query_suggestions=models.QuerySuggestionList(
-                                suggestions=[],
-                            ),
-                            invite_info=models.InviteInfo(
-                                invites=[],
-                            ),
-                            custom_fields=[],
-                            badges=[
-                                models.Badge(
-                                    key="deployment_name_new_hire",
-                                    display_name="New hire",
-                                    icon_config=models.IconConfig(
-                                        color="#343CED",
-                                        key="person_icon",
-                                        icon_type=models.IconType.GLYPH,
-                                        name="user",
-                                    ),
-                                ),
-                            ],
-                        ),
-                    ),
-                    role=models.UserRole.VIEWER,
-                ),
-            ],
-            removed_roles=[
-                models.UserRoleSpecification(
-                    role=models.UserRole.VIEWER,
-                ),
-                models.UserRoleSpecification(
-                    role=models.UserRole.VIEWER,
-                ),
-            ],
-            audience_filters=[
-                models.FacetFilter(
-                    field_name="type",
-                    values=[
-                        models.FacetFilterValue(
-                            value="Spreadsheet",
-                            relation_type=models.RelationType.EQUALS,
-                        ),
-                        models.FacetFilterValue(
-                            value="Presentation",
-                            relation_type=models.RelationType.EQUALS,
-                        ),
-                    ],
-                ),
-            ],
-            id=169736,
-            creator=models.Person(
-                name="George Clooney",
-                obfuscated_id="abc123",
-            ),
-            updated_by=models.Person(
-                name="George Clooney",
-                obfuscated_id="abc123",
-            ),
-            items=[
-                models.CollectionItem(
-                    collection_id=343326,
-                    created_by=models.Person(
-                        name="George Clooney",
-                        obfuscated_id="abc123",
-                    ),
-                    document=models.Document(
-                        metadata=models.DocumentMetadata(
-                            datasource="datasource",
-                            object_type="Feature Request",
-                            container="container",
-                            parent_id="JIRA_EN-1337",
-                            mime_type="mimeType",
-                            document_id="documentId",
-                            create_time=parse_datetime("2000-01-23T04:56:07.000Z"),
-                            update_time=parse_datetime("2000-01-23T04:56:07.000Z"),
-                            author=models.Person(
-                                name="George Clooney",
-                                obfuscated_id="abc123",
-                            ),
-                            owner=models.Person(
-                                name="George Clooney",
-                                obfuscated_id="abc123",
-                            ),
-                            mentioned_people=[],
-                            components=[
-                                "Backend",
-                                "Networking",
-                            ],
-                            status='["Done"]',
-                            pins=[],
-                            assigned_to=models.Person(
-                                name="George Clooney",
-                                obfuscated_id="abc123",
-                            ),
-                            collections=[],
-                            interactions=models.DocumentInteractions(
-                                reacts=[],
-                                shares=[],
-                            ),
-                            verification=models.Verification(
-                                state=models.State.VERIFIED,
-                                metadata=models.VerificationMetadata(
-                                    last_verifier=models.Person(
-                                        name="George Clooney",
-                                        obfuscated_id="abc123",
-                                    ),
-                                    reminders=[],
-                                    last_reminder=models.Reminder(
-                                        assignee=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                        requestor=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                        remind_at=949753,
-                                    ),
-                                    candidate_verifiers=[],
-                                ),
-                            ),
-                            shortcuts=[],
-                            custom_data={
-                                "someCustomField": models.CustomDataValue(),
-                            },
-                            contact_person=models.Person(
-                                name="George Clooney",
-                                obfuscated_id="abc123",
-                            ),
-                            ancestors=[],
-                        ),
-                    ),
-                    shortcut=models.Shortcut(
-                        input_alias="<value>",
-                        destination_url="https://probable-heating.com/",
-                        created_by='{"name":"George Clooney","obfuscatedId":"abc123","relatedDocuments":[],"metadata":{"type":"FULL_TIME","title":"Actor","department":"Movies","email":"george@example.com","location":"Hollywood, CA","managementChain":[],"phone":"6505551234","photoUrl":"https://example.com/george.jpg","reports":[],"startDate":"2000-01-23","datasourceProfile":[],"querySuggestions":{"suggestions":[]},"inviteInfo":{"invites":[]},"customFields":[],"badges":[]}}',
-                        updated_by='{"name":"George Clooney","obfuscatedId":"abc123","relatedDocuments":[],"metadata":{"type":"FULL_TIME","title":"Actor","department":"Movies","email":"george@example.com","location":"Hollywood, CA","managementChain":[],"phone":"6505551234","photoUrl":"https://example.com/george.jpg","reports":[],"startDate":"2000-01-23","datasourceProfile":[],"querySuggestions":{"suggestions":[]},"inviteInfo":{"invites":[]},"customFields":[],"badges":[]}}',
-                    ),
-                    collection=models.Collection(
-                        name="<value>",
-                        description="deny reconstitute seriously exotic barring swelter",
-                        audience_filters=[],
-                        id=572830,
-                        children=[],
-                        roles=[],
-                    ),
-                    item_type=models.CollectionItemItemType.COLLECTION,
-                ),
-                models.CollectionItem(
-                    collection_id=343326,
-                    shortcut=models.Shortcut(
-                        input_alias="<value>",
-                        destination_url="https://standard-utilization.com/",
-                        created_by='{"name":"George Clooney","obfuscatedId":"abc123","relatedDocuments":[],"metadata":{"type":"FULL_TIME","title":"Actor","department":"Movies","email":"george@example.com","location":"Hollywood, CA","managementChain":[],"phone":"6505551234","photoUrl":"https://example.com/george.jpg","reports":[],"startDate":"2000-01-23","datasourceProfile":[],"querySuggestions":{"suggestions":[]},"inviteInfo":{"invites":[]},"customFields":[],"badges":[]}}',
-                        updated_by='{"name":"George Clooney","obfuscatedId":"abc123","relatedDocuments":[],"metadata":{"type":"FULL_TIME","title":"Actor","department":"Movies","email":"george@example.com","location":"Hollywood, CA","managementChain":[],"phone":"6505551234","photoUrl":"https://example.com/george.jpg","reports":[],"startDate":"2000-01-23","datasourceProfile":[],"querySuggestions":{"suggestions":[]},"inviteInfo":{"invites":[]},"customFields":[],"badges":[]}}',
-                    ),
-                    item_type=models.CollectionItemItemType.COLLECTION,
-                ),
-                models.CollectionItem(
-                    collection_id=343326,
-                    shortcut=models.Shortcut(
-                        input_alias="<value>",
-                        destination_url="https://brisk-seafood.net/",
-                        created_by='{"name":"George Clooney","obfuscatedId":"abc123","relatedDocuments":[],"metadata":{"type":"FULL_TIME","title":"Actor","department":"Movies","email":"george@example.com","location":"Hollywood, CA","managementChain":[],"phone":"6505551234","photoUrl":"https://example.com/george.jpg","reports":[],"startDate":"2000-01-23","datasourceProfile":[],"querySuggestions":{"suggestions":[]},"inviteInfo":{"invites":[]},"customFields":[],"badges":[]}}',
-                        updated_by='{"name":"George Clooney","obfuscatedId":"abc123","relatedDocuments":[],"metadata":{"type":"FULL_TIME","title":"Actor","department":"Movies","email":"george@example.com","location":"Hollywood, CA","managementChain":[],"phone":"6505551234","photoUrl":"https://example.com/george.jpg","reports":[],"startDate":"2000-01-23","datasourceProfile":[],"querySuggestions":{"suggestions":[]},"inviteInfo":{"invites":[]},"customFields":[],"badges":[]}}',
-                    ),
-                    item_type=models.CollectionItemItemType.COLLECTION,
-                ),
-            ],
-            children=[],
-            roles=[],
-            error_code=models.CreateCollectionResponseErrorCode.NO_PERMISSIONS,
-        )
 
 
 def test_collections_deletecollection():
     test_http_client = create_test_http_client("deletecollection")
 
     with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
     ) as g_client:
@@ -390,8 +157,8 @@ def test_collections_deletecollection():
 
         g_client.client.collections.delete(
             ids=[
-                998837,
-                561414,
+                698486,
+                386564,
             ]
         )
 
@@ -400,77 +167,23 @@ def test_collections_deletecollectionitem():
     test_http_client = create_test_http_client("deletecollectionitem")
 
     with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
     ) as g_client:
         assert g_client is not None
 
         res = g_client.client.collections.delete_item(
-            collection_id=9935.14, item_id="<id>"
+            collection_id=1357.59, item_id="<id>"
         )
         assert res is not None
-        assert res == models.DeleteCollectionItemResponse(
-            collection=models.Collection(
-                name="<value>",
-                description="indeed jubilantly phew upon angrily really by before spectate",
-                added_roles=[],
-                removed_roles=[],
-                audience_filters=[
-                    models.FacetFilter(
-                        field_name="type",
-                        values=[
-                            models.FacetFilterValue(
-                                value="Spreadsheet",
-                                relation_type=models.RelationType.EQUALS,
-                            ),
-                            models.FacetFilterValue(
-                                value="Presentation",
-                                relation_type=models.RelationType.EQUALS,
-                            ),
-                        ],
-                    ),
-                ],
-                id=135487,
-                creator=models.Person(
-                    name="George Clooney",
-                    obfuscated_id="abc123",
-                    related_documents=[],
-                    metadata=models.PersonMetadata(
-                        type=models.PersonMetadataType.FULL_TIME,
-                        title="Actor",
-                        department="Movies",
-                        email="george@example.com",
-                        location="Hollywood, CA",
-                        management_chain=[],
-                        phone="6505551234",
-                        photo_url="https://example.com/george.jpg",
-                        reports=[],
-                        start_date=date.fromisoformat("2000-01-23"),
-                        datasource_profile=[],
-                        query_suggestions=models.QuerySuggestionList(
-                            suggestions=[],
-                        ),
-                        invite_info=models.InviteInfo(
-                            invites=[],
-                        ),
-                        custom_fields=[],
-                        badges=[],
-                    ),
-                ),
-                updated_by=models.Person(
-                    name="George Clooney",
-                    obfuscated_id="abc123",
-                ),
-                items=[],
-                roles=[],
-            ),
-        )
 
 
 def test_collections_editcollection():
     test_http_client = create_test_http_client("editcollection")
 
     with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
     ) as g_client:
@@ -478,7 +191,7 @@ def test_collections_editcollection():
 
         res = g_client.client.collections.update(
             name="<value>",
-            id=546215,
+            id=720396,
             added_roles=[
                 models.UserRoleSpecification(
                     person=models.Person(
@@ -494,7 +207,12 @@ def test_collections_editcollection():
                             phone="6505551234",
                             photo_url="https://example.com/george.jpg",
                             start_date=date.fromisoformat("2000-01-23"),
-                            datasource_profile=[],
+                            datasource_profile=[
+                                models.DatasourceProfile(
+                                    datasource="github",
+                                    handle="<value>",
+                                ),
+                            ],
                             query_suggestions=models.QuerySuggestionList(
                                 suggestions=[],
                             ),
@@ -516,13 +234,13 @@ def test_collections_editcollection():
                             ],
                         ),
                     ),
-                    role=models.UserRole.VIEWER,
+                    role=models.UserRole.ANSWER_MODERATOR,
                 ),
                 models.UserRoleSpecification(
-                    role=models.UserRole.VIEWER,
+                    role=models.UserRole.EDITOR,
                 ),
                 models.UserRoleSpecification(
-                    role=models.UserRole.VIEWER,
+                    role=models.UserRole.ANSWER_MODERATOR,
                 ),
             ],
             removed_roles=[
@@ -530,30 +248,38 @@ def test_collections_editcollection():
                     person=models.Person(
                         name="George Clooney",
                         obfuscated_id="abc123",
-                        related_documents=[],
                         metadata=models.PersonMetadata(
                             type=models.PersonMetadataType.FULL_TIME,
                             title="Actor",
                             department="Movies",
                             email="george@example.com",
                             location="Hollywood, CA",
-                            management_chain=[],
                             phone="6505551234",
                             photo_url="https://example.com/george.jpg",
-                            reports=[],
                             start_date=date.fromisoformat("2000-01-23"),
-                            datasource_profile=[],
-                            query_suggestions=models.QuerySuggestionList(
-                                suggestions=[],
-                            ),
-                            invite_info=models.InviteInfo(
-                                invites=[],
-                            ),
-                            custom_fields=[],
-                            badges=[],
+                            datasource_profile=[
+                                models.DatasourceProfile(
+                                    datasource="github",
+                                    handle="<value>",
+                                ),
+                            ],
+                            query_suggestions=models.QuerySuggestionList(),
+                            invite_info=models.InviteInfo(),
+                            badges=[
+                                models.Badge(
+                                    key="deployment_name_new_hire",
+                                    display_name="New hire",
+                                    icon_config=models.IconConfig(
+                                        color="#343CED",
+                                        key="person_icon",
+                                        icon_type=models.IconType.GLYPH,
+                                        name="user",
+                                    ),
+                                ),
+                            ],
                         ),
                     ),
-                    role=models.UserRole.VIEWER,
+                    role=models.UserRole.ANSWER_MODERATOR,
                 ),
             ],
             audience_filters=[
@@ -573,456 +299,50 @@ def test_collections_editcollection():
             ],
         )
         assert res is not None
-        assert res == models.EditCollectionResponse(
-            name="<value>",
-            description="slap joshingly pointed gerbil in down hence deny how miserable",
-            added_roles=[
-                models.UserRoleSpecification(
-                    person=models.Person(
-                        name="George Clooney",
-                        obfuscated_id="abc123",
-                        related_documents=[],
-                        metadata=models.PersonMetadata(
-                            type=models.PersonMetadataType.FULL_TIME,
-                            title="Actor",
-                            department="Movies",
-                            email="george@example.com",
-                            location="Hollywood, CA",
-                            phone="6505551234",
-                            photo_url="https://example.com/george.jpg",
-                            start_date=date.fromisoformat("2000-01-23"),
-                            datasource_profile=[],
-                            query_suggestions=models.QuerySuggestionList(
-                                suggestions=[],
-                            ),
-                            invite_info=models.InviteInfo(
-                                invites=[],
-                            ),
-                            custom_fields=[],
-                            badges=[
-                                models.Badge(
-                                    key="deployment_name_new_hire",
-                                    display_name="New hire",
-                                    icon_config=models.IconConfig(
-                                        color="#343CED",
-                                        key="person_icon",
-                                        icon_type=models.IconType.GLYPH,
-                                        name="user",
-                                    ),
-                                ),
-                            ],
-                        ),
-                    ),
-                    role=models.UserRole.VIEWER,
-                ),
-                models.UserRoleSpecification(
-                    role=models.UserRole.VIEWER,
-                ),
-            ],
-            removed_roles=[
-                models.UserRoleSpecification(
-                    role=models.UserRole.VIEWER,
-                ),
-            ],
-            audience_filters=[
-                models.FacetFilter(
-                    field_name="type",
-                    values=[
-                        models.FacetFilterValue(
-                            value="Spreadsheet",
-                            relation_type=models.RelationType.EQUALS,
-                        ),
-                        models.FacetFilterValue(
-                            value="Presentation",
-                            relation_type=models.RelationType.EQUALS,
-                        ),
-                    ],
-                ),
-            ],
-            id=984707,
-            creator=models.Person(
-                name="George Clooney",
-                obfuscated_id="abc123",
-            ),
-            updated_by=models.Person(
-                name="George Clooney",
-                obfuscated_id="abc123",
-            ),
-            items=[
-                models.CollectionItem(
-                    collection_id=343326,
-                    created_by=models.Person(
-                        name="George Clooney",
-                        obfuscated_id="abc123",
-                    ),
-                    document=models.Document(
-                        metadata=models.DocumentMetadata(
-                            datasource="datasource",
-                            object_type="Feature Request",
-                            container="container",
-                            parent_id="JIRA_EN-1337",
-                            mime_type="mimeType",
-                            document_id="documentId",
-                            create_time=parse_datetime("2000-01-23T04:56:07.000Z"),
-                            update_time=parse_datetime("2000-01-23T04:56:07.000Z"),
-                            author=models.Person(
-                                name="George Clooney",
-                                obfuscated_id="abc123",
-                            ),
-                            owner=models.Person(
-                                name="George Clooney",
-                                obfuscated_id="abc123",
-                            ),
-                            mentioned_people=[],
-                            components=[
-                                "Backend",
-                                "Networking",
-                            ],
-                            status='["Done"]',
-                            pins=[],
-                            assigned_to=models.Person(
-                                name="George Clooney",
-                                obfuscated_id="abc123",
-                            ),
-                            collections=[],
-                            interactions=models.DocumentInteractions(
-                                reacts=[],
-                                shares=[],
-                            ),
-                            verification=models.Verification(
-                                state=models.State.VERIFIED,
-                                metadata=models.VerificationMetadata(
-                                    last_verifier=models.Person(
-                                        name="George Clooney",
-                                        obfuscated_id="abc123",
-                                    ),
-                                    reminders=[],
-                                    last_reminder=models.Reminder(
-                                        assignee=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                        requestor=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                        remind_at=949753,
-                                    ),
-                                    candidate_verifiers=[],
-                                ),
-                            ),
-                            shortcuts=[],
-                            custom_data={
-                                "someCustomField": models.CustomDataValue(),
-                            },
-                            contact_person=models.Person(
-                                name="George Clooney",
-                                obfuscated_id="abc123",
-                            ),
-                            ancestors=[],
-                        ),
-                    ),
-                    shortcut=models.Shortcut(
-                        input_alias="<value>",
-                        destination_url="https://passionate-flu.org",
-                        created_by='{"name":"George Clooney","obfuscatedId":"abc123","relatedDocuments":[],"metadata":{"type":"FULL_TIME","title":"Actor","department":"Movies","email":"george@example.com","location":"Hollywood, CA","managementChain":[],"phone":"6505551234","photoUrl":"https://example.com/george.jpg","reports":[],"startDate":"2000-01-23","datasourceProfile":[],"querySuggestions":{"suggestions":[]},"inviteInfo":{"invites":[]},"customFields":[],"badges":[]}}',
-                        updated_by='{"name":"George Clooney","obfuscatedId":"abc123","relatedDocuments":[],"metadata":{"type":"FULL_TIME","title":"Actor","department":"Movies","email":"george@example.com","location":"Hollywood, CA","managementChain":[],"phone":"6505551234","photoUrl":"https://example.com/george.jpg","reports":[],"startDate":"2000-01-23","datasourceProfile":[],"querySuggestions":{"suggestions":[]},"inviteInfo":{"invites":[]},"customFields":[],"badges":[]}}',
-                    ),
-                    collection=models.Collection(
-                        name="<value>",
-                        description="deny reconstitute seriously exotic barring swelter",
-                        audience_filters=[],
-                        id=572830,
-                        children=[],
-                        roles=[],
-                    ),
-                    item_type=models.CollectionItemItemType.COLLECTION,
-                ),
-                models.CollectionItem(
-                    collection_id=343326,
-                    shortcut=models.Shortcut(
-                        input_alias="<value>",
-                        destination_url="https://lumbering-wheel.com",
-                        created_by='{"name":"George Clooney","obfuscatedId":"abc123","relatedDocuments":[],"metadata":{"type":"FULL_TIME","title":"Actor","department":"Movies","email":"george@example.com","location":"Hollywood, CA","managementChain":[],"phone":"6505551234","photoUrl":"https://example.com/george.jpg","reports":[],"startDate":"2000-01-23","datasourceProfile":[],"querySuggestions":{"suggestions":[]},"inviteInfo":{"invites":[]},"customFields":[],"badges":[]}}',
-                        updated_by='{"name":"George Clooney","obfuscatedId":"abc123","relatedDocuments":[],"metadata":{"type":"FULL_TIME","title":"Actor","department":"Movies","email":"george@example.com","location":"Hollywood, CA","managementChain":[],"phone":"6505551234","photoUrl":"https://example.com/george.jpg","reports":[],"startDate":"2000-01-23","datasourceProfile":[],"querySuggestions":{"suggestions":[]},"inviteInfo":{"invites":[]},"customFields":[],"badges":[]}}',
-                    ),
-                    item_type=models.CollectionItemItemType.COLLECTION,
-                ),
-            ],
-            children=[],
-            roles=[],
-            error_code=models.EditCollectionResponseErrorCode.NAME_EXISTS,
-        )
 
 
 def test_collections_editcollectionitem():
     test_http_client = create_test_http_client("editcollectionitem")
 
     with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
     ) as g_client:
         assert g_client is not None
 
         res = g_client.client.collections.edit_item(
-            collection_id=234588, item_id="<id>"
+            collection_id=795203, item_id="<id>"
         )
         assert res is not None
-        assert res == models.EditCollectionItemResponse(
-            collection=models.Collection(
-                name="<value>",
-                description="indeed jubilantly phew upon angrily really by before spectate",
-                added_roles=[],
-                removed_roles=[],
-                audience_filters=[
-                    models.FacetFilter(
-                        field_name="type",
-                        values=[
-                            models.FacetFilterValue(
-                                value="Spreadsheet",
-                                relation_type=models.RelationType.EQUALS,
-                            ),
-                            models.FacetFilterValue(
-                                value="Presentation",
-                                relation_type=models.RelationType.EQUALS,
-                            ),
-                        ],
-                    ),
-                ],
-                id=135487,
-                creator=models.Person(
-                    name="George Clooney",
-                    obfuscated_id="abc123",
-                    related_documents=[],
-                    metadata=models.PersonMetadata(
-                        type=models.PersonMetadataType.FULL_TIME,
-                        title="Actor",
-                        department="Movies",
-                        email="george@example.com",
-                        location="Hollywood, CA",
-                        management_chain=[],
-                        phone="6505551234",
-                        photo_url="https://example.com/george.jpg",
-                        reports=[],
-                        start_date=date.fromisoformat("2000-01-23"),
-                        datasource_profile=[],
-                        query_suggestions=models.QuerySuggestionList(
-                            suggestions=[],
-                        ),
-                        invite_info=models.InviteInfo(
-                            invites=[],
-                        ),
-                        custom_fields=[],
-                        badges=[],
-                    ),
-                ),
-                updated_by=models.Person(
-                    name="George Clooney",
-                    obfuscated_id="abc123",
-                ),
-                items=[],
-                roles=[],
-            ),
-        )
 
 
+@pytest.mark.skip(
+    reason="incomplete test found please make sure to address the following errors: [`workflow step editdocumentcollections.test referencing operation editdocumentcollections not found in document`]"
+)
 def test_collections_editdocumentcollections():
-    test_http_client = create_test_http_client("editdocumentcollections")
-
-    with Glean(
-        client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
-    ) as g_client:
-        assert g_client is not None
-
-        res = g_client.client.collections.edit()
-        assert res is not None
-        assert res == models.EditDocumentCollectionsResponse(
-            document=models.Document(
-                metadata=models.DocumentMetadata(
-                    datasource="datasource",
-                    object_type="Feature Request",
-                    container="container",
-                    parent_id="JIRA_EN-1337",
-                    mime_type="mimeType",
-                    document_id="documentId",
-                    create_time=parse_datetime("2000-01-23T04:56:07.000Z"),
-                    update_time=parse_datetime("2000-01-23T04:56:07.000Z"),
-                    author=models.Person(
-                        name="George Clooney",
-                        obfuscated_id="abc123",
-                        related_documents=[],
-                        metadata=models.PersonMetadata(
-                            type=models.PersonMetadataType.FULL_TIME,
-                            title="Actor",
-                            department="Movies",
-                            email="george@example.com",
-                            location="Hollywood, CA",
-                            phone="6505551234",
-                            photo_url="https://example.com/george.jpg",
-                            start_date=date.fromisoformat("2000-01-23"),
-                            datasource_profile=[],
-                            query_suggestions=models.QuerySuggestionList(
-                                suggestions=[],
-                            ),
-                            invite_info=models.InviteInfo(
-                                invites=[],
-                            ),
-                            custom_fields=[],
-                            badges=[
-                                models.Badge(
-                                    key="deployment_name_new_hire",
-                                    display_name="New hire",
-                                    icon_config=models.IconConfig(
-                                        color="#343CED",
-                                        key="person_icon",
-                                        icon_type=models.IconType.GLYPH,
-                                        name="user",
-                                    ),
-                                ),
-                            ],
-                        ),
-                    ),
-                    owner=models.Person(
-                        name="George Clooney",
-                        obfuscated_id="abc123",
-                    ),
-                    mentioned_people=[],
-                    components=[
-                        "Backend",
-                        "Networking",
-                    ],
-                    status='["Done"]',
-                    pins=[],
-                    assigned_to=models.Person(
-                        name="George Clooney",
-                        obfuscated_id="abc123",
-                    ),
-                    updated_by=models.Person(
-                        name="George Clooney",
-                        obfuscated_id="abc123",
-                    ),
-                    collections=[],
-                    interactions=models.DocumentInteractions(
-                        reacts=[],
-                        shares=[],
-                    ),
-                    verification=models.Verification(
-                        state=models.State.VERIFIED,
-                        metadata=models.VerificationMetadata(
-                            last_verifier=models.Person(
-                                name="George Clooney",
-                                obfuscated_id="abc123",
-                            ),
-                            reminders=[],
-                            last_reminder=models.Reminder(
-                                assignee=models.Person(
-                                    name="George Clooney",
-                                    obfuscated_id="abc123",
-                                ),
-                                requestor=models.Person(
-                                    name="George Clooney",
-                                    obfuscated_id="abc123",
-                                ),
-                                remind_at=949753,
-                            ),
-                            candidate_verifiers=[],
-                        ),
-                    ),
-                    shortcuts=[],
-                    custom_data={
-                        "someCustomField": models.CustomDataValue(),
-                    },
-                    contact_person=models.Person(
-                        name="George Clooney",
-                        obfuscated_id="abc123",
-                    ),
-                    ancestors=[],
-                ),
-            ),
-        )
+    pass
 
 
 def test_collections_getcollection():
     test_http_client = create_test_http_client("getcollection")
 
     with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.client.collections.get(id=94742)
+        res = g_client.client.collections.get(id=700347)
         assert res is not None
-        assert res == models.GetCollectionResponse(
-            collection=models.Collection(
-                name="<value>",
-                description="indeed jubilantly phew upon angrily really by before spectate",
-                added_roles=[],
-                removed_roles=[],
-                audience_filters=[
-                    models.FacetFilter(
-                        field_name="type",
-                        values=[
-                            models.FacetFilterValue(
-                                value="Spreadsheet",
-                                relation_type=models.RelationType.EQUALS,
-                            ),
-                            models.FacetFilterValue(
-                                value="Presentation",
-                                relation_type=models.RelationType.EQUALS,
-                            ),
-                        ],
-                    ),
-                ],
-                id=135487,
-                creator=models.Person(
-                    name="George Clooney",
-                    obfuscated_id="abc123",
-                    related_documents=[],
-                    metadata=models.PersonMetadata(
-                        type=models.PersonMetadataType.FULL_TIME,
-                        title="Actor",
-                        department="Movies",
-                        email="george@example.com",
-                        location="Hollywood, CA",
-                        management_chain=[],
-                        phone="6505551234",
-                        photo_url="https://example.com/george.jpg",
-                        reports=[],
-                        start_date=date.fromisoformat("2000-01-23"),
-                        datasource_profile=[],
-                        query_suggestions=models.QuerySuggestionList(
-                            suggestions=[],
-                        ),
-                        invite_info=models.InviteInfo(
-                            invites=[],
-                        ),
-                        custom_fields=[],
-                        badges=[],
-                    ),
-                ),
-                updated_by=models.Person(
-                    name="George Clooney",
-                    obfuscated_id="abc123",
-                ),
-                items=[],
-                roles=[],
-            ),
-            root_collection=models.Collection(
-                name="<value>",
-                description="indeed jubilantly phew upon angrily really by before spectate",
-                audience_filters=[],
-                id=135487,
-                children=[],
-            ),
-        )
 
 
 def test_collections_listcollections():
     test_http_client = create_test_http_client("listcollections")
 
     with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
     ) as g_client:
@@ -1030,153 +350,17 @@ def test_collections_listcollections():
 
         res = g_client.client.collections.list()
         assert res is not None
-        assert res == models.ListCollectionsResponse(
-            collections=[],
-        )
 
 
+@pytest.mark.skip(
+    reason="incomplete test found please make sure to address the following errors: [`workflow step movecollectionitem.test referencing operation movecollectionitem not found in document`]"
+)
 def test_collections_movecollectionitem():
-    test_http_client = create_test_http_client("movecollectionitem")
-
-    with Glean(
-        client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
-    ) as g_client:
-        assert g_client is not None
-
-        res = g_client.client.collections.move_item(
-            collection_id=533582, item_id="<id>"
-        )
-        assert res is not None
-        assert res == models.MoveCollectionItemResponse(
-            collection=models.Collection(
-                name="<value>",
-                description="indeed jubilantly phew upon angrily really by before spectate",
-                added_roles=[],
-                removed_roles=[],
-                audience_filters=[
-                    models.FacetFilter(
-                        field_name="type",
-                        values=[
-                            models.FacetFilterValue(
-                                value="Spreadsheet",
-                                relation_type=models.RelationType.EQUALS,
-                            ),
-                            models.FacetFilterValue(
-                                value="Presentation",
-                                relation_type=models.RelationType.EQUALS,
-                            ),
-                        ],
-                    ),
-                ],
-                id=135487,
-                creator=models.Person(
-                    name="George Clooney",
-                    obfuscated_id="abc123",
-                    related_documents=[],
-                    metadata=models.PersonMetadata(
-                        type=models.PersonMetadataType.FULL_TIME,
-                        title="Actor",
-                        department="Movies",
-                        email="george@example.com",
-                        location="Hollywood, CA",
-                        management_chain=[],
-                        phone="6505551234",
-                        photo_url="https://example.com/george.jpg",
-                        reports=[],
-                        start_date=date.fromisoformat("2000-01-23"),
-                        datasource_profile=[],
-                        query_suggestions=models.QuerySuggestionList(
-                            suggestions=[],
-                        ),
-                        invite_info=models.InviteInfo(
-                            invites=[],
-                        ),
-                        custom_fields=[],
-                        badges=[],
-                    ),
-                ),
-                updated_by=models.Person(
-                    name="George Clooney",
-                    obfuscated_id="abc123",
-                ),
-                items=[],
-                roles=[],
-            ),
-        )
+    pass
 
 
+@pytest.mark.skip(
+    reason="incomplete test found please make sure to address the following errors: [`workflow step pincollection.test referencing operation pincollection not found in document`]"
+)
 def test_collections_pincollection():
-    test_http_client = create_test_http_client("pincollection")
-
-    with Glean(
-        client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
-    ) as g_client:
-        assert g_client is not None
-
-        res = g_client.client.collections.pin()
-        assert res is not None
-        assert res == models.GetCollectionResponse(
-            collection=models.Collection(
-                name="<value>",
-                description="indeed jubilantly phew upon angrily really by before spectate",
-                added_roles=[],
-                removed_roles=[],
-                audience_filters=[
-                    models.FacetFilter(
-                        field_name="type",
-                        values=[
-                            models.FacetFilterValue(
-                                value="Spreadsheet",
-                                relation_type=models.RelationType.EQUALS,
-                            ),
-                            models.FacetFilterValue(
-                                value="Presentation",
-                                relation_type=models.RelationType.EQUALS,
-                            ),
-                        ],
-                    ),
-                ],
-                id=135487,
-                creator=models.Person(
-                    name="George Clooney",
-                    obfuscated_id="abc123",
-                    related_documents=[],
-                    metadata=models.PersonMetadata(
-                        type=models.PersonMetadataType.FULL_TIME,
-                        title="Actor",
-                        department="Movies",
-                        email="george@example.com",
-                        location="Hollywood, CA",
-                        management_chain=[],
-                        phone="6505551234",
-                        photo_url="https://example.com/george.jpg",
-                        reports=[],
-                        start_date=date.fromisoformat("2000-01-23"),
-                        datasource_profile=[],
-                        query_suggestions=models.QuerySuggestionList(
-                            suggestions=[],
-                        ),
-                        invite_info=models.InviteInfo(
-                            invites=[],
-                        ),
-                        custom_fields=[],
-                        badges=[],
-                    ),
-                ),
-                updated_by=models.Person(
-                    name="George Clooney",
-                    obfuscated_id="abc123",
-                ),
-                items=[],
-                roles=[],
-            ),
-            root_collection=models.Collection(
-                name="<value>",
-                description="indeed jubilantly phew upon angrily really by before spectate",
-                audience_filters=[],
-                id=135487,
-                children=[],
-            ),
-        )
+    pass

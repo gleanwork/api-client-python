@@ -65,7 +65,7 @@ class Event(str, Enum):
     VISIBLE = "VISIBLE"
 
 
-class FeedbackChannel1(str, Enum):
+class FeedbackChannel(str, Enum):
     COMPANY = "COMPANY"
     GLEAN = "GLEAN"
 
@@ -89,7 +89,7 @@ class FeedbackTypedDict(TypedDict):
     user: NotRequired[UserTypedDict]
     pathname: NotRequired[str]
     r"""The path the client was at when the feedback event triggered."""
-    channels: NotRequired[List[FeedbackChannel1]]
+    channels: NotRequired[List[FeedbackChannel]]
     r"""Where the feedback will be sent, e.g. to Glean, the user's company, or both. If no channels are specified, feedback will go only to Glean."""
     url: NotRequired[str]
     r"""The URL the client was at when the feedback event triggered."""
@@ -103,6 +103,8 @@ class FeedbackTypedDict(TypedDict):
     workflow_feedback_info: NotRequired[WorkflowFeedbackInfoTypedDict]
     application_id: NotRequired[str]
     r"""The application ID of the client that sent the feedback event."""
+    agent_id: NotRequired[str]
+    r"""The agent ID of the client that sent the feedback event."""
 
 
 class Feedback(BaseModel):
@@ -136,7 +138,7 @@ class Feedback(BaseModel):
     pathname: Optional[str] = None
     r"""The path the client was at when the feedback event triggered."""
 
-    channels: Optional[List[FeedbackChannel1]] = None
+    channels: Optional[List[FeedbackChannel]] = None
     r"""Where the feedback will be sent, e.g. to Glean, the user's company, or both. If no channels are specified, feedback will go only to Glean."""
 
     url: Optional[str] = None
@@ -168,3 +170,6 @@ class Feedback(BaseModel):
         None
     )
     r"""The application ID of the client that sent the feedback event."""
+
+    agent_id: Annotated[Optional[str], pydantic.Field(alias="agentId")] = None
+    r"""The agent ID of the client that sent the feedback event."""

@@ -7,7 +7,6 @@
 
 * [list](#list) - List entities
 * [read_people](#read_people) - Read people
-* [get_teams](#get_teams) - Read teams
 
 ## list
 
@@ -49,7 +48,7 @@ with Glean(
 
 | Parameter                                                                                                                            | Type                                                                                                                                 | Required                                                                                                                             | Description                                                                                                                          | Example                                                                                                                              |
 | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
-| `x_scio_actas`                                                                                                                       | *Optional[str]*                                                                                                                      | :heavy_minus_sign:                                                                                                                   | Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).             |                                                                                                                                      |
+| `x_glean_act_as`                                                                                                                     | *Optional[str]*                                                                                                                      | :heavy_minus_sign:                                                                                                                   | Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).             |                                                                                                                                      |
 | `x_glean_auth_type`                                                                                                                  | *Optional[str]*                                                                                                                      | :heavy_minus_sign:                                                                                                                   | Auth type being used to access the endpoint (should be non-empty only for global tokens).                                            |                                                                                                                                      |
 | `filter_`                                                                                                                            | List[[models.FacetFilter](../../models/facetfilter.md)]                                                                              | :heavy_minus_sign:                                                                                                                   | N/A                                                                                                                                  |                                                                                                                                      |
 | `sort`                                                                                                                               | List[[models.SortOptions](../../models/sortoptions.md)]                                                                              | :heavy_minus_sign:                                                                                                                   | Use EntitiesSortOrder enum for SortOptions.sortBy                                                                                    |                                                                                                                                      |
@@ -101,7 +100,7 @@ with Glean(
 
 | Parameter                                                                                                                | Type                                                                                                                     | Required                                                                                                                 | Description                                                                                                              |
 | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
-| `x_scio_actas`                                                                                                           | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens). |
+| `x_glean_act_as`                                                                                                         | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens). |
 | `x_glean_auth_type`                                                                                                      | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | Auth type being used to access the endpoint (should be non-empty only for global tokens).                                |
 | `timezone_offset`                                                                                                        | *Optional[int]*                                                                                                          | :heavy_minus_sign:                                                                                                       | The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.               |
 | `obfuscated_ids`                                                                                                         | List[*str*]                                                                                                              | :heavy_minus_sign:                                                                                                       | The Person IDs to retrieve. If no IDs are requested, the current user's details are returned.                            |
@@ -114,50 +113,6 @@ with Glean(
 ### Response
 
 **[models.PeopleResponse](../../models/peopleresponse.md)**
-
-### Errors
-
-| Error Type        | Status Code       | Content Type      |
-| ----------------- | ----------------- | ----------------- |
-| errors.GleanError | 4XX, 5XX          | \*/\*             |
-
-## get_teams
-
-Read the details of the teams with the given IDs.
-
-### Example Usage
-
-```python
-from glean import Glean
-import os
-
-
-with Glean(
-    bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
-) as g_client:
-
-    res = g_client.client.entities.get_teams(ids=[
-        "abc123",
-    ])
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                                                                                | Type                                                                                                                     | Required                                                                                                                 | Description                                                                                                              |
-| ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
-| `x_scio_actas`                                                                                                           | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens). |
-| `x_glean_auth_type`                                                                                                      | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | Auth type being used to access the endpoint (should be non-empty only for global tokens).                                |
-| `ids`                                                                                                                    | List[*str*]                                                                                                              | :heavy_minus_sign:                                                                                                       | The IDs of the teams to retrieve.                                                                                        |
-| `include_fields`                                                                                                         | List[[models.TeamsRequestIncludeField](../../models/teamsrequestincludefield.md)]                                        | :heavy_minus_sign:                                                                                                       | List of teams fields to return that aren't returned by default                                                           |
-| `retries`                                                                                                                | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                         | :heavy_minus_sign:                                                                                                       | Configuration to override the default retry behavior of the client.                                                      |
-
-### Response
-
-**[models.TeamsResponse](../../models/teamsresponse.md)**
 
 ### Errors
 

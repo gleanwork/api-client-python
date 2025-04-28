@@ -24,21 +24,21 @@ from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class FeedEntryFormat(str, Enum):
+class Format(str, Enum):
     r"""defines how to render this particular displayable list card"""
 
     LIST = "LIST"
 
 
 class UIConfigTypedDict(TypedDict):
-    format_: NotRequired[FeedEntryFormat]
+    format_: NotRequired[Format]
     r"""defines how to render this particular displayable list card"""
     additional_flags: NotRequired[DisplayableListItemUIConfigTypedDict]
     r"""UI configurations for each item of the list"""
 
 
 class UIConfig(BaseModel):
-    format_: Annotated[Optional[FeedEntryFormat], pydantic.Field(alias="format")] = None
+    format_: Annotated[Optional[Format], pydantic.Field(alias="format")] = None
     r"""defines how to render this particular displayable list card"""
 
     additional_flags: Annotated[

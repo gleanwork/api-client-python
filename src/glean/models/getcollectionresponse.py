@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 from .collection import Collection, CollectionTypedDict
-from .collectionerror_3 import CollectionError3, CollectionError3TypedDict
+from .collectionerror import CollectionError, CollectionErrorTypedDict
 from glean.types import BaseModel
 import pydantic
 from typing import Optional
@@ -14,7 +14,7 @@ class GetCollectionResponseTypedDict(TypedDict):
     root_collection: NotRequired[CollectionTypedDict]
     tracking_token: NotRequired[str]
     r"""An opaque token that represents this particular Collection. To be used for `/feedback` reporting."""
-    error: NotRequired[CollectionError3TypedDict]
+    error: NotRequired[CollectionErrorTypedDict]
 
 
 class GetCollectionResponse(BaseModel):
@@ -29,4 +29,4 @@ class GetCollectionResponse(BaseModel):
     )
     r"""An opaque token that represents this particular Collection. To be used for `/feedback` reporting."""
 
-    error: Optional[CollectionError3] = None
+    error: Optional[CollectionError] = None

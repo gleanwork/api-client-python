@@ -12,7 +12,7 @@ class Search(BaseSDK):
     def admin(
         self,
         *,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         search_request: Optional[
             Union[models.SearchRequest, models.SearchRequestTypedDict]
@@ -26,7 +26,7 @@ class Search(BaseSDK):
 
         Retrieves results for search query without respect for permissions. This is available only to privileged users.
 
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param search_request: Admin search request
         :param retries: Override the default retry configuration for this method
@@ -45,7 +45,7 @@ class Search(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.AdminsearchRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             search_request=utils.get_pydantic_model(
                 search_request, Optional[models.SearchRequest]
@@ -101,8 +101,10 @@ class Search(BaseSDK):
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(http_res.text, models.SearchResponse)
         if utils.match_response(http_res, ["403", "422"], "application/json"):
-            response_data = utils.unmarshal_json(http_res.text, errors.ErrorInfoData)
-            raise errors.ErrorInfo(data=response_data)
+            response_data = utils.unmarshal_json(
+                http_res.text, errors.GleanDataErrorData
+            )
+            raise errors.GleanDataError(data=response_data)
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.GleanError(
@@ -126,7 +128,7 @@ class Search(BaseSDK):
     async def admin_async(
         self,
         *,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         search_request: Optional[
             Union[models.SearchRequest, models.SearchRequestTypedDict]
@@ -140,7 +142,7 @@ class Search(BaseSDK):
 
         Retrieves results for search query without respect for permissions. This is available only to privileged users.
 
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param search_request: Admin search request
         :param retries: Override the default retry configuration for this method
@@ -159,7 +161,7 @@ class Search(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.AdminsearchRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             search_request=utils.get_pydantic_model(
                 search_request, Optional[models.SearchRequest]
@@ -215,8 +217,10 @@ class Search(BaseSDK):
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(http_res.text, models.SearchResponse)
         if utils.match_response(http_res, ["403", "422"], "application/json"):
-            response_data = utils.unmarshal_json(http_res.text, errors.ErrorInfoData)
-            raise errors.ErrorInfo(data=response_data)
+            response_data = utils.unmarshal_json(
+                http_res.text, errors.GleanDataErrorData
+            )
+            raise errors.GleanDataError(data=response_data)
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.GleanError(
@@ -240,7 +244,7 @@ class Search(BaseSDK):
     def autocomplete(
         self,
         *,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         tracking_token: Optional[str] = None,
         session_info: Optional[
@@ -263,7 +267,7 @@ class Search(BaseSDK):
 
         Retrieve query suggestions, operators and documents for the given partially typed query.
 
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param tracking_token:
         :param session_info:
@@ -289,7 +293,7 @@ class Search(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.AutocompleteRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             autocomplete_request=models.AutocompleteRequest(
                 tracking_token=tracking_token,
@@ -377,7 +381,7 @@ class Search(BaseSDK):
     async def autocomplete_async(
         self,
         *,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         tracking_token: Optional[str] = None,
         session_info: Optional[
@@ -400,7 +404,7 @@ class Search(BaseSDK):
 
         Retrieve query suggestions, operators and documents for the given partially typed query.
 
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param tracking_token:
         :param session_info:
@@ -426,7 +430,7 @@ class Search(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.AutocompleteRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             autocomplete_request=models.AutocompleteRequest(
                 tracking_token=tracking_token,
@@ -514,7 +518,7 @@ class Search(BaseSDK):
     def get_feed(
         self,
         *,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         categories: Optional[List[models.FeedRequestCategory]] = None,
         request_options: Optional[
@@ -533,7 +537,7 @@ class Search(BaseSDK):
 
         The personalized feed/home includes different types of contents including suggestions, recents, calendar events and many more.
 
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param categories: Categories of content requested. An allowlist gives flexibility to request content separately or together.
         :param request_options:
@@ -555,7 +559,7 @@ class Search(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.FeedRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             feed_request=models.FeedRequest(
                 categories=categories,
@@ -635,7 +639,7 @@ class Search(BaseSDK):
     async def get_feed_async(
         self,
         *,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         categories: Optional[List[models.FeedRequestCategory]] = None,
         request_options: Optional[
@@ -654,7 +658,7 @@ class Search(BaseSDK):
 
         The personalized feed/home includes different types of contents including suggestions, recents, calendar events and many more.
 
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param categories: Categories of content requested. An allowlist gives flexibility to request content separately or together.
         :param request_options:
@@ -676,7 +680,7 @@ class Search(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.FeedRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             feed_request=models.FeedRequest(
                 categories=categories,
@@ -753,454 +757,10 @@ class Search(BaseSDK):
             http_res,
         )
 
-    def suggest_people(
-        self,
-        *,
-        categories: List[models.PeopleSuggestionCategory],
-        x_scio_actas: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
-        departments: Optional[List[str]] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.PeopleSuggestResponse:
-        r"""Suggest people
-
-        Retrieves a list of suggested people for given type. Includes information about the persons.
-
-        :param categories: Categories of data requested. Request can include single or multiple categories.
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
-        :param departments: Departments that the data is requested for. If empty, corresponds to whole company.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.PeoplesuggestRequestRequest(
-            x_scio_actas=x_scio_actas,
-            x_glean_auth_type=x_glean_auth_type,
-            people_suggest_request=models.PeopleSuggestRequest(
-                categories=categories,
-                departments=departments,
-            ),
-        )
-
-        req = self._build_request(
-            method="POST",
-            path="/rest/api/v1/peoplesuggest",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=True,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.people_suggest_request,
-                False,
-                False,
-                "json",
-                models.PeopleSuggestRequest,
-            ),
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                base_url=base_url or "",
-                operation_id="peoplesuggest",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["400", "401", "429", "4XX", "5XX"],
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(http_res.text, models.PeopleSuggestResponse)
-        if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
-
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
-
-    async def suggest_people_async(
-        self,
-        *,
-        categories: List[models.PeopleSuggestionCategory],
-        x_scio_actas: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
-        departments: Optional[List[str]] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.PeopleSuggestResponse:
-        r"""Suggest people
-
-        Retrieves a list of suggested people for given type. Includes information about the persons.
-
-        :param categories: Categories of data requested. Request can include single or multiple categories.
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
-        :param departments: Departments that the data is requested for. If empty, corresponds to whole company.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.PeoplesuggestRequestRequest(
-            x_scio_actas=x_scio_actas,
-            x_glean_auth_type=x_glean_auth_type,
-            people_suggest_request=models.PeopleSuggestRequest(
-                categories=categories,
-                departments=departments,
-            ),
-        )
-
-        req = self._build_request_async(
-            method="POST",
-            path="/rest/api/v1/peoplesuggest",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=True,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.people_suggest_request,
-                False,
-                False,
-                "json",
-                models.PeopleSuggestRequest,
-            ),
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                base_url=base_url or "",
-                operation_id="peoplesuggest",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["400", "401", "429", "4XX", "5XX"],
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(http_res.text, models.PeopleSuggestResponse)
-        if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
-
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
-
-    def suggest_people_admin(
-        self,
-        *,
-        categories: List[models.PeopleSuggestionCategory],
-        x_scio_actas: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
-        departments: Optional[List[str]] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.PeopleSuggestResponse:
-        r"""Suggest people (admin)
-
-        Returns a list of suggested people for given type for admin's view. Includes information about the persons.
-
-        :param categories: Categories of data requested. Request can include single or multiple categories.
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
-        :param departments: Departments that the data is requested for. If empty, corresponds to whole company.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.PeoplesuggestadminRequest(
-            x_scio_actas=x_scio_actas,
-            x_glean_auth_type=x_glean_auth_type,
-            people_suggest_request=models.PeopleSuggestRequest(
-                categories=categories,
-                departments=departments,
-            ),
-        )
-
-        req = self._build_request(
-            method="POST",
-            path="/rest/api/v1/peoplesuggestadmin",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=True,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.people_suggest_request,
-                False,
-                False,
-                "json",
-                models.PeopleSuggestRequest,
-            ),
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                base_url=base_url or "",
-                operation_id="peoplesuggestadmin",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["400", "401", "429", "4XX", "5XX"],
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(http_res.text, models.PeopleSuggestResponse)
-        if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
-
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
-
-    async def suggest_people_admin_async(
-        self,
-        *,
-        categories: List[models.PeopleSuggestionCategory],
-        x_scio_actas: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
-        departments: Optional[List[str]] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.PeopleSuggestResponse:
-        r"""Suggest people (admin)
-
-        Returns a list of suggested people for given type for admin's view. Includes information about the persons.
-
-        :param categories: Categories of data requested. Request can include single or multiple categories.
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
-        :param departments: Departments that the data is requested for. If empty, corresponds to whole company.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.PeoplesuggestadminRequest(
-            x_scio_actas=x_scio_actas,
-            x_glean_auth_type=x_glean_auth_type,
-            people_suggest_request=models.PeopleSuggestRequest(
-                categories=categories,
-                departments=departments,
-            ),
-        )
-
-        req = self._build_request_async(
-            method="POST",
-            path="/rest/api/v1/peoplesuggestadmin",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=True,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request.people_suggest_request,
-                False,
-                False,
-                "json",
-                models.PeopleSuggestRequest,
-            ),
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                base_url=base_url or "",
-                operation_id="peoplesuggestadmin",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["400", "401", "429", "4XX", "5XX"],
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(http_res.text, models.PeopleSuggestResponse)
-        if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
-
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
-
     def recommendations(
         self,
         *,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         recommendations_request: Optional[
             Union[models.RecommendationsRequest, models.RecommendationsRequestTypedDict]
@@ -1214,7 +774,7 @@ class Search(BaseSDK):
 
         Retrieve recommended documents for the given URL or Glean Document ID.
 
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param recommendations_request: Recommendations request
         :param retries: Override the default retry configuration for this method
@@ -1233,7 +793,7 @@ class Search(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.RecommendationsRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             recommendations_request=utils.get_pydantic_model(
                 recommendations_request, Optional[models.RecommendationsRequest]
@@ -1312,7 +872,7 @@ class Search(BaseSDK):
     async def recommendations_async(
         self,
         *,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         recommendations_request: Optional[
             Union[models.RecommendationsRequest, models.RecommendationsRequestTypedDict]
@@ -1326,7 +886,7 @@ class Search(BaseSDK):
 
         Retrieve recommended documents for the given URL or Glean Document ID.
 
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param recommendations_request: Recommendations request
         :param retries: Override the default retry configuration for this method
@@ -1345,7 +905,7 @@ class Search(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.RecommendationsRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             recommendations_request=utils.get_pydantic_model(
                 recommendations_request, Optional[models.RecommendationsRequest]
@@ -1424,7 +984,7 @@ class Search(BaseSDK):
     def execute(
         self,
         *,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         search_request: Optional[
             Union[models.SearchRequest, models.SearchRequestTypedDict]
@@ -1438,7 +998,7 @@ class Search(BaseSDK):
 
         Retrieve results from the index for the given query and filters.
 
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param search_request: Search request
         :param retries: Override the default retry configuration for this method
@@ -1457,7 +1017,7 @@ class Search(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.SearchRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             search_request=utils.get_pydantic_model(
                 search_request, Optional[models.SearchRequest]
@@ -1513,8 +1073,10 @@ class Search(BaseSDK):
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(http_res.text, models.SearchResponse)
         if utils.match_response(http_res, ["403", "422"], "application/json"):
-            response_data = utils.unmarshal_json(http_res.text, errors.ErrorInfoData)
-            raise errors.ErrorInfo(data=response_data)
+            response_data = utils.unmarshal_json(
+                http_res.text, errors.GleanDataErrorData
+            )
+            raise errors.GleanDataError(data=response_data)
         if utils.match_response(http_res, ["400", "401", "408", "429", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.GleanError(
@@ -1538,7 +1100,7 @@ class Search(BaseSDK):
     async def execute_async(
         self,
         *,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         search_request: Optional[
             Union[models.SearchRequest, models.SearchRequestTypedDict]
@@ -1552,7 +1114,7 @@ class Search(BaseSDK):
 
         Retrieve results from the index for the given query and filters.
 
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param search_request: Search request
         :param retries: Override the default retry configuration for this method
@@ -1571,7 +1133,7 @@ class Search(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.SearchRequestRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             search_request=utils.get_pydantic_model(
                 search_request, Optional[models.SearchRequest]
@@ -1627,8 +1189,10 @@ class Search(BaseSDK):
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(http_res.text, models.SearchResponse)
         if utils.match_response(http_res, ["403", "422"], "application/json"):
-            response_data = utils.unmarshal_json(http_res.text, errors.ErrorInfoData)
-            raise errors.ErrorInfo(data=response_data)
+            response_data = utils.unmarshal_json(
+                http_res.text, errors.GleanDataErrorData
+            )
+            raise errors.GleanDataError(data=response_data)
         if utils.match_response(http_res, ["400", "401", "408", "429", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.GleanError(

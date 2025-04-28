@@ -2,15 +2,7 @@
 
 from glean import Glean
 import os
-import pytest
 from tests.test_client import create_test_http_client
-
-
-@pytest.mark.skip(
-    reason="incomplete test found please make sure to address the following errors: [`workflow step post_/processallemployeesandteams.test referencing operation post_/processallemployeesandteams not found in document`]"
-)
-def test_people_post_processallemployeesandteams():
-    pass
 
 
 def test_people_post_api_index_v1_processallemployeesandteams():
@@ -19,6 +11,7 @@ def test_people_post_api_index_v1_processallemployeesandteams():
     )
 
     with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
     ) as g_client:

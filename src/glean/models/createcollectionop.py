@@ -15,7 +15,7 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 class CreatecollectionRequestRequestTypedDict(TypedDict):
     create_collection_request: CreateCollectionRequestTypedDict
     r"""Collection content plus any additional metadata for the request."""
-    x_scio_actas: NotRequired[str]
+    x_glean_act_as: NotRequired[str]
     r"""Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens)."""
     x_glean_auth_type: NotRequired[str]
     r"""Auth type being used to access the endpoint (should be non-empty only for global tokens)."""
@@ -28,9 +28,9 @@ class CreatecollectionRequestRequest(BaseModel):
     ]
     r"""Collection content plus any additional metadata for the request."""
 
-    x_scio_actas: Annotated[
+    x_glean_act_as: Annotated[
         Optional[str],
-        pydantic.Field(alias="X-Scio-Actas"),
+        pydantic.Field(alias="X-Glean-ActAs"),
         FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
     ] = None
     r"""Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens)."""

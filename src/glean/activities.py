@@ -12,7 +12,7 @@ class Activities(BaseSDK):
     def report_activity(
         self,
         *,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         feedback_query_parameter: Optional[str] = None,
         feedback1: Optional[Union[models.Feedback, models.FeedbackTypedDict]] = None,
@@ -25,7 +25,7 @@ class Activities(BaseSDK):
 
         Report events that happen to results within a Glean client UI, such as search result views and clicks.  This signal improves search quality.
 
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param feedback_query_parameter: A URL encoded versions of Feedback. This is useful for requests.
         :param feedback1:
@@ -45,7 +45,7 @@ class Activities(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.FeedbackRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             feedback_query_parameter=feedback_query_parameter,
             feedback1=utils.get_pydantic_model(feedback1, Optional[models.Feedback]),
@@ -117,7 +117,7 @@ class Activities(BaseSDK):
     async def report_activity_async(
         self,
         *,
-        x_scio_actas: Optional[str] = None,
+        x_glean_act_as: Optional[str] = None,
         x_glean_auth_type: Optional[str] = None,
         feedback_query_parameter: Optional[str] = None,
         feedback1: Optional[Union[models.Feedback, models.FeedbackTypedDict]] = None,
@@ -130,7 +130,7 @@ class Activities(BaseSDK):
 
         Report events that happen to results within a Glean client UI, such as search result views and clicks.  This signal improves search quality.
 
-        :param x_scio_actas: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
+        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
         :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param feedback_query_parameter: A URL encoded versions of Feedback. This is useful for requests.
         :param feedback1:
@@ -150,7 +150,7 @@ class Activities(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.FeedbackRequest(
-            x_scio_actas=x_scio_actas,
+            x_glean_act_as=x_glean_act_as,
             x_glean_auth_type=x_glean_auth_type,
             feedback_query_parameter=feedback_query_parameter,
             feedback1=utils.get_pydantic_model(feedback1, Optional[models.Feedback]),
