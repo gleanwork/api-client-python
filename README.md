@@ -529,26 +529,58 @@ All operations return a response object or raise an exception:
 ### Example
 
 ```python
-from glean import Glean, errors
+from glean import Glean, errors, models
 import os
 
 
 with Glean(
     bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
-    server_url=os.getenv("GLEAN_SERVER_URL", "https://customer-be.glean.com")
-) as glean:
+) as g_client:
     try:
-        res = glean.chat.ask()
+        res = g_client.client.search.execute(search_request=models.SearchRequest(
+            tracking_token="trackingToken",
+            page_size=10,
+            query="vacation policy",
+            request_options=models.SearchRequestOptions(
+                facet_filters=[
+                    models.FacetFilter(
+                        field_name="type",
+                        values=[
+                            models.FacetFilterValue(
+                                value="article",
+                                relation_type=models.RelationType.EQUALS,
+                            ),
+                            models.FacetFilterValue(
+                                value="document",
+                                relation_type=models.RelationType.EQUALS,
+                            ),
+                        ],
+                    ),
+                    models.FacetFilter(
+                        field_name="department",
+                        values=[
+                            models.FacetFilterValue(
+                                value="engineering",
+                                relation_type=models.RelationType.EQUALS,
+                            ),
+                        ],
+                    ),
+                ],
+                facet_bucket_size=246815,
+            ),
+        ))
+        
+        # Handle response
         print(res)
-    # If the server returned structured data
-    except errors.GleanDataError as e:
-        print(e.data)
-        print(e.data.errorMessage)
     except errors.GleanError as e:
         print(e.message)
         print(e.status_code)
         print(e.raw_response)
         print(e.body)
+     # If the server returned structured data
+    except errors.GleanDataError as e:
+        print(e.data)
+        print(e.data.errorMessage)
 ```
 
 By default, an API error will raise a errors.GleanError exception, which has the following properties:
