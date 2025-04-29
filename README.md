@@ -7,7 +7,6 @@ The Glean Python SDK provides convenient access to the Glean REST API from any P
 ## Table of Contents
 <!-- $toc-max-depth=2 -->
 * [Glean Python API Client](#glean-python-api-client)
-* [Usage guidelines](#usage-guidelines)
   * [SDK Installation](#sdk-installation)
   * [IDE Support](#ide-support)
   * [SDK Example Usage](#sdk-example-usage)

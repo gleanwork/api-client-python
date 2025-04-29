@@ -5,9 +5,10 @@ management:
   docVersion: 0.9.0
   speakeasyVersion: 1.540.1
   generationVersion: 2.593.4
-  releaseVersion: 0.1.0-beta
-  configChecksum: 2eb6e69e776fc13633d54cf3cb06eb96
-  installationURL: https://github.com/gleanwork/api-client-python
+  releaseVersion: 0.1.0-beta.1
+  configChecksum: d580b6391c961eb65ccf46848050e4e1
+  repoURL: https://github.com/gleanwork/api-client-python.git
+  installationURL: https://github.com/gleanwork/api-client-python.git
   published: true
 features:
   python:
