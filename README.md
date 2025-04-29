@@ -1,19 +1,7 @@
 # Glean Python API Client
 
-<!-- no [summary] -->
-
 The Glean Python SDK provides convenient access to the Glean REST API from any Python 3.8+ application. It includes type hints for all request parameters and response fields, and supports both synchronous and asynchronous usage via [httpx](https://www.python-httpx.org/).
-
-<!-- Start Summary [summary] -->
-## Summary
-
-Glean API: # Introduction
-In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This is useful, for example, for doing permissions-aware search over content in internal tools that reside on-prem as well as for searching over applications that Glean does not currently support first class. In addition these APIs allow the customer to push organization data (people info, organization structure etc) into Glean.
-
-# Usage guidelines
-This API is evolving fast. Glean will provide advance notice of any planned backwards incompatible changes along
-with a 6-month sunset period for anything that requires developers to adopt the new versions.
-<!-- End Summary [summary] -->
+<!-- No Summary [summary] -->
 
 <!-- Start Table of Contents [toc] -->
 ## Table of Contents

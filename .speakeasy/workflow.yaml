@@ -16,7 +16,7 @@ targets:
             registry:
                 location: registry.speakeasyapi.dev/glean-el2/sdk/glean-api-specs-python-code-samples
             labelOverride:
-                fixedValue: Python (SDK)
+                fixedValue: Python (Client)
             blocking: false
         testing:
             enabled: true
