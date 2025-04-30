@@ -1,13 +1,14 @@
 lockVersion: 2.0.0
 id: 3e3290ca-0ee8-4981-b1bc-14536048fa63
 management:
-  docChecksum: 1a2c49930fef57ea7cddf2ed9b486f1d
+  docChecksum: 5f39e048571bfcd8aae3cc610c7d8852
   docVersion: 0.9.0
-  speakeasyVersion: 1.540.1
-  generationVersion: 2.593.4
-  releaseVersion: 0.1.0-beta
-  configChecksum: 2eb6e69e776fc13633d54cf3cb06eb96
-  installationURL: https://github.com/gleanwork/api-client-python
+  speakeasyVersion: 1.541.0
+  generationVersion: 2.595.2
+  releaseVersion: 0.1.0-beta.1
+  configChecksum: d580b6391c961eb65ccf46848050e4e1
+  repoURL: https://github.com/gleanwork/api-client-python.git
+  installationURL: https://github.com/gleanwork/api-client-python.git
   published: true
 features:
   python:
@@ -20,6 +21,7 @@ features:
     devContainers: 3.0.0
     enumUnions: 0.1.0
     envVarSecurityUsage: 0.3.2
+    examples: 3.0.1
     flatRequests: 1.0.1
     flattening: 3.1.1
     globalSecurity: 3.0.3

@@ -522,6 +522,7 @@ paths:
                     description: Too Many Requests
             x-speakeasy-group: client.chat
             x-speakeasy-name-override: start
+            x-speakeasy-usage-example: true
     /rest/api/v1/deleteallchats:
         post:
             tags:
