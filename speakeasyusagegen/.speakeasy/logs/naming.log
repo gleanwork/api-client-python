@@ -1,0 +1,972 @@
+DEBUG	add_name: Renamed to "DocumentSpec" 
+	 labels: "scope:shared refName:DocumentSpec" 
+	 registrationID: "scope:shared refType:Schemas refName:DocumentSpec component:true oneOfPosition:1 originalName:"
+DEBUG	add_name: Renamed to "DocumentSpec" 
+	 labels: "scope:shared refName:DocumentSpec" 
+	 registrationID: "scope:shared refType:Schemas refName:DocumentSpec component:true oneOfPosition:2 originalName:"
+DEBUG	add_name: Renamed to "DocumentSpec" 
+	 labels: "scope:shared refName:DocumentSpec" 
+	 registrationID: "scope:shared refType:Schemas refName:DocumentSpec component:true oneOfPosition:3 originalName:"
+DEBUG	add_name: Renamed to "DocumentOrError" 
+	 labels: "scope:shared refName:DocumentOrError" 
+	 registrationID: "scope:shared refType:Schemas refName:DocumentOrError component:true oneOfPosition:2 originalName:"
+DEBUG	prepend_op_id: Renamed to "listpins_RequestBody" 
+	 labels: "original_name:RequestBody operation:listpins operationTag:client.pins requestResponse:request" 
+	 registrationID: "scope:operations operationTag:client.pins operation:listpins requestResponse:request originalName:RequestBody"
+DEBUG	add_name: Renamed to "GetShortcutRequest" 
+	 labels: "scope:shared refName:GetShortcutRequest" 
+	 registrationID: "scope:shared refType:Schemas refName:GetShortcutRequest component:true oneOfPosition:2 originalName:"
+DEBUG	
+
+--- Renaming 3 types with name "action" ---
+DEBUG	discriminated: Renamed to "ActivityEvent_action" 
+	 labels: "original_name:action scope:shared data_type:enum refName:ActivityEvent" 
+	 registrationID: "scope:shared refType:Schemas refName:ActivityEvent originalName:action"
+DEBUG	discriminated: Renamed to "UserActivity_action" 
+	 labels: "original_name:action scope:shared data_type:enum refName:UserActivity" 
+	 registrationID: "scope:shared refType:Schemas refName:UserActivity originalName:action"
+DEBUG	discriminated: Renamed to "VerifyRequest_action" 
+	 labels: "original_name:action scope:shared data_type:enum refName:VerifyRequest" 
+	 registrationID: "scope:shared refType:Schemas refName:VerifyRequest originalName:action"
+DEBUG	
+
+--- Renaming 2 types with name "Activity" ---
+DEBUG	discriminated: Renamed to "activity_enum" 
+	 labels: "original_name:activity scope:shared data_type:enum refName:UserActivityInsight" 
+	 registrationID: "scope:shared refType:Schemas refName:UserActivityInsight originalName:activity"
+DEBUG	
+
+--- Renaming 4 types with name "category" ---
+DEBUG	discriminated: Renamed to "Feedback_category" 
+	 labels: "original_name:category scope:shared data_type:enum refName:Feedback" 
+	 registrationID: "scope:shared refType:Schemas refName:Feedback originalName:category"
+DEBUG	discriminated: Renamed to "InsightsRequest_category" 
+	 labels: "original_name:category scope:shared data_type:enum refName:InsightsRequest" 
+	 registrationID: "scope:shared refType:Schemas refName:InsightsRequest originalName:category"
+DEBUG	discriminated: Renamed to "FeedRequest_category" 
+	 labels: "original_name:category scope:shared data_type:enum refName:FeedRequest" 
+	 registrationID: "scope:shared refType:Schemas refName:FeedRequest originalName:category"
+DEBUG	discriminated: Renamed to "FeedResult_category" 
+	 labels: "original_name:category scope:shared data_type:enum refName:FeedResult" 
+	 registrationID: "scope:shared refType:Schemas refName:FeedResult originalName:category"
+DEBUG	
+
+--- Renaming 4 types with name "channel" ---
+DEBUG	discriminated: Renamed to "Feedback_channel" 
+	 labels: "original_name:channel scope:shared data_type:enum refName:Feedback" 
+	 registrationID: "scope:shared refType:Schemas refName:Feedback originalName:channel"
+DEBUG	discriminated: Renamed to "CreateAnnouncementRequest_channel" 
+	 labels: "original_name:channel scope:shared data_type:enum refName:CreateAnnouncementRequest" 
+	 registrationID: "scope:shared refType:Schemas refName:CreateAnnouncementRequest originalName:channel"
+DEBUG	discriminated: Renamed to "Announcement_channel" 
+	 labels: "original_name:channel scope:shared data_type:enum refName:Announcement" 
+	 registrationID: "scope:shared refType:Schemas refName:Announcement originalName:channel"
+DEBUG	discriminated: Renamed to "UpdateAnnouncementRequest_channel" 
+	 labels: "original_name:channel scope:shared data_type:enum refName:UpdateAnnouncementRequest" 
+	 registrationID: "scope:shared refType:Schemas refName:UpdateAnnouncementRequest originalName:channel"
+DEBUG	
+
+--- Renaming 4 types with name "source" ---
+DEBUG	discriminated: Renamed to "ManualFeedbackInfo_source" 
+	 labels: "original_name:source scope:shared data_type:enum refName:ManualFeedbackInfo" 
+	 registrationID: "scope:shared refType:Schemas refName:ManualFeedbackInfo originalName:source"
+DEBUG	discriminated: Renamed to "WorkflowFeedbackInfo_source" 
+	 labels: "original_name:source scope:shared data_type:enum refName:WorkflowFeedbackInfo" 
+	 registrationID: "scope:shared refType:Schemas refName:WorkflowFeedbackInfo originalName:source"
+DEBUG	discriminated: Renamed to "StructuredResult_source" 
+	 labels: "original_name:source scope:shared data_type:enum refName:StructuredResult" 
+	 registrationID: "scope:shared refType:Schemas refName:StructuredResult originalName:source"
+DEBUG	discriminated: Renamed to "ConferenceData_source" 
+	 labels: "original_name:source scope:shared data_type:enum refName:ConferenceData" 
+	 registrationID: "scope:shared refType:Schemas refName:ConferenceData originalName:source"
+DEBUG	
+
+--- Renaming 2 types with name "ConnectorType" ---
+DEBUG	discriminated: Renamed to "CustomDatasourceConfig_connectorType" 
+	 labels: "original_name:connectorType scope:shared data_type:enum refName:CustomDatasourceConfig" 
+	 registrationID: "scope:shared refType:Schemas refName:CustomDatasourceConfig originalName:connectorType"
+DEBUG	
+
+--- Renaming 4 types with name "DocumentSpec" ---
+DEBUG	discriminated: Renamed component to "DocumentSpec_union" 
+	 labels: "original_name:DocumentSpec scope:shared data_type:union" 
+	 registrationID: "scope:shared refType:Schemas refName:DocumentSpec component:true originalName:DocumentSpec"
+DEBUG	incremented: Renamed to "DocumentSpec_1" 
+	 labels: "scope:shared refName:DocumentSpec duplicate_count:1" 
+	 registrationID: "scope:shared refType:Schemas refName:DocumentSpec component:true oneOfPosition:1 originalName:"
+DEBUG	incremented: Renamed to "DocumentSpec_2" 
+	 labels: "scope:shared refName:DocumentSpec duplicate_count:2" 
+	 registrationID: "scope:shared refType:Schemas refName:DocumentSpec component:true oneOfPosition:2 originalName:"
+DEBUG	incremented: Renamed to "DocumentSpec_3" 
+	 labels: "scope:shared refName:DocumentSpec duplicate_count:3" 
+	 registrationID: "scope:shared refType:Schemas refName:DocumentSpec component:true oneOfPosition:3 originalName:"
+DEBUG	
+
+--- Renaming 2 types with name "ugcType" ---
+DEBUG	discriminated: Renamed to "DocumentSpec_ugcType" 
+	 labels: "original_name:ugcType scope:shared data_type:enum refName:DocumentSpec" 
+	 registrationID: "scope:shared refType:Schemas refName:DocumentSpec component:true oneOfPosition:3 originalName:ugcType"
+DEBUG	
+
+--- Renaming 5 types with name "type" ---
+DEBUG	discriminated: Renamed to "TextRange_type" 
+	 labels: "original_name:type scope:shared data_type:enum refName:TextRange" 
+	 registrationID: "scope:shared refType:Schemas refName:TextRange originalName:type"
+DEBUG	discriminated: Renamed to "PersonMetadata_type" 
+	 labels: "original_name:type scope:shared data_type:enum refName:PersonMetadata" 
+	 registrationID: "scope:shared refType:Schemas refName:PersonMetadata originalName:type"
+DEBUG	discriminated: Renamed to "ToolMetadata_type" 
+	 labels: "original_name:type scope:shared data_type:enum refName:ToolMetadata" 
+	 registrationID: "scope:shared refType:Schemas refName:ToolMetadata originalName:type"
+DEBUG	discriminated: Renamed to "AuthConfig_type" 
+	 labels: "original_name:type scope:shared data_type:enum refName:AuthConfig" 
+	 registrationID: "scope:shared refType:Schemas refName:AuthConfig originalName:type"
+DEBUG	discriminated: Renamed to "WriteActionParameter_type" 
+	 labels: "original_name:type scope:shared data_type:enum refName:WriteActionParameter" 
+	 registrationID: "scope:shared refType:Schemas refName:WriteActionParameter originalName:type"
+DEBUG	
+
+--- Renaming 2 types with name "relationship" ---
+DEBUG	discriminated: Renamed to "PersonToTeamRelationship_relationship" 
+	 labels: "original_name:relationship scope:shared data_type:enum refName:PersonToTeamRelationship" 
+	 registrationID: "scope:shared refType:Schemas refName:PersonToTeamRelationship originalName:relationship"
+DEBUG	discriminated: Renamed to "PersonTeam_relationship" 
+	 labels: "original_name:relationship scope:shared data_type:enum refName:PersonTeam" 
+	 registrationID: "scope:shared refType:Schemas refName:PersonTeam originalName:relationship"
+DEBUG	
+
+--- Renaming 4 types with name "status" ---
+DEBUG	discriminated: Renamed to "Team_status" 
+	 labels: "original_name:status scope:shared data_type:enum refName:Team" 
+	 registrationID: "scope:shared refType:Schemas refName:Team originalName:status"
+DEBUG	discriminated: Renamed to "AuthConfig_status" 
+	 labels: "original_name:status scope:shared data_type:enum refName:AuthConfig" 
+	 registrationID: "scope:shared refType:Schemas refName:AuthConfig originalName:status"
+DEBUG	discriminated: Renamed to "GeneratedQna_status" 
+	 labels: "original_name:status scope:shared data_type:enum refName:GeneratedQna" 
+	 registrationID: "scope:shared refType:Schemas refName:GeneratedQna originalName:status"
+DEBUG	discriminated: Renamed to "BulkUploadHistoryEvent_status" 
+	 labels: "original_name:status scope:shared data_type:enum refName:BulkUploadHistoryEvent" 
+	 registrationID: "scope:shared refType:Schemas refName:BulkUploadHistoryEvent originalName:status"
+DEBUG	
+
+--- Renaming 3 types with name "sourceType" ---
+DEBUG	discriminated: Renamed to "Answer_sourceType" 
+	 labels: "original_name:sourceType scope:shared data_type:enum refName:Answer" 
+	 registrationID: "scope:shared refType:Schemas refName:Answer originalName:sourceType"
+DEBUG	discriminated: Renamed to "AnswerCreationData_sourceType" 
+	 labels: "original_name:sourceType scope:shared data_type:enum refName:AnswerCreationData" 
+	 registrationID: "scope:shared refType:Schemas refName:AnswerCreationData originalName:sourceType"
+DEBUG	discriminated: Renamed to "EditAnswerRequest_sourceType" 
+	 labels: "original_name:sourceType scope:shared data_type:enum refName:EditAnswerRequest" 
+	 registrationID: "scope:shared refType:Schemas refName:EditAnswerRequest originalName:sourceType"
+DEBUG	
+
+--- Renaming 2 types with name "itemType" ---
+DEBUG	discriminated: Renamed to "CollectionItem_itemType" 
+	 labels: "original_name:itemType scope:shared data_type:enum refName:CollectionItem" 
+	 registrationID: "scope:shared refType:Schemas refName:CollectionItem originalName:itemType"
+DEBUG	discriminated: Renamed to "CollectionItemDescriptor_itemType" 
+	 labels: "original_name:itemType scope:shared data_type:enum refName:CollectionItemDescriptor" 
+	 registrationID: "scope:shared refType:Schemas refName:CollectionItemDescriptor originalName:itemType"
+DEBUG	
+
+--- Renaming 2 types with name "EntityType" ---
+DEBUG	discriminated: Renamed to "ListEntitiesRequest_entityType" 
+	 labels: "original_name:entityType scope:shared data_type:enum refName:ListEntitiesRequest" 
+	 registrationID: "scope:shared refType:Schemas refName:ListEntitiesRequest originalName:entityType"
+DEBUG	
+
+--- Renaming 2 types with name "eventType" ---
+DEBUG	discriminated: Renamed to "AnonymousEvent_eventType" 
+	 labels: "original_name:eventType scope:shared data_type:enum refName:AnonymousEvent" 
+	 registrationID: "scope:shared refType:Schemas refName:AnonymousEvent originalName:eventType"
+DEBUG	discriminated: Renamed to "CalendarEvent_eventType" 
+	 labels: "original_name:eventType scope:shared data_type:enum refName:CalendarEvent" 
+	 registrationID: "scope:shared refType:Schemas refName:CalendarEvent originalName:eventType"
+DEBUG	
+
+--- Renaming 2 types with name "ViewerInfo" ---
+DEBUG	discriminated: Renamed to "Announcement_viewerInfo" 
+	 labels: "original_name:viewerInfo scope:shared refName:Announcement" 
+	 registrationID: "scope:shared refType:Schemas refName:Announcement originalName:viewerInfo"
+DEBUG	
+
+--- Renaming 3 types with name "postType" ---
+DEBUG	discriminated: Renamed to "CreateAnnouncementRequest_postType" 
+	 labels: "original_name:postType scope:shared data_type:enum refName:CreateAnnouncementRequest" 
+	 registrationID: "scope:shared refType:Schemas refName:CreateAnnouncementRequest originalName:postType"
+DEBUG	discriminated: Renamed to "Announcement_postType" 
+	 labels: "original_name:postType scope:shared data_type:enum refName:Announcement" 
+	 registrationID: "scope:shared refType:Schemas refName:Announcement originalName:postType"
+DEBUG	discriminated: Renamed to "UpdateAnnouncementRequest_postType" 
+	 labels: "original_name:postType scope:shared data_type:enum refName:UpdateAnnouncementRequest" 
+	 registrationID: "scope:shared refType:Schemas refName:UpdateAnnouncementRequest originalName:postType"
+DEBUG	
+
+--- Renaming 3 types with name "errorType" ---
+DEBUG	discriminated: Renamed to "GetAnswerError_errorType" 
+	 labels: "original_name:errorType scope:shared data_type:enum refName:GetAnswerError" 
+	 registrationID: "scope:shared refType:Schemas refName:GetAnswerError originalName:errorType"
+DEBUG	discriminated: Renamed to "AddCollectionItemsError_errorType" 
+	 labels: "original_name:errorType scope:shared data_type:enum refName:AddCollectionItemsError constProperty:ExistingItem" 
+	 registrationID: "scope:shared refType:Schemas refName:AddCollectionItemsError constProperty:EXISTING_ITEM originalName:errorType"
+DEBUG	discriminated: Renamed to "ShortcutError_errorType" 
+	 labels: "original_name:errorType scope:shared data_type:enum refName:ShortcutError" 
+	 registrationID: "scope:shared refType:Schemas refName:ShortcutError originalName:errorType"
+DEBUG	
+
+--- Renaming 2 types with name "agent" ---
+DEBUG	discriminated: Renamed to "agent_enum" 
+	 labels: "original_name:agent scope:shared data_type:enum refName:AgentConfig" 
+	 registrationID: "scope:shared refType:Schemas refName:AgentConfig originalName:agent"
+DEBUG	
+
+--- Renaming 3 types with name "errorCode" ---
+DEBUG	discriminated: Renamed to "CreateCollectionResponse_errorCode" 
+	 labels: "original_name:errorCode scope:shared data_type:enum refName:CreateCollectionResponse" 
+	 registrationID: "scope:shared refType:Schemas refName:CreateCollectionResponse originalName:errorCode"
+DEBUG	discriminated: Renamed to "CollectionError_errorCode" 
+	 labels: "original_name:errorCode scope:shared data_type:enum refName:CollectionError" 
+	 registrationID: "scope:shared refType:Schemas refName:CollectionError originalName:errorCode"
+DEBUG	discriminated: Renamed to "EditCollectionResponse_errorCode" 
+	 labels: "original_name:errorCode scope:shared data_type:enum refName:EditCollectionResponse" 
+	 registrationID: "scope:shared refType:Schemas refName:EditCollectionResponse originalName:errorCode"
+DEBUG	
+
+--- Renaming 4 types with name "includeField" ---
+DEBUG	discriminated: Renamed to "GetDocumentsRequest_includeField" 
+	 labels: "original_name:includeField scope:shared data_type:enum refName:GetDocumentsRequest" 
+	 registrationID: "scope:shared refType:Schemas refName:GetDocumentsRequest originalName:includeField"
+DEBUG	discriminated: Renamed to "ListEntitiesRequest_includeField" 
+	 labels: "original_name:includeField scope:shared data_type:enum refName:ListEntitiesRequest" 
+	 registrationID: "scope:shared refType:Schemas refName:ListEntitiesRequest originalName:includeField"
+DEBUG	discriminated: Renamed to "PeopleRequest_includeField" 
+	 labels: "original_name:includeField scope:shared data_type:enum refName:PeopleRequest" 
+	 registrationID: "scope:shared refType:Schemas refName:PeopleRequest originalName:includeField"
+DEBUG	discriminated: Renamed to "ListShortcutsPaginatedRequest_includeField" 
+	 labels: "original_name:includeField scope:shared data_type:enum refName:ListShortcutsPaginatedRequest" 
+	 registrationID: "scope:shared refType:Schemas refName:ListShortcutsPaginatedRequest originalName:includeField"
+DEBUG	
+
+--- Renaming 2 types with name "DocumentOrError" ---
+DEBUG	discriminated: Renamed component to "DocumentOrError_union" 
+	 labels: "original_name:DocumentOrError scope:shared data_type:union" 
+	 registrationID: "scope:shared refType:Schemas refName:DocumentOrError component:true originalName:DocumentOrError"
+DEBUG	
+
+--- Renaming 2 types with name "resultType" ---
+DEBUG	discriminated: Renamed to "AutocompleteRequest_resultType" 
+	 labels: "original_name:resultType scope:shared data_type:enum refName:AutocompleteRequest" 
+	 registrationID: "scope:shared refType:Schemas refName:AutocompleteRequest originalName:resultType"
+DEBUG	discriminated: Renamed to "AutocompleteResult_resultType" 
+	 labels: "original_name:resultType scope:shared data_type:enum refName:AutocompleteResult" 
+	 registrationID: "scope:shared refType:Schemas refName:AutocompleteResult originalName:resultType"
+DEBUG	
+
+--- Renaming 2 types with name "GetShortcutRequest" ---
+DEBUG	discriminated: Renamed component to "GetShortcutRequest_union" 
+	 labels: "original_name:GetShortcutRequest scope:shared data_type:union" 
+	 registrationID: "scope:shared refType:Schemas refName:GetShortcutRequest component:true originalName:GetShortcutRequest"
+DEBUG	
+
+--- Renaming 2 types with name "counts" ---
+DEBUG	discriminated: Renamed to "DebugDatasourceStatusResponse_counts" 
+	 labels: "original_name:counts scope:shared refName:DebugDatasourceStatusResponse property:documents" 
+	 registrationID: "scope:shared refType:Schemas refName:DebugDatasourceStatusResponse property:documents originalName:counts"
+DEBUG	discriminated: Renamed to "DebugDatasourceStatusIdentityResponseComponent_counts" 
+	 labels: "original_name:counts scope:shared refName:DebugDatasourceStatusIdentityResponseComponent" 
+	 registrationID: "scope:shared refType:Schemas refName:DebugDatasourceStatusIdentityResponseComponent originalName:counts"
+DEBUG	
+
+--- Renaming 2 types with name "authentication" ---
+DEBUG	discriminated: Renamed to "client_authentication" 
+	 labels: "original_name:authentication group:client data_type:SDK mainSDK:Glean" 
+	 registrationID: "scope:sdk mainSDK:Glean group:client originalName:authentication"
+DEBUG	discriminated: Renamed to "indexing_authentication" 
+	 labels: "original_name:authentication group:indexing data_type:SDK mainSDK:Glean" 
+	 registrationID: "scope:sdk mainSDK:Glean group:indexing originalName:authentication"
+DEBUG	
+
+--- Renaming 2 types with name "documents" ---
+DEBUG	discriminated: Renamed to "client_documents" 
+	 labels: "original_name:documents group:client data_type:SDK mainSDK:Glean" 
+	 registrationID: "scope:sdk mainSDK:Glean group:client originalName:documents"
+DEBUG	discriminated: Renamed to "indexing_documents" 
+	 labels: "original_name:documents group:indexing data_type:SDK mainSDK:Glean" 
+	 registrationID: "scope:sdk mainSDK:Glean group:indexing originalName:documents"
+DEBUG	
+
+--- Renaming 2 types with name "shortcuts" ---
+DEBUG	discriminated: Renamed to "client_shortcuts" 
+	 labels: "original_name:shortcuts group:client data_type:SDK mainSDK:Glean" 
+	 registrationID: "scope:sdk mainSDK:Glean group:client originalName:shortcuts"
+DEBUG	discriminated: Renamed to "indexing_shortcuts" 
+	 labels: "original_name:shortcuts group:indexing data_type:SDK mainSDK:Glean" 
+	 registrationID: "scope:sdk mainSDK:Glean group:indexing originalName:shortcuts"
+DEBUG	prepend_op_id: N/A rename "listpins_RequestBody" 
+	 labels: "original_name:RequestBody operation:listpins operationTag:client.pins requestResponse:request" 
+	 registrationID: "scope:operations operationTag:client.pins operation:listpins requestResponse:request originalName:RequestBody"
+DEBUG	
+
+Glean (SDK empty)
+Client (SDK empty)
+Activity (SDK empty)
+Activity (events: array)
+  ActivityEvent (id: string, action: enum, params: ActivityEventParams ...)
+   ActivityEventAction (enum: VIEW, EDIT, SEARCH ...)
+   ActivityEventParams (bodyContent: string, datasourceInstance: string, datasource: string ...)
+ActivityResponse (HttpMeta: HTTPMetadata)
+ HttpMetadata (Response: response, Request: request)
+Activities (SDK empty)
+FeedbackRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, feedbackQueryParameter: string ...)
+ Feedback (id: string, category: enum, trackingTokens: array ...)
+  FeedbackCategory (enum: ANNOUNCEMENT, AUTOCOMPLETE, COLLECTIONS ...)
+  Event (enum: CLICK, CONTAINER_CLICK, COPY_LINK ...)
+  SessionInfo (sessionTrackingToken: string, tabId: string, lastSeen: date-time ...)
+  User (userID: string, origID: string)
+   FeedbackChannel (enum: COMPANY, GLEAN)
+  ManualFeedbackInfo (email: string, source: enum, issue: string ...)
+   ManualFeedbackInfoSource (enum: AUTOCOMPLETE, CALENDAR, CHAT ...)
+    Issue (enum: INACCURATE_RESPONSE, INCOMPLETE_OR_NO_ANSWER, INCORRECT_CITATION ...)
+    FeedbackChatExchange (timestamp: integer, agent: string, userQuery: string ...)
+      ResultDocument (title: string, url: string)
+   Vote (enum: UPVOTE, DOWNVOTE)
+  SeenFeedbackInfo (isExplicit: boolean)
+  UserViewInfo (docId: string, docTitle: string, docUrl: string)
+  WorkflowFeedbackInfo (source: enum)
+   WorkflowFeedbackInfoSource (enum: ZERO_STATE, LIBRARY, HOMEPAGE)
+FeedbackResponse (HttpMeta: HTTPMetadata)
+Announcements (SDK empty)
+CreateannouncementRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, CreateAnnouncementRequest: CreateAnnouncementRequest)
+ CreateAnnouncementRequest (startTime: date-time, endTime: date-time, title: string ...)
+  StructuredText (text: string, structuredList: array)
+    StructuredTextItem (link: string, document: Document, text: string)
+     Document (id: string, datasource: string, connectorType: ConnectorType ...)
+      ConnectorType (enum: API_CRAWL, BROWSER_CRAWL, BROWSER_HISTORY ...)
+      DocumentContent (fullTextList: array)
+        DocumentMetadata (datasource: string, datasourceInstance: string, objectType: string ...)
+         Person (name: string, obfuscatedId: string, relatedDocuments: array ...)
+           RelatedDocuments (relation: enum, associatedEntityId: string, querySuggestion: QuerySuggestion ...)
+            Relation (enum: ATTACHMENT, CANONICAL, CASE ...)
+            QuerySuggestion (missingTerm: string, query: string, searchProviderInfo: SearchProviderInfo ...)
+             SearchProviderInfo (name: string, logoUrl: string, searchLinkUrlTemplate: string)
+             SearchRequestOptions (datasourceFilter: string, datasourcesFilter: array, queryOverridesFacetFilters: boolean ...)
+               FacetFilter (fieldName: string, values: array, groupName: string)
+                 FacetFilterValue (value: string, relationType: enum, isNegated: boolean)
+                  RelationType (enum: EQUALS, ID_EQUALS, LT ...)
+               FacetFilterSet (filters: array)
+              FacetBucketFilter (facet: string, prefix: string)
+               AuthToken (accessToken: string, datasource: string, scope: string ...)
+               ResponseHint (enum: ALL_RESULT_COUNTS, FACET_RESULTS, QUERY_METADATA ...)
+              RestrictionFilters (containerSpecs: array)
+                DocumentSpecUnion (union)
+                 DocumentSpec1 (url: string)
+                 DocumentSpec2 (id: string)
+                 DocumentSpec3 (ugcType: enum, contentId: integer, docType: string)
+                  DocumentSpecUgcType (enum: ANNOUNCEMENTS, ANSWERS, COLLECTIONS ...)
+              TextRange (startIndex: integer, endIndex: integer, type: enum ...)
+               TextRangeType (enum: BOLD, CITATION, LINK)
+                 DocumentSection (title: string, url: string)
+             SearchRequestInputDetails (hasCopyPaste: boolean)
+             SearchResult (structuredResults: array, trackingToken: string, document: Document ...)
+               StructuredResult (document: Document, person: Person, customer: Customer ...)
+                 PersonMetadata (type: enum, firstName: string, lastName: string ...)
+                  PersonMetadataType (enum: FULL_TIME, CONTRACTOR, NON_EMPLOYEE ...)
+                   PersonTeam (id: string, name: string, externalLink: string ...)
+                    PersonTeamRelationship (enum: MEMBER, MANAGER, LEAD ...)
+                  StructuredLocation (deskLocation: string, timezone: string, address: string ...)
+                   SocialNetwork (name: string, profileName: string, profileUrl: string)
+                   DatasourceProfile (datasource: string, handle: string, url: string ...)
+                  QuerySuggestionList (suggestions: array, person: Person)
+                   PersonDistance (name: string, obfuscatedId: string, distance: float32)
+                  InviteInfo (signUpTime: date-time, invites: array, inviter: Person ...)
+                    ChannelInviteInfo (channel: CommunicationChannel, isAutoInvite: boolean, inviter: Person ...)
+                     CommunicationChannel (enum: COMMUNICATION_CHANNEL_EMAIL, COMMUNICATION_CHANNEL_SLACK)
+                  Permissions (canAdminSearch: boolean, canAdminClientApiGlobalTokens: boolean, canDlp: boolean ...)
+                     ReadPermission (scopeType: ScopeType)
+                      ScopeType (enum: GLOBAL, OWN)
+                     WritePermission (scopeType: ScopeType, create: boolean, update: boolean ...)
+                     GrantPermission (scopeType: ScopeType)
+                   CustomFieldData (label: string, values: array, displayable: boolean)
+                     CustomFieldValue (union)
+                      CustomFieldValueStr (strText: string)
+                      CustomFieldValueHyperlink (urlAnchor: string, urlLink: string)
+                      CustomFieldValuePerson (person: Person)
+                   AnonymousEvent (time: TimeInterval, eventType: enum)
+                    TimeInterval (start: string, end: string)
+                    AnonymousEventEventType (enum: DEFAULT, OUT_OF_OFFICE)
+                   Badge (key: string, displayName: string, iconConfig: IconConfig ...)
+                    IconConfig (generatedBackgroundColorKey: string, backgroundColor: string, color: string ...)
+                     IconType (enum: COLLECTION, CUSTOM, DATASOURCE ...)
+                Customer (id: string, domains: array, company: Company ...)
+                 Company (name: string, profileUrl: string, websiteUrls: array ...)
+                 CustomerMetadata (datasourceId: string, customData: map)
+                   CustomDataValue (displayLabel: string, stringValue: string, stringListValue: array ...)
+                Team (relatedObjects: map, permissions: ObjectPermissions, id: string ...)
+                  RelatedObjectEdge (objects: array)
+                    RelatedObject (id: string, metadata: class)
+                     Metadata (name: string)
+                 ObjectPermissions (write: WritePermission)
+                  PersonToTeamRelationship (person: Person, relationship: enum, customRelationshipStr: string ...)
+                   PersonToTeamRelationshipRelationship (enum: MEMBER, MANAGER, LEAD ...)
+                  TeamEmail (email: string, type: string)
+                 TeamStatus (enum: PROCESSED, QUEUED_FOR_CREATION, QUEUED_FOR_DELETION)
+                CustomEntity (permissions: ObjectPermissions, id: string, title: string ...)
+                 CustomEntityMetadata (customData: map)
+                  UserRoleSpecification (sourceDocumentSpec: DocumentSpec_union, person: Person, group: Group ...)
+                   Group (type: GroupType, id: string, name: string)
+                    GroupType (enum: DEPARTMENT, ALL, TEAM ...)
+                   UserRole (enum: OWNER, VIEWER, ANSWER_MODERATOR ...)
+                Answer (id: integer, docId: string, question: string ...)
+                 AnswerSourceType (enum: DOCUMENT, ASSISTANT)
+                 AnswerLikes (likedBy: array, likedByUser: boolean, numLikes: integer)
+                   AnswerLike (user: Person, createTime: date-time)
+                 Verification (state: enum, metadata: VerificationMetadata)
+                  State (enum: UNVERIFIED, VERIFIED, DEPRECATED)
+                  VerificationMetadata (lastVerifier: Person, lastVerificationTs: integer, expirationTs: integer ...)
+                    Reminder (assignee: Person, requestor: Person, remindAt: integer ...)
+                    CountInfo (count: integer, period: Period, org: string)
+                     Period (minDaysFromNow: integer, maxDaysFromNow: integer, start: TimePoint ...)
+                      TimePoint (epochSeconds: integer, daysFromNow: integer)
+                 AnswerBoard (name: string, description: string, addedRoles: array ...)
+                  Collection (name: string, description: string, addedRoles: array ...)
+                   Thumbnail (photoId: string, url: string)
+                    CollectionItem (name: string, description: string, icon: string ...)
+                     Shortcut (inputAlias: string, description: string, destinationUrl: string ...)
+                      CollectionPinnedMetadata (existingPins: array, eligiblePins: array)
+                        CollectionPinTarget (category: CollectionPinnableCategories, value: string, target: CollectionPinnableTargets)
+                         CollectionPinnableCategories (enum: COMPANY_RESOURCE, DEPARTMENT_RESOURCE, TEAM_RESOURCE)
+                         CollectionPinnableTargets (enum: RESOURCE_CARD, TEAM_PROFILE_PAGE)
+                        CollectionPinMetadata (id: integer, target: CollectionPinTarget)
+                     CollectionItemItemType (enum: DOCUMENT, TEXT, URL ...)
+                ExtractedQnA (heading: string, question: string, questionResult: SearchResult)
+                   SearchResultSnippet (snippet: string, mimeType: string, text: string ...)
+                     ClusterGroup (clusteredResults: array, clusterType: ClusterTypeEnum, visibleCountHint: integer)
+                            ClusterTypeEnum (enum: SIMILAR, FRESHNESS, TITLE ...)
+                            SearchResultProminenceEnum (enum: HERO, PROMOTED, STANDARD)
+                             PinDocument (queries: array, audienceFilters: array, id: string ...)
+                Meeting (id: string, title: string, description: string ...)
+                 CalendarAttendees (people: array, isLimit: boolean, total: integer ...)
+                   CalendarAttendee (isOrganizer: boolean, isInGroup: boolean, person: Person ...)
+                      ResponseStatus (enum: ACCEPTED, DECLINED, NO_RESPONSE ...)
+                AppResult (datasource: string, docType: string, mimeType: string ...)
+                Code (repoName: string, fileName: string, fileUrl: string ...)
+                  CodeLine (lineNumber: integer, content: string, ranges: array)
+                RelatedQuestion (question: string, answer: string, ranges: array)
+                Disambiguation (name: string, id: string, type: EntityType)
+                 EntityType (enum: PERSON, PROJECT, CUSTOMER)
+                Prominence (enum: HERO, PROMOTED, STANDARD)
+                StructuredResultSource (enum: EXPERT_DETECTION, ENTITY_NLQ)
+         DocumentVisibility (enum: PRIVATE, SPECIFIC_PEOPLE_AND_GROUPS, DOMAIN_LINK ...)
+         DocumentInteractions (numComments: integer, numReactions: integer, reactions: array ...)
+           Reaction (type: string, count: integer, reactors: array ...)
+           Share (numDaysAgo: integer, sharer: Person, sharingDocument: Document)
+         ViewerInfo (role: enum, lastViewedTime: date-time)
+          Role (enum: ANSWER_MODERATOR, OWNER, VIEWER)
+         IndexStatus (lastCrawledTime: date-time, lastIndexedTime: date-time)
+  CreateAnnouncementRequestChannel (enum: MAIN, SOCIAL_FEED)
+  CreateAnnouncementRequestPostType (enum: TEXT, LINK)
+CreateannouncementResponse (HttpMeta: HTTPMetadata, Announcement: Announcement)
+ Announcement (startTime: date-time, endTime: date-time, title: string ...)
+  AnnouncementChannel (enum: MAIN, SOCIAL_FEED)
+  AnnouncementPostType (enum: TEXT, LINK)
+  AnnouncementViewerInfo (isDismissed: boolean, isRead: boolean)
+DeleteannouncementRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, DeleteAnnouncementRequest: DeleteAnnouncementRequest)
+ DeleteAnnouncementRequest (id: integer)
+DeleteannouncementResponse (HttpMeta: HTTPMetadata)
+UpdateannouncementRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, UpdateAnnouncementRequest: UpdateAnnouncementRequest)
+ UpdateAnnouncementRequest (startTime: date-time, endTime: date-time, title: string ...)
+  UpdateAnnouncementRequestChannel (enum: MAIN, SOCIAL_FEED)
+  UpdateAnnouncementRequestPostType (enum: TEXT, LINK)
+UpdateannouncementResponse (HttpMeta: HTTPMetadata, Announcement: Announcement)
+Answers (SDK empty)
+CreateanswerRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, CreateAnswerRequest: CreateAnswerRequest)
+ CreateAnswerRequest (data: AnswerCreationData)
+  AnswerCreationData (question: string, questionVariations: array, bodyText: string ...)
+   AnswerCreationDataSourceType (enum: DOCUMENT, ASSISTANT)
+   StructuredTextMutableProperties (text: string)
+CreateanswerResponse (HttpMeta: HTTPMetadata, Answer: Answer)
+DeleteanswerRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, DeleteAnswerRequest: DeleteAnswerRequest)
+ DeleteAnswerRequest (id: integer, docId: string)
+DeleteanswerResponse (HttpMeta: HTTPMetadata)
+EditanswerRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, EditAnswerRequest: EditAnswerRequest)
+ EditAnswerRequest (id: integer, docId: string, question: string ...)
+  EditAnswerRequestSourceType (enum: DOCUMENT, ASSISTANT)
+EditanswerResponse (HttpMeta: HTTPMetadata, Answer: Answer)
+GetanswerRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, GetAnswerRequest: GetAnswerRequest)
+ GetAnswerRequest (id: integer, docId: string)
+GetanswerResponse (HttpMeta: HTTPMetadata, GetAnswerResponse: GetAnswerResponse)
+ GetAnswerResponse (answerResult: AnswerResult, error: GetAnswerError)
+  AnswerResult (answer: Answer, trackingToken: string)
+  GetAnswerError (errorType: enum, answerAuthor: Person)
+   GetAnswerErrorErrorType (enum: NO_PERMISSION, INVALID_ID)
+ListanswersRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, ListAnswersRequest: ListAnswersRequest)
+ ListAnswersRequest (boardId: integer)
+ListanswersResponse (HttpMeta: HTTPMetadata, ListAnswersResponse: ListAnswersResponse)
+ ListAnswersResponse (answerResults: array)
+ClientAuthentication (SDK empty)
+CreateauthtokenRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string)
+CreateauthtokenResponse (HttpMeta: HTTPMetadata, CreateAuthTokenResponse: CreateAuthTokenResponse)
+ CreateAuthTokenResponse (token: string, expirationTime: integer)
+Chat (SDK empty)
+ChatRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, timezoneOffset: integer ...)
+ ChatRequest (saveChat: boolean, chatId: string, messages: array ...)
+   ChatMessage (agentConfig: AgentConfig, author: enum, citations: array ...)
+    AgentConfig (agent: enum, mode: enum)
+     AgentEnum (enum: DEFAULT, GPT)
+     Mode (enum: DEFAULT, QUICK)
+    Author (enum: USER, GLEAN_AI)
+     ChatMessageCitation (trackingToken: string, sourceDocument: Document, sourceFile: ChatFile ...)
+      ChatFile (id: string, url: string, name: string ...)
+       ChatFileMetadata (status: ChatFileStatus, uploadTime: integer, processedSize: integer ...)
+        ChatFileStatus (enum: PROCESSING, PROCESSED, FAILED ...)
+        ChatFileFailureReason (enum: PARSE_FAILED, AV_SCAN_FAILED, FILE_TOO_SMALL ...)
+       ReferenceRange (textRange: TextRange, snippets: array)
+     ChatMessageFragment (structuredResults: array, trackingToken: string, text: string ...)
+      ToolInfo (metadata: ToolMetadata, parameters: map)
+       ToolMetadata (type: enum, name: string, displayName: string ...)
+        ToolMetadataType (enum: RETRIEVAL, ACTION)
+        KnowledgeType (enum: NEUTRAL_KNOWLEDGE, COMPANY_KNOWLEDGE, WORLD_KNOWLEDGE)
+        PersonObject (name: string, obfuscatedId: string)
+        WriteActionType (enum: REDIRECT, EXECUTION)
+        AuthType (enum: NONE, OAUTH_USER, OAUTH_ADMIN ...)
+        AuthConfig (isOnPrem: boolean, usesCentralAuth: boolean, type: enum ...)
+         AuthConfigType (enum: NONE, OAUTH_USER, OAUTH_ADMIN ...)
+         GrantType (enum: AUTH_CODE, CLIENT_CREDENTIALS)
+         AuthConfigStatus (enum: AWAITING_AUTH, AUTHORIZED)
+        WriteActionParameter (type: enum, displayName: string, value: string ...)
+         WriteActionParameterType (enum: UNKNOWN, INTEGER, STRING ...)
+          PossibleValue (value: string, label: string)
+    MessageType (enum: UPDATE, CONTENT, CONTEXT ...)
+  ChatRestrictionFilters (containerSpecs: array, documentSpecs: array, datasourceInstances: array)
+ChatResponse (HttpMeta: HTTPMetadata, ChatResponse: string)
+DeleteallchatsRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, timezoneOffset: integer)
+DeleteallchatsResponse (HttpMeta: HTTPMetadata)
+DeletechatsRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, timezoneOffset: integer ...)
+ DeleteChatsRequest (ids: array)
+DeletechatsResponse (HttpMeta: HTTPMetadata)
+GetchatRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, timezoneOffset: integer ...)
+ GetChatRequest (id: string)
+GetchatResponse (HttpMeta: HTTPMetadata, GetChatResponse: GetChatResponse)
+ GetChatResponse (chatResult: ChatResult)
+  ChatResult (chat: Chat, trackingToken: string)
+   Chat (id: string, createTime: integer, createdBy: Person ...)
+ListchatsRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, timezoneOffset: integer)
+ListchatsResponse (HttpMeta: HTTPMetadata, ListChatsResponse: ListChatsResponse)
+ ListChatsResponse (chatResults: array)
+   ChatMetadataResult (chat: ChatMetadata, trackingToken: string)
+    ChatMetadata (id: string, createTime: integer, createdBy: Person ...)
+GetchatapplicationRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, timezoneOffset: integer ...)
+ GetChatApplicationRequest (id: string)
+GetchatapplicationResponse (HttpMeta: HTTPMetadata, GetChatApplicationResponse: GetChatApplicationResponse)
+ GetChatApplicationResponse (application: any)
+UploadchatfilesRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, timezoneOffset: integer ...)
+ UploadChatFilesRequest (files: array)
+   File (fileName: string, content: request-stream)
+UploadchatfilesResponse (HttpMeta: HTTPMetadata, UploadChatFilesResponse: UploadChatFilesResponse)
+ UploadChatFilesResponse (files: array)
+GetchatfilesRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, timezoneOffset: integer ...)
+ GetChatFilesRequest (fileIds: array)
+GetchatfilesResponse (HttpMeta: HTTPMetadata, GetChatFilesResponse: GetChatFilesResponse)
+ GetChatFilesResponse (files: map)
+DeletechatfilesRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, timezoneOffset: integer ...)
+ DeleteChatFilesRequest (fileIds: array)
+DeletechatfilesResponse (HttpMeta: HTTPMetadata)
+Collections (SDK empty)
+AddcollectionitemsRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, AddCollectionItemsRequest: AddCollectionItemsRequest)
+ AddCollectionItemsRequest (collectionId: number, addedCollectionItemDescriptors: array)
+   CollectionItemDescriptor (name: string, description: string, icon: string ...)
+    CollectionItemDescriptorItemType (enum: DOCUMENT, TEXT, URL)
+AddcollectionitemsResponse (HttpMeta: HTTPMetadata, AddCollectionItemsResponse: AddCollectionItemsResponse)
+ AddCollectionItemsResponse (collection: Collection, error: AddCollectionItemsError)
+  AddCollectionItemsError (errorType: enum)
+   AddCollectionItemsErrorErrorType (enum: EXISTING_ITEM)
+CreatecollectionRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, CreateCollectionRequest: CreateCollectionRequest)
+ CreateCollectionRequest (name: string, description: string, addedRoles: array ...)
+CreatecollectionResponse (HttpMeta: HTTPMetadata, CreateCollectionResponse: CreateCollectionResponse)
+ CreateCollectionResponse (name: string, description: string, addedRoles: array ...)
+  CreateCollectionResponseErrorCode (enum: NAME_EXISTS, NOT_FOUND, COLLECTION_PINNED ...)
+  CollectionError (errorCode: enum)
+   CollectionErrorErrorCode (enum: NAME_EXISTS, NOT_FOUND, COLLECTION_PINNED ...)
+CollectionError (error)
+DeletecollectionRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, DeleteCollectionRequest: DeleteCollectionRequest)
+ DeleteCollectionRequest (ids: array, allowedDatasource: string)
+DeletecollectionResponse (HttpMeta: HTTPMetadata)
+DeletecollectionitemRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, DeleteCollectionItemRequest: DeleteCollectionItemRequest)
+ DeleteCollectionItemRequest (collectionId: number, itemId: string, documentId: string)
+DeletecollectionitemResponse (HttpMeta: HTTPMetadata, DeleteCollectionItemResponse: DeleteCollectionItemResponse)
+ DeleteCollectionItemResponse (collection: Collection)
+EditcollectionRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, EditCollectionRequest: EditCollectionRequest)
+ EditCollectionRequest (name: string, description: string, addedRoles: array ...)
+EditcollectionResponse (HttpMeta: HTTPMetadata, EditCollectionResponse: EditCollectionResponse)
+ EditCollectionResponse (name: string, description: string, addedRoles: array ...)
+  EditCollectionResponseErrorCode (enum: NAME_EXISTS, NOT_FOUND, COLLECTION_PINNED ...)
+EditcollectionitemRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, EditCollectionItemRequest: EditCollectionItemRequest)
+ EditCollectionItemRequest (name: string, description: string, icon: string ...)
+EditcollectionitemResponse (HttpMeta: HTTPMetadata, EditCollectionItemResponse: EditCollectionItemResponse)
+ EditCollectionItemResponse (collection: Collection)
+GetcollectionRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, GetCollectionRequest: GetCollectionRequest)
+ GetCollectionRequest (id: integer, withItems: boolean, withHierarchy: boolean ...)
+GetcollectionResponse (HttpMeta: HTTPMetadata, GetCollectionResponse: GetCollectionResponse)
+ GetCollectionResponse (collection: Collection, rootCollection: Collection, trackingToken: string ...)
+ListcollectionsRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, ListCollectionsRequest: ListCollectionsRequest)
+ ListCollectionsRequest (includeAudience: boolean, includeRoles: boolean, allowedDatasource: string)
+ListcollectionsResponse (HttpMeta: HTTPMetadata, ListCollectionsResponse: ListCollectionsResponse)
+ ListCollectionsResponse (collections: array)
+ClientDocuments (SDK empty)
+GetdocpermissionsRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, GetDocPermissionsRequest: GetDocPermissionsRequest)
+ GetDocPermissionsRequest (documentId: string)
+GetdocpermissionsResponse (HttpMeta: HTTPMetadata, GetDocPermissionsResponse: GetDocPermissionsResponse)
+ GetDocPermissionsResponse (allowedUserEmails: array)
+GetdocumentsRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, GetDocumentsRequest: GetDocumentsRequest)
+ GetDocumentsRequest (documentSpecs: array, includeFields: array)
+   GetDocumentsRequestIncludeField (enum: LAST_VIEWED_AT, VISITORS_COUNT, RECENT_SHARES ...)
+GetdocumentsResponse (HttpMeta: HTTPMetadata, GetDocumentsResponse: GetDocumentsResponse)
+ GetDocumentsResponse (documents: map)
+   DocumentOrErrorUnion (union)
+    DocumentOrError (error: string)
+GetdocumentsbyfacetsRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, GetDocumentsByFacetsRequest: GetDocumentsByFacetsRequest)
+ GetDocumentsByFacetsRequest (datasourcesFilter: array, filterSets: array, cursor: string)
+GetdocumentsbyfacetsResponse (HttpMeta: HTTPMetadata, GetDocumentsByFacetsResponse: GetDocumentsByFacetsResponse)
+ GetDocumentsByFacetsResponse (documents: array, hasMoreResults: boolean, cursor: string)
+Insights (SDK empty)
+InsightsRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, InsightsRequest: InsightsRequest)
+ InsightsRequest (categories: array, departments: array, dayRange: Period ...)
+   InsightsRequestCategory (enum: AGENTS, AI, AI_APPS ...)
+  InsightsAiAppRequestOptions (aiAppIds: array)
+  InsightsAgentsRequestOptions (agentIds: array)
+   AssistantActivityType (enum: GLEAN_CHAT, AI_SUMMARY, AI_ANSWER ...)
+InsightsResponse (HttpMeta: HTTPMetadata, InsightsResponse: InsightsResponse)
+ InsightsResponse (timeseries: array, users: UserInsightsResponse, content: ContentInsightsResponse ...)
+   LabeledCountInfo (label: string, countInfo: array)
+  UserInsightsResponse (lastLogTimestamp: integer, activityInsights: array, inactiveInsights: array ...)
+    UserActivityInsight (user: Person, activity: enum, lastActivityTimestamp: integer ...)
+     ActivityEnum (enum: ALL, SEARCH)
+  ContentInsightsResponse (lastLogTimestamp: integer, documentInsights: array, departments: array ...)
+    DocumentInsight (document: Document, viewCount: CountInfo, visitorCount: CountInfo)
+  QueryInsightsResponse (lastLogTimestamp: integer, queryInsights: array, lowPerformingQueryInsights: array ...)
+    QueryInsight (query: string, searchCount: CountInfo, searchorCount: CountInfo ...)
+  ShortcutInsightsResponse (lastLogTimestamp: integer, shortcutInsights: array, departments: array ...)
+    ShortcutInsight (shortcut: Shortcut, visitCount: CountInfo, visitorCount: CountInfo)
+  AiInsightsResponse (lastLogTimestamp: integer, assistantInsights: array, totalActiveAssistantUsers: integer ...)
+  AiAppsInsightsResponse (lastLogTimestamp: integer, aiAppInsights: array, totalActiveUsers: integer ...)
+   AiAppActionCounts (totalSlackbotResponses: integer, totalSlackbotResponsesShared: integer, totalSlackbotResponsesNotHelpful: integer ...)
+  GleanAssistInsightsResponse (lastLogTimestamp: integer, activityInsights: array, totalActiveUsers: integer ...)
+Messages (SDK empty)
+MessagesRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, MessagesRequest: MessagesRequest)
+ MessagesRequest (idType: enum, id: string, workspaceId: string ...)
+  IdType (enum: CHANNEL_NAME, THREAD_ID, CONVERSATION_ID)
+  Direction (enum: OLDER, NEWER)
+  Datasource (enum: SLACK, MICROSOFTTEAMS, FACEBOOKWORKPLACE)
+MessagesResponse (HttpMeta: HTTPMetadata, MessagesResponse: MessagesResponse)
+ MessagesResponse (hasMore: boolean, searchResponse: SearchResponse, rootMessage: SearchResult)
+  SearchResponse (trackingToken: string, sessionInfo: SessionInfo, results: array ...)
+   GeneratedQna (question: string, answer: string, followUpPrompts: array ...)
+     FollowupAction (actionRunId: string, actionInstanceId: string, actionId: string ...)
+    GeneratedQnaStatus (enum: COMPUTING, DISABLED, FAILED ...)
+   GleanDataError (badGmailToken: boolean, badOutlookToken: boolean, invalidOperators: array ...)
+     InvalidOperatorValueError (key: string, value: string)
+     ErrorMessage (source: string, errorMessage: string)
+   SearchResponseMetadata (rewrittenQuery: string, searchedQuery: string, searchedQueryRanges: array ...)
+    SearchWarning (warningType: enum, lastUsedTerm: string, quotesIgnoredQuery: string ...)
+     WarningType (enum: LONG_QUERY, QUOTED_PUNCTUATION, PUNCTUATION_ONLY ...)
+    FacetResult (sourceName: string, operatorName: string, buckets: array ...)
+      FacetBucket (count: integer, datasource: string, percentage: integer ...)
+       FacetValue (stringValue: string, integerValue: integer, displayLabel: string ...)
+    ResultTab (id: string, count: integer, datasource: string ...)
+   ResultsDescription (text: string, iconConfig: IconConfig)
+Pins (SDK empty)
+EditpinRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, EditPinRequest: EditPinRequest)
+ EditPinRequest (queries: array, audienceFilters: array, id: string)
+EditpinResponse (HttpMeta: HTTPMetadata, PinDocument: PinDocument)
+GetpinRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, GetPinRequest: GetPinRequest)
+ GetPinRequest (id: string)
+GetpinResponse (HttpMeta: HTTPMetadata, GetPinResponse: GetPinResponse)
+ GetPinResponse (pin: PinDocument)
+ListpinsRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, RequestBody: class)
+ ListpinsRequestBody (empty)
+ListpinsResponse (HttpMeta: HTTPMetadata, ListPinsResponse: ListPinsResponse)
+ ListPinsResponse (pins: array)
+PinRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, PinRequest: PinRequest)
+ PinRequest (queries: array, audienceFilters: array, documentId: string)
+PinResponse (HttpMeta: HTTPMetadata, PinDocument: PinDocument)
+UnpinRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, Unpin: Unpin)
+ Unpin (id: string)
+UnpinResponse (HttpMeta: HTTPMetadata)
+Search (SDK empty)
+AdminsearchRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, SearchRequest: SearchRequest)
+ SearchRequest (timestamp: date-time, trackingToken: string, sessionInfo: SessionInfo ...)
+AdminsearchResponse (HttpMeta: HTTPMetadata, SearchResponse: SearchResponse)
+GleanDataError (error)
+AutocompleteRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, AutocompleteRequest: AutocompleteRequest)
+ AutocompleteRequest (trackingToken: string, sessionInfo: SessionInfo, query: string ...)
+   AutocompleteRequestResultType (enum: ADDITIONAL_DOCUMENT, APP, BROWSER_HISTORY ...)
+AutocompleteResponse (HttpMeta: HTTPMetadata, AutocompleteResponse: AutocompleteResponse)
+ AutocompleteResponse (experimentIds: array, trackingToken: string, sessionInfo: SessionInfo ...)
+   AutocompleteResult (result: string, keywords: array, resultType: enum ...)
+    AutocompleteResultResultType (enum: ADDITIONAL_DOCUMENT, APP, BROWSER_HISTORY ...)
+    OperatorMetadata (name: string, isCustom: boolean, operatorType: enum ...)
+     OperatorType (enum: TEXT, DOUBLE, DATE ...)
+      OperatorScope (datasource: string, docType: string)
+    Quicklink (name: string, shortName: string, url: string ...)
+      Scope (enum: APP_CARD, AUTOCOMPLETE_EXACT_MATCH, AUTOCOMPLETE_FUZZY_MATCH ...)
+   AutocompleteResultGroup (startIndex: integer, endIndex: integer, title: string)
+FeedRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, FeedRequest: FeedRequest)
+ FeedRequest (categories: array, requestOptions: FeedRequestOptions, timeoutMillis: integer ...)
+   FeedRequestCategory (enum: DOCUMENT_SUGGESTION, DOCUMENT_SUGGESTION_SCENARIO, TRENDING_DOCUMENT ...)
+  FeedRequestOptions (resultSize: integer, timezoneOffset: integer, categoryToResultSize: map ...)
+    CategoryToResultSize (resultSize: integer)
+   ChatZeroStateSuggestionOptions (applicationId: string)
+FeedResponse (HttpMeta: HTTPMetadata, FeedResponse: FeedResponse)
+ FeedResponse (experimentIds: array, trackingToken: string, serverTimestamp: integer ...)
+   FeedResult (category: enum, primaryEntry: FeedEntry, secondaryEntries: array ...)
+    FeedResultCategory (enum: DOCUMENT_SUGGESTION, DOCUMENT_SUGGESTION_SCENARIO, TRENDING_DOCUMENT ...)
+    FeedEntry (entryId: string, title: string, thumbnail: Thumbnail ...)
+     UiConfig (format: enum, additionalFlags: DisplayableListItemUIConfig)
+      Format (enum: LIST)
+      DisplayableListItemUiConfig (showNewIndicator: boolean)
+     JustificationType (enum: FREQUENTLY_ACCESSED, RECENTLY_ACCESSED, TRENDING_DOCUMENT ...)
+     CalendarEvent (time: TimeInterval, eventType: enum, id: string ...)
+      CalendarEventEventType (enum: DEFAULT, OUT_OF_OFFICE)
+      ConferenceData (provider: enum, uri: string, source: enum)
+       Provider (enum: ZOOM, HANGOUTS)
+       ConferenceDataSource (enum: NATIVE_CONFERENCE, LOCATION, DESCRIPTION)
+       EventClassification (name: EventClassificationName, strategies: array)
+        EventClassificationName (enum: External Event)
+         EventStrategyName (enum: customerCard, news, call ...)
+       GeneratedAttachment (strategyName: EventStrategyName, documents: array, person: Person ...)
+         StructuredLink (name: string, url: string, iconConfig: IconConfig)
+         GeneratedAttachmentContent (displayHeader: string, text: string)
+     PromptTemplateResult (promptTemplate: PromptTemplate, trackingToken: string, favoriteInfo: FavoriteInfo ...)
+      PromptTemplate (name: string, template: string, applicationId: string ...)
+      FavoriteInfo (ugcType: UgcType, id: string, count: integer ...)
+       UgcType (enum: ANNOUNCEMENTS_TYPE, ANSWERS_TYPE, COLLECTIONS_TYPE ...)
+     WorkflowResult (workflow: Workflow)
+      Workflow (author: Person, createTimestamp: integer, lastUpdateTimestamp: integer ...)
+      UserActivity (actor: Person, timestamp: integer, action: enum ...)
+       UserActivityAction (enum: ADD, ADD_REMINDER, CLICK ...)
+RecommendationsRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, RecommendationsRequest: RecommendationsRequest)
+ RecommendationsRequest (timestamp: date-time, trackingToken: string, sessionInfo: SessionInfo ...)
+  RecommendationsRequestOptions (datasourceFilter: string, datasourcesFilter: array, facetFilterSets: array ...)
+RecommendationsResponse (HttpMeta: HTTPMetadata, ResultsResponse: ResultsResponse)
+ ResultsResponse (trackingToken: string, sessionInfo: SessionInfo, results: array ...)
+SearchRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, SearchRequest: SearchRequest)
+SearchResponse (HttpMeta: HTTPMetadata, SearchResponse: SearchResponse)
+Entities (SDK empty)
+ListentitiesRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, ListEntitiesRequest: ListEntitiesRequest)
+ ListEntitiesRequest (filter: array, sort: array, entityType: enum ...)
+   SortOptions (orderBy: enum, sortBy: string)
+    OrderBy (enum: ASC, DESC)
+  ListEntitiesRequestEntityType (enum: PEOPLE, TEAMS, CUSTOM_ENTITIES)
+   ListEntitiesRequestIncludeField (enum: PEOPLE, TEAMS, PEOPLE_DISTANCE ...)
+ListentitiesResponse (HttpMeta: HTTPMetadata, ListEntitiesResponse: ListEntitiesResponse)
+ ListEntitiesResponse (results: array, teamResults: array, customEntityResults: array ...)
+   EntitiesSortOrder (enum: ENTITY_NAME, FIRST_NAME, LAST_NAME ...)
+PeopleRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, PeopleRequest: PeopleRequest)
+ PeopleRequest (timezoneOffset: integer, obfuscatedIds: array, emailIds: array ...)
+   PeopleRequestIncludeField (enum: BADGES, BUSY_EVENTS, DOCUMENT_ACTIVITY ...)
+   IncludeType (enum: PEOPLE_WITHOUT_MANAGER, INVALID_ENTITIES)
+PeopleResponse (HttpMeta: HTTPMetadata, PeopleResponse: PeopleResponse)
+ PeopleResponse (results: array, relatedDocuments: array, errors: array)
+ClientShortcuts (SDK empty)
+CreateshortcutRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, CreateShortcutRequest: CreateShortcutRequest)
+ CreateShortcutRequest (data: ShortcutMutableProperties)
+  ShortcutMutableProperties (inputAlias: string, destinationUrl: string, destinationDocumentId: string ...)
+CreateshortcutResponse (HttpMeta: HTTPMetadata, CreateShortcutResponse: CreateShortcutResponse)
+ CreateShortcutResponse (shortcut: Shortcut, error: ShortcutError)
+  ShortcutError (errorType: enum)
+   ShortcutErrorErrorType (enum: NO_PERMISSION, INVALID_ID, EXISTING_SHORTCUT ...)
+DeleteshortcutRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, DeleteShortcutRequest: DeleteShortcutRequest)
+ DeleteShortcutRequest (id: integer)
+DeleteshortcutResponse (HttpMeta: HTTPMetadata)
+GetshortcutRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, GetShortcutRequest: GetShortcutRequest_union)
+ GetShortcutRequestUnion (union)
+  UserGeneratedContentId (id: integer)
+  GetShortcutRequest (alias: string)
+GetshortcutResponse (HttpMeta: HTTPMetadata, GetShortcutResponse: GetShortcutResponse)
+ GetShortcutResponse (shortcut: Shortcut, error: ShortcutError)
+ListshortcutsRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, ListShortcutsPaginatedRequest: ListShortcutsPaginatedRequest)
+ ListShortcutsPaginatedRequest (includeFields: array, pageSize: integer, cursor: string ...)
+   ListShortcutsPaginatedRequestIncludeField (enum: FACETS, PEOPLE_DETAILS)
+ListshortcutsResponse (HttpMeta: HTTPMetadata, ListShortcutsPaginatedResponse: ListShortcutsPaginatedResponse)
+ ListShortcutsPaginatedResponse (shortcuts: array, facetResults: array, meta: ShortcutsPaginationMetadata)
+  ShortcutsPaginationMetadata (cursor: string, hasNextPage: boolean, totalItemCount: integer)
+UpdateshortcutRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, UpdateShortcutRequest: UpdateShortcutRequest)
+ UpdateShortcutRequest (id: integer, inputAlias: string, destinationUrl: string ...)
+UpdateshortcutResponse (HttpMeta: HTTPMetadata, UpdateShortcutResponse: UpdateShortcutResponse)
+ UpdateShortcutResponse (shortcut: Shortcut, error: ShortcutError)
+UploadShortcutsRequest (uploadId: string, isFirstPage: boolean, isLastPage: boolean ...)
+PostApiIndexV1UploadshortcutsResponse (HttpMeta: HTTPMetadata)
+Summarize (SDK empty)
+SummarizeRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, SummarizeRequest: SummarizeRequest)
+ SummarizeRequest (timestamp: date-time, query: string, preferredSummaryLength: integer ...)
+SummarizeResponse (HttpMeta: HTTPMetadata, SummarizeResponse: SummarizeResponse)
+ SummarizeResponse (error: class, summary: Summary, trackingToken: string)
+  Error (message: string)
+  Summary (text: string, followUpPrompts: array)
+Verification (SDK empty)
+AddverificationreminderRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, ReminderRequest: ReminderRequest)
+ ReminderRequest (documentId: string, assignee: string, remindInDays: integer ...)
+AddverificationreminderResponse (HttpMeta: HTTPMetadata, Verification: Verification)
+ListverificationsRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, count: integer)
+ListverificationsResponse (HttpMeta: HTTPMetadata, VerificationFeed: VerificationFeed)
+ VerificationFeed (documents: array)
+VerifyRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, VerifyRequest: VerifyRequest)
+ VerifyRequest (documentId: string, action: enum)
+  VerifyRequestAction (enum: VERIFY, DEPRECATE, UNVERIFY)
+VerifyResponse (HttpMeta: HTTPMetadata, Verification: Verification)
+Agents (SDK empty)
+RunagentRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, timezoneOffset: integer ...)
+ RunAgentRequest (agentId: string, fields: map, stream: boolean)
+RunagentResponse (HttpMeta: HTTPMetadata, ChatResponse: ChatResponse)
+ ChatResponse (messages: array, chatId: string, followUpPrompts: array ...)
+ListagentsRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, timezoneOffset: integer ...)
+ListagentsResponse (HttpMeta: HTTPMetadata, ListAgentsResponse: ListAgentsResponse)
+ ListAgentsResponse (agents: array)
+   AgentResult (agent: Agent)
+    Agent (author: Person, createTimestamp: integer, lastUpdateTimestamp: integer ...)
+GetagentinputsRequest (X-Glean-ActAs: string, X-Glean-Auth-Type: string, timezoneOffset: integer ...)
+ GetAgentInputsRequest (agentId: string)
+GetagentinputsResponse (HttpMeta: HTTPMetadata, GetAgentInputsResponse: GetAgentInputsResponse)
+ GetAgentInputsResponse (inputs: array)
+   WorkflowInputField (name: string)
+Indexing (SDK empty)
+IndexingDocuments (SDK empty)
+IndexDocumentRequest (version: integer, document: DocumentDefinition)
+ DocumentDefinition (title: string, filename: string, container: string ...)
+  ContentDefinition (mimeType: string, textContent: string, binaryContent: string)
+  UserReferenceDefinition (email: string, datasourceUserId: string, name: string)
+  DocumentPermissionsDefinition (allowedUsers: array, allowedGroups: array, allowedGroupIntersections: array ...)
+    PermissionsGroupIntersectionDefinition (requiredGroups: array)
+  DocumentInteractionsDefinition (numViews: integer, numLikes: integer, numComments: integer)
+   CommentDefinition (id: string, author: UserReferenceDefinition, content: ContentDefinition ...)
+   CustomProperty (name: string, value: any)
+PostApiIndexV1IndexdocumentResponse (HttpMeta: HTTPMetadata)
+IndexDocumentsRequest (uploadId: string, datasource: string, documents: array)
+PostApiIndexV1IndexdocumentsResponse (HttpMeta: HTTPMetadata)
+BulkIndexDocumentsRequest (uploadId: string, isFirstPage: boolean, isLastPage: boolean ...)
+PostApiIndexV1BulkindexdocumentsResponse (HttpMeta: HTTPMetadata)
+ProcessAllDocumentsRequest (datasource: string)
+PostApiIndexV1ProcessalldocumentsResponse (HttpMeta: HTTPMetadata)
+DeleteDocumentRequest (version: integer, datasource: string, objectType: string ...)
+PostApiIndexV1DeletedocumentResponse (HttpMeta: HTTPMetadata)
+Permissions (SDK empty)
+UpdatePermissionsRequest (datasource: string, objectType: string, id: string ...)
+PostApiIndexV1UpdatepermissionsResponse (HttpMeta: HTTPMetadata)
+IndexUserRequest (version: integer, datasource: string, user: DatasourceUserDefinition)
+ DatasourceUserDefinition (email: string, userId: string, name: string ...)
+PostApiIndexV1IndexuserResponse (HttpMeta: HTTPMetadata)
+BulkIndexUsersRequest (uploadId: string, isFirstPage: boolean, isLastPage: boolean ...)
+PostApiIndexV1BulkindexusersResponse (HttpMeta: HTTPMetadata)
+IndexGroupRequest (version: integer, datasource: string, group: DatasourceGroupDefinition)
+ DatasourceGroupDefinition (name: string)
+PostApiIndexV1IndexgroupResponse (HttpMeta: HTTPMetadata)
+BulkIndexGroupsRequest (uploadId: string, isFirstPage: boolean, isLastPage: boolean ...)
+PostApiIndexV1BulkindexgroupsResponse (HttpMeta: HTTPMetadata)
+IndexMembershipRequest (version: integer, datasource: string, membership: DatasourceMembershipDefinition)
+ DatasourceMembershipDefinition (groupName: string, memberUserId: string, memberGroupName: string)
+PostApiIndexV1IndexmembershipResponse (HttpMeta: HTTPMetadata)
+BulkIndexMembershipsRequest (uploadId: string, isFirstPage: boolean, isLastPage: boolean ...)
+  DatasourceBulkMembershipDefinition (memberUserId: string, memberGroupName: string)
+PostApiIndexV1BulkindexmembershipsResponse (HttpMeta: HTTPMetadata)
+ProcessAllMembershipsRequest (datasource: string)
+PostApiIndexV1ProcessallmembershipsResponse (HttpMeta: HTTPMetadata)
+DeleteUserRequest (version: integer, datasource: string, email: string)
+PostApiIndexV1DeleteuserResponse (HttpMeta: HTTPMetadata)
+DeleteGroupRequest (version: integer, datasource: string, groupName: string)
+PostApiIndexV1DeletegroupResponse (HttpMeta: HTTPMetadata)
+DeleteMembershipRequest (version: integer, datasource: string, membership: DatasourceMembershipDefinition)
+PostApiIndexV1DeletemembershipResponse (HttpMeta: HTTPMetadata)
+GreenlistUsersRequest (datasource: string, emails: array)
+PostApiIndexV1BetausersResponse (HttpMeta: HTTPMetadata)
+Troubleshooting (SDK empty)
+Post/api/index/v1/debug/{datasource}/statusRequest (datasource: string)
+PostApiIndexV1DebugDatasourceStatusResponse (HttpMeta: HTTPMetadata, DebugDatasourceStatusResponse: DebugDatasourceStatusResponse)
+ DebugDatasourceStatusResponse (documents: class, identity: class, datasourceVisibility: enum)
+  Documents (bulkUploadHistory: array, counts: class, processingHistory: array)
+    BulkUploadHistoryEvent (uploadId: string, startTime: string, endTime: string ...)
+     BulkUploadHistoryEventStatus (enum: ACTIVE, SUCCESSFUL)
+     ProcessingState (enum: UNAVAILABLE, UPLOAD STARTED, UPLOAD IN PROGRESS ...)
+   DebugDatasourceStatusResponseCounts (uploaded: array, indexed: array)
+     DatasourceObjectTypeDocumentCountEntry (objectType: string, count: integer)
+    ProcessingHistoryEvent (startTime: string, endTime: string)
+  Identity (processingHistory: array, users: DebugDatasourceStatusIdentityResponseComponent, groups: DebugDatasourceStatusIdentityResponseComponent ...)
+   DebugDatasourceStatusIdentityResponseComponent (bulkUploadHistory: array, counts: class)
+    DebugDatasourceStatusIdentityResponseComponentCounts (uploaded: integer)
+  DatasourceVisibility (enum: ENABLED_FOR_ALL, ENABLED_FOR_TEST_GROUP, NOT_ENABLED)
+Post/api/index/v1/debug/{datasource}/documentRequest (datasource: string, DebugDocumentRequest: DebugDocumentRequest)
+ DebugDocumentRequest (objectType: string, docId: string)
+PostApiIndexV1DebugDatasourceDocumentResponse (HttpMeta: HTTPMetadata, DebugDocumentResponse: DebugDocumentResponse)
+ DebugDocumentResponse (status: DocumentStatusResponse, uploadedPermissions: DocumentPermissionsDefinition)
+  DocumentStatusResponse (uploadStatus: string, lastUploadedAt: string, indexingStatus: string ...)
+Post/api/index/v1/debug/{datasource}/documentsRequest (datasource: string, DebugDocumentsRequest: DebugDocumentsRequest)
+ DebugDocumentsRequest (debugDocuments: array)
+PostApiIndexV1DebugDatasourceDocumentsResponse (HttpMeta: HTTPMetadata, DebugDocumentsResponse: DebugDocumentsResponse)
+ DebugDocumentsResponse (documentStatuses: array)
+   DebugDocumentsResponseItem (docId: string, objectType: string, debugInfo: DebugDocumentResponse)
+Post/api/index/v1/debug/{datasource}/userRequest (datasource: string, DebugUserRequest: DebugUserRequest)
+ DebugUserRequest (email: string)
+PostApiIndexV1DebugDatasourceUserResponse (HttpMeta: HTTPMetadata, DebugUserResponse: DebugUserResponse)
+ DebugUserResponse (status: UserStatusResponse, uploadedGroups: array)
+  UserStatusResponse (isActiveUser: boolean, uploadStatus: UploadStatusEnum, lastUploadedAt: string)
+   UploadStatusEnum (enum: UPLOADED, NOT_UPLOADED, STATUS_UNKNOWN)
+CheckDocumentAccessRequest (datasource: string, objectType: string, docId: string ...)
+PostApiIndexV1CheckdocumentaccessResponse (HttpMeta: HTTPMetadata, CheckDocumentAccessResponse: CheckDocumentAccessResponse)
+ CheckDocumentAccessResponse (hasAccess: boolean)
+GetDocumentStatusRequest (datasource: string, objectType: string, docId: string)
+PostApiIndexV1GetdocumentstatusResponse (HttpMeta: HTTPMetadata, GetDocumentStatusResponse: GetDocumentStatusResponse)
+ GetDocumentStatusResponse (uploadStatus: string, lastUploadedAt: integer, indexingStatus: string ...)
+GetDocumentCountRequest (datasource: string)
+PostApiIndexV1GetdocumentcountResponse (HttpMeta: HTTPMetadata, GetDocumentCountResponse: GetDocumentCountResponse)
+ GetDocumentCountResponse (documentCount: integer)
+GetUserCountRequest (datasource: string)
+PostApiIndexV1GetusercountResponse (HttpMeta: HTTPMetadata, GetUserCountResponse: GetUserCountResponse)
+ GetUserCountResponse (userCount: integer)
+Datasources (SDK empty)
+CustomDatasourceConfig (name: string, displayName: string, datasourceCategory: enum ...)
+ DatasourceCategory (enum: UNCATEGORIZED, TICKETS, CRM ...)
+  ObjectDefinition (name: string, displayLabel: string, docCategory: enum ...)
+   DocCategory (enum: UNCATEGORIZED, TICKETS, CRM ...)
+    PropertyDefinition (name: string, displayLabel: string, displayLabelPlural: string ...)
+     PropertyType (enum: TEXT, DATE, INT ...)
+     UiOptions (enum: NONE, SEARCH_RESULT, DOC_HOVERCARD)
+    PropertyGroup (name: string, displayLabel: string)
+  HideBuiltInFacet (enum: TYPE, TAG, AUTHOR ...)
+  CanonicalizingRegexType (matchRegex: string, rewriteRegex: string)
+ CustomDatasourceConfigConnectorType (enum: API_CRAWL, BROWSER_CRAWL, BROWSER_HISTORY ...)
+PostApiIndexV1AdddatasourceResponse (HttpMeta: HTTPMetadata)
+GetDatasourceConfigRequest (datasource: string)
+PostApiIndexV1GetdatasourceconfigResponse (HttpMeta: HTTPMetadata, CustomDatasourceConfig: CustomDatasourceConfig)
+IndexingAuthentication (SDK empty)
+PostApiIndexV1RotatetokenResponse (HttpMeta: HTTPMetadata, RotateTokenResponse: RotateTokenResponse)
+ RotateTokenResponse (rawSecret: string, createdAt: integer, rotationPeriodMinutes: integer)
+People (SDK empty)
+IndexEmployeeRequest (employee: EmployeeInfoDefinition, version: integer)
+ EmployeeInfoDefinition (email: string, firstName: string, lastName: string ...)
+   EmployeeTeamInfo (id: string, name: string, url: string)
+   SocialNetworkDefinition (name: string, profileName: string, profileUrl: string)
+   EntityRelationship (name: string, email: string)
+   AdditionalFieldDefinition (key: string, value: array)
+     Value (empty)
+PostApiIndexV1IndexemployeeResponse (HttpMeta: HTTPMetadata)
+BulkIndexEmployeesRequest (uploadId: string, isFirstPage: boolean, isLastPage: boolean ...)
+PostApiIndexV1BulkindexemployeesResponse (HttpMeta: HTTPMetadata)
+IndexEmployeeListRequest (employees: array)
+PostApiIndexV1IndexemployeelistResponse (HttpMeta: HTTPMetadata)
+PostApiIndexV1ProcessallemployeesandteamsResponse (HttpMeta: HTTPMetadata)
+DeleteEmployeeRequest (version: integer, employeeEmail: string)
+PostApiIndexV1DeleteemployeeResponse (HttpMeta: HTTPMetadata)
+IndexTeamRequest (team: TeamInfoDefinition, version: integer)
+ TeamInfoDefinition (id: string, name: string, description: string ...)
+   TeamMember (email: string, relationship: string, join_date: date)
+PostApiIndexV1IndexteamResponse (HttpMeta: HTTPMetadata)
+DeleteTeamRequest (id: string)
+PostApiIndexV1DeleteteamResponse (HttpMeta: HTTPMetadata)
+BulkIndexTeamsRequest (uploadId: string, isFirstPage: boolean, isLastPage: boolean ...)
+PostApiIndexV1BulkindexteamsResponse (HttpMeta: HTTPMetadata)
+IndexingShortcuts (SDK empty)
+BulkIndexShortcutsRequest (uploadId: string, isFirstPage: boolean, isLastPage: boolean ...)
+  ExternalShortcut (inputAlias: string, description: string, destinationUrl: string ...)
+PostApiIndexV1BulkindexshortcutsResponse (HttpMeta: HTTPMetadata)
+
