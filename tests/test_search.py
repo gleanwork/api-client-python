@@ -14,12 +14,12 @@ def test_search_adminsearch():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.client.search.admin(
-            search_request=models.SearchRequest(
+        res = g_client.client.search.query_as_admin(
+            request=models.SearchRequest(
                 tracking_token="trackingToken",
                 page_size=10,
                 query="vacation policy",
@@ -61,24 +61,26 @@ def test_search_autocomplete():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
         res = g_client.client.search.autocomplete(
-            tracking_token="trackingToken",
-            query="San Fra",
-            datasource="GDRIVE",
-            result_size=10,
-            auth_tokens=[
-                {
-                    "access_token": "123abc",
-                    "datasource": "gmail",
-                    "scope": "email profile https://www.googleapis.com/auth/gmail.readonly",
-                    "token_type": "Bearer",
-                    "auth_user": "1",
-                },
-            ],
+            request={
+                "tracking_token": "trackingToken",
+                "query": "San Fra",
+                "datasource": "GDRIVE",
+                "result_size": 10,
+                "auth_tokens": [
+                    {
+                        "access_token": "123abc",
+                        "datasource": "gmail",
+                        "scope": "email profile https://www.googleapis.com/auth/gmail.readonly",
+                        "token_type": "Bearer",
+                        "auth_user": "1",
+                    },
+                ],
+            }
         )
         assert res is not None
 
@@ -89,11 +91,11 @@ def test_search_feed():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.client.search.get_feed(timeout_millis=5000)
+        res = g_client.client.search.retrieve_feed(request={})
         assert res is not None
 
 
@@ -117,12 +119,12 @@ def test_search_recommendations():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
         res = g_client.client.search.recommendations(
-            recommendations_request=models.RecommendationsRequest(
+            request=models.RecommendationsRequest(
                 source_document=models.Document(
                     metadata=models.DocumentMetadata(
                         datasource="datasource",
@@ -267,12 +269,12 @@ def test_search_search():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.client.search.execute(
-            search_request=models.SearchRequest(
+        res = g_client.client.search.query(
+            request=models.SearchRequest(
                 tracking_token="trackingToken",
                 page_size=10,
                 query="vacation policy",

@@ -6,7 +6,6 @@ from .customdatavalue import CustomDataValue, CustomDataValueTypedDict
 from .documentvisibility import DocumentVisibility
 from .indexstatus import IndexStatus, IndexStatusTypedDict
 from .objectpermissions import ObjectPermissions, ObjectPermissionsTypedDict
-from .shortcut import Shortcut, ShortcutTypedDict
 from .thumbnail import Thumbnail, ThumbnailTypedDict
 from .viewerinfo import ViewerInfo, ViewerInfoTypedDict
 from datetime import datetime
@@ -24,6 +23,7 @@ if TYPE_CHECKING:
     )
     from .person import Person, PersonTypedDict
     from .pindocument import PinDocument, PinDocumentTypedDict
+    from .shortcut import Shortcut, ShortcutTypedDict
     from .verification import Verification, VerificationTypedDict
 
 
@@ -79,7 +79,7 @@ class DocumentMetadataTypedDict(TypedDict):
     viewer_info: NotRequired[ViewerInfoTypedDict]
     permissions: NotRequired[ObjectPermissionsTypedDict]
     visit_count: NotRequired[CountInfoTypedDict]
-    shortcuts: NotRequired[List[ShortcutTypedDict]]
+    shortcuts: NotRequired[List["ShortcutTypedDict"]]
     r"""A list of shortcuts of which destination URL is for the document."""
     path: NotRequired[str]
     r"""For file datasources like onedrive/github etc this has the path to the file"""
@@ -198,7 +198,7 @@ class DocumentMetadata(BaseModel):
         None
     )
 
-    shortcuts: Optional[List[Shortcut]] = None
+    shortcuts: Optional[List["Shortcut"]] = None
     r"""A list of shortcuts of which destination URL is for the document."""
 
     path: Optional[str] = None

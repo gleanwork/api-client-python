@@ -3,9 +3,9 @@
 from .basesdk import BaseSDK
 from glean import errors, models, utils
 from glean._hooks import HookContext
-from glean.types import OptionalNullable, UNSET
+from glean.types import BaseModel, OptionalNullable, UNSET
 from glean.utils import get_security_from_env
-from typing import Any, List, Mapping, Optional, Union
+from typing import Any, List, Mapping, Optional, Union, cast
 
 
 class Collections(BaseSDK):
@@ -13,8 +13,6 @@ class Collections(BaseSDK):
         self,
         *,
         collection_id: float,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
         added_collection_item_descriptors: Optional[
             Union[
                 List[models.CollectionItemDescriptor],
@@ -31,8 +29,6 @@ class Collections(BaseSDK):
         Add items to a Collection.
 
         :param collection_id: The ID of the Collection to add items to.
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param added_collection_item_descriptors: The CollectionItemDescriptors of the items being added.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -49,15 +45,11 @@ class Collections(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.AddcollectionitemsRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            add_collection_items_request=models.AddCollectionItemsRequest(
-                collection_id=collection_id,
-                added_collection_item_descriptors=utils.get_pydantic_model(
-                    added_collection_item_descriptors,
-                    Optional[List[models.CollectionItemDescriptor]],
-                ),
+        request = models.AddCollectionItemsRequest(
+            collection_id=collection_id,
+            added_collection_item_descriptors=utils.get_pydantic_model(
+                added_collection_item_descriptors,
+                Optional[List[models.CollectionItemDescriptor]],
             ),
         )
 
@@ -75,11 +67,7 @@ class Collections(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.add_collection_items_request,
-                False,
-                False,
-                "json",
-                models.AddCollectionItemsRequest,
+                request, False, False, "json", models.AddCollectionItemsRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -134,8 +122,6 @@ class Collections(BaseSDK):
         self,
         *,
         collection_id: float,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
         added_collection_item_descriptors: Optional[
             Union[
                 List[models.CollectionItemDescriptor],
@@ -152,8 +138,6 @@ class Collections(BaseSDK):
         Add items to a Collection.
 
         :param collection_id: The ID of the Collection to add items to.
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param added_collection_item_descriptors: The CollectionItemDescriptors of the items being added.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -170,15 +154,11 @@ class Collections(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.AddcollectionitemsRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            add_collection_items_request=models.AddCollectionItemsRequest(
-                collection_id=collection_id,
-                added_collection_item_descriptors=utils.get_pydantic_model(
-                    added_collection_item_descriptors,
-                    Optional[List[models.CollectionItemDescriptor]],
-                ),
+        request = models.AddCollectionItemsRequest(
+            collection_id=collection_id,
+            added_collection_item_descriptors=utils.get_pydantic_model(
+                added_collection_item_descriptors,
+                Optional[List[models.CollectionItemDescriptor]],
             ),
         )
 
@@ -196,11 +176,7 @@ class Collections(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.add_collection_items_request,
-                False,
-                False,
-                "json",
-                models.AddCollectionItemsRequest,
+                request, False, False, "json", models.AddCollectionItemsRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -255,8 +231,6 @@ class Collections(BaseSDK):
         self,
         *,
         name: str,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
         description: Optional[str] = None,
         added_roles: Optional[
             Union[
@@ -289,8 +263,6 @@ class Collections(BaseSDK):
         Create a publicly visible (empty) Collection of documents.
 
         :param name: The unique name of the Collection.
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param description: A brief summary of the Collection's contents.
         :param added_roles: A list of added user roles for the Collection.
         :param removed_roles: A list of removed user roles for the Collection.
@@ -316,30 +288,24 @@ class Collections(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.CreatecollectionRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            create_collection_request=models.CreateCollectionRequest(
-                name=name,
-                description=description,
-                added_roles=utils.get_pydantic_model(
-                    added_roles, Optional[List[models.UserRoleSpecification]]
-                ),
-                removed_roles=utils.get_pydantic_model(
-                    removed_roles, Optional[List[models.UserRoleSpecification]]
-                ),
-                audience_filters=utils.get_pydantic_model(
-                    audience_filters, Optional[List[models.FacetFilter]]
-                ),
-                icon=icon,
-                admin_locked=admin_locked,
-                parent_id=parent_id,
-                thumbnail=utils.get_pydantic_model(
-                    thumbnail, Optional[models.Thumbnail]
-                ),
-                allowed_datasource=allowed_datasource,
-                new_next_item_id=new_next_item_id,
+        request = models.CreateCollectionRequest(
+            name=name,
+            description=description,
+            added_roles=utils.get_pydantic_model(
+                added_roles, Optional[List[models.UserRoleSpecification]]
             ),
+            removed_roles=utils.get_pydantic_model(
+                removed_roles, Optional[List[models.UserRoleSpecification]]
+            ),
+            audience_filters=utils.get_pydantic_model(
+                audience_filters, Optional[List[models.FacetFilter]]
+            ),
+            icon=icon,
+            admin_locked=admin_locked,
+            parent_id=parent_id,
+            thumbnail=utils.get_pydantic_model(thumbnail, Optional[models.Thumbnail]),
+            allowed_datasource=allowed_datasource,
+            new_next_item_id=new_next_item_id,
         )
 
         req = self._build_request(
@@ -356,11 +322,7 @@ class Collections(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.create_collection_request,
-                False,
-                False,
-                "json",
-                models.CreateCollectionRequest,
+                request, False, False, "json", models.CreateCollectionRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -419,8 +381,6 @@ class Collections(BaseSDK):
         self,
         *,
         name: str,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
         description: Optional[str] = None,
         added_roles: Optional[
             Union[
@@ -453,8 +413,6 @@ class Collections(BaseSDK):
         Create a publicly visible (empty) Collection of documents.
 
         :param name: The unique name of the Collection.
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param description: A brief summary of the Collection's contents.
         :param added_roles: A list of added user roles for the Collection.
         :param removed_roles: A list of removed user roles for the Collection.
@@ -480,30 +438,24 @@ class Collections(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.CreatecollectionRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            create_collection_request=models.CreateCollectionRequest(
-                name=name,
-                description=description,
-                added_roles=utils.get_pydantic_model(
-                    added_roles, Optional[List[models.UserRoleSpecification]]
-                ),
-                removed_roles=utils.get_pydantic_model(
-                    removed_roles, Optional[List[models.UserRoleSpecification]]
-                ),
-                audience_filters=utils.get_pydantic_model(
-                    audience_filters, Optional[List[models.FacetFilter]]
-                ),
-                icon=icon,
-                admin_locked=admin_locked,
-                parent_id=parent_id,
-                thumbnail=utils.get_pydantic_model(
-                    thumbnail, Optional[models.Thumbnail]
-                ),
-                allowed_datasource=allowed_datasource,
-                new_next_item_id=new_next_item_id,
+        request = models.CreateCollectionRequest(
+            name=name,
+            description=description,
+            added_roles=utils.get_pydantic_model(
+                added_roles, Optional[List[models.UserRoleSpecification]]
             ),
+            removed_roles=utils.get_pydantic_model(
+                removed_roles, Optional[List[models.UserRoleSpecification]]
+            ),
+            audience_filters=utils.get_pydantic_model(
+                audience_filters, Optional[List[models.FacetFilter]]
+            ),
+            icon=icon,
+            admin_locked=admin_locked,
+            parent_id=parent_id,
+            thumbnail=utils.get_pydantic_model(thumbnail, Optional[models.Thumbnail]),
+            allowed_datasource=allowed_datasource,
+            new_next_item_id=new_next_item_id,
         )
 
         req = self._build_request_async(
@@ -520,11 +472,7 @@ class Collections(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.create_collection_request,
-                False,
-                False,
-                "json",
-                models.CreateCollectionRequest,
+                request, False, False, "json", models.CreateCollectionRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -583,8 +531,6 @@ class Collections(BaseSDK):
         self,
         *,
         ids: List[int],
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
         allowed_datasource: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -596,8 +542,6 @@ class Collections(BaseSDK):
         Delete a Collection given the Collection's ID.
 
         :param ids: The IDs of the Collections to delete.
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param allowed_datasource: The datasource allowed in the Collection to be deleted.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -614,13 +558,9 @@ class Collections(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.DeletecollectionRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            delete_collection_request=models.DeleteCollectionRequest(
-                ids=ids,
-                allowed_datasource=allowed_datasource,
-            ),
+        request = models.DeleteCollectionRequest(
+            ids=ids,
+            allowed_datasource=allowed_datasource,
         )
 
         req = self._build_request(
@@ -637,11 +577,7 @@ class Collections(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.delete_collection_request,
-                False,
-                False,
-                "json",
-                models.DeleteCollectionRequest,
+                request, False, False, "json", models.DeleteCollectionRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -700,8 +636,6 @@ class Collections(BaseSDK):
         self,
         *,
         ids: List[int],
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
         allowed_datasource: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -713,8 +647,6 @@ class Collections(BaseSDK):
         Delete a Collection given the Collection's ID.
 
         :param ids: The IDs of the Collections to delete.
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param allowed_datasource: The datasource allowed in the Collection to be deleted.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -731,13 +663,9 @@ class Collections(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.DeletecollectionRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            delete_collection_request=models.DeleteCollectionRequest(
-                ids=ids,
-                allowed_datasource=allowed_datasource,
-            ),
+        request = models.DeleteCollectionRequest(
+            ids=ids,
+            allowed_datasource=allowed_datasource,
         )
 
         req = self._build_request_async(
@@ -754,11 +682,7 @@ class Collections(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.delete_collection_request,
-                False,
-                False,
-                "json",
-                models.DeleteCollectionRequest,
+                request, False, False, "json", models.DeleteCollectionRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -818,8 +742,6 @@ class Collections(BaseSDK):
         *,
         collection_id: float,
         item_id: str,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
         document_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -832,8 +754,6 @@ class Collections(BaseSDK):
 
         :param collection_id: The ID of the Collection to remove an item in.
         :param item_id: The item ID of the CollectionItem to remove from this Collection.
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param document_id: The (optional) Glean Document ID of the CollectionItem to remove from this Collection if this is an indexed document.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -850,14 +770,10 @@ class Collections(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.DeletecollectionitemRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            delete_collection_item_request=models.DeleteCollectionItemRequest(
-                collection_id=collection_id,
-                item_id=item_id,
-                document_id=document_id,
-            ),
+        request = models.DeleteCollectionItemRequest(
+            collection_id=collection_id,
+            item_id=item_id,
+            document_id=document_id,
         )
 
         req = self._build_request(
@@ -874,11 +790,7 @@ class Collections(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.delete_collection_item_request,
-                False,
-                False,
-                "json",
-                models.DeleteCollectionItemRequest,
+                request, False, False, "json", models.DeleteCollectionItemRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -934,8 +846,6 @@ class Collections(BaseSDK):
         *,
         collection_id: float,
         item_id: str,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
         document_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -948,8 +858,6 @@ class Collections(BaseSDK):
 
         :param collection_id: The ID of the Collection to remove an item in.
         :param item_id: The item ID of the CollectionItem to remove from this Collection.
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param document_id: The (optional) Glean Document ID of the CollectionItem to remove from this Collection if this is an indexed document.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -966,14 +874,10 @@ class Collections(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.DeletecollectionitemRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            delete_collection_item_request=models.DeleteCollectionItemRequest(
-                collection_id=collection_id,
-                item_id=item_id,
-                document_id=document_id,
-            ),
+        request = models.DeleteCollectionItemRequest(
+            collection_id=collection_id,
+            item_id=item_id,
+            document_id=document_id,
         )
 
         req = self._build_request_async(
@@ -990,11 +894,7 @@ class Collections(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.delete_collection_item_request,
-                False,
-                False,
-                "json",
-                models.DeleteCollectionItemRequest,
+                request, False, False, "json", models.DeleteCollectionItemRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -1050,8 +950,6 @@ class Collections(BaseSDK):
         *,
         name: str,
         id: int,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
         description: Optional[str] = None,
         added_roles: Optional[
             Union[
@@ -1084,8 +982,6 @@ class Collections(BaseSDK):
 
         :param name: The unique name of the Collection.
         :param id: The ID of the Collection to modify.
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param description: A brief summary of the Collection's contents.
         :param added_roles: A list of added user roles for the Collection.
         :param removed_roles: A list of removed user roles for the Collection.
@@ -1110,30 +1006,24 @@ class Collections(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.EditcollectionRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            edit_collection_request=models.EditCollectionRequest(
-                name=name,
-                description=description,
-                added_roles=utils.get_pydantic_model(
-                    added_roles, Optional[List[models.UserRoleSpecification]]
-                ),
-                removed_roles=utils.get_pydantic_model(
-                    removed_roles, Optional[List[models.UserRoleSpecification]]
-                ),
-                audience_filters=utils.get_pydantic_model(
-                    audience_filters, Optional[List[models.FacetFilter]]
-                ),
-                icon=icon,
-                admin_locked=admin_locked,
-                parent_id=parent_id,
-                thumbnail=utils.get_pydantic_model(
-                    thumbnail, Optional[models.Thumbnail]
-                ),
-                allowed_datasource=allowed_datasource,
-                id=id,
+        request = models.EditCollectionRequest(
+            name=name,
+            description=description,
+            added_roles=utils.get_pydantic_model(
+                added_roles, Optional[List[models.UserRoleSpecification]]
             ),
+            removed_roles=utils.get_pydantic_model(
+                removed_roles, Optional[List[models.UserRoleSpecification]]
+            ),
+            audience_filters=utils.get_pydantic_model(
+                audience_filters, Optional[List[models.FacetFilter]]
+            ),
+            icon=icon,
+            admin_locked=admin_locked,
+            parent_id=parent_id,
+            thumbnail=utils.get_pydantic_model(thumbnail, Optional[models.Thumbnail]),
+            allowed_datasource=allowed_datasource,
+            id=id,
         )
 
         req = self._build_request(
@@ -1150,11 +1040,7 @@ class Collections(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.edit_collection_request,
-                False,
-                False,
-                "json",
-                models.EditCollectionRequest,
+                request, False, False, "json", models.EditCollectionRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -1214,8 +1100,6 @@ class Collections(BaseSDK):
         *,
         name: str,
         id: int,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
         description: Optional[str] = None,
         added_roles: Optional[
             Union[
@@ -1248,8 +1132,6 @@ class Collections(BaseSDK):
 
         :param name: The unique name of the Collection.
         :param id: The ID of the Collection to modify.
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param description: A brief summary of the Collection's contents.
         :param added_roles: A list of added user roles for the Collection.
         :param removed_roles: A list of removed user roles for the Collection.
@@ -1274,30 +1156,24 @@ class Collections(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.EditcollectionRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            edit_collection_request=models.EditCollectionRequest(
-                name=name,
-                description=description,
-                added_roles=utils.get_pydantic_model(
-                    added_roles, Optional[List[models.UserRoleSpecification]]
-                ),
-                removed_roles=utils.get_pydantic_model(
-                    removed_roles, Optional[List[models.UserRoleSpecification]]
-                ),
-                audience_filters=utils.get_pydantic_model(
-                    audience_filters, Optional[List[models.FacetFilter]]
-                ),
-                icon=icon,
-                admin_locked=admin_locked,
-                parent_id=parent_id,
-                thumbnail=utils.get_pydantic_model(
-                    thumbnail, Optional[models.Thumbnail]
-                ),
-                allowed_datasource=allowed_datasource,
-                id=id,
+        request = models.EditCollectionRequest(
+            name=name,
+            description=description,
+            added_roles=utils.get_pydantic_model(
+                added_roles, Optional[List[models.UserRoleSpecification]]
             ),
+            removed_roles=utils.get_pydantic_model(
+                removed_roles, Optional[List[models.UserRoleSpecification]]
+            ),
+            audience_filters=utils.get_pydantic_model(
+                audience_filters, Optional[List[models.FacetFilter]]
+            ),
+            icon=icon,
+            admin_locked=admin_locked,
+            parent_id=parent_id,
+            thumbnail=utils.get_pydantic_model(thumbnail, Optional[models.Thumbnail]),
+            allowed_datasource=allowed_datasource,
+            id=id,
         )
 
         req = self._build_request_async(
@@ -1314,11 +1190,7 @@ class Collections(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.edit_collection_request,
-                False,
-                False,
-                "json",
-                models.EditCollectionRequest,
+                request, False, False, "json", models.EditCollectionRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -1373,13 +1245,11 @@ class Collections(BaseSDK):
             http_res,
         )
 
-    def edit_item(
+    def update_item(
         self,
         *,
         collection_id: int,
         item_id: str,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
         name: Optional[str] = None,
         description: Optional[str] = None,
         icon: Optional[str] = None,
@@ -1394,8 +1264,6 @@ class Collections(BaseSDK):
 
         :param collection_id: The ID of the Collection to edit CollectionItems in.
         :param item_id: The ID of the CollectionItem to edit.
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param name: The optional name of the Collection item.
         :param description: A helpful description of why this CollectionItem is in the Collection that it's in.
         :param icon: The emoji icon for this CollectionItem. Only used for Text type items.
@@ -1414,16 +1282,12 @@ class Collections(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.EditcollectionitemRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            edit_collection_item_request=models.EditCollectionItemRequest(
-                name=name,
-                description=description,
-                icon=icon,
-                collection_id=collection_id,
-                item_id=item_id,
-            ),
+        request = models.EditCollectionItemRequest(
+            name=name,
+            description=description,
+            icon=icon,
+            collection_id=collection_id,
+            item_id=item_id,
         )
 
         req = self._build_request(
@@ -1440,11 +1304,7 @@ class Collections(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.edit_collection_item_request,
-                False,
-                False,
-                "json",
-                models.EditCollectionItemRequest,
+                request, False, False, "json", models.EditCollectionItemRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -1495,13 +1355,11 @@ class Collections(BaseSDK):
             http_res,
         )
 
-    async def edit_item_async(
+    async def update_item_async(
         self,
         *,
         collection_id: int,
         item_id: str,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
         name: Optional[str] = None,
         description: Optional[str] = None,
         icon: Optional[str] = None,
@@ -1516,8 +1374,6 @@ class Collections(BaseSDK):
 
         :param collection_id: The ID of the Collection to edit CollectionItems in.
         :param item_id: The ID of the CollectionItem to edit.
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param name: The optional name of the Collection item.
         :param description: A helpful description of why this CollectionItem is in the Collection that it's in.
         :param icon: The emoji icon for this CollectionItem. Only used for Text type items.
@@ -1536,16 +1392,12 @@ class Collections(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.EditcollectionitemRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            edit_collection_item_request=models.EditCollectionItemRequest(
-                name=name,
-                description=description,
-                icon=icon,
-                collection_id=collection_id,
-                item_id=item_id,
-            ),
+        request = models.EditCollectionItemRequest(
+            name=name,
+            description=description,
+            icon=icon,
+            collection_id=collection_id,
+            item_id=item_id,
         )
 
         req = self._build_request_async(
@@ -1562,11 +1414,7 @@ class Collections(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.edit_collection_item_request,
-                False,
-                False,
-                "json",
-                models.EditCollectionItemRequest,
+                request, False, False, "json", models.EditCollectionItemRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -1617,12 +1465,10 @@ class Collections(BaseSDK):
             http_res,
         )
 
-    def get(
+    def retrieve(
         self,
         *,
         id: int,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
         with_items: Optional[bool] = None,
         with_hierarchy: Optional[bool] = None,
         allowed_datasource: Optional[str] = None,
@@ -1636,8 +1482,6 @@ class Collections(BaseSDK):
         Read the details of a Collection given its ID. Does not fetch items in this Collection.
 
         :param id: The ID of the Collection to be retrieved.
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param with_items: Whether or not to include the Collection Items in this Collection. Only request if absolutely required, as this is expensive.
         :param with_hierarchy: Whether or not to include the top level Collection in this Collection's hierarchy.
         :param allowed_datasource: The datasource allowed in the Collection returned.
@@ -1656,15 +1500,11 @@ class Collections(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.GetcollectionRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            get_collection_request=models.GetCollectionRequest(
-                id=id,
-                with_items=with_items,
-                with_hierarchy=with_hierarchy,
-                allowed_datasource=allowed_datasource,
-            ),
+        request = models.GetCollectionRequest(
+            id=id,
+            with_items=with_items,
+            with_hierarchy=with_hierarchy,
+            allowed_datasource=allowed_datasource,
         )
 
         req = self._build_request(
@@ -1681,11 +1521,7 @@ class Collections(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.get_collection_request,
-                False,
-                False,
-                "json",
-                models.GetCollectionRequest,
+                request, False, False, "json", models.GetCollectionRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -1734,12 +1570,10 @@ class Collections(BaseSDK):
             http_res,
         )
 
-    async def get_async(
+    async def retrieve_async(
         self,
         *,
         id: int,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
         with_items: Optional[bool] = None,
         with_hierarchy: Optional[bool] = None,
         allowed_datasource: Optional[str] = None,
@@ -1753,8 +1587,6 @@ class Collections(BaseSDK):
         Read the details of a Collection given its ID. Does not fetch items in this Collection.
 
         :param id: The ID of the Collection to be retrieved.
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param with_items: Whether or not to include the Collection Items in this Collection. Only request if absolutely required, as this is expensive.
         :param with_hierarchy: Whether or not to include the top level Collection in this Collection's hierarchy.
         :param allowed_datasource: The datasource allowed in the Collection returned.
@@ -1773,15 +1605,11 @@ class Collections(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.GetcollectionRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            get_collection_request=models.GetCollectionRequest(
-                id=id,
-                with_items=with_items,
-                with_hierarchy=with_hierarchy,
-                allowed_datasource=allowed_datasource,
-            ),
+        request = models.GetCollectionRequest(
+            id=id,
+            with_items=with_items,
+            with_hierarchy=with_hierarchy,
+            allowed_datasource=allowed_datasource,
         )
 
         req = self._build_request_async(
@@ -1798,11 +1626,7 @@ class Collections(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.get_collection_request,
-                False,
-                False,
-                "json",
-                models.GetCollectionRequest,
+                request, False, False, "json", models.GetCollectionRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -1854,11 +1678,9 @@ class Collections(BaseSDK):
     def list(
         self,
         *,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
-        include_audience: Optional[bool] = None,
-        include_roles: Optional[bool] = None,
-        allowed_datasource: Optional[str] = None,
+        request: Union[
+            models.ListCollectionsRequest, models.ListCollectionsRequestTypedDict
+        ] = models.ListCollectionsRequest(),
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1868,11 +1690,7 @@ class Collections(BaseSDK):
 
         List all existing Collections.
 
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
-        :param include_audience: Whether to include the audience filters with the listed Collections.
-        :param include_roles: Whether to include the editor roles with the listed Collections.
-        :param allowed_datasource: The datasource type this Collection can hold. ANSWERS - for Collections representing answer boards
+        :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1888,15 +1706,9 @@ class Collections(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.ListcollectionsRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            list_collections_request=models.ListCollectionsRequest(
-                include_audience=include_audience,
-                include_roles=include_roles,
-                allowed_datasource=allowed_datasource,
-            ),
-        )
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(request, models.ListCollectionsRequest)
+        request = cast(models.ListCollectionsRequest, request)
 
         req = self._build_request(
             method="POST",
@@ -1912,11 +1724,7 @@ class Collections(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.list_collections_request,
-                False,
-                False,
-                "json",
-                models.ListCollectionsRequest,
+                request, False, True, "json", Optional[models.ListCollectionsRequest]
             ),
             timeout_ms=timeout_ms,
         )
@@ -1968,11 +1776,9 @@ class Collections(BaseSDK):
     async def list_async(
         self,
         *,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
-        include_audience: Optional[bool] = None,
-        include_roles: Optional[bool] = None,
-        allowed_datasource: Optional[str] = None,
+        request: Union[
+            models.ListCollectionsRequest, models.ListCollectionsRequestTypedDict
+        ] = models.ListCollectionsRequest(),
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1982,11 +1788,7 @@ class Collections(BaseSDK):
 
         List all existing Collections.
 
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
-        :param include_audience: Whether to include the audience filters with the listed Collections.
-        :param include_roles: Whether to include the editor roles with the listed Collections.
-        :param allowed_datasource: The datasource type this Collection can hold. ANSWERS - for Collections representing answer boards
+        :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2002,15 +1804,9 @@ class Collections(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.ListcollectionsRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            list_collections_request=models.ListCollectionsRequest(
-                include_audience=include_audience,
-                include_roles=include_roles,
-                allowed_datasource=allowed_datasource,
-            ),
-        )
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(request, models.ListCollectionsRequest)
+        request = cast(models.ListCollectionsRequest, request)
 
         req = self._build_request_async(
             method="POST",
@@ -2026,11 +1822,7 @@ class Collections(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.list_collections_request,
-                False,
-                False,
-                "json",
-                models.ListCollectionsRequest,
+                request, False, True, "json", Optional[models.ListCollectionsRequest]
             ),
             timeout_ms=timeout_ms,
         )

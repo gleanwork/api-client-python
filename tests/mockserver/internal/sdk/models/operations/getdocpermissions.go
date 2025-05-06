@@ -6,36 +6,6 @@ import (
 	"mockserver/internal/sdk/models/components"
 )
 
-type GetdocpermissionsRequest struct {
-	// Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-	XGleanActAs *string `header:"style=simple,explode=false,name=X-Glean-ActAs"`
-	// Auth type being used to access the endpoint (should be non-empty only for global tokens).
-	XGleanAuthType *string `header:"style=simple,explode=false,name=X-Glean-Auth-Type"`
-	// Document permissions request
-	GetDocPermissionsRequest components.GetDocPermissionsRequest `request:"mediaType=application/json"`
-}
-
-func (o *GetdocpermissionsRequest) GetXGleanActAs() *string {
-	if o == nil {
-		return nil
-	}
-	return o.XGleanActAs
-}
-
-func (o *GetdocpermissionsRequest) GetXGleanAuthType() *string {
-	if o == nil {
-		return nil
-	}
-	return o.XGleanAuthType
-}
-
-func (o *GetdocpermissionsRequest) GetGetDocPermissionsRequest() components.GetDocPermissionsRequest {
-	if o == nil {
-		return components.GetDocPermissionsRequest{}
-	}
-	return o.GetDocPermissionsRequest
-}
-
 type GetdocpermissionsResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// OK

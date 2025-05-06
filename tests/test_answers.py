@@ -13,7 +13,7 @@ def test_answers_createanswer():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
@@ -120,7 +120,7 @@ def test_answers_deleteanswer():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
@@ -133,11 +133,11 @@ def test_answers_editanswer():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.client.answers.edit(
+        res = g_client.client.answers.update(
             id=3,
             doc_id="ANSWERS_answer_3",
             question="Why is the sky blue?",
@@ -308,11 +308,16 @@ def test_answers_getanswer():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.client.answers.get(id=3, doc_id="ANSWERS_answer_3")
+        res = g_client.client.answers.retrieve(
+            request={
+                "id": 3,
+                "doc_id": "ANSWERS_answer_3",
+            }
+        )
         assert res is not None
 
 
@@ -322,11 +327,11 @@ def test_answers_listanswers():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.client.answers.list()
+        res = g_client.client.answers.list(request={})
         assert res is not None
 
 

@@ -6,36 +6,6 @@ import (
 	"mockserver/internal/sdk/models/components"
 )
 
-type AddcollectionitemsRequest struct {
-	// Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-	XGleanActAs *string `header:"style=simple,explode=false,name=X-Glean-ActAs"`
-	// Auth type being used to access the endpoint (should be non-empty only for global tokens).
-	XGleanAuthType *string `header:"style=simple,explode=false,name=X-Glean-Auth-Type"`
-	// Data describing the add operation.
-	AddCollectionItemsRequest components.AddCollectionItemsRequest `request:"mediaType=application/json"`
-}
-
-func (o *AddcollectionitemsRequest) GetXGleanActAs() *string {
-	if o == nil {
-		return nil
-	}
-	return o.XGleanActAs
-}
-
-func (o *AddcollectionitemsRequest) GetXGleanAuthType() *string {
-	if o == nil {
-		return nil
-	}
-	return o.XGleanAuthType
-}
-
-func (o *AddcollectionitemsRequest) GetAddCollectionItemsRequest() components.AddCollectionItemsRequest {
-	if o == nil {
-		return components.AddCollectionItemsRequest{}
-	}
-	return o.AddCollectionItemsRequest
-}
-
 type AddcollectionitemsResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// OK

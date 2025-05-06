@@ -6,36 +6,6 @@ import (
 	"mockserver/internal/sdk/models/components"
 )
 
-type UnpinRequest struct {
-	// Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-	XGleanActAs *string `header:"style=simple,explode=false,name=X-Glean-ActAs"`
-	// Auth type being used to access the endpoint (should be non-empty only for global tokens).
-	XGleanAuthType *string `header:"style=simple,explode=false,name=X-Glean-Auth-Type"`
-	// Details about the pin being unpinned.
-	Unpin components.Unpin `request:"mediaType=application/json"`
-}
-
-func (o *UnpinRequest) GetXGleanActAs() *string {
-	if o == nil {
-		return nil
-	}
-	return o.XGleanActAs
-}
-
-func (o *UnpinRequest) GetXGleanAuthType() *string {
-	if o == nil {
-		return nil
-	}
-	return o.XGleanAuthType
-}
-
-func (o *UnpinRequest) GetUnpin() components.Unpin {
-	if o == nil {
-		return components.Unpin{}
-	}
-	return o.Unpin
-}
-
 type UnpinResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 }

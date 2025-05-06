@@ -10,6 +10,13 @@
 * [bulk_index](#bulk_index) - Bulk index documents
 * [process_all](#process_all) - Schedules the processing of uploaded documents
 * [delete](#delete) - Delete document
+* [debug](#debug) - Beta: Get document information
+
+* [debug_many](#debug_many) - Beta: Get information of a batch of documents
+
+* [check_access](#check_access) - Check document access
+* [~~status~~](#status) - Get document upload and indexing status :warning: **Deprecated**
+* [~~count~~](#count) - Get document count :warning: **Deprecated**
 
 ## add_or_update
 
@@ -23,7 +30,7 @@ import os
 
 
 with Glean(
-    bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     g_client.indexing.documents.add_or_update(document=models.DocumentDefinition(
@@ -60,7 +67,7 @@ import os
 
 
 with Glean(
-    bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     g_client.indexing.documents.index(datasource="<value>", documents=[
@@ -100,7 +107,7 @@ import os
 
 
 with Glean(
-    bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     g_client.indexing.documents.bulk_index(upload_id="<id>", datasource="<value>", documents=[
@@ -155,7 +162,7 @@ import os
 
 
 with Glean(
-    bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     g_client.indexing.documents.process_all()
@@ -189,7 +196,7 @@ import os
 
 
 with Glean(
-    bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     g_client.indexing.documents.delete(datasource="<value>", object_type="<value>", id="<id>")
@@ -207,6 +214,237 @@ with Glean(
 | `id`                                                                                                            | *str*                                                                                                           | :heavy_check_mark:                                                                                              | The id of the document                                                                                          |
 | `version`                                                                                                       | *Optional[int]*                                                                                                 | :heavy_minus_sign:                                                                                              | Version number for document for optimistic concurrency control. If absent or 0 then no version checks are done. |
 | `retries`                                                                                                       | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                | :heavy_minus_sign:                                                                                              | Configuration to override the default retry behavior of the client.                                             |
+
+### Errors
+
+| Error Type        | Status Code       | Content Type      |
+| ----------------- | ----------------- | ----------------- |
+| errors.GleanError | 4XX, 5XX          | \*/\*             |
+
+## debug
+
+Gives various information that would help in debugging related to a particular document. Currently in beta, might undergo breaking changes without prior notice.
+
+Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/docs/indexing_api/indexing_api_troubleshooting/) for more information.
+
+
+### Example Usage
+
+```python
+from glean import Glean
+import os
+
+
+with Glean(
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+) as g_client:
+
+    res = g_client.indexing.documents.debug(datasource="<value>", object_type="Article", doc_id="art123")
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         | Example                                                             |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `datasource`                                                        | *str*                                                               | :heavy_check_mark:                                                  | The datasource to which the document belongs                        |                                                                     |
+| `object_type`                                                       | *str*                                                               | :heavy_check_mark:                                                  | Object type of the document to get the status for.                  | Article                                                             |
+| `doc_id`                                                            | *str*                                                               | :heavy_check_mark:                                                  | Glean Document ID within the datasource to get the status for.      | art123                                                              |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
+
+### Response
+
+**[models.DebugDocumentResponse](../../models/debugdocumentresponse.md)**
+
+### Errors
+
+| Error Type        | Status Code       | Content Type      |
+| ----------------- | ----------------- | ----------------- |
+| errors.GleanError | 4XX, 5XX          | \*/\*             |
+
+## debug_many
+
+Gives various information that would help in debugging related to a batch of documents. Currently in beta, might undergo breaking changes without prior notice.
+
+Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/docs/indexing_api/indexing_api_troubleshooting/) for more information.
+
+
+### Example Usage
+
+```python
+from glean import Glean
+import os
+
+
+with Glean(
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+) as g_client:
+
+    res = g_client.indexing.documents.debug_many(datasource="<value>", debug_documents=[
+        {
+            "object_type": "Article",
+            "doc_id": "art123",
+        },
+        {
+            "object_type": "Article",
+            "doc_id": "art123",
+        },
+    ])
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                 | Type                                                                      | Required                                                                  | Description                                                               |
+| ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| `datasource`                                                              | *str*                                                                     | :heavy_check_mark:                                                        | The datasource to which the document belongs                              |
+| `debug_documents`                                                         | List[[models.DebugDocumentRequest](../../models/debugdocumentrequest.md)] | :heavy_check_mark:                                                        | Documents to fetch debug information for                                  |
+| `retries`                                                                 | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)          | :heavy_minus_sign:                                                        | Configuration to override the default retry behavior of the client.       |
+
+### Response
+
+**[models.DebugDocumentsResponse](../../models/debugdocumentsresponse.md)**
+
+### Errors
+
+| Error Type        | Status Code       | Content Type      |
+| ----------------- | ----------------- | ----------------- |
+| errors.GleanError | 4XX, 5XX          | \*/\*             |
+
+## check_access
+
+Check if a given user has access to access a document in a custom datasource
+
+Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/docs/indexing_api/indexing_api_troubleshooting/) for more information.
+
+
+### Example Usage
+
+```python
+from glean import Glean
+import os
+
+
+with Glean(
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+) as g_client:
+
+    res = g_client.indexing.documents.check_access(datasource="<value>", object_type="<value>", doc_id="<id>", user_email="<value>")
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `datasource`                                                        | *str*                                                               | :heavy_check_mark:                                                  | Datasource of document to check access for.                         |
+| `object_type`                                                       | *str*                                                               | :heavy_check_mark:                                                  | Object type of document to check access for.                        |
+| `doc_id`                                                            | *str*                                                               | :heavy_check_mark:                                                  | Glean Document ID to check access for.                              |
+| `user_email`                                                        | *str*                                                               | :heavy_check_mark:                                                  | Email of user to check access for.                                  |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Response
+
+**[models.CheckDocumentAccessResponse](../../models/checkdocumentaccessresponse.md)**
+
+### Errors
+
+| Error Type        | Status Code       | Content Type      |
+| ----------------- | ----------------- | ----------------- |
+| errors.GleanError | 4XX, 5XX          | \*/\*             |
+
+## ~~status~~
+
+Intended for debugging/validation. Fetches the current upload and indexing status of documents.
+
+Tip: Use [/debug/{datasource}/document](https://developers.glean.com/docs/indexing_api/indexing_api_troubleshooting/#debug-datasource-document) for richer information.
+
+
+> :warning: **DEPRECATED**: This will be removed in a future release, please migrate away from it as soon as possible.
+
+### Example Usage
+
+```python
+from glean import Glean
+import os
+
+
+with Glean(
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+) as g_client:
+
+    res = g_client.indexing.documents.status(datasource="<value>", object_type="<value>", doc_id="<id>")
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `datasource`                                                        | *str*                                                               | :heavy_check_mark:                                                  | Datasource to get fetch document status for                         |
+| `object_type`                                                       | *str*                                                               | :heavy_check_mark:                                                  | Object type of the document to get the status for                   |
+| `doc_id`                                                            | *str*                                                               | :heavy_check_mark:                                                  | Glean Document ID within the datasource to get the status for.      |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Response
+
+**[models.GetDocumentStatusResponse](../../models/getdocumentstatusresponse.md)**
+
+### Errors
+
+| Error Type        | Status Code       | Content Type      |
+| ----------------- | ----------------- | ----------------- |
+| errors.GleanError | 4XX, 5XX          | \*/\*             |
+
+## ~~count~~
+
+Fetches document count for the specified custom datasource.
+
+Tip: Use [/debug/{datasource}/status](https://developers.glean.com/docs/indexing_api/indexing_api_troubleshooting/#debug-datasource-status) for richer information.
+
+
+> :warning: **DEPRECATED**: This will be removed in a future release, please migrate away from it as soon as possible.
+
+### Example Usage
+
+```python
+from glean import Glean
+import os
+
+
+with Glean(
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+) as g_client:
+
+    res = g_client.indexing.documents.count(datasource="<value>")
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `datasource`                                                        | *str*                                                               | :heavy_check_mark:                                                  | Datasource name for which document count is needed.                 |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Response
+
+**[models.GetDocumentCountResponse](../../models/getdocumentcountresponse.md)**
 
 ### Errors
 

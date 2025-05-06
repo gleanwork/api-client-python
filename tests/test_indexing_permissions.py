@@ -11,7 +11,7 @@ def test_indexing_permissions_post_api_index_v1_updatepermissions():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
@@ -26,7 +26,7 @@ def test_indexing_permissions_post_api_index_v1_indexuser():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
@@ -45,7 +45,7 @@ def test_indexing_permissions_post_api_index_v1_bulkindexusers():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
@@ -75,7 +75,7 @@ def test_indexing_permissions_post_api_index_v1_indexgroup():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
@@ -93,7 +93,7 @@ def test_indexing_permissions_post_api_index_v1_bulkindexgroups():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
@@ -117,7 +117,7 @@ def test_indexing_permissions_post_api_index_v1_indexmembership():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
@@ -137,7 +137,7 @@ def test_indexing_permissions_post_api_index_v1_bulkindexmemberships():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
@@ -160,7 +160,7 @@ def test_indexing_permissions_post_api_index_v1_processallmemberships():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
@@ -173,7 +173,7 @@ def test_indexing_permissions_post_api_index_v1_deleteuser():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
@@ -188,7 +188,7 @@ def test_indexing_permissions_post_api_index_v1_deletegroup():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
@@ -203,7 +203,7 @@ def test_indexing_permissions_post_api_index_v1_deletemembership():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
@@ -221,7 +221,7 @@ def test_indexing_permissions_post_api_index_v1_betausers():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 

@@ -6,7 +6,7 @@
 ### Available Operations
 
 * [add](#add) - Add or update datasource
-* [get_config](#get_config) - Get datasource config
+* [retrieve_config](#retrieve_config) - Get datasource config
 
 ## add
 
@@ -20,7 +20,7 @@ import os
 
 
 with Glean(
-    bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     g_client.indexing.datasources.add(name="<value>", url_regex="https://example-company.datasource.com/.*", quicklinks=[
@@ -85,7 +85,7 @@ with Glean(
 | ----------------- | ----------------- | ----------------- |
 | errors.GleanError | 4XX, 5XX          | \*/\*             |
 
-## get_config
+## retrieve_config
 
 Fetches the datasource config for the specified custom datasource.
 
@@ -97,10 +97,10 @@ import os
 
 
 with Glean(
-    bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
-    res = g_client.indexing.datasources.get_config(datasource="<value>")
+    res = g_client.indexing.datasources.retrieve_config(datasource="<value>")
 
     # Handle response
     print(res)

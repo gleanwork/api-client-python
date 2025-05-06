@@ -2,25 +2,70 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+	"time"
+)
+
 type Shortcut struct {
-	// link text following the viewPrefix as entered by the user. For example, if the view prefix is `go/` and the shortened URL is `go/abc`, then `abc` is the inputAlias.
+	// The opaque id of the user generated content.
+	ID *int64 `json:"id,omitempty"`
+	// Link text following go/ prefix as entered by the user.
 	InputAlias string `json:"inputAlias"`
+	// Destination URL for the shortcut.
+	DestinationURL *string `json:"destinationUrl,omitempty"`
+	// Glean Document ID for the URL, if known.
+	DestinationDocumentID *string `json:"destinationDocumentId,omitempty"`
 	// A short, plain text blurb to help people understand the intent of the shortcut.
 	Description *string `json:"description,omitempty"`
-	// destination URL for the shortcut.
-	DestinationURL string `json:"destinationUrl"`
-	// Email of the user who created this shortcut.
-	CreatedBy string `json:"createdBy"`
-	// The time the shortcut was created in epoch seconds.
-	CreateTime *int64 `json:"createTime,omitempty"`
-	// Email of the user who last updated this shortcut.
-	UpdatedBy *string `json:"updatedBy,omitempty"`
-	// The time the shortcut was updated in epoch seconds.
-	UpdateTime *int64 `json:"updateTime,omitempty"`
-	// Whether this shortcut is unlisted or not. Unlisted shortcuts are visible to author and admins only.
+	// Whether this shortcut is unlisted or not. Unlisted shortcuts are visible to author + admins only.
 	Unlisted *bool `json:"unlisted,omitempty"`
 	// For variable shortcuts, contains the URL template; note, `destinationUrl` contains default URL.
 	URLTemplate *string `json:"urlTemplate,omitempty"`
+	// A list of user roles added for the Shortcut.
+	AddedRoles []UserRoleSpecification `json:"addedRoles,omitempty"`
+	// A list of user roles removed for the Shortcut.
+	RemovedRoles []UserRoleSpecification `json:"removedRoles,omitempty"`
+	Permissions  *ObjectPermissions      `json:"permissions,omitempty"`
+	CreatedBy    *Person                 `json:"createdBy,omitempty"`
+	// The time the shortcut was created in ISO format (ISO 8601).
+	CreateTime *time.Time `json:"createTime,omitempty"`
+	UpdatedBy  *Person    `json:"updatedBy,omitempty"`
+	// The time the shortcut was updated in ISO format (ISO 8601).
+	UpdateTime          *time.Time `json:"updateTime,omitempty"`
+	DestinationDocument *Document  `json:"destinationDocument,omitempty"`
+	// The URL from which the user is then redirected to the destination URL. Full replacement for https://go/<inputAlias>.
+	IntermediateURL *string `json:"intermediateUrl,omitempty"`
+	// The part of the shortcut preceding the input alias when used for showing shortcuts to users. Should end with "/". e.g. "go/" for native shortcuts.
+	ViewPrefix *string `json:"viewPrefix,omitempty"`
+	// Indicates whether a shortcut is native or external.
+	IsExternal *bool `json:"isExternal,omitempty"`
+	// The URL using which the user can access the edit page of the shortcut.
+	EditURL *string `json:"editUrl,omitempty"`
+	// canonical link text following go/ prefix where hyphen/underscore is removed.
+	Alias *string `json:"alias,omitempty"`
+	// Title for the Go Link
+	Title *string `json:"title,omitempty"`
+	// A list of user roles for the Go Link.
+	Roles []UserRoleSpecification `json:"roles,omitempty"`
+}
+
+func (s Shortcut) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *Shortcut) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, false); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *Shortcut) GetID() *int64 {
+	if o == nil {
+		return nil
+	}
+	return o.ID
 }
 
 func (o *Shortcut) GetInputAlias() string {
@@ -30,46 +75,25 @@ func (o *Shortcut) GetInputAlias() string {
 	return o.InputAlias
 }
 
+func (o *Shortcut) GetDestinationURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DestinationURL
+}
+
+func (o *Shortcut) GetDestinationDocumentID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DestinationDocumentID
+}
+
 func (o *Shortcut) GetDescription() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Description
-}
-
-func (o *Shortcut) GetDestinationURL() string {
-	if o == nil {
-		return ""
-	}
-	return o.DestinationURL
-}
-
-func (o *Shortcut) GetCreatedBy() string {
-	if o == nil {
-		return ""
-	}
-	return o.CreatedBy
-}
-
-func (o *Shortcut) GetCreateTime() *int64 {
-	if o == nil {
-		return nil
-	}
-	return o.CreateTime
-}
-
-func (o *Shortcut) GetUpdatedBy() *string {
-	if o == nil {
-		return nil
-	}
-	return o.UpdatedBy
-}
-
-func (o *Shortcut) GetUpdateTime() *int64 {
-	if o == nil {
-		return nil
-	}
-	return o.UpdateTime
 }
 
 func (o *Shortcut) GetUnlisted() *bool {
@@ -84,4 +108,109 @@ func (o *Shortcut) GetURLTemplate() *string {
 		return nil
 	}
 	return o.URLTemplate
+}
+
+func (o *Shortcut) GetAddedRoles() []UserRoleSpecification {
+	if o == nil {
+		return nil
+	}
+	return o.AddedRoles
+}
+
+func (o *Shortcut) GetRemovedRoles() []UserRoleSpecification {
+	if o == nil {
+		return nil
+	}
+	return o.RemovedRoles
+}
+
+func (o *Shortcut) GetPermissions() *ObjectPermissions {
+	if o == nil {
+		return nil
+	}
+	return o.Permissions
+}
+
+func (o *Shortcut) GetCreatedBy() *Person {
+	if o == nil {
+		return nil
+	}
+	return o.CreatedBy
+}
+
+func (o *Shortcut) GetCreateTime() *time.Time {
+	if o == nil {
+		return nil
+	}
+	return o.CreateTime
+}
+
+func (o *Shortcut) GetUpdatedBy() *Person {
+	if o == nil {
+		return nil
+	}
+	return o.UpdatedBy
+}
+
+func (o *Shortcut) GetUpdateTime() *time.Time {
+	if o == nil {
+		return nil
+	}
+	return o.UpdateTime
+}
+
+func (o *Shortcut) GetDestinationDocument() *Document {
+	if o == nil {
+		return nil
+	}
+	return o.DestinationDocument
+}
+
+func (o *Shortcut) GetIntermediateURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.IntermediateURL
+}
+
+func (o *Shortcut) GetViewPrefix() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ViewPrefix
+}
+
+func (o *Shortcut) GetIsExternal() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.IsExternal
+}
+
+func (o *Shortcut) GetEditURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.EditURL
+}
+
+func (o *Shortcut) GetAlias() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Alias
+}
+
+func (o *Shortcut) GetTitle() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Title
+}
+
+func (o *Shortcut) GetRoles() []UserRoleSpecification {
+	if o == nil {
+		return nil
+	}
+	return o.Roles
 }

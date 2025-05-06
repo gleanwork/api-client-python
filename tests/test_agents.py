@@ -11,11 +11,11 @@ def test_agents_runagent():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.agents.runagent()
+        res = g_client.client.agents.run()
         assert res is not None
 
 
@@ -25,11 +25,11 @@ def test_agents_listagents():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.agents.listagents()
+        res = g_client.client.agents.list()
         assert res is not None
 
 
@@ -39,9 +39,9 @@ def test_agents_getagentinputs():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.agents.getagentinputs()
+        res = g_client.client.agents.retrieve_inputs()
         assert res is not None

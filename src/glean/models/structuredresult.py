@@ -3,7 +3,6 @@
 from __future__ import annotations
 from .appresult import AppResult, AppResultTypedDict
 from .disambiguation import Disambiguation, DisambiguationTypedDict
-from .shortcut import Shortcut, ShortcutTypedDict
 from enum import Enum
 from glean.types import BaseModel
 import pydantic
@@ -25,6 +24,7 @@ if TYPE_CHECKING:
     from .relateddocuments import RelatedDocuments, RelatedDocumentsTypedDict
     from .relatedquestion import RelatedQuestion, RelatedQuestionTypedDict
     from .searchresultsnippet import SearchResultSnippet, SearchResultSnippetTypedDict
+    from .shortcut import Shortcut, ShortcutTypedDict
     from .team import Team, TeamTypedDict
 
 
@@ -58,7 +58,7 @@ class StructuredResultTypedDict(TypedDict):
     collection: NotRequired["CollectionTypedDict"]
     answer_board: NotRequired["AnswerBoardTypedDict"]
     code: NotRequired["CodeTypedDict"]
-    shortcut: NotRequired[ShortcutTypedDict]
+    shortcut: NotRequired["ShortcutTypedDict"]
     query_suggestions: NotRequired["QuerySuggestionListTypedDict"]
     related_documents: NotRequired[List["RelatedDocumentsTypedDict"]]
     r"""A list of documents related to this structured result."""
@@ -108,7 +108,7 @@ class StructuredResult(BaseModel):
 
     code: Optional["Code"] = None
 
-    shortcut: Optional[Shortcut] = None
+    shortcut: Optional["Shortcut"] = None
 
     query_suggestions: Annotated[
         Optional["QuerySuggestionList"], pydantic.Field(alias="querySuggestions")

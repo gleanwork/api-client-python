@@ -7,7 +7,6 @@ from .utils.logger import Logger, get_default_logger
 from .utils.retries import RetryConfig
 from glean import models, utils
 from glean._hooks import SDKHooks
-from glean.agents import Agents
 from glean.client import Client
 from glean.indexing import Indexing
 from glean.types import OptionalNullable, UNSET
@@ -24,15 +23,24 @@ class Glean(BaseSDK):
     This API is evolving fast. Glean will provide advance notice of any planned backwards incompatible changes along
     with a 6-month sunset period for anything that requires developers to adopt the new versions.
 
+    # API Clients
+    Official API clients for the Glean Indexing API are available in multiple languages:
+
+    - [Python](https://github.com/gleanwork/api-client-python)
+    - [TypeScript](https://github.com/gleanwork/api-client-typescript)
+    - [Go](https://github.com/gleanwork/api-client-go)
+    - [Java](https://github.com/gleanwork/api-client-java)
+
+    These API clients provide type-safe, idiomatic interfaces for working with Glean IndexingAPIs in your language of choice.
+
     """
 
     client: Client
-    agents: Agents
     indexing: Indexing
 
     def __init__(
         self,
-        bearer_auth: Optional[Union[Optional[str], Callable[[], Optional[str]]]] = None,
+        api_token: Optional[Union[Optional[str], Callable[[], Optional[str]]]] = None,
         domain: Optional[str] = None,
         server_idx: Optional[int] = None,
         server_url: Optional[str] = None,
@@ -45,7 +53,7 @@ class Glean(BaseSDK):
     ) -> None:
         r"""Instantiates the SDK configuring it with the provided parameters.
 
-        :param bearer_auth: The bearer_auth required for authentication
+        :param api_token: The api_token required for authentication
         :param domain: Allows setting the domain variable for url substitution
         :param server_idx: The index of the server to use for all methods
         :param server_url: The server URL to use for all methods
@@ -77,11 +85,11 @@ class Glean(BaseSDK):
         ), "The provided async_client must implement the AsyncHttpClient protocol."
 
         security: Any = None
-        if callable(bearer_auth):
+        if callable(api_token):
             # pylint: disable=unnecessary-lambda-assignment
-            security = lambda: models.Security(bearer_auth=bearer_auth())
+            security = lambda: models.Security(api_token=api_token())
         else:
-            security = models.Security(bearer_auth=bearer_auth)
+            security = models.Security(api_token=api_token)
 
         if server_url is not None:
             if url_params is not None:
@@ -135,7 +143,6 @@ class Glean(BaseSDK):
 
     def _init_sdks(self):
         self.client = Client(self.sdk_configuration)
-        self.agents = Agents(self.sdk_configuration)
         self.indexing = Indexing(self.sdk_configuration)
 
     def __enter__(self):

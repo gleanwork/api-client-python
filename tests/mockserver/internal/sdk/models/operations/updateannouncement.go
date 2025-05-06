@@ -6,36 +6,6 @@ import (
 	"mockserver/internal/sdk/models/components"
 )
 
-type UpdateannouncementRequest struct {
-	// Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-	XGleanActAs *string `header:"style=simple,explode=false,name=X-Glean-ActAs"`
-	// Auth type being used to access the endpoint (should be non-empty only for global tokens).
-	XGleanAuthType *string `header:"style=simple,explode=false,name=X-Glean-Auth-Type"`
-	// Announcement content. Id need to be specified for the announcement.
-	UpdateAnnouncementRequest components.UpdateAnnouncementRequest `request:"mediaType=application/json"`
-}
-
-func (o *UpdateannouncementRequest) GetXGleanActAs() *string {
-	if o == nil {
-		return nil
-	}
-	return o.XGleanActAs
-}
-
-func (o *UpdateannouncementRequest) GetXGleanAuthType() *string {
-	if o == nil {
-		return nil
-	}
-	return o.XGleanAuthType
-}
-
-func (o *UpdateannouncementRequest) GetUpdateAnnouncementRequest() components.UpdateAnnouncementRequest {
-	if o == nil {
-		return components.UpdateAnnouncementRequest{}
-	}
-	return o.UpdateAnnouncementRequest
-}
-
 type UpdateannouncementResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// OK

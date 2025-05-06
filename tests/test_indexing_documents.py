@@ -11,7 +11,7 @@ def test_indexing_documents_post_api_index_v1_indexdocument():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
@@ -28,7 +28,7 @@ def test_indexing_documents_post_api_index_v1_indexdocuments():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
@@ -48,7 +48,7 @@ def test_indexing_documents_post_api_index_v1_bulkindexdocuments():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
@@ -69,7 +69,7 @@ def test_indexing_documents_post_api_index_v1_processalldocuments():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
@@ -82,7 +82,7 @@ def test_indexing_documents_post_api_index_v1_deletedocument():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
