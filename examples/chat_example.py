@@ -7,7 +7,7 @@ import os
 
 
 with Glean(
-    bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
     domain="customerName"
 ) as glean:
     try:

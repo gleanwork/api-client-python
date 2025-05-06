@@ -17,7 +17,7 @@ Each namespace has its own authentication requirements and access patterns. Whil
 from glean import Glean, models
 import os
 
-with Glean(bearer_auth="client-token") as glean:
+with Glean(api_token="client-token") as glean:
     search_response = glean.client.search.query(
         search_request=models.SearchRequest(query="search term")
     )
@@ -27,7 +27,7 @@ with Glean(bearer_auth="client-token") as glean:
 from glean import Glean, models
 import os
 
-with Glean(bearer_auth="indexing-token") as glean:
+with Glean(api_token="indexing-token") as glean:
     document_response = glean.indexing.documents.index(
         document=models.Document(
             id="doc-123",
@@ -621,7 +621,7 @@ import os
 
 
 with Glean(
-    bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
     try:
         res = g_client.client.search.execute(search_request=models.SearchRequest(
