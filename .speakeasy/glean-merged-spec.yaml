@@ -8620,6 +8620,9 @@ components:
                     hasTranscript:
                         type: boolean
                         description: The event has a transcript associated with it enabling features like summarization
+                    transcriptUrl:
+                        type: string
+                        description: A link to the transcript of the event
                     classifications:
                         type: array
                         items:

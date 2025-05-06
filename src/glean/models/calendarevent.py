@@ -40,6 +40,8 @@ class CalendarEventTypedDict(TypedDict):
     r"""The app or other repository type from which the event was extracted"""
     has_transcript: NotRequired[bool]
     r"""The event has a transcript associated with it enabling features like summarization"""
+    transcript_url: NotRequired[str]
+    r"""A link to the transcript of the event"""
     classifications: NotRequired[List[EventClassificationTypedDict]]
     generated_attachments: NotRequired[List[GeneratedAttachmentTypedDict]]
 
@@ -79,6 +81,11 @@ class CalendarEvent(BaseModel):
         None
     )
     r"""The event has a transcript associated with it enabling features like summarization"""
+
+    transcript_url: Annotated[Optional[str], pydantic.Field(alias="transcriptUrl")] = (
+        None
+    )
+    r"""A link to the transcript of the event"""
 
     classifications: Optional[List[EventClassification]] = None
 

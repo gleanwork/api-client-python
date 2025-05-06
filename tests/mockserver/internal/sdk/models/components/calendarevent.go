@@ -52,7 +52,9 @@ type CalendarEvent struct {
 	// The app or other repository type from which the event was extracted
 	Datasource *string `json:"datasource,omitempty"`
 	// The event has a transcript associated with it enabling features like summarization
-	HasTranscript        *bool                 `json:"hasTranscript,omitempty"`
+	HasTranscript *bool `json:"hasTranscript,omitempty"`
+	// A link to the transcript of the event
+	TranscriptURL        *string               `json:"transcriptUrl,omitempty"`
 	Classifications      []EventClassification `json:"classifications,omitempty"`
 	GeneratedAttachments []GeneratedAttachment `json:"generatedAttachments,omitempty"`
 }
@@ -125,6 +127,13 @@ func (o *CalendarEvent) GetHasTranscript() *bool {
 		return nil
 	}
 	return o.HasTranscript
+}
+
+func (o *CalendarEvent) GetTranscriptURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TranscriptURL
 }
 
 func (o *CalendarEvent) GetClassifications() []EventClassification {
