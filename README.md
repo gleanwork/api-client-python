@@ -3,6 +3,43 @@
 The Glean Python SDK provides convenient access to the Glean REST API from any Python 3.8+ application. It includes type hints for all request parameters and response fields, and supports both synchronous and asynchronous usage via [httpx](https://www.python-httpx.org/).
 <!-- No Summary [summary] -->
 
+## Unified SDK Architecture
+
+This SDK combines both the Client and Indexing API namespaces into a single unified package:
+
+- **Client API**: Used for search, retrieval, and end-user interactions with Glean content
+- **Indexing API**: Used for indexing content, permissions, and other administrative operations
+
+Each namespace has its own authentication requirements and access patterns. While they serve different purposes, having them in a single SDK provides a consistent developer experience across all Glean API interactions.
+
+```python
+# Example of accessing Client namespace
+from glean import Glean, models
+import os
+
+with Glean(bearer_auth="client-token") as glean:
+    search_response = glean.client.search.query(
+        search_request=models.SearchRequest(query="search term")
+    )
+    print(search_response)
+
+# Example of accessing Indexing namespace 
+from glean import Glean, models
+import os
+
+with Glean(bearer_auth="indexing-token") as glean:
+    document_response = glean.indexing.documents.index(
+        document=models.Document(
+            id="doc-123",
+            title="Sample Document",
+            container_id="container-456",
+            datasource="confluence"
+        )
+    )
+```
+
+Remember that each namespace requires its own authentication token type as described in the [Authentication Methods](#authentication-methods) section.
+
 <!-- Start Table of Contents [toc] -->
 ## Table of Contents
 <!-- $toc-max-depth=2 -->
@@ -203,6 +240,35 @@ with Glean(
 
 ```
 <!-- End Authentication [security] -->
+
+### Authentication Methods
+
+Glean supports different authentication methods depending on which API namespace you're using:
+
+#### Client Namespace
+
+The Client namespace supports two authentication methods:
+
+1. **Manually Provisioned API Tokens**
+   - Can be created by an Admin or a user with the API Token Creator role
+   - Used for server-to-server integrations
+
+2. **OAuth**
+   - Requires OAuth setup to be completed by an Admin
+   - Used for user-based authentication flows
+
+#### Indexing Namespace
+
+The Indexing namespace supports only one authentication method:
+
+1. **Manually Provisioned API Tokens**
+   - Can be created by an Admin or a user with the API Token Creator role
+   - Used for secure document indexing operations
+
+> [!IMPORTANT]
+> Client tokens **will not work** for Indexing operations, and Indexing tokens **will not work** for Client operations. You must use the appropriate token type for the namespace you're accessing.
+
+For more information on obtaining the appropriate token type, please contact your Glean administrator.
 
 <!-- Start Available Resources and Operations [operations] -->
 ## Available Resources and Operations
