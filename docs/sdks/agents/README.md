@@ -1,15 +1,15 @@
 # Agents
-(*agents*)
+(*client.agents*)
 
 ## Overview
 
 ### Available Operations
 
-* [runagent](#runagent) - Runs an Agent.
-* [listagents](#listagents) - Lists all agents.
-* [getagentinputs](#getagentinputs) - Gets the inputs to an agent.
+* [run](#run) - Runs an Agent.
+* [list](#list) - Lists all agents.
+* [retrieve_inputs](#retrieve_inputs) - Gets the inputs to an agent.
 
-## runagent
+## run
 
 Trigger an Agent with a given id.
 
@@ -21,10 +21,10 @@ import os
 
 
 with Glean(
-    bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
-    res = g_client.agents.runagent()
+    res = g_client.client.agents.run()
 
     # Handle response
     print(res)
@@ -33,15 +33,13 @@ with Glean(
 
 ### Parameters
 
-| Parameter                                                                                                                | Type                                                                                                                     | Required                                                                                                                 | Description                                                                                                              |
-| ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
-| `x_glean_act_as`                                                                                                         | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens). |
-| `x_glean_auth_type`                                                                                                      | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | Auth type being used to access the endpoint (should be non-empty only for global tokens).                                |
-| `timezone_offset`                                                                                                        | *Optional[int]*                                                                                                          | :heavy_minus_sign:                                                                                                       | The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.               |
-| `agent_id`                                                                                                               | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | The ID of the agent to be run.                                                                                           |
-| `fields`                                                                                                                 | Dict[str, *str*]                                                                                                         | :heavy_minus_sign:                                                                                                       | Key-value mapping of string -> string where the key is the name of the field in the prompt.                              |
-| `stream`                                                                                                                 | *Optional[bool]*                                                                                                         | :heavy_minus_sign:                                                                                                       | Whether to stream responses as they become available. If false, the entire response will be returned at once.            |
-| `retries`                                                                                                                | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                         | :heavy_minus_sign:                                                                                                       | Configuration to override the default retry behavior of the client.                                                      |
+| Parameter                                                                                                     | Type                                                                                                          | Required                                                                                                      | Description                                                                                                   |
+| ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `timezone_offset`                                                                                             | *Optional[int]*                                                                                               | :heavy_minus_sign:                                                                                            | The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.    |
+| `agent_id`                                                                                                    | *Optional[str]*                                                                                               | :heavy_minus_sign:                                                                                            | The ID of the agent to be run.                                                                                |
+| `fields`                                                                                                      | Dict[str, *str*]                                                                                              | :heavy_minus_sign:                                                                                            | Key-value mapping of string -> string where the key is the name of the field in the prompt.                   |
+| `stream`                                                                                                      | *Optional[bool]*                                                                                              | :heavy_minus_sign:                                                                                            | Whether to stream responses as they become available. If false, the entire response will be returned at once. |
+| `retries`                                                                                                     | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                              | :heavy_minus_sign:                                                                                            | Configuration to override the default retry behavior of the client.                                           |
 
 ### Response
 
@@ -53,7 +51,7 @@ with Glean(
 | ----------------- | ----------------- | ----------------- |
 | errors.GleanError | 4XX, 5XX          | \*/\*             |
 
-## listagents
+## list
 
 Lists all agents that are available.
 
@@ -65,10 +63,10 @@ import os
 
 
 with Glean(
-    bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
-    res = g_client.agents.listagents()
+    res = g_client.client.agents.list()
 
     # Handle response
     print(res)
@@ -77,13 +75,11 @@ with Glean(
 
 ### Parameters
 
-| Parameter                                                                                                                | Type                                                                                                                     | Required                                                                                                                 | Description                                                                                                              |
-| ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
-| `x_glean_act_as`                                                                                                         | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens). |
-| `x_glean_auth_type`                                                                                                      | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | Auth type being used to access the endpoint (should be non-empty only for global tokens).                                |
-| `timezone_offset`                                                                                                        | *Optional[int]*                                                                                                          | :heavy_minus_sign:                                                                                                       | The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.               |
-| `request_body`                                                                                                           | *Optional[Any]*                                                                                                          | :heavy_minus_sign:                                                                                                       | N/A                                                                                                                      |
-| `retries`                                                                                                                | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                         | :heavy_minus_sign:                                                                                                       | Configuration to override the default retry behavior of the client.                                                      |
+| Parameter                                                                                                  | Type                                                                                                       | Required                                                                                                   | Description                                                                                                |
+| ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `timezone_offset`                                                                                          | *Optional[int]*                                                                                            | :heavy_minus_sign:                                                                                         | The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC. |
+| `request_body`                                                                                             | *Optional[Any]*                                                                                            | :heavy_minus_sign:                                                                                         | N/A                                                                                                        |
+| `retries`                                                                                                  | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                           | :heavy_minus_sign:                                                                                         | Configuration to override the default retry behavior of the client.                                        |
 
 ### Response
 
@@ -95,7 +91,7 @@ with Glean(
 | ----------------- | ----------------- | ----------------- |
 | errors.GleanError | 4XX, 5XX          | \*/\*             |
 
-## getagentinputs
+## retrieve_inputs
 
 Get the inputs to an agent with a given id.
 
@@ -107,10 +103,10 @@ import os
 
 
 with Glean(
-    bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
-    res = g_client.agents.getagentinputs()
+    res = g_client.client.agents.retrieve_inputs()
 
     # Handle response
     print(res)
@@ -119,13 +115,11 @@ with Glean(
 
 ### Parameters
 
-| Parameter                                                                                                                | Type                                                                                                                     | Required                                                                                                                 | Description                                                                                                              |
-| ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
-| `x_glean_act_as`                                                                                                         | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens). |
-| `x_glean_auth_type`                                                                                                      | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | Auth type being used to access the endpoint (should be non-empty only for global tokens).                                |
-| `timezone_offset`                                                                                                        | *Optional[int]*                                                                                                          | :heavy_minus_sign:                                                                                                       | The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.               |
-| `agent_id`                                                                                                               | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | The id of the agent.                                                                                                     |
-| `retries`                                                                                                                | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                         | :heavy_minus_sign:                                                                                                       | Configuration to override the default retry behavior of the client.                                                      |
+| Parameter                                                                                                  | Type                                                                                                       | Required                                                                                                   | Description                                                                                                |
+| ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `timezone_offset`                                                                                          | *Optional[int]*                                                                                            | :heavy_minus_sign:                                                                                         | The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC. |
+| `agent_id`                                                                                                 | *Optional[str]*                                                                                            | :heavy_minus_sign:                                                                                         | The id of the agent.                                                                                       |
+| `retries`                                                                                                  | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                           | :heavy_minus_sign:                                                                                         | Configuration to override the default retry behavior of the client.                                        |
 
 ### Response
 

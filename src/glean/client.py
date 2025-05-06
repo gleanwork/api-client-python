@@ -2,7 +2,7 @@
 
 from .basesdk import BaseSDK
 from .sdkconfiguration import SDKConfiguration
-from glean.activities import Activities
+from glean.agents import Agents
 from glean.announcements import Announcements
 from glean.answers import Answers
 from glean.client_activity import ClientActivity
@@ -17,16 +17,15 @@ from glean.insights import Insights
 from glean.messages import Messages
 from glean.pins import Pins
 from glean.search import Search
-from glean.summarize import Summarize
 
 
 class Client(BaseSDK):
     activity: ClientActivity
-    activities: Activities
     announcements: Announcements
     answers: Answers
     authentication: ClientAuthentication
     chat: ClientChat
+    agents: Agents
     collections: Collections
     documents: ClientDocuments
     insights: Insights
@@ -35,7 +34,6 @@ class Client(BaseSDK):
     search: Search
     entities: Entities
     shortcuts: ClientShortcuts
-    summarize: Summarize
     verification: ClientVerification
 
     def __init__(self, sdk_config: SDKConfiguration) -> None:
@@ -45,11 +43,11 @@ class Client(BaseSDK):
 
     def _init_sdks(self):
         self.activity = ClientActivity(self.sdk_configuration)
-        self.activities = Activities(self.sdk_configuration)
         self.announcements = Announcements(self.sdk_configuration)
         self.answers = Answers(self.sdk_configuration)
         self.authentication = ClientAuthentication(self.sdk_configuration)
         self.chat = ClientChat(self.sdk_configuration)
+        self.agents = Agents(self.sdk_configuration)
         self.collections = Collections(self.sdk_configuration)
         self.documents = ClientDocuments(self.sdk_configuration)
         self.insights = Insights(self.sdk_configuration)
@@ -58,5 +56,4 @@ class Client(BaseSDK):
         self.search = Search(self.sdk_configuration)
         self.entities = Entities(self.sdk_configuration)
         self.shortcuts = ClientShortcuts(self.sdk_configuration)
-        self.summarize = Summarize(self.sdk_configuration)
         self.verification = ClientVerification(self.sdk_configuration)

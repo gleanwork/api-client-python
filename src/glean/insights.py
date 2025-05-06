@@ -9,12 +9,10 @@ from typing import List, Mapping, Optional, Union
 
 
 class Insights(BaseSDK):
-    def get(
+    def retrieve(
         self,
         *,
         categories: List[models.InsightsRequestCategory],
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
         departments: Optional[List[str]] = None,
         day_range: Optional[Union[models.Period, models.PeriodTypedDict]] = None,
         ai_app_request_options: Optional[
@@ -41,8 +39,6 @@ class Insights(BaseSDK):
         Reads the aggregate information for each user, query, and content.
 
         :param categories: Categories of data requested. Request can include single or multiple types.
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param departments: Departments that the data is requested for. If this is empty, corresponds to whole company.
         :param day_range:
         :param ai_app_request_options:
@@ -64,23 +60,18 @@ class Insights(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.InsightsRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            insights_request=models.InsightsRequest(
-                categories=categories,
-                departments=departments,
-                day_range=utils.get_pydantic_model(day_range, Optional[models.Period]),
-                ai_app_request_options=utils.get_pydantic_model(
-                    ai_app_request_options, Optional[models.InsightsAiAppRequestOptions]
-                ),
-                agents_request_options=utils.get_pydantic_model(
-                    agents_request_options,
-                    Optional[models.InsightsAgentsRequestOptions],
-                ),
-                assistant_activity_types=assistant_activity_types,
-                disable_per_user_insights=disable_per_user_insights,
+        request = models.InsightsRequest(
+            categories=categories,
+            departments=departments,
+            day_range=utils.get_pydantic_model(day_range, Optional[models.Period]),
+            ai_app_request_options=utils.get_pydantic_model(
+                ai_app_request_options, Optional[models.InsightsAiAppRequestOptions]
             ),
+            agents_request_options=utils.get_pydantic_model(
+                agents_request_options, Optional[models.InsightsAgentsRequestOptions]
+            ),
+            assistant_activity_types=assistant_activity_types,
+            disable_per_user_insights=disable_per_user_insights,
         )
 
         req = self._build_request(
@@ -97,7 +88,7 @@ class Insights(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.insights_request, False, False, "json", models.InsightsRequest
+                request, False, False, "json", models.InsightsRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -146,12 +137,10 @@ class Insights(BaseSDK):
             http_res,
         )
 
-    async def get_async(
+    async def retrieve_async(
         self,
         *,
         categories: List[models.InsightsRequestCategory],
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
         departments: Optional[List[str]] = None,
         day_range: Optional[Union[models.Period, models.PeriodTypedDict]] = None,
         ai_app_request_options: Optional[
@@ -178,8 +167,6 @@ class Insights(BaseSDK):
         Reads the aggregate information for each user, query, and content.
 
         :param categories: Categories of data requested. Request can include single or multiple types.
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param departments: Departments that the data is requested for. If this is empty, corresponds to whole company.
         :param day_range:
         :param ai_app_request_options:
@@ -201,23 +188,18 @@ class Insights(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.InsightsRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            insights_request=models.InsightsRequest(
-                categories=categories,
-                departments=departments,
-                day_range=utils.get_pydantic_model(day_range, Optional[models.Period]),
-                ai_app_request_options=utils.get_pydantic_model(
-                    ai_app_request_options, Optional[models.InsightsAiAppRequestOptions]
-                ),
-                agents_request_options=utils.get_pydantic_model(
-                    agents_request_options,
-                    Optional[models.InsightsAgentsRequestOptions],
-                ),
-                assistant_activity_types=assistant_activity_types,
-                disable_per_user_insights=disable_per_user_insights,
+        request = models.InsightsRequest(
+            categories=categories,
+            departments=departments,
+            day_range=utils.get_pydantic_model(day_range, Optional[models.Period]),
+            ai_app_request_options=utils.get_pydantic_model(
+                ai_app_request_options, Optional[models.InsightsAiAppRequestOptions]
             ),
+            agents_request_options=utils.get_pydantic_model(
+                agents_request_options, Optional[models.InsightsAgentsRequestOptions]
+            ),
+            assistant_activity_types=assistant_activity_types,
+            disable_per_user_insights=disable_per_user_insights,
         )
 
         req = self._build_request_async(
@@ -234,7 +216,7 @@ class Insights(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.insights_request, False, False, "json", models.InsightsRequest
+                request, False, False, "json", models.InsightsRequest
             ),
             timeout_ms=timeout_ms,
         )

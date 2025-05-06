@@ -12,27 +12,29 @@ def test_entities_listentities():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
         res = g_client.client.entities.list(
-            filter_=[
-                {
-                    "field_name": "type",
-                    "values": [
-                        {
-                            "value": "Spreadsheet",
-                            "relation_type": models.RelationType.EQUALS,
-                        },
-                        {
-                            "value": "Presentation",
-                            "relation_type": models.RelationType.EQUALS,
-                        },
-                    ],
-                },
-            ],
-            page_size=100,
+            request={
+                "filter_": [
+                    {
+                        "field_name": "type",
+                        "values": [
+                            {
+                                "value": "Spreadsheet",
+                                "relation_type": models.RelationType.EQUALS,
+                            },
+                            {
+                                "value": "Presentation",
+                                "relation_type": models.RelationType.EQUALS,
+                            },
+                        ],
+                    },
+                ],
+                "page_size": 100,
+            }
         )
         assert res is not None
 
@@ -43,15 +45,17 @@ def test_entities_people():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
         res = g_client.client.entities.read_people(
-            obfuscated_ids=[
-                "abc123",
-                "abc456",
-            ]
+            request={
+                "obfuscated_ids": [
+                    "abc123",
+                    "abc456",
+                ],
+            }
         )
         assert res is not None
 

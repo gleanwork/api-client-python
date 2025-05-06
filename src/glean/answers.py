@@ -3,9 +3,9 @@
 from .basesdk import BaseSDK
 from glean import errors, models, utils
 from glean._hooks import HookContext
-from glean.types import OptionalNullable, UNSET
+from glean.types import BaseModel, OptionalNullable, UNSET
 from glean.utils import get_security_from_env
-from typing import List, Mapping, Optional, Union
+from typing import List, Mapping, Optional, Union, cast
 
 
 class Answers(BaseSDK):
@@ -13,8 +13,6 @@ class Answers(BaseSDK):
         self,
         *,
         data: Union[models.AnswerCreationData, models.AnswerCreationDataTypedDict],
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -25,8 +23,6 @@ class Answers(BaseSDK):
         Create a user-generated Answer that contains a question and answer.
 
         :param data:
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -42,12 +38,8 @@ class Answers(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.CreateanswerRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            create_answer_request=models.CreateAnswerRequest(
-                data=utils.get_pydantic_model(data, models.AnswerCreationData),
-            ),
+        request = models.CreateAnswerRequest(
+            data=utils.get_pydantic_model(data, models.AnswerCreationData),
         )
 
         req = self._build_request(
@@ -64,11 +56,7 @@ class Answers(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.create_answer_request,
-                False,
-                False,
-                "json",
-                models.CreateAnswerRequest,
+                request, False, False, "json", models.CreateAnswerRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -121,8 +109,6 @@ class Answers(BaseSDK):
         self,
         *,
         data: Union[models.AnswerCreationData, models.AnswerCreationDataTypedDict],
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -133,8 +119,6 @@ class Answers(BaseSDK):
         Create a user-generated Answer that contains a question and answer.
 
         :param data:
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -150,12 +134,8 @@ class Answers(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.CreateanswerRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            create_answer_request=models.CreateAnswerRequest(
-                data=utils.get_pydantic_model(data, models.AnswerCreationData),
-            ),
+        request = models.CreateAnswerRequest(
+            data=utils.get_pydantic_model(data, models.AnswerCreationData),
         )
 
         req = self._build_request_async(
@@ -172,11 +152,7 @@ class Answers(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.create_answer_request,
-                False,
-                False,
-                "json",
-                models.CreateAnswerRequest,
+                request, False, False, "json", models.CreateAnswerRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -229,8 +205,6 @@ class Answers(BaseSDK):
         self,
         *,
         id: int,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
         doc_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -242,8 +216,6 @@ class Answers(BaseSDK):
         Delete an existing user-generated Answer.
 
         :param id: The opaque ID of the Answer.
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param doc_id: Glean Document ID of the Answer. The Glean Document ID is supported for cases where the Answer ID isn't available. If both are available, using the Answer ID is preferred.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -260,13 +232,9 @@ class Answers(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.DeleteanswerRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            delete_answer_request=models.DeleteAnswerRequest(
-                id=id,
-                doc_id=doc_id,
-            ),
+        request = models.DeleteAnswerRequest(
+            id=id,
+            doc_id=doc_id,
         )
 
         req = self._build_request(
@@ -283,11 +251,7 @@ class Answers(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.delete_answer_request,
-                False,
-                False,
-                "json",
-                models.DeleteAnswerRequest,
+                request, False, False, "json", models.DeleteAnswerRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -340,8 +304,6 @@ class Answers(BaseSDK):
         self,
         *,
         id: int,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
         doc_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -353,8 +315,6 @@ class Answers(BaseSDK):
         Delete an existing user-generated Answer.
 
         :param id: The opaque ID of the Answer.
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param doc_id: Glean Document ID of the Answer. The Glean Document ID is supported for cases where the Answer ID isn't available. If both are available, using the Answer ID is preferred.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -371,13 +331,9 @@ class Answers(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.DeleteanswerRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            delete_answer_request=models.DeleteAnswerRequest(
-                id=id,
-                doc_id=doc_id,
-            ),
+        request = models.DeleteAnswerRequest(
+            id=id,
+            doc_id=doc_id,
         )
 
         req = self._build_request_async(
@@ -394,11 +350,7 @@ class Answers(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.delete_answer_request,
-                False,
-                False,
-                "json",
-                models.DeleteAnswerRequest,
+                request, False, False, "json", models.DeleteAnswerRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -447,12 +399,10 @@ class Answers(BaseSDK):
             http_res,
         )
 
-    def edit(
+    def update(
         self,
         *,
         id: int,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
         doc_id: Optional[str] = None,
         question: Optional[str] = None,
         question_variations: Optional[List[str]] = None,
@@ -501,8 +451,6 @@ class Answers(BaseSDK):
         Update an existing user-generated Answer.
 
         :param id: The opaque ID of the Answer.
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param doc_id: Glean Document ID of the Answer. The Glean Document ID is supported for cases where the Answer ID isn't available. If both are available, using the Answer ID is preferred.
         :param question:
         :param question_variations: Additional ways of phrasing this question.
@@ -532,38 +480,33 @@ class Answers(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.EditanswerRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            edit_answer_request=models.EditAnswerRequest(
-                id=id,
-                doc_id=doc_id,
-                question=question,
-                question_variations=question_variations,
-                body_text=body_text,
-                board_id=board_id,
-                audience_filters=utils.get_pydantic_model(
-                    audience_filters, Optional[List[models.FacetFilter]]
-                ),
-                added_roles=utils.get_pydantic_model(
-                    added_roles, Optional[List[models.UserRoleSpecification]]
-                ),
-                removed_roles=utils.get_pydantic_model(
-                    removed_roles, Optional[List[models.UserRoleSpecification]]
-                ),
-                roles=utils.get_pydantic_model(
-                    roles, Optional[List[models.UserRoleSpecification]]
-                ),
-                source_document_spec=utils.get_pydantic_model(
-                    source_document_spec, Optional[models.DocumentSpecUnion]
-                ),
-                source_type=source_type,
-                added_collections=added_collections,
-                removed_collections=removed_collections,
-                combined_answer_text=utils.get_pydantic_model(
-                    combined_answer_text,
-                    Optional[models.StructuredTextMutableProperties],
-                ),
+        request = models.EditAnswerRequest(
+            id=id,
+            doc_id=doc_id,
+            question=question,
+            question_variations=question_variations,
+            body_text=body_text,
+            board_id=board_id,
+            audience_filters=utils.get_pydantic_model(
+                audience_filters, Optional[List[models.FacetFilter]]
+            ),
+            added_roles=utils.get_pydantic_model(
+                added_roles, Optional[List[models.UserRoleSpecification]]
+            ),
+            removed_roles=utils.get_pydantic_model(
+                removed_roles, Optional[List[models.UserRoleSpecification]]
+            ),
+            roles=utils.get_pydantic_model(
+                roles, Optional[List[models.UserRoleSpecification]]
+            ),
+            source_document_spec=utils.get_pydantic_model(
+                source_document_spec, Optional[models.DocumentSpecUnion]
+            ),
+            source_type=source_type,
+            added_collections=added_collections,
+            removed_collections=removed_collections,
+            combined_answer_text=utils.get_pydantic_model(
+                combined_answer_text, Optional[models.StructuredTextMutableProperties]
             ),
         )
 
@@ -581,11 +524,7 @@ class Answers(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.edit_answer_request,
-                False,
-                False,
-                "json",
-                models.EditAnswerRequest,
+                request, False, False, "json", models.EditAnswerRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -634,12 +573,10 @@ class Answers(BaseSDK):
             http_res,
         )
 
-    async def edit_async(
+    async def update_async(
         self,
         *,
         id: int,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
         doc_id: Optional[str] = None,
         question: Optional[str] = None,
         question_variations: Optional[List[str]] = None,
@@ -688,8 +625,6 @@ class Answers(BaseSDK):
         Update an existing user-generated Answer.
 
         :param id: The opaque ID of the Answer.
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param doc_id: Glean Document ID of the Answer. The Glean Document ID is supported for cases where the Answer ID isn't available. If both are available, using the Answer ID is preferred.
         :param question:
         :param question_variations: Additional ways of phrasing this question.
@@ -719,38 +654,33 @@ class Answers(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.EditanswerRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            edit_answer_request=models.EditAnswerRequest(
-                id=id,
-                doc_id=doc_id,
-                question=question,
-                question_variations=question_variations,
-                body_text=body_text,
-                board_id=board_id,
-                audience_filters=utils.get_pydantic_model(
-                    audience_filters, Optional[List[models.FacetFilter]]
-                ),
-                added_roles=utils.get_pydantic_model(
-                    added_roles, Optional[List[models.UserRoleSpecification]]
-                ),
-                removed_roles=utils.get_pydantic_model(
-                    removed_roles, Optional[List[models.UserRoleSpecification]]
-                ),
-                roles=utils.get_pydantic_model(
-                    roles, Optional[List[models.UserRoleSpecification]]
-                ),
-                source_document_spec=utils.get_pydantic_model(
-                    source_document_spec, Optional[models.DocumentSpecUnion]
-                ),
-                source_type=source_type,
-                added_collections=added_collections,
-                removed_collections=removed_collections,
-                combined_answer_text=utils.get_pydantic_model(
-                    combined_answer_text,
-                    Optional[models.StructuredTextMutableProperties],
-                ),
+        request = models.EditAnswerRequest(
+            id=id,
+            doc_id=doc_id,
+            question=question,
+            question_variations=question_variations,
+            body_text=body_text,
+            board_id=board_id,
+            audience_filters=utils.get_pydantic_model(
+                audience_filters, Optional[List[models.FacetFilter]]
+            ),
+            added_roles=utils.get_pydantic_model(
+                added_roles, Optional[List[models.UserRoleSpecification]]
+            ),
+            removed_roles=utils.get_pydantic_model(
+                removed_roles, Optional[List[models.UserRoleSpecification]]
+            ),
+            roles=utils.get_pydantic_model(
+                roles, Optional[List[models.UserRoleSpecification]]
+            ),
+            source_document_spec=utils.get_pydantic_model(
+                source_document_spec, Optional[models.DocumentSpecUnion]
+            ),
+            source_type=source_type,
+            added_collections=added_collections,
+            removed_collections=removed_collections,
+            combined_answer_text=utils.get_pydantic_model(
+                combined_answer_text, Optional[models.StructuredTextMutableProperties]
             ),
         )
 
@@ -768,11 +698,7 @@ class Answers(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.edit_answer_request,
-                False,
-                False,
-                "json",
-                models.EditAnswerRequest,
+                request, False, False, "json", models.EditAnswerRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -821,13 +747,12 @@ class Answers(BaseSDK):
             http_res,
         )
 
-    def get(
+    def retrieve(
         self,
         *,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
-        id: Optional[int] = None,
-        doc_id: Optional[str] = None,
+        request: Union[
+            models.GetAnswerRequest, models.GetAnswerRequestTypedDict
+        ] = models.GetAnswerRequest(),
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -837,10 +762,7 @@ class Answers(BaseSDK):
 
         Read the details of a particular Answer given its ID.
 
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
-        :param id: The opaque ID of the Answer.
-        :param doc_id: Glean Document ID of the Answer. The Glean Document ID is supported for cases where the Answer ID isn't available. If both are available, using the Answer ID is preferred.
+        :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -856,14 +778,9 @@ class Answers(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.GetanswerRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            get_answer_request=models.GetAnswerRequest(
-                id=id,
-                doc_id=doc_id,
-            ),
-        )
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(request, models.GetAnswerRequest)
+        request = cast(models.GetAnswerRequest, request)
 
         req = self._build_request(
             method="POST",
@@ -879,11 +796,7 @@ class Answers(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.get_answer_request,
-                False,
-                False,
-                "json",
-                models.GetAnswerRequest,
+                request, False, True, "json", Optional[models.GetAnswerRequest]
             ),
             timeout_ms=timeout_ms,
         )
@@ -932,13 +845,12 @@ class Answers(BaseSDK):
             http_res,
         )
 
-    async def get_async(
+    async def retrieve_async(
         self,
         *,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
-        id: Optional[int] = None,
-        doc_id: Optional[str] = None,
+        request: Union[
+            models.GetAnswerRequest, models.GetAnswerRequestTypedDict
+        ] = models.GetAnswerRequest(),
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -948,10 +860,7 @@ class Answers(BaseSDK):
 
         Read the details of a particular Answer given its ID.
 
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
-        :param id: The opaque ID of the Answer.
-        :param doc_id: Glean Document ID of the Answer. The Glean Document ID is supported for cases where the Answer ID isn't available. If both are available, using the Answer ID is preferred.
+        :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -967,14 +876,9 @@ class Answers(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.GetanswerRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            get_answer_request=models.GetAnswerRequest(
-                id=id,
-                doc_id=doc_id,
-            ),
-        )
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(request, models.GetAnswerRequest)
+        request = cast(models.GetAnswerRequest, request)
 
         req = self._build_request_async(
             method="POST",
@@ -990,11 +894,7 @@ class Answers(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.get_answer_request,
-                False,
-                False,
-                "json",
-                models.GetAnswerRequest,
+                request, False, True, "json", Optional[models.GetAnswerRequest]
             ),
             timeout_ms=timeout_ms,
         )
@@ -1046,9 +946,9 @@ class Answers(BaseSDK):
     def list(
         self,
         *,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
-        board_id: Optional[int] = None,
+        request: Union[
+            models.ListAnswersRequest, models.ListAnswersRequestTypedDict
+        ] = models.ListAnswersRequest(),
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1058,9 +958,7 @@ class Answers(BaseSDK):
 
         List Answers created by the current user.
 
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
-        :param board_id: The Answer Board Id to list answers on.
+        :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1076,13 +974,9 @@ class Answers(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.ListanswersRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            list_answers_request=models.ListAnswersRequest(
-                board_id=board_id,
-            ),
-        )
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(request, models.ListAnswersRequest)
+        request = cast(models.ListAnswersRequest, request)
 
         req = self._build_request(
             method="POST",
@@ -1098,11 +992,7 @@ class Answers(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.list_answers_request,
-                False,
-                False,
-                "json",
-                models.ListAnswersRequest,
+                request, False, True, "json", Optional[models.ListAnswersRequest]
             ),
             timeout_ms=timeout_ms,
         )
@@ -1154,9 +1044,9 @@ class Answers(BaseSDK):
     async def list_async(
         self,
         *,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
-        board_id: Optional[int] = None,
+        request: Union[
+            models.ListAnswersRequest, models.ListAnswersRequestTypedDict
+        ] = models.ListAnswersRequest(),
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1166,9 +1056,7 @@ class Answers(BaseSDK):
 
         List Answers created by the current user.
 
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
-        :param board_id: The Answer Board Id to list answers on.
+        :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1184,13 +1072,9 @@ class Answers(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.ListanswersRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            list_answers_request=models.ListAnswersRequest(
-                board_id=board_id,
-            ),
-        )
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(request, models.ListAnswersRequest)
+        request = cast(models.ListAnswersRequest, request)
 
         req = self._build_request_async(
             method="POST",
@@ -1206,11 +1090,7 @@ class Answers(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.list_answers_request,
-                False,
-                False,
-                "json",
-                models.ListAnswersRequest,
+                request, False, True, "json", Optional[models.ListAnswersRequest]
             ),
             timeout_ms=timeout_ms,
         )

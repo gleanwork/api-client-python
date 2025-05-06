@@ -2,36 +2,17 @@
 
 from __future__ import annotations
 from glean.types import BaseModel
-from glean.utils import FieldMetadata, HeaderMetadata, QueryParamMetadata
-import pydantic
+from glean.utils import FieldMetadata, QueryParamMetadata
 from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class ListverificationsRequestTypedDict(TypedDict):
-    x_glean_act_as: NotRequired[str]
-    r"""Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens)."""
-    x_glean_auth_type: NotRequired[str]
-    r"""Auth type being used to access the endpoint (should be non-empty only for global tokens)."""
     count: NotRequired[int]
     r"""Maximum number of documents to return"""
 
 
 class ListverificationsRequest(BaseModel):
-    x_glean_act_as: Annotated[
-        Optional[str],
-        pydantic.Field(alias="X-Glean-ActAs"),
-        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
-    ] = None
-    r"""Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens)."""
-
-    x_glean_auth_type: Annotated[
-        Optional[str],
-        pydantic.Field(alias="X-Glean-Auth-Type"),
-        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
-    ] = None
-    r"""Auth type being used to access the endpoint (should be non-empty only for global tokens)."""
-
     count: Annotated[
         Optional[int],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),

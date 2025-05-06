@@ -11,26 +11,28 @@ def test_pins_editpin():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.client.pins.edit(
-            audience_filters=[
-                {
-                    "field_name": "type",
-                    "values": [
-                        {
-                            "value": "Spreadsheet",
-                            "relation_type": models.RelationType.EQUALS,
-                        },
-                        {
-                            "value": "Presentation",
-                            "relation_type": models.RelationType.EQUALS,
-                        },
-                    ],
-                },
-            ]
+        res = g_client.client.pins.update(
+            request={
+                "audience_filters": [
+                    {
+                        "field_name": "type",
+                        "values": [
+                            {
+                                "value": "Spreadsheet",
+                                "relation_type": models.RelationType.EQUALS,
+                            },
+                            {
+                                "value": "Presentation",
+                                "relation_type": models.RelationType.EQUALS,
+                            },
+                        ],
+                    },
+                ],
+            }
         )
         assert res is not None
 
@@ -41,11 +43,11 @@ def test_pins_getpin():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.client.pins.get()
+        res = g_client.client.pins.retrieve(request={})
         assert res is not None
 
 
@@ -55,11 +57,11 @@ def test_pins_listpins():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.client.pins.list(request_body={})
+        res = g_client.client.pins.list(request={})
         assert res is not None
 
 
@@ -69,26 +71,28 @@ def test_pins_pin():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
         res = g_client.client.pins.create(
-            audience_filters=[
-                {
-                    "field_name": "type",
-                    "values": [
-                        {
-                            "value": "Spreadsheet",
-                            "relation_type": models.RelationType.EQUALS,
-                        },
-                        {
-                            "value": "Presentation",
-                            "relation_type": models.RelationType.EQUALS,
-                        },
-                    ],
-                },
-            ]
+            request={
+                "audience_filters": [
+                    {
+                        "field_name": "type",
+                        "values": [
+                            {
+                                "value": "Spreadsheet",
+                                "relation_type": models.RelationType.EQUALS,
+                            },
+                            {
+                                "value": "Presentation",
+                                "relation_type": models.RelationType.EQUALS,
+                            },
+                        ],
+                    },
+                ],
+            }
         )
         assert res is not None
 
@@ -99,8 +103,8 @@ def test_pins_unpin():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
-        g_client.client.pins.remove()
+        g_client.client.pins.remove(request={})

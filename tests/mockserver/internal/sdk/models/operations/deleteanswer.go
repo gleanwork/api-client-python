@@ -6,36 +6,6 @@ import (
 	"mockserver/internal/sdk/models/components"
 )
 
-type DeleteanswerRequest struct {
-	// Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-	XGleanActAs *string `header:"style=simple,explode=false,name=X-Glean-ActAs"`
-	// Auth type being used to access the endpoint (should be non-empty only for global tokens).
-	XGleanAuthType *string `header:"style=simple,explode=false,name=X-Glean-Auth-Type"`
-	// DeleteAnswer request
-	DeleteAnswerRequest components.DeleteAnswerRequest `request:"mediaType=application/json"`
-}
-
-func (o *DeleteanswerRequest) GetXGleanActAs() *string {
-	if o == nil {
-		return nil
-	}
-	return o.XGleanActAs
-}
-
-func (o *DeleteanswerRequest) GetXGleanAuthType() *string {
-	if o == nil {
-		return nil
-	}
-	return o.XGleanAuthType
-}
-
-func (o *DeleteanswerRequest) GetDeleteAnswerRequest() components.DeleteAnswerRequest {
-	if o == nil {
-		return components.DeleteAnswerRequest{}
-	}
-	return o.DeleteAnswerRequest
-}
-
 type DeleteanswerResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 }

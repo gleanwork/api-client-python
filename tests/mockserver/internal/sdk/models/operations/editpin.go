@@ -6,36 +6,6 @@ import (
 	"mockserver/internal/sdk/models/components"
 )
 
-type EditpinRequest struct {
-	// Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-	XGleanActAs *string `header:"style=simple,explode=false,name=X-Glean-ActAs"`
-	// Auth type being used to access the endpoint (should be non-empty only for global tokens).
-	XGleanAuthType *string `header:"style=simple,explode=false,name=X-Glean-Auth-Type"`
-	// Edit pins request
-	EditPinRequest components.EditPinRequest `request:"mediaType=application/json"`
-}
-
-func (o *EditpinRequest) GetXGleanActAs() *string {
-	if o == nil {
-		return nil
-	}
-	return o.XGleanActAs
-}
-
-func (o *EditpinRequest) GetXGleanAuthType() *string {
-	if o == nil {
-		return nil
-	}
-	return o.XGleanAuthType
-}
-
-func (o *EditpinRequest) GetEditPinRequest() components.EditPinRequest {
-	if o == nil {
-		return components.EditPinRequest{}
-	}
-	return o.EditPinRequest
-}
-
 type EditpinResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// OK

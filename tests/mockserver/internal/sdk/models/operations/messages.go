@@ -6,36 +6,6 @@ import (
 	"mockserver/internal/sdk/models/components"
 )
 
-type MessagesRequest struct {
-	// Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-	XGleanActAs *string `header:"style=simple,explode=false,name=X-Glean-ActAs"`
-	// Auth type being used to access the endpoint (should be non-empty only for global tokens).
-	XGleanAuthType *string `header:"style=simple,explode=false,name=X-Glean-Auth-Type"`
-	// Includes request params such as the id for channel/message and direction.
-	MessagesRequest components.MessagesRequest `request:"mediaType=application/json"`
-}
-
-func (o *MessagesRequest) GetXGleanActAs() *string {
-	if o == nil {
-		return nil
-	}
-	return o.XGleanActAs
-}
-
-func (o *MessagesRequest) GetXGleanAuthType() *string {
-	if o == nil {
-		return nil
-	}
-	return o.XGleanAuthType
-}
-
-func (o *MessagesRequest) GetMessagesRequest() components.MessagesRequest {
-	if o == nil {
-		return components.MessagesRequest{}
-	}
-	return o.MessagesRequest
-}
-
 type MessagesResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// OK

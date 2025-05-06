@@ -3,9 +3,9 @@
 from .basesdk import BaseSDK
 from glean import errors, models, utils
 from glean._hooks import HookContext
-from glean.types import OptionalNullable, UNSET
+from glean.types import BaseModel, OptionalNullable, UNSET
 from glean.utils import get_security_from_env
-from typing import List, Mapping, Optional, Union
+from typing import List, Mapping, Optional, Union, cast
 
 
 class ClientShortcuts(BaseSDK):
@@ -15,8 +15,6 @@ class ClientShortcuts(BaseSDK):
         data: Union[
             models.ShortcutMutableProperties, models.ShortcutMutablePropertiesTypedDict
         ],
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -27,8 +25,6 @@ class ClientShortcuts(BaseSDK):
         Create a user-generated shortcut that contains an alias and destination URL.
 
         :param data:
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -44,12 +40,8 @@ class ClientShortcuts(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.CreateshortcutRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            create_shortcut_request=models.CreateShortcutRequest(
-                data=utils.get_pydantic_model(data, models.ShortcutMutableProperties),
-            ),
+        request = models.CreateShortcutRequest(
+            data=utils.get_pydantic_model(data, models.ShortcutMutableProperties),
         )
 
         req = self._build_request(
@@ -66,11 +58,7 @@ class ClientShortcuts(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.create_shortcut_request,
-                False,
-                False,
-                "json",
-                models.CreateShortcutRequest,
+                request, False, False, "json", models.CreateShortcutRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -125,8 +113,6 @@ class ClientShortcuts(BaseSDK):
         data: Union[
             models.ShortcutMutableProperties, models.ShortcutMutablePropertiesTypedDict
         ],
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -137,8 +123,6 @@ class ClientShortcuts(BaseSDK):
         Create a user-generated shortcut that contains an alias and destination URL.
 
         :param data:
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -154,12 +138,8 @@ class ClientShortcuts(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.CreateshortcutRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            create_shortcut_request=models.CreateShortcutRequest(
-                data=utils.get_pydantic_model(data, models.ShortcutMutableProperties),
-            ),
+        request = models.CreateShortcutRequest(
+            data=utils.get_pydantic_model(data, models.ShortcutMutableProperties),
         )
 
         req = self._build_request_async(
@@ -176,11 +156,7 @@ class ClientShortcuts(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.create_shortcut_request,
-                False,
-                False,
-                "json",
-                models.CreateShortcutRequest,
+                request, False, False, "json", models.CreateShortcutRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -233,8 +209,6 @@ class ClientShortcuts(BaseSDK):
         self,
         *,
         id: int,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -245,8 +219,6 @@ class ClientShortcuts(BaseSDK):
         Delete an existing user-generated shortcut.
 
         :param id: The opaque id of the user generated content.
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -262,12 +234,8 @@ class ClientShortcuts(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.DeleteshortcutRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            delete_shortcut_request=models.DeleteShortcutRequest(
-                id=id,
-            ),
+        request = models.DeleteShortcutRequest(
+            id=id,
         )
 
         req = self._build_request(
@@ -284,11 +252,7 @@ class ClientShortcuts(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.delete_shortcut_request,
-                False,
-                False,
-                "json",
-                models.DeleteShortcutRequest,
+                request, False, False, "json", models.DeleteShortcutRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -341,8 +305,6 @@ class ClientShortcuts(BaseSDK):
         self,
         *,
         id: int,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -353,8 +315,6 @@ class ClientShortcuts(BaseSDK):
         Delete an existing user-generated shortcut.
 
         :param id: The opaque id of the user generated content.
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -370,12 +330,8 @@ class ClientShortcuts(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.DeleteshortcutRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            delete_shortcut_request=models.DeleteShortcutRequest(
-                id=id,
-            ),
+        request = models.DeleteShortcutRequest(
+            id=id,
         )
 
         req = self._build_request_async(
@@ -392,11 +348,7 @@ class ClientShortcuts(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.delete_shortcut_request,
-                False,
-                False,
-                "json",
-                models.DeleteShortcutRequest,
+                request, False, False, "json", models.DeleteShortcutRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -445,14 +397,12 @@ class ClientShortcuts(BaseSDK):
             http_res,
         )
 
-    def get(
+    def retrieve(
         self,
         *,
-        get_shortcut_request: Union[
-            models.GetShortcutRequest, models.GetShortcutRequestTypedDict
+        request: Union[
+            models.GetShortcutRequestUnion, models.GetShortcutRequestUnionTypedDict
         ],
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -462,9 +412,7 @@ class ClientShortcuts(BaseSDK):
 
         Read a particular shortcut's details given its ID.
 
-        :param get_shortcut_request: GetShortcut request
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
+        :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -480,13 +428,9 @@ class ClientShortcuts(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.GetshortcutRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            get_shortcut_request=utils.get_pydantic_model(
-                get_shortcut_request, models.GetShortcutRequest
-            ),
-        )
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(request, models.GetShortcutRequestUnion)
+        request = cast(models.GetShortcutRequestUnion, request)
 
         req = self._build_request(
             method="POST",
@@ -502,11 +446,7 @@ class ClientShortcuts(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.get_shortcut_request,
-                False,
-                False,
-                "json",
-                models.GetShortcutRequest,
+                request, False, False, "json", models.GetShortcutRequestUnion
             ),
             timeout_ms=timeout_ms,
         )
@@ -555,14 +495,12 @@ class ClientShortcuts(BaseSDK):
             http_res,
         )
 
-    async def get_async(
+    async def retrieve_async(
         self,
         *,
-        get_shortcut_request: Union[
-            models.GetShortcutRequest, models.GetShortcutRequestTypedDict
+        request: Union[
+            models.GetShortcutRequestUnion, models.GetShortcutRequestUnionTypedDict
         ],
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -572,9 +510,7 @@ class ClientShortcuts(BaseSDK):
 
         Read a particular shortcut's details given its ID.
 
-        :param get_shortcut_request: GetShortcut request
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
+        :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -590,13 +526,9 @@ class ClientShortcuts(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.GetshortcutRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            get_shortcut_request=utils.get_pydantic_model(
-                get_shortcut_request, models.GetShortcutRequest
-            ),
-        )
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(request, models.GetShortcutRequestUnion)
+        request = cast(models.GetShortcutRequestUnion, request)
 
         req = self._build_request_async(
             method="POST",
@@ -612,11 +544,7 @@ class ClientShortcuts(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.get_shortcut_request,
-                False,
-                False,
-                "json",
-                models.GetShortcutRequest,
+                request, False, False, "json", models.GetShortcutRequestUnion
             ),
             timeout_ms=timeout_ms,
         )
@@ -669,8 +597,6 @@ class ClientShortcuts(BaseSDK):
         self,
         *,
         page_size: int,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
         include_fields: Optional[
             List[models.ListShortcutsPaginatedRequestIncludeField]
         ] = None,
@@ -690,8 +616,6 @@ class ClientShortcuts(BaseSDK):
         List shortcuts editable/owned by the currently authenticated user.
 
         :param page_size:
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param include_fields: Array of fields/data to be included in response that are not included by default
         :param cursor: A token specifying the position in the overall results to start at. Received from the endpoint and iterated back. Currently being used as page no (as we implement offset pagination)
         :param filters: A list of filters for the query. An AND is assumed between different filters. We support filters on Go Link name, author, department and type.
@@ -712,19 +636,15 @@ class ClientShortcuts(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.ListshortcutsRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            list_shortcuts_paginated_request=models.ListShortcutsPaginatedRequest(
-                include_fields=include_fields,
-                page_size=page_size,
-                cursor=cursor,
-                filters=utils.get_pydantic_model(
-                    filters, Optional[List[models.FacetFilter]]
-                ),
-                sort=utils.get_pydantic_model(sort, Optional[models.SortOptions]),
-                query=query,
+        request = models.ListShortcutsPaginatedRequest(
+            include_fields=include_fields,
+            page_size=page_size,
+            cursor=cursor,
+            filters=utils.get_pydantic_model(
+                filters, Optional[List[models.FacetFilter]]
             ),
+            sort=utils.get_pydantic_model(sort, Optional[models.SortOptions]),
+            query=query,
         )
 
         req = self._build_request(
@@ -741,11 +661,7 @@ class ClientShortcuts(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.list_shortcuts_paginated_request,
-                False,
-                False,
-                "json",
-                models.ListShortcutsPaginatedRequest,
+                request, False, False, "json", models.ListShortcutsPaginatedRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -800,8 +716,6 @@ class ClientShortcuts(BaseSDK):
         self,
         *,
         page_size: int,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
         include_fields: Optional[
             List[models.ListShortcutsPaginatedRequestIncludeField]
         ] = None,
@@ -821,8 +735,6 @@ class ClientShortcuts(BaseSDK):
         List shortcuts editable/owned by the currently authenticated user.
 
         :param page_size:
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param include_fields: Array of fields/data to be included in response that are not included by default
         :param cursor: A token specifying the position in the overall results to start at. Received from the endpoint and iterated back. Currently being used as page no (as we implement offset pagination)
         :param filters: A list of filters for the query. An AND is assumed between different filters. We support filters on Go Link name, author, department and type.
@@ -843,19 +755,15 @@ class ClientShortcuts(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.ListshortcutsRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            list_shortcuts_paginated_request=models.ListShortcutsPaginatedRequest(
-                include_fields=include_fields,
-                page_size=page_size,
-                cursor=cursor,
-                filters=utils.get_pydantic_model(
-                    filters, Optional[List[models.FacetFilter]]
-                ),
-                sort=utils.get_pydantic_model(sort, Optional[models.SortOptions]),
-                query=query,
+        request = models.ListShortcutsPaginatedRequest(
+            include_fields=include_fields,
+            page_size=page_size,
+            cursor=cursor,
+            filters=utils.get_pydantic_model(
+                filters, Optional[List[models.FacetFilter]]
             ),
+            sort=utils.get_pydantic_model(sort, Optional[models.SortOptions]),
+            query=query,
         )
 
         req = self._build_request_async(
@@ -872,11 +780,7 @@ class ClientShortcuts(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.list_shortcuts_paginated_request,
-                False,
-                False,
-                "json",
-                models.ListShortcutsPaginatedRequest,
+                request, False, False, "json", models.ListShortcutsPaginatedRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -931,8 +835,6 @@ class ClientShortcuts(BaseSDK):
         self,
         *,
         id: int,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
         input_alias: Optional[str] = None,
         destination_url: Optional[str] = None,
         destination_document_id: Optional[str] = None,
@@ -961,8 +863,6 @@ class ClientShortcuts(BaseSDK):
         Updates the shortcut with the given ID.
 
         :param id: The opaque id of the user generated content.
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param input_alias: Link text following go/ prefix as entered by the user.
         :param destination_url: Destination URL for the shortcut.
         :param destination_document_id: Glean Document ID for the URL, if known.
@@ -986,23 +886,19 @@ class ClientShortcuts(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.UpdateshortcutRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            update_shortcut_request=models.UpdateShortcutRequest(
-                id=id,
-                input_alias=input_alias,
-                destination_url=destination_url,
-                destination_document_id=destination_document_id,
-                description=description,
-                unlisted=unlisted,
-                url_template=url_template,
-                added_roles=utils.get_pydantic_model(
-                    added_roles, Optional[List[models.UserRoleSpecification]]
-                ),
-                removed_roles=utils.get_pydantic_model(
-                    removed_roles, Optional[List[models.UserRoleSpecification]]
-                ),
+        request = models.UpdateShortcutRequest(
+            id=id,
+            input_alias=input_alias,
+            destination_url=destination_url,
+            destination_document_id=destination_document_id,
+            description=description,
+            unlisted=unlisted,
+            url_template=url_template,
+            added_roles=utils.get_pydantic_model(
+                added_roles, Optional[List[models.UserRoleSpecification]]
+            ),
+            removed_roles=utils.get_pydantic_model(
+                removed_roles, Optional[List[models.UserRoleSpecification]]
             ),
         )
 
@@ -1020,11 +916,7 @@ class ClientShortcuts(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.update_shortcut_request,
-                False,
-                False,
-                "json",
-                models.UpdateShortcutRequest,
+                request, False, False, "json", models.UpdateShortcutRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -1077,8 +969,6 @@ class ClientShortcuts(BaseSDK):
         self,
         *,
         id: int,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
         input_alias: Optional[str] = None,
         destination_url: Optional[str] = None,
         destination_document_id: Optional[str] = None,
@@ -1107,8 +997,6 @@ class ClientShortcuts(BaseSDK):
         Updates the shortcut with the given ID.
 
         :param id: The opaque id of the user generated content.
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param input_alias: Link text following go/ prefix as entered by the user.
         :param destination_url: Destination URL for the shortcut.
         :param destination_document_id: Glean Document ID for the URL, if known.
@@ -1132,23 +1020,19 @@ class ClientShortcuts(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.UpdateshortcutRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            update_shortcut_request=models.UpdateShortcutRequest(
-                id=id,
-                input_alias=input_alias,
-                destination_url=destination_url,
-                destination_document_id=destination_document_id,
-                description=description,
-                unlisted=unlisted,
-                url_template=url_template,
-                added_roles=utils.get_pydantic_model(
-                    added_roles, Optional[List[models.UserRoleSpecification]]
-                ),
-                removed_roles=utils.get_pydantic_model(
-                    removed_roles, Optional[List[models.UserRoleSpecification]]
-                ),
+        request = models.UpdateShortcutRequest(
+            id=id,
+            input_alias=input_alias,
+            destination_url=destination_url,
+            destination_document_id=destination_document_id,
+            description=description,
+            unlisted=unlisted,
+            url_template=url_template,
+            added_roles=utils.get_pydantic_model(
+                added_roles, Optional[List[models.UserRoleSpecification]]
+            ),
+            removed_roles=utils.get_pydantic_model(
+                removed_roles, Optional[List[models.UserRoleSpecification]]
             ),
         )
 
@@ -1166,11 +1050,7 @@ class ClientShortcuts(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.update_shortcut_request,
-                False,
-                False,
-                "json",
-                models.UpdateShortcutRequest,
+                request, False, False, "json", models.UpdateShortcutRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -1200,222 +1080,6 @@ class ClientShortcuts(BaseSDK):
         if utils.match_response(http_res, "200", "application/json"):
             return utils.unmarshal_json(http_res.text, models.UpdateShortcutResponse)
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
-
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
-
-    def upload(
-        self,
-        *,
-        upload_id: str,
-        shortcuts: Union[List[models.Shortcut], List[models.ShortcutTypedDict]],
-        is_first_page: Optional[bool] = None,
-        is_last_page: Optional[bool] = None,
-        force_restart_upload: Optional[bool] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ):
-        r"""Upload shortcuts
-
-        Creates glean shortcuts for uploaded shortcuts info. Glean would host the shortcuts, and they can be managed in the knowledge tab once uploaded.
-
-        :param upload_id: Unique id that must be used for this bulk upload instance
-        :param shortcuts: Batch of shortcuts information
-        :param is_first_page: true if this is the first page of the upload. Defaults to false
-        :param is_last_page: true if this is the last page of the upload. Defaults to false
-        :param force_restart_upload: Flag to discard previous upload attempts and start from scratch. Must be specified with isFirstPage=true
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.UploadShortcutsRequest(
-            upload_id=upload_id,
-            is_first_page=is_first_page,
-            is_last_page=is_last_page,
-            force_restart_upload=force_restart_upload,
-            shortcuts=utils.get_pydantic_model(shortcuts, List[models.Shortcut]),
-        )
-
-        req = self._build_request(
-            method="POST",
-            path="/api/index/v1/uploadshortcuts",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=True,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="*/*",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.UploadShortcutsRequest
-            ),
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                base_url=base_url or "",
-                operation_id="post_/api/index/v1/uploadshortcuts",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["400", "401", "409", "4XX", "5XX"],
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "*"):
-            return
-        if utils.match_response(http_res, ["400", "401", "409", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
-
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
-
-    async def upload_async(
-        self,
-        *,
-        upload_id: str,
-        shortcuts: Union[List[models.Shortcut], List[models.ShortcutTypedDict]],
-        is_first_page: Optional[bool] = None,
-        is_last_page: Optional[bool] = None,
-        force_restart_upload: Optional[bool] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ):
-        r"""Upload shortcuts
-
-        Creates glean shortcuts for uploaded shortcuts info. Glean would host the shortcuts, and they can be managed in the knowledge tab once uploaded.
-
-        :param upload_id: Unique id that must be used for this bulk upload instance
-        :param shortcuts: Batch of shortcuts information
-        :param is_first_page: true if this is the first page of the upload. Defaults to false
-        :param is_last_page: true if this is the last page of the upload. Defaults to false
-        :param force_restart_upload: Flag to discard previous upload attempts and start from scratch. Must be specified with isFirstPage=true
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.UploadShortcutsRequest(
-            upload_id=upload_id,
-            is_first_page=is_first_page,
-            is_last_page=is_last_page,
-            force_restart_upload=force_restart_upload,
-            shortcuts=utils.get_pydantic_model(shortcuts, List[models.Shortcut]),
-        )
-
-        req = self._build_request_async(
-            method="POST",
-            path="/api/index/v1/uploadshortcuts",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=True,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="*/*",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.UploadShortcutsRequest
-            ),
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                base_url=base_url or "",
-                operation_id="post_/api/index/v1/uploadshortcuts",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["400", "401", "409", "4XX", "5XX"],
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "*"):
-            return
-        if utils.match_response(http_res, ["400", "401", "409", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.GleanError(
                 "API error occurred", http_res.status_code, http_res_text, http_res

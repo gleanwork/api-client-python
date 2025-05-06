@@ -13,7 +13,7 @@ type UploadShortcutsRequest struct {
 	// Flag to discard previous upload attempts and start from scratch. Must be specified with isFirstPage=true
 	ForceRestartUpload *bool `json:"forceRestartUpload,omitempty"`
 	// Batch of shortcuts information
-	Shortcuts []Shortcut `json:"shortcuts"`
+	Shortcuts []IndexingShortcut `json:"shortcuts"`
 }
 
 func (o *UploadShortcutsRequest) GetUploadID() string {
@@ -44,9 +44,9 @@ func (o *UploadShortcutsRequest) GetForceRestartUpload() *bool {
 	return o.ForceRestartUpload
 }
 
-func (o *UploadShortcutsRequest) GetShortcuts() []Shortcut {
+func (o *UploadShortcutsRequest) GetShortcuts() []IndexingShortcut {
 	if o == nil {
-		return []Shortcut{}
+		return []IndexingShortcut{}
 	}
 	return o.Shortcuts
 }

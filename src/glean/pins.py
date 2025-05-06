@@ -3,22 +3,18 @@
 from .basesdk import BaseSDK
 from glean import errors, models, utils
 from glean._hooks import HookContext
-from glean.types import OptionalNullable, UNSET
+from glean.types import BaseModel, OptionalNullable, UNSET
 from glean.utils import get_security_from_env
-from typing import List, Mapping, Optional, Union
+from typing import Mapping, Optional, Union, cast
 
 
 class Pins(BaseSDK):
-    def edit(
+    def update(
         self,
         *,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
-        queries: Optional[List[str]] = None,
-        audience_filters: Optional[
-            Union[List[models.FacetFilter], List[models.FacetFilterTypedDict]]
-        ] = None,
-        id: Optional[str] = None,
+        request: Union[
+            models.EditPinRequest, models.EditPinRequestTypedDict
+        ] = models.EditPinRequest(),
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -28,11 +24,7 @@ class Pins(BaseSDK):
 
         Update an existing user-generated pin.
 
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
-        :param queries: The query strings for which the pinned result will show.
-        :param audience_filters: Filters which restrict who should see the pinned document. Values are taken from the corresponding filters in people search.
-        :param id: The opaque id of the pin to be edited.
+        :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -48,17 +40,9 @@ class Pins(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.EditpinRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            edit_pin_request=models.EditPinRequest(
-                queries=queries,
-                audience_filters=utils.get_pydantic_model(
-                    audience_filters, Optional[List[models.FacetFilter]]
-                ),
-                id=id,
-            ),
-        )
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(request, models.EditPinRequest)
+        request = cast(models.EditPinRequest, request)
 
         req = self._build_request(
             method="POST",
@@ -74,7 +58,7 @@ class Pins(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.edit_pin_request, False, False, "json", models.EditPinRequest
+                request, False, True, "json", Optional[models.EditPinRequest]
             ),
             timeout_ms=timeout_ms,
         )
@@ -123,16 +107,12 @@ class Pins(BaseSDK):
             http_res,
         )
 
-    async def edit_async(
+    async def update_async(
         self,
         *,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
-        queries: Optional[List[str]] = None,
-        audience_filters: Optional[
-            Union[List[models.FacetFilter], List[models.FacetFilterTypedDict]]
-        ] = None,
-        id: Optional[str] = None,
+        request: Union[
+            models.EditPinRequest, models.EditPinRequestTypedDict
+        ] = models.EditPinRequest(),
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -142,11 +122,7 @@ class Pins(BaseSDK):
 
         Update an existing user-generated pin.
 
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
-        :param queries: The query strings for which the pinned result will show.
-        :param audience_filters: Filters which restrict who should see the pinned document. Values are taken from the corresponding filters in people search.
-        :param id: The opaque id of the pin to be edited.
+        :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -162,17 +138,9 @@ class Pins(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.EditpinRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            edit_pin_request=models.EditPinRequest(
-                queries=queries,
-                audience_filters=utils.get_pydantic_model(
-                    audience_filters, Optional[List[models.FacetFilter]]
-                ),
-                id=id,
-            ),
-        )
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(request, models.EditPinRequest)
+        request = cast(models.EditPinRequest, request)
 
         req = self._build_request_async(
             method="POST",
@@ -188,7 +156,7 @@ class Pins(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.edit_pin_request, False, False, "json", models.EditPinRequest
+                request, False, True, "json", Optional[models.EditPinRequest]
             ),
             timeout_ms=timeout_ms,
         )
@@ -237,12 +205,12 @@ class Pins(BaseSDK):
             http_res,
         )
 
-    def get(
+    def retrieve(
         self,
         *,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
-        id: Optional[str] = None,
+        request: Union[
+            models.GetPinRequest, models.GetPinRequestTypedDict
+        ] = models.GetPinRequest(),
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -252,9 +220,7 @@ class Pins(BaseSDK):
 
         Read pin details given its ID.
 
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
-        :param id: The opaque id of the pin to be fetched.
+        :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -270,13 +236,9 @@ class Pins(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.GetpinRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            get_pin_request=models.GetPinRequest(
-                id=id,
-            ),
-        )
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(request, models.GetPinRequest)
+        request = cast(models.GetPinRequest, request)
 
         req = self._build_request(
             method="POST",
@@ -292,7 +254,7 @@ class Pins(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.get_pin_request, False, False, "json", models.GetPinRequest
+                request, False, True, "json", Optional[models.GetPinRequest]
             ),
             timeout_ms=timeout_ms,
         )
@@ -341,12 +303,12 @@ class Pins(BaseSDK):
             http_res,
         )
 
-    async def get_async(
+    async def retrieve_async(
         self,
         *,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
-        id: Optional[str] = None,
+        request: Union[
+            models.GetPinRequest, models.GetPinRequestTypedDict
+        ] = models.GetPinRequest(),
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -356,9 +318,7 @@ class Pins(BaseSDK):
 
         Read pin details given its ID.
 
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
-        :param id: The opaque id of the pin to be fetched.
+        :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -374,13 +334,9 @@ class Pins(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.GetpinRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            get_pin_request=models.GetPinRequest(
-                id=id,
-            ),
-        )
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(request, models.GetPinRequest)
+        request = cast(models.GetPinRequest, request)
 
         req = self._build_request_async(
             method="POST",
@@ -396,7 +352,7 @@ class Pins(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.get_pin_request, False, False, "json", models.GetPinRequest
+                request, False, True, "json", Optional[models.GetPinRequest]
             ),
             timeout_ms=timeout_ms,
         )
@@ -448,11 +404,9 @@ class Pins(BaseSDK):
     def list(
         self,
         *,
-        request_body: Union[
-            models.ListpinsRequestBody, models.ListpinsRequestBodyTypedDict
-        ],
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
+        request: Union[
+            models.ListpinsRequest, models.ListpinsRequestTypedDict
+        ] = models.ListpinsRequest(),
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -462,9 +416,7 @@ class Pins(BaseSDK):
 
         Lists all pins.
 
-        :param request_body: List pins request
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
+        :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -480,13 +432,9 @@ class Pins(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.ListpinsRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            request_body=utils.get_pydantic_model(
-                request_body, models.ListpinsRequestBody
-            ),
-        )
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(request, models.ListpinsRequest)
+        request = cast(models.ListpinsRequest, request)
 
         req = self._build_request(
             method="POST",
@@ -502,7 +450,7 @@ class Pins(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.request_body, False, False, "json", models.ListpinsRequestBody
+                request, False, True, "json", Optional[models.ListpinsRequest]
             ),
             timeout_ms=timeout_ms,
         )
@@ -554,11 +502,9 @@ class Pins(BaseSDK):
     async def list_async(
         self,
         *,
-        request_body: Union[
-            models.ListpinsRequestBody, models.ListpinsRequestBodyTypedDict
-        ],
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
+        request: Union[
+            models.ListpinsRequest, models.ListpinsRequestTypedDict
+        ] = models.ListpinsRequest(),
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -568,9 +514,7 @@ class Pins(BaseSDK):
 
         Lists all pins.
 
-        :param request_body: List pins request
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
+        :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -586,13 +530,9 @@ class Pins(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.ListpinsRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            request_body=utils.get_pydantic_model(
-                request_body, models.ListpinsRequestBody
-            ),
-        )
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(request, models.ListpinsRequest)
+        request = cast(models.ListpinsRequest, request)
 
         req = self._build_request_async(
             method="POST",
@@ -608,7 +548,7 @@ class Pins(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.request_body, False, False, "json", models.ListpinsRequestBody
+                request, False, True, "json", Optional[models.ListpinsRequest]
             ),
             timeout_ms=timeout_ms,
         )
@@ -660,13 +600,9 @@ class Pins(BaseSDK):
     def create(
         self,
         *,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
-        queries: Optional[List[str]] = None,
-        audience_filters: Optional[
-            Union[List[models.FacetFilter], List[models.FacetFilterTypedDict]]
-        ] = None,
-        document_id: Optional[str] = None,
+        request: Union[
+            models.PinRequest, models.PinRequestTypedDict
+        ] = models.PinRequest(),
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -676,11 +612,7 @@ class Pins(BaseSDK):
 
         Pin a document as a result for a given search query.Pin results that are known to be a good match.
 
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
-        :param queries: The query strings for which the pinned result will show.
-        :param audience_filters: Filters which restrict who should see the pinned document. Values are taken from the corresponding filters in people search.
-        :param document_id: The document to be pinned.
+        :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -696,17 +628,9 @@ class Pins(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.PinRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            pin_request=models.PinRequest(
-                queries=queries,
-                audience_filters=utils.get_pydantic_model(
-                    audience_filters, Optional[List[models.FacetFilter]]
-                ),
-                document_id=document_id,
-            ),
-        )
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(request, models.PinRequest)
+        request = cast(models.PinRequest, request)
 
         req = self._build_request(
             method="POST",
@@ -722,7 +646,7 @@ class Pins(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.pin_request, False, False, "json", models.PinRequest
+                request, False, True, "json", Optional[models.PinRequest]
             ),
             timeout_ms=timeout_ms,
         )
@@ -774,13 +698,9 @@ class Pins(BaseSDK):
     async def create_async(
         self,
         *,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
-        queries: Optional[List[str]] = None,
-        audience_filters: Optional[
-            Union[List[models.FacetFilter], List[models.FacetFilterTypedDict]]
-        ] = None,
-        document_id: Optional[str] = None,
+        request: Union[
+            models.PinRequest, models.PinRequestTypedDict
+        ] = models.PinRequest(),
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -790,11 +710,7 @@ class Pins(BaseSDK):
 
         Pin a document as a result for a given search query.Pin results that are known to be a good match.
 
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
-        :param queries: The query strings for which the pinned result will show.
-        :param audience_filters: Filters which restrict who should see the pinned document. Values are taken from the corresponding filters in people search.
-        :param document_id: The document to be pinned.
+        :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -810,17 +726,9 @@ class Pins(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.PinRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            pin_request=models.PinRequest(
-                queries=queries,
-                audience_filters=utils.get_pydantic_model(
-                    audience_filters, Optional[List[models.FacetFilter]]
-                ),
-                document_id=document_id,
-            ),
-        )
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(request, models.PinRequest)
+        request = cast(models.PinRequest, request)
 
         req = self._build_request_async(
             method="POST",
@@ -836,7 +744,7 @@ class Pins(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.pin_request, False, False, "json", models.PinRequest
+                request, False, True, "json", Optional[models.PinRequest]
             ),
             timeout_ms=timeout_ms,
         )
@@ -888,9 +796,7 @@ class Pins(BaseSDK):
     def remove(
         self,
         *,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
-        id: Optional[str] = None,
+        request: Union[models.Unpin, models.UnpinTypedDict] = models.Unpin(),
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -900,9 +806,7 @@ class Pins(BaseSDK):
 
         Unpin a previously pinned result.
 
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
-        :param id: The opaque id of the pin to be unpinned.
+        :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -918,13 +822,9 @@ class Pins(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.UnpinRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            unpin=models.Unpin(
-                id=id,
-            ),
-        )
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(request, models.Unpin)
+        request = cast(models.Unpin, request)
 
         req = self._build_request(
             method="POST",
@@ -940,7 +840,7 @@ class Pins(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.unpin, False, False, "json", models.Unpin
+                request, False, True, "json", Optional[models.Unpin]
             ),
             timeout_ms=timeout_ms,
         )
@@ -992,9 +892,7 @@ class Pins(BaseSDK):
     async def remove_async(
         self,
         *,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
-        id: Optional[str] = None,
+        request: Union[models.Unpin, models.UnpinTypedDict] = models.Unpin(),
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1004,9 +902,7 @@ class Pins(BaseSDK):
 
         Unpin a previously pinned result.
 
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
-        :param id: The opaque id of the pin to be unpinned.
+        :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1022,13 +918,9 @@ class Pins(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.UnpinRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            unpin=models.Unpin(
-                id=id,
-            ),
-        )
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(request, models.Unpin)
+        request = cast(models.Unpin, request)
 
         req = self._build_request_async(
             method="POST",
@@ -1044,7 +936,7 @@ class Pins(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.unpin, False, False, "json", models.Unpin
+                request, False, True, "json", Optional[models.Unpin]
             ),
             timeout_ms=timeout_ms,
         )

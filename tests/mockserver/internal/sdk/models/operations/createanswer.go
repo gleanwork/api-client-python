@@ -6,36 +6,6 @@ import (
 	"mockserver/internal/sdk/models/components"
 )
 
-type CreateanswerRequest struct {
-	// Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-	XGleanActAs *string `header:"style=simple,explode=false,name=X-Glean-ActAs"`
-	// Auth type being used to access the endpoint (should be non-empty only for global tokens).
-	XGleanAuthType *string `header:"style=simple,explode=false,name=X-Glean-Auth-Type"`
-	// CreateAnswer request
-	CreateAnswerRequest components.CreateAnswerRequest `request:"mediaType=application/json"`
-}
-
-func (o *CreateanswerRequest) GetXGleanActAs() *string {
-	if o == nil {
-		return nil
-	}
-	return o.XGleanActAs
-}
-
-func (o *CreateanswerRequest) GetXGleanAuthType() *string {
-	if o == nil {
-		return nil
-	}
-	return o.XGleanAuthType
-}
-
-func (o *CreateanswerRequest) GetCreateAnswerRequest() components.CreateAnswerRequest {
-	if o == nil {
-		return components.CreateAnswerRequest{}
-	}
-	return o.CreateAnswerRequest
-}
-
 type CreateanswerResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// OK

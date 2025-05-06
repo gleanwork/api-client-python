@@ -6,36 +6,6 @@ import (
 	"mockserver/internal/sdk/models/components"
 )
 
-type FeedRequest struct {
-	// Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-	XGleanActAs *string `header:"style=simple,explode=false,name=X-Glean-ActAs"`
-	// Auth type being used to access the endpoint (should be non-empty only for global tokens).
-	XGleanAuthType *string `header:"style=simple,explode=false,name=X-Glean-Auth-Type"`
-	// Includes request params, client data and more for making user's feed.
-	FeedRequest components.FeedRequest `request:"mediaType=application/json"`
-}
-
-func (o *FeedRequest) GetXGleanActAs() *string {
-	if o == nil {
-		return nil
-	}
-	return o.XGleanActAs
-}
-
-func (o *FeedRequest) GetXGleanAuthType() *string {
-	if o == nil {
-		return nil
-	}
-	return o.XGleanAuthType
-}
-
-func (o *FeedRequest) GetFeedRequest() components.FeedRequest {
-	if o == nil {
-		return components.FeedRequest{}
-	}
-	return o.FeedRequest
-}
-
 type FeedResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// OK

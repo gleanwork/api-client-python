@@ -7,27 +7,9 @@ import (
 )
 
 type FeedbackRequest struct {
-	// Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-	XGleanActAs *string `header:"style=simple,explode=false,name=X-Glean-ActAs"`
-	// Auth type being used to access the endpoint (should be non-empty only for global tokens).
-	XGleanAuthType *string `header:"style=simple,explode=false,name=X-Glean-Auth-Type"`
 	// A URL encoded versions of Feedback. This is useful for requests.
 	FeedbackQueryParameter *string              `queryParam:"style=form,explode=true,name=feedback"`
 	Feedback1              *components.Feedback `request:"mediaType=application/json"`
-}
-
-func (o *FeedbackRequest) GetXGleanActAs() *string {
-	if o == nil {
-		return nil
-	}
-	return o.XGleanActAs
-}
-
-func (o *FeedbackRequest) GetXGleanAuthType() *string {
-	if o == nil {
-		return nil
-	}
-	return o.XGleanAuthType
 }
 
 func (o *FeedbackRequest) GetFeedbackQueryParameter() *string {

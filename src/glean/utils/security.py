@@ -64,8 +64,8 @@ def get_security_from_env(security: Any, security_class: Any) -> Optional[BaseMo
 
     security_dict: Any = {}
 
-    if os.getenv("GLEAN_BEARER_AUTH"):
-        security_dict["bearer_auth"] = os.getenv("GLEAN_BEARER_AUTH")
+    if os.getenv("GLEAN_API_TOKEN"):
+        security_dict["api_token"] = os.getenv("GLEAN_API_TOKEN")
 
     return security_class(**security_dict) if security_dict else None
 

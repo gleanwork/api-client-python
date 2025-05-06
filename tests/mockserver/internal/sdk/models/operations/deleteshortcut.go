@@ -6,36 +6,6 @@ import (
 	"mockserver/internal/sdk/models/components"
 )
 
-type DeleteshortcutRequest struct {
-	// Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-	XGleanActAs *string `header:"style=simple,explode=false,name=X-Glean-ActAs"`
-	// Auth type being used to access the endpoint (should be non-empty only for global tokens).
-	XGleanAuthType *string `header:"style=simple,explode=false,name=X-Glean-Auth-Type"`
-	// DeleteShortcut request
-	DeleteShortcutRequest components.DeleteShortcutRequest `request:"mediaType=application/json"`
-}
-
-func (o *DeleteshortcutRequest) GetXGleanActAs() *string {
-	if o == nil {
-		return nil
-	}
-	return o.XGleanActAs
-}
-
-func (o *DeleteshortcutRequest) GetXGleanAuthType() *string {
-	if o == nil {
-		return nil
-	}
-	return o.XGleanAuthType
-}
-
-func (o *DeleteshortcutRequest) GetDeleteShortcutRequest() components.DeleteShortcutRequest {
-	if o == nil {
-		return components.DeleteShortcutRequest{}
-	}
-	return o.DeleteShortcutRequest
-}
-
 type DeleteshortcutResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 }

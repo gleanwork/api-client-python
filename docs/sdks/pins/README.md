@@ -5,13 +5,13 @@
 
 ### Available Operations
 
-* [edit](#edit) - Update pin
-* [get](#get) - Read pin
+* [update](#update) - Update pin
+* [retrieve](#retrieve) - Read pin
 * [list](#list) - List pins
 * [create](#create) - Create pin
 * [remove](#remove) - Delete pin
 
-## edit
+## update
 
 Update an existing user-generated pin.
 
@@ -23,24 +23,26 @@ import os
 
 
 with Glean(
-    bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
-    res = g_client.client.pins.edit(audience_filters=[
-        {
-            "field_name": "type",
-            "values": [
-                {
-                    "value": "Spreadsheet",
-                    "relation_type": models.RelationType.EQUALS,
-                },
-                {
-                    "value": "Presentation",
-                    "relation_type": models.RelationType.EQUALS,
-                },
-            ],
-        },
-    ])
+    res = g_client.client.pins.update(request={
+        "audience_filters": [
+            {
+                "field_name": "type",
+                "values": [
+                    {
+                        "value": "Spreadsheet",
+                        "relation_type": models.RelationType.EQUALS,
+                    },
+                    {
+                        "value": "Presentation",
+                        "relation_type": models.RelationType.EQUALS,
+                    },
+                ],
+            },
+        ],
+    })
 
     # Handle response
     print(res)
@@ -49,14 +51,10 @@ with Glean(
 
 ### Parameters
 
-| Parameter                                                                                                                    | Type                                                                                                                         | Required                                                                                                                     | Description                                                                                                                  |
-| ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `x_glean_act_as`                                                                                                             | *Optional[str]*                                                                                                              | :heavy_minus_sign:                                                                                                           | Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).     |
-| `x_glean_auth_type`                                                                                                          | *Optional[str]*                                                                                                              | :heavy_minus_sign:                                                                                                           | Auth type being used to access the endpoint (should be non-empty only for global tokens).                                    |
-| `queries`                                                                                                                    | List[*str*]                                                                                                                  | :heavy_minus_sign:                                                                                                           | The query strings for which the pinned result will show.                                                                     |
-| `audience_filters`                                                                                                           | List[[models.FacetFilter](../../models/facetfilter.md)]                                                                      | :heavy_minus_sign:                                                                                                           | Filters which restrict who should see the pinned document. Values are taken from the corresponding filters in people search. |
-| `id`                                                                                                                         | *Optional[str]*                                                                                                              | :heavy_minus_sign:                                                                                                           | The opaque id of the pin to be edited.                                                                                       |
-| `retries`                                                                                                                    | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                             | :heavy_minus_sign:                                                                                                           | Configuration to override the default retry behavior of the client.                                                          |
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `request`                                                           | [models.EditPinRequest](../../models/editpinrequest.md)             | :heavy_check_mark:                                                  | The request object to use for the request.                          |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
 
@@ -68,7 +66,7 @@ with Glean(
 | ----------------- | ----------------- | ----------------- |
 | errors.GleanError | 4XX, 5XX          | \*/\*             |
 
-## get
+## retrieve
 
 Read pin details given its ID.
 
@@ -80,10 +78,10 @@ import os
 
 
 with Glean(
-    bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
-    res = g_client.client.pins.get()
+    res = g_client.client.pins.retrieve(request={})
 
     # Handle response
     print(res)
@@ -92,12 +90,10 @@ with Glean(
 
 ### Parameters
 
-| Parameter                                                                                                                | Type                                                                                                                     | Required                                                                                                                 | Description                                                                                                              |
-| ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
-| `x_glean_act_as`                                                                                                         | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens). |
-| `x_glean_auth_type`                                                                                                      | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | Auth type being used to access the endpoint (should be non-empty only for global tokens).                                |
-| `id`                                                                                                                     | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | The opaque id of the pin to be fetched.                                                                                  |
-| `retries`                                                                                                                | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                         | :heavy_minus_sign:                                                                                                       | Configuration to override the default retry behavior of the client.                                                      |
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `request`                                                           | [models.GetPinRequest](../../models/getpinrequest.md)               | :heavy_check_mark:                                                  | The request object to use for the request.                          |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
 
@@ -121,10 +117,10 @@ import os
 
 
 with Glean(
-    bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
-    res = g_client.client.pins.list(request_body={})
+    res = g_client.client.pins.list(request={})
 
     # Handle response
     print(res)
@@ -133,12 +129,10 @@ with Glean(
 
 ### Parameters
 
-| Parameter                                                                                                                | Type                                                                                                                     | Required                                                                                                                 | Description                                                                                                              |
-| ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
-| `request_body`                                                                                                           | [models.ListpinsRequestBody](../../models/listpinsrequestbody.md)                                                        | :heavy_check_mark:                                                                                                       | List pins request                                                                                                        |
-| `x_glean_act_as`                                                                                                         | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens). |
-| `x_glean_auth_type`                                                                                                      | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | Auth type being used to access the endpoint (should be non-empty only for global tokens).                                |
-| `retries`                                                                                                                | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                         | :heavy_minus_sign:                                                                                                       | Configuration to override the default retry behavior of the client.                                                      |
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `request`                                                           | [models.ListpinsRequest](../../models/listpinsrequest.md)           | :heavy_check_mark:                                                  | The request object to use for the request.                          |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
 
@@ -162,24 +156,26 @@ import os
 
 
 with Glean(
-    bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
-    res = g_client.client.pins.create(audience_filters=[
-        {
-            "field_name": "type",
-            "values": [
-                {
-                    "value": "Spreadsheet",
-                    "relation_type": models.RelationType.EQUALS,
-                },
-                {
-                    "value": "Presentation",
-                    "relation_type": models.RelationType.EQUALS,
-                },
-            ],
-        },
-    ])
+    res = g_client.client.pins.create(request={
+        "audience_filters": [
+            {
+                "field_name": "type",
+                "values": [
+                    {
+                        "value": "Spreadsheet",
+                        "relation_type": models.RelationType.EQUALS,
+                    },
+                    {
+                        "value": "Presentation",
+                        "relation_type": models.RelationType.EQUALS,
+                    },
+                ],
+            },
+        ],
+    })
 
     # Handle response
     print(res)
@@ -188,14 +184,10 @@ with Glean(
 
 ### Parameters
 
-| Parameter                                                                                                                    | Type                                                                                                                         | Required                                                                                                                     | Description                                                                                                                  |
-| ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `x_glean_act_as`                                                                                                             | *Optional[str]*                                                                                                              | :heavy_minus_sign:                                                                                                           | Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).     |
-| `x_glean_auth_type`                                                                                                          | *Optional[str]*                                                                                                              | :heavy_minus_sign:                                                                                                           | Auth type being used to access the endpoint (should be non-empty only for global tokens).                                    |
-| `queries`                                                                                                                    | List[*str*]                                                                                                                  | :heavy_minus_sign:                                                                                                           | The query strings for which the pinned result will show.                                                                     |
-| `audience_filters`                                                                                                           | List[[models.FacetFilter](../../models/facetfilter.md)]                                                                      | :heavy_minus_sign:                                                                                                           | Filters which restrict who should see the pinned document. Values are taken from the corresponding filters in people search. |
-| `document_id`                                                                                                                | *Optional[str]*                                                                                                              | :heavy_minus_sign:                                                                                                           | The document to be pinned.                                                                                                   |
-| `retries`                                                                                                                    | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                             | :heavy_minus_sign:                                                                                                           | Configuration to override the default retry behavior of the client.                                                          |
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `request`                                                           | [models.PinRequest](../../models/pinrequest.md)                     | :heavy_check_mark:                                                  | The request object to use for the request.                          |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
 
@@ -219,10 +211,10 @@ import os
 
 
 with Glean(
-    bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
-    g_client.client.pins.remove()
+    g_client.client.pins.remove(request={})
 
     # Use the SDK ...
 
@@ -230,12 +222,10 @@ with Glean(
 
 ### Parameters
 
-| Parameter                                                                                                                | Type                                                                                                                     | Required                                                                                                                 | Description                                                                                                              |
-| ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
-| `x_glean_act_as`                                                                                                         | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens). |
-| `x_glean_auth_type`                                                                                                      | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | Auth type being used to access the endpoint (should be non-empty only for global tokens).                                |
-| `id`                                                                                                                     | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | The opaque id of the pin to be unpinned.                                                                                 |
-| `retries`                                                                                                                | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                         | :heavy_minus_sign:                                                                                                       | Configuration to override the default retry behavior of the client.                                                      |
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `request`                                                           | [models.Unpin](../../models/unpin.md)                               | :heavy_check_mark:                                                  | The request object to use for the request.                          |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Errors
 

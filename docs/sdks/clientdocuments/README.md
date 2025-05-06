@@ -5,11 +5,12 @@
 
 ### Available Operations
 
-* [get_permissions](#get_permissions) - Read document permissions
-* [get](#get) - Read documents
-* [get_by_facets](#get_by_facets) - Read documents by facets
+* [retrieve_permissions](#retrieve_permissions) - Read document permissions
+* [retrieve](#retrieve) - Read documents
+* [retrieve_by_facets](#retrieve_by_facets) - Read documents by facets
+* [summarize](#summarize) - Summarize documents
 
-## get_permissions
+## retrieve_permissions
 
 Read the emails of all users who have access to the given document.
 
@@ -21,10 +22,10 @@ import os
 
 
 with Glean(
-    bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
-    res = g_client.client.documents.get_permissions()
+    res = g_client.client.documents.retrieve_permissions(request={})
 
     # Handle response
     print(res)
@@ -33,12 +34,10 @@ with Glean(
 
 ### Parameters
 
-| Parameter                                                                                                                | Type                                                                                                                     | Required                                                                                                                 | Description                                                                                                              |
-| ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
-| `x_glean_act_as`                                                                                                         | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens). |
-| `x_glean_auth_type`                                                                                                      | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | Auth type being used to access the endpoint (should be non-empty only for global tokens).                                |
-| `document_id`                                                                                                            | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | The Glean Document ID to retrieve permissions for.                                                                       |
-| `retries`                                                                                                                | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                         | :heavy_minus_sign:                                                                                                       | Configuration to override the default retry behavior of the client.                                                      |
+| Parameter                                                                   | Type                                                                        | Required                                                                    | Description                                                                 |
+| --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `request`                                                                   | [models.GetDocPermissionsRequest](../../models/getdocpermissionsrequest.md) | :heavy_check_mark:                                                          | The request object to use for the request.                                  |
+| `retries`                                                                   | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)            | :heavy_minus_sign:                                                          | Configuration to override the default retry behavior of the client.         |
 
 ### Response
 
@@ -50,7 +49,7 @@ with Glean(
 | ----------------- | ----------------- | ----------------- |
 | errors.GleanError | 4XX, 5XX          | \*/\*             |
 
-## get
+## retrieve
 
 Read the documents including metadata (does not include enhanced metadata via `/documentmetadata`) for the given list of Glean Document IDs or URLs specified in the request.
 
@@ -62,10 +61,10 @@ import os
 
 
 with Glean(
-    bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
-    res = g_client.client.documents.get()
+    res = g_client.client.documents.retrieve()
 
     # Handle response
     print(res)
@@ -74,12 +73,10 @@ with Glean(
 
 ### Parameters
 
-| Parameter                                                                                                                | Type                                                                                                                     | Required                                                                                                                 | Description                                                                                                              |
-| ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
-| `x_glean_act_as`                                                                                                         | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens). |
-| `x_glean_auth_type`                                                                                                      | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | Auth type being used to access the endpoint (should be non-empty only for global tokens).                                |
-| `get_documents_request`                                                                                                  | [Optional[models.GetDocumentsRequest]](../../models/getdocumentsrequest.md)                                              | :heavy_minus_sign:                                                                                                       | Information about documents requested.                                                                                   |
-| `retries`                                                                                                                | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                         | :heavy_minus_sign:                                                                                                       | Configuration to override the default retry behavior of the client.                                                      |
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `request`                                                           | [models.GetDocumentsRequest](../../models/getdocumentsrequest.md)   | :heavy_check_mark:                                                  | The request object to use for the request.                          |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
 
@@ -91,7 +88,7 @@ with Glean(
 | ----------------- | ----------------- | ----------------- |
 | errors.GleanError | 4XX, 5XX          | \*/\*             |
 
-## get_by_facets
+## retrieve_by_facets
 
 Read the documents including metadata (does not include enhanced metadata via `/documentmetadata`) macthing the given facet conditions.
 
@@ -103,10 +100,10 @@ import os
 
 
 with Glean(
-    bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
-    res = g_client.client.documents.get_by_facets(get_documents_by_facets_request={
+    res = g_client.client.documents.retrieve_by_facets(request={
         "filter_sets": [
             {
                 "filters": [
@@ -152,16 +149,60 @@ with Glean(
 
 ### Parameters
 
-| Parameter                                                                                                                | Type                                                                                                                     | Required                                                                                                                 | Description                                                                                                              |
-| ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
-| `x_glean_act_as`                                                                                                         | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens). |
-| `x_glean_auth_type`                                                                                                      | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | Auth type being used to access the endpoint (should be non-empty only for global tokens).                                |
-| `get_documents_by_facets_request`                                                                                        | [Optional[models.GetDocumentsByFacetsRequest]](../../models/getdocumentsbyfacetsrequest.md)                              | :heavy_minus_sign:                                                                                                       | Information about facet conditions for documents to be retrieved.                                                        |
-| `retries`                                                                                                                | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                         | :heavy_minus_sign:                                                                                                       | Configuration to override the default retry behavior of the client.                                                      |
+| Parameter                                                                         | Type                                                                              | Required                                                                          | Description                                                                       |
+| --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| `request`                                                                         | [models.GetDocumentsByFacetsRequest](../../models/getdocumentsbyfacetsrequest.md) | :heavy_check_mark:                                                                | The request object to use for the request.                                        |
+| `retries`                                                                         | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                  | :heavy_minus_sign:                                                                | Configuration to override the default retry behavior of the client.               |
 
 ### Response
 
 **[models.GetDocumentsByFacetsResponse](../../models/getdocumentsbyfacetsresponse.md)**
+
+### Errors
+
+| Error Type        | Status Code       | Content Type      |
+| ----------------- | ----------------- | ----------------- |
+| errors.GleanError | 4XX, 5XX          | \*/\*             |
+
+## summarize
+
+Generate an AI summary of the requested documents.
+
+### Example Usage
+
+```python
+from glean import Glean
+import os
+
+
+with Glean(
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+) as g_client:
+
+    res = g_client.client.documents.summarize(document_specs=[
+        {},
+        {},
+    ])
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                                   | Type                                                                                        | Required                                                                                    | Description                                                                                 |
+| ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| `document_specs`                                                                            | List[[models.DocumentSpecUnion](../../models/documentspecunion.md)]                         | :heavy_check_mark:                                                                          | Specifications of documents to summarize                                                    |
+| `timestamp`                                                                                 | [date](https://docs.python.org/3/library/datetime.html#date-objects)                        | :heavy_minus_sign:                                                                          | The ISO 8601 timestamp associated with the client request.                                  |
+| `query`                                                                                     | *Optional[str]*                                                                             | :heavy_minus_sign:                                                                          | Optional query that the summary should be about                                             |
+| `preferred_summary_length`                                                                  | *Optional[int]*                                                                             | :heavy_minus_sign:                                                                          | Optional length of summary output. If not given, defaults to 500 chars.                     |
+| `tracking_token`                                                                            | *Optional[str]*                                                                             | :heavy_minus_sign:                                                                          | An opaque token that represents this particular result. To be used for /feedback reporting. |
+| `retries`                                                                                   | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                            | :heavy_minus_sign:                                                                          | Configuration to override the default retry behavior of the client.                         |
+
+### Response
+
+**[models.SummarizeResponse](../../models/summarizeresponse.md)**
 
 ### Errors
 

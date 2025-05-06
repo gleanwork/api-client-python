@@ -8,10 +8,6 @@ from .addcollectionitemserror import (
     AddCollectionItemsErrorErrorType,
     AddCollectionItemsErrorTypedDict,
 )
-from .addcollectionitemsop import (
-    AddcollectionitemsRequestRequest,
-    AddcollectionitemsRequestRequestTypedDict,
-)
 from .addcollectionitemsrequest import (
     AddCollectionItemsRequest,
     AddCollectionItemsRequestTypedDict,
@@ -26,11 +22,6 @@ from .additionalfielddefinition import (
     Value,
     ValueTypedDict,
 )
-from .addverificationreminderop import (
-    AddverificationreminderRequest,
-    AddverificationreminderRequestTypedDict,
-)
-from .adminsearchop import AdminsearchRequest, AdminsearchRequestTypedDict
 from .agent import Agent, AgentTypedDict
 from .agentconfig import AgentConfig, AgentConfigTypedDict, AgentEnum, Mode
 from .agentresult import AgentResult, AgentResultTypedDict
@@ -72,10 +63,6 @@ from .authconfig import (
     GrantType,
 )
 from .authtoken import AuthToken, AuthTokenTypedDict
-from .autocompleteop import (
-    AutocompleteRequestRequest,
-    AutocompleteRequestRequestTypedDict,
-)
 from .autocompleterequest import (
     AutocompleteRequest,
     AutocompleteRequestResultType,
@@ -150,6 +137,7 @@ from .chatrestrictionfilters import (
     ChatRestrictionFiltersTypedDict,
 )
 from .chatresult import ChatResult, ChatResultTypedDict
+from .chatstreamop import ChatStreamRequest, ChatStreamRequestTypedDict
 from .chatzerostatesuggestionoptions import (
     ChatZeroStateSuggestionOptions,
     ChatZeroStateSuggestionOptionsTypedDict,
@@ -206,29 +194,16 @@ from .contentinsightsresponse import (
     ContentInsightsResponseTypedDict,
 )
 from .countinfo import CountInfo, CountInfoTypedDict
-from .createannouncementop import (
-    CreateannouncementRequestRequest,
-    CreateannouncementRequestRequestTypedDict,
-)
 from .createannouncementrequest import (
     CreateAnnouncementRequest,
     CreateAnnouncementRequestChannel,
     CreateAnnouncementRequestPostType,
     CreateAnnouncementRequestTypedDict,
 )
-from .createanswerop import (
-    CreateanswerRequestRequest,
-    CreateanswerRequestRequestTypedDict,
-)
 from .createanswerrequest import CreateAnswerRequest, CreateAnswerRequestTypedDict
-from .createauthtokenop import CreateauthtokenRequest, CreateauthtokenRequestTypedDict
 from .createauthtokenresponse import (
     CreateAuthTokenResponse,
     CreateAuthTokenResponseTypedDict,
-)
-from .createcollectionop import (
-    CreatecollectionRequestRequest,
-    CreatecollectionRequestRequestTypedDict,
 )
 from .createcollectionrequest import (
     CreateCollectionRequest,
@@ -238,10 +213,6 @@ from .createcollectionresponse import (
     CreateCollectionResponse,
     CreateCollectionResponseErrorCode,
     CreateCollectionResponseTypedDict,
-)
-from .createshortcutop import (
-    CreateshortcutRequestRequest,
-    CreateshortcutRequestRequestTypedDict,
 )
 from .createshortcutrequest import CreateShortcutRequest, CreateShortcutRequestTypedDict
 from .createshortcutresponse import (
@@ -324,17 +295,9 @@ from .debugdocumentsresponseitem import (
 from .debuguserrequest import DebugUserRequest, DebugUserRequestTypedDict
 from .debuguserresponse import DebugUserResponse, DebugUserResponseTypedDict
 from .deleteallchatsop import DeleteallchatsRequest, DeleteallchatsRequestTypedDict
-from .deleteannouncementop import (
-    DeleteannouncementRequestRequest,
-    DeleteannouncementRequestRequestTypedDict,
-)
 from .deleteannouncementrequest import (
     DeleteAnnouncementRequest,
     DeleteAnnouncementRequestTypedDict,
-)
-from .deleteanswerop import (
-    DeleteanswerRequestRequest,
-    DeleteanswerRequestRequestTypedDict,
 )
 from .deleteanswerrequest import DeleteAnswerRequest, DeleteAnswerRequestTypedDict
 from .deletechatfilesop import (
@@ -347,10 +310,6 @@ from .deletechatfilesrequest import (
 )
 from .deletechatsop import DeletechatsRequestRequest, DeletechatsRequestRequestTypedDict
 from .deletechatsrequest import DeleteChatsRequest, DeleteChatsRequestTypedDict
-from .deletecollectionitemop import (
-    DeletecollectionitemRequestRequest,
-    DeletecollectionitemRequestRequestTypedDict,
-)
 from .deletecollectionitemrequest import (
     DeleteCollectionItemRequest,
     DeleteCollectionItemRequestTypedDict,
@@ -358,10 +317,6 @@ from .deletecollectionitemrequest import (
 from .deletecollectionitemresponse import (
     DeleteCollectionItemResponse,
     DeleteCollectionItemResponseTypedDict,
-)
-from .deletecollectionop import (
-    DeletecollectionRequestRequest,
-    DeletecollectionRequestRequestTypedDict,
 )
 from .deletecollectionrequest import (
     DeleteCollectionRequest,
@@ -373,10 +328,6 @@ from .deletegrouprequest import DeleteGroupRequest, DeleteGroupRequestTypedDict
 from .deletemembershiprequest import (
     DeleteMembershipRequest,
     DeleteMembershipRequestTypedDict,
-)
-from .deleteshortcutop import (
-    DeleteshortcutRequestRequest,
-    DeleteshortcutRequestRequestTypedDict,
 )
 from .deleteshortcutrequest import DeleteShortcutRequest, DeleteShortcutRequestTypedDict
 from .deleteteamrequest import DeleteTeamRequest, DeleteTeamRequestTypedDict
@@ -423,15 +374,10 @@ from .documentstatusresponse import (
     DocumentStatusResponseTypedDict,
 )
 from .documentvisibility import DocumentVisibility
-from .editanswerop import EditanswerRequestRequest, EditanswerRequestRequestTypedDict
 from .editanswerrequest import (
     EditAnswerRequest,
     EditAnswerRequestSourceType,
     EditAnswerRequestTypedDict,
-)
-from .editcollectionitemop import (
-    EditcollectionitemRequestRequest,
-    EditcollectionitemRequestRequestTypedDict,
 )
 from .editcollectionitemrequest import (
     EditCollectionItemRequest,
@@ -441,17 +387,12 @@ from .editcollectionitemresponse import (
     EditCollectionItemResponse,
     EditCollectionItemResponseTypedDict,
 )
-from .editcollectionop import (
-    EditcollectionRequestRequest,
-    EditcollectionRequestRequestTypedDict,
-)
 from .editcollectionrequest import EditCollectionRequest, EditCollectionRequestTypedDict
 from .editcollectionresponse import (
     EditCollectionResponse,
     EditCollectionResponseErrorCode,
     EditCollectionResponseTypedDict,
 )
-from .editpinop import EditpinRequestRequest, EditpinRequestRequestTypedDict
 from .editpinrequest import EditPinRequest, EditPinRequestTypedDict
 from .employeeinfodefinition import (
     EmployeeInfoDefinition,
@@ -497,7 +438,6 @@ from .feedentry import (
     UIConfig,
     UIConfigTypedDict,
 )
-from .feedop import FeedRequestRequest, FeedRequestRequestTypedDict
 from .feedrequest import FeedRequest, FeedRequestCategory, FeedRequestTypedDict
 from .feedrequestoptions import (
     CategoryToResultSize,
@@ -528,7 +468,6 @@ from .getanswererror import (
     GetAnswerErrorErrorType,
     GetAnswerErrorTypedDict,
 )
-from .getanswerop import GetanswerRequestRequest, GetanswerRequestRequestTypedDict
 from .getanswerrequest import GetAnswerRequest, GetAnswerRequestTypedDict
 from .getanswerresponse import GetAnswerResponse, GetAnswerResponseTypedDict
 from .getchatapplicationop import (
@@ -552,19 +491,11 @@ from .getchatfilesresponse import GetChatFilesResponse, GetChatFilesResponseType
 from .getchatop import GetchatRequestRequest, GetchatRequestRequestTypedDict
 from .getchatrequest import GetChatRequest, GetChatRequestTypedDict
 from .getchatresponse import GetChatResponse, GetChatResponseTypedDict
-from .getcollectionop import (
-    GetcollectionRequestRequest,
-    GetcollectionRequestRequestTypedDict,
-)
 from .getcollectionrequest import GetCollectionRequest, GetCollectionRequestTypedDict
 from .getcollectionresponse import GetCollectionResponse, GetCollectionResponseTypedDict
 from .getdatasourceconfigrequest import (
     GetDatasourceConfigRequest,
     GetDatasourceConfigRequestTypedDict,
-)
-from .getdocpermissionsop import (
-    GetdocpermissionsRequestRequest,
-    GetdocpermissionsRequestRequestTypedDict,
 )
 from .getdocpermissionsrequest import (
     GetDocPermissionsRequest,
@@ -582,10 +513,6 @@ from .getdocumentcountresponse import (
     GetDocumentCountResponse,
     GetDocumentCountResponseTypedDict,
 )
-from .getdocumentsbyfacetsop import (
-    GetdocumentsbyfacetsRequestRequest,
-    GetdocumentsbyfacetsRequestRequestTypedDict,
-)
 from .getdocumentsbyfacetsrequest import (
     GetDocumentsByFacetsRequest,
     GetDocumentsByFacetsRequestTypedDict,
@@ -593,10 +520,6 @@ from .getdocumentsbyfacetsrequest import (
 from .getdocumentsbyfacetsresponse import (
     GetDocumentsByFacetsResponse,
     GetDocumentsByFacetsResponseTypedDict,
-)
-from .getdocumentsop import (
-    GetdocumentsRequestRequest,
-    GetdocumentsRequestRequestTypedDict,
 )
 from .getdocumentsrequest import (
     GetDocumentsRequest,
@@ -612,15 +535,13 @@ from .getdocumentstatusresponse import (
     GetDocumentStatusResponse,
     GetDocumentStatusResponseTypedDict,
 )
-from .getpinop import GetpinRequestRequest, GetpinRequestRequestTypedDict
 from .getpinrequest import GetPinRequest, GetPinRequestTypedDict
 from .getpinresponse import GetPinResponse, GetPinResponseTypedDict
-from .getshortcutop import GetshortcutRequestRequest, GetshortcutRequestRequestTypedDict
-from .getshortcutrequest import (
+from .getshortcutrequest_union import (
     GetShortcutRequest,
-    GetShortcutRequest1,
-    GetShortcutRequest1TypedDict,
     GetShortcutRequestTypedDict,
+    GetShortcutRequestUnion,
+    GetShortcutRequestUnionTypedDict,
 )
 from .getshortcutresponse import GetShortcutResponse, GetShortcutResponseTypedDict
 from .getusercountrequest import GetUserCountRequest, GetUserCountRequestTypedDict
@@ -637,12 +558,9 @@ from .grouptype import GroupType
 from .iconconfig import IconConfig, IconConfigTypedDict, IconType
 from .indexdocumentrequest import IndexDocumentRequest, IndexDocumentRequestTypedDict
 from .indexdocumentsrequest import IndexDocumentsRequest, IndexDocumentsRequestTypedDict
-from .indexemployeelistrequest import (
-    IndexEmployeeListRequest,
-    IndexEmployeeListRequestTypedDict,
-)
 from .indexemployeerequest import IndexEmployeeRequest, IndexEmployeeRequestTypedDict
 from .indexgrouprequest import IndexGroupRequest, IndexGroupRequestTypedDict
+from .indexingshortcut import IndexingShortcut, IndexingShortcutTypedDict
 from .indexmembershiprequest import (
     IndexMembershipRequest,
     IndexMembershipRequestTypedDict,
@@ -658,7 +576,6 @@ from .insightsaiapprequestoptions import (
     InsightsAiAppRequestOptions,
     InsightsAiAppRequestOptionsTypedDict,
 )
-from .insightsop import InsightsRequestRequest, InsightsRequestRequestTypedDict
 from .insightsrequest import (
     AssistantActivityType,
     InsightsRequest,
@@ -674,15 +591,10 @@ from .inviteinfo import InviteInfo, InviteInfoTypedDict
 from .labeledcountinfo import LabeledCountInfo, LabeledCountInfoTypedDict
 from .listagentsop import ListagentsRequest, ListagentsRequestTypedDict
 from .listagentsresponse import ListAgentsResponse, ListAgentsResponseTypedDict
-from .listanswersop import ListanswersRequestRequest, ListanswersRequestRequestTypedDict
 from .listanswersrequest import ListAnswersRequest, ListAnswersRequestTypedDict
 from .listanswersresponse import ListAnswersResponse, ListAnswersResponseTypedDict
 from .listchatsop import ListchatsRequest, ListchatsRequestTypedDict
 from .listchatsresponse import ListChatsResponse, ListChatsResponseTypedDict
-from .listcollectionsop import (
-    ListcollectionsRequestRequest,
-    ListcollectionsRequestRequestTypedDict,
-)
 from .listcollectionsrequest import (
     ListCollectionsRequest,
     ListCollectionsRequestTypedDict,
@@ -691,10 +603,6 @@ from .listcollectionsresponse import (
     ListCollectionsResponse,
     ListCollectionsResponseTypedDict,
 )
-from .listentitiesop import (
-    ListentitiesRequestRequest,
-    ListentitiesRequestRequestTypedDict,
-)
 from .listentitiesrequest import (
     ListEntitiesRequest,
     ListEntitiesRequestEntityType,
@@ -702,14 +610,8 @@ from .listentitiesrequest import (
     ListEntitiesRequestTypedDict,
 )
 from .listentitiesresponse import ListEntitiesResponse, ListEntitiesResponseTypedDict
-from .listpinsop import (
-    ListpinsRequest,
-    ListpinsRequestBody,
-    ListpinsRequestBodyTypedDict,
-    ListpinsRequestTypedDict,
-)
+from .listpinsop import ListpinsRequest, ListpinsRequestTypedDict
 from .listpinsresponse import ListPinsResponse, ListPinsResponseTypedDict
-from .listshortcutsop import ListshortcutsRequest, ListshortcutsRequestTypedDict
 from .listshortcutspaginatedrequest import (
     ListShortcutsPaginatedRequest,
     ListShortcutsPaginatedRequestIncludeField,
@@ -731,7 +633,6 @@ from .manualfeedbackinfo import (
     Vote,
 )
 from .meeting import Meeting, MeetingTypedDict
-from .messagesop import MessagesRequestRequest, MessagesRequestRequestTypedDict
 from .messagesrequest import (
     Datasource,
     Direction,
@@ -744,7 +645,6 @@ from .objectdefinition import DocCategory, ObjectDefinition, ObjectDefinitionTyp
 from .objectpermissions import ObjectPermissions, ObjectPermissionsTypedDict
 from .operatormetadata import OperatorMetadata, OperatorMetadataTypedDict, OperatorType
 from .operatorscope import OperatorScope, OperatorScopeTypedDict
-from .peopleop import PeopleRequestRequest, PeopleRequestRequestTypedDict
 from .peoplerequest import (
     IncludeType,
     PeopleRequest,
@@ -769,7 +669,6 @@ from .persontoteamrelationship import (
     PersonToTeamRelationshipTypedDict,
 )
 from .pindocument import PinDocument, PinDocumentTypedDict
-from .pinop import PinRequestRequest, PinRequestRequestTypedDict
 from .pinrequest import PinRequest, PinRequestTypedDict
 from .possiblevalue import PossibleValue, PossibleValueTypedDict
 from .post_api_index_v1_debug_datasource_documentop import (
@@ -816,10 +715,6 @@ from .querysuggestionlist import QuerySuggestionList, QuerySuggestionListTypedDi
 from .quicklink import Quicklink, QuicklinkTypedDict, Scope
 from .reaction import Reaction, ReactionTypedDict
 from .readpermission import ReadPermission, ReadPermissionTypedDict
-from .recommendationsop import (
-    RecommendationsRequestRequest,
-    RecommendationsRequestRequestTypedDict,
-)
 from .recommendationsrequest import (
     RecommendationsRequest,
     RecommendationsRequestTypedDict,
@@ -848,7 +743,6 @@ from .rotatetokenresponse import RotateTokenResponse, RotateTokenResponseTypedDi
 from .runagentop import RunagentRequestRequest, RunagentRequestRequestTypedDict
 from .runagentrequest import RunAgentRequest, RunAgentRequestTypedDict
 from .scopetype import ScopeType
-from .searchop import SearchRequestRequest, SearchRequestRequestTypedDict
 from .searchproviderinfo import SearchProviderInfo, SearchProviderInfoTypedDict
 from .searchrequest import SearchRequest, SearchRequestTypedDict
 from .searchrequestinputdetails import (
@@ -908,7 +802,6 @@ from .structuredtextmutableproperties import (
     StructuredTextMutableProperties,
     StructuredTextMutablePropertiesTypedDict,
 )
-from .summarizeop import SummarizeRequestRequest, SummarizeRequestRequestTypedDict
 from .summarizerequest import SummarizeRequest, SummarizeRequestTypedDict
 from .summarizeresponse import (
     Error,
@@ -936,11 +829,6 @@ from .toolmetadata import (
 )
 from .ugctype import UgcType
 from .unpin import Unpin, UnpinTypedDict
-from .unpinop import UnpinRequest, UnpinRequestTypedDict
-from .updateannouncementop import (
-    UpdateannouncementRequestRequest,
-    UpdateannouncementRequestRequestTypedDict,
-)
 from .updateannouncementrequest import (
     UpdateAnnouncementRequest,
     UpdateAnnouncementRequestChannel,
@@ -950,10 +838,6 @@ from .updateannouncementrequest import (
 from .updatepermissionsrequest import (
     UpdatePermissionsRequest,
     UpdatePermissionsRequestTypedDict,
-)
-from .updateshortcutop import (
-    UpdateshortcutRequestRequest,
-    UpdateshortcutRequestRequestTypedDict,
 )
 from .updateshortcutrequest import UpdateShortcutRequest, UpdateShortcutRequestTypedDict
 from .updateshortcutresponse import (
@@ -1002,7 +886,6 @@ from .userviewinfo import UserViewInfo, UserViewInfoTypedDict
 from .verification import State, Verification, VerificationTypedDict
 from .verificationfeed import VerificationFeed, VerificationFeedTypedDict
 from .verificationmetadata import VerificationMetadata, VerificationMetadataTypedDict
-from .verifyop import VerifyRequestRequest, VerifyRequestRequestTypedDict
 from .verifyrequest import VerifyRequest, VerifyRequestAction, VerifyRequestTypedDict
 from .viewerinfo import Role, ViewerInfo, ViewerInfoTypedDict
 from .workflow import Workflow, WorkflowTypedDict
@@ -1039,10 +922,11 @@ ClusterGroup.model_rebuild()
 SearchResultSnippet.model_rebuild()
 StructuredResult.model_rebuild()
 RelatedQuestion.model_rebuild()
+Shortcut.model_rebuild()
+UserRoleSpecification.model_rebuild()
 Code.model_rebuild()
 CodeLine.model_rebuild()
 AnswerBoard.model_rebuild()
-UserRoleSpecification.model_rebuild()
 Collection.model_rebuild()
 CollectionItem.model_rebuild()
 Meeting.model_rebuild()
@@ -1081,14 +965,8 @@ __all__ = [
     "AddCollectionItemsRequestTypedDict",
     "AddCollectionItemsResponse",
     "AddCollectionItemsResponseTypedDict",
-    "AddcollectionitemsRequestRequest",
-    "AddcollectionitemsRequestRequestTypedDict",
     "AdditionalFieldDefinition",
     "AdditionalFieldDefinitionTypedDict",
-    "AddverificationreminderRequest",
-    "AddverificationreminderRequestTypedDict",
-    "AdminsearchRequest",
-    "AdminsearchRequestTypedDict",
     "Agent",
     "AgentConfig",
     "AgentConfigTypedDict",
@@ -1137,8 +1015,6 @@ __all__ = [
     "AuthType",
     "Author",
     "AutocompleteRequest",
-    "AutocompleteRequestRequest",
-    "AutocompleteRequestRequestTypedDict",
     "AutocompleteRequestResultType",
     "AutocompleteRequestTypedDict",
     "AutocompleteResponse",
@@ -1207,6 +1083,8 @@ __all__ = [
     "ChatRestrictionFiltersTypedDict",
     "ChatResult",
     "ChatResultTypedDict",
+    "ChatStreamRequest",
+    "ChatStreamRequestTypedDict",
     "ChatTypedDict",
     "ChatZeroStateSuggestionOptions",
     "ChatZeroStateSuggestionOptionsTypedDict",
@@ -1272,16 +1150,6 @@ __all__ = [
     "CreateShortcutRequestTypedDict",
     "CreateShortcutResponse",
     "CreateShortcutResponseTypedDict",
-    "CreateannouncementRequestRequest",
-    "CreateannouncementRequestRequestTypedDict",
-    "CreateanswerRequestRequest",
-    "CreateanswerRequestRequestTypedDict",
-    "CreateauthtokenRequest",
-    "CreateauthtokenRequestTypedDict",
-    "CreatecollectionRequestRequest",
-    "CreatecollectionRequestRequestTypedDict",
-    "CreateshortcutRequestRequest",
-    "CreateshortcutRequestRequestTypedDict",
     "CustomDataValue",
     "CustomDataValueTypedDict",
     "CustomDatasourceConfig",
@@ -1374,20 +1242,10 @@ __all__ = [
     "DeleteUserRequestTypedDict",
     "DeleteallchatsRequest",
     "DeleteallchatsRequestTypedDict",
-    "DeleteannouncementRequestRequest",
-    "DeleteannouncementRequestRequestTypedDict",
-    "DeleteanswerRequestRequest",
-    "DeleteanswerRequestRequestTypedDict",
     "DeletechatfilesRequestRequest",
     "DeletechatfilesRequestRequestTypedDict",
     "DeletechatsRequestRequest",
     "DeletechatsRequestRequestTypedDict",
-    "DeletecollectionRequestRequest",
-    "DeletecollectionRequestRequestTypedDict",
-    "DeletecollectionitemRequestRequest",
-    "DeletecollectionitemRequestRequestTypedDict",
-    "DeleteshortcutRequestRequest",
-    "DeleteshortcutRequestRequestTypedDict",
     "Direction",
     "Disambiguation",
     "DisambiguationTypedDict",
@@ -1444,14 +1302,6 @@ __all__ = [
     "EditCollectionResponseTypedDict",
     "EditPinRequest",
     "EditPinRequestTypedDict",
-    "EditanswerRequestRequest",
-    "EditanswerRequestRequestTypedDict",
-    "EditcollectionRequestRequest",
-    "EditcollectionRequestRequestTypedDict",
-    "EditcollectionitemRequestRequest",
-    "EditcollectionitemRequestRequestTypedDict",
-    "EditpinRequestRequest",
-    "EditpinRequestRequestTypedDict",
     "EmployeeInfoDefinition",
     "EmployeeInfoDefinitionTypedDict",
     "EmployeeTeamInfo",
@@ -1495,8 +1345,6 @@ __all__ = [
     "FeedRequestCategory",
     "FeedRequestOptions",
     "FeedRequestOptionsTypedDict",
-    "FeedRequestRequest",
-    "FeedRequestRequestTypedDict",
     "FeedRequestTypedDict",
     "FeedResponse",
     "FeedResponseTypedDict",
@@ -1578,9 +1426,9 @@ __all__ = [
     "GetPinResponse",
     "GetPinResponseTypedDict",
     "GetShortcutRequest",
-    "GetShortcutRequest1",
-    "GetShortcutRequest1TypedDict",
     "GetShortcutRequestTypedDict",
+    "GetShortcutRequestUnion",
+    "GetShortcutRequestUnionTypedDict",
     "GetShortcutResponse",
     "GetShortcutResponseTypedDict",
     "GetUserCountRequest",
@@ -1589,26 +1437,12 @@ __all__ = [
     "GetUserCountResponseTypedDict",
     "GetagentinputsRequestRequest",
     "GetagentinputsRequestRequestTypedDict",
-    "GetanswerRequestRequest",
-    "GetanswerRequestRequestTypedDict",
     "GetchatRequestRequest",
     "GetchatRequestRequestTypedDict",
     "GetchatapplicationRequestRequest",
     "GetchatapplicationRequestRequestTypedDict",
     "GetchatfilesRequestRequest",
     "GetchatfilesRequestRequestTypedDict",
-    "GetcollectionRequestRequest",
-    "GetcollectionRequestRequestTypedDict",
-    "GetdocpermissionsRequestRequest",
-    "GetdocpermissionsRequestRequestTypedDict",
-    "GetdocumentsRequestRequest",
-    "GetdocumentsRequestRequestTypedDict",
-    "GetdocumentsbyfacetsRequestRequest",
-    "GetdocumentsbyfacetsRequestRequestTypedDict",
-    "GetpinRequestRequest",
-    "GetpinRequestRequestTypedDict",
-    "GetshortcutRequestRequest",
-    "GetshortcutRequestRequestTypedDict",
     "GleanAssistInsightsResponse",
     "GleanAssistInsightsResponseTypedDict",
     "GleanDataError",
@@ -1633,8 +1467,6 @@ __all__ = [
     "IndexDocumentRequestTypedDict",
     "IndexDocumentsRequest",
     "IndexDocumentsRequestTypedDict",
-    "IndexEmployeeListRequest",
-    "IndexEmployeeListRequestTypedDict",
     "IndexEmployeeRequest",
     "IndexEmployeeRequestTypedDict",
     "IndexGroupRequest",
@@ -1647,14 +1479,14 @@ __all__ = [
     "IndexTeamRequestTypedDict",
     "IndexUserRequest",
     "IndexUserRequestTypedDict",
+    "IndexingShortcut",
+    "IndexingShortcutTypedDict",
     "InsightsAgentsRequestOptions",
     "InsightsAgentsRequestOptionsTypedDict",
     "InsightsAiAppRequestOptions",
     "InsightsAiAppRequestOptionsTypedDict",
     "InsightsRequest",
     "InsightsRequestCategory",
-    "InsightsRequestRequest",
-    "InsightsRequestRequestTypedDict",
     "InsightsRequestTypedDict",
     "InsightsResponse",
     "InsightsResponseTypedDict",
@@ -1694,20 +1526,10 @@ __all__ = [
     "ListShortcutsPaginatedResponseTypedDict",
     "ListagentsRequest",
     "ListagentsRequestTypedDict",
-    "ListanswersRequestRequest",
-    "ListanswersRequestRequestTypedDict",
     "ListchatsRequest",
     "ListchatsRequestTypedDict",
-    "ListcollectionsRequestRequest",
-    "ListcollectionsRequestRequestTypedDict",
-    "ListentitiesRequestRequest",
-    "ListentitiesRequestRequestTypedDict",
     "ListpinsRequest",
-    "ListpinsRequestBody",
-    "ListpinsRequestBodyTypedDict",
     "ListpinsRequestTypedDict",
-    "ListshortcutsRequest",
-    "ListshortcutsRequestTypedDict",
     "ListverificationsRequest",
     "ListverificationsRequestTypedDict",
     "ManualFeedbackInfo",
@@ -1717,8 +1539,6 @@ __all__ = [
     "MeetingTypedDict",
     "MessageType",
     "MessagesRequest",
-    "MessagesRequestRequest",
-    "MessagesRequestRequestTypedDict",
     "MessagesRequestTypedDict",
     "MessagesResponse",
     "MessagesResponseTypedDict",
@@ -1737,8 +1557,6 @@ __all__ = [
     "OrderBy",
     "PeopleRequest",
     "PeopleRequestIncludeField",
-    "PeopleRequestRequest",
-    "PeopleRequestRequestTypedDict",
     "PeopleRequestTypedDict",
     "PeopleResponse",
     "PeopleResponseTypedDict",
@@ -1766,8 +1584,6 @@ __all__ = [
     "PinDocument",
     "PinDocumentTypedDict",
     "PinRequest",
-    "PinRequestRequest",
-    "PinRequestRequestTypedDict",
     "PinRequestTypedDict",
     "PossibleValue",
     "PossibleValueTypedDict",
@@ -1814,8 +1630,6 @@ __all__ = [
     "RecommendationsRequest",
     "RecommendationsRequestOptions",
     "RecommendationsRequestOptionsTypedDict",
-    "RecommendationsRequestRequest",
-    "RecommendationsRequestRequestTypedDict",
     "RecommendationsRequestTypedDict",
     "ReferenceRange",
     "ReferenceRangeTypedDict",
@@ -1861,8 +1675,6 @@ __all__ = [
     "SearchRequestInputDetailsTypedDict",
     "SearchRequestOptions",
     "SearchRequestOptionsTypedDict",
-    "SearchRequestRequest",
-    "SearchRequestRequestTypedDict",
     "SearchRequestTypedDict",
     "SearchResponse",
     "SearchResponseMetadata",
@@ -1917,8 +1729,6 @@ __all__ = [
     "StructuredTextMutablePropertiesTypedDict",
     "StructuredTextTypedDict",
     "SummarizeRequest",
-    "SummarizeRequestRequest",
-    "SummarizeRequestRequestTypedDict",
     "SummarizeRequestTypedDict",
     "SummarizeResponse",
     "SummarizeResponseTypedDict",
@@ -1952,8 +1762,6 @@ __all__ = [
     "UIOptions",
     "UgcType",
     "Unpin",
-    "UnpinRequest",
-    "UnpinRequestTypedDict",
     "UnpinTypedDict",
     "UpdateAnnouncementRequest",
     "UpdateAnnouncementRequestChannel",
@@ -1965,10 +1773,6 @@ __all__ = [
     "UpdateShortcutRequestTypedDict",
     "UpdateShortcutResponse",
     "UpdateShortcutResponseTypedDict",
-    "UpdateannouncementRequestRequest",
-    "UpdateannouncementRequestRequestTypedDict",
-    "UpdateshortcutRequestRequest",
-    "UpdateshortcutRequestRequestTypedDict",
     "UploadChatFilesRequest",
     "UploadChatFilesRequestTypedDict",
     "UploadChatFilesResponse",
@@ -2008,8 +1812,6 @@ __all__ = [
     "VerificationTypedDict",
     "VerifyRequest",
     "VerifyRequestAction",
-    "VerifyRequestRequest",
-    "VerifyRequestRequestTypedDict",
     "VerifyRequestTypedDict",
     "ViewerInfo",
     "ViewerInfoTypedDict",

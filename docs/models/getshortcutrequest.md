@@ -1,17 +1,8 @@
 # GetShortcutRequest
 
 
-## Supported Types
+## Fields
 
-### `models.UserGeneratedContentID`
-
-```python
-value: models.UserGeneratedContentID = /* values here */
-```
-
-### `models.GetShortcutRequest1`
-
-```python
-value: models.GetShortcutRequest1 = /* values here */
-```
-
+| Field                                                                       | Type                                                                        | Required                                                                    | Description                                                                 |
+| --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `alias`                                                                     | *str*                                                                       | :heavy_check_mark:                                                          | The alias for the shortcut, including any arguments for variable shortcuts. |

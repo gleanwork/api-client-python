@@ -55,18 +55,19 @@ func testListshortcutsListshortcuts0(w http.ResponseWriter, req *http.Request) {
 		Shortcuts: []components.Shortcut{
 			components.Shortcut{
 				InputAlias:     "<value>",
-				DestinationURL: "https://remorseful-concentration.biz",
-				CreatedBy:      "<value>",
+				DestinationURL: types.String("https://remorseful-concentration.biz"),
+				CreatedBy: &components.Person{
+					Name:         "<value>",
+					ObfuscatedID: "<id>",
+				},
 			},
 			components.Shortcut{
 				InputAlias:     "<value>",
-				DestinationURL: "https://primary-paintwork.com/",
-				CreatedBy:      "<value>",
+				DestinationURL: types.String("https://primary-paintwork.com/"),
 			},
 			components.Shortcut{
 				InputAlias:     "<value>",
-				DestinationURL: "https://breakable-bathrobe.net",
-				CreatedBy:      "<value>",
+				DestinationURL: types.String("https://breakable-bathrobe.net"),
 			},
 		},
 		FacetResults: []components.FacetResult{

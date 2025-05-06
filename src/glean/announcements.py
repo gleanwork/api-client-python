@@ -16,8 +16,6 @@ class Announcements(BaseSDK):
         start_time: datetime,
         end_time: datetime,
         title: str,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
         body: Optional[
             Union[models.StructuredText, models.StructuredTextTypedDict]
         ] = None,
@@ -45,8 +43,6 @@ class Announcements(BaseSDK):
         :param start_time: The date and time at which the announcement becomes active.
         :param end_time: The date and time at which the announcement expires.
         :param title: The headline of the announcement.
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param body:
         :param emoji: An emoji used to indicate the nature of the announcement.
         :param thumbnail:
@@ -73,29 +69,23 @@ class Announcements(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.CreateannouncementRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            create_announcement_request=models.CreateAnnouncementRequest(
-                start_time=start_time,
-                end_time=end_time,
-                title=title,
-                body=utils.get_pydantic_model(body, Optional[models.StructuredText]),
-                emoji=emoji,
-                thumbnail=utils.get_pydantic_model(
-                    thumbnail, Optional[models.Thumbnail]
-                ),
-                banner=utils.get_pydantic_model(banner, Optional[models.Thumbnail]),
-                audience_filters=utils.get_pydantic_model(
-                    audience_filters, Optional[List[models.FacetFilter]]
-                ),
-                source_document_id=source_document_id,
-                hide_attribution=hide_attribution,
-                channel=channel,
-                post_type=post_type,
-                is_prioritized=is_prioritized,
-                view_url=view_url,
+        request = models.CreateAnnouncementRequest(
+            start_time=start_time,
+            end_time=end_time,
+            title=title,
+            body=utils.get_pydantic_model(body, Optional[models.StructuredText]),
+            emoji=emoji,
+            thumbnail=utils.get_pydantic_model(thumbnail, Optional[models.Thumbnail]),
+            banner=utils.get_pydantic_model(banner, Optional[models.Thumbnail]),
+            audience_filters=utils.get_pydantic_model(
+                audience_filters, Optional[List[models.FacetFilter]]
             ),
+            source_document_id=source_document_id,
+            hide_attribution=hide_attribution,
+            channel=channel,
+            post_type=post_type,
+            is_prioritized=is_prioritized,
+            view_url=view_url,
         )
 
         req = self._build_request(
@@ -112,11 +102,7 @@ class Announcements(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.create_announcement_request,
-                False,
-                False,
-                "json",
-                models.CreateAnnouncementRequest,
+                request, False, False, "json", models.CreateAnnouncementRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -171,8 +157,6 @@ class Announcements(BaseSDK):
         start_time: datetime,
         end_time: datetime,
         title: str,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
         body: Optional[
             Union[models.StructuredText, models.StructuredTextTypedDict]
         ] = None,
@@ -200,8 +184,6 @@ class Announcements(BaseSDK):
         :param start_time: The date and time at which the announcement becomes active.
         :param end_time: The date and time at which the announcement expires.
         :param title: The headline of the announcement.
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param body:
         :param emoji: An emoji used to indicate the nature of the announcement.
         :param thumbnail:
@@ -228,29 +210,23 @@ class Announcements(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.CreateannouncementRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            create_announcement_request=models.CreateAnnouncementRequest(
-                start_time=start_time,
-                end_time=end_time,
-                title=title,
-                body=utils.get_pydantic_model(body, Optional[models.StructuredText]),
-                emoji=emoji,
-                thumbnail=utils.get_pydantic_model(
-                    thumbnail, Optional[models.Thumbnail]
-                ),
-                banner=utils.get_pydantic_model(banner, Optional[models.Thumbnail]),
-                audience_filters=utils.get_pydantic_model(
-                    audience_filters, Optional[List[models.FacetFilter]]
-                ),
-                source_document_id=source_document_id,
-                hide_attribution=hide_attribution,
-                channel=channel,
-                post_type=post_type,
-                is_prioritized=is_prioritized,
-                view_url=view_url,
+        request = models.CreateAnnouncementRequest(
+            start_time=start_time,
+            end_time=end_time,
+            title=title,
+            body=utils.get_pydantic_model(body, Optional[models.StructuredText]),
+            emoji=emoji,
+            thumbnail=utils.get_pydantic_model(thumbnail, Optional[models.Thumbnail]),
+            banner=utils.get_pydantic_model(banner, Optional[models.Thumbnail]),
+            audience_filters=utils.get_pydantic_model(
+                audience_filters, Optional[List[models.FacetFilter]]
             ),
+            source_document_id=source_document_id,
+            hide_attribution=hide_attribution,
+            channel=channel,
+            post_type=post_type,
+            is_prioritized=is_prioritized,
+            view_url=view_url,
         )
 
         req = self._build_request_async(
@@ -267,11 +243,7 @@ class Announcements(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.create_announcement_request,
-                False,
-                False,
-                "json",
-                models.CreateAnnouncementRequest,
+                request, False, False, "json", models.CreateAnnouncementRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -324,8 +296,6 @@ class Announcements(BaseSDK):
         self,
         *,
         id: int,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -336,8 +306,6 @@ class Announcements(BaseSDK):
         Delete an existing user-generated announcement.
 
         :param id: The opaque id of the announcement to be deleted.
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -353,12 +321,8 @@ class Announcements(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.DeleteannouncementRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            delete_announcement_request=models.DeleteAnnouncementRequest(
-                id=id,
-            ),
+        request = models.DeleteAnnouncementRequest(
+            id=id,
         )
 
         req = self._build_request(
@@ -375,11 +339,7 @@ class Announcements(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.delete_announcement_request,
-                False,
-                False,
-                "json",
-                models.DeleteAnnouncementRequest,
+                request, False, False, "json", models.DeleteAnnouncementRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -432,8 +392,6 @@ class Announcements(BaseSDK):
         self,
         *,
         id: int,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -444,8 +402,6 @@ class Announcements(BaseSDK):
         Delete an existing user-generated announcement.
 
         :param id: The opaque id of the announcement to be deleted.
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -461,12 +417,8 @@ class Announcements(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.DeleteannouncementRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            delete_announcement_request=models.DeleteAnnouncementRequest(
-                id=id,
-            ),
+        request = models.DeleteAnnouncementRequest(
+            id=id,
         )
 
         req = self._build_request_async(
@@ -483,11 +435,7 @@ class Announcements(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.delete_announcement_request,
-                False,
-                False,
-                "json",
-                models.DeleteAnnouncementRequest,
+                request, False, False, "json", models.DeleteAnnouncementRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -543,8 +491,6 @@ class Announcements(BaseSDK):
         end_time: datetime,
         title: str,
         id: int,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
         body: Optional[
             Union[models.StructuredText, models.StructuredTextTypedDict]
         ] = None,
@@ -573,8 +519,6 @@ class Announcements(BaseSDK):
         :param end_time: The date and time at which the announcement expires.
         :param title: The headline of the announcement.
         :param id: The opaque id of the announcement.
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param body:
         :param emoji: An emoji used to indicate the nature of the announcement.
         :param thumbnail:
@@ -601,30 +545,24 @@ class Announcements(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.UpdateannouncementRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            update_announcement_request=models.UpdateAnnouncementRequest(
-                start_time=start_time,
-                end_time=end_time,
-                title=title,
-                body=utils.get_pydantic_model(body, Optional[models.StructuredText]),
-                emoji=emoji,
-                thumbnail=utils.get_pydantic_model(
-                    thumbnail, Optional[models.Thumbnail]
-                ),
-                banner=utils.get_pydantic_model(banner, Optional[models.Thumbnail]),
-                audience_filters=utils.get_pydantic_model(
-                    audience_filters, Optional[List[models.FacetFilter]]
-                ),
-                source_document_id=source_document_id,
-                hide_attribution=hide_attribution,
-                channel=channel,
-                post_type=post_type,
-                is_prioritized=is_prioritized,
-                view_url=view_url,
-                id=id,
+        request = models.UpdateAnnouncementRequest(
+            start_time=start_time,
+            end_time=end_time,
+            title=title,
+            body=utils.get_pydantic_model(body, Optional[models.StructuredText]),
+            emoji=emoji,
+            thumbnail=utils.get_pydantic_model(thumbnail, Optional[models.Thumbnail]),
+            banner=utils.get_pydantic_model(banner, Optional[models.Thumbnail]),
+            audience_filters=utils.get_pydantic_model(
+                audience_filters, Optional[List[models.FacetFilter]]
             ),
+            source_document_id=source_document_id,
+            hide_attribution=hide_attribution,
+            channel=channel,
+            post_type=post_type,
+            is_prioritized=is_prioritized,
+            view_url=view_url,
+            id=id,
         )
 
         req = self._build_request(
@@ -641,11 +579,7 @@ class Announcements(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.update_announcement_request,
-                False,
-                False,
-                "json",
-                models.UpdateAnnouncementRequest,
+                request, False, False, "json", models.UpdateAnnouncementRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -701,8 +635,6 @@ class Announcements(BaseSDK):
         end_time: datetime,
         title: str,
         id: int,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
         body: Optional[
             Union[models.StructuredText, models.StructuredTextTypedDict]
         ] = None,
@@ -731,8 +663,6 @@ class Announcements(BaseSDK):
         :param end_time: The date and time at which the announcement expires.
         :param title: The headline of the announcement.
         :param id: The opaque id of the announcement.
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param body:
         :param emoji: An emoji used to indicate the nature of the announcement.
         :param thumbnail:
@@ -759,30 +689,24 @@ class Announcements(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.UpdateannouncementRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            update_announcement_request=models.UpdateAnnouncementRequest(
-                start_time=start_time,
-                end_time=end_time,
-                title=title,
-                body=utils.get_pydantic_model(body, Optional[models.StructuredText]),
-                emoji=emoji,
-                thumbnail=utils.get_pydantic_model(
-                    thumbnail, Optional[models.Thumbnail]
-                ),
-                banner=utils.get_pydantic_model(banner, Optional[models.Thumbnail]),
-                audience_filters=utils.get_pydantic_model(
-                    audience_filters, Optional[List[models.FacetFilter]]
-                ),
-                source_document_id=source_document_id,
-                hide_attribution=hide_attribution,
-                channel=channel,
-                post_type=post_type,
-                is_prioritized=is_prioritized,
-                view_url=view_url,
-                id=id,
+        request = models.UpdateAnnouncementRequest(
+            start_time=start_time,
+            end_time=end_time,
+            title=title,
+            body=utils.get_pydantic_model(body, Optional[models.StructuredText]),
+            emoji=emoji,
+            thumbnail=utils.get_pydantic_model(thumbnail, Optional[models.Thumbnail]),
+            banner=utils.get_pydantic_model(banner, Optional[models.Thumbnail]),
+            audience_filters=utils.get_pydantic_model(
+                audience_filters, Optional[List[models.FacetFilter]]
             ),
+            source_document_id=source_document_id,
+            hide_attribution=hide_attribution,
+            channel=channel,
+            post_type=post_type,
+            is_prioritized=is_prioritized,
+            view_url=view_url,
+            id=id,
         )
 
         req = self._build_request_async(
@@ -799,11 +723,7 @@ class Announcements(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.update_announcement_request,
-                False,
-                False,
-                "json",
-                models.UpdateAnnouncementRequest,
+                request, False, False, "json", models.UpdateAnnouncementRequest
             ),
             timeout_ms=timeout_ms,
         )

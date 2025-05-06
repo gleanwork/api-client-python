@@ -14,17 +14,161 @@ def test_client_chat_ask():
     pass
 
 
+@pytest.mark.skip(
+    reason="incomplete test found please make sure to address the following errors: [`workflow step chat-defaultExample.test referencing operation chat does not contain response body with content type text/plain`]"
+)
 def test_client_chat_chat_default_example():
-    test_http_client = create_test_http_client("chat-defaultExample")
+    pass
+
+
+@pytest.mark.skip(
+    reason="incomplete test found please make sure to address the following errors: [`workflow step chat-gptAgentExample.test referencing operation chat does not contain response body with content type text/plain`]"
+)
+def test_client_chat_chat_gpt_agent_example():
+    pass
+
+
+@pytest.mark.skip(
+    reason="incomplete test found please make sure to address the following errors: [`workflow step chat-streamingExample.test referencing operation chat does not contain response body with content type text/plain`]"
+)
+def test_client_chat_chat_streaming_example():
+    pass
+
+
+@pytest.mark.skip(
+    reason="incomplete test found please make sure to address the following errors: [`workflow step chat-updateResponse.test referencing operation chat does not contain response body with content type text/plain`]"
+)
+def test_client_chat_chat_update_response():
+    pass
+
+
+@pytest.mark.skip(
+    reason="incomplete test found please make sure to address the following errors: [`workflow step chat-citationResponse.test referencing operation chat does not contain response body with content type text/plain`]"
+)
+def test_client_chat_chat_citation_response():
+    pass
+
+
+def test_client_chat_deleteallchats():
+    test_http_client = create_test_http_client("deleteallchats")
 
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.client.chat.start(
+        g_client.client.chat.delete_all()
+
+
+def test_client_chat_deletechats():
+    test_http_client = create_test_http_client("deletechats")
+
+    with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
+        client=test_http_client,
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+    ) as g_client:
+        assert g_client is not None
+
+        g_client.client.chat.delete(
+            ids=[
+                "<value>",
+                "<value>",
+            ]
+        )
+
+
+def test_client_chat_getchat():
+    test_http_client = create_test_http_client("getchat")
+
+    with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
+        client=test_http_client,
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+    ) as g_client:
+        assert g_client is not None
+
+        res = g_client.client.chat.retrieve(id="<id>")
+        assert res is not None
+
+
+def test_client_chat_listchats():
+    test_http_client = create_test_http_client("listchats")
+
+    with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
+        client=test_http_client,
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+    ) as g_client:
+        assert g_client is not None
+
+        res = g_client.client.chat.list()
+        assert res is not None
+
+
+def test_client_chat_getchatapplication():
+    test_http_client = create_test_http_client("getchatapplication")
+
+    with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
+        client=test_http_client,
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+    ) as g_client:
+        assert g_client is not None
+
+        res = g_client.client.chat.retrieve_application(id="<id>")
+        assert res is not None
+
+
+def test_client_chat_getchatfiles():
+    test_http_client = create_test_http_client("getchatfiles")
+
+    with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
+        client=test_http_client,
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+    ) as g_client:
+        assert g_client is not None
+
+        res = g_client.client.chat.retrieve_files(
+            file_ids=[
+                "<value>",
+                "<value>",
+            ]
+        )
+        assert res is not None
+
+
+def test_client_chat_deletechatfiles():
+    test_http_client = create_test_http_client("deletechatfiles")
+
+    with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
+        client=test_http_client,
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+    ) as g_client:
+        assert g_client is not None
+
+        g_client.client.chat.delete_files(
+            file_ids=[
+                "<value>",
+            ]
+        )
+
+
+def test_client_chat_chat_stream_default_example():
+    test_http_client = create_test_http_client("chatStream-defaultExample")
+
+    with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
+        client=test_http_client,
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+    ) as g_client:
+        assert g_client is not None
+
+        res = g_client.client.chat.create_stream(
             messages=[
                 {
                     "fragments": [
@@ -39,17 +183,17 @@ def test_client_chat_chat_default_example():
         assert res is not None
 
 
-def test_client_chat_chat_gpt_agent_example():
-    test_http_client = create_test_http_client("chat-gptAgentExample")
+def test_client_chat_chat_stream_gpt_agent_example():
+    test_http_client = create_test_http_client("chatStream-gptAgentExample")
 
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.client.chat.start(
+        res = g_client.client.chat.create_stream(
             messages=[
                 {
                     "fragments": [
@@ -67,31 +211,31 @@ def test_client_chat_chat_gpt_agent_example():
         assert res is not None
 
 
-def test_client_chat_chat_streaming_example():
-    test_http_client = create_test_http_client("chat-streamingExample")
+def test_client_chat_chat_stream_streaming_example():
+    test_http_client = create_test_http_client("chatStream-streamingExample")
 
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.client.chat.start(messages=[], timeout_millis=30000)
+        res = g_client.client.chat.create_stream(messages=[], timeout_millis=30000)
         assert res is not None
 
 
-def test_client_chat_chat_update_response():
-    test_http_client = create_test_http_client("chat-updateResponse")
+def test_client_chat_chat_stream_update_response():
+    test_http_client = create_test_http_client("chatStream-updateResponse")
 
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.client.chat.start(
+        res = g_client.client.chat.create_stream(
             messages=[
                 {
                     "citations": [
@@ -136,51 +280,9 @@ def test_client_chat_chat_update_response():
                             reference_ranges=[
                                 models.ReferenceRange(
                                     text_range=models.TextRange(
-                                        start_index=956313,
+                                        start_index=485333,
                                         document=models.Document(),
                                     ),
-                                    snippets=[
-                                        models.SearchResultSnippet(
-                                            snippet="snippet",
-                                            mime_type="mimeType",
-                                        ),
-                                    ],
-                                ),
-                            ],
-                        ),
-                        models.ChatMessageCitation(
-                            source_file=models.ChatFile(
-                                id="FILE_1234",
-                                url="www.google.com",
-                                name="sample.pdf",
-                            ),
-                            reference_ranges=[
-                                models.ReferenceRange(
-                                    snippets=[
-                                        models.SearchResultSnippet(
-                                            snippet="snippet",
-                                            mime_type="mimeType",
-                                        ),
-                                    ],
-                                ),
-                                models.ReferenceRange(
-                                    snippets=[
-                                        models.SearchResultSnippet(
-                                            snippet="snippet",
-                                            mime_type="mimeType",
-                                        ),
-                                    ],
-                                ),
-                            ],
-                        ),
-                        models.ChatMessageCitation(
-                            source_file=models.ChatFile(
-                                id="FILE_1234",
-                                url="www.google.com",
-                                name="sample.pdf",
-                            ),
-                            reference_ranges=[
-                                models.ReferenceRange(
                                     snippets=[
                                         models.SearchResultSnippet(
                                             snippet="snippet",
@@ -230,11 +332,8 @@ def test_client_chat_chat_update_response():
                                         id="<id>",
                                         name="<value>",
                                         members=[],
+                                        custom_fields=[],
                                         datasource_profiles=[
-                                            models.DatasourceProfile(
-                                                datasource="github",
-                                                handle="<value>",
-                                            ),
                                             models.DatasourceProfile(
                                                 datasource="github",
                                                 handle="<value>",
@@ -277,7 +376,7 @@ def test_client_chat_chat_update_response():
                                         likes=models.AnswerLikes(
                                             liked_by=[],
                                             liked_by_user=False,
-                                            num_likes=798102,
+                                            num_likes=490380,
                                         ),
                                         updated_by=models.Person(
                                             name="George Clooney",
@@ -300,14 +399,14 @@ def test_client_chat_chat_update_response():
                                                         name="George Clooney",
                                                         obfuscated_id="abc123",
                                                     ),
-                                                    remind_at=961967,
+                                                    remind_at=997948,
                                                 ),
                                                 candidate_verifiers=[],
                                             ),
                                         ),
                                         board=models.AnswerBoard(
                                             name="<value>",
-                                            description="not meh surprisingly too like embed dreamily verbally casement with",
+                                            description="stage atop minion which best sturdy enormously afore circumference duh",
                                             audience_filters=[
                                                 models.FacetFilter(
                                                     field_name="type",
@@ -323,7 +422,7 @@ def test_client_chat_chat_update_response():
                                                     ],
                                                 ),
                                             ],
-                                            id=756840,
+                                            id=647529,
                                             creator=models.Person(
                                                 name="George Clooney",
                                                 obfuscated_id="abc123",
@@ -345,7 +444,7 @@ def test_client_chat_chat_update_response():
                                     ),
                                     collection=models.Collection(
                                         name="<value>",
-                                        description="daily forecast rapidly urgently slipper meh",
+                                        description="veg welcome boss manage freely",
                                         audience_filters=[
                                             models.FacetFilter(
                                                 field_name="type",
@@ -361,12 +460,11 @@ def test_client_chat_chat_update_response():
                                                 ],
                                             ),
                                         ],
-                                        id=308354,
-                                        children=[],
+                                        id=79387,
                                     ),
                                     answer_board=models.AnswerBoard(
                                         name="<value>",
-                                        description="frantically highlight thunderbolt defrag aside stitcher furthermore zealous",
+                                        description="after er grouchy stained plus buck",
                                         audience_filters=[
                                             models.FacetFilter(
                                                 field_name="type",
@@ -382,11 +480,19 @@ def test_client_chat_chat_update_response():
                                                 ],
                                             ),
                                         ],
-                                        id=87875,
+                                        id=668238,
                                     ),
                                     code=models.Code(
                                         repo_name="scio",
                                         file_name="README.md",
+                                    ),
+                                    shortcut=models.Shortcut(
+                                        input_alias="<value>",
+                                        created_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        destination_document=models.Document(),
                                     ),
                                     query_suggestions=models.QuerySuggestionList(
                                         suggestions=[],
@@ -396,7 +502,6 @@ def test_client_chat_chat_update_response():
                                         ranges=[],
                                     ),
                                 ),
-                                models.StructuredResult(),
                             ],
                             query_suggestion=models.QuerySuggestion(
                                 query="app:github type:pull author:mortimer",
@@ -412,7 +517,26 @@ def test_client_chat_chat_update_response():
                                 metadata=models.ToolMetadata(
                                     type=models.ToolMetadataType.RETRIEVAL,
                                     name="<value>",
-                                    display_name="Jarrell_Hudson65",
+                                    display_name="Brianne.OReilly19",
+                                    display_description="<value>",
+                                    object_name='["HR ticket","Email","Chat message"]',
+                                ),
+                            ),
+                        ),
+                        models.ChatMessageFragment(
+                            structured_results=[
+                                models.StructuredResult(),
+                            ],
+                            file=models.ChatFile(
+                                id="FILE_1234",
+                                url="www.google.com",
+                                name="sample.pdf",
+                            ),
+                            action=models.ToolInfo(
+                                metadata=models.ToolMetadata(
+                                    type=models.ToolMetadataType.ACTION,
+                                    name="<value>",
+                                    display_name="Elinor_Champlin",
                                     display_description="<value>",
                                     object_name='["HR ticket","Email","Chat message"]',
                                 ),
@@ -433,28 +557,7 @@ def test_client_chat_chat_update_response():
                                 metadata=models.ToolMetadata(
                                     type=models.ToolMetadataType.RETRIEVAL,
                                     name="<value>",
-                                    display_name="Bertha.Koepp",
-                                    display_description="<value>",
-                                    object_name='["HR ticket","Email","Chat message"]',
-                                ),
-                            ),
-                        ),
-                        models.ChatMessageFragment(
-                            structured_results=[
-                                models.StructuredResult(),
-                                models.StructuredResult(),
-                                models.StructuredResult(),
-                            ],
-                            file=models.ChatFile(
-                                id="FILE_1234",
-                                url="www.google.com",
-                                name="sample.pdf",
-                            ),
-                            action=models.ToolInfo(
-                                metadata=models.ToolMetadata(
-                                    type=models.ToolMetadataType.ACTION,
-                                    name="<value>",
-                                    display_name="Sheridan.Koss71",
+                                    display_name="Chanel.Kshlerin",
                                     display_description="<value>",
                                     object_name='["HR ticket","Email","Chat message"]',
                                 ),
@@ -487,6 +590,15 @@ def test_client_chat_chat_update_response():
                                         ),
                                     ],
                                 ),
+                            ],
+                        ),
+                        models.ChatMessageCitation(
+                            source_file=models.ChatFile(
+                                id="FILE_1234",
+                                url="www.google.com",
+                                name="sample.pdf",
+                            ),
+                            reference_ranges=[
                                 models.ReferenceRange(
                                     snippets=[
                                         models.SearchResultSnippet(
@@ -545,9 +657,9 @@ def test_client_chat_chat_update_response():
                             ),
                             action=models.ToolInfo(
                                 metadata=models.ToolMetadata(
-                                    type=models.ToolMetadataType.RETRIEVAL,
+                                    type=models.ToolMetadataType.ACTION,
                                     name="<value>",
-                                    display_name="Zoe8",
+                                    display_name="Lauren53",
                                     display_description="<value>",
                                     object_name='["HR ticket","Email","Chat message"]',
                                 ),
@@ -568,7 +680,7 @@ def test_client_chat_chat_update_response():
                                 metadata=models.ToolMetadata(
                                     type=models.ToolMetadataType.ACTION,
                                     name="<value>",
-                                    display_name="Caterina70",
+                                    display_name="Brooklyn64",
                                     display_description="<value>",
                                     object_name='["HR ticket","Email","Chat message"]',
                                 ),
@@ -582,17 +694,17 @@ def test_client_chat_chat_update_response():
         assert res is not None
 
 
-def test_client_chat_chat_citation_response():
-    test_http_client = create_test_http_client("chat-citationResponse")
+def test_client_chat_chat_stream_citation_response():
+    test_http_client = create_test_http_client("chatStream-citationResponse")
 
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.client.chat.start(
+        res = g_client.client.chat.create_stream(
             messages=[
                 {
                     "citations": [
@@ -637,7 +749,7 @@ def test_client_chat_chat_citation_response():
                             reference_ranges=[
                                 models.ReferenceRange(
                                     text_range=models.TextRange(
-                                        start_index=585176,
+                                        start_index=436071,
                                         document=models.Document(),
                                     ),
                                     snippets=[
@@ -672,15 +784,6 @@ def test_client_chat_chat_citation_response():
                                         ),
                                     ],
                                 ),
-                            ],
-                        ),
-                        models.ChatMessageCitation(
-                            source_file=models.ChatFile(
-                                id="FILE_1234",
-                                url="www.google.com",
-                                name="sample.pdf",
-                            ),
-                            reference_ranges=[
                                 models.ReferenceRange(
                                     snippets=[
                                         models.SearchResultSnippet(
@@ -723,7 +826,12 @@ def test_client_chat_chat_citation_response():
                                         id="<id>",
                                         name="<value>",
                                         members=[],
+                                        custom_fields=[],
                                         datasource_profiles=[
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
                                             models.DatasourceProfile(
                                                 datasource="github",
                                                 handle="<value>",
@@ -766,7 +874,7 @@ def test_client_chat_chat_citation_response():
                                         likes=models.AnswerLikes(
                                             liked_by=[],
                                             liked_by_user=True,
-                                            num_likes=294779,
+                                            num_likes=181994,
                                         ),
                                         updated_by=models.Person(
                                             name="George Clooney",
@@ -789,14 +897,14 @@ def test_client_chat_chat_citation_response():
                                                         name="George Clooney",
                                                         obfuscated_id="abc123",
                                                     ),
-                                                    remind_at=881610,
+                                                    remind_at=424843,
                                                 ),
                                                 candidate_verifiers=[],
                                             ),
                                         ),
                                         board=models.AnswerBoard(
                                             name="<value>",
-                                            description="slip receptor fork",
+                                            description="extent emotional white oil buck",
                                             audience_filters=[
                                                 models.FacetFilter(
                                                     field_name="type",
@@ -812,7 +920,7 @@ def test_client_chat_chat_citation_response():
                                                     ],
                                                 ),
                                             ],
-                                            id=71022,
+                                            id=392138,
                                             creator=models.Person(
                                                 name="George Clooney",
                                                 obfuscated_id="abc123",
@@ -834,7 +942,7 @@ def test_client_chat_chat_citation_response():
                                     ),
                                     collection=models.Collection(
                                         name="<value>",
-                                        description="notarize equally hospitable",
+                                        description="matter lest spark oof unfurl jubilantly across",
                                         audience_filters=[
                                             models.FacetFilter(
                                                 field_name="type",
@@ -850,12 +958,11 @@ def test_client_chat_chat_citation_response():
                                                 ],
                                             ),
                                         ],
-                                        id=889117,
-                                        children=[],
+                                        id=194535,
                                     ),
                                     answer_board=models.AnswerBoard(
                                         name="<value>",
-                                        description="e-mail outstanding among voluntarily fooey badly beautifully",
+                                        description="communicate prudent powerful considering quietly with tromp spring brr",
                                         audience_filters=[
                                             models.FacetFilter(
                                                 field_name="type",
@@ -871,11 +978,19 @@ def test_client_chat_chat_citation_response():
                                                 ],
                                             ),
                                         ],
-                                        id=900364,
+                                        id=595008,
                                     ),
                                     code=models.Code(
                                         repo_name="scio",
                                         file_name="README.md",
+                                    ),
+                                    shortcut=models.Shortcut(
+                                        input_alias="<value>",
+                                        created_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        destination_document=models.Document(),
                                     ),
                                     query_suggestions=models.QuerySuggestionList(
                                         suggestions=[],
@@ -898,49 +1013,90 @@ def test_client_chat_chat_citation_response():
                             ),
                             action=models.ToolInfo(
                                 metadata=models.ToolMetadata(
+                                    type=models.ToolMetadataType.RETRIEVAL,
+                                    name="<value>",
+                                    display_name="Blaise87",
+                                    display_description="<value>",
+                                    object_name='["HR ticket","Email","Chat message"]',
+                                ),
+                            ),
+                        ),
+                        models.ChatMessageFragment(
+                            structured_results=[
+                                models.StructuredResult(),
+                                models.StructuredResult(),
+                                models.StructuredResult(),
+                            ],
+                            file=models.ChatFile(
+                                id="FILE_1234",
+                                url="www.google.com",
+                                name="sample.pdf",
+                            ),
+                            action=models.ToolInfo(
+                                metadata=models.ToolMetadata(
+                                    type=models.ToolMetadataType.RETRIEVAL,
+                                    name="<value>",
+                                    display_name="Alfred_Wilderman",
+                                    display_description="<value>",
+                                    object_name='["HR ticket","Email","Chat message"]',
+                                ),
+                            ),
+                        ),
+                    ],
+                },
+                {
+                    "citations": [
+                        models.ChatMessageCitation(
+                            source_file=models.ChatFile(
+                                id="FILE_1234",
+                                url="www.google.com",
+                                name="sample.pdf",
+                            ),
+                            reference_ranges=[
+                                models.ReferenceRange(
+                                    snippets=[
+                                        models.SearchResultSnippet(
+                                            snippet="snippet",
+                                            mime_type="mimeType",
+                                        ),
+                                    ],
+                                ),
+                                models.ReferenceRange(
+                                    snippets=[
+                                        models.SearchResultSnippet(
+                                            snippet="snippet",
+                                            mime_type="mimeType",
+                                        ),
+                                    ],
+                                ),
+                                models.ReferenceRange(
+                                    snippets=[
+                                        models.SearchResultSnippet(
+                                            snippet="snippet",
+                                            mime_type="mimeType",
+                                        ),
+                                    ],
+                                ),
+                            ],
+                        ),
+                    ],
+                    "fragments": [
+                        models.ChatMessageFragment(
+                            structured_results=[
+                                models.StructuredResult(),
+                                models.StructuredResult(),
+                                models.StructuredResult(),
+                            ],
+                            file=models.ChatFile(
+                                id="FILE_1234",
+                                url="www.google.com",
+                                name="sample.pdf",
+                            ),
+                            action=models.ToolInfo(
+                                metadata=models.ToolMetadata(
                                     type=models.ToolMetadataType.ACTION,
                                     name="<value>",
-                                    display_name="Jamil_Koss",
-                                    display_description="<value>",
-                                    object_name='["HR ticket","Email","Chat message"]',
-                                ),
-                            ),
-                        ),
-                        models.ChatMessageFragment(
-                            structured_results=[
-                                models.StructuredResult(),
-                                models.StructuredResult(),
-                            ],
-                            file=models.ChatFile(
-                                id="FILE_1234",
-                                url="www.google.com",
-                                name="sample.pdf",
-                            ),
-                            action=models.ToolInfo(
-                                metadata=models.ToolMetadata(
-                                    type=models.ToolMetadataType.RETRIEVAL,
-                                    name="<value>",
-                                    display_name="Julien_Okuneva",
-                                    display_description="<value>",
-                                    object_name='["HR ticket","Email","Chat message"]',
-                                ),
-                            ),
-                        ),
-                        models.ChatMessageFragment(
-                            structured_results=[
-                                models.StructuredResult(),
-                                models.StructuredResult(),
-                            ],
-                            file=models.ChatFile(
-                                id="FILE_1234",
-                                url="www.google.com",
-                                name="sample.pdf",
-                            ),
-                            action=models.ToolInfo(
-                                metadata=models.ToolMetadata(
-                                    type=models.ToolMetadataType.RETRIEVAL,
-                                    name="<value>",
-                                    display_name="Eulalia31",
+                                    display_name="Dylan_Schowalter48",
                                     display_description="<value>",
                                     object_name='["HR ticket","Email","Chat message"]',
                                 ),
@@ -990,6 +1146,22 @@ def test_client_chat_chat_citation_response():
                                         ),
                                     ],
                                 ),
+                                models.ReferenceRange(
+                                    snippets=[
+                                        models.SearchResultSnippet(
+                                            snippet="snippet",
+                                            mime_type="mimeType",
+                                        ),
+                                    ],
+                                ),
+                                models.ReferenceRange(
+                                    snippets=[
+                                        models.SearchResultSnippet(
+                                            snippet="snippet",
+                                            mime_type="mimeType",
+                                        ),
+                                    ],
+                                ),
                             ],
                         ),
                         models.ChatMessageCitation(
@@ -1015,14 +1187,6 @@ def test_client_chat_chat_citation_response():
                                         ),
                                     ],
                                 ),
-                                models.ReferenceRange(
-                                    snippets=[
-                                        models.SearchResultSnippet(
-                                            snippet="snippet",
-                                            mime_type="mimeType",
-                                        ),
-                                    ],
-                                ),
                             ],
                         ),
                     ],
@@ -1031,24 +1195,6 @@ def test_client_chat_chat_citation_response():
                             structured_results=[
                                 models.StructuredResult(),
                                 models.StructuredResult(),
-                            ],
-                            file=models.ChatFile(
-                                id="FILE_1234",
-                                url="www.google.com",
-                                name="sample.pdf",
-                            ),
-                            action=models.ToolInfo(
-                                metadata=models.ToolMetadata(
-                                    type=models.ToolMetadataType.RETRIEVAL,
-                                    name="<value>",
-                                    display_name="Eladio82",
-                                    display_description="<value>",
-                                    object_name='["HR ticket","Email","Chat message"]',
-                                ),
-                            ),
-                        ),
-                        models.ChatMessageFragment(
-                            structured_results=[
                                 models.StructuredResult(),
                             ],
                             file=models.ChatFile(
@@ -1060,7 +1206,7 @@ def test_client_chat_chat_citation_response():
                                 metadata=models.ToolMetadata(
                                     type=models.ToolMetadataType.ACTION,
                                     name="<value>",
-                                    display_name="Jeanne52",
+                                    display_name="Solon.Schmitt10",
                                     display_description="<value>",
                                     object_name='["HR ticket","Email","Chat message"]',
                                 ),
@@ -1068,6 +1214,8 @@ def test_client_chat_chat_citation_response():
                         ),
                         models.ChatMessageFragment(
                             structured_results=[
+                                models.StructuredResult(),
+                                models.StructuredResult(),
                                 models.StructuredResult(),
                             ],
                             file=models.ChatFile(
@@ -1077,9 +1225,9 @@ def test_client_chat_chat_citation_response():
                             ),
                             action=models.ToolInfo(
                                 metadata=models.ToolMetadata(
-                                    type=models.ToolMetadataType.RETRIEVAL,
+                                    type=models.ToolMetadataType.ACTION,
                                     name="<value>",
-                                    display_name="Naomie.Corkery",
+                                    display_name="Nannie.McDermott",
                                     display_description="<value>",
                                     object_name='["HR ticket","Email","Chat message"]',
                                 ),
@@ -1091,112 +1239,3 @@ def test_client_chat_chat_citation_response():
             timeout_millis=30000,
         )
         assert res is not None
-
-
-def test_client_chat_deleteallchats():
-    test_http_client = create_test_http_client("deleteallchats")
-
-    with Glean(
-        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
-        client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
-    ) as g_client:
-        assert g_client is not None
-
-        g_client.client.chat.delete_all()
-
-
-def test_client_chat_deletechats():
-    test_http_client = create_test_http_client("deletechats")
-
-    with Glean(
-        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
-        client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
-    ) as g_client:
-        assert g_client is not None
-
-        g_client.client.chat.delete(
-            ids=[
-                "<value>",
-                "<value>",
-            ]
-        )
-
-
-def test_client_chat_getchat():
-    test_http_client = create_test_http_client("getchat")
-
-    with Glean(
-        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
-        client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
-    ) as g_client:
-        assert g_client is not None
-
-        res = g_client.client.chat.get(id="<id>")
-        assert res is not None
-
-
-def test_client_chat_listchats():
-    test_http_client = create_test_http_client("listchats")
-
-    with Glean(
-        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
-        client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
-    ) as g_client:
-        assert g_client is not None
-
-        res = g_client.client.chat.list()
-        assert res is not None
-
-
-def test_client_chat_getchatapplication():
-    test_http_client = create_test_http_client("getchatapplication")
-
-    with Glean(
-        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
-        client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
-    ) as g_client:
-        assert g_client is not None
-
-        res = g_client.client.chat.get_application(id="<id>")
-        assert res is not None
-
-
-def test_client_chat_getchatfiles():
-    test_http_client = create_test_http_client("getchatfiles")
-
-    with Glean(
-        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
-        client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
-    ) as g_client:
-        assert g_client is not None
-
-        res = g_client.client.chat.get_files(
-            file_ids=[
-                "<value>",
-                "<value>",
-            ]
-        )
-        assert res is not None
-
-
-def test_client_chat_deletechatfiles():
-    test_http_client = create_test_http_client("deletechatfiles")
-
-    with Glean(
-        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
-        client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
-    ) as g_client:
-        assert g_client is not None
-
-        g_client.client.chat.delete_files(
-            file_ids=[
-                "<value>",
-            ]
-        )

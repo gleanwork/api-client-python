@@ -1,12 +1,12 @@
-speakeasyVersion: 1.541.0
+speakeasyVersion: 1.542.3
 sources:
     Glean API:
         sourceNamespace: glean-api-specs
-        sourceRevisionDigest: sha256:1756c09ecbe23405704c2ca0a7fc16f744e0104dd7eae3eea4f70d5a04348c16
-        sourceBlobDigest: sha256:774205fd75a3374e402da1109732bc48f7fcd38efe41d5709663e17ac4f28898
+        sourceRevisionDigest: sha256:899a2c3976fdfa81af3713ce06fcb2283a89faa893ef608498f2365840127272
+        sourceBlobDigest: sha256:313446623e4d6be9ffcf70008ec73eb557e9df1e658aa69a749ef1962fe25e60
         tags:
             - latest
-            - speakeasy-sdk-regen-1746034554
+            - speakeasy-sdk-regen-1746543933
     Glean Client API:
         sourceNamespace: glean-client-api
         sourceRevisionDigest: sha256:4edc63ad559e4f2c9fb9ebf5edaaaaa9269f1874d271cfd84b441d6dacac43d2
@@ -17,10 +17,10 @@ targets:
     glean:
         source: Glean API
         sourceNamespace: glean-api-specs
-        sourceRevisionDigest: sha256:1756c09ecbe23405704c2ca0a7fc16f744e0104dd7eae3eea4f70d5a04348c16
-        sourceBlobDigest: sha256:774205fd75a3374e402da1109732bc48f7fcd38efe41d5709663e17ac4f28898
+        sourceRevisionDigest: sha256:899a2c3976fdfa81af3713ce06fcb2283a89faa893ef608498f2365840127272
+        sourceBlobDigest: sha256:313446623e4d6be9ffcf70008ec73eb557e9df1e658aa69a749ef1962fe25e60
         codeSamplesNamespace: glean-api-specs-python-code-samples
-        codeSamplesRevisionDigest: sha256:08d0c8eae645f27afac8c7c6391a113c9cd2a793c2342fecddea220a3a47df50
+        codeSamplesRevisionDigest: sha256:63f05bcce506f8282cb50f940c62b80e68c232112a82324f01606a714a27d54b
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
@@ -40,7 +40,7 @@ workflow:
                 registry:
                     location: registry.speakeasyapi.dev/glean-el2/sdk/glean-api-specs-python-code-samples
                 labelOverride:
-                    fixedValue: Python (Client)
+                    fixedValue: Python (API Client)
                 blocking: false
             testing:
                 enabled: true

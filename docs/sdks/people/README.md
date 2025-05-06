@@ -5,14 +5,103 @@
 
 ### Available Operations
 
+* [debug](#debug) - Beta: Get user information
+
+* [~~count~~](#count) - Get user count :warning: **Deprecated**
 * [index](#index) - Index employee
-* [bulk_index_employees](#bulk_index_employees) - Bulk index employees
-* [~~bulk_index~~](#bulk_index) - Bulk index employees :warning: **Deprecated**
+* [bulk_index](#bulk_index) - Bulk index employees
 * [process_all_employees_and_teams](#process_all_employees_and_teams) - Schedules the processing of uploaded employees and teams
 * [delete](#delete) - Delete employee
 * [index_team](#index_team) - Index team
 * [delete_team](#delete_team) - Delete team
 * [bulk_index_teams](#bulk_index_teams) - Bulk index teams
+
+## debug
+
+Gives various information that would help in debugging related to a particular user. Currently in beta, might undergo breaking changes without prior notice.
+
+Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/docs/indexing_api/indexing_api_troubleshooting/) for more information.
+
+
+### Example Usage
+
+```python
+from glean import Glean
+import os
+
+
+with Glean(
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+) as g_client:
+
+    res = g_client.indexing.people.debug(datasource="<value>", email="u1@foo.com")
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         | Example                                                             |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `datasource`                                                        | *str*                                                               | :heavy_check_mark:                                                  | The datasource to which the user belongs                            |                                                                     |
+| `email`                                                             | *str*                                                               | :heavy_check_mark:                                                  | Email ID of the user to get the status for                          | u1@foo.com                                                          |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
+
+### Response
+
+**[models.DebugUserResponse](../../models/debuguserresponse.md)**
+
+### Errors
+
+| Error Type        | Status Code       | Content Type      |
+| ----------------- | ----------------- | ----------------- |
+| errors.GleanError | 4XX, 5XX          | \*/\*             |
+
+## ~~count~~
+
+Fetches user count for the specified custom datasource.
+
+Tip: Use [/debug/{datasource}/status](https://developers.glean.com/docs/indexing_api/indexing_api_troubleshooting/#debug-datasource-status) for richer information.
+
+
+> :warning: **DEPRECATED**: This will be removed in a future release, please migrate away from it as soon as possible.
+
+### Example Usage
+
+```python
+from glean import Glean
+import os
+
+
+with Glean(
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+) as g_client:
+
+    res = g_client.indexing.people.count(datasource="<value>")
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `datasource`                                                        | *str*                                                               | :heavy_check_mark:                                                  | Datasource name for which user count is needed.                     |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Response
+
+**[models.GetUserCountResponse](../../models/getusercountresponse.md)**
+
+### Errors
+
+| Error Type        | Status Code       | Content Type      |
+| ----------------- | ----------------- | ----------------- |
+| errors.GleanError | 4XX, 5XX          | \*/\*             |
 
 ## index
 
@@ -26,7 +115,7 @@ import os
 
 
 with Glean(
-    bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     g_client.indexing.people.index(employee={
@@ -62,7 +151,7 @@ with Glean(
 | ----------------- | ----------------- | ----------------- |
 | errors.GleanError | 4XX, 5XX          | \*/\*             |
 
-## bulk_index_employees
+## bulk_index
 
 Replaces all the currently indexed employees using paginated batch API calls. Please refer to the [bulk indexing](https://developers.glean.com/docs/indexing_api_bulk_indexing/#bulk-upload-model) documentation for an explanation of how to use bulk endpoints.
 
@@ -74,10 +163,10 @@ import os
 
 
 with Glean(
-    bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
-    g_client.indexing.people.bulk_index_employees(upload_id="<id>", employees=[])
+    g_client.indexing.people.bulk_index(upload_id="<id>", employees=[])
 
     # Use the SDK ...
 
@@ -101,81 +190,6 @@ with Glean(
 | ----------------- | ----------------- | ----------------- |
 | errors.GleanError | 4XX, 5XX          | \*/\*             |
 
-## ~~bulk_index~~
-
-Bulk upload details of all the employees. This deletes all employees uploaded in the prior batch. SOON TO BE DEPRECATED in favor of /bulkindexemployees.
-
-> :warning: **DEPRECATED**: This will be removed in a future release, please migrate away from it as soon as possible.
-
-### Example Usage
-
-```python
-from glean import Glean
-import os
-
-
-with Glean(
-    bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
-) as g_client:
-
-    g_client.indexing.people.bulk_index(request={
-        "employees": [
-            {
-                "employee": {
-                    "email": "Kiera_Bashirian18@yahoo.com",
-                    "department": "<value>",
-                    "datasource_profiles": [
-                        {
-                            "datasource": "github",
-                            "handle": "<value>",
-                        },
-                        {
-                            "datasource": "github",
-                            "handle": "<value>",
-                        },
-                    ],
-                },
-            },
-            {
-                "employee": {
-                    "email": "Madie_Hayes48@gmail.com",
-                    "department": "<value>",
-                    "datasource_profiles": [
-                        {
-                            "datasource": "github",
-                            "handle": "<value>",
-                        },
-                        {
-                            "datasource": "github",
-                            "handle": "<value>",
-                        },
-                        {
-                            "datasource": "github",
-                            "handle": "<value>",
-                        },
-                    ],
-                },
-            },
-        ],
-    })
-
-    # Use the SDK ...
-
-```
-
-### Parameters
-
-| Parameter                                                                   | Type                                                                        | Required                                                                    | Description                                                                 |
-| --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| `request`                                                                   | [models.IndexEmployeeListRequest](../../models/indexemployeelistrequest.md) | :heavy_check_mark:                                                          | The request object to use for the request.                                  |
-| `retries`                                                                   | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)            | :heavy_minus_sign:                                                          | Configuration to override the default retry behavior of the client.         |
-
-### Errors
-
-| Error Type        | Status Code       | Content Type      |
-| ----------------- | ----------------- | ----------------- |
-| errors.GleanError | 4XX, 5XX          | \*/\*             |
-
 ## process_all_employees_and_teams
 
 Schedules the immediate processing of employees and teams uploaded through the indexing API. By default all uploaded people data will be processed asynchronously but this API can be used to schedule its processing on demand.
@@ -189,7 +203,7 @@ import os
 
 
 with Glean(
-    bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     g_client.indexing.people.process_all_employees_and_teams()
@@ -222,7 +236,7 @@ import os
 
 
 with Glean(
-    bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     g_client.indexing.people.delete(employee_email="<value>")
@@ -257,7 +271,7 @@ import os
 
 
 with Glean(
-    bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     g_client.indexing.people.index_team(team={
@@ -320,7 +334,7 @@ import os
 
 
 with Glean(
-    bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     g_client.indexing.people.delete_team(id="<id>")
@@ -354,7 +368,7 @@ import os
 
 
 with Glean(
-    bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     g_client.indexing.people.bulk_index_teams(upload_id="<id>", teams=[])
