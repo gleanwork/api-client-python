@@ -311,7 +311,7 @@ def test_collections_editcollectionitem():
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.client.collections.edit_item(
+        res = g_client.client.collections.update_item(
             collection_id=795203, item_id="<id>"
         )
         assert res is not None
@@ -334,7 +334,7 @@ def test_collections_getcollection():
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.client.collections.get(id=700347)
+        res = g_client.client.collections.retrieve(id=700347)
         assert res is not None
 
 
@@ -348,7 +348,7 @@ def test_collections_listcollections():
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.client.collections.list()
+        res = g_client.client.collections.list(request={})
         assert res is not None
 
 

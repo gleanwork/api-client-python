@@ -137,7 +137,7 @@ def test_answers_editanswer():
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.client.answers.edit(
+        res = g_client.client.answers.update(
             id=3,
             doc_id="ANSWERS_answer_3",
             question="Why is the sky blue?",
@@ -312,7 +312,12 @@ def test_answers_getanswer():
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.client.answers.get(id=3, doc_id="ANSWERS_answer_3")
+        res = g_client.client.answers.retrieve(
+            request={
+                "id": 3,
+                "doc_id": "ANSWERS_answer_3",
+            }
+        )
         assert res is not None
 
 
@@ -326,7 +331,7 @@ def test_answers_listanswers():
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.client.answers.list()
+        res = g_client.client.answers.list(request={})
         assert res is not None
 
 

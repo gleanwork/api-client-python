@@ -6,36 +6,6 @@ import (
 	"mockserver/internal/sdk/models/components"
 )
 
-type UpdateshortcutRequest struct {
-	// Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-	XGleanActAs *string `header:"style=simple,explode=false,name=X-Glean-ActAs"`
-	// Auth type being used to access the endpoint (should be non-empty only for global tokens).
-	XGleanAuthType *string `header:"style=simple,explode=false,name=X-Glean-Auth-Type"`
-	// Shortcut content. Id need to be specified for the shortcut.
-	UpdateShortcutRequest components.UpdateShortcutRequest `request:"mediaType=application/json"`
-}
-
-func (o *UpdateshortcutRequest) GetXGleanActAs() *string {
-	if o == nil {
-		return nil
-	}
-	return o.XGleanActAs
-}
-
-func (o *UpdateshortcutRequest) GetXGleanAuthType() *string {
-	if o == nil {
-		return nil
-	}
-	return o.XGleanAuthType
-}
-
-func (o *UpdateshortcutRequest) GetUpdateShortcutRequest() components.UpdateShortcutRequest {
-	if o == nil {
-		return components.UpdateShortcutRequest{}
-	}
-	return o.UpdateShortcutRequest
-}
-
 type UpdateshortcutResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// OK

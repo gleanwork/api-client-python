@@ -16,7 +16,7 @@ def test_client_documents_getdocpermissions():
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.client.documents.get_permissions()
+        res = g_client.client.documents.retrieve_permissions(request={})
         assert res is not None
 
 
@@ -30,7 +30,7 @@ def test_client_documents_getdocuments():
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.client.documents.get()
+        res = g_client.client.documents.retrieve()
         assert res is not None
 
 
@@ -44,8 +44,8 @@ def test_client_documents_getdocumentsbyfacets():
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.client.documents.get_by_facets(
-            get_documents_by_facets_request={
+        res = g_client.client.documents.retrieve_by_facets(
+            request={
                 "filter_sets": [
                     {
                         "filters": [

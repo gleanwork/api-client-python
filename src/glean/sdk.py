@@ -7,7 +7,6 @@ from .utils.logger import Logger, get_default_logger
 from .utils.retries import RetryConfig
 from glean import models, utils
 from glean._hooks import SDKHooks
-from glean.agents import Agents
 from glean.client import Client
 from glean.indexing import Indexing
 from glean.types import OptionalNullable, UNSET
@@ -24,10 +23,19 @@ class Glean(BaseSDK):
     This API is evolving fast. Glean will provide advance notice of any planned backwards incompatible changes along
     with a 6-month sunset period for anything that requires developers to adopt the new versions.
 
+    # API Clients
+    Official API clients for the Glean Indexing API are available in multiple languages:
+
+    - [Python](https://github.com/gleanwork/api-client-python)
+    - [TypeScript](https://github.com/gleanwork/api-client-typescript)
+    - [Go](https://github.com/gleanwork/api-client-go)
+    - [Java](https://github.com/gleanwork/api-client-java)
+
+    These API clients provide type-safe, idiomatic interfaces for working with Glean IndexingAPIs in your language of choice.
+
     """
 
     client: Client
-    agents: Agents
     indexing: Indexing
 
     def __init__(
@@ -135,7 +143,6 @@ class Glean(BaseSDK):
 
     def _init_sdks(self):
         self.client = Client(self.sdk_configuration)
-        self.agents = Agents(self.sdk_configuration)
         self.indexing = Indexing(self.sdk_configuration)
 
     def __enter__(self):

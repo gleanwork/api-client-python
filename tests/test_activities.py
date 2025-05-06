@@ -15,7 +15,7 @@ def test_activities_feedback():
     ) as g_client:
         assert g_client is not None
 
-        g_client.client.activities.report_activity(
+        g_client.client.activity.feedback(
             feedback1={
                 "tracking_tokens": [
                     "trackingTokens",

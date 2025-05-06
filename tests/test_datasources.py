@@ -49,5 +49,5 @@ def test_datasources_post_api_index_v1_getdatasourceconfig():
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.indexing.datasources.get_config(datasource="<value>")
+        res = g_client.indexing.datasources.retrieve_config(datasource="<value>")
         assert res is not None

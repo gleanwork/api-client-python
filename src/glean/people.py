@@ -3,13 +3,433 @@
 from .basesdk import BaseSDK
 from glean import errors, models, utils
 from glean._hooks import HookContext
-from glean.types import BaseModel, OptionalNullable, UNSET
+from glean.types import OptionalNullable, UNSET
 from glean.utils import get_security_from_env
-from typing import List, Mapping, Optional, Union, cast
+from typing import List, Mapping, Optional, Union
 from typing_extensions import deprecated
 
 
 class People(BaseSDK):
+    def debug(
+        self,
+        *,
+        datasource: str,
+        email: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.DebugUserResponse:
+        r"""Beta: Get user information
+
+        Gives various information that would help in debugging related to a particular user. Currently in beta, might undergo breaking changes without prior notice.
+
+        Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/docs/indexing_api/indexing_api_troubleshooting/) for more information.
+
+
+        :param datasource: The datasource to which the user belongs
+        :param email: Email ID of the user to get the status for
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.PostAPIIndexV1DebugDatasourceUserRequest(
+            datasource=datasource,
+            debug_user_request=models.DebugUserRequest(
+                email=email,
+            ),
+        )
+
+        req = self._build_request(
+            method="POST",
+            path="/api/index/v1/debug/{datasource}/user",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json; charset=UTF-8",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.debug_user_request,
+                False,
+                False,
+                "json",
+                models.DebugUserRequest,
+            ),
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                base_url=base_url or "",
+                operation_id="post_/api/index/v1/debug/{datasource}/user",
+                oauth2_scopes=[],
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            error_status_codes=["400", "401", "4XX", "5XX"],
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json; charset=UTF-8"):
+            return utils.unmarshal_json(http_res.text, models.DebugUserResponse)
+        if utils.match_response(http_res, ["400", "401", "4XX"], "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.GleanError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.GleanError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+
+        content_type = http_res.headers.get("Content-Type")
+        http_res_text = utils.stream_to_text(http_res)
+        raise errors.GleanError(
+            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
+            http_res.status_code,
+            http_res_text,
+            http_res,
+        )
+
+    async def debug_async(
+        self,
+        *,
+        datasource: str,
+        email: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.DebugUserResponse:
+        r"""Beta: Get user information
+
+        Gives various information that would help in debugging related to a particular user. Currently in beta, might undergo breaking changes without prior notice.
+
+        Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/docs/indexing_api/indexing_api_troubleshooting/) for more information.
+
+
+        :param datasource: The datasource to which the user belongs
+        :param email: Email ID of the user to get the status for
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.PostAPIIndexV1DebugDatasourceUserRequest(
+            datasource=datasource,
+            debug_user_request=models.DebugUserRequest(
+                email=email,
+            ),
+        )
+
+        req = self._build_request_async(
+            method="POST",
+            path="/api/index/v1/debug/{datasource}/user",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json; charset=UTF-8",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.debug_user_request,
+                False,
+                False,
+                "json",
+                models.DebugUserRequest,
+            ),
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                base_url=base_url or "",
+                operation_id="post_/api/index/v1/debug/{datasource}/user",
+                oauth2_scopes=[],
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            error_status_codes=["400", "401", "4XX", "5XX"],
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json; charset=UTF-8"):
+            return utils.unmarshal_json(http_res.text, models.DebugUserResponse)
+        if utils.match_response(http_res, ["400", "401", "4XX"], "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.GleanError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.GleanError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+
+        content_type = http_res.headers.get("Content-Type")
+        http_res_text = await utils.stream_to_text_async(http_res)
+        raise errors.GleanError(
+            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
+            http_res.status_code,
+            http_res_text,
+            http_res,
+        )
+
+    @deprecated(
+        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+    )
+    def count(
+        self,
+        *,
+        datasource: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.GetUserCountResponse:
+        r"""Get user count
+
+        Fetches user count for the specified custom datasource.
+
+        Tip: Use [/debug/{datasource}/status](https://developers.glean.com/docs/indexing_api/indexing_api_troubleshooting/#debug-datasource-status) for richer information.
+
+
+        :param datasource: Datasource name for which user count is needed.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.GetUserCountRequest(
+            datasource=datasource,
+        )
+
+        req = self._build_request(
+            method="POST",
+            path="/api/index/v1/getusercount",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request, False, False, "json", models.GetUserCountRequest
+            ),
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                base_url=base_url or "",
+                operation_id="post_/api/index/v1/getusercount",
+                oauth2_scopes=[],
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            error_status_codes=["400", "401", "409", "4XX", "5XX"],
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return utils.unmarshal_json(http_res.text, models.GetUserCountResponse)
+        if utils.match_response(http_res, ["400", "401", "409", "4XX"], "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.GleanError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.GleanError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+
+        content_type = http_res.headers.get("Content-Type")
+        http_res_text = utils.stream_to_text(http_res)
+        raise errors.GleanError(
+            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
+            http_res.status_code,
+            http_res_text,
+            http_res,
+        )
+
+    @deprecated(
+        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+    )
+    async def count_async(
+        self,
+        *,
+        datasource: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.GetUserCountResponse:
+        r"""Get user count
+
+        Fetches user count for the specified custom datasource.
+
+        Tip: Use [/debug/{datasource}/status](https://developers.glean.com/docs/indexing_api/indexing_api_troubleshooting/#debug-datasource-status) for richer information.
+
+
+        :param datasource: Datasource name for which user count is needed.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.GetUserCountRequest(
+            datasource=datasource,
+        )
+
+        req = self._build_request_async(
+            method="POST",
+            path="/api/index/v1/getusercount",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request, False, False, "json", models.GetUserCountRequest
+            ),
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                base_url=base_url or "",
+                operation_id="post_/api/index/v1/getusercount",
+                oauth2_scopes=[],
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+            ),
+            request=req,
+            error_status_codes=["400", "401", "409", "4XX", "5XX"],
+            retry_config=retry_config,
+        )
+
+        if utils.match_response(http_res, "200", "application/json"):
+            return utils.unmarshal_json(http_res.text, models.GetUserCountResponse)
+        if utils.match_response(http_res, ["400", "401", "409", "4XX"], "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.GleanError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.GleanError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+
+        content_type = http_res.headers.get("Content-Type")
+        http_res_text = await utils.stream_to_text_async(http_res)
+        raise errors.GleanError(
+            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
+            http_res.status_code,
+            http_res_text,
+            http_res,
+        )
+
     def index(
         self,
         *,
@@ -212,247 +632,18 @@ class People(BaseSDK):
             http_res,
         )
 
-    def bulk_index_employees(
-        self,
-        *,
-        upload_id: str,
-        employees: Union[
-            List[models.EmployeeInfoDefinition],
-            List[models.EmployeeInfoDefinitionTypedDict],
-        ],
-        is_first_page: Optional[bool] = None,
-        is_last_page: Optional[bool] = None,
-        force_restart_upload: Optional[bool] = None,
-        disable_stale_data_deletion_check: Optional[bool] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ):
-        r"""Bulk index employees
-
-        Replaces all the currently indexed employees using paginated batch API calls. Please refer to the [bulk indexing](https://developers.glean.com/docs/indexing_api_bulk_indexing/#bulk-upload-model) documentation for an explanation of how to use bulk endpoints.
-
-        :param upload_id: Unique id that must be used for this bulk upload instance
-        :param employees: Batch of employee information
-        :param is_first_page: true if this is the first page of the upload. Defaults to false
-        :param is_last_page: true if this is the last page of the upload. Defaults to false
-        :param force_restart_upload: Flag to discard previous upload attempts and start from scratch. Must be specified with isFirstPage=true
-        :param disable_stale_data_deletion_check: True if older employee data needs to be force deleted after the upload completes. Defaults to older data being deleted only if the percentage of data being deleted is less than 20%. This must only be set when `isLastPage = true`
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.BulkIndexEmployeesRequest(
-            upload_id=upload_id,
-            is_first_page=is_first_page,
-            is_last_page=is_last_page,
-            force_restart_upload=force_restart_upload,
-            employees=utils.get_pydantic_model(
-                employees, List[models.EmployeeInfoDefinition]
-            ),
-            disable_stale_data_deletion_check=disable_stale_data_deletion_check,
-        )
-
-        req = self._build_request(
-            method="POST",
-            path="/api/index/v1/bulkindexemployees",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=True,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="*/*",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.BulkIndexEmployeesRequest
-            ),
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                base_url=base_url or "",
-                operation_id="post_/api/index/v1/bulkindexemployees",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["400", "401", "409", "4XX", "5XX"],
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "*"):
-            return
-        if utils.match_response(http_res, ["400", "401", "409", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
-
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
-
-    async def bulk_index_employees_async(
-        self,
-        *,
-        upload_id: str,
-        employees: Union[
-            List[models.EmployeeInfoDefinition],
-            List[models.EmployeeInfoDefinitionTypedDict],
-        ],
-        is_first_page: Optional[bool] = None,
-        is_last_page: Optional[bool] = None,
-        force_restart_upload: Optional[bool] = None,
-        disable_stale_data_deletion_check: Optional[bool] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ):
-        r"""Bulk index employees
-
-        Replaces all the currently indexed employees using paginated batch API calls. Please refer to the [bulk indexing](https://developers.glean.com/docs/indexing_api_bulk_indexing/#bulk-upload-model) documentation for an explanation of how to use bulk endpoints.
-
-        :param upload_id: Unique id that must be used for this bulk upload instance
-        :param employees: Batch of employee information
-        :param is_first_page: true if this is the first page of the upload. Defaults to false
-        :param is_last_page: true if this is the last page of the upload. Defaults to false
-        :param force_restart_upload: Flag to discard previous upload attempts and start from scratch. Must be specified with isFirstPage=true
-        :param disable_stale_data_deletion_check: True if older employee data needs to be force deleted after the upload completes. Defaults to older data being deleted only if the percentage of data being deleted is less than 20%. This must only be set when `isLastPage = true`
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.BulkIndexEmployeesRequest(
-            upload_id=upload_id,
-            is_first_page=is_first_page,
-            is_last_page=is_last_page,
-            force_restart_upload=force_restart_upload,
-            employees=utils.get_pydantic_model(
-                employees, List[models.EmployeeInfoDefinition]
-            ),
-            disable_stale_data_deletion_check=disable_stale_data_deletion_check,
-        )
-
-        req = self._build_request_async(
-            method="POST",
-            path="/api/index/v1/bulkindexemployees",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=True,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="*/*",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.BulkIndexEmployeesRequest
-            ),
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                base_url=base_url or "",
-                operation_id="post_/api/index/v1/bulkindexemployees",
-                oauth2_scopes=[],
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            error_status_codes=["400", "401", "409", "4XX", "5XX"],
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "*"):
-            return
-        if utils.match_response(http_res, ["400", "401", "409", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
-
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
-
-    @deprecated(
-        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
-    )
     def bulk_index(
         self,
         *,
-        request: Union[
-            models.IndexEmployeeListRequest, models.IndexEmployeeListRequestTypedDict
-        ] = models.IndexEmployeeListRequest(),
+        upload_id: str,
+        employees: Union[
+            List[models.EmployeeInfoDefinition],
+            List[models.EmployeeInfoDefinitionTypedDict],
+        ],
+        is_first_page: Optional[bool] = None,
+        is_last_page: Optional[bool] = None,
+        force_restart_upload: Optional[bool] = None,
+        disable_stale_data_deletion_check: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -460,9 +651,14 @@ class People(BaseSDK):
     ):
         r"""Bulk index employees
 
-        Bulk upload details of all the employees. This deletes all employees uploaded in the prior batch. SOON TO BE DEPRECATED in favor of /bulkindexemployees.
+        Replaces all the currently indexed employees using paginated batch API calls. Please refer to the [bulk indexing](https://developers.glean.com/docs/indexing_api_bulk_indexing/#bulk-upload-model) documentation for an explanation of how to use bulk endpoints.
 
-        :param request: The request object to send.
+        :param upload_id: Unique id that must be used for this bulk upload instance
+        :param employees: Batch of employee information
+        :param is_first_page: true if this is the first page of the upload. Defaults to false
+        :param is_last_page: true if this is the last page of the upload. Defaults to false
+        :param force_restart_upload: Flag to discard previous upload attempts and start from scratch. Must be specified with isFirstPage=true
+        :param disable_stale_data_deletion_check: True if older employee data needs to be force deleted after the upload completes. Defaults to older data being deleted only if the percentage of data being deleted is less than 20%. This must only be set when `isLastPage = true`
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -478,13 +674,20 @@ class People(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.IndexEmployeeListRequest)
-        request = cast(models.IndexEmployeeListRequest, request)
+        request = models.BulkIndexEmployeesRequest(
+            upload_id=upload_id,
+            is_first_page=is_first_page,
+            is_last_page=is_last_page,
+            force_restart_upload=force_restart_upload,
+            employees=utils.get_pydantic_model(
+                employees, List[models.EmployeeInfoDefinition]
+            ),
+            disable_stale_data_deletion_check=disable_stale_data_deletion_check,
+        )
 
         req = self._build_request(
             method="POST",
-            path="/api/index/v1/indexemployeelist",
+            path="/api/index/v1/bulkindexemployees",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -496,7 +699,7 @@ class People(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.IndexEmployeeListRequest]
+                request, False, False, "json", models.BulkIndexEmployeesRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -512,7 +715,7 @@ class People(BaseSDK):
         http_res = self.do_request(
             hook_ctx=HookContext(
                 base_url=base_url or "",
-                operation_id="post_/api/index/v1/indexemployeelist",
+                operation_id="post_/api/index/v1/bulkindexemployees",
                 oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
@@ -545,15 +748,18 @@ class People(BaseSDK):
             http_res,
         )
 
-    @deprecated(
-        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
-    )
     async def bulk_index_async(
         self,
         *,
-        request: Union[
-            models.IndexEmployeeListRequest, models.IndexEmployeeListRequestTypedDict
-        ] = models.IndexEmployeeListRequest(),
+        upload_id: str,
+        employees: Union[
+            List[models.EmployeeInfoDefinition],
+            List[models.EmployeeInfoDefinitionTypedDict],
+        ],
+        is_first_page: Optional[bool] = None,
+        is_last_page: Optional[bool] = None,
+        force_restart_upload: Optional[bool] = None,
+        disable_stale_data_deletion_check: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -561,9 +767,14 @@ class People(BaseSDK):
     ):
         r"""Bulk index employees
 
-        Bulk upload details of all the employees. This deletes all employees uploaded in the prior batch. SOON TO BE DEPRECATED in favor of /bulkindexemployees.
+        Replaces all the currently indexed employees using paginated batch API calls. Please refer to the [bulk indexing](https://developers.glean.com/docs/indexing_api_bulk_indexing/#bulk-upload-model) documentation for an explanation of how to use bulk endpoints.
 
-        :param request: The request object to send.
+        :param upload_id: Unique id that must be used for this bulk upload instance
+        :param employees: Batch of employee information
+        :param is_first_page: true if this is the first page of the upload. Defaults to false
+        :param is_last_page: true if this is the last page of the upload. Defaults to false
+        :param force_restart_upload: Flag to discard previous upload attempts and start from scratch. Must be specified with isFirstPage=true
+        :param disable_stale_data_deletion_check: True if older employee data needs to be force deleted after the upload completes. Defaults to older data being deleted only if the percentage of data being deleted is less than 20%. This must only be set when `isLastPage = true`
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -579,13 +790,20 @@ class People(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.IndexEmployeeListRequest)
-        request = cast(models.IndexEmployeeListRequest, request)
+        request = models.BulkIndexEmployeesRequest(
+            upload_id=upload_id,
+            is_first_page=is_first_page,
+            is_last_page=is_last_page,
+            force_restart_upload=force_restart_upload,
+            employees=utils.get_pydantic_model(
+                employees, List[models.EmployeeInfoDefinition]
+            ),
+            disable_stale_data_deletion_check=disable_stale_data_deletion_check,
+        )
 
         req = self._build_request_async(
             method="POST",
-            path="/api/index/v1/indexemployeelist",
+            path="/api/index/v1/bulkindexemployees",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -597,7 +815,7 @@ class People(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.IndexEmployeeListRequest]
+                request, False, False, "json", models.BulkIndexEmployeesRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -613,7 +831,7 @@ class People(BaseSDK):
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
                 base_url=base_url or "",
-                operation_id="post_/api/index/v1/indexemployeelist",
+                operation_id="post_/api/index/v1/bulkindexemployees",
                 oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security

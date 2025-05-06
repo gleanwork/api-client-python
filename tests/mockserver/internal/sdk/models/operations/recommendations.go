@@ -6,36 +6,6 @@ import (
 	"mockserver/internal/sdk/models/components"
 )
 
-type RecommendationsRequest struct {
-	// Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-	XGleanActAs *string `header:"style=simple,explode=false,name=X-Glean-ActAs"`
-	// Auth type being used to access the endpoint (should be non-empty only for global tokens).
-	XGleanAuthType *string `header:"style=simple,explode=false,name=X-Glean-Auth-Type"`
-	// Recommendations request
-	RecommendationsRequest *components.RecommendationsRequest `request:"mediaType=application/json"`
-}
-
-func (o *RecommendationsRequest) GetXGleanActAs() *string {
-	if o == nil {
-		return nil
-	}
-	return o.XGleanActAs
-}
-
-func (o *RecommendationsRequest) GetXGleanAuthType() *string {
-	if o == nil {
-		return nil
-	}
-	return o.XGleanAuthType
-}
-
-func (o *RecommendationsRequest) GetRecommendationsRequest() *components.RecommendationsRequest {
-	if o == nil {
-		return nil
-	}
-	return o.RecommendationsRequest
-}
-
 type RecommendationsResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// OK

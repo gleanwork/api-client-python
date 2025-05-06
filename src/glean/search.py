@@ -3,18 +3,16 @@
 from .basesdk import BaseSDK
 from glean import errors, models, utils
 from glean._hooks import HookContext
-from glean.types import OptionalNullable, UNSET
+from glean.types import BaseModel, OptionalNullable, UNSET
 from glean.utils import get_security_from_env
-from typing import Any, List, Mapping, Optional, Union
+from typing import Any, Mapping, Optional, Union, cast
 
 
 class Search(BaseSDK):
-    def admin(
+    def query_as_admin(
         self,
         *,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
-        search_request: Optional[
+        request: Optional[
             Union[models.SearchRequest, models.SearchRequestTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -26,9 +24,7 @@ class Search(BaseSDK):
 
         Retrieves results for search query without respect for permissions. This is available only to privileged users.
 
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
-        :param search_request: Admin search request
+        :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -44,13 +40,9 @@ class Search(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.AdminsearchRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            search_request=utils.get_pydantic_model(
-                search_request, Optional[models.SearchRequest]
-            ),
-        )
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(request, Optional[models.SearchRequest])
+        request = cast(Optional[models.SearchRequest], request)
 
         req = self._build_request(
             method="POST",
@@ -66,11 +58,7 @@ class Search(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.search_request,
-                False,
-                True,
-                "json",
-                Optional[models.SearchRequest],
+                request, False, True, "json", Optional[models.SearchRequest]
             ),
             timeout_ms=timeout_ms,
         )
@@ -125,12 +113,10 @@ class Search(BaseSDK):
             http_res,
         )
 
-    async def admin_async(
+    async def query_as_admin_async(
         self,
         *,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
-        search_request: Optional[
+        request: Optional[
             Union[models.SearchRequest, models.SearchRequestTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -142,9 +128,7 @@ class Search(BaseSDK):
 
         Retrieves results for search query without respect for permissions. This is available only to privileged users.
 
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
-        :param search_request: Admin search request
+        :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -160,13 +144,9 @@ class Search(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.AdminsearchRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            search_request=utils.get_pydantic_model(
-                search_request, Optional[models.SearchRequest]
-            ),
-        )
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(request, Optional[models.SearchRequest])
+        request = cast(Optional[models.SearchRequest], request)
 
         req = self._build_request_async(
             method="POST",
@@ -182,11 +162,7 @@ class Search(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.search_request,
-                False,
-                True,
-                "json",
-                Optional[models.SearchRequest],
+                request, False, True, "json", Optional[models.SearchRequest]
             ),
             timeout_ms=timeout_ms,
         )
@@ -244,20 +220,9 @@ class Search(BaseSDK):
     def autocomplete(
         self,
         *,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
-        tracking_token: Optional[str] = None,
-        session_info: Optional[
-            Union[models.SessionInfo, models.SessionInfoTypedDict]
-        ] = None,
-        query: Optional[str] = None,
-        datasources_filter: Optional[List[str]] = None,
-        datasource: Optional[str] = None,
-        result_types: Optional[List[models.AutocompleteRequestResultType]] = None,
-        result_size: Optional[int] = None,
-        auth_tokens: Optional[
-            Union[List[models.AuthToken], List[models.AuthTokenTypedDict]]
-        ] = None,
+        request: Union[
+            models.AutocompleteRequest, models.AutocompleteRequestTypedDict
+        ] = models.AutocompleteRequest(),
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -267,16 +232,7 @@ class Search(BaseSDK):
 
         Retrieve query suggestions, operators and documents for the given partially typed query.
 
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
-        :param tracking_token:
-        :param session_info:
-        :param query: Partially typed query.
-        :param datasources_filter: Filter results to only those relevant to one or more datasources (e.g. jira, gdrive). Results are unfiltered if missing.
-        :param datasource: Filter to only return results relevant to the given datasource.
-        :param result_types: Filter to only return results of the given type(s). All types may be returned if omitted.
-        :param result_size: Maximum number of results to be returned. If no value is provided, the backend will cap at 200.
-        :param auth_tokens: Auth tokens which may be used for federated results.
+        :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -292,24 +248,9 @@ class Search(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.AutocompleteRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            autocomplete_request=models.AutocompleteRequest(
-                tracking_token=tracking_token,
-                session_info=utils.get_pydantic_model(
-                    session_info, Optional[models.SessionInfo]
-                ),
-                query=query,
-                datasources_filter=datasources_filter,
-                datasource=datasource,
-                result_types=result_types,
-                result_size=result_size,
-                auth_tokens=utils.get_pydantic_model(
-                    auth_tokens, Optional[List[models.AuthToken]]
-                ),
-            ),
-        )
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(request, models.AutocompleteRequest)
+        request = cast(models.AutocompleteRequest, request)
 
         req = self._build_request(
             method="POST",
@@ -325,11 +266,7 @@ class Search(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.autocomplete_request,
-                False,
-                False,
-                "json",
-                models.AutocompleteRequest,
+                request, False, True, "json", Optional[models.AutocompleteRequest]
             ),
             timeout_ms=timeout_ms,
         )
@@ -381,20 +318,9 @@ class Search(BaseSDK):
     async def autocomplete_async(
         self,
         *,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
-        tracking_token: Optional[str] = None,
-        session_info: Optional[
-            Union[models.SessionInfo, models.SessionInfoTypedDict]
-        ] = None,
-        query: Optional[str] = None,
-        datasources_filter: Optional[List[str]] = None,
-        datasource: Optional[str] = None,
-        result_types: Optional[List[models.AutocompleteRequestResultType]] = None,
-        result_size: Optional[int] = None,
-        auth_tokens: Optional[
-            Union[List[models.AuthToken], List[models.AuthTokenTypedDict]]
-        ] = None,
+        request: Union[
+            models.AutocompleteRequest, models.AutocompleteRequestTypedDict
+        ] = models.AutocompleteRequest(),
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -404,16 +330,7 @@ class Search(BaseSDK):
 
         Retrieve query suggestions, operators and documents for the given partially typed query.
 
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
-        :param tracking_token:
-        :param session_info:
-        :param query: Partially typed query.
-        :param datasources_filter: Filter results to only those relevant to one or more datasources (e.g. jira, gdrive). Results are unfiltered if missing.
-        :param datasource: Filter to only return results relevant to the given datasource.
-        :param result_types: Filter to only return results of the given type(s). All types may be returned if omitted.
-        :param result_size: Maximum number of results to be returned. If no value is provided, the backend will cap at 200.
-        :param auth_tokens: Auth tokens which may be used for federated results.
+        :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -429,24 +346,9 @@ class Search(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.AutocompleteRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            autocomplete_request=models.AutocompleteRequest(
-                tracking_token=tracking_token,
-                session_info=utils.get_pydantic_model(
-                    session_info, Optional[models.SessionInfo]
-                ),
-                query=query,
-                datasources_filter=datasources_filter,
-                datasource=datasource,
-                result_types=result_types,
-                result_size=result_size,
-                auth_tokens=utils.get_pydantic_model(
-                    auth_tokens, Optional[List[models.AuthToken]]
-                ),
-            ),
-        )
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(request, models.AutocompleteRequest)
+        request = cast(models.AutocompleteRequest, request)
 
         req = self._build_request_async(
             method="POST",
@@ -462,11 +364,7 @@ class Search(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.autocomplete_request,
-                False,
-                False,
-                "json",
-                models.AutocompleteRequest,
+                request, False, True, "json", Optional[models.AutocompleteRequest]
             ),
             timeout_ms=timeout_ms,
         )
@@ -515,19 +413,12 @@ class Search(BaseSDK):
             http_res,
         )
 
-    def get_feed(
+    def retrieve_feed(
         self,
         *,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
-        categories: Optional[List[models.FeedRequestCategory]] = None,
-        request_options: Optional[
-            Union[models.FeedRequestOptions, models.FeedRequestOptionsTypedDict]
-        ] = None,
-        timeout_millis: Optional[int] = None,
-        session_info: Optional[
-            Union[models.SessionInfo, models.SessionInfoTypedDict]
-        ] = None,
+        request: Union[
+            models.FeedRequest, models.FeedRequestTypedDict
+        ] = models.FeedRequest(),
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -537,12 +428,7 @@ class Search(BaseSDK):
 
         The personalized feed/home includes different types of contents including suggestions, recents, calendar events and many more.
 
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
-        :param categories: Categories of content requested. An allowlist gives flexibility to request content separately or together.
-        :param request_options:
-        :param timeout_millis: Timeout in milliseconds for the request. A `408` error will be returned if handling the request takes longer.
-        :param session_info:
+        :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -558,20 +444,9 @@ class Search(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.FeedRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            feed_request=models.FeedRequest(
-                categories=categories,
-                request_options=utils.get_pydantic_model(
-                    request_options, Optional[models.FeedRequestOptions]
-                ),
-                timeout_millis=timeout_millis,
-                session_info=utils.get_pydantic_model(
-                    session_info, Optional[models.SessionInfo]
-                ),
-            ),
-        )
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(request, models.FeedRequest)
+        request = cast(models.FeedRequest, request)
 
         req = self._build_request(
             method="POST",
@@ -587,7 +462,7 @@ class Search(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.feed_request, False, False, "json", models.FeedRequest
+                request, False, True, "json", Optional[models.FeedRequest]
             ),
             timeout_ms=timeout_ms,
         )
@@ -636,19 +511,12 @@ class Search(BaseSDK):
             http_res,
         )
 
-    async def get_feed_async(
+    async def retrieve_feed_async(
         self,
         *,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
-        categories: Optional[List[models.FeedRequestCategory]] = None,
-        request_options: Optional[
-            Union[models.FeedRequestOptions, models.FeedRequestOptionsTypedDict]
-        ] = None,
-        timeout_millis: Optional[int] = None,
-        session_info: Optional[
-            Union[models.SessionInfo, models.SessionInfoTypedDict]
-        ] = None,
+        request: Union[
+            models.FeedRequest, models.FeedRequestTypedDict
+        ] = models.FeedRequest(),
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -658,12 +526,7 @@ class Search(BaseSDK):
 
         The personalized feed/home includes different types of contents including suggestions, recents, calendar events and many more.
 
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
-        :param categories: Categories of content requested. An allowlist gives flexibility to request content separately or together.
-        :param request_options:
-        :param timeout_millis: Timeout in milliseconds for the request. A `408` error will be returned if handling the request takes longer.
-        :param session_info:
+        :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -679,20 +542,9 @@ class Search(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.FeedRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            feed_request=models.FeedRequest(
-                categories=categories,
-                request_options=utils.get_pydantic_model(
-                    request_options, Optional[models.FeedRequestOptions]
-                ),
-                timeout_millis=timeout_millis,
-                session_info=utils.get_pydantic_model(
-                    session_info, Optional[models.SessionInfo]
-                ),
-            ),
-        )
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(request, models.FeedRequest)
+        request = cast(models.FeedRequest, request)
 
         req = self._build_request_async(
             method="POST",
@@ -708,7 +560,7 @@ class Search(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.feed_request, False, False, "json", models.FeedRequest
+                request, False, True, "json", Optional[models.FeedRequest]
             ),
             timeout_ms=timeout_ms,
         )
@@ -760,9 +612,7 @@ class Search(BaseSDK):
     def recommendations(
         self,
         *,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
-        recommendations_request: Optional[
+        request: Optional[
             Union[models.RecommendationsRequest, models.RecommendationsRequestTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -774,9 +624,7 @@ class Search(BaseSDK):
 
         Retrieve recommended documents for the given URL or Glean Document ID.
 
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
-        :param recommendations_request: Recommendations request
+        :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -792,13 +640,9 @@ class Search(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.RecommendationsRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            recommendations_request=utils.get_pydantic_model(
-                recommendations_request, Optional[models.RecommendationsRequest]
-            ),
-        )
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(request, Optional[models.RecommendationsRequest])
+        request = cast(Optional[models.RecommendationsRequest], request)
 
         req = self._build_request(
             method="POST",
@@ -814,11 +658,7 @@ class Search(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.recommendations_request,
-                False,
-                True,
-                "json",
-                Optional[models.RecommendationsRequest],
+                request, False, True, "json", Optional[models.RecommendationsRequest]
             ),
             timeout_ms=timeout_ms,
         )
@@ -872,9 +712,7 @@ class Search(BaseSDK):
     async def recommendations_async(
         self,
         *,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
-        recommendations_request: Optional[
+        request: Optional[
             Union[models.RecommendationsRequest, models.RecommendationsRequestTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -886,9 +724,7 @@ class Search(BaseSDK):
 
         Retrieve recommended documents for the given URL or Glean Document ID.
 
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
-        :param recommendations_request: Recommendations request
+        :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -904,13 +740,9 @@ class Search(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.RecommendationsRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            recommendations_request=utils.get_pydantic_model(
-                recommendations_request, Optional[models.RecommendationsRequest]
-            ),
-        )
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(request, Optional[models.RecommendationsRequest])
+        request = cast(Optional[models.RecommendationsRequest], request)
 
         req = self._build_request_async(
             method="POST",
@@ -926,11 +758,7 @@ class Search(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.recommendations_request,
-                False,
-                True,
-                "json",
-                Optional[models.RecommendationsRequest],
+                request, False, True, "json", Optional[models.RecommendationsRequest]
             ),
             timeout_ms=timeout_ms,
         )
@@ -981,12 +809,10 @@ class Search(BaseSDK):
             http_res,
         )
 
-    def execute(
+    def query(
         self,
         *,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
-        search_request: Optional[
+        request: Optional[
             Union[models.SearchRequest, models.SearchRequestTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -998,9 +824,7 @@ class Search(BaseSDK):
 
         Retrieve results from the index for the given query and filters.
 
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
-        :param search_request: Search request
+        :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1016,13 +840,9 @@ class Search(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.SearchRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            search_request=utils.get_pydantic_model(
-                search_request, Optional[models.SearchRequest]
-            ),
-        )
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(request, Optional[models.SearchRequest])
+        request = cast(Optional[models.SearchRequest], request)
 
         req = self._build_request(
             method="POST",
@@ -1038,11 +858,7 @@ class Search(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.search_request,
-                False,
-                True,
-                "json",
-                Optional[models.SearchRequest],
+                request, False, True, "json", Optional[models.SearchRequest]
             ),
             timeout_ms=timeout_ms,
         )
@@ -1097,12 +913,10 @@ class Search(BaseSDK):
             http_res,
         )
 
-    async def execute_async(
+    async def query_async(
         self,
         *,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
-        search_request: Optional[
+        request: Optional[
             Union[models.SearchRequest, models.SearchRequestTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1114,9 +928,7 @@ class Search(BaseSDK):
 
         Retrieve results from the index for the given query and filters.
 
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
-        :param search_request: Search request
+        :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1132,13 +944,9 @@ class Search(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.SearchRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            search_request=utils.get_pydantic_model(
-                search_request, Optional[models.SearchRequest]
-            ),
-        )
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(request, Optional[models.SearchRequest])
+        request = cast(Optional[models.SearchRequest], request)
 
         req = self._build_request_async(
             method="POST",
@@ -1154,11 +962,7 @@ class Search(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.search_request,
-                False,
-                True,
-                "json",
-                Optional[models.SearchRequest],
+                request, False, True, "json", Optional[models.SearchRequest]
             ),
             timeout_ms=timeout_ms,
         )

@@ -407,7 +407,7 @@ class Datasources(BaseSDK):
             http_res,
         )
 
-    def get_config(
+    def retrieve_config(
         self,
         *,
         datasource: str,
@@ -503,7 +503,7 @@ class Datasources(BaseSDK):
             http_res,
         )
 
-    async def get_config_async(
+    async def retrieve_config_async(
         self,
         *,
         datasource: str,

@@ -367,14 +367,12 @@ func testGetchatGetchat0(w http.ResponseWriter, req *http.Request) {
 										},
 										Shortcut: &components.Shortcut{
 											InputAlias:     "<value>",
+											DestinationURL: types.String("https://tight-version.org/"),
 											Description:    types.String("however generally ew ha sonar usually slow guacamole"),
-											DestinationURL: "https://tight-version.org/",
-											CreatedBy:      "<value>",
-											CreateTime:     types.Int64(345296),
-											UpdatedBy:      types.String("<value>"),
-											UpdateTime:     types.Int64(68379),
 											Unlisted:       types.Bool(false),
 											URLTemplate:    types.String("<value>"),
+											CreateTime:     types.MustNewTimeFromString("345296"),
+											UpdateTime:     types.MustNewTimeFromString("68379"),
 										},
 										QuerySuggestions: &components.QuerySuggestionList{},
 										RelatedQuestion: &components.RelatedQuestion{

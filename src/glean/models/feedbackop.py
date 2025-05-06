@@ -3,42 +3,19 @@
 from __future__ import annotations
 from .feedback import Feedback, FeedbackTypedDict
 from glean.types import BaseModel
-from glean.utils import (
-    FieldMetadata,
-    HeaderMetadata,
-    QueryParamMetadata,
-    RequestMetadata,
-)
+from glean.utils import FieldMetadata, QueryParamMetadata, RequestMetadata
 import pydantic
 from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class FeedbackRequestTypedDict(TypedDict):
-    x_glean_act_as: NotRequired[str]
-    r"""Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens)."""
-    x_glean_auth_type: NotRequired[str]
-    r"""Auth type being used to access the endpoint (should be non-empty only for global tokens)."""
     feedback_query_parameter: NotRequired[str]
     r"""A URL encoded versions of Feedback. This is useful for requests."""
     feedback1: NotRequired[FeedbackTypedDict]
 
 
 class FeedbackRequest(BaseModel):
-    x_glean_act_as: Annotated[
-        Optional[str],
-        pydantic.Field(alias="X-Glean-ActAs"),
-        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
-    ] = None
-    r"""Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens)."""
-
-    x_glean_auth_type: Annotated[
-        Optional[str],
-        pydantic.Field(alias="X-Glean-Auth-Type"),
-        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
-    ] = None
-    r"""Auth type being used to access the endpoint (should be non-empty only for global tokens)."""
-
     feedback_query_parameter: Annotated[
         Optional[str],
         pydantic.Field(alias="feedback"),

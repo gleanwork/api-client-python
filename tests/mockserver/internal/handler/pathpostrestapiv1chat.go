@@ -19,23 +19,23 @@ func pathPostRestAPIV1Chat(dir *logging.HTTPFileDirectory, rt *tracking.RequestT
 		count := rt.GetRequestCount(test, instanceID)
 
 		switch fmt.Sprintf("%s[%d]", test, count) {
-		case "chat-defaultExample[0]":
-			dir.HandlerFunc("chat", testChatChatDefaultExample0)(w, req)
-		case "chat-gptAgentExample[0]":
-			dir.HandlerFunc("chat", testChatChatGptAgentExample0)(w, req)
-		case "chat-streamingExample[0]":
-			dir.HandlerFunc("chat", testChatChatStreamingExample0)(w, req)
-		case "chat-updateResponse[0]":
-			dir.HandlerFunc("chat", testChatChatUpdateResponse0)(w, req)
-		case "chat-citationResponse[0]":
-			dir.HandlerFunc("chat", testChatChatCitationResponse0)(w, req)
+		case "chatStream-defaultExample[0]":
+			dir.HandlerFunc("chatStream", testChatStreamChatStreamDefaultExample0)(w, req)
+		case "chatStream-gptAgentExample[0]":
+			dir.HandlerFunc("chatStream", testChatStreamChatStreamGptAgentExample0)(w, req)
+		case "chatStream-streamingExample[0]":
+			dir.HandlerFunc("chatStream", testChatStreamChatStreamStreamingExample0)(w, req)
+		case "chatStream-updateResponse[0]":
+			dir.HandlerFunc("chatStream", testChatStreamChatStreamUpdateResponse0)(w, req)
+		case "chatStream-citationResponse[0]":
+			dir.HandlerFunc("chatStream", testChatStreamChatStreamCitationResponse0)(w, req)
 		default:
 			http.Error(w, fmt.Sprintf("Unknown test: %s[%d]", test, count), http.StatusBadRequest)
 		}
 	}
 }
 
-func testChatChatDefaultExample0(w http.ResponseWriter, req *http.Request) {
+func testChatStreamChatStreamDefaultExample0(w http.ResponseWriter, req *http.Request) {
 	if err := assert.SecurityAuthorizationHeader(req, false, "Bearer"); err != nil {
 		log.Printf("assertion error: %s\n", err)
 		http.Error(w, err.Error(), http.StatusUnauthorized)
@@ -62,7 +62,7 @@ func testChatChatDefaultExample0(w http.ResponseWriter, req *http.Request) {
 	_, _ = w.Write(respBodyBytes)
 }
 
-func testChatChatGptAgentExample0(w http.ResponseWriter, req *http.Request) {
+func testChatStreamChatStreamGptAgentExample0(w http.ResponseWriter, req *http.Request) {
 	if err := assert.SecurityAuthorizationHeader(req, false, "Bearer"); err != nil {
 		log.Printf("assertion error: %s\n", err)
 		http.Error(w, err.Error(), http.StatusUnauthorized)
@@ -89,7 +89,7 @@ func testChatChatGptAgentExample0(w http.ResponseWriter, req *http.Request) {
 	_, _ = w.Write(respBodyBytes)
 }
 
-func testChatChatStreamingExample0(w http.ResponseWriter, req *http.Request) {
+func testChatStreamChatStreamStreamingExample0(w http.ResponseWriter, req *http.Request) {
 	if err := assert.SecurityAuthorizationHeader(req, false, "Bearer"); err != nil {
 		log.Printf("assertion error: %s\n", err)
 		http.Error(w, err.Error(), http.StatusUnauthorized)
@@ -116,7 +116,7 @@ func testChatChatStreamingExample0(w http.ResponseWriter, req *http.Request) {
 	_, _ = w.Write(respBodyBytes)
 }
 
-func testChatChatUpdateResponse0(w http.ResponseWriter, req *http.Request) {
+func testChatStreamChatStreamUpdateResponse0(w http.ResponseWriter, req *http.Request) {
 	if err := assert.SecurityAuthorizationHeader(req, false, "Bearer"); err != nil {
 		log.Printf("assertion error: %s\n", err)
 		http.Error(w, err.Error(), http.StatusUnauthorized)
@@ -143,7 +143,7 @@ func testChatChatUpdateResponse0(w http.ResponseWriter, req *http.Request) {
 	_, _ = w.Write(respBodyBytes)
 }
 
-func testChatChatCitationResponse0(w http.ResponseWriter, req *http.Request) {
+func testChatStreamChatStreamCitationResponse0(w http.ResponseWriter, req *http.Request) {
 	if err := assert.SecurityAuthorizationHeader(req, false, "Bearer"); err != nil {
 		log.Printf("assertion error: %s\n", err)
 		http.Error(w, err.Error(), http.StatusUnauthorized)

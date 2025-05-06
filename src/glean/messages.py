@@ -9,13 +9,11 @@ from typing import Mapping, Optional
 
 
 class Messages(BaseSDK):
-    def get(
+    def retrieve(
         self,
         *,
         id_type: models.IDType,
         id: str,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
         workspace_id: Optional[str] = None,
         direction: Optional[models.Direction] = None,
         timestamp_millis: Optional[int] = None,
@@ -33,8 +31,6 @@ class Messages(BaseSDK):
 
         :param id_type: Type of the id in the incoming request.
         :param id: ID corresponding to the requested idType. Note that channel and threads are represented by the underlying datasource's ID and conversations are represented by their document's ID.
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param workspace_id: Id for the for the workspace in case of multiple workspaces.
         :param direction: The direction of the results asked with respect to the reference timestamp. Missing field defaults to OLDER. Only applicable when using a message_id.
         :param timestamp_millis: Timestamp in millis of the reference message. Only applicable when using a message_id.
@@ -56,19 +52,15 @@ class Messages(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.MessagesRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            messages_request=models.MessagesRequest(
-                id_type=id_type,
-                id=id,
-                workspace_id=workspace_id,
-                direction=direction,
-                timestamp_millis=timestamp_millis,
-                include_root_message=include_root_message,
-                datasource=datasource,
-                datasource_instance_display_name=datasource_instance_display_name,
-            ),
+        request = models.MessagesRequest(
+            id_type=id_type,
+            id=id,
+            workspace_id=workspace_id,
+            direction=direction,
+            timestamp_millis=timestamp_millis,
+            include_root_message=include_root_message,
+            datasource=datasource,
+            datasource_instance_display_name=datasource_instance_display_name,
         )
 
         req = self._build_request(
@@ -85,7 +77,7 @@ class Messages(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.messages_request, False, False, "json", models.MessagesRequest
+                request, False, False, "json", models.MessagesRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -134,13 +126,11 @@ class Messages(BaseSDK):
             http_res,
         )
 
-    async def get_async(
+    async def retrieve_async(
         self,
         *,
         id_type: models.IDType,
         id: str,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
         workspace_id: Optional[str] = None,
         direction: Optional[models.Direction] = None,
         timestamp_millis: Optional[int] = None,
@@ -158,8 +148,6 @@ class Messages(BaseSDK):
 
         :param id_type: Type of the id in the incoming request.
         :param id: ID corresponding to the requested idType. Note that channel and threads are represented by the underlying datasource's ID and conversations are represented by their document's ID.
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param workspace_id: Id for the for the workspace in case of multiple workspaces.
         :param direction: The direction of the results asked with respect to the reference timestamp. Missing field defaults to OLDER. Only applicable when using a message_id.
         :param timestamp_millis: Timestamp in millis of the reference message. Only applicable when using a message_id.
@@ -181,19 +169,15 @@ class Messages(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.MessagesRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
-            messages_request=models.MessagesRequest(
-                id_type=id_type,
-                id=id,
-                workspace_id=workspace_id,
-                direction=direction,
-                timestamp_millis=timestamp_millis,
-                include_root_message=include_root_message,
-                datasource=datasource,
-                datasource_instance_display_name=datasource_instance_display_name,
-            ),
+        request = models.MessagesRequest(
+            id_type=id_type,
+            id=id,
+            workspace_id=workspace_id,
+            direction=direction,
+            timestamp_millis=timestamp_millis,
+            include_root_message=include_root_message,
+            datasource=datasource,
+            datasource_instance_display_name=datasource_instance_display_name,
         )
 
         req = self._build_request_async(
@@ -210,7 +194,7 @@ class Messages(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.messages_request, False, False, "json", models.MessagesRequest
+                request, False, False, "json", models.MessagesRequest
             ),
             timeout_ms=timeout_ms,
         )

@@ -14,1083 +14,39 @@ def test_client_chat_ask():
     pass
 
 
+@pytest.mark.skip(
+    reason="incomplete test found please make sure to address the following errors: [`workflow step chat-defaultExample.test referencing operation chat does not contain response body with content type text/plain`]"
+)
 def test_client_chat_chat_default_example():
-    test_http_client = create_test_http_client("chat-defaultExample")
-
-    with Glean(
-        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
-        client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
-    ) as g_client:
-        assert g_client is not None
-
-        res = g_client.client.chat.start(
-            messages=[
-                {
-                    "fragments": [
-                        models.ChatMessageFragment(
-                            text="What are the company holidays this year?",
-                        ),
-                    ],
-                },
-            ],
-            timeout_millis=30000,
-        )
-        assert res is not None
+    pass
 
 
+@pytest.mark.skip(
+    reason="incomplete test found please make sure to address the following errors: [`workflow step chat-gptAgentExample.test referencing operation chat does not contain response body with content type text/plain`]"
+)
 def test_client_chat_chat_gpt_agent_example():
-    test_http_client = create_test_http_client("chat-gptAgentExample")
-
-    with Glean(
-        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
-        client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
-    ) as g_client:
-        assert g_client is not None
-
-        res = g_client.client.chat.start(
-            messages=[
-                {
-                    "fragments": [
-                        models.ChatMessageFragment(
-                            text="Who was the first person to land on the moon?",
-                        ),
-                    ],
-                },
-            ],
-            agent_config={
-                "agent": models.AgentEnum.GPT,
-            },
-            timeout_millis=30000,
-        )
-        assert res is not None
+    pass
 
 
+@pytest.mark.skip(
+    reason="incomplete test found please make sure to address the following errors: [`workflow step chat-streamingExample.test referencing operation chat does not contain response body with content type text/plain`]"
+)
 def test_client_chat_chat_streaming_example():
-    test_http_client = create_test_http_client("chat-streamingExample")
-
-    with Glean(
-        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
-        client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
-    ) as g_client:
-        assert g_client is not None
-
-        res = g_client.client.chat.start(messages=[], timeout_millis=30000)
-        assert res is not None
+    pass
 
 
+@pytest.mark.skip(
+    reason="incomplete test found please make sure to address the following errors: [`workflow step chat-updateResponse.test referencing operation chat does not contain response body with content type text/plain`]"
+)
 def test_client_chat_chat_update_response():
-    test_http_client = create_test_http_client("chat-updateResponse")
-
-    with Glean(
-        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
-        client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
-    ) as g_client:
-        assert g_client is not None
-
-        res = g_client.client.chat.start(
-            messages=[
-                {
-                    "citations": [
-                        models.ChatMessageCitation(
-                            source_document=models.Document(
-                                metadata=models.DocumentMetadata(
-                                    datasource="datasource",
-                                    object_type="Feature Request",
-                                    container="container",
-                                    parent_id="JIRA_EN-1337",
-                                    mime_type="mimeType",
-                                    document_id="documentId",
-                                    create_time=parse_datetime(
-                                        "2000-01-23T04:56:07.000Z"
-                                    ),
-                                    update_time=parse_datetime(
-                                        "2000-01-23T04:56:07.000Z"
-                                    ),
-                                    author=models.Person(
-                                        name="name",
-                                        obfuscated_id="<id>",
-                                    ),
-                                    components=[
-                                        "Backend",
-                                        "Networking",
-                                    ],
-                                    status='["Done"]',
-                                    custom_data={
-                                        "someCustomField": models.CustomDataValue(),
-                                    },
-                                ),
-                            ),
-                            source_file=models.ChatFile(
-                                id="FILE_1234",
-                                url="www.google.com",
-                                name="sample.pdf",
-                            ),
-                            source_person=models.Person(
-                                name="George Clooney",
-                                obfuscated_id="abc123",
-                            ),
-                            reference_ranges=[
-                                models.ReferenceRange(
-                                    text_range=models.TextRange(
-                                        start_index=956313,
-                                        document=models.Document(),
-                                    ),
-                                    snippets=[
-                                        models.SearchResultSnippet(
-                                            snippet="snippet",
-                                            mime_type="mimeType",
-                                        ),
-                                    ],
-                                ),
-                            ],
-                        ),
-                        models.ChatMessageCitation(
-                            source_file=models.ChatFile(
-                                id="FILE_1234",
-                                url="www.google.com",
-                                name="sample.pdf",
-                            ),
-                            reference_ranges=[
-                                models.ReferenceRange(
-                                    snippets=[
-                                        models.SearchResultSnippet(
-                                            snippet="snippet",
-                                            mime_type="mimeType",
-                                        ),
-                                    ],
-                                ),
-                                models.ReferenceRange(
-                                    snippets=[
-                                        models.SearchResultSnippet(
-                                            snippet="snippet",
-                                            mime_type="mimeType",
-                                        ),
-                                    ],
-                                ),
-                            ],
-                        ),
-                        models.ChatMessageCitation(
-                            source_file=models.ChatFile(
-                                id="FILE_1234",
-                                url="www.google.com",
-                                name="sample.pdf",
-                            ),
-                            reference_ranges=[
-                                models.ReferenceRange(
-                                    snippets=[
-                                        models.SearchResultSnippet(
-                                            snippet="snippet",
-                                            mime_type="mimeType",
-                                        ),
-                                    ],
-                                ),
-                                models.ReferenceRange(
-                                    snippets=[
-                                        models.SearchResultSnippet(
-                                            snippet="snippet",
-                                            mime_type="mimeType",
-                                        ),
-                                    ],
-                                ),
-                                models.ReferenceRange(
-                                    snippets=[
-                                        models.SearchResultSnippet(
-                                            snippet="snippet",
-                                            mime_type="mimeType",
-                                        ),
-                                    ],
-                                ),
-                            ],
-                        ),
-                    ],
-                    "fragments": [
-                        models.ChatMessageFragment(
-                            structured_results=[
-                                models.StructuredResult(
-                                    person=models.Person(
-                                        name="George Clooney",
-                                        obfuscated_id="abc123",
-                                    ),
-                                    customer=models.Customer(
-                                        id="<id>",
-                                        company=models.Company(
-                                            name="<value>",
-                                            location="New York City",
-                                            industry="Finances",
-                                            about="Financial, software, data, and media company headquartered in Midtown Manhattan, New York City",
-                                        ),
-                                        poc=[],
-                                        notes="CIO is interested in trying out the product.",
-                                    ),
-                                    team=models.Team(
-                                        id="<id>",
-                                        name="<value>",
-                                        members=[],
-                                        datasource_profiles=[
-                                            models.DatasourceProfile(
-                                                datasource="github",
-                                                handle="<value>",
-                                            ),
-                                            models.DatasourceProfile(
-                                                datasource="github",
-                                                handle="<value>",
-                                            ),
-                                            models.DatasourceProfile(
-                                                datasource="github",
-                                                handle="<value>",
-                                            ),
-                                        ],
-                                    ),
-                                    custom_entity=models.CustomEntity(
-                                        roles=[],
-                                    ),
-                                    answer=models.Answer(
-                                        id=3,
-                                        doc_id="ANSWERS_answer_3",
-                                        question="Why is the sky blue?",
-                                        body_text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
-                                        audience_filters=[
-                                            models.FacetFilter(
-                                                field_name="type",
-                                                values=[
-                                                    models.FacetFilterValue(
-                                                        value="Spreadsheet",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                    models.FacetFilterValue(
-                                                        value="Presentation",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                ],
-                                            ),
-                                        ],
-                                        added_roles=[],
-                                        removed_roles=[],
-                                        combined_answer_text=models.StructuredText(
-                                            text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
-                                            structured_list=[],
-                                        ),
-                                        likes=models.AnswerLikes(
-                                            liked_by=[],
-                                            liked_by_user=False,
-                                            num_likes=798102,
-                                        ),
-                                        updated_by=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                        verification=models.Verification(
-                                            state=models.State.VERIFIED,
-                                            metadata=models.VerificationMetadata(
-                                                last_verifier=models.Person(
-                                                    name="George Clooney",
-                                                    obfuscated_id="abc123",
-                                                ),
-                                                reminders=[],
-                                                last_reminder=models.Reminder(
-                                                    assignee=models.Person(
-                                                        name="George Clooney",
-                                                        obfuscated_id="abc123",
-                                                    ),
-                                                    requestor=models.Person(
-                                                        name="George Clooney",
-                                                        obfuscated_id="abc123",
-                                                    ),
-                                                    remind_at=961967,
-                                                ),
-                                                candidate_verifiers=[],
-                                            ),
-                                        ),
-                                        board=models.AnswerBoard(
-                                            name="<value>",
-                                            description="not meh surprisingly too like embed dreamily verbally casement with",
-                                            audience_filters=[
-                                                models.FacetFilter(
-                                                    field_name="type",
-                                                    values=[
-                                                        models.FacetFilterValue(
-                                                            value="Spreadsheet",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                        models.FacetFilterValue(
-                                                            value="Presentation",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                    ],
-                                                ),
-                                            ],
-                                            id=756840,
-                                            creator=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                        ),
-                                        collections=[],
-                                    ),
-                                    extracted_qn_a=models.ExtractedQnA(
-                                        question_result=models.SearchResult(
-                                            title="title",
-                                            url="https://example.com/foo/bar",
-                                            native_app_url="slack://foo/bar",
-                                        ),
-                                    ),
-                                    meeting=models.Meeting(
-                                        attendees=models.CalendarAttendees(
-                                            people=[],
-                                        ),
-                                    ),
-                                    collection=models.Collection(
-                                        name="<value>",
-                                        description="daily forecast rapidly urgently slipper meh",
-                                        audience_filters=[
-                                            models.FacetFilter(
-                                                field_name="type",
-                                                values=[
-                                                    models.FacetFilterValue(
-                                                        value="Spreadsheet",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                    models.FacetFilterValue(
-                                                        value="Presentation",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                ],
-                                            ),
-                                        ],
-                                        id=308354,
-                                        children=[],
-                                    ),
-                                    answer_board=models.AnswerBoard(
-                                        name="<value>",
-                                        description="frantically highlight thunderbolt defrag aside stitcher furthermore zealous",
-                                        audience_filters=[
-                                            models.FacetFilter(
-                                                field_name="type",
-                                                values=[
-                                                    models.FacetFilterValue(
-                                                        value="Spreadsheet",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                    models.FacetFilterValue(
-                                                        value="Presentation",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                ],
-                                            ),
-                                        ],
-                                        id=87875,
-                                    ),
-                                    code=models.Code(
-                                        repo_name="scio",
-                                        file_name="README.md",
-                                    ),
-                                    query_suggestions=models.QuerySuggestionList(
-                                        suggestions=[],
-                                    ),
-                                    related_documents=[],
-                                    related_question=models.RelatedQuestion(
-                                        ranges=[],
-                                    ),
-                                ),
-                                models.StructuredResult(),
-                            ],
-                            query_suggestion=models.QuerySuggestion(
-                                query="app:github type:pull author:mortimer",
-                                label="Mortimer's PRs",
-                                datasource="github",
-                            ),
-                            file=models.ChatFile(
-                                id="FILE_1234",
-                                url="www.google.com",
-                                name="sample.pdf",
-                            ),
-                            action=models.ToolInfo(
-                                metadata=models.ToolMetadata(
-                                    type=models.ToolMetadataType.RETRIEVAL,
-                                    name="<value>",
-                                    display_name="Jarrell_Hudson65",
-                                    display_description="<value>",
-                                    object_name='["HR ticket","Email","Chat message"]',
-                                ),
-                            ),
-                        ),
-                        models.ChatMessageFragment(
-                            structured_results=[
-                                models.StructuredResult(),
-                                models.StructuredResult(),
-                                models.StructuredResult(),
-                            ],
-                            file=models.ChatFile(
-                                id="FILE_1234",
-                                url="www.google.com",
-                                name="sample.pdf",
-                            ),
-                            action=models.ToolInfo(
-                                metadata=models.ToolMetadata(
-                                    type=models.ToolMetadataType.RETRIEVAL,
-                                    name="<value>",
-                                    display_name="Bertha.Koepp",
-                                    display_description="<value>",
-                                    object_name='["HR ticket","Email","Chat message"]',
-                                ),
-                            ),
-                        ),
-                        models.ChatMessageFragment(
-                            structured_results=[
-                                models.StructuredResult(),
-                                models.StructuredResult(),
-                                models.StructuredResult(),
-                            ],
-                            file=models.ChatFile(
-                                id="FILE_1234",
-                                url="www.google.com",
-                                name="sample.pdf",
-                            ),
-                            action=models.ToolInfo(
-                                metadata=models.ToolMetadata(
-                                    type=models.ToolMetadataType.ACTION,
-                                    name="<value>",
-                                    display_name="Sheridan.Koss71",
-                                    display_description="<value>",
-                                    object_name='["HR ticket","Email","Chat message"]',
-                                ),
-                            ),
-                        ),
-                    ],
-                },
-                {
-                    "citations": [
-                        models.ChatMessageCitation(
-                            source_file=models.ChatFile(
-                                id="FILE_1234",
-                                url="www.google.com",
-                                name="sample.pdf",
-                            ),
-                            reference_ranges=[
-                                models.ReferenceRange(
-                                    snippets=[
-                                        models.SearchResultSnippet(
-                                            snippet="snippet",
-                                            mime_type="mimeType",
-                                        ),
-                                    ],
-                                ),
-                                models.ReferenceRange(
-                                    snippets=[
-                                        models.SearchResultSnippet(
-                                            snippet="snippet",
-                                            mime_type="mimeType",
-                                        ),
-                                    ],
-                                ),
-                                models.ReferenceRange(
-                                    snippets=[
-                                        models.SearchResultSnippet(
-                                            snippet="snippet",
-                                            mime_type="mimeType",
-                                        ),
-                                    ],
-                                ),
-                            ],
-                        ),
-                        models.ChatMessageCitation(
-                            source_file=models.ChatFile(
-                                id="FILE_1234",
-                                url="www.google.com",
-                                name="sample.pdf",
-                            ),
-                            reference_ranges=[
-                                models.ReferenceRange(
-                                    snippets=[
-                                        models.SearchResultSnippet(
-                                            snippet="snippet",
-                                            mime_type="mimeType",
-                                        ),
-                                    ],
-                                ),
-                                models.ReferenceRange(
-                                    snippets=[
-                                        models.SearchResultSnippet(
-                                            snippet="snippet",
-                                            mime_type="mimeType",
-                                        ),
-                                    ],
-                                ),
-                                models.ReferenceRange(
-                                    snippets=[
-                                        models.SearchResultSnippet(
-                                            snippet="snippet",
-                                            mime_type="mimeType",
-                                        ),
-                                    ],
-                                ),
-                            ],
-                        ),
-                    ],
-                    "fragments": [
-                        models.ChatMessageFragment(
-                            structured_results=[
-                                models.StructuredResult(),
-                                models.StructuredResult(),
-                                models.StructuredResult(),
-                            ],
-                            file=models.ChatFile(
-                                id="FILE_1234",
-                                url="www.google.com",
-                                name="sample.pdf",
-                            ),
-                            action=models.ToolInfo(
-                                metadata=models.ToolMetadata(
-                                    type=models.ToolMetadataType.RETRIEVAL,
-                                    name="<value>",
-                                    display_name="Zoe8",
-                                    display_description="<value>",
-                                    object_name='["HR ticket","Email","Chat message"]',
-                                ),
-                            ),
-                        ),
-                        models.ChatMessageFragment(
-                            structured_results=[
-                                models.StructuredResult(),
-                                models.StructuredResult(),
-                                models.StructuredResult(),
-                            ],
-                            file=models.ChatFile(
-                                id="FILE_1234",
-                                url="www.google.com",
-                                name="sample.pdf",
-                            ),
-                            action=models.ToolInfo(
-                                metadata=models.ToolMetadata(
-                                    type=models.ToolMetadataType.ACTION,
-                                    name="<value>",
-                                    display_name="Caterina70",
-                                    display_description="<value>",
-                                    object_name='["HR ticket","Email","Chat message"]',
-                                ),
-                            ),
-                        ),
-                    ],
-                },
-            ],
-            timeout_millis=30000,
-        )
-        assert res is not None
+    pass
 
 
+@pytest.mark.skip(
+    reason="incomplete test found please make sure to address the following errors: [`workflow step chat-citationResponse.test referencing operation chat does not contain response body with content type text/plain`]"
+)
 def test_client_chat_chat_citation_response():
-    test_http_client = create_test_http_client("chat-citationResponse")
-
-    with Glean(
-        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
-        client=test_http_client,
-        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
-    ) as g_client:
-        assert g_client is not None
-
-        res = g_client.client.chat.start(
-            messages=[
-                {
-                    "citations": [
-                        models.ChatMessageCitation(
-                            source_document=models.Document(
-                                metadata=models.DocumentMetadata(
-                                    datasource="datasource",
-                                    object_type="Feature Request",
-                                    container="container",
-                                    parent_id="JIRA_EN-1337",
-                                    mime_type="mimeType",
-                                    document_id="documentId",
-                                    create_time=parse_datetime(
-                                        "2000-01-23T04:56:07.000Z"
-                                    ),
-                                    update_time=parse_datetime(
-                                        "2000-01-23T04:56:07.000Z"
-                                    ),
-                                    author=models.Person(
-                                        name="name",
-                                        obfuscated_id="<id>",
-                                    ),
-                                    components=[
-                                        "Backend",
-                                        "Networking",
-                                    ],
-                                    status='["Done"]',
-                                    custom_data={
-                                        "someCustomField": models.CustomDataValue(),
-                                    },
-                                ),
-                            ),
-                            source_file=models.ChatFile(
-                                id="FILE_1234",
-                                url="www.google.com",
-                                name="sample.pdf",
-                            ),
-                            source_person=models.Person(
-                                name="George Clooney",
-                                obfuscated_id="abc123",
-                            ),
-                            reference_ranges=[
-                                models.ReferenceRange(
-                                    text_range=models.TextRange(
-                                        start_index=585176,
-                                        document=models.Document(),
-                                    ),
-                                    snippets=[
-                                        models.SearchResultSnippet(
-                                            snippet="snippet",
-                                            mime_type="mimeType",
-                                        ),
-                                    ],
-                                ),
-                                models.ReferenceRange(
-                                    snippets=[
-                                        models.SearchResultSnippet(
-                                            snippet="snippet",
-                                            mime_type="mimeType",
-                                        ),
-                                    ],
-                                ),
-                            ],
-                        ),
-                        models.ChatMessageCitation(
-                            source_file=models.ChatFile(
-                                id="FILE_1234",
-                                url="www.google.com",
-                                name="sample.pdf",
-                            ),
-                            reference_ranges=[
-                                models.ReferenceRange(
-                                    snippets=[
-                                        models.SearchResultSnippet(
-                                            snippet="snippet",
-                                            mime_type="mimeType",
-                                        ),
-                                    ],
-                                ),
-                            ],
-                        ),
-                        models.ChatMessageCitation(
-                            source_file=models.ChatFile(
-                                id="FILE_1234",
-                                url="www.google.com",
-                                name="sample.pdf",
-                            ),
-                            reference_ranges=[
-                                models.ReferenceRange(
-                                    snippets=[
-                                        models.SearchResultSnippet(
-                                            snippet="snippet",
-                                            mime_type="mimeType",
-                                        ),
-                                    ],
-                                ),
-                                models.ReferenceRange(
-                                    snippets=[
-                                        models.SearchResultSnippet(
-                                            snippet="snippet",
-                                            mime_type="mimeType",
-                                        ),
-                                    ],
-                                ),
-                            ],
-                        ),
-                    ],
-                    "fragments": [
-                        models.ChatMessageFragment(
-                            structured_results=[
-                                models.StructuredResult(
-                                    person=models.Person(
-                                        name="George Clooney",
-                                        obfuscated_id="abc123",
-                                    ),
-                                    customer=models.Customer(
-                                        id="<id>",
-                                        company=models.Company(
-                                            name="<value>",
-                                            location="New York City",
-                                            industry="Finances",
-                                            about="Financial, software, data, and media company headquartered in Midtown Manhattan, New York City",
-                                        ),
-                                        poc=[],
-                                        notes="CIO is interested in trying out the product.",
-                                    ),
-                                    team=models.Team(
-                                        id="<id>",
-                                        name="<value>",
-                                        members=[],
-                                        datasource_profiles=[
-                                            models.DatasourceProfile(
-                                                datasource="github",
-                                                handle="<value>",
-                                            ),
-                                            models.DatasourceProfile(
-                                                datasource="github",
-                                                handle="<value>",
-                                            ),
-                                        ],
-                                    ),
-                                    custom_entity=models.CustomEntity(
-                                        roles=[],
-                                    ),
-                                    answer=models.Answer(
-                                        id=3,
-                                        doc_id="ANSWERS_answer_3",
-                                        question="Why is the sky blue?",
-                                        body_text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
-                                        audience_filters=[
-                                            models.FacetFilter(
-                                                field_name="type",
-                                                values=[
-                                                    models.FacetFilterValue(
-                                                        value="Spreadsheet",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                    models.FacetFilterValue(
-                                                        value="Presentation",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                ],
-                                            ),
-                                        ],
-                                        added_roles=[],
-                                        removed_roles=[],
-                                        combined_answer_text=models.StructuredText(
-                                            text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
-                                            structured_list=[],
-                                        ),
-                                        likes=models.AnswerLikes(
-                                            liked_by=[],
-                                            liked_by_user=True,
-                                            num_likes=294779,
-                                        ),
-                                        updated_by=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                        verification=models.Verification(
-                                            state=models.State.DEPRECATED,
-                                            metadata=models.VerificationMetadata(
-                                                last_verifier=models.Person(
-                                                    name="George Clooney",
-                                                    obfuscated_id="abc123",
-                                                ),
-                                                reminders=[],
-                                                last_reminder=models.Reminder(
-                                                    assignee=models.Person(
-                                                        name="George Clooney",
-                                                        obfuscated_id="abc123",
-                                                    ),
-                                                    requestor=models.Person(
-                                                        name="George Clooney",
-                                                        obfuscated_id="abc123",
-                                                    ),
-                                                    remind_at=881610,
-                                                ),
-                                                candidate_verifiers=[],
-                                            ),
-                                        ),
-                                        board=models.AnswerBoard(
-                                            name="<value>",
-                                            description="slip receptor fork",
-                                            audience_filters=[
-                                                models.FacetFilter(
-                                                    field_name="type",
-                                                    values=[
-                                                        models.FacetFilterValue(
-                                                            value="Spreadsheet",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                        models.FacetFilterValue(
-                                                            value="Presentation",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                    ],
-                                                ),
-                                            ],
-                                            id=71022,
-                                            creator=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                        ),
-                                        collections=[],
-                                    ),
-                                    extracted_qn_a=models.ExtractedQnA(
-                                        question_result=models.SearchResult(
-                                            title="title",
-                                            url="https://example.com/foo/bar",
-                                            native_app_url="slack://foo/bar",
-                                        ),
-                                    ),
-                                    meeting=models.Meeting(
-                                        attendees=models.CalendarAttendees(
-                                            people=[],
-                                        ),
-                                    ),
-                                    collection=models.Collection(
-                                        name="<value>",
-                                        description="notarize equally hospitable",
-                                        audience_filters=[
-                                            models.FacetFilter(
-                                                field_name="type",
-                                                values=[
-                                                    models.FacetFilterValue(
-                                                        value="Spreadsheet",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                    models.FacetFilterValue(
-                                                        value="Presentation",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                ],
-                                            ),
-                                        ],
-                                        id=889117,
-                                        children=[],
-                                    ),
-                                    answer_board=models.AnswerBoard(
-                                        name="<value>",
-                                        description="e-mail outstanding among voluntarily fooey badly beautifully",
-                                        audience_filters=[
-                                            models.FacetFilter(
-                                                field_name="type",
-                                                values=[
-                                                    models.FacetFilterValue(
-                                                        value="Spreadsheet",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                    models.FacetFilterValue(
-                                                        value="Presentation",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                ],
-                                            ),
-                                        ],
-                                        id=900364,
-                                    ),
-                                    code=models.Code(
-                                        repo_name="scio",
-                                        file_name="README.md",
-                                    ),
-                                    query_suggestions=models.QuerySuggestionList(
-                                        suggestions=[],
-                                    ),
-                                    related_documents=[],
-                                    related_question=models.RelatedQuestion(
-                                        ranges=[],
-                                    ),
-                                ),
-                            ],
-                            query_suggestion=models.QuerySuggestion(
-                                query="app:github type:pull author:mortimer",
-                                label="Mortimer's PRs",
-                                datasource="github",
-                            ),
-                            file=models.ChatFile(
-                                id="FILE_1234",
-                                url="www.google.com",
-                                name="sample.pdf",
-                            ),
-                            action=models.ToolInfo(
-                                metadata=models.ToolMetadata(
-                                    type=models.ToolMetadataType.ACTION,
-                                    name="<value>",
-                                    display_name="Jamil_Koss",
-                                    display_description="<value>",
-                                    object_name='["HR ticket","Email","Chat message"]',
-                                ),
-                            ),
-                        ),
-                        models.ChatMessageFragment(
-                            structured_results=[
-                                models.StructuredResult(),
-                                models.StructuredResult(),
-                            ],
-                            file=models.ChatFile(
-                                id="FILE_1234",
-                                url="www.google.com",
-                                name="sample.pdf",
-                            ),
-                            action=models.ToolInfo(
-                                metadata=models.ToolMetadata(
-                                    type=models.ToolMetadataType.RETRIEVAL,
-                                    name="<value>",
-                                    display_name="Julien_Okuneva",
-                                    display_description="<value>",
-                                    object_name='["HR ticket","Email","Chat message"]',
-                                ),
-                            ),
-                        ),
-                        models.ChatMessageFragment(
-                            structured_results=[
-                                models.StructuredResult(),
-                                models.StructuredResult(),
-                            ],
-                            file=models.ChatFile(
-                                id="FILE_1234",
-                                url="www.google.com",
-                                name="sample.pdf",
-                            ),
-                            action=models.ToolInfo(
-                                metadata=models.ToolMetadata(
-                                    type=models.ToolMetadataType.RETRIEVAL,
-                                    name="<value>",
-                                    display_name="Eulalia31",
-                                    display_description="<value>",
-                                    object_name='["HR ticket","Email","Chat message"]',
-                                ),
-                            ),
-                        ),
-                    ],
-                },
-                {
-                    "citations": [
-                        models.ChatMessageCitation(
-                            source_file=models.ChatFile(
-                                id="FILE_1234",
-                                url="www.google.com",
-                                name="sample.pdf",
-                            ),
-                            reference_ranges=[
-                                models.ReferenceRange(
-                                    snippets=[
-                                        models.SearchResultSnippet(
-                                            snippet="snippet",
-                                            mime_type="mimeType",
-                                        ),
-                                    ],
-                                ),
-                                models.ReferenceRange(
-                                    snippets=[
-                                        models.SearchResultSnippet(
-                                            snippet="snippet",
-                                            mime_type="mimeType",
-                                        ),
-                                    ],
-                                ),
-                            ],
-                        ),
-                        models.ChatMessageCitation(
-                            source_file=models.ChatFile(
-                                id="FILE_1234",
-                                url="www.google.com",
-                                name="sample.pdf",
-                            ),
-                            reference_ranges=[
-                                models.ReferenceRange(
-                                    snippets=[
-                                        models.SearchResultSnippet(
-                                            snippet="snippet",
-                                            mime_type="mimeType",
-                                        ),
-                                    ],
-                                ),
-                            ],
-                        ),
-                        models.ChatMessageCitation(
-                            source_file=models.ChatFile(
-                                id="FILE_1234",
-                                url="www.google.com",
-                                name="sample.pdf",
-                            ),
-                            reference_ranges=[
-                                models.ReferenceRange(
-                                    snippets=[
-                                        models.SearchResultSnippet(
-                                            snippet="snippet",
-                                            mime_type="mimeType",
-                                        ),
-                                    ],
-                                ),
-                                models.ReferenceRange(
-                                    snippets=[
-                                        models.SearchResultSnippet(
-                                            snippet="snippet",
-                                            mime_type="mimeType",
-                                        ),
-                                    ],
-                                ),
-                                models.ReferenceRange(
-                                    snippets=[
-                                        models.SearchResultSnippet(
-                                            snippet="snippet",
-                                            mime_type="mimeType",
-                                        ),
-                                    ],
-                                ),
-                            ],
-                        ),
-                    ],
-                    "fragments": [
-                        models.ChatMessageFragment(
-                            structured_results=[
-                                models.StructuredResult(),
-                                models.StructuredResult(),
-                            ],
-                            file=models.ChatFile(
-                                id="FILE_1234",
-                                url="www.google.com",
-                                name="sample.pdf",
-                            ),
-                            action=models.ToolInfo(
-                                metadata=models.ToolMetadata(
-                                    type=models.ToolMetadataType.RETRIEVAL,
-                                    name="<value>",
-                                    display_name="Eladio82",
-                                    display_description="<value>",
-                                    object_name='["HR ticket","Email","Chat message"]',
-                                ),
-                            ),
-                        ),
-                        models.ChatMessageFragment(
-                            structured_results=[
-                                models.StructuredResult(),
-                            ],
-                            file=models.ChatFile(
-                                id="FILE_1234",
-                                url="www.google.com",
-                                name="sample.pdf",
-                            ),
-                            action=models.ToolInfo(
-                                metadata=models.ToolMetadata(
-                                    type=models.ToolMetadataType.ACTION,
-                                    name="<value>",
-                                    display_name="Jeanne52",
-                                    display_description="<value>",
-                                    object_name='["HR ticket","Email","Chat message"]',
-                                ),
-                            ),
-                        ),
-                        models.ChatMessageFragment(
-                            structured_results=[
-                                models.StructuredResult(),
-                            ],
-                            file=models.ChatFile(
-                                id="FILE_1234",
-                                url="www.google.com",
-                                name="sample.pdf",
-                            ),
-                            action=models.ToolInfo(
-                                metadata=models.ToolMetadata(
-                                    type=models.ToolMetadataType.RETRIEVAL,
-                                    name="<value>",
-                                    display_name="Naomie.Corkery",
-                                    display_description="<value>",
-                                    object_name='["HR ticket","Email","Chat message"]',
-                                ),
-                            ),
-                        ),
-                    ],
-                },
-            ],
-            timeout_millis=30000,
-        )
-        assert res is not None
+    pass
 
 
 def test_client_chat_deleteallchats():
@@ -1134,7 +90,7 @@ def test_client_chat_getchat():
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.client.chat.get(id="<id>")
+        res = g_client.client.chat.retrieve(id="<id>")
         assert res is not None
 
 
@@ -1162,7 +118,7 @@ def test_client_chat_getchatapplication():
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.client.chat.get_application(id="<id>")
+        res = g_client.client.chat.retrieve_application(id="<id>")
         assert res is not None
 
 
@@ -1176,7 +132,7 @@ def test_client_chat_getchatfiles():
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.client.chat.get_files(
+        res = g_client.client.chat.retrieve_files(
             file_ids=[
                 "<value>",
                 "<value>",
@@ -1200,3 +156,1086 @@ def test_client_chat_deletechatfiles():
                 "<value>",
             ]
         )
+
+
+def test_client_chat_chat_stream_default_example():
+    test_http_client = create_test_http_client("chatStream-defaultExample")
+
+    with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
+        client=test_http_client,
+        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
+    ) as g_client:
+        assert g_client is not None
+
+        res = g_client.client.chat.create_stream(
+            messages=[
+                {
+                    "fragments": [
+                        models.ChatMessageFragment(
+                            text="What are the company holidays this year?",
+                        ),
+                    ],
+                },
+            ],
+            timeout_millis=30000,
+        )
+        assert res is not None
+
+
+def test_client_chat_chat_stream_gpt_agent_example():
+    test_http_client = create_test_http_client("chatStream-gptAgentExample")
+
+    with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
+        client=test_http_client,
+        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
+    ) as g_client:
+        assert g_client is not None
+
+        res = g_client.client.chat.create_stream(
+            messages=[
+                {
+                    "fragments": [
+                        models.ChatMessageFragment(
+                            text="Who was the first person to land on the moon?",
+                        ),
+                    ],
+                },
+            ],
+            agent_config={
+                "agent": models.AgentEnum.GPT,
+            },
+            timeout_millis=30000,
+        )
+        assert res is not None
+
+
+def test_client_chat_chat_stream_streaming_example():
+    test_http_client = create_test_http_client("chatStream-streamingExample")
+
+    with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
+        client=test_http_client,
+        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
+    ) as g_client:
+        assert g_client is not None
+
+        res = g_client.client.chat.create_stream(messages=[], timeout_millis=30000)
+        assert res is not None
+
+
+def test_client_chat_chat_stream_update_response():
+    test_http_client = create_test_http_client("chatStream-updateResponse")
+
+    with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
+        client=test_http_client,
+        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
+    ) as g_client:
+        assert g_client is not None
+
+        res = g_client.client.chat.create_stream(
+            messages=[
+                {
+                    "citations": [
+                        models.ChatMessageCitation(
+                            source_document=models.Document(
+                                metadata=models.DocumentMetadata(
+                                    datasource="datasource",
+                                    object_type="Feature Request",
+                                    container="container",
+                                    parent_id="JIRA_EN-1337",
+                                    mime_type="mimeType",
+                                    document_id="documentId",
+                                    create_time=parse_datetime(
+                                        "2000-01-23T04:56:07.000Z"
+                                    ),
+                                    update_time=parse_datetime(
+                                        "2000-01-23T04:56:07.000Z"
+                                    ),
+                                    author=models.Person(
+                                        name="name",
+                                        obfuscated_id="<id>",
+                                    ),
+                                    components=[
+                                        "Backend",
+                                        "Networking",
+                                    ],
+                                    status='["Done"]',
+                                    custom_data={
+                                        "someCustomField": models.CustomDataValue(),
+                                    },
+                                ),
+                            ),
+                            source_file=models.ChatFile(
+                                id="FILE_1234",
+                                url="www.google.com",
+                                name="sample.pdf",
+                            ),
+                            source_person=models.Person(
+                                name="George Clooney",
+                                obfuscated_id="abc123",
+                            ),
+                            reference_ranges=[
+                                models.ReferenceRange(
+                                    text_range=models.TextRange(
+                                        start_index=485333,
+                                        document=models.Document(),
+                                    ),
+                                    snippets=[
+                                        models.SearchResultSnippet(
+                                            snippet="snippet",
+                                            mime_type="mimeType",
+                                        ),
+                                    ],
+                                ),
+                                models.ReferenceRange(
+                                    snippets=[
+                                        models.SearchResultSnippet(
+                                            snippet="snippet",
+                                            mime_type="mimeType",
+                                        ),
+                                    ],
+                                ),
+                                models.ReferenceRange(
+                                    snippets=[
+                                        models.SearchResultSnippet(
+                                            snippet="snippet",
+                                            mime_type="mimeType",
+                                        ),
+                                    ],
+                                ),
+                            ],
+                        ),
+                    ],
+                    "fragments": [
+                        models.ChatMessageFragment(
+                            structured_results=[
+                                models.StructuredResult(
+                                    person=models.Person(
+                                        name="George Clooney",
+                                        obfuscated_id="abc123",
+                                    ),
+                                    customer=models.Customer(
+                                        id="<id>",
+                                        company=models.Company(
+                                            name="<value>",
+                                            location="New York City",
+                                            industry="Finances",
+                                            about="Financial, software, data, and media company headquartered in Midtown Manhattan, New York City",
+                                        ),
+                                        poc=[],
+                                        notes="CIO is interested in trying out the product.",
+                                    ),
+                                    team=models.Team(
+                                        id="<id>",
+                                        name="<value>",
+                                        members=[],
+                                        custom_fields=[],
+                                        datasource_profiles=[
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                        ],
+                                    ),
+                                    custom_entity=models.CustomEntity(
+                                        roles=[],
+                                    ),
+                                    answer=models.Answer(
+                                        id=3,
+                                        doc_id="ANSWERS_answer_3",
+                                        question="Why is the sky blue?",
+                                        body_text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        added_roles=[],
+                                        removed_roles=[],
+                                        combined_answer_text=models.StructuredText(
+                                            text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                                            structured_list=[],
+                                        ),
+                                        likes=models.AnswerLikes(
+                                            liked_by=[],
+                                            liked_by_user=False,
+                                            num_likes=490380,
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        verification=models.Verification(
+                                            state=models.State.VERIFIED,
+                                            metadata=models.VerificationMetadata(
+                                                last_verifier=models.Person(
+                                                    name="George Clooney",
+                                                    obfuscated_id="abc123",
+                                                ),
+                                                reminders=[],
+                                                last_reminder=models.Reminder(
+                                                    assignee=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                    requestor=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                    remind_at=997948,
+                                                ),
+                                                candidate_verifiers=[],
+                                            ),
+                                        ),
+                                        board=models.AnswerBoard(
+                                            name="<value>",
+                                            description="stage atop minion which best sturdy enormously afore circumference duh",
+                                            audience_filters=[
+                                                models.FacetFilter(
+                                                    field_name="type",
+                                                    values=[
+                                                        models.FacetFilterValue(
+                                                            value="Spreadsheet",
+                                                            relation_type=models.RelationType.EQUALS,
+                                                        ),
+                                                        models.FacetFilterValue(
+                                                            value="Presentation",
+                                                            relation_type=models.RelationType.EQUALS,
+                                                        ),
+                                                    ],
+                                                ),
+                                            ],
+                                            id=647529,
+                                            creator=models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
+                                        ),
+                                        collections=[],
+                                    ),
+                                    extracted_qn_a=models.ExtractedQnA(
+                                        question_result=models.SearchResult(
+                                            title="title",
+                                            url="https://example.com/foo/bar",
+                                            native_app_url="slack://foo/bar",
+                                        ),
+                                    ),
+                                    meeting=models.Meeting(
+                                        attendees=models.CalendarAttendees(
+                                            people=[],
+                                        ),
+                                    ),
+                                    collection=models.Collection(
+                                        name="<value>",
+                                        description="veg welcome boss manage freely",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        id=79387,
+                                    ),
+                                    answer_board=models.AnswerBoard(
+                                        name="<value>",
+                                        description="after er grouchy stained plus buck",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        id=668238,
+                                    ),
+                                    code=models.Code(
+                                        repo_name="scio",
+                                        file_name="README.md",
+                                    ),
+                                    shortcut=models.Shortcut(
+                                        input_alias="<value>",
+                                        created_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        destination_document=models.Document(),
+                                    ),
+                                    query_suggestions=models.QuerySuggestionList(
+                                        suggestions=[],
+                                    ),
+                                    related_documents=[],
+                                    related_question=models.RelatedQuestion(
+                                        ranges=[],
+                                    ),
+                                ),
+                            ],
+                            query_suggestion=models.QuerySuggestion(
+                                query="app:github type:pull author:mortimer",
+                                label="Mortimer's PRs",
+                                datasource="github",
+                            ),
+                            file=models.ChatFile(
+                                id="FILE_1234",
+                                url="www.google.com",
+                                name="sample.pdf",
+                            ),
+                            action=models.ToolInfo(
+                                metadata=models.ToolMetadata(
+                                    type=models.ToolMetadataType.RETRIEVAL,
+                                    name="<value>",
+                                    display_name="Brianne.OReilly19",
+                                    display_description="<value>",
+                                    object_name='["HR ticket","Email","Chat message"]',
+                                ),
+                            ),
+                        ),
+                        models.ChatMessageFragment(
+                            structured_results=[
+                                models.StructuredResult(),
+                            ],
+                            file=models.ChatFile(
+                                id="FILE_1234",
+                                url="www.google.com",
+                                name="sample.pdf",
+                            ),
+                            action=models.ToolInfo(
+                                metadata=models.ToolMetadata(
+                                    type=models.ToolMetadataType.ACTION,
+                                    name="<value>",
+                                    display_name="Elinor_Champlin",
+                                    display_description="<value>",
+                                    object_name='["HR ticket","Email","Chat message"]',
+                                ),
+                            ),
+                        ),
+                        models.ChatMessageFragment(
+                            structured_results=[
+                                models.StructuredResult(),
+                                models.StructuredResult(),
+                                models.StructuredResult(),
+                            ],
+                            file=models.ChatFile(
+                                id="FILE_1234",
+                                url="www.google.com",
+                                name="sample.pdf",
+                            ),
+                            action=models.ToolInfo(
+                                metadata=models.ToolMetadata(
+                                    type=models.ToolMetadataType.RETRIEVAL,
+                                    name="<value>",
+                                    display_name="Chanel.Kshlerin",
+                                    display_description="<value>",
+                                    object_name='["HR ticket","Email","Chat message"]',
+                                ),
+                            ),
+                        ),
+                    ],
+                },
+                {
+                    "citations": [
+                        models.ChatMessageCitation(
+                            source_file=models.ChatFile(
+                                id="FILE_1234",
+                                url="www.google.com",
+                                name="sample.pdf",
+                            ),
+                            reference_ranges=[
+                                models.ReferenceRange(
+                                    snippets=[
+                                        models.SearchResultSnippet(
+                                            snippet="snippet",
+                                            mime_type="mimeType",
+                                        ),
+                                    ],
+                                ),
+                                models.ReferenceRange(
+                                    snippets=[
+                                        models.SearchResultSnippet(
+                                            snippet="snippet",
+                                            mime_type="mimeType",
+                                        ),
+                                    ],
+                                ),
+                            ],
+                        ),
+                        models.ChatMessageCitation(
+                            source_file=models.ChatFile(
+                                id="FILE_1234",
+                                url="www.google.com",
+                                name="sample.pdf",
+                            ),
+                            reference_ranges=[
+                                models.ReferenceRange(
+                                    snippets=[
+                                        models.SearchResultSnippet(
+                                            snippet="snippet",
+                                            mime_type="mimeType",
+                                        ),
+                                    ],
+                                ),
+                            ],
+                        ),
+                        models.ChatMessageCitation(
+                            source_file=models.ChatFile(
+                                id="FILE_1234",
+                                url="www.google.com",
+                                name="sample.pdf",
+                            ),
+                            reference_ranges=[
+                                models.ReferenceRange(
+                                    snippets=[
+                                        models.SearchResultSnippet(
+                                            snippet="snippet",
+                                            mime_type="mimeType",
+                                        ),
+                                    ],
+                                ),
+                                models.ReferenceRange(
+                                    snippets=[
+                                        models.SearchResultSnippet(
+                                            snippet="snippet",
+                                            mime_type="mimeType",
+                                        ),
+                                    ],
+                                ),
+                                models.ReferenceRange(
+                                    snippets=[
+                                        models.SearchResultSnippet(
+                                            snippet="snippet",
+                                            mime_type="mimeType",
+                                        ),
+                                    ],
+                                ),
+                            ],
+                        ),
+                    ],
+                    "fragments": [
+                        models.ChatMessageFragment(
+                            structured_results=[
+                                models.StructuredResult(),
+                                models.StructuredResult(),
+                                models.StructuredResult(),
+                            ],
+                            file=models.ChatFile(
+                                id="FILE_1234",
+                                url="www.google.com",
+                                name="sample.pdf",
+                            ),
+                            action=models.ToolInfo(
+                                metadata=models.ToolMetadata(
+                                    type=models.ToolMetadataType.ACTION,
+                                    name="<value>",
+                                    display_name="Lauren53",
+                                    display_description="<value>",
+                                    object_name='["HR ticket","Email","Chat message"]',
+                                ),
+                            ),
+                        ),
+                        models.ChatMessageFragment(
+                            structured_results=[
+                                models.StructuredResult(),
+                                models.StructuredResult(),
+                                models.StructuredResult(),
+                            ],
+                            file=models.ChatFile(
+                                id="FILE_1234",
+                                url="www.google.com",
+                                name="sample.pdf",
+                            ),
+                            action=models.ToolInfo(
+                                metadata=models.ToolMetadata(
+                                    type=models.ToolMetadataType.ACTION,
+                                    name="<value>",
+                                    display_name="Brooklyn64",
+                                    display_description="<value>",
+                                    object_name='["HR ticket","Email","Chat message"]',
+                                ),
+                            ),
+                        ),
+                    ],
+                },
+            ],
+            timeout_millis=30000,
+        )
+        assert res is not None
+
+
+def test_client_chat_chat_stream_citation_response():
+    test_http_client = create_test_http_client("chatStream-citationResponse")
+
+    with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
+        client=test_http_client,
+        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", "value"),
+    ) as g_client:
+        assert g_client is not None
+
+        res = g_client.client.chat.create_stream(
+            messages=[
+                {
+                    "citations": [
+                        models.ChatMessageCitation(
+                            source_document=models.Document(
+                                metadata=models.DocumentMetadata(
+                                    datasource="datasource",
+                                    object_type="Feature Request",
+                                    container="container",
+                                    parent_id="JIRA_EN-1337",
+                                    mime_type="mimeType",
+                                    document_id="documentId",
+                                    create_time=parse_datetime(
+                                        "2000-01-23T04:56:07.000Z"
+                                    ),
+                                    update_time=parse_datetime(
+                                        "2000-01-23T04:56:07.000Z"
+                                    ),
+                                    author=models.Person(
+                                        name="name",
+                                        obfuscated_id="<id>",
+                                    ),
+                                    components=[
+                                        "Backend",
+                                        "Networking",
+                                    ],
+                                    status='["Done"]',
+                                    custom_data={
+                                        "someCustomField": models.CustomDataValue(),
+                                    },
+                                ),
+                            ),
+                            source_file=models.ChatFile(
+                                id="FILE_1234",
+                                url="www.google.com",
+                                name="sample.pdf",
+                            ),
+                            source_person=models.Person(
+                                name="George Clooney",
+                                obfuscated_id="abc123",
+                            ),
+                            reference_ranges=[
+                                models.ReferenceRange(
+                                    text_range=models.TextRange(
+                                        start_index=436071,
+                                        document=models.Document(),
+                                    ),
+                                    snippets=[
+                                        models.SearchResultSnippet(
+                                            snippet="snippet",
+                                            mime_type="mimeType",
+                                        ),
+                                    ],
+                                ),
+                                models.ReferenceRange(
+                                    snippets=[
+                                        models.SearchResultSnippet(
+                                            snippet="snippet",
+                                            mime_type="mimeType",
+                                        ),
+                                    ],
+                                ),
+                            ],
+                        ),
+                        models.ChatMessageCitation(
+                            source_file=models.ChatFile(
+                                id="FILE_1234",
+                                url="www.google.com",
+                                name="sample.pdf",
+                            ),
+                            reference_ranges=[
+                                models.ReferenceRange(
+                                    snippets=[
+                                        models.SearchResultSnippet(
+                                            snippet="snippet",
+                                            mime_type="mimeType",
+                                        ),
+                                    ],
+                                ),
+                                models.ReferenceRange(
+                                    snippets=[
+                                        models.SearchResultSnippet(
+                                            snippet="snippet",
+                                            mime_type="mimeType",
+                                        ),
+                                    ],
+                                ),
+                                models.ReferenceRange(
+                                    snippets=[
+                                        models.SearchResultSnippet(
+                                            snippet="snippet",
+                                            mime_type="mimeType",
+                                        ),
+                                    ],
+                                ),
+                            ],
+                        ),
+                    ],
+                    "fragments": [
+                        models.ChatMessageFragment(
+                            structured_results=[
+                                models.StructuredResult(
+                                    person=models.Person(
+                                        name="George Clooney",
+                                        obfuscated_id="abc123",
+                                    ),
+                                    customer=models.Customer(
+                                        id="<id>",
+                                        company=models.Company(
+                                            name="<value>",
+                                            location="New York City",
+                                            industry="Finances",
+                                            about="Financial, software, data, and media company headquartered in Midtown Manhattan, New York City",
+                                        ),
+                                        poc=[],
+                                        notes="CIO is interested in trying out the product.",
+                                    ),
+                                    team=models.Team(
+                                        id="<id>",
+                                        name="<value>",
+                                        members=[],
+                                        custom_fields=[],
+                                        datasource_profiles=[
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                        ],
+                                    ),
+                                    custom_entity=models.CustomEntity(
+                                        roles=[],
+                                    ),
+                                    answer=models.Answer(
+                                        id=3,
+                                        doc_id="ANSWERS_answer_3",
+                                        question="Why is the sky blue?",
+                                        body_text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        added_roles=[],
+                                        removed_roles=[],
+                                        combined_answer_text=models.StructuredText(
+                                            text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                                            structured_list=[],
+                                        ),
+                                        likes=models.AnswerLikes(
+                                            liked_by=[],
+                                            liked_by_user=True,
+                                            num_likes=181994,
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        verification=models.Verification(
+                                            state=models.State.DEPRECATED,
+                                            metadata=models.VerificationMetadata(
+                                                last_verifier=models.Person(
+                                                    name="George Clooney",
+                                                    obfuscated_id="abc123",
+                                                ),
+                                                reminders=[],
+                                                last_reminder=models.Reminder(
+                                                    assignee=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                    requestor=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                    remind_at=424843,
+                                                ),
+                                                candidate_verifiers=[],
+                                            ),
+                                        ),
+                                        board=models.AnswerBoard(
+                                            name="<value>",
+                                            description="extent emotional white oil buck",
+                                            audience_filters=[
+                                                models.FacetFilter(
+                                                    field_name="type",
+                                                    values=[
+                                                        models.FacetFilterValue(
+                                                            value="Spreadsheet",
+                                                            relation_type=models.RelationType.EQUALS,
+                                                        ),
+                                                        models.FacetFilterValue(
+                                                            value="Presentation",
+                                                            relation_type=models.RelationType.EQUALS,
+                                                        ),
+                                                    ],
+                                                ),
+                                            ],
+                                            id=392138,
+                                            creator=models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
+                                        ),
+                                        collections=[],
+                                    ),
+                                    extracted_qn_a=models.ExtractedQnA(
+                                        question_result=models.SearchResult(
+                                            title="title",
+                                            url="https://example.com/foo/bar",
+                                            native_app_url="slack://foo/bar",
+                                        ),
+                                    ),
+                                    meeting=models.Meeting(
+                                        attendees=models.CalendarAttendees(
+                                            people=[],
+                                        ),
+                                    ),
+                                    collection=models.Collection(
+                                        name="<value>",
+                                        description="matter lest spark oof unfurl jubilantly across",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        id=194535,
+                                    ),
+                                    answer_board=models.AnswerBoard(
+                                        name="<value>",
+                                        description="communicate prudent powerful considering quietly with tromp spring brr",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        id=595008,
+                                    ),
+                                    code=models.Code(
+                                        repo_name="scio",
+                                        file_name="README.md",
+                                    ),
+                                    shortcut=models.Shortcut(
+                                        input_alias="<value>",
+                                        created_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        destination_document=models.Document(),
+                                    ),
+                                    query_suggestions=models.QuerySuggestionList(
+                                        suggestions=[],
+                                    ),
+                                    related_documents=[],
+                                    related_question=models.RelatedQuestion(
+                                        ranges=[],
+                                    ),
+                                ),
+                            ],
+                            query_suggestion=models.QuerySuggestion(
+                                query="app:github type:pull author:mortimer",
+                                label="Mortimer's PRs",
+                                datasource="github",
+                            ),
+                            file=models.ChatFile(
+                                id="FILE_1234",
+                                url="www.google.com",
+                                name="sample.pdf",
+                            ),
+                            action=models.ToolInfo(
+                                metadata=models.ToolMetadata(
+                                    type=models.ToolMetadataType.RETRIEVAL,
+                                    name="<value>",
+                                    display_name="Blaise87",
+                                    display_description="<value>",
+                                    object_name='["HR ticket","Email","Chat message"]',
+                                ),
+                            ),
+                        ),
+                        models.ChatMessageFragment(
+                            structured_results=[
+                                models.StructuredResult(),
+                                models.StructuredResult(),
+                                models.StructuredResult(),
+                            ],
+                            file=models.ChatFile(
+                                id="FILE_1234",
+                                url="www.google.com",
+                                name="sample.pdf",
+                            ),
+                            action=models.ToolInfo(
+                                metadata=models.ToolMetadata(
+                                    type=models.ToolMetadataType.RETRIEVAL,
+                                    name="<value>",
+                                    display_name="Alfred_Wilderman",
+                                    display_description="<value>",
+                                    object_name='["HR ticket","Email","Chat message"]',
+                                ),
+                            ),
+                        ),
+                    ],
+                },
+                {
+                    "citations": [
+                        models.ChatMessageCitation(
+                            source_file=models.ChatFile(
+                                id="FILE_1234",
+                                url="www.google.com",
+                                name="sample.pdf",
+                            ),
+                            reference_ranges=[
+                                models.ReferenceRange(
+                                    snippets=[
+                                        models.SearchResultSnippet(
+                                            snippet="snippet",
+                                            mime_type="mimeType",
+                                        ),
+                                    ],
+                                ),
+                                models.ReferenceRange(
+                                    snippets=[
+                                        models.SearchResultSnippet(
+                                            snippet="snippet",
+                                            mime_type="mimeType",
+                                        ),
+                                    ],
+                                ),
+                                models.ReferenceRange(
+                                    snippets=[
+                                        models.SearchResultSnippet(
+                                            snippet="snippet",
+                                            mime_type="mimeType",
+                                        ),
+                                    ],
+                                ),
+                            ],
+                        ),
+                    ],
+                    "fragments": [
+                        models.ChatMessageFragment(
+                            structured_results=[
+                                models.StructuredResult(),
+                                models.StructuredResult(),
+                                models.StructuredResult(),
+                            ],
+                            file=models.ChatFile(
+                                id="FILE_1234",
+                                url="www.google.com",
+                                name="sample.pdf",
+                            ),
+                            action=models.ToolInfo(
+                                metadata=models.ToolMetadata(
+                                    type=models.ToolMetadataType.ACTION,
+                                    name="<value>",
+                                    display_name="Dylan_Schowalter48",
+                                    display_description="<value>",
+                                    object_name='["HR ticket","Email","Chat message"]',
+                                ),
+                            ),
+                        ),
+                    ],
+                },
+                {
+                    "citations": [
+                        models.ChatMessageCitation(
+                            source_file=models.ChatFile(
+                                id="FILE_1234",
+                                url="www.google.com",
+                                name="sample.pdf",
+                            ),
+                            reference_ranges=[
+                                models.ReferenceRange(
+                                    snippets=[
+                                        models.SearchResultSnippet(
+                                            snippet="snippet",
+                                            mime_type="mimeType",
+                                        ),
+                                    ],
+                                ),
+                                models.ReferenceRange(
+                                    snippets=[
+                                        models.SearchResultSnippet(
+                                            snippet="snippet",
+                                            mime_type="mimeType",
+                                        ),
+                                    ],
+                                ),
+                            ],
+                        ),
+                        models.ChatMessageCitation(
+                            source_file=models.ChatFile(
+                                id="FILE_1234",
+                                url="www.google.com",
+                                name="sample.pdf",
+                            ),
+                            reference_ranges=[
+                                models.ReferenceRange(
+                                    snippets=[
+                                        models.SearchResultSnippet(
+                                            snippet="snippet",
+                                            mime_type="mimeType",
+                                        ),
+                                    ],
+                                ),
+                                models.ReferenceRange(
+                                    snippets=[
+                                        models.SearchResultSnippet(
+                                            snippet="snippet",
+                                            mime_type="mimeType",
+                                        ),
+                                    ],
+                                ),
+                                models.ReferenceRange(
+                                    snippets=[
+                                        models.SearchResultSnippet(
+                                            snippet="snippet",
+                                            mime_type="mimeType",
+                                        ),
+                                    ],
+                                ),
+                            ],
+                        ),
+                        models.ChatMessageCitation(
+                            source_file=models.ChatFile(
+                                id="FILE_1234",
+                                url="www.google.com",
+                                name="sample.pdf",
+                            ),
+                            reference_ranges=[
+                                models.ReferenceRange(
+                                    snippets=[
+                                        models.SearchResultSnippet(
+                                            snippet="snippet",
+                                            mime_type="mimeType",
+                                        ),
+                                    ],
+                                ),
+                                models.ReferenceRange(
+                                    snippets=[
+                                        models.SearchResultSnippet(
+                                            snippet="snippet",
+                                            mime_type="mimeType",
+                                        ),
+                                    ],
+                                ),
+                            ],
+                        ),
+                    ],
+                    "fragments": [
+                        models.ChatMessageFragment(
+                            structured_results=[
+                                models.StructuredResult(),
+                                models.StructuredResult(),
+                                models.StructuredResult(),
+                            ],
+                            file=models.ChatFile(
+                                id="FILE_1234",
+                                url="www.google.com",
+                                name="sample.pdf",
+                            ),
+                            action=models.ToolInfo(
+                                metadata=models.ToolMetadata(
+                                    type=models.ToolMetadataType.ACTION,
+                                    name="<value>",
+                                    display_name="Solon.Schmitt10",
+                                    display_description="<value>",
+                                    object_name='["HR ticket","Email","Chat message"]',
+                                ),
+                            ),
+                        ),
+                        models.ChatMessageFragment(
+                            structured_results=[
+                                models.StructuredResult(),
+                                models.StructuredResult(),
+                                models.StructuredResult(),
+                            ],
+                            file=models.ChatFile(
+                                id="FILE_1234",
+                                url="www.google.com",
+                                name="sample.pdf",
+                            ),
+                            action=models.ToolInfo(
+                                metadata=models.ToolMetadata(
+                                    type=models.ToolMetadataType.ACTION,
+                                    name="<value>",
+                                    display_name="Nannie.McDermott",
+                                    display_description="<value>",
+                                    object_name='["HR ticket","Email","Chat message"]',
+                                ),
+                            ),
+                        ),
+                    ],
+                },
+            ],
+            timeout_millis=30000,
+        )
+        assert res is not None

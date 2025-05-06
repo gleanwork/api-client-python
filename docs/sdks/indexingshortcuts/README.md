@@ -6,6 +6,7 @@
 ### Available Operations
 
 * [bulk_index](#bulk_index) - Bulk index external shortcuts
+* [upload](#upload) - Upload shortcuts
 
 ## bulk_index
 
@@ -41,6 +42,50 @@ with Glean(
 | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
 | `upload_id`                                                                                              | *str*                                                                                                    | :heavy_check_mark:                                                                                       | Unique id that must be used for this bulk upload instance                                                |
 | `shortcuts`                                                                                              | List[[models.ExternalShortcut](../../models/externalshortcut.md)]                                        | :heavy_check_mark:                                                                                       | Batch of shortcuts information                                                                           |
+| `is_first_page`                                                                                          | *Optional[bool]*                                                                                         | :heavy_minus_sign:                                                                                       | true if this is the first page of the upload. Defaults to false                                          |
+| `is_last_page`                                                                                           | *Optional[bool]*                                                                                         | :heavy_minus_sign:                                                                                       | true if this is the last page of the upload. Defaults to false                                           |
+| `force_restart_upload`                                                                                   | *Optional[bool]*                                                                                         | :heavy_minus_sign:                                                                                       | Flag to discard previous upload attempts and start from scratch. Must be specified with isFirstPage=true |
+| `retries`                                                                                                | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                         | :heavy_minus_sign:                                                                                       | Configuration to override the default retry behavior of the client.                                      |
+
+### Errors
+
+| Error Type        | Status Code       | Content Type      |
+| ----------------- | ----------------- | ----------------- |
+| errors.GleanError | 4XX, 5XX          | \*/\*             |
+
+## upload
+
+Creates glean shortcuts for uploaded shortcuts info. Glean would host the shortcuts, and they can be managed in the knowledge tab once uploaded.
+
+### Example Usage
+
+```python
+from glean import Glean
+import os
+
+
+with Glean(
+    bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
+) as g_client:
+
+    g_client.indexing.shortcuts.upload(upload_id="<id>", shortcuts=[
+        {
+            "input_alias": "<value>",
+            "destination_url": "https://needy-harp.name",
+            "created_by": "<value>",
+        },
+    ])
+
+    # Use the SDK ...
+
+```
+
+### Parameters
+
+| Parameter                                                                                                | Type                                                                                                     | Required                                                                                                 | Description                                                                                              |
+| -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `upload_id`                                                                                              | *str*                                                                                                    | :heavy_check_mark:                                                                                       | Unique id that must be used for this bulk upload instance                                                |
+| `shortcuts`                                                                                              | List[[models.IndexingShortcut](../../models/indexingshortcut.md)]                                        | :heavy_check_mark:                                                                                       | Batch of shortcuts information                                                                           |
 | `is_first_page`                                                                                          | *Optional[bool]*                                                                                         | :heavy_minus_sign:                                                                                       | true if this is the first page of the upload. Defaults to false                                          |
 | `is_last_page`                                                                                           | *Optional[bool]*                                                                                         | :heavy_minus_sign:                                                                                       | true if this is the last page of the upload. Defaults to false                                           |
 | `force_restart_upload`                                                                                   | *Optional[bool]*                                                                                         | :heavy_minus_sign:                                                                                       | Flag to discard previous upload attempts and start from scratch. Must be specified with isFirstPage=true |

@@ -15,7 +15,7 @@ def test_summarize_summarize():
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.client.summarize.generate(
+        res = g_client.client.documents.summarize(
             document_specs=[
                 {},
                 {},

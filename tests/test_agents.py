@@ -15,7 +15,7 @@ def test_agents_runagent():
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.agents.runagent()
+        res = g_client.client.agents.run()
         assert res is not None
 
 
@@ -29,7 +29,7 @@ def test_agents_listagents():
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.agents.listagents()
+        res = g_client.client.agents.list()
         assert res is not None
 
 
@@ -43,5 +43,5 @@ def test_agents_getagentinputs():
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.agents.getagentinputs()
+        res = g_client.client.agents.retrieve_inputs()
         assert res is not None

@@ -9,11 +9,9 @@ from typing import Any, Dict, Mapping, Optional
 
 
 class Agents(BaseSDK):
-    def runagent(
+    def run(
         self,
         *,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         agent_id: Optional[str] = None,
         fields: Optional[Dict[str, str]] = None,
@@ -27,8 +25,6 @@ class Agents(BaseSDK):
 
         Trigger an Agent with a given id.
 
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param agent_id: The ID of the agent to be run.
         :param fields: Key-value mapping of string -> string where the key is the name of the field in the prompt.
@@ -49,8 +45,6 @@ class Agents(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.RunagentRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
             timezone_offset=timezone_offset,
             run_agent_request=models.RunAgentRequest(
                 agent_id=agent_id,
@@ -122,11 +116,9 @@ class Agents(BaseSDK):
             http_res,
         )
 
-    async def runagent_async(
+    async def run_async(
         self,
         *,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         agent_id: Optional[str] = None,
         fields: Optional[Dict[str, str]] = None,
@@ -140,8 +132,6 @@ class Agents(BaseSDK):
 
         Trigger an Agent with a given id.
 
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param agent_id: The ID of the agent to be run.
         :param fields: Key-value mapping of string -> string where the key is the name of the field in the prompt.
@@ -162,8 +152,6 @@ class Agents(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.RunagentRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
             timezone_offset=timezone_offset,
             run_agent_request=models.RunAgentRequest(
                 agent_id=agent_id,
@@ -235,11 +223,9 @@ class Agents(BaseSDK):
             http_res,
         )
 
-    def listagents(
+    def list(
         self,
         *,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         request_body: Optional[Any] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -251,8 +237,6 @@ class Agents(BaseSDK):
 
         Lists all agents that are available.
 
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param request_body:
         :param retries: Override the default retry configuration for this method
@@ -271,8 +255,6 @@ class Agents(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.ListagentsRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
             timezone_offset=timezone_offset,
             request_body=request_body,
         )
@@ -340,11 +322,9 @@ class Agents(BaseSDK):
             http_res,
         )
 
-    async def listagents_async(
+    async def list_async(
         self,
         *,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         request_body: Optional[Any] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -356,8 +336,6 @@ class Agents(BaseSDK):
 
         Lists all agents that are available.
 
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param request_body:
         :param retries: Override the default retry configuration for this method
@@ -376,8 +354,6 @@ class Agents(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.ListagentsRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
             timezone_offset=timezone_offset,
             request_body=request_body,
         )
@@ -445,11 +421,9 @@ class Agents(BaseSDK):
             http_res,
         )
 
-    def getagentinputs(
+    def retrieve_inputs(
         self,
         *,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         agent_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -461,8 +435,6 @@ class Agents(BaseSDK):
 
         Get the inputs to an agent with a given id.
 
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param agent_id: The id of the agent.
         :param retries: Override the default retry configuration for this method
@@ -481,8 +453,6 @@ class Agents(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetagentinputsRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
             timezone_offset=timezone_offset,
             get_agent_inputs_request=models.GetAgentInputsRequest(
                 agent_id=agent_id,
@@ -556,11 +526,9 @@ class Agents(BaseSDK):
             http_res,
         )
 
-    async def getagentinputs_async(
+    async def retrieve_inputs_async(
         self,
         *,
-        x_glean_act_as: Optional[str] = None,
-        x_glean_auth_type: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         agent_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -572,8 +540,6 @@ class Agents(BaseSDK):
 
         Get the inputs to an agent with a given id.
 
-        :param x_glean_act_as: Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).
-        :param x_glean_auth_type: Auth type being used to access the endpoint (should be non-empty only for global tokens).
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param agent_id: The id of the agent.
         :param retries: Override the default retry configuration for this method
@@ -592,8 +558,6 @@ class Agents(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetagentinputsRequestRequest(
-            x_glean_act_as=x_glean_act_as,
-            x_glean_auth_type=x_glean_auth_type,
             timezone_offset=timezone_offset,
             get_agent_inputs_request=models.GetAgentInputsRequest(
                 agent_id=agent_id,

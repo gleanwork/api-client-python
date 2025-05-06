@@ -5,9 +5,9 @@
 
 ### Available Operations
 
-* [get](#get) - Read insights
+* [retrieve](#retrieve) - Read insights
 
-## get
+## retrieve
 
 Reads the aggregate information for each user, query, and content.
 
@@ -22,7 +22,7 @@ with Glean(
     bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
 ) as g_client:
 
-    res = g_client.client.insights.get(categories=[
+    res = g_client.client.insights.retrieve(categories=[
         models.InsightsRequestCategory.CONTENT,
         models.InsightsRequestCategory.CONTENT,
     ])
@@ -37,8 +37,6 @@ with Glean(
 | Parameter                                                                                                                 | Type                                                                                                                      | Required                                                                                                                  | Description                                                                                                               |
 | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
 | `categories`                                                                                                              | List[[models.InsightsRequestCategory](../../models/insightsrequestcategory.md)]                                           | :heavy_check_mark:                                                                                                        | Categories of data requested. Request can include single or multiple types.                                               |
-| `x_glean_act_as`                                                                                                          | *Optional[str]*                                                                                                           | :heavy_minus_sign:                                                                                                        | Email address of a user on whose behalf the request is intended to be made (should be non-empty only for global tokens).  |
-| `x_glean_auth_type`                                                                                                       | *Optional[str]*                                                                                                           | :heavy_minus_sign:                                                                                                        | Auth type being used to access the endpoint (should be non-empty only for global tokens).                                 |
 | `departments`                                                                                                             | List[*str*]                                                                                                               | :heavy_minus_sign:                                                                                                        | Departments that the data is requested for. If this is empty, corresponds to whole company.                               |
 | `day_range`                                                                                                               | [Optional[models.Period]](../../models/period.md)                                                                         | :heavy_minus_sign:                                                                                                        | N/A                                                                                                                       |
 | `ai_app_request_options`                                                                                                  | [Optional[models.InsightsAiAppRequestOptions]](../../models/insightsaiapprequestoptions.md)                               | :heavy_minus_sign:                                                                                                        | N/A                                                                                                                       |

@@ -94,7 +94,7 @@ Generally, the SDK will work well with most IDEs out of the box. However, when u
 <!-- Start SDK Example Usage [usage] -->
 ## SDK Example Usage
 
-### Example
+### Example 1
 
 ```python
 # Synchronous Example
@@ -106,7 +106,7 @@ with Glean(
     bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
 ) as g_client:
 
-    res = g_client.client.chat.start(messages=[
+    res = g_client.client.chat.create(messages=[
         {
             "fragments": [
                 models.ChatMessageFragment(
@@ -135,7 +135,64 @@ async def main():
         bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
     ) as g_client:
 
-        res = await g_client.client.chat.start_async(messages=[
+        res = await g_client.client.chat.create_async(messages=[
+            {
+                "fragments": [
+                    models.ChatMessageFragment(
+                        text="What are the company holidays this year?",
+                    ),
+                ],
+            },
+        ], timeout_millis=30000)
+
+        # Handle response
+        print(res)
+
+asyncio.run(main())
+```
+
+### Example 2
+
+```python
+# Synchronous Example
+from glean import Glean, models
+import os
+
+
+with Glean(
+    bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
+) as g_client:
+
+    res = g_client.client.chat.create_stream(messages=[
+        {
+            "fragments": [
+                models.ChatMessageFragment(
+                    text="What are the company holidays this year?",
+                ),
+            ],
+        },
+    ], timeout_millis=30000)
+
+    # Handle response
+    print(res)
+```
+
+</br>
+
+The same SDK client can also be used to make asychronous requests by importing asyncio.
+```python
+# Asynchronous Example
+import asyncio
+from glean import Glean, models
+import os
+
+async def main():
+
+    async with Glean(
+        bearer_auth=os.getenv("GLEAN_BEARER_AUTH", ""),
+    ) as g_client:
+
+        res = await g_client.client.chat.create_stream_async(messages=[
             {
                 "fragments": [
                     models.ChatMessageFragment(
@@ -210,22 +267,19 @@ with Glean(
 <details open>
 <summary>Available methods</summary>
 
-### [agents](docs/sdks/agents/README.md)
-
-* [runagent](docs/sdks/agents/README.md#runagent) - Runs an Agent.
-* [listagents](docs/sdks/agents/README.md#listagents) - Lists all agents.
-* [getagentinputs](docs/sdks/agents/README.md#getagentinputs) - Gets the inputs to an agent.
-
 ### [client](docs/sdks/client/README.md)
 
-
-#### [client.activities](docs/sdks/activities/README.md)
-
-* [report_activity](docs/sdks/activities/README.md#report_activity) - Report client activity
 
 #### [client.activity](docs/sdks/clientactivity/README.md)
 
 * [report](docs/sdks/clientactivity/README.md#report) - Report document activity
+* [feedback](docs/sdks/clientactivity/README.md#feedback) - Report client activity
+
+#### [client.agents](docs/sdks/agents/README.md)
+
+* [run](docs/sdks/agents/README.md#run) - Runs an Agent.
+* [list](docs/sdks/agents/README.md#list) - Lists all agents.
+* [retrieve_inputs](docs/sdks/agents/README.md#retrieve_inputs) - Gets the inputs to an agent.
 
 #### [client.announcements](docs/sdks/announcements/README.md)
 
@@ -237,8 +291,8 @@ with Glean(
 
 * [create](docs/sdks/answers/README.md#create) - Create Answer
 * [delete](docs/sdks/answers/README.md#delete) - Delete Answer
-* [edit](docs/sdks/answers/README.md#edit) - Update Answer
-* [get](docs/sdks/answers/README.md#get) - Read Answer
+* [update](docs/sdks/answers/README.md#update) - Update Answer
+* [retrieve](docs/sdks/answers/README.md#retrieve) - Read Answer
 * [list](docs/sdks/answers/README.md#list) - List Answers
 
 #### [client.authentication](docs/sdks/clientauthentication/README.md)
@@ -247,15 +301,16 @@ with Glean(
 
 #### [client.chat](docs/sdks/clientchat/README.md)
 
-* [start](docs/sdks/clientchat/README.md#start) - Chat
+* [create](docs/sdks/clientchat/README.md#create) - Chat
 * [delete_all](docs/sdks/clientchat/README.md#delete_all) - Deletes all saved Chats owned by a user
 * [delete](docs/sdks/clientchat/README.md#delete) - Deletes saved Chats
-* [get](docs/sdks/clientchat/README.md#get) - Retrieves a Chat
+* [retrieve](docs/sdks/clientchat/README.md#retrieve) - Retrieves a Chat
 * [list](docs/sdks/clientchat/README.md#list) - Retrieves all saved Chats
-* [get_application](docs/sdks/clientchat/README.md#get_application) - Gets the metadata for a custom Chat application
+* [retrieve_application](docs/sdks/clientchat/README.md#retrieve_application) - Gets the metadata for a custom Chat application
 * [upload_files](docs/sdks/clientchat/README.md#upload_files) - Upload files for Chat.
-* [get_files](docs/sdks/clientchat/README.md#get_files) - Get files uploaded by a user for Chat.
+* [retrieve_files](docs/sdks/clientchat/README.md#retrieve_files) - Get files uploaded by a user for Chat.
 * [delete_files](docs/sdks/clientchat/README.md#delete_files) - Delete files uploaded by a user for chat.
+* [create_stream](docs/sdks/clientchat/README.md#create_stream) - Chat
 
 #### [client.collections](docs/sdks/collections/README.md)
 
@@ -264,15 +319,16 @@ with Glean(
 * [delete](docs/sdks/collections/README.md#delete) - Delete Collection
 * [delete_item](docs/sdks/collections/README.md#delete_item) - Delete Collection item
 * [update](docs/sdks/collections/README.md#update) - Update Collection
-* [edit_item](docs/sdks/collections/README.md#edit_item) - Update Collection item
-* [get](docs/sdks/collections/README.md#get) - Read Collection
+* [update_item](docs/sdks/collections/README.md#update_item) - Update Collection item
+* [retrieve](docs/sdks/collections/README.md#retrieve) - Read Collection
 * [list](docs/sdks/collections/README.md#list) - List Collections
 
 #### [client.documents](docs/sdks/clientdocuments/README.md)
 
-* [get_permissions](docs/sdks/clientdocuments/README.md#get_permissions) - Read document permissions
-* [get](docs/sdks/clientdocuments/README.md#get) - Read documents
-* [get_by_facets](docs/sdks/clientdocuments/README.md#get_by_facets) - Read documents by facets
+* [retrieve_permissions](docs/sdks/clientdocuments/README.md#retrieve_permissions) - Read document permissions
+* [retrieve](docs/sdks/clientdocuments/README.md#retrieve) - Read documents
+* [retrieve_by_facets](docs/sdks/clientdocuments/README.md#retrieve_by_facets) - Read documents by facets
+* [summarize](docs/sdks/clientdocuments/README.md#summarize) - Summarize documents
 
 #### [client.entities](docs/sdks/entities/README.md)
 
@@ -281,40 +337,35 @@ with Glean(
 
 #### [client.insights](docs/sdks/insights/README.md)
 
-* [get](docs/sdks/insights/README.md#get) - Read insights
+* [retrieve](docs/sdks/insights/README.md#retrieve) - Read insights
 
 #### [client.messages](docs/sdks/messages/README.md)
 
-* [get](docs/sdks/messages/README.md#get) - Read messages
+* [retrieve](docs/sdks/messages/README.md#retrieve) - Read messages
 
 #### [client.pins](docs/sdks/pins/README.md)
 
-* [edit](docs/sdks/pins/README.md#edit) - Update pin
-* [get](docs/sdks/pins/README.md#get) - Read pin
+* [update](docs/sdks/pins/README.md#update) - Update pin
+* [retrieve](docs/sdks/pins/README.md#retrieve) - Read pin
 * [list](docs/sdks/pins/README.md#list) - List pins
 * [create](docs/sdks/pins/README.md#create) - Create pin
 * [remove](docs/sdks/pins/README.md#remove) - Delete pin
 
 #### [client.search](docs/sdks/search/README.md)
 
-* [admin](docs/sdks/search/README.md#admin) - Search the index (admin)
+* [query_as_admin](docs/sdks/search/README.md#query_as_admin) - Search the index (admin)
 * [autocomplete](docs/sdks/search/README.md#autocomplete) - Autocomplete
-* [get_feed](docs/sdks/search/README.md#get_feed) - Feed of documents and events
+* [retrieve_feed](docs/sdks/search/README.md#retrieve_feed) - Feed of documents and events
 * [recommendations](docs/sdks/search/README.md#recommendations) - Recommend documents
-* [execute](docs/sdks/search/README.md#execute) - Search
+* [query](docs/sdks/search/README.md#query) - Search
 
 #### [client.shortcuts](docs/sdks/clientshortcuts/README.md)
 
 * [create](docs/sdks/clientshortcuts/README.md#create) - Create shortcut
 * [delete](docs/sdks/clientshortcuts/README.md#delete) - Delete shortcut
-* [get](docs/sdks/clientshortcuts/README.md#get) - Read shortcut
+* [retrieve](docs/sdks/clientshortcuts/README.md#retrieve) - Read shortcut
 * [list](docs/sdks/clientshortcuts/README.md#list) - List shortcuts
 * [update](docs/sdks/clientshortcuts/README.md#update) - Update shortcut
-* [upload](docs/sdks/clientshortcuts/README.md#upload) - Upload shortcuts
-
-#### [client.summarize](docs/sdks/summarize/README.md)
-
-* [generate](docs/sdks/summarize/README.md#generate) - Summarize documents
 
 #### [client.verification](docs/sdks/clientverification/README.md)
 
@@ -330,10 +381,15 @@ with Glean(
 
 * [rotate_token](docs/sdks/indexingauthentication/README.md#rotate_token) - Rotate token
 
+#### [indexing.datasource](docs/sdks/indexingdatasource/README.md)
+
+* [status](docs/sdks/indexingdatasource/README.md#status) - Beta: Get datasource status
+
+
 #### [indexing.datasources](docs/sdks/datasources/README.md)
 
 * [add](docs/sdks/datasources/README.md#add) - Add or update datasource
-* [get_config](docs/sdks/datasources/README.md#get_config) - Get datasource config
+* [retrieve_config](docs/sdks/datasources/README.md#retrieve_config) - Get datasource config
 
 #### [indexing.documents](docs/sdks/indexingdocuments/README.md)
 
@@ -342,12 +398,21 @@ with Glean(
 * [bulk_index](docs/sdks/indexingdocuments/README.md#bulk_index) - Bulk index documents
 * [process_all](docs/sdks/indexingdocuments/README.md#process_all) - Schedules the processing of uploaded documents
 * [delete](docs/sdks/indexingdocuments/README.md#delete) - Delete document
+* [debug](docs/sdks/indexingdocuments/README.md#debug) - Beta: Get document information
+
+* [debug_many](docs/sdks/indexingdocuments/README.md#debug_many) - Beta: Get information of a batch of documents
+
+* [check_access](docs/sdks/indexingdocuments/README.md#check_access) - Check document access
+* [~~status~~](docs/sdks/indexingdocuments/README.md#status) - Get document upload and indexing status :warning: **Deprecated**
+* [~~count~~](docs/sdks/indexingdocuments/README.md#count) - Get document count :warning: **Deprecated**
 
 #### [indexing.people](docs/sdks/people/README.md)
 
+* [debug](docs/sdks/people/README.md#debug) - Beta: Get user information
+
+* [~~count~~](docs/sdks/people/README.md#count) - Get user count :warning: **Deprecated**
 * [index](docs/sdks/people/README.md#index) - Index employee
-* [bulk_index_employees](docs/sdks/people/README.md#bulk_index_employees) - Bulk index employees
-* [~~bulk_index~~](docs/sdks/people/README.md#bulk_index) - Bulk index employees :warning: **Deprecated**
+* [bulk_index](docs/sdks/people/README.md#bulk_index) - Bulk index employees
 * [process_all_employees_and_teams](docs/sdks/people/README.md#process_all_employees_and_teams) - Schedules the processing of uploaded employees and teams
 * [delete](docs/sdks/people/README.md#delete) - Delete employee
 * [index_team](docs/sdks/people/README.md#index_team) - Index team
@@ -372,21 +437,7 @@ with Glean(
 #### [indexing.shortcuts](docs/sdks/indexingshortcuts/README.md)
 
 * [bulk_index](docs/sdks/indexingshortcuts/README.md#bulk_index) - Bulk index external shortcuts
-
-#### [indexing.troubleshooting](docs/sdks/troubleshooting/README.md)
-
-* [get_datasource_status](docs/sdks/troubleshooting/README.md#get_datasource_status) - Beta: Get datasource status
-
-* [post_document_debug](docs/sdks/troubleshooting/README.md#post_document_debug) - Beta: Get document information
-
-* [post_documents_debug](docs/sdks/troubleshooting/README.md#post_documents_debug) - Beta: Get information of a batch of documents
-
-* [debug_user](docs/sdks/troubleshooting/README.md#debug_user) - Beta: Get user information
-
-* [check_access](docs/sdks/troubleshooting/README.md#check_access) - Check document access
-* [~~get_status~~](docs/sdks/troubleshooting/README.md#get_status) - Get document upload and indexing status :warning: **Deprecated**
-* [~~get_document_count~~](docs/sdks/troubleshooting/README.md#get_document_count) - Get document count :warning: **Deprecated**
-* [~~get_user_count~~](docs/sdks/troubleshooting/README.md#get_user_count) - Get user count :warning: **Deprecated**
+* [upload](docs/sdks/indexingshortcuts/README.md#upload) - Upload shortcuts
 
 </details>
 <!-- End Available Resources and Operations [operations] -->

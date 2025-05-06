@@ -15,22 +15,24 @@ def test_pins_editpin():
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.client.pins.edit(
-            audience_filters=[
-                {
-                    "field_name": "type",
-                    "values": [
-                        {
-                            "value": "Spreadsheet",
-                            "relation_type": models.RelationType.EQUALS,
-                        },
-                        {
-                            "value": "Presentation",
-                            "relation_type": models.RelationType.EQUALS,
-                        },
-                    ],
-                },
-            ]
+        res = g_client.client.pins.update(
+            request={
+                "audience_filters": [
+                    {
+                        "field_name": "type",
+                        "values": [
+                            {
+                                "value": "Spreadsheet",
+                                "relation_type": models.RelationType.EQUALS,
+                            },
+                            {
+                                "value": "Presentation",
+                                "relation_type": models.RelationType.EQUALS,
+                            },
+                        ],
+                    },
+                ],
+            }
         )
         assert res is not None
 
@@ -45,7 +47,7 @@ def test_pins_getpin():
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.client.pins.get()
+        res = g_client.client.pins.retrieve(request={})
         assert res is not None
 
 
@@ -59,7 +61,7 @@ def test_pins_listpins():
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.client.pins.list(request_body={})
+        res = g_client.client.pins.list(request={})
         assert res is not None
 
 
@@ -74,21 +76,23 @@ def test_pins_pin():
         assert g_client is not None
 
         res = g_client.client.pins.create(
-            audience_filters=[
-                {
-                    "field_name": "type",
-                    "values": [
-                        {
-                            "value": "Spreadsheet",
-                            "relation_type": models.RelationType.EQUALS,
-                        },
-                        {
-                            "value": "Presentation",
-                            "relation_type": models.RelationType.EQUALS,
-                        },
-                    ],
-                },
-            ]
+            request={
+                "audience_filters": [
+                    {
+                        "field_name": "type",
+                        "values": [
+                            {
+                                "value": "Spreadsheet",
+                                "relation_type": models.RelationType.EQUALS,
+                            },
+                            {
+                                "value": "Presentation",
+                                "relation_type": models.RelationType.EQUALS,
+                            },
+                        ],
+                    },
+                ],
+            }
         )
         assert res is not None
 
@@ -103,4 +107,4 @@ def test_pins_unpin():
     ) as g_client:
         assert g_client is not None
 
-        g_client.client.pins.remove()
+        g_client.client.pins.remove(request={})

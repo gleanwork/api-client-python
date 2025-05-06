@@ -106,8 +106,8 @@ def test_client_shortcuts_getshortcut():
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.client.shortcuts.get(
-            get_shortcut_request={
+        res = g_client.client.shortcuts.retrieve(
+            request={
                 "alias": "<value>",
             }
         )

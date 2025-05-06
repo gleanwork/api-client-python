@@ -15,7 +15,7 @@ def test_insights_insights():
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.client.insights.get(
+        res = g_client.client.insights.retrieve(
             categories=[
                 models.InsightsRequestCategory.CONTENT,
                 models.InsightsRequestCategory.CONTENT,
