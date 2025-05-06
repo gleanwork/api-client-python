@@ -76,7 +76,7 @@ The SDK can be installed with either *pip* or *poetry* package managers.
 *PIP* is the default package installer for Python, enabling easy installation and management of packages from PyPI via the command line.
 
 ```bash
-pip install api-client-glean
+pip install glean-api-client
 ```
 
 ### Poetry
@@ -84,7 +84,7 @@ pip install api-client-glean
 *Poetry* is a modern tool that simplifies dependency management and package publishing by using a single `pyproject.toml` file to handle project metadata and dependencies.
 
 ```bash
-poetry add api-client-glean
+poetry add glean-api-client
 ```
 
 ### Shell and script usage with `uv`
@@ -92,7 +92,7 @@ poetry add api-client-glean
 You can use this SDK in a Python shell with [uv](https://docs.astral.sh/uv/) and the `uvx` command that comes with it like so:
 
 ```shell
-uvx --from api-client-glean python
+uvx --from glean-api-client python
 ```
 
 It's also possible to write a standalone Python script without needing to set up a whole project like so:
@@ -102,7 +102,7 @@ It's also possible to write a standalone Python script without needing to set up
 # /// script
 # requires-python = ">=3.9"
 # dependencies = [
-#     "api-client-glean",
+#     "glean-api-client",
 # ]
 # ///
 
