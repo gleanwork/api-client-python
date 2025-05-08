@@ -19,7 +19,7 @@ import os
 
 with Glean(api_token="client-token") as glean:
     search_response = glean.client.search.query(
-        search_request=models.SearchRequest(query="search term")
+        request=models.SearchRequest(query="search term")
     )
     print(search_response)
 
