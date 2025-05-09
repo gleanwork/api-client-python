@@ -686,11 +686,11 @@ By default, an API error will raise a errors.GleanError exception, which has the
 
 ### Server Variables
 
-The default server `https://{domain}-be.glean.com` contains variables and is set to `https://domain-be.glean.com` by default. To override default values, the following parameters are available when initializing the SDK client instance:
+The default server `https://{instance}-be.glean.com` contains variables and is set to `https://instance-name-be.glean.com` by default. To override default values, the following parameters are available when initializing the SDK client instance:
 
-| Variable | Parameter     | Default    | Description                                                              |
-| -------- | ------------- | ---------- | ------------------------------------------------------------------------ |
-| `domain` | `domain: str` | `"domain"` | Email domain (without extension) that determines the deployment backend. |
+| Variable   | Parameter       | Default           | Description                                                                                                  |
+| ---------- | --------------- | ----------------- | ------------------------------------------------------------------------------------------------------------ |
+| `instance` | `instance: str` | `"instance-name"` | The instance name (typically the email domain without the extension) that determines the deployment backend. |
 
 #### Example
 
@@ -701,7 +701,7 @@ import os
 
 
 with Glean(
-    domain="scared-pearl.biz"
+    instance="<value>"
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
@@ -744,7 +744,7 @@ import os
 
 
 with Glean(
-    server_url="https://domain-be.glean.com",
+    server_url="https://instance-name-be.glean.com",
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 

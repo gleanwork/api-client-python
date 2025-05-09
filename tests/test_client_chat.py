@@ -281,7 +281,34 @@ def test_client_chat_chat_stream_update_response():
                                 models.ReferenceRange(
                                     text_range=models.TextRange(
                                         start_index=485333,
-                                        document=models.Document(),
+                                        document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
                                     ),
                                     snippets=[
                                         models.SearchResultSnippet(
@@ -291,6 +318,37 @@ def test_client_chat_chat_stream_update_response():
                                     ],
                                 ),
                                 models.ReferenceRange(
+                                    text_range=models.TextRange(
+                                        start_index=159062,
+                                        document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
                                     snippets=[
                                         models.SearchResultSnippet(
                                             snippet="snippet",
@@ -299,6 +357,37 @@ def test_client_chat_chat_stream_update_response():
                                     ],
                                 ),
                                 models.ReferenceRange(
+                                    text_range=models.TextRange(
+                                        start_index=369746,
+                                        document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
                                     snippets=[
                                         models.SearchResultSnippet(
                                             snippet="snippet",
@@ -313,6 +402,34 @@ def test_client_chat_chat_stream_update_response():
                         models.ChatMessageFragment(
                             structured_results=[
                                 models.StructuredResult(
+                                    document=models.Document(
+                                        metadata=models.DocumentMetadata(
+                                            datasource="datasource",
+                                            object_type="Feature Request",
+                                            container="container",
+                                            parent_id="JIRA_EN-1337",
+                                            mime_type="mimeType",
+                                            document_id="documentId",
+                                            create_time=parse_datetime(
+                                                "2000-01-23T04:56:07.000Z"
+                                            ),
+                                            update_time=parse_datetime(
+                                                "2000-01-23T04:56:07.000Z"
+                                            ),
+                                            author=models.Person(
+                                                name="name",
+                                                obfuscated_id="<id>",
+                                            ),
+                                            components=[
+                                                "Backend",
+                                                "Networking",
+                                            ],
+                                            status='["Done"]',
+                                            custom_data={
+                                                "someCustomField": models.CustomDataValue(),
+                                            },
+                                        ),
+                                    ),
                                     person=models.Person(
                                         name="George Clooney",
                                         obfuscated_id="abc123",
@@ -325,14 +442,52 @@ def test_client_chat_chat_stream_update_response():
                                             industry="Finances",
                                             about="Financial, software, data, and media company headquartered in Midtown Manhattan, New York City",
                                         ),
-                                        poc=[],
+                                        poc=[
+                                            models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
+                                        ],
                                         notes="CIO is interested in trying out the product.",
                                     ),
                                     team=models.Team(
                                         id="<id>",
                                         name="<value>",
-                                        members=[],
-                                        custom_fields=[],
+                                        members=[
+                                            models.PersonToTeamRelationship(
+                                                person=models.Person(
+                                                    name="George Clooney",
+                                                    obfuscated_id="abc123",
+                                                ),
+                                            ),
+                                            models.PersonToTeamRelationship(
+                                                person=models.Person(
+                                                    name="George Clooney",
+                                                    obfuscated_id="abc123",
+                                                ),
+                                            ),
+                                            models.PersonToTeamRelationship(
+                                                person=models.Person(
+                                                    name="George Clooney",
+                                                    obfuscated_id="abc123",
+                                                ),
+                                            ),
+                                        ],
+                                        custom_fields=[
+                                            models.CustomFieldData(
+                                                label="<value>",
+                                                values=[
+                                                    models.CustomFieldValuePerson(
+                                                        person=models.Person(
+                                                            name="George Clooney",
+                                                            obfuscated_id="abc123",
+                                                        ),
+                                                    ),
+                                                    models.CustomFieldValueStr(),
+                                                    models.CustomFieldValueStr(),
+                                                ],
+                                            ),
+                                        ],
                                         datasource_profiles=[
                                             models.DatasourceProfile(
                                                 datasource="github",
@@ -345,7 +500,29 @@ def test_client_chat_chat_stream_update_response():
                                         ],
                                     ),
                                     custom_entity=models.CustomEntity(
-                                        roles=[],
+                                        roles=[
+                                            models.UserRoleSpecification(
+                                                person=models.Person(
+                                                    name="George Clooney",
+                                                    obfuscated_id="abc123",
+                                                ),
+                                                role=models.UserRole.OWNER,
+                                            ),
+                                            models.UserRoleSpecification(
+                                                person=models.Person(
+                                                    name="George Clooney",
+                                                    obfuscated_id="abc123",
+                                                ),
+                                                role=models.UserRole.VIEWER,
+                                            ),
+                                            models.UserRoleSpecification(
+                                                person=models.Person(
+                                                    name="George Clooney",
+                                                    obfuscated_id="abc123",
+                                                ),
+                                                role=models.UserRole.OWNER,
+                                            ),
+                                        ],
                                     ),
                                     answer=models.Answer(
                                         id=3,
@@ -367,16 +544,83 @@ def test_client_chat_chat_stream_update_response():
                                                 ],
                                             ),
                                         ],
-                                        added_roles=[],
-                                        removed_roles=[],
+                                        added_roles=[
+                                            models.UserRoleSpecification(
+                                                person=models.Person(
+                                                    name="George Clooney",
+                                                    obfuscated_id="abc123",
+                                                ),
+                                                role=models.UserRole.EDITOR,
+                                            ),
+                                        ],
+                                        removed_roles=[
+                                            models.UserRoleSpecification(
+                                                person=models.Person(
+                                                    name="George Clooney",
+                                                    obfuscated_id="abc123",
+                                                ),
+                                                role=models.UserRole.EDITOR,
+                                            ),
+                                            models.UserRoleSpecification(
+                                                person=models.Person(
+                                                    name="George Clooney",
+                                                    obfuscated_id="abc123",
+                                                ),
+                                                role=models.UserRole.EDITOR,
+                                            ),
+                                        ],
                                         combined_answer_text=models.StructuredText(
                                             text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
-                                            structured_list=[],
+                                            structured_list=[
+                                                models.StructuredTextItem(
+                                                    link="https://en.wikipedia.org/wiki/Diffuse_sky_radiation",
+                                                    document=models.Document(
+                                                        metadata=models.DocumentMetadata(
+                                                            datasource="datasource",
+                                                            object_type="Feature Request",
+                                                            container="container",
+                                                            parent_id="JIRA_EN-1337",
+                                                            mime_type="mimeType",
+                                                            document_id="documentId",
+                                                            create_time=parse_datetime(
+                                                                "2000-01-23T04:56:07.000Z"
+                                                            ),
+                                                            update_time=parse_datetime(
+                                                                "2000-01-23T04:56:07.000Z"
+                                                            ),
+                                                            author=models.Person(
+                                                                name="name",
+                                                                obfuscated_id="<id>",
+                                                            ),
+                                                            components=[
+                                                                "Backend",
+                                                                "Networking",
+                                                            ],
+                                                            status='["Done"]',
+                                                            custom_data={
+                                                                "someCustomField": models.CustomDataValue(),
+                                                            },
+                                                        ),
+                                                    ),
+                                                    text="Because its wavelengths are shorter, blue light is more strongly scattered than the longer-wavelength lights, red or green. Hence the result that when looking at the sky away from the direct incident sunlight, the human eye perceives the sky to be blue.",
+                                                ),
+                                            ],
                                         ),
                                         likes=models.AnswerLikes(
-                                            liked_by=[],
+                                            liked_by=[
+                                                models.AnswerLike(
+                                                    user=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                ),
+                                            ],
                                             liked_by_user=False,
                                             num_likes=490380,
+                                        ),
+                                        author=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
                                         ),
                                         updated_by=models.Person(
                                             name="George Clooney",
@@ -389,7 +633,69 @@ def test_client_chat_chat_stream_update_response():
                                                     name="George Clooney",
                                                     obfuscated_id="abc123",
                                                 ),
-                                                reminders=[],
+                                                document=models.Document(
+                                                    metadata=models.DocumentMetadata(
+                                                        datasource="datasource",
+                                                        object_type="Feature Request",
+                                                        container="container",
+                                                        parent_id="JIRA_EN-1337",
+                                                        mime_type="mimeType",
+                                                        document_id="documentId",
+                                                        create_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        update_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        author=models.Person(
+                                                            name="name",
+                                                            obfuscated_id="<id>",
+                                                        ),
+                                                        components=[
+                                                            "Backend",
+                                                            "Networking",
+                                                        ],
+                                                        status='["Done"]',
+                                                        custom_data={
+                                                            "someCustomField": models.CustomDataValue(),
+                                                        },
+                                                    ),
+                                                ),
+                                                reminders=[
+                                                    models.Reminder(
+                                                        assignee=models.Person(
+                                                            name="George Clooney",
+                                                            obfuscated_id="abc123",
+                                                        ),
+                                                        requestor=models.Person(
+                                                            name="George Clooney",
+                                                            obfuscated_id="abc123",
+                                                        ),
+                                                        remind_at=646506,
+                                                    ),
+                                                    models.Reminder(
+                                                        assignee=models.Person(
+                                                            name="George Clooney",
+                                                            obfuscated_id="abc123",
+                                                        ),
+                                                        requestor=models.Person(
+                                                            name="George Clooney",
+                                                            obfuscated_id="abc123",
+                                                        ),
+                                                        remind_at=14111,
+                                                    ),
+                                                    models.Reminder(
+                                                        assignee=models.Person(
+                                                            name="George Clooney",
+                                                            obfuscated_id="abc123",
+                                                        ),
+                                                        requestor=models.Person(
+                                                            name="George Clooney",
+                                                            obfuscated_id="abc123",
+                                                        ),
+                                                        remind_at=911718,
+                                                    ),
+                                                ],
                                                 last_reminder=models.Reminder(
                                                     assignee=models.Person(
                                                         name="George Clooney",
@@ -401,7 +707,12 @@ def test_client_chat_chat_stream_update_response():
                                                     ),
                                                     remind_at=997948,
                                                 ),
-                                                candidate_verifiers=[],
+                                                candidate_verifiers=[
+                                                    models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                ],
                                             ),
                                         ),
                                         board=models.AnswerBoard(
@@ -427,8 +738,249 @@ def test_client_chat_chat_stream_update_response():
                                                 name="George Clooney",
                                                 obfuscated_id="abc123",
                                             ),
+                                            updated_by=models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
                                         ),
-                                        collections=[],
+                                        collections=[
+                                            models.Collection(
+                                                name="<value>",
+                                                description="wring blank who sate woot",
+                                                audience_filters=[
+                                                    models.FacetFilter(
+                                                        field_name="type",
+                                                        values=[
+                                                            models.FacetFilterValue(
+                                                                value="Spreadsheet",
+                                                                relation_type=models.RelationType.EQUALS,
+                                                            ),
+                                                            models.FacetFilterValue(
+                                                                value="Presentation",
+                                                                relation_type=models.RelationType.EQUALS,
+                                                            ),
+                                                        ],
+                                                    ),
+                                                ],
+                                                id=370683,
+                                                creator=models.Person(
+                                                    name="George Clooney",
+                                                    obfuscated_id="abc123",
+                                                ),
+                                                updated_by=models.Person(
+                                                    name="George Clooney",
+                                                    obfuscated_id="abc123",
+                                                ),
+                                                items=[
+                                                    models.CollectionItem(
+                                                        collection_id=836170,
+                                                        created_by=models.Person(
+                                                            name="George Clooney",
+                                                            obfuscated_id="abc123",
+                                                        ),
+                                                        document=models.Document(
+                                                            metadata=models.DocumentMetadata(
+                                                                datasource="datasource",
+                                                                object_type="Feature Request",
+                                                                container="container",
+                                                                parent_id="JIRA_EN-1337",
+                                                                mime_type="mimeType",
+                                                                document_id="documentId",
+                                                                create_time=parse_datetime(
+                                                                    "2000-01-23T04:56:07.000Z"
+                                                                ),
+                                                                update_time=parse_datetime(
+                                                                    "2000-01-23T04:56:07.000Z"
+                                                                ),
+                                                                author=models.Person(
+                                                                    name="name",
+                                                                    obfuscated_id="<id>",
+                                                                ),
+                                                                components=[
+                                                                    "Backend",
+                                                                    "Networking",
+                                                                ],
+                                                                status='["Done"]',
+                                                                custom_data={
+                                                                    "someCustomField": models.CustomDataValue(),
+                                                                },
+                                                            ),
+                                                        ),
+                                                        shortcut=models.Shortcut(
+                                                            input_alias="<value>",
+                                                            created_by=models.Person(
+                                                                name="George Clooney",
+                                                                obfuscated_id="abc123",
+                                                            ),
+                                                            updated_by=models.Person(
+                                                                name="George Clooney",
+                                                                obfuscated_id="abc123",
+                                                            ),
+                                                            destination_document=models.Document(
+                                                                metadata=models.DocumentMetadata(
+                                                                    datasource="datasource",
+                                                                    object_type="Feature Request",
+                                                                    container="container",
+                                                                    parent_id="JIRA_EN-1337",
+                                                                    mime_type="mimeType",
+                                                                    document_id="documentId",
+                                                                    create_time=parse_datetime(
+                                                                        "2000-01-23T04:56:07.000Z"
+                                                                    ),
+                                                                    update_time=parse_datetime(
+                                                                        "2000-01-23T04:56:07.000Z"
+                                                                    ),
+                                                                    author=models.Person(
+                                                                        name="name",
+                                                                        obfuscated_id="<id>",
+                                                                    ),
+                                                                    components=[
+                                                                        "Backend",
+                                                                        "Networking",
+                                                                    ],
+                                                                    status='["Done"]',
+                                                                    custom_data={
+                                                                        "someCustomField": models.CustomDataValue(),
+                                                                    },
+                                                                ),
+                                                            ),
+                                                        ),
+                                                        item_type=models.CollectionItemItemType.DOCUMENT,
+                                                    ),
+                                                    models.CollectionItem(
+                                                        collection_id=743315,
+                                                        created_by=models.Person(
+                                                            name="George Clooney",
+                                                            obfuscated_id="abc123",
+                                                        ),
+                                                        document=models.Document(
+                                                            metadata=models.DocumentMetadata(
+                                                                datasource="datasource",
+                                                                object_type="Feature Request",
+                                                                container="container",
+                                                                parent_id="JIRA_EN-1337",
+                                                                mime_type="mimeType",
+                                                                document_id="documentId",
+                                                                create_time=parse_datetime(
+                                                                    "2000-01-23T04:56:07.000Z"
+                                                                ),
+                                                                update_time=parse_datetime(
+                                                                    "2000-01-23T04:56:07.000Z"
+                                                                ),
+                                                                author=models.Person(
+                                                                    name="name",
+                                                                    obfuscated_id="<id>",
+                                                                ),
+                                                                components=[
+                                                                    "Backend",
+                                                                    "Networking",
+                                                                ],
+                                                                status='["Done"]',
+                                                                custom_data={
+                                                                    "someCustomField": models.CustomDataValue(),
+                                                                },
+                                                            ),
+                                                        ),
+                                                        shortcut=models.Shortcut(
+                                                            input_alias="<value>",
+                                                            created_by=models.Person(
+                                                                name="George Clooney",
+                                                                obfuscated_id="abc123",
+                                                            ),
+                                                            updated_by=models.Person(
+                                                                name="George Clooney",
+                                                                obfuscated_id="abc123",
+                                                            ),
+                                                            destination_document=models.Document(
+                                                                metadata=models.DocumentMetadata(
+                                                                    datasource="datasource",
+                                                                    object_type="Feature Request",
+                                                                    container="container",
+                                                                    parent_id="JIRA_EN-1337",
+                                                                    mime_type="mimeType",
+                                                                    document_id="documentId",
+                                                                    create_time=parse_datetime(
+                                                                        "2000-01-23T04:56:07.000Z"
+                                                                    ),
+                                                                    update_time=parse_datetime(
+                                                                        "2000-01-23T04:56:07.000Z"
+                                                                    ),
+                                                                    author=models.Person(
+                                                                        name="name",
+                                                                        obfuscated_id="<id>",
+                                                                    ),
+                                                                    components=[
+                                                                        "Backend",
+                                                                        "Networking",
+                                                                    ],
+                                                                    status='["Done"]',
+                                                                    custom_data={
+                                                                        "someCustomField": models.CustomDataValue(),
+                                                                    },
+                                                                ),
+                                                            ),
+                                                        ),
+                                                        item_type=models.CollectionItemItemType.DOCUMENT,
+                                                    ),
+                                                ],
+                                            ),
+                                            models.Collection(
+                                                name="<value>",
+                                                description="keenly until phew veto calculus",
+                                                audience_filters=[
+                                                    models.FacetFilter(
+                                                        field_name="type",
+                                                        values=[
+                                                            models.FacetFilterValue(
+                                                                value="Spreadsheet",
+                                                                relation_type=models.RelationType.EQUALS,
+                                                            ),
+                                                            models.FacetFilterValue(
+                                                                value="Presentation",
+                                                                relation_type=models.RelationType.EQUALS,
+                                                            ),
+                                                        ],
+                                                    ),
+                                                ],
+                                                id=140813,
+                                                creator=models.Person(
+                                                    name="George Clooney",
+                                                    obfuscated_id="abc123",
+                                                ),
+                                                updated_by=models.Person(
+                                                    name="George Clooney",
+                                                    obfuscated_id="abc123",
+                                                ),
+                                            ),
+                                        ],
+                                        source_document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
                                     ),
                                     extracted_qn_a=models.ExtractedQnA(
                                         question_result=models.SearchResult(
@@ -439,7 +991,20 @@ def test_client_chat_chat_stream_update_response():
                                     ),
                                     meeting=models.Meeting(
                                         attendees=models.CalendarAttendees(
-                                            people=[],
+                                            people=[
+                                                models.CalendarAttendee(
+                                                    person=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                ),
+                                                models.CalendarAttendee(
+                                                    person=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                ),
+                                            ],
                                         ),
                                     ),
                                     collection=models.Collection(
@@ -461,6 +1026,14 @@ def test_client_chat_chat_stream_update_response():
                                             ),
                                         ],
                                         id=79387,
+                                        creator=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
                                     ),
                                     answer_board=models.AnswerBoard(
                                         name="<value>",
@@ -481,6 +1054,14 @@ def test_client_chat_chat_stream_update_response():
                                             ),
                                         ],
                                         id=668238,
+                                        creator=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
                                     ),
                                     code=models.Code(
                                         repo_name="scio",
@@ -492,14 +1073,116 @@ def test_client_chat_chat_stream_update_response():
                                             name="George Clooney",
                                             obfuscated_id="abc123",
                                         ),
-                                        destination_document=models.Document(),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        destination_document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
                                     ),
                                     query_suggestions=models.QuerySuggestionList(
-                                        suggestions=[],
+                                        suggestions=[
+                                            models.QuerySuggestion(
+                                                query="app:github type:pull author:mortimer",
+                                                label="Mortimer's PRs",
+                                                datasource="github",
+                                            ),
+                                        ],
+                                        person=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
                                     ),
-                                    related_documents=[],
+                                    related_documents=[
+                                        models.RelatedDocuments(
+                                            query_suggestion=models.QuerySuggestion(
+                                                query="app:github type:pull author:mortimer",
+                                                label="Mortimer's PRs",
+                                                datasource="github",
+                                            ),
+                                            results=[
+                                                models.SearchResult(
+                                                    title="title",
+                                                    url="https://example.com/foo/bar",
+                                                    native_app_url="slack://foo/bar",
+                                                ),
+                                            ],
+                                        ),
+                                        models.RelatedDocuments(
+                                            query_suggestion=models.QuerySuggestion(
+                                                query="app:github type:pull author:mortimer",
+                                                label="Mortimer's PRs",
+                                                datasource="github",
+                                            ),
+                                        ),
+                                        models.RelatedDocuments(
+                                            query_suggestion=models.QuerySuggestion(
+                                                query="app:github type:pull author:mortimer",
+                                                label="Mortimer's PRs",
+                                                datasource="github",
+                                            ),
+                                        ),
+                                    ],
                                     related_question=models.RelatedQuestion(
-                                        ranges=[],
+                                        ranges=[
+                                            models.TextRange(
+                                                start_index=1054,
+                                                document=models.Document(
+                                                    metadata=models.DocumentMetadata(
+                                                        datasource="datasource",
+                                                        object_type="Feature Request",
+                                                        container="container",
+                                                        parent_id="JIRA_EN-1337",
+                                                        mime_type="mimeType",
+                                                        document_id="documentId",
+                                                        create_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        update_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        author=models.Person(
+                                                            name="name",
+                                                            obfuscated_id="<id>",
+                                                        ),
+                                                        components=[
+                                                            "Backend",
+                                                            "Networking",
+                                                        ],
+                                                        status='["Done"]',
+                                                        custom_data={
+                                                            "someCustomField": models.CustomDataValue(),
+                                                        },
+                                                    ),
+                                                ),
+                                            ),
+                                        ],
                                     ),
                                 ),
                             ],
@@ -525,8 +1208,328 @@ def test_client_chat_chat_stream_update_response():
                         ),
                         models.ChatMessageFragment(
                             structured_results=[
-                                models.StructuredResult(),
+                                models.StructuredResult(
+                                    document=models.Document(
+                                        metadata=models.DocumentMetadata(
+                                            datasource="datasource",
+                                            object_type="Feature Request",
+                                            container="container",
+                                            parent_id="JIRA_EN-1337",
+                                            mime_type="mimeType",
+                                            document_id="documentId",
+                                            create_time=parse_datetime(
+                                                "2000-01-23T04:56:07.000Z"
+                                            ),
+                                            update_time=parse_datetime(
+                                                "2000-01-23T04:56:07.000Z"
+                                            ),
+                                            author=models.Person(
+                                                name="name",
+                                                obfuscated_id="<id>",
+                                            ),
+                                            components=[
+                                                "Backend",
+                                                "Networking",
+                                            ],
+                                            status='["Done"]',
+                                            custom_data={
+                                                "someCustomField": models.CustomDataValue(),
+                                            },
+                                        ),
+                                    ),
+                                    person=models.Person(
+                                        name="George Clooney",
+                                        obfuscated_id="abc123",
+                                    ),
+                                    customer=models.Customer(
+                                        id="<id>",
+                                        company=models.Company(
+                                            name="<value>",
+                                            location="New York City",
+                                            industry="Finances",
+                                            about="Financial, software, data, and media company headquartered in Midtown Manhattan, New York City",
+                                        ),
+                                        notes="CIO is interested in trying out the product.",
+                                    ),
+                                    team=models.Team(
+                                        id="<id>",
+                                        name="<value>",
+                                        datasource_profiles=[
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                        ],
+                                    ),
+                                    custom_entity=models.CustomEntity(),
+                                    answer=models.Answer(
+                                        id=3,
+                                        doc_id="ANSWERS_answer_3",
+                                        question="Why is the sky blue?",
+                                        body_text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        combined_answer_text=models.StructuredText(
+                                            text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                                        ),
+                                        likes=models.AnswerLikes(
+                                            liked_by=[],
+                                            liked_by_user=False,
+                                            num_likes=370922,
+                                        ),
+                                        author=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        verification=models.Verification(
+                                            state=models.State.VERIFIED,
+                                            metadata=models.VerificationMetadata(
+                                                last_verifier=models.Person(
+                                                    name="George Clooney",
+                                                    obfuscated_id="abc123",
+                                                ),
+                                                document=models.Document(
+                                                    metadata=models.DocumentMetadata(
+                                                        datasource="datasource",
+                                                        object_type="Feature Request",
+                                                        container="container",
+                                                        parent_id="JIRA_EN-1337",
+                                                        mime_type="mimeType",
+                                                        document_id="documentId",
+                                                        create_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        update_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        author=models.Person(
+                                                            name="name",
+                                                            obfuscated_id="<id>",
+                                                        ),
+                                                        components=[
+                                                            "Backend",
+                                                            "Networking",
+                                                        ],
+                                                        status='["Done"]',
+                                                        custom_data={
+                                                            "someCustomField": models.CustomDataValue(),
+                                                        },
+                                                    ),
+                                                ),
+                                                last_reminder=models.Reminder(
+                                                    assignee=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                    requestor=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                    remind_at=605,
+                                                ),
+                                            ),
+                                        ),
+                                        board=models.AnswerBoard(
+                                            name="<value>",
+                                            description="finally waist inasmuch woot ignorance",
+                                            audience_filters=[
+                                                models.FacetFilter(
+                                                    field_name="type",
+                                                    values=[
+                                                        models.FacetFilterValue(
+                                                            value="Spreadsheet",
+                                                            relation_type=models.RelationType.EQUALS,
+                                                        ),
+                                                        models.FacetFilterValue(
+                                                            value="Presentation",
+                                                            relation_type=models.RelationType.EQUALS,
+                                                        ),
+                                                    ],
+                                                ),
+                                            ],
+                                            id=291881,
+                                            creator=models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
+                                            updated_by=models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
+                                        ),
+                                        source_document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
+                                    extracted_qn_a=models.ExtractedQnA(
+                                        question_result=models.SearchResult(
+                                            title="title",
+                                            url="https://example.com/foo/bar",
+                                            native_app_url="slack://foo/bar",
+                                        ),
+                                    ),
+                                    meeting=models.Meeting(
+                                        attendees=models.CalendarAttendees(),
+                                    ),
+                                    collection=models.Collection(
+                                        name="<value>",
+                                        description="even metal boo blindly for steak gadzooks ick monthly heating",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        id=833343,
+                                        creator=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    answer_board=models.AnswerBoard(
+                                        name="<value>",
+                                        description="geez huzzah oof webbed certainly degenerate along inure cow zowie",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        id=656491,
+                                        creator=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    code=models.Code(
+                                        repo_name="scio",
+                                        file_name="README.md",
+                                    ),
+                                    shortcut=models.Shortcut(
+                                        input_alias="<value>",
+                                        created_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        destination_document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
+                                    query_suggestions=models.QuerySuggestionList(
+                                        person=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    related_question=models.RelatedQuestion(),
+                                ),
                             ],
+                            query_suggestion=models.QuerySuggestion(
+                                query="app:github type:pull author:mortimer",
+                                label="Mortimer's PRs",
+                                datasource="github",
+                            ),
                             file=models.ChatFile(
                                 id="FILE_1234",
                                 url="www.google.com",
@@ -544,10 +1547,960 @@ def test_client_chat_chat_stream_update_response():
                         ),
                         models.ChatMessageFragment(
                             structured_results=[
-                                models.StructuredResult(),
-                                models.StructuredResult(),
-                                models.StructuredResult(),
+                                models.StructuredResult(
+                                    document=models.Document(
+                                        metadata=models.DocumentMetadata(
+                                            datasource="datasource",
+                                            object_type="Feature Request",
+                                            container="container",
+                                            parent_id="JIRA_EN-1337",
+                                            mime_type="mimeType",
+                                            document_id="documentId",
+                                            create_time=parse_datetime(
+                                                "2000-01-23T04:56:07.000Z"
+                                            ),
+                                            update_time=parse_datetime(
+                                                "2000-01-23T04:56:07.000Z"
+                                            ),
+                                            author=models.Person(
+                                                name="name",
+                                                obfuscated_id="<id>",
+                                            ),
+                                            components=[
+                                                "Backend",
+                                                "Networking",
+                                            ],
+                                            status='["Done"]',
+                                            custom_data={
+                                                "someCustomField": models.CustomDataValue(),
+                                            },
+                                        ),
+                                    ),
+                                    person=models.Person(
+                                        name="George Clooney",
+                                        obfuscated_id="abc123",
+                                    ),
+                                    customer=models.Customer(
+                                        id="<id>",
+                                        company=models.Company(
+                                            name="<value>",
+                                            location="New York City",
+                                            industry="Finances",
+                                            about="Financial, software, data, and media company headquartered in Midtown Manhattan, New York City",
+                                        ),
+                                        notes="CIO is interested in trying out the product.",
+                                    ),
+                                    team=models.Team(
+                                        id="<id>",
+                                        name="<value>",
+                                        datasource_profiles=[
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                        ],
+                                    ),
+                                    custom_entity=models.CustomEntity(),
+                                    answer=models.Answer(
+                                        id=3,
+                                        doc_id="ANSWERS_answer_3",
+                                        question="Why is the sky blue?",
+                                        body_text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        combined_answer_text=models.StructuredText(
+                                            text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                                        ),
+                                        likes=models.AnswerLikes(
+                                            liked_by=[],
+                                            liked_by_user=True,
+                                            num_likes=86395,
+                                        ),
+                                        author=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        verification=models.Verification(
+                                            state=models.State.VERIFIED,
+                                            metadata=models.VerificationMetadata(
+                                                last_verifier=models.Person(
+                                                    name="George Clooney",
+                                                    obfuscated_id="abc123",
+                                                ),
+                                                document=models.Document(
+                                                    metadata=models.DocumentMetadata(
+                                                        datasource="datasource",
+                                                        object_type="Feature Request",
+                                                        container="container",
+                                                        parent_id="JIRA_EN-1337",
+                                                        mime_type="mimeType",
+                                                        document_id="documentId",
+                                                        create_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        update_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        author=models.Person(
+                                                            name="name",
+                                                            obfuscated_id="<id>",
+                                                        ),
+                                                        components=[
+                                                            "Backend",
+                                                            "Networking",
+                                                        ],
+                                                        status='["Done"]',
+                                                        custom_data={
+                                                            "someCustomField": models.CustomDataValue(),
+                                                        },
+                                                    ),
+                                                ),
+                                                last_reminder=models.Reminder(
+                                                    assignee=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                    requestor=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                    remind_at=612122,
+                                                ),
+                                            ),
+                                        ),
+                                        board=models.AnswerBoard(
+                                            name="<value>",
+                                            description="the across instead into aching where descent shark lest times",
+                                            audience_filters=[
+                                                models.FacetFilter(
+                                                    field_name="type",
+                                                    values=[
+                                                        models.FacetFilterValue(
+                                                            value="Spreadsheet",
+                                                            relation_type=models.RelationType.EQUALS,
+                                                        ),
+                                                        models.FacetFilterValue(
+                                                            value="Presentation",
+                                                            relation_type=models.RelationType.EQUALS,
+                                                        ),
+                                                    ],
+                                                ),
+                                            ],
+                                            id=760885,
+                                            creator=models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
+                                            updated_by=models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
+                                        ),
+                                        source_document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
+                                    extracted_qn_a=models.ExtractedQnA(
+                                        question_result=models.SearchResult(
+                                            title="title",
+                                            url="https://example.com/foo/bar",
+                                            native_app_url="slack://foo/bar",
+                                        ),
+                                    ),
+                                    meeting=models.Meeting(
+                                        attendees=models.CalendarAttendees(),
+                                    ),
+                                    collection=models.Collection(
+                                        name="<value>",
+                                        description="woefully optimal beside tame",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        id=750557,
+                                        creator=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    answer_board=models.AnswerBoard(
+                                        name="<value>",
+                                        description="impanel hydrant spectacles justly hence absolve after sleet drat",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        id=603732,
+                                        creator=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    code=models.Code(
+                                        repo_name="scio",
+                                        file_name="README.md",
+                                    ),
+                                    shortcut=models.Shortcut(
+                                        input_alias="<value>",
+                                        created_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        destination_document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
+                                    query_suggestions=models.QuerySuggestionList(
+                                        person=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    related_question=models.RelatedQuestion(),
+                                ),
+                                models.StructuredResult(
+                                    document=models.Document(
+                                        metadata=models.DocumentMetadata(
+                                            datasource="datasource",
+                                            object_type="Feature Request",
+                                            container="container",
+                                            parent_id="JIRA_EN-1337",
+                                            mime_type="mimeType",
+                                            document_id="documentId",
+                                            create_time=parse_datetime(
+                                                "2000-01-23T04:56:07.000Z"
+                                            ),
+                                            update_time=parse_datetime(
+                                                "2000-01-23T04:56:07.000Z"
+                                            ),
+                                            author=models.Person(
+                                                name="name",
+                                                obfuscated_id="<id>",
+                                            ),
+                                            components=[
+                                                "Backend",
+                                                "Networking",
+                                            ],
+                                            status='["Done"]',
+                                            custom_data={
+                                                "someCustomField": models.CustomDataValue(),
+                                            },
+                                        ),
+                                    ),
+                                    person=models.Person(
+                                        name="George Clooney",
+                                        obfuscated_id="abc123",
+                                    ),
+                                    customer=models.Customer(
+                                        id="<id>",
+                                        company=models.Company(
+                                            name="<value>",
+                                            location="New York City",
+                                            industry="Finances",
+                                            about="Financial, software, data, and media company headquartered in Midtown Manhattan, New York City",
+                                        ),
+                                        notes="CIO is interested in trying out the product.",
+                                    ),
+                                    team=models.Team(
+                                        id="<id>",
+                                        name="<value>",
+                                        datasource_profiles=[
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                        ],
+                                    ),
+                                    custom_entity=models.CustomEntity(),
+                                    answer=models.Answer(
+                                        id=3,
+                                        doc_id="ANSWERS_answer_3",
+                                        question="Why is the sky blue?",
+                                        body_text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        combined_answer_text=models.StructuredText(
+                                            text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                                        ),
+                                        likes=models.AnswerLikes(
+                                            liked_by=[],
+                                            liked_by_user=False,
+                                            num_likes=226392,
+                                        ),
+                                        author=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        verification=models.Verification(
+                                            state=models.State.DEPRECATED,
+                                            metadata=models.VerificationMetadata(
+                                                last_verifier=models.Person(
+                                                    name="George Clooney",
+                                                    obfuscated_id="abc123",
+                                                ),
+                                                document=models.Document(
+                                                    metadata=models.DocumentMetadata(
+                                                        datasource="datasource",
+                                                        object_type="Feature Request",
+                                                        container="container",
+                                                        parent_id="JIRA_EN-1337",
+                                                        mime_type="mimeType",
+                                                        document_id="documentId",
+                                                        create_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        update_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        author=models.Person(
+                                                            name="name",
+                                                            obfuscated_id="<id>",
+                                                        ),
+                                                        components=[
+                                                            "Backend",
+                                                            "Networking",
+                                                        ],
+                                                        status='["Done"]',
+                                                        custom_data={
+                                                            "someCustomField": models.CustomDataValue(),
+                                                        },
+                                                    ),
+                                                ),
+                                                last_reminder=models.Reminder(
+                                                    assignee=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                    requestor=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                    remind_at=130628,
+                                                ),
+                                            ),
+                                        ),
+                                        board=models.AnswerBoard(
+                                            name="<value>",
+                                            description="amongst uh-huh reassemble upset concrete",
+                                            audience_filters=[
+                                                models.FacetFilter(
+                                                    field_name="type",
+                                                    values=[
+                                                        models.FacetFilterValue(
+                                                            value="Spreadsheet",
+                                                            relation_type=models.RelationType.EQUALS,
+                                                        ),
+                                                        models.FacetFilterValue(
+                                                            value="Presentation",
+                                                            relation_type=models.RelationType.EQUALS,
+                                                        ),
+                                                    ],
+                                                ),
+                                            ],
+                                            id=911324,
+                                            creator=models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
+                                            updated_by=models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
+                                        ),
+                                        source_document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
+                                    extracted_qn_a=models.ExtractedQnA(
+                                        question_result=models.SearchResult(
+                                            title="title",
+                                            url="https://example.com/foo/bar",
+                                            native_app_url="slack://foo/bar",
+                                        ),
+                                    ),
+                                    meeting=models.Meeting(
+                                        attendees=models.CalendarAttendees(),
+                                    ),
+                                    collection=models.Collection(
+                                        name="<value>",
+                                        description="behind boyfriend slime nor",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        id=146903,
+                                        creator=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    answer_board=models.AnswerBoard(
+                                        name="<value>",
+                                        description="psst um devil gazebo save",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        id=45693,
+                                        creator=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    code=models.Code(
+                                        repo_name="scio",
+                                        file_name="README.md",
+                                    ),
+                                    shortcut=models.Shortcut(
+                                        input_alias="<value>",
+                                        created_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        destination_document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
+                                    query_suggestions=models.QuerySuggestionList(
+                                        person=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    related_question=models.RelatedQuestion(),
+                                ),
+                                models.StructuredResult(
+                                    document=models.Document(
+                                        metadata=models.DocumentMetadata(
+                                            datasource="datasource",
+                                            object_type="Feature Request",
+                                            container="container",
+                                            parent_id="JIRA_EN-1337",
+                                            mime_type="mimeType",
+                                            document_id="documentId",
+                                            create_time=parse_datetime(
+                                                "2000-01-23T04:56:07.000Z"
+                                            ),
+                                            update_time=parse_datetime(
+                                                "2000-01-23T04:56:07.000Z"
+                                            ),
+                                            author=models.Person(
+                                                name="name",
+                                                obfuscated_id="<id>",
+                                            ),
+                                            components=[
+                                                "Backend",
+                                                "Networking",
+                                            ],
+                                            status='["Done"]',
+                                            custom_data={
+                                                "someCustomField": models.CustomDataValue(),
+                                            },
+                                        ),
+                                    ),
+                                    person=models.Person(
+                                        name="George Clooney",
+                                        obfuscated_id="abc123",
+                                    ),
+                                    customer=models.Customer(
+                                        id="<id>",
+                                        company=models.Company(
+                                            name="<value>",
+                                            location="New York City",
+                                            industry="Finances",
+                                            about="Financial, software, data, and media company headquartered in Midtown Manhattan, New York City",
+                                        ),
+                                        notes="CIO is interested in trying out the product.",
+                                    ),
+                                    team=models.Team(
+                                        id="<id>",
+                                        name="<value>",
+                                        datasource_profiles=[
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                        ],
+                                    ),
+                                    custom_entity=models.CustomEntity(),
+                                    answer=models.Answer(
+                                        id=3,
+                                        doc_id="ANSWERS_answer_3",
+                                        question="Why is the sky blue?",
+                                        body_text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        combined_answer_text=models.StructuredText(
+                                            text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                                        ),
+                                        likes=models.AnswerLikes(
+                                            liked_by=[],
+                                            liked_by_user=True,
+                                            num_likes=654201,
+                                        ),
+                                        author=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        verification=models.Verification(
+                                            state=models.State.UNVERIFIED,
+                                            metadata=models.VerificationMetadata(
+                                                last_verifier=models.Person(
+                                                    name="George Clooney",
+                                                    obfuscated_id="abc123",
+                                                ),
+                                                document=models.Document(
+                                                    metadata=models.DocumentMetadata(
+                                                        datasource="datasource",
+                                                        object_type="Feature Request",
+                                                        container="container",
+                                                        parent_id="JIRA_EN-1337",
+                                                        mime_type="mimeType",
+                                                        document_id="documentId",
+                                                        create_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        update_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        author=models.Person(
+                                                            name="name",
+                                                            obfuscated_id="<id>",
+                                                        ),
+                                                        components=[
+                                                            "Backend",
+                                                            "Networking",
+                                                        ],
+                                                        status='["Done"]',
+                                                        custom_data={
+                                                            "someCustomField": models.CustomDataValue(),
+                                                        },
+                                                    ),
+                                                ),
+                                                last_reminder=models.Reminder(
+                                                    assignee=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                    requestor=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                    remind_at=804029,
+                                                ),
+                                            ),
+                                        ),
+                                        board=models.AnswerBoard(
+                                            name="<value>",
+                                            description="except gadzooks geez",
+                                            audience_filters=[
+                                                models.FacetFilter(
+                                                    field_name="type",
+                                                    values=[
+                                                        models.FacetFilterValue(
+                                                            value="Spreadsheet",
+                                                            relation_type=models.RelationType.EQUALS,
+                                                        ),
+                                                        models.FacetFilterValue(
+                                                            value="Presentation",
+                                                            relation_type=models.RelationType.EQUALS,
+                                                        ),
+                                                    ],
+                                                ),
+                                            ],
+                                            id=567840,
+                                            creator=models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
+                                            updated_by=models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
+                                        ),
+                                        source_document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
+                                    extracted_qn_a=models.ExtractedQnA(
+                                        question_result=models.SearchResult(
+                                            title="title",
+                                            url="https://example.com/foo/bar",
+                                            native_app_url="slack://foo/bar",
+                                        ),
+                                    ),
+                                    meeting=models.Meeting(
+                                        attendees=models.CalendarAttendees(),
+                                    ),
+                                    collection=models.Collection(
+                                        name="<value>",
+                                        description="aha hence nectarine within airbus so stylish while",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        id=376424,
+                                        creator=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    answer_board=models.AnswerBoard(
+                                        name="<value>",
+                                        description="surprise outside whether ack",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        id=621220,
+                                        creator=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    code=models.Code(
+                                        repo_name="scio",
+                                        file_name="README.md",
+                                    ),
+                                    shortcut=models.Shortcut(
+                                        input_alias="<value>",
+                                        created_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        destination_document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
+                                    query_suggestions=models.QuerySuggestionList(
+                                        person=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    related_question=models.RelatedQuestion(),
+                                ),
                             ],
+                            query_suggestion=models.QuerySuggestion(
+                                query="app:github type:pull author:mortimer",
+                                label="Mortimer's PRs",
+                                datasource="github",
+                            ),
                             file=models.ChatFile(
                                 id="FILE_1234",
                                 url="www.google.com",
@@ -568,13 +2521,76 @@ def test_client_chat_chat_stream_update_response():
                 {
                     "citations": [
                         models.ChatMessageCitation(
+                            source_document=models.Document(
+                                metadata=models.DocumentMetadata(
+                                    datasource="datasource",
+                                    object_type="Feature Request",
+                                    container="container",
+                                    parent_id="JIRA_EN-1337",
+                                    mime_type="mimeType",
+                                    document_id="documentId",
+                                    create_time=parse_datetime(
+                                        "2000-01-23T04:56:07.000Z"
+                                    ),
+                                    update_time=parse_datetime(
+                                        "2000-01-23T04:56:07.000Z"
+                                    ),
+                                    author=models.Person(
+                                        name="name",
+                                        obfuscated_id="<id>",
+                                    ),
+                                    components=[
+                                        "Backend",
+                                        "Networking",
+                                    ],
+                                    status='["Done"]',
+                                    custom_data={
+                                        "someCustomField": models.CustomDataValue(),
+                                    },
+                                ),
+                            ),
                             source_file=models.ChatFile(
                                 id="FILE_1234",
                                 url="www.google.com",
                                 name="sample.pdf",
                             ),
+                            source_person=models.Person(
+                                name="George Clooney",
+                                obfuscated_id="abc123",
+                            ),
                             reference_ranges=[
                                 models.ReferenceRange(
+                                    text_range=models.TextRange(
+                                        start_index=537317,
+                                        document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
                                     snippets=[
                                         models.SearchResultSnippet(
                                             snippet="snippet",
@@ -583,6 +2599,37 @@ def test_client_chat_chat_stream_update_response():
                                     ],
                                 ),
                                 models.ReferenceRange(
+                                    text_range=models.TextRange(
+                                        start_index=302109,
+                                        document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
                                     snippets=[
                                         models.SearchResultSnippet(
                                             snippet="snippet",
@@ -593,13 +2640,76 @@ def test_client_chat_chat_stream_update_response():
                             ],
                         ),
                         models.ChatMessageCitation(
+                            source_document=models.Document(
+                                metadata=models.DocumentMetadata(
+                                    datasource="datasource",
+                                    object_type="Feature Request",
+                                    container="container",
+                                    parent_id="JIRA_EN-1337",
+                                    mime_type="mimeType",
+                                    document_id="documentId",
+                                    create_time=parse_datetime(
+                                        "2000-01-23T04:56:07.000Z"
+                                    ),
+                                    update_time=parse_datetime(
+                                        "2000-01-23T04:56:07.000Z"
+                                    ),
+                                    author=models.Person(
+                                        name="name",
+                                        obfuscated_id="<id>",
+                                    ),
+                                    components=[
+                                        "Backend",
+                                        "Networking",
+                                    ],
+                                    status='["Done"]',
+                                    custom_data={
+                                        "someCustomField": models.CustomDataValue(),
+                                    },
+                                ),
+                            ),
                             source_file=models.ChatFile(
                                 id="FILE_1234",
                                 url="www.google.com",
                                 name="sample.pdf",
                             ),
+                            source_person=models.Person(
+                                name="George Clooney",
+                                obfuscated_id="abc123",
+                            ),
                             reference_ranges=[
                                 models.ReferenceRange(
+                                    text_range=models.TextRange(
+                                        start_index=494612,
+                                        document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
                                     snippets=[
                                         models.SearchResultSnippet(
                                             snippet="snippet",
@@ -610,13 +2720,76 @@ def test_client_chat_chat_stream_update_response():
                             ],
                         ),
                         models.ChatMessageCitation(
+                            source_document=models.Document(
+                                metadata=models.DocumentMetadata(
+                                    datasource="datasource",
+                                    object_type="Feature Request",
+                                    container="container",
+                                    parent_id="JIRA_EN-1337",
+                                    mime_type="mimeType",
+                                    document_id="documentId",
+                                    create_time=parse_datetime(
+                                        "2000-01-23T04:56:07.000Z"
+                                    ),
+                                    update_time=parse_datetime(
+                                        "2000-01-23T04:56:07.000Z"
+                                    ),
+                                    author=models.Person(
+                                        name="name",
+                                        obfuscated_id="<id>",
+                                    ),
+                                    components=[
+                                        "Backend",
+                                        "Networking",
+                                    ],
+                                    status='["Done"]',
+                                    custom_data={
+                                        "someCustomField": models.CustomDataValue(),
+                                    },
+                                ),
+                            ),
                             source_file=models.ChatFile(
                                 id="FILE_1234",
                                 url="www.google.com",
                                 name="sample.pdf",
                             ),
+                            source_person=models.Person(
+                                name="George Clooney",
+                                obfuscated_id="abc123",
+                            ),
                             reference_ranges=[
                                 models.ReferenceRange(
+                                    text_range=models.TextRange(
+                                        start_index=767229,
+                                        document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
                                     snippets=[
                                         models.SearchResultSnippet(
                                             snippet="snippet",
@@ -625,6 +2798,37 @@ def test_client_chat_chat_stream_update_response():
                                     ],
                                 ),
                                 models.ReferenceRange(
+                                    text_range=models.TextRange(
+                                        start_index=437321,
+                                        document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
                                     snippets=[
                                         models.SearchResultSnippet(
                                             snippet="snippet",
@@ -633,6 +2837,37 @@ def test_client_chat_chat_stream_update_response():
                                     ],
                                 ),
                                 models.ReferenceRange(
+                                    text_range=models.TextRange(
+                                        start_index=949459,
+                                        document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
                                     snippets=[
                                         models.SearchResultSnippet(
                                             snippet="snippet",
@@ -646,10 +2881,960 @@ def test_client_chat_chat_stream_update_response():
                     "fragments": [
                         models.ChatMessageFragment(
                             structured_results=[
-                                models.StructuredResult(),
-                                models.StructuredResult(),
-                                models.StructuredResult(),
+                                models.StructuredResult(
+                                    document=models.Document(
+                                        metadata=models.DocumentMetadata(
+                                            datasource="datasource",
+                                            object_type="Feature Request",
+                                            container="container",
+                                            parent_id="JIRA_EN-1337",
+                                            mime_type="mimeType",
+                                            document_id="documentId",
+                                            create_time=parse_datetime(
+                                                "2000-01-23T04:56:07.000Z"
+                                            ),
+                                            update_time=parse_datetime(
+                                                "2000-01-23T04:56:07.000Z"
+                                            ),
+                                            author=models.Person(
+                                                name="name",
+                                                obfuscated_id="<id>",
+                                            ),
+                                            components=[
+                                                "Backend",
+                                                "Networking",
+                                            ],
+                                            status='["Done"]',
+                                            custom_data={
+                                                "someCustomField": models.CustomDataValue(),
+                                            },
+                                        ),
+                                    ),
+                                    person=models.Person(
+                                        name="George Clooney",
+                                        obfuscated_id="abc123",
+                                    ),
+                                    customer=models.Customer(
+                                        id="<id>",
+                                        company=models.Company(
+                                            name="<value>",
+                                            location="New York City",
+                                            industry="Finances",
+                                            about="Financial, software, data, and media company headquartered in Midtown Manhattan, New York City",
+                                        ),
+                                        notes="CIO is interested in trying out the product.",
+                                    ),
+                                    team=models.Team(
+                                        id="<id>",
+                                        name="<value>",
+                                        datasource_profiles=[
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                        ],
+                                    ),
+                                    custom_entity=models.CustomEntity(),
+                                    answer=models.Answer(
+                                        id=3,
+                                        doc_id="ANSWERS_answer_3",
+                                        question="Why is the sky blue?",
+                                        body_text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        combined_answer_text=models.StructuredText(
+                                            text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                                        ),
+                                        likes=models.AnswerLikes(
+                                            liked_by=[],
+                                            liked_by_user=True,
+                                            num_likes=280784,
+                                        ),
+                                        author=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        verification=models.Verification(
+                                            state=models.State.VERIFIED,
+                                            metadata=models.VerificationMetadata(
+                                                last_verifier=models.Person(
+                                                    name="George Clooney",
+                                                    obfuscated_id="abc123",
+                                                ),
+                                                document=models.Document(
+                                                    metadata=models.DocumentMetadata(
+                                                        datasource="datasource",
+                                                        object_type="Feature Request",
+                                                        container="container",
+                                                        parent_id="JIRA_EN-1337",
+                                                        mime_type="mimeType",
+                                                        document_id="documentId",
+                                                        create_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        update_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        author=models.Person(
+                                                            name="name",
+                                                            obfuscated_id="<id>",
+                                                        ),
+                                                        components=[
+                                                            "Backend",
+                                                            "Networking",
+                                                        ],
+                                                        status='["Done"]',
+                                                        custom_data={
+                                                            "someCustomField": models.CustomDataValue(),
+                                                        },
+                                                    ),
+                                                ),
+                                                last_reminder=models.Reminder(
+                                                    assignee=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                    requestor=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                    remind_at=764407,
+                                                ),
+                                            ),
+                                        ),
+                                        board=models.AnswerBoard(
+                                            name="<value>",
+                                            description="short-term suffice why rightfully",
+                                            audience_filters=[
+                                                models.FacetFilter(
+                                                    field_name="type",
+                                                    values=[
+                                                        models.FacetFilterValue(
+                                                            value="Spreadsheet",
+                                                            relation_type=models.RelationType.EQUALS,
+                                                        ),
+                                                        models.FacetFilterValue(
+                                                            value="Presentation",
+                                                            relation_type=models.RelationType.EQUALS,
+                                                        ),
+                                                    ],
+                                                ),
+                                            ],
+                                            id=974132,
+                                            creator=models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
+                                            updated_by=models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
+                                        ),
+                                        source_document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
+                                    extracted_qn_a=models.ExtractedQnA(
+                                        question_result=models.SearchResult(
+                                            title="title",
+                                            url="https://example.com/foo/bar",
+                                            native_app_url="slack://foo/bar",
+                                        ),
+                                    ),
+                                    meeting=models.Meeting(
+                                        attendees=models.CalendarAttendees(),
+                                    ),
+                                    collection=models.Collection(
+                                        name="<value>",
+                                        description="times loudly upon dramatize",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        id=186567,
+                                        creator=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    answer_board=models.AnswerBoard(
+                                        name="<value>",
+                                        description="er reconsideration triumphantly meaty yearly fragrant delightfully though painfully robust",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        id=804940,
+                                        creator=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    code=models.Code(
+                                        repo_name="scio",
+                                        file_name="README.md",
+                                    ),
+                                    shortcut=models.Shortcut(
+                                        input_alias="<value>",
+                                        created_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        destination_document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
+                                    query_suggestions=models.QuerySuggestionList(
+                                        person=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    related_question=models.RelatedQuestion(),
+                                ),
+                                models.StructuredResult(
+                                    document=models.Document(
+                                        metadata=models.DocumentMetadata(
+                                            datasource="datasource",
+                                            object_type="Feature Request",
+                                            container="container",
+                                            parent_id="JIRA_EN-1337",
+                                            mime_type="mimeType",
+                                            document_id="documentId",
+                                            create_time=parse_datetime(
+                                                "2000-01-23T04:56:07.000Z"
+                                            ),
+                                            update_time=parse_datetime(
+                                                "2000-01-23T04:56:07.000Z"
+                                            ),
+                                            author=models.Person(
+                                                name="name",
+                                                obfuscated_id="<id>",
+                                            ),
+                                            components=[
+                                                "Backend",
+                                                "Networking",
+                                            ],
+                                            status='["Done"]',
+                                            custom_data={
+                                                "someCustomField": models.CustomDataValue(),
+                                            },
+                                        ),
+                                    ),
+                                    person=models.Person(
+                                        name="George Clooney",
+                                        obfuscated_id="abc123",
+                                    ),
+                                    customer=models.Customer(
+                                        id="<id>",
+                                        company=models.Company(
+                                            name="<value>",
+                                            location="New York City",
+                                            industry="Finances",
+                                            about="Financial, software, data, and media company headquartered in Midtown Manhattan, New York City",
+                                        ),
+                                        notes="CIO is interested in trying out the product.",
+                                    ),
+                                    team=models.Team(
+                                        id="<id>",
+                                        name="<value>",
+                                        datasource_profiles=[
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                        ],
+                                    ),
+                                    custom_entity=models.CustomEntity(),
+                                    answer=models.Answer(
+                                        id=3,
+                                        doc_id="ANSWERS_answer_3",
+                                        question="Why is the sky blue?",
+                                        body_text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        combined_answer_text=models.StructuredText(
+                                            text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                                        ),
+                                        likes=models.AnswerLikes(
+                                            liked_by=[],
+                                            liked_by_user=True,
+                                            num_likes=175872,
+                                        ),
+                                        author=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        verification=models.Verification(
+                                            state=models.State.VERIFIED,
+                                            metadata=models.VerificationMetadata(
+                                                last_verifier=models.Person(
+                                                    name="George Clooney",
+                                                    obfuscated_id="abc123",
+                                                ),
+                                                document=models.Document(
+                                                    metadata=models.DocumentMetadata(
+                                                        datasource="datasource",
+                                                        object_type="Feature Request",
+                                                        container="container",
+                                                        parent_id="JIRA_EN-1337",
+                                                        mime_type="mimeType",
+                                                        document_id="documentId",
+                                                        create_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        update_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        author=models.Person(
+                                                            name="name",
+                                                            obfuscated_id="<id>",
+                                                        ),
+                                                        components=[
+                                                            "Backend",
+                                                            "Networking",
+                                                        ],
+                                                        status='["Done"]',
+                                                        custom_data={
+                                                            "someCustomField": models.CustomDataValue(),
+                                                        },
+                                                    ),
+                                                ),
+                                                last_reminder=models.Reminder(
+                                                    assignee=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                    requestor=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                    remind_at=922297,
+                                                ),
+                                            ),
+                                        ),
+                                        board=models.AnswerBoard(
+                                            name="<value>",
+                                            description="planula presume mismatch of commandeer ready mortally although",
+                                            audience_filters=[
+                                                models.FacetFilter(
+                                                    field_name="type",
+                                                    values=[
+                                                        models.FacetFilterValue(
+                                                            value="Spreadsheet",
+                                                            relation_type=models.RelationType.EQUALS,
+                                                        ),
+                                                        models.FacetFilterValue(
+                                                            value="Presentation",
+                                                            relation_type=models.RelationType.EQUALS,
+                                                        ),
+                                                    ],
+                                                ),
+                                            ],
+                                            id=711093,
+                                            creator=models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
+                                            updated_by=models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
+                                        ),
+                                        source_document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
+                                    extracted_qn_a=models.ExtractedQnA(
+                                        question_result=models.SearchResult(
+                                            title="title",
+                                            url="https://example.com/foo/bar",
+                                            native_app_url="slack://foo/bar",
+                                        ),
+                                    ),
+                                    meeting=models.Meeting(
+                                        attendees=models.CalendarAttendees(),
+                                    ),
+                                    collection=models.Collection(
+                                        name="<value>",
+                                        description="phooey aw than proceed perky",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        id=365383,
+                                        creator=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    answer_board=models.AnswerBoard(
+                                        name="<value>",
+                                        description="rundown recklessly favorite supposing dull politely soon ignorant",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        id=171217,
+                                        creator=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    code=models.Code(
+                                        repo_name="scio",
+                                        file_name="README.md",
+                                    ),
+                                    shortcut=models.Shortcut(
+                                        input_alias="<value>",
+                                        created_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        destination_document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
+                                    query_suggestions=models.QuerySuggestionList(
+                                        person=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    related_question=models.RelatedQuestion(),
+                                ),
+                                models.StructuredResult(
+                                    document=models.Document(
+                                        metadata=models.DocumentMetadata(
+                                            datasource="datasource",
+                                            object_type="Feature Request",
+                                            container="container",
+                                            parent_id="JIRA_EN-1337",
+                                            mime_type="mimeType",
+                                            document_id="documentId",
+                                            create_time=parse_datetime(
+                                                "2000-01-23T04:56:07.000Z"
+                                            ),
+                                            update_time=parse_datetime(
+                                                "2000-01-23T04:56:07.000Z"
+                                            ),
+                                            author=models.Person(
+                                                name="name",
+                                                obfuscated_id="<id>",
+                                            ),
+                                            components=[
+                                                "Backend",
+                                                "Networking",
+                                            ],
+                                            status='["Done"]',
+                                            custom_data={
+                                                "someCustomField": models.CustomDataValue(),
+                                            },
+                                        ),
+                                    ),
+                                    person=models.Person(
+                                        name="George Clooney",
+                                        obfuscated_id="abc123",
+                                    ),
+                                    customer=models.Customer(
+                                        id="<id>",
+                                        company=models.Company(
+                                            name="<value>",
+                                            location="New York City",
+                                            industry="Finances",
+                                            about="Financial, software, data, and media company headquartered in Midtown Manhattan, New York City",
+                                        ),
+                                        notes="CIO is interested in trying out the product.",
+                                    ),
+                                    team=models.Team(
+                                        id="<id>",
+                                        name="<value>",
+                                        datasource_profiles=[
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                        ],
+                                    ),
+                                    custom_entity=models.CustomEntity(),
+                                    answer=models.Answer(
+                                        id=3,
+                                        doc_id="ANSWERS_answer_3",
+                                        question="Why is the sky blue?",
+                                        body_text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        combined_answer_text=models.StructuredText(
+                                            text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                                        ),
+                                        likes=models.AnswerLikes(
+                                            liked_by=[],
+                                            liked_by_user=False,
+                                            num_likes=447757,
+                                        ),
+                                        author=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        verification=models.Verification(
+                                            state=models.State.VERIFIED,
+                                            metadata=models.VerificationMetadata(
+                                                last_verifier=models.Person(
+                                                    name="George Clooney",
+                                                    obfuscated_id="abc123",
+                                                ),
+                                                document=models.Document(
+                                                    metadata=models.DocumentMetadata(
+                                                        datasource="datasource",
+                                                        object_type="Feature Request",
+                                                        container="container",
+                                                        parent_id="JIRA_EN-1337",
+                                                        mime_type="mimeType",
+                                                        document_id="documentId",
+                                                        create_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        update_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        author=models.Person(
+                                                            name="name",
+                                                            obfuscated_id="<id>",
+                                                        ),
+                                                        components=[
+                                                            "Backend",
+                                                            "Networking",
+                                                        ],
+                                                        status='["Done"]',
+                                                        custom_data={
+                                                            "someCustomField": models.CustomDataValue(),
+                                                        },
+                                                    ),
+                                                ),
+                                                last_reminder=models.Reminder(
+                                                    assignee=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                    requestor=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                    remind_at=452627,
+                                                ),
+                                            ),
+                                        ),
+                                        board=models.AnswerBoard(
+                                            name="<value>",
+                                            description="striking confound wilderness but rapid an convection scoop litter than",
+                                            audience_filters=[
+                                                models.FacetFilter(
+                                                    field_name="type",
+                                                    values=[
+                                                        models.FacetFilterValue(
+                                                            value="Spreadsheet",
+                                                            relation_type=models.RelationType.EQUALS,
+                                                        ),
+                                                        models.FacetFilterValue(
+                                                            value="Presentation",
+                                                            relation_type=models.RelationType.EQUALS,
+                                                        ),
+                                                    ],
+                                                ),
+                                            ],
+                                            id=569913,
+                                            creator=models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
+                                            updated_by=models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
+                                        ),
+                                        source_document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
+                                    extracted_qn_a=models.ExtractedQnA(
+                                        question_result=models.SearchResult(
+                                            title="title",
+                                            url="https://example.com/foo/bar",
+                                            native_app_url="slack://foo/bar",
+                                        ),
+                                    ),
+                                    meeting=models.Meeting(
+                                        attendees=models.CalendarAttendees(),
+                                    ),
+                                    collection=models.Collection(
+                                        name="<value>",
+                                        description="extra-large innocent impassioned stealthily yet gum onset blah second-hand",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        id=123250,
+                                        creator=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    answer_board=models.AnswerBoard(
+                                        name="<value>",
+                                        description="meaty impure round",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        id=31007,
+                                        creator=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    code=models.Code(
+                                        repo_name="scio",
+                                        file_name="README.md",
+                                    ),
+                                    shortcut=models.Shortcut(
+                                        input_alias="<value>",
+                                        created_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        destination_document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
+                                    query_suggestions=models.QuerySuggestionList(
+                                        person=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    related_question=models.RelatedQuestion(),
+                                ),
                             ],
+                            query_suggestion=models.QuerySuggestion(
+                                query="app:github type:pull author:mortimer",
+                                label="Mortimer's PRs",
+                                datasource="github",
+                            ),
                             file=models.ChatFile(
                                 id="FILE_1234",
                                 url="www.google.com",
@@ -667,10 +3852,968 @@ def test_client_chat_chat_stream_update_response():
                         ),
                         models.ChatMessageFragment(
                             structured_results=[
-                                models.StructuredResult(),
-                                models.StructuredResult(),
-                                models.StructuredResult(),
+                                models.StructuredResult(
+                                    document=models.Document(
+                                        metadata=models.DocumentMetadata(
+                                            datasource="datasource",
+                                            object_type="Feature Request",
+                                            container="container",
+                                            parent_id="JIRA_EN-1337",
+                                            mime_type="mimeType",
+                                            document_id="documentId",
+                                            create_time=parse_datetime(
+                                                "2000-01-23T04:56:07.000Z"
+                                            ),
+                                            update_time=parse_datetime(
+                                                "2000-01-23T04:56:07.000Z"
+                                            ),
+                                            author=models.Person(
+                                                name="name",
+                                                obfuscated_id="<id>",
+                                            ),
+                                            components=[
+                                                "Backend",
+                                                "Networking",
+                                            ],
+                                            status='["Done"]',
+                                            custom_data={
+                                                "someCustomField": models.CustomDataValue(),
+                                            },
+                                        ),
+                                    ),
+                                    person=models.Person(
+                                        name="George Clooney",
+                                        obfuscated_id="abc123",
+                                    ),
+                                    customer=models.Customer(
+                                        id="<id>",
+                                        company=models.Company(
+                                            name="<value>",
+                                            location="New York City",
+                                            industry="Finances",
+                                            about="Financial, software, data, and media company headquartered in Midtown Manhattan, New York City",
+                                        ),
+                                        notes="CIO is interested in trying out the product.",
+                                    ),
+                                    team=models.Team(
+                                        id="<id>",
+                                        name="<value>",
+                                        datasource_profiles=[
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                        ],
+                                    ),
+                                    custom_entity=models.CustomEntity(),
+                                    answer=models.Answer(
+                                        id=3,
+                                        doc_id="ANSWERS_answer_3",
+                                        question="Why is the sky blue?",
+                                        body_text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        combined_answer_text=models.StructuredText(
+                                            text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                                        ),
+                                        likes=models.AnswerLikes(
+                                            liked_by=[],
+                                            liked_by_user=False,
+                                            num_likes=141476,
+                                        ),
+                                        author=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        verification=models.Verification(
+                                            state=models.State.VERIFIED,
+                                            metadata=models.VerificationMetadata(
+                                                last_verifier=models.Person(
+                                                    name="George Clooney",
+                                                    obfuscated_id="abc123",
+                                                ),
+                                                document=models.Document(
+                                                    metadata=models.DocumentMetadata(
+                                                        datasource="datasource",
+                                                        object_type="Feature Request",
+                                                        container="container",
+                                                        parent_id="JIRA_EN-1337",
+                                                        mime_type="mimeType",
+                                                        document_id="documentId",
+                                                        create_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        update_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        author=models.Person(
+                                                            name="name",
+                                                            obfuscated_id="<id>",
+                                                        ),
+                                                        components=[
+                                                            "Backend",
+                                                            "Networking",
+                                                        ],
+                                                        status='["Done"]',
+                                                        custom_data={
+                                                            "someCustomField": models.CustomDataValue(),
+                                                        },
+                                                    ),
+                                                ),
+                                                last_reminder=models.Reminder(
+                                                    assignee=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                    requestor=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                    remind_at=146280,
+                                                ),
+                                            ),
+                                        ),
+                                        board=models.AnswerBoard(
+                                            name="<value>",
+                                            description="intrigue psst furthermore personalise actually showboat eek punctuation ownership ah",
+                                            audience_filters=[
+                                                models.FacetFilter(
+                                                    field_name="type",
+                                                    values=[
+                                                        models.FacetFilterValue(
+                                                            value="Spreadsheet",
+                                                            relation_type=models.RelationType.EQUALS,
+                                                        ),
+                                                        models.FacetFilterValue(
+                                                            value="Presentation",
+                                                            relation_type=models.RelationType.EQUALS,
+                                                        ),
+                                                    ],
+                                                ),
+                                            ],
+                                            id=785749,
+                                            creator=models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
+                                            updated_by=models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
+                                        ),
+                                        source_document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
+                                    extracted_qn_a=models.ExtractedQnA(
+                                        question_result=models.SearchResult(
+                                            title="title",
+                                            url="https://example.com/foo/bar",
+                                            native_app_url="slack://foo/bar",
+                                        ),
+                                    ),
+                                    meeting=models.Meeting(
+                                        attendees=models.CalendarAttendees(),
+                                    ),
+                                    collection=models.Collection(
+                                        name="<value>",
+                                        description="irresponsible meanwhile supposing classic than loyalty before who",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        id=362665,
+                                        creator=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    answer_board=models.AnswerBoard(
+                                        name="<value>",
+                                        description="colorfully aha where",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        id=673010,
+                                        creator=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    code=models.Code(
+                                        repo_name="scio",
+                                        file_name="README.md",
+                                    ),
+                                    shortcut=models.Shortcut(
+                                        input_alias="<value>",
+                                        created_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        destination_document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
+                                    query_suggestions=models.QuerySuggestionList(
+                                        person=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    related_question=models.RelatedQuestion(),
+                                ),
+                                models.StructuredResult(
+                                    document=models.Document(
+                                        metadata=models.DocumentMetadata(
+                                            datasource="datasource",
+                                            object_type="Feature Request",
+                                            container="container",
+                                            parent_id="JIRA_EN-1337",
+                                            mime_type="mimeType",
+                                            document_id="documentId",
+                                            create_time=parse_datetime(
+                                                "2000-01-23T04:56:07.000Z"
+                                            ),
+                                            update_time=parse_datetime(
+                                                "2000-01-23T04:56:07.000Z"
+                                            ),
+                                            author=models.Person(
+                                                name="name",
+                                                obfuscated_id="<id>",
+                                            ),
+                                            components=[
+                                                "Backend",
+                                                "Networking",
+                                            ],
+                                            status='["Done"]',
+                                            custom_data={
+                                                "someCustomField": models.CustomDataValue(),
+                                            },
+                                        ),
+                                    ),
+                                    person=models.Person(
+                                        name="George Clooney",
+                                        obfuscated_id="abc123",
+                                    ),
+                                    customer=models.Customer(
+                                        id="<id>",
+                                        company=models.Company(
+                                            name="<value>",
+                                            location="New York City",
+                                            industry="Finances",
+                                            about="Financial, software, data, and media company headquartered in Midtown Manhattan, New York City",
+                                        ),
+                                        notes="CIO is interested in trying out the product.",
+                                    ),
+                                    team=models.Team(
+                                        id="<id>",
+                                        name="<value>",
+                                        datasource_profiles=[
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                        ],
+                                    ),
+                                    custom_entity=models.CustomEntity(),
+                                    answer=models.Answer(
+                                        id=3,
+                                        doc_id="ANSWERS_answer_3",
+                                        question="Why is the sky blue?",
+                                        body_text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        combined_answer_text=models.StructuredText(
+                                            text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                                        ),
+                                        likes=models.AnswerLikes(
+                                            liked_by=[],
+                                            liked_by_user=False,
+                                            num_likes=932912,
+                                        ),
+                                        author=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        verification=models.Verification(
+                                            state=models.State.DEPRECATED,
+                                            metadata=models.VerificationMetadata(
+                                                last_verifier=models.Person(
+                                                    name="George Clooney",
+                                                    obfuscated_id="abc123",
+                                                ),
+                                                document=models.Document(
+                                                    metadata=models.DocumentMetadata(
+                                                        datasource="datasource",
+                                                        object_type="Feature Request",
+                                                        container="container",
+                                                        parent_id="JIRA_EN-1337",
+                                                        mime_type="mimeType",
+                                                        document_id="documentId",
+                                                        create_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        update_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        author=models.Person(
+                                                            name="name",
+                                                            obfuscated_id="<id>",
+                                                        ),
+                                                        components=[
+                                                            "Backend",
+                                                            "Networking",
+                                                        ],
+                                                        status='["Done"]',
+                                                        custom_data={
+                                                            "someCustomField": models.CustomDataValue(),
+                                                        },
+                                                    ),
+                                                ),
+                                                last_reminder=models.Reminder(
+                                                    assignee=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                    requestor=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                    remind_at=10437,
+                                                ),
+                                            ),
+                                        ),
+                                        board=models.AnswerBoard(
+                                            name="<value>",
+                                            description="hence inquisitively proud meh yahoo",
+                                            audience_filters=[
+                                                models.FacetFilter(
+                                                    field_name="type",
+                                                    values=[
+                                                        models.FacetFilterValue(
+                                                            value="Spreadsheet",
+                                                            relation_type=models.RelationType.EQUALS,
+                                                        ),
+                                                        models.FacetFilterValue(
+                                                            value="Presentation",
+                                                            relation_type=models.RelationType.EQUALS,
+                                                        ),
+                                                    ],
+                                                ),
+                                            ],
+                                            id=165945,
+                                            creator=models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
+                                            updated_by=models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
+                                        ),
+                                        source_document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
+                                    extracted_qn_a=models.ExtractedQnA(
+                                        question_result=models.SearchResult(
+                                            title="title",
+                                            url="https://example.com/foo/bar",
+                                            native_app_url="slack://foo/bar",
+                                        ),
+                                    ),
+                                    meeting=models.Meeting(
+                                        attendees=models.CalendarAttendees(),
+                                    ),
+                                    collection=models.Collection(
+                                        name="<value>",
+                                        description="indeed enthusiastically airman facilitate",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        id=52239,
+                                        creator=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    answer_board=models.AnswerBoard(
+                                        name="<value>",
+                                        description="excluding severe amongst bump farm zowie prickly why",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        id=617911,
+                                        creator=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    code=models.Code(
+                                        repo_name="scio",
+                                        file_name="README.md",
+                                    ),
+                                    shortcut=models.Shortcut(
+                                        input_alias="<value>",
+                                        created_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        destination_document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
+                                    query_suggestions=models.QuerySuggestionList(
+                                        person=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    related_question=models.RelatedQuestion(),
+                                ),
+                                models.StructuredResult(
+                                    document=models.Document(
+                                        metadata=models.DocumentMetadata(
+                                            datasource="datasource",
+                                            object_type="Feature Request",
+                                            container="container",
+                                            parent_id="JIRA_EN-1337",
+                                            mime_type="mimeType",
+                                            document_id="documentId",
+                                            create_time=parse_datetime(
+                                                "2000-01-23T04:56:07.000Z"
+                                            ),
+                                            update_time=parse_datetime(
+                                                "2000-01-23T04:56:07.000Z"
+                                            ),
+                                            author=models.Person(
+                                                name="name",
+                                                obfuscated_id="<id>",
+                                            ),
+                                            components=[
+                                                "Backend",
+                                                "Networking",
+                                            ],
+                                            status='["Done"]',
+                                            custom_data={
+                                                "someCustomField": models.CustomDataValue(),
+                                            },
+                                        ),
+                                    ),
+                                    person=models.Person(
+                                        name="George Clooney",
+                                        obfuscated_id="abc123",
+                                    ),
+                                    customer=models.Customer(
+                                        id="<id>",
+                                        company=models.Company(
+                                            name="<value>",
+                                            location="New York City",
+                                            industry="Finances",
+                                            about="Financial, software, data, and media company headquartered in Midtown Manhattan, New York City",
+                                        ),
+                                        notes="CIO is interested in trying out the product.",
+                                    ),
+                                    team=models.Team(
+                                        id="<id>",
+                                        name="<value>",
+                                        datasource_profiles=[
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                        ],
+                                    ),
+                                    custom_entity=models.CustomEntity(),
+                                    answer=models.Answer(
+                                        id=3,
+                                        doc_id="ANSWERS_answer_3",
+                                        question="Why is the sky blue?",
+                                        body_text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        combined_answer_text=models.StructuredText(
+                                            text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                                        ),
+                                        likes=models.AnswerLikes(
+                                            liked_by=[],
+                                            liked_by_user=False,
+                                            num_likes=126508,
+                                        ),
+                                        author=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        verification=models.Verification(
+                                            state=models.State.DEPRECATED,
+                                            metadata=models.VerificationMetadata(
+                                                last_verifier=models.Person(
+                                                    name="George Clooney",
+                                                    obfuscated_id="abc123",
+                                                ),
+                                                document=models.Document(
+                                                    metadata=models.DocumentMetadata(
+                                                        datasource="datasource",
+                                                        object_type="Feature Request",
+                                                        container="container",
+                                                        parent_id="JIRA_EN-1337",
+                                                        mime_type="mimeType",
+                                                        document_id="documentId",
+                                                        create_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        update_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        author=models.Person(
+                                                            name="name",
+                                                            obfuscated_id="<id>",
+                                                        ),
+                                                        components=[
+                                                            "Backend",
+                                                            "Networking",
+                                                        ],
+                                                        status='["Done"]',
+                                                        custom_data={
+                                                            "someCustomField": models.CustomDataValue(),
+                                                        },
+                                                    ),
+                                                ),
+                                                last_reminder=models.Reminder(
+                                                    assignee=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                    requestor=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                    remind_at=504638,
+                                                ),
+                                            ),
+                                        ),
+                                        board=models.AnswerBoard(
+                                            name="<value>",
+                                            description="approach hm gadzooks yahoo shameless underneath negative",
+                                            audience_filters=[
+                                                models.FacetFilter(
+                                                    field_name="type",
+                                                    values=[
+                                                        models.FacetFilterValue(
+                                                            value="Spreadsheet",
+                                                            relation_type=models.RelationType.EQUALS,
+                                                        ),
+                                                        models.FacetFilterValue(
+                                                            value="Presentation",
+                                                            relation_type=models.RelationType.EQUALS,
+                                                        ),
+                                                    ],
+                                                ),
+                                            ],
+                                            id=111255,
+                                            creator=models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
+                                            updated_by=models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
+                                        ),
+                                        source_document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
+                                    extracted_qn_a=models.ExtractedQnA(
+                                        question_result=models.SearchResult(
+                                            title="title",
+                                            url="https://example.com/foo/bar",
+                                            native_app_url="slack://foo/bar",
+                                        ),
+                                    ),
+                                    meeting=models.Meeting(
+                                        attendees=models.CalendarAttendees(),
+                                    ),
+                                    collection=models.Collection(
+                                        name="<value>",
+                                        description="jogging however inwardly yahoo although bah monthly lively colorfully justly",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        id=656993,
+                                        creator=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    answer_board=models.AnswerBoard(
+                                        name="<value>",
+                                        description="guidance zen cross-contamination ick pry mundane thoroughly oof ha",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        id=474526,
+                                        creator=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    code=models.Code(
+                                        repo_name="scio",
+                                        file_name="README.md",
+                                    ),
+                                    shortcut=models.Shortcut(
+                                        input_alias="<value>",
+                                        created_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        destination_document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
+                                    query_suggestions=models.QuerySuggestionList(
+                                        person=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    related_question=models.RelatedQuestion(),
+                                ),
                             ],
+                            query_suggestion=models.QuerySuggestion(
+                                query="app:github type:pull author:mortimer",
+                                label="Mortimer's PRs",
+                                datasource="github",
+                            ),
                             file=models.ChatFile(
                                 id="FILE_1234",
                                 url="www.google.com",
@@ -750,7 +4893,34 @@ def test_client_chat_chat_stream_citation_response():
                                 models.ReferenceRange(
                                     text_range=models.TextRange(
                                         start_index=436071,
-                                        document=models.Document(),
+                                        document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
                                     ),
                                     snippets=[
                                         models.SearchResultSnippet(
@@ -760,6 +4930,37 @@ def test_client_chat_chat_stream_citation_response():
                                     ],
                                 ),
                                 models.ReferenceRange(
+                                    text_range=models.TextRange(
+                                        start_index=735937,
+                                        document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
                                     snippets=[
                                         models.SearchResultSnippet(
                                             snippet="snippet",
@@ -770,13 +4971,76 @@ def test_client_chat_chat_stream_citation_response():
                             ],
                         ),
                         models.ChatMessageCitation(
+                            source_document=models.Document(
+                                metadata=models.DocumentMetadata(
+                                    datasource="datasource",
+                                    object_type="Feature Request",
+                                    container="container",
+                                    parent_id="JIRA_EN-1337",
+                                    mime_type="mimeType",
+                                    document_id="documentId",
+                                    create_time=parse_datetime(
+                                        "2000-01-23T04:56:07.000Z"
+                                    ),
+                                    update_time=parse_datetime(
+                                        "2000-01-23T04:56:07.000Z"
+                                    ),
+                                    author=models.Person(
+                                        name="name",
+                                        obfuscated_id="<id>",
+                                    ),
+                                    components=[
+                                        "Backend",
+                                        "Networking",
+                                    ],
+                                    status='["Done"]',
+                                    custom_data={
+                                        "someCustomField": models.CustomDataValue(),
+                                    },
+                                ),
+                            ),
                             source_file=models.ChatFile(
                                 id="FILE_1234",
                                 url="www.google.com",
                                 name="sample.pdf",
                             ),
+                            source_person=models.Person(
+                                name="George Clooney",
+                                obfuscated_id="abc123",
+                            ),
                             reference_ranges=[
                                 models.ReferenceRange(
+                                    text_range=models.TextRange(
+                                        start_index=418969,
+                                        document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
                                     snippets=[
                                         models.SearchResultSnippet(
                                             snippet="snippet",
@@ -785,6 +5049,37 @@ def test_client_chat_chat_stream_citation_response():
                                     ],
                                 ),
                                 models.ReferenceRange(
+                                    text_range=models.TextRange(
+                                        start_index=510246,
+                                        document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
                                     snippets=[
                                         models.SearchResultSnippet(
                                             snippet="snippet",
@@ -793,6 +5088,37 @@ def test_client_chat_chat_stream_citation_response():
                                     ],
                                 ),
                                 models.ReferenceRange(
+                                    text_range=models.TextRange(
+                                        start_index=760612,
+                                        document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
                                     snippets=[
                                         models.SearchResultSnippet(
                                             snippet="snippet",
@@ -807,6 +5133,34 @@ def test_client_chat_chat_stream_citation_response():
                         models.ChatMessageFragment(
                             structured_results=[
                                 models.StructuredResult(
+                                    document=models.Document(
+                                        metadata=models.DocumentMetadata(
+                                            datasource="datasource",
+                                            object_type="Feature Request",
+                                            container="container",
+                                            parent_id="JIRA_EN-1337",
+                                            mime_type="mimeType",
+                                            document_id="documentId",
+                                            create_time=parse_datetime(
+                                                "2000-01-23T04:56:07.000Z"
+                                            ),
+                                            update_time=parse_datetime(
+                                                "2000-01-23T04:56:07.000Z"
+                                            ),
+                                            author=models.Person(
+                                                name="name",
+                                                obfuscated_id="<id>",
+                                            ),
+                                            components=[
+                                                "Backend",
+                                                "Networking",
+                                            ],
+                                            status='["Done"]',
+                                            custom_data={
+                                                "someCustomField": models.CustomDataValue(),
+                                            },
+                                        ),
+                                    ),
                                     person=models.Person(
                                         name="George Clooney",
                                         obfuscated_id="abc123",
@@ -819,14 +5173,60 @@ def test_client_chat_chat_stream_citation_response():
                                             industry="Finances",
                                             about="Financial, software, data, and media company headquartered in Midtown Manhattan, New York City",
                                         ),
-                                        poc=[],
+                                        poc=[
+                                            models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
+                                        ],
                                         notes="CIO is interested in trying out the product.",
                                     ),
                                     team=models.Team(
                                         id="<id>",
                                         name="<value>",
-                                        members=[],
-                                        custom_fields=[],
+                                        members=[
+                                            models.PersonToTeamRelationship(
+                                                person=models.Person(
+                                                    name="George Clooney",
+                                                    obfuscated_id="abc123",
+                                                ),
+                                            ),
+                                            models.PersonToTeamRelationship(
+                                                person=models.Person(
+                                                    name="George Clooney",
+                                                    obfuscated_id="abc123",
+                                                ),
+                                            ),
+                                        ],
+                                        custom_fields=[
+                                            models.CustomFieldData(
+                                                label="<value>",
+                                                values=[
+                                                    models.CustomFieldValuePerson(
+                                                        person=models.Person(
+                                                            name="George Clooney",
+                                                            obfuscated_id="abc123",
+                                                        ),
+                                                    ),
+                                                    models.CustomFieldValuePerson(
+                                                        person=models.Person(
+                                                            name="George Clooney",
+                                                            obfuscated_id="abc123",
+                                                        ),
+                                                    ),
+                                                    models.CustomFieldValuePerson(
+                                                        person=models.Person(
+                                                            name="George Clooney",
+                                                            obfuscated_id="abc123",
+                                                        ),
+                                                    ),
+                                                ],
+                                            ),
+                                            models.CustomFieldData(
+                                                label="<value>",
+                                                values=[],
+                                            ),
+                                        ],
                                         datasource_profiles=[
                                             models.DatasourceProfile(
                                                 datasource="github",
@@ -843,7 +5243,15 @@ def test_client_chat_chat_stream_citation_response():
                                         ],
                                     ),
                                     custom_entity=models.CustomEntity(
-                                        roles=[],
+                                        roles=[
+                                            models.UserRoleSpecification(
+                                                person=models.Person(
+                                                    name="George Clooney",
+                                                    obfuscated_id="abc123",
+                                                ),
+                                                role=models.UserRole.ANSWER_MODERATOR,
+                                            ),
+                                        ],
                                     ),
                                     answer=models.Answer(
                                         id=3,
@@ -865,16 +5273,101 @@ def test_client_chat_chat_stream_citation_response():
                                                 ],
                                             ),
                                         ],
-                                        added_roles=[],
-                                        removed_roles=[],
+                                        added_roles=[
+                                            models.UserRoleSpecification(
+                                                person=models.Person(
+                                                    name="George Clooney",
+                                                    obfuscated_id="abc123",
+                                                ),
+                                                role=models.UserRole.ANSWER_MODERATOR,
+                                            ),
+                                        ],
+                                        removed_roles=[
+                                            models.UserRoleSpecification(
+                                                person=models.Person(
+                                                    name="George Clooney",
+                                                    obfuscated_id="abc123",
+                                                ),
+                                                role=models.UserRole.VERIFIER,
+                                            ),
+                                        ],
                                         combined_answer_text=models.StructuredText(
                                             text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
-                                            structured_list=[],
+                                            structured_list=[
+                                                models.StructuredTextItem(
+                                                    link="https://en.wikipedia.org/wiki/Diffuse_sky_radiation",
+                                                    document=models.Document(
+                                                        metadata=models.DocumentMetadata(
+                                                            datasource="datasource",
+                                                            object_type="Feature Request",
+                                                            container="container",
+                                                            parent_id="JIRA_EN-1337",
+                                                            mime_type="mimeType",
+                                                            document_id="documentId",
+                                                            create_time=parse_datetime(
+                                                                "2000-01-23T04:56:07.000Z"
+                                                            ),
+                                                            update_time=parse_datetime(
+                                                                "2000-01-23T04:56:07.000Z"
+                                                            ),
+                                                            author=models.Person(
+                                                                name="name",
+                                                                obfuscated_id="<id>",
+                                                            ),
+                                                            components=[
+                                                                "Backend",
+                                                                "Networking",
+                                                            ],
+                                                            status='["Done"]',
+                                                            custom_data={
+                                                                "someCustomField": models.CustomDataValue(),
+                                                            },
+                                                        ),
+                                                    ),
+                                                    text="Because its wavelengths are shorter, blue light is more strongly scattered than the longer-wavelength lights, red or green. Hence the result that when looking at the sky away from the direct incident sunlight, the human eye perceives the sky to be blue.",
+                                                ),
+                                                models.StructuredTextItem(
+                                                    link="https://en.wikipedia.org/wiki/Diffuse_sky_radiation",
+                                                    document=models.Document(
+                                                        metadata=models.DocumentMetadata(
+                                                            datasource="datasource",
+                                                            object_type="Feature Request",
+                                                            container="container",
+                                                            parent_id="JIRA_EN-1337",
+                                                            mime_type="mimeType",
+                                                            document_id="documentId",
+                                                            create_time=parse_datetime(
+                                                                "2000-01-23T04:56:07.000Z"
+                                                            ),
+                                                            update_time=parse_datetime(
+                                                                "2000-01-23T04:56:07.000Z"
+                                                            ),
+                                                            author=models.Person(
+                                                                name="name",
+                                                                obfuscated_id="<id>",
+                                                            ),
+                                                            components=[
+                                                                "Backend",
+                                                                "Networking",
+                                                            ],
+                                                            status='["Done"]',
+                                                            custom_data={
+                                                                "someCustomField": models.CustomDataValue(),
+                                                            },
+                                                        ),
+                                                    ),
+                                                    text="Because its wavelengths are shorter, blue light is more strongly scattered than the longer-wavelength lights, red or green. Hence the result that when looking at the sky away from the direct incident sunlight, the human eye perceives the sky to be blue.",
+                                                ),
+                                            ],
                                         ),
                                         likes=models.AnswerLikes(
                                             liked_by=[],
                                             liked_by_user=True,
                                             num_likes=181994,
+                                        ),
+                                        author=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
                                         ),
                                         updated_by=models.Person(
                                             name="George Clooney",
@@ -887,7 +5380,58 @@ def test_client_chat_chat_stream_citation_response():
                                                     name="George Clooney",
                                                     obfuscated_id="abc123",
                                                 ),
-                                                reminders=[],
+                                                document=models.Document(
+                                                    metadata=models.DocumentMetadata(
+                                                        datasource="datasource",
+                                                        object_type="Feature Request",
+                                                        container="container",
+                                                        parent_id="JIRA_EN-1337",
+                                                        mime_type="mimeType",
+                                                        document_id="documentId",
+                                                        create_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        update_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        author=models.Person(
+                                                            name="name",
+                                                            obfuscated_id="<id>",
+                                                        ),
+                                                        components=[
+                                                            "Backend",
+                                                            "Networking",
+                                                        ],
+                                                        status='["Done"]',
+                                                        custom_data={
+                                                            "someCustomField": models.CustomDataValue(),
+                                                        },
+                                                    ),
+                                                ),
+                                                reminders=[
+                                                    models.Reminder(
+                                                        assignee=models.Person(
+                                                            name="George Clooney",
+                                                            obfuscated_id="abc123",
+                                                        ),
+                                                        requestor=models.Person(
+                                                            name="George Clooney",
+                                                            obfuscated_id="abc123",
+                                                        ),
+                                                        remind_at=670162,
+                                                    ),
+                                                    models.Reminder(
+                                                        assignee=models.Person(
+                                                            name="George Clooney",
+                                                            obfuscated_id="abc123",
+                                                        ),
+                                                        requestor=models.Person(
+                                                            name="George Clooney",
+                                                            obfuscated_id="abc123",
+                                                        ),
+                                                        remind_at=690554,
+                                                    ),
+                                                ],
                                                 last_reminder=models.Reminder(
                                                     assignee=models.Person(
                                                         name="George Clooney",
@@ -899,7 +5443,12 @@ def test_client_chat_chat_stream_citation_response():
                                                     ),
                                                     remind_at=424843,
                                                 ),
-                                                candidate_verifiers=[],
+                                                candidate_verifiers=[
+                                                    models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                ],
                                             ),
                                         ),
                                         board=models.AnswerBoard(
@@ -925,8 +5474,296 @@ def test_client_chat_chat_stream_citation_response():
                                                 name="George Clooney",
                                                 obfuscated_id="abc123",
                                             ),
+                                            updated_by=models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
                                         ),
-                                        collections=[],
+                                        collections=[
+                                            models.Collection(
+                                                name="<value>",
+                                                description="an french sans astride duh dreamily weary disloyal woot eke",
+                                                audience_filters=[
+                                                    models.FacetFilter(
+                                                        field_name="type",
+                                                        values=[
+                                                            models.FacetFilterValue(
+                                                                value="Spreadsheet",
+                                                                relation_type=models.RelationType.EQUALS,
+                                                            ),
+                                                            models.FacetFilterValue(
+                                                                value="Presentation",
+                                                                relation_type=models.RelationType.EQUALS,
+                                                            ),
+                                                        ],
+                                                    ),
+                                                ],
+                                                id=928199,
+                                                creator=models.Person(
+                                                    name="George Clooney",
+                                                    obfuscated_id="abc123",
+                                                ),
+                                                updated_by=models.Person(
+                                                    name="George Clooney",
+                                                    obfuscated_id="abc123",
+                                                ),
+                                                items=[
+                                                    models.CollectionItem(
+                                                        collection_id=574875,
+                                                        created_by=models.Person(
+                                                            name="George Clooney",
+                                                            obfuscated_id="abc123",
+                                                        ),
+                                                        document=models.Document(
+                                                            metadata=models.DocumentMetadata(
+                                                                datasource="datasource",
+                                                                object_type="Feature Request",
+                                                                container="container",
+                                                                parent_id="JIRA_EN-1337",
+                                                                mime_type="mimeType",
+                                                                document_id="documentId",
+                                                                create_time=parse_datetime(
+                                                                    "2000-01-23T04:56:07.000Z"
+                                                                ),
+                                                                update_time=parse_datetime(
+                                                                    "2000-01-23T04:56:07.000Z"
+                                                                ),
+                                                                author=models.Person(
+                                                                    name="name",
+                                                                    obfuscated_id="<id>",
+                                                                ),
+                                                                components=[
+                                                                    "Backend",
+                                                                    "Networking",
+                                                                ],
+                                                                status='["Done"]',
+                                                                custom_data={
+                                                                    "someCustomField": models.CustomDataValue(),
+                                                                },
+                                                            ),
+                                                        ),
+                                                        shortcut=models.Shortcut(
+                                                            input_alias="<value>",
+                                                            created_by=models.Person(
+                                                                name="George Clooney",
+                                                                obfuscated_id="abc123",
+                                                            ),
+                                                            updated_by=models.Person(
+                                                                name="George Clooney",
+                                                                obfuscated_id="abc123",
+                                                            ),
+                                                            destination_document=models.Document(
+                                                                metadata=models.DocumentMetadata(
+                                                                    datasource="datasource",
+                                                                    object_type="Feature Request",
+                                                                    container="container",
+                                                                    parent_id="JIRA_EN-1337",
+                                                                    mime_type="mimeType",
+                                                                    document_id="documentId",
+                                                                    create_time=parse_datetime(
+                                                                        "2000-01-23T04:56:07.000Z"
+                                                                    ),
+                                                                    update_time=parse_datetime(
+                                                                        "2000-01-23T04:56:07.000Z"
+                                                                    ),
+                                                                    author=models.Person(
+                                                                        name="name",
+                                                                        obfuscated_id="<id>",
+                                                                    ),
+                                                                    components=[
+                                                                        "Backend",
+                                                                        "Networking",
+                                                                    ],
+                                                                    status='["Done"]',
+                                                                    custom_data={
+                                                                        "someCustomField": models.CustomDataValue(),
+                                                                    },
+                                                                ),
+                                                            ),
+                                                        ),
+                                                        item_type=models.CollectionItemItemType.DOCUMENT,
+                                                    ),
+                                                    models.CollectionItem(
+                                                        collection_id=447663,
+                                                        created_by=models.Person(
+                                                            name="George Clooney",
+                                                            obfuscated_id="abc123",
+                                                        ),
+                                                        document=models.Document(
+                                                            metadata=models.DocumentMetadata(
+                                                                datasource="datasource",
+                                                                object_type="Feature Request",
+                                                                container="container",
+                                                                parent_id="JIRA_EN-1337",
+                                                                mime_type="mimeType",
+                                                                document_id="documentId",
+                                                                create_time=parse_datetime(
+                                                                    "2000-01-23T04:56:07.000Z"
+                                                                ),
+                                                                update_time=parse_datetime(
+                                                                    "2000-01-23T04:56:07.000Z"
+                                                                ),
+                                                                author=models.Person(
+                                                                    name="name",
+                                                                    obfuscated_id="<id>",
+                                                                ),
+                                                                components=[
+                                                                    "Backend",
+                                                                    "Networking",
+                                                                ],
+                                                                status='["Done"]',
+                                                                custom_data={
+                                                                    "someCustomField": models.CustomDataValue(),
+                                                                },
+                                                            ),
+                                                        ),
+                                                        shortcut=models.Shortcut(
+                                                            input_alias="<value>",
+                                                            created_by=models.Person(
+                                                                name="George Clooney",
+                                                                obfuscated_id="abc123",
+                                                            ),
+                                                            updated_by=models.Person(
+                                                                name="George Clooney",
+                                                                obfuscated_id="abc123",
+                                                            ),
+                                                            destination_document=models.Document(
+                                                                metadata=models.DocumentMetadata(
+                                                                    datasource="datasource",
+                                                                    object_type="Feature Request",
+                                                                    container="container",
+                                                                    parent_id="JIRA_EN-1337",
+                                                                    mime_type="mimeType",
+                                                                    document_id="documentId",
+                                                                    create_time=parse_datetime(
+                                                                        "2000-01-23T04:56:07.000Z"
+                                                                    ),
+                                                                    update_time=parse_datetime(
+                                                                        "2000-01-23T04:56:07.000Z"
+                                                                    ),
+                                                                    author=models.Person(
+                                                                        name="name",
+                                                                        obfuscated_id="<id>",
+                                                                    ),
+                                                                    components=[
+                                                                        "Backend",
+                                                                        "Networking",
+                                                                    ],
+                                                                    status='["Done"]',
+                                                                    custom_data={
+                                                                        "someCustomField": models.CustomDataValue(),
+                                                                    },
+                                                                ),
+                                                            ),
+                                                        ),
+                                                        item_type=models.CollectionItemItemType.URL,
+                                                    ),
+                                                    models.CollectionItem(
+                                                        collection_id=60642,
+                                                        created_by=models.Person(
+                                                            name="George Clooney",
+                                                            obfuscated_id="abc123",
+                                                        ),
+                                                        document=models.Document(
+                                                            metadata=models.DocumentMetadata(
+                                                                datasource="datasource",
+                                                                object_type="Feature Request",
+                                                                container="container",
+                                                                parent_id="JIRA_EN-1337",
+                                                                mime_type="mimeType",
+                                                                document_id="documentId",
+                                                                create_time=parse_datetime(
+                                                                    "2000-01-23T04:56:07.000Z"
+                                                                ),
+                                                                update_time=parse_datetime(
+                                                                    "2000-01-23T04:56:07.000Z"
+                                                                ),
+                                                                author=models.Person(
+                                                                    name="name",
+                                                                    obfuscated_id="<id>",
+                                                                ),
+                                                                components=[
+                                                                    "Backend",
+                                                                    "Networking",
+                                                                ],
+                                                                status='["Done"]',
+                                                                custom_data={
+                                                                    "someCustomField": models.CustomDataValue(),
+                                                                },
+                                                            ),
+                                                        ),
+                                                        shortcut=models.Shortcut(
+                                                            input_alias="<value>",
+                                                            created_by=models.Person(
+                                                                name="George Clooney",
+                                                                obfuscated_id="abc123",
+                                                            ),
+                                                            updated_by=models.Person(
+                                                                name="George Clooney",
+                                                                obfuscated_id="abc123",
+                                                            ),
+                                                            destination_document=models.Document(
+                                                                metadata=models.DocumentMetadata(
+                                                                    datasource="datasource",
+                                                                    object_type="Feature Request",
+                                                                    container="container",
+                                                                    parent_id="JIRA_EN-1337",
+                                                                    mime_type="mimeType",
+                                                                    document_id="documentId",
+                                                                    create_time=parse_datetime(
+                                                                        "2000-01-23T04:56:07.000Z"
+                                                                    ),
+                                                                    update_time=parse_datetime(
+                                                                        "2000-01-23T04:56:07.000Z"
+                                                                    ),
+                                                                    author=models.Person(
+                                                                        name="name",
+                                                                        obfuscated_id="<id>",
+                                                                    ),
+                                                                    components=[
+                                                                        "Backend",
+                                                                        "Networking",
+                                                                    ],
+                                                                    status='["Done"]',
+                                                                    custom_data={
+                                                                        "someCustomField": models.CustomDataValue(),
+                                                                    },
+                                                                ),
+                                                            ),
+                                                        ),
+                                                        item_type=models.CollectionItemItemType.TEXT,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        source_document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
                                     ),
                                     extracted_qn_a=models.ExtractedQnA(
                                         question_result=models.SearchResult(
@@ -937,7 +5774,26 @@ def test_client_chat_chat_stream_citation_response():
                                     ),
                                     meeting=models.Meeting(
                                         attendees=models.CalendarAttendees(
-                                            people=[],
+                                            people=[
+                                                models.CalendarAttendee(
+                                                    person=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                ),
+                                                models.CalendarAttendee(
+                                                    person=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                ),
+                                                models.CalendarAttendee(
+                                                    person=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                ),
+                                            ],
                                         ),
                                     ),
                                     collection=models.Collection(
@@ -959,6 +5815,14 @@ def test_client_chat_chat_stream_citation_response():
                                             ),
                                         ],
                                         id=194535,
+                                        creator=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
                                     ),
                                     answer_board=models.AnswerBoard(
                                         name="<value>",
@@ -979,6 +5843,14 @@ def test_client_chat_chat_stream_citation_response():
                                             ),
                                         ],
                                         id=595008,
+                                        creator=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
                                     ),
                                     code=models.Code(
                                         repo_name="scio",
@@ -990,14 +5862,133 @@ def test_client_chat_chat_stream_citation_response():
                                             name="George Clooney",
                                             obfuscated_id="abc123",
                                         ),
-                                        destination_document=models.Document(),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        destination_document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
                                     ),
                                     query_suggestions=models.QuerySuggestionList(
-                                        suggestions=[],
+                                        suggestions=[
+                                            models.QuerySuggestion(
+                                                query="app:github type:pull author:mortimer",
+                                                label="Mortimer's PRs",
+                                                datasource="github",
+                                            ),
+                                        ],
+                                        person=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
                                     ),
-                                    related_documents=[],
+                                    related_documents=[
+                                        models.RelatedDocuments(
+                                            query_suggestion=models.QuerySuggestion(
+                                                query="app:github type:pull author:mortimer",
+                                                label="Mortimer's PRs",
+                                                datasource="github",
+                                            ),
+                                            results=[
+                                                models.SearchResult(
+                                                    title="title",
+                                                    url="https://example.com/foo/bar",
+                                                    native_app_url="slack://foo/bar",
+                                                ),
+                                            ],
+                                        ),
+                                    ],
                                     related_question=models.RelatedQuestion(
-                                        ranges=[],
+                                        ranges=[
+                                            models.TextRange(
+                                                start_index=516098,
+                                                document=models.Document(
+                                                    metadata=models.DocumentMetadata(
+                                                        datasource="datasource",
+                                                        object_type="Feature Request",
+                                                        container="container",
+                                                        parent_id="JIRA_EN-1337",
+                                                        mime_type="mimeType",
+                                                        document_id="documentId",
+                                                        create_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        update_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        author=models.Person(
+                                                            name="name",
+                                                            obfuscated_id="<id>",
+                                                        ),
+                                                        components=[
+                                                            "Backend",
+                                                            "Networking",
+                                                        ],
+                                                        status='["Done"]',
+                                                        custom_data={
+                                                            "someCustomField": models.CustomDataValue(),
+                                                        },
+                                                    ),
+                                                ),
+                                            ),
+                                            models.TextRange(
+                                                start_index=358039,
+                                                document=models.Document(
+                                                    metadata=models.DocumentMetadata(
+                                                        datasource="datasource",
+                                                        object_type="Feature Request",
+                                                        container="container",
+                                                        parent_id="JIRA_EN-1337",
+                                                        mime_type="mimeType",
+                                                        document_id="documentId",
+                                                        create_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        update_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        author=models.Person(
+                                                            name="name",
+                                                            obfuscated_id="<id>",
+                                                        ),
+                                                        components=[
+                                                            "Backend",
+                                                            "Networking",
+                                                        ],
+                                                        status='["Done"]',
+                                                        custom_data={
+                                                            "someCustomField": models.CustomDataValue(),
+                                                        },
+                                                    ),
+                                                ),
+                                            ),
+                                        ],
                                     ),
                                 ),
                             ],
@@ -1023,10 +6014,948 @@ def test_client_chat_chat_stream_citation_response():
                         ),
                         models.ChatMessageFragment(
                             structured_results=[
-                                models.StructuredResult(),
-                                models.StructuredResult(),
-                                models.StructuredResult(),
+                                models.StructuredResult(
+                                    document=models.Document(
+                                        metadata=models.DocumentMetadata(
+                                            datasource="datasource",
+                                            object_type="Feature Request",
+                                            container="container",
+                                            parent_id="JIRA_EN-1337",
+                                            mime_type="mimeType",
+                                            document_id="documentId",
+                                            create_time=parse_datetime(
+                                                "2000-01-23T04:56:07.000Z"
+                                            ),
+                                            update_time=parse_datetime(
+                                                "2000-01-23T04:56:07.000Z"
+                                            ),
+                                            author=models.Person(
+                                                name="name",
+                                                obfuscated_id="<id>",
+                                            ),
+                                            components=[
+                                                "Backend",
+                                                "Networking",
+                                            ],
+                                            status='["Done"]',
+                                            custom_data={
+                                                "someCustomField": models.CustomDataValue(),
+                                            },
+                                        ),
+                                    ),
+                                    person=models.Person(
+                                        name="George Clooney",
+                                        obfuscated_id="abc123",
+                                    ),
+                                    customer=models.Customer(
+                                        id="<id>",
+                                        company=models.Company(
+                                            name="<value>",
+                                            location="New York City",
+                                            industry="Finances",
+                                            about="Financial, software, data, and media company headquartered in Midtown Manhattan, New York City",
+                                        ),
+                                        notes="CIO is interested in trying out the product.",
+                                    ),
+                                    team=models.Team(
+                                        id="<id>",
+                                        name="<value>",
+                                        datasource_profiles=[
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                        ],
+                                    ),
+                                    custom_entity=models.CustomEntity(),
+                                    answer=models.Answer(
+                                        id=3,
+                                        doc_id="ANSWERS_answer_3",
+                                        question="Why is the sky blue?",
+                                        body_text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        combined_answer_text=models.StructuredText(
+                                            text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                                        ),
+                                        likes=models.AnswerLikes(
+                                            liked_by=[],
+                                            liked_by_user=True,
+                                            num_likes=982657,
+                                        ),
+                                        author=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        verification=models.Verification(
+                                            state=models.State.DEPRECATED,
+                                            metadata=models.VerificationMetadata(
+                                                last_verifier=models.Person(
+                                                    name="George Clooney",
+                                                    obfuscated_id="abc123",
+                                                ),
+                                                document=models.Document(
+                                                    metadata=models.DocumentMetadata(
+                                                        datasource="datasource",
+                                                        object_type="Feature Request",
+                                                        container="container",
+                                                        parent_id="JIRA_EN-1337",
+                                                        mime_type="mimeType",
+                                                        document_id="documentId",
+                                                        create_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        update_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        author=models.Person(
+                                                            name="name",
+                                                            obfuscated_id="<id>",
+                                                        ),
+                                                        components=[
+                                                            "Backend",
+                                                            "Networking",
+                                                        ],
+                                                        status='["Done"]',
+                                                        custom_data={
+                                                            "someCustomField": models.CustomDataValue(),
+                                                        },
+                                                    ),
+                                                ),
+                                                last_reminder=models.Reminder(
+                                                    assignee=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                    requestor=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                    remind_at=668662,
+                                                ),
+                                            ),
+                                        ),
+                                        board=models.AnswerBoard(
+                                            name="<value>",
+                                            description="materialise likewise ew bah scarper instead",
+                                            audience_filters=[
+                                                models.FacetFilter(
+                                                    field_name="type",
+                                                    values=[
+                                                        models.FacetFilterValue(
+                                                            value="Spreadsheet",
+                                                            relation_type=models.RelationType.EQUALS,
+                                                        ),
+                                                        models.FacetFilterValue(
+                                                            value="Presentation",
+                                                            relation_type=models.RelationType.EQUALS,
+                                                        ),
+                                                    ],
+                                                ),
+                                            ],
+                                            id=291792,
+                                            creator=models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
+                                            updated_by=models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
+                                        ),
+                                        source_document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
+                                    extracted_qn_a=models.ExtractedQnA(
+                                        question_result=models.SearchResult(
+                                            title="title",
+                                            url="https://example.com/foo/bar",
+                                            native_app_url="slack://foo/bar",
+                                        ),
+                                    ),
+                                    meeting=models.Meeting(
+                                        attendees=models.CalendarAttendees(),
+                                    ),
+                                    collection=models.Collection(
+                                        name="<value>",
+                                        description="whup bah scarcely on although royal",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        id=535445,
+                                        creator=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    answer_board=models.AnswerBoard(
+                                        name="<value>",
+                                        description="heavenly status yippee whose blushing",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        id=983667,
+                                        creator=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    code=models.Code(
+                                        repo_name="scio",
+                                        file_name="README.md",
+                                    ),
+                                    shortcut=models.Shortcut(
+                                        input_alias="<value>",
+                                        created_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        destination_document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
+                                    query_suggestions=models.QuerySuggestionList(
+                                        person=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    related_question=models.RelatedQuestion(),
+                                ),
+                                models.StructuredResult(
+                                    document=models.Document(
+                                        metadata=models.DocumentMetadata(
+                                            datasource="datasource",
+                                            object_type="Feature Request",
+                                            container="container",
+                                            parent_id="JIRA_EN-1337",
+                                            mime_type="mimeType",
+                                            document_id="documentId",
+                                            create_time=parse_datetime(
+                                                "2000-01-23T04:56:07.000Z"
+                                            ),
+                                            update_time=parse_datetime(
+                                                "2000-01-23T04:56:07.000Z"
+                                            ),
+                                            author=models.Person(
+                                                name="name",
+                                                obfuscated_id="<id>",
+                                            ),
+                                            components=[
+                                                "Backend",
+                                                "Networking",
+                                            ],
+                                            status='["Done"]',
+                                            custom_data={
+                                                "someCustomField": models.CustomDataValue(),
+                                            },
+                                        ),
+                                    ),
+                                    person=models.Person(
+                                        name="George Clooney",
+                                        obfuscated_id="abc123",
+                                    ),
+                                    customer=models.Customer(
+                                        id="<id>",
+                                        company=models.Company(
+                                            name="<value>",
+                                            location="New York City",
+                                            industry="Finances",
+                                            about="Financial, software, data, and media company headquartered in Midtown Manhattan, New York City",
+                                        ),
+                                        notes="CIO is interested in trying out the product.",
+                                    ),
+                                    team=models.Team(
+                                        id="<id>",
+                                        name="<value>",
+                                        datasource_profiles=[
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                        ],
+                                    ),
+                                    custom_entity=models.CustomEntity(),
+                                    answer=models.Answer(
+                                        id=3,
+                                        doc_id="ANSWERS_answer_3",
+                                        question="Why is the sky blue?",
+                                        body_text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        combined_answer_text=models.StructuredText(
+                                            text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                                        ),
+                                        likes=models.AnswerLikes(
+                                            liked_by=[],
+                                            liked_by_user=False,
+                                            num_likes=118326,
+                                        ),
+                                        author=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        verification=models.Verification(
+                                            state=models.State.DEPRECATED,
+                                            metadata=models.VerificationMetadata(
+                                                last_verifier=models.Person(
+                                                    name="George Clooney",
+                                                    obfuscated_id="abc123",
+                                                ),
+                                                document=models.Document(
+                                                    metadata=models.DocumentMetadata(
+                                                        datasource="datasource",
+                                                        object_type="Feature Request",
+                                                        container="container",
+                                                        parent_id="JIRA_EN-1337",
+                                                        mime_type="mimeType",
+                                                        document_id="documentId",
+                                                        create_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        update_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        author=models.Person(
+                                                            name="name",
+                                                            obfuscated_id="<id>",
+                                                        ),
+                                                        components=[
+                                                            "Backend",
+                                                            "Networking",
+                                                        ],
+                                                        status='["Done"]',
+                                                        custom_data={
+                                                            "someCustomField": models.CustomDataValue(),
+                                                        },
+                                                    ),
+                                                ),
+                                                last_reminder=models.Reminder(
+                                                    assignee=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                    requestor=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                    remind_at=427120,
+                                                ),
+                                            ),
+                                        ),
+                                        board=models.AnswerBoard(
+                                            name="<value>",
+                                            description="manipulate explode out",
+                                            audience_filters=[
+                                                models.FacetFilter(
+                                                    field_name="type",
+                                                    values=[
+                                                        models.FacetFilterValue(
+                                                            value="Spreadsheet",
+                                                            relation_type=models.RelationType.EQUALS,
+                                                        ),
+                                                        models.FacetFilterValue(
+                                                            value="Presentation",
+                                                            relation_type=models.RelationType.EQUALS,
+                                                        ),
+                                                    ],
+                                                ),
+                                            ],
+                                            id=605176,
+                                            creator=models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
+                                            updated_by=models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
+                                        ),
+                                        source_document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
+                                    extracted_qn_a=models.ExtractedQnA(
+                                        question_result=models.SearchResult(
+                                            title="title",
+                                            url="https://example.com/foo/bar",
+                                            native_app_url="slack://foo/bar",
+                                        ),
+                                    ),
+                                    meeting=models.Meeting(
+                                        attendees=models.CalendarAttendees(),
+                                    ),
+                                    collection=models.Collection(
+                                        name="<value>",
+                                        description="bus outrun boldly opposite",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        id=512474,
+                                        creator=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    answer_board=models.AnswerBoard(
+                                        name="<value>",
+                                        description="complete help um live beyond for huzzah rowdy foot cross",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        id=402862,
+                                        creator=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    code=models.Code(
+                                        repo_name="scio",
+                                        file_name="README.md",
+                                    ),
+                                    shortcut=models.Shortcut(
+                                        input_alias="<value>",
+                                        created_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        destination_document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
+                                    query_suggestions=models.QuerySuggestionList(
+                                        person=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    related_question=models.RelatedQuestion(),
+                                ),
+                                models.StructuredResult(
+                                    document=models.Document(
+                                        metadata=models.DocumentMetadata(
+                                            datasource="datasource",
+                                            object_type="Feature Request",
+                                            container="container",
+                                            parent_id="JIRA_EN-1337",
+                                            mime_type="mimeType",
+                                            document_id="documentId",
+                                            create_time=parse_datetime(
+                                                "2000-01-23T04:56:07.000Z"
+                                            ),
+                                            update_time=parse_datetime(
+                                                "2000-01-23T04:56:07.000Z"
+                                            ),
+                                            author=models.Person(
+                                                name="name",
+                                                obfuscated_id="<id>",
+                                            ),
+                                            components=[
+                                                "Backend",
+                                                "Networking",
+                                            ],
+                                            status='["Done"]',
+                                            custom_data={
+                                                "someCustomField": models.CustomDataValue(),
+                                            },
+                                        ),
+                                    ),
+                                    person=models.Person(
+                                        name="George Clooney",
+                                        obfuscated_id="abc123",
+                                    ),
+                                    customer=models.Customer(
+                                        id="<id>",
+                                        company=models.Company(
+                                            name="<value>",
+                                            location="New York City",
+                                            industry="Finances",
+                                            about="Financial, software, data, and media company headquartered in Midtown Manhattan, New York City",
+                                        ),
+                                        notes="CIO is interested in trying out the product.",
+                                    ),
+                                    team=models.Team(
+                                        id="<id>",
+                                        name="<value>",
+                                        datasource_profiles=[
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                        ],
+                                    ),
+                                    custom_entity=models.CustomEntity(),
+                                    answer=models.Answer(
+                                        id=3,
+                                        doc_id="ANSWERS_answer_3",
+                                        question="Why is the sky blue?",
+                                        body_text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        combined_answer_text=models.StructuredText(
+                                            text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                                        ),
+                                        likes=models.AnswerLikes(
+                                            liked_by=[],
+                                            liked_by_user=True,
+                                            num_likes=62815,
+                                        ),
+                                        author=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        verification=models.Verification(
+                                            state=models.State.DEPRECATED,
+                                            metadata=models.VerificationMetadata(
+                                                last_verifier=models.Person(
+                                                    name="George Clooney",
+                                                    obfuscated_id="abc123",
+                                                ),
+                                                document=models.Document(
+                                                    metadata=models.DocumentMetadata(
+                                                        datasource="datasource",
+                                                        object_type="Feature Request",
+                                                        container="container",
+                                                        parent_id="JIRA_EN-1337",
+                                                        mime_type="mimeType",
+                                                        document_id="documentId",
+                                                        create_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        update_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        author=models.Person(
+                                                            name="name",
+                                                            obfuscated_id="<id>",
+                                                        ),
+                                                        components=[
+                                                            "Backend",
+                                                            "Networking",
+                                                        ],
+                                                        status='["Done"]',
+                                                        custom_data={
+                                                            "someCustomField": models.CustomDataValue(),
+                                                        },
+                                                    ),
+                                                ),
+                                                last_reminder=models.Reminder(
+                                                    assignee=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                    requestor=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                    remind_at=934490,
+                                                ),
+                                            ),
+                                        ),
+                                        board=models.AnswerBoard(
+                                            name="<value>",
+                                            description="lobotomise below psst duh interchange poetry",
+                                            audience_filters=[
+                                                models.FacetFilter(
+                                                    field_name="type",
+                                                    values=[
+                                                        models.FacetFilterValue(
+                                                            value="Spreadsheet",
+                                                            relation_type=models.RelationType.EQUALS,
+                                                        ),
+                                                        models.FacetFilterValue(
+                                                            value="Presentation",
+                                                            relation_type=models.RelationType.EQUALS,
+                                                        ),
+                                                    ],
+                                                ),
+                                            ],
+                                            id=521402,
+                                            creator=models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
+                                            updated_by=models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
+                                        ),
+                                        source_document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
+                                    extracted_qn_a=models.ExtractedQnA(
+                                        question_result=models.SearchResult(
+                                            title="title",
+                                            url="https://example.com/foo/bar",
+                                            native_app_url="slack://foo/bar",
+                                        ),
+                                    ),
+                                    meeting=models.Meeting(
+                                        attendees=models.CalendarAttendees(),
+                                    ),
+                                    collection=models.Collection(
+                                        name="<value>",
+                                        description="fooey handle supposing greedily contrail whenever geez yahoo broadcast",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        id=175510,
+                                        creator=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    answer_board=models.AnswerBoard(
+                                        name="<value>",
+                                        description="fashion bleakly thankfully indeed fully",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        id=723852,
+                                        creator=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    code=models.Code(
+                                        repo_name="scio",
+                                        file_name="README.md",
+                                    ),
+                                    shortcut=models.Shortcut(
+                                        input_alias="<value>",
+                                        created_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        destination_document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
+                                    query_suggestions=models.QuerySuggestionList(
+                                        person=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    related_question=models.RelatedQuestion(),
+                                ),
                             ],
+                            query_suggestion=models.QuerySuggestion(
+                                query="app:github type:pull author:mortimer",
+                                label="Mortimer's PRs",
+                                datasource="github",
+                            ),
                             file=models.ChatFile(
                                 id="FILE_1234",
                                 url="www.google.com",
@@ -1047,13 +6976,76 @@ def test_client_chat_chat_stream_citation_response():
                 {
                     "citations": [
                         models.ChatMessageCitation(
+                            source_document=models.Document(
+                                metadata=models.DocumentMetadata(
+                                    datasource="datasource",
+                                    object_type="Feature Request",
+                                    container="container",
+                                    parent_id="JIRA_EN-1337",
+                                    mime_type="mimeType",
+                                    document_id="documentId",
+                                    create_time=parse_datetime(
+                                        "2000-01-23T04:56:07.000Z"
+                                    ),
+                                    update_time=parse_datetime(
+                                        "2000-01-23T04:56:07.000Z"
+                                    ),
+                                    author=models.Person(
+                                        name="name",
+                                        obfuscated_id="<id>",
+                                    ),
+                                    components=[
+                                        "Backend",
+                                        "Networking",
+                                    ],
+                                    status='["Done"]',
+                                    custom_data={
+                                        "someCustomField": models.CustomDataValue(),
+                                    },
+                                ),
+                            ),
                             source_file=models.ChatFile(
                                 id="FILE_1234",
                                 url="www.google.com",
                                 name="sample.pdf",
                             ),
+                            source_person=models.Person(
+                                name="George Clooney",
+                                obfuscated_id="abc123",
+                            ),
                             reference_ranges=[
                                 models.ReferenceRange(
+                                    text_range=models.TextRange(
+                                        start_index=222131,
+                                        document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
                                     snippets=[
                                         models.SearchResultSnippet(
                                             snippet="snippet",
@@ -1062,6 +7054,37 @@ def test_client_chat_chat_stream_citation_response():
                                     ],
                                 ),
                                 models.ReferenceRange(
+                                    text_range=models.TextRange(
+                                        start_index=453578,
+                                        document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
                                     snippets=[
                                         models.SearchResultSnippet(
                                             snippet="snippet",
@@ -1070,6 +7093,37 @@ def test_client_chat_chat_stream_citation_response():
                                     ],
                                 ),
                                 models.ReferenceRange(
+                                    text_range=models.TextRange(
+                                        start_index=137281,
+                                        document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
                                     snippets=[
                                         models.SearchResultSnippet(
                                             snippet="snippet",
@@ -1083,10 +7137,964 @@ def test_client_chat_chat_stream_citation_response():
                     "fragments": [
                         models.ChatMessageFragment(
                             structured_results=[
-                                models.StructuredResult(),
-                                models.StructuredResult(),
-                                models.StructuredResult(),
+                                models.StructuredResult(
+                                    document=models.Document(
+                                        metadata=models.DocumentMetadata(
+                                            datasource="datasource",
+                                            object_type="Feature Request",
+                                            container="container",
+                                            parent_id="JIRA_EN-1337",
+                                            mime_type="mimeType",
+                                            document_id="documentId",
+                                            create_time=parse_datetime(
+                                                "2000-01-23T04:56:07.000Z"
+                                            ),
+                                            update_time=parse_datetime(
+                                                "2000-01-23T04:56:07.000Z"
+                                            ),
+                                            author=models.Person(
+                                                name="name",
+                                                obfuscated_id="<id>",
+                                            ),
+                                            components=[
+                                                "Backend",
+                                                "Networking",
+                                            ],
+                                            status='["Done"]',
+                                            custom_data={
+                                                "someCustomField": models.CustomDataValue(),
+                                            },
+                                        ),
+                                    ),
+                                    person=models.Person(
+                                        name="George Clooney",
+                                        obfuscated_id="abc123",
+                                    ),
+                                    customer=models.Customer(
+                                        id="<id>",
+                                        company=models.Company(
+                                            name="<value>",
+                                            location="New York City",
+                                            industry="Finances",
+                                            about="Financial, software, data, and media company headquartered in Midtown Manhattan, New York City",
+                                        ),
+                                        notes="CIO is interested in trying out the product.",
+                                    ),
+                                    team=models.Team(
+                                        id="<id>",
+                                        name="<value>",
+                                        datasource_profiles=[
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                        ],
+                                    ),
+                                    custom_entity=models.CustomEntity(),
+                                    answer=models.Answer(
+                                        id=3,
+                                        doc_id="ANSWERS_answer_3",
+                                        question="Why is the sky blue?",
+                                        body_text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        combined_answer_text=models.StructuredText(
+                                            text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                                        ),
+                                        likes=models.AnswerLikes(
+                                            liked_by=[],
+                                            liked_by_user=True,
+                                            num_likes=569501,
+                                        ),
+                                        author=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        verification=models.Verification(
+                                            state=models.State.DEPRECATED,
+                                            metadata=models.VerificationMetadata(
+                                                last_verifier=models.Person(
+                                                    name="George Clooney",
+                                                    obfuscated_id="abc123",
+                                                ),
+                                                document=models.Document(
+                                                    metadata=models.DocumentMetadata(
+                                                        datasource="datasource",
+                                                        object_type="Feature Request",
+                                                        container="container",
+                                                        parent_id="JIRA_EN-1337",
+                                                        mime_type="mimeType",
+                                                        document_id="documentId",
+                                                        create_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        update_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        author=models.Person(
+                                                            name="name",
+                                                            obfuscated_id="<id>",
+                                                        ),
+                                                        components=[
+                                                            "Backend",
+                                                            "Networking",
+                                                        ],
+                                                        status='["Done"]',
+                                                        custom_data={
+                                                            "someCustomField": models.CustomDataValue(),
+                                                        },
+                                                    ),
+                                                ),
+                                                last_reminder=models.Reminder(
+                                                    assignee=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                    requestor=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                    remind_at=873746,
+                                                ),
+                                            ),
+                                        ),
+                                        board=models.AnswerBoard(
+                                            name="<value>",
+                                            description="minus oof dazzling ew for forearm utterly hm onto unexpectedly",
+                                            audience_filters=[
+                                                models.FacetFilter(
+                                                    field_name="type",
+                                                    values=[
+                                                        models.FacetFilterValue(
+                                                            value="Spreadsheet",
+                                                            relation_type=models.RelationType.EQUALS,
+                                                        ),
+                                                        models.FacetFilterValue(
+                                                            value="Presentation",
+                                                            relation_type=models.RelationType.EQUALS,
+                                                        ),
+                                                    ],
+                                                ),
+                                            ],
+                                            id=808814,
+                                            creator=models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
+                                            updated_by=models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
+                                        ),
+                                        source_document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
+                                    extracted_qn_a=models.ExtractedQnA(
+                                        question_result=models.SearchResult(
+                                            title="title",
+                                            url="https://example.com/foo/bar",
+                                            native_app_url="slack://foo/bar",
+                                        ),
+                                    ),
+                                    meeting=models.Meeting(
+                                        attendees=models.CalendarAttendees(),
+                                    ),
+                                    collection=models.Collection(
+                                        name="<value>",
+                                        description="through garrote nor",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        id=999094,
+                                        creator=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    answer_board=models.AnswerBoard(
+                                        name="<value>",
+                                        description="elderly since boohoo appropriate righteously vice following complete impartial sans",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        id=315292,
+                                        creator=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    code=models.Code(
+                                        repo_name="scio",
+                                        file_name="README.md",
+                                    ),
+                                    shortcut=models.Shortcut(
+                                        input_alias="<value>",
+                                        created_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        destination_document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
+                                    query_suggestions=models.QuerySuggestionList(
+                                        person=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    related_question=models.RelatedQuestion(),
+                                ),
+                                models.StructuredResult(
+                                    document=models.Document(
+                                        metadata=models.DocumentMetadata(
+                                            datasource="datasource",
+                                            object_type="Feature Request",
+                                            container="container",
+                                            parent_id="JIRA_EN-1337",
+                                            mime_type="mimeType",
+                                            document_id="documentId",
+                                            create_time=parse_datetime(
+                                                "2000-01-23T04:56:07.000Z"
+                                            ),
+                                            update_time=parse_datetime(
+                                                "2000-01-23T04:56:07.000Z"
+                                            ),
+                                            author=models.Person(
+                                                name="name",
+                                                obfuscated_id="<id>",
+                                            ),
+                                            components=[
+                                                "Backend",
+                                                "Networking",
+                                            ],
+                                            status='["Done"]',
+                                            custom_data={
+                                                "someCustomField": models.CustomDataValue(),
+                                            },
+                                        ),
+                                    ),
+                                    person=models.Person(
+                                        name="George Clooney",
+                                        obfuscated_id="abc123",
+                                    ),
+                                    customer=models.Customer(
+                                        id="<id>",
+                                        company=models.Company(
+                                            name="<value>",
+                                            location="New York City",
+                                            industry="Finances",
+                                            about="Financial, software, data, and media company headquartered in Midtown Manhattan, New York City",
+                                        ),
+                                        notes="CIO is interested in trying out the product.",
+                                    ),
+                                    team=models.Team(
+                                        id="<id>",
+                                        name="<value>",
+                                        datasource_profiles=[
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                        ],
+                                    ),
+                                    custom_entity=models.CustomEntity(),
+                                    answer=models.Answer(
+                                        id=3,
+                                        doc_id="ANSWERS_answer_3",
+                                        question="Why is the sky blue?",
+                                        body_text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        combined_answer_text=models.StructuredText(
+                                            text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                                        ),
+                                        likes=models.AnswerLikes(
+                                            liked_by=[],
+                                            liked_by_user=True,
+                                            num_likes=610289,
+                                        ),
+                                        author=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        verification=models.Verification(
+                                            state=models.State.VERIFIED,
+                                            metadata=models.VerificationMetadata(
+                                                last_verifier=models.Person(
+                                                    name="George Clooney",
+                                                    obfuscated_id="abc123",
+                                                ),
+                                                document=models.Document(
+                                                    metadata=models.DocumentMetadata(
+                                                        datasource="datasource",
+                                                        object_type="Feature Request",
+                                                        container="container",
+                                                        parent_id="JIRA_EN-1337",
+                                                        mime_type="mimeType",
+                                                        document_id="documentId",
+                                                        create_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        update_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        author=models.Person(
+                                                            name="name",
+                                                            obfuscated_id="<id>",
+                                                        ),
+                                                        components=[
+                                                            "Backend",
+                                                            "Networking",
+                                                        ],
+                                                        status='["Done"]',
+                                                        custom_data={
+                                                            "someCustomField": models.CustomDataValue(),
+                                                        },
+                                                    ),
+                                                ),
+                                                last_reminder=models.Reminder(
+                                                    assignee=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                    requestor=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                    remind_at=46078,
+                                                ),
+                                            ),
+                                        ),
+                                        board=models.AnswerBoard(
+                                            name="<value>",
+                                            description="netsuke stump terrorise ugh zowie",
+                                            audience_filters=[
+                                                models.FacetFilter(
+                                                    field_name="type",
+                                                    values=[
+                                                        models.FacetFilterValue(
+                                                            value="Spreadsheet",
+                                                            relation_type=models.RelationType.EQUALS,
+                                                        ),
+                                                        models.FacetFilterValue(
+                                                            value="Presentation",
+                                                            relation_type=models.RelationType.EQUALS,
+                                                        ),
+                                                    ],
+                                                ),
+                                            ],
+                                            id=942095,
+                                            creator=models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
+                                            updated_by=models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
+                                        ),
+                                        source_document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
+                                    extracted_qn_a=models.ExtractedQnA(
+                                        question_result=models.SearchResult(
+                                            title="title",
+                                            url="https://example.com/foo/bar",
+                                            native_app_url="slack://foo/bar",
+                                        ),
+                                    ),
+                                    meeting=models.Meeting(
+                                        attendees=models.CalendarAttendees(),
+                                    ),
+                                    collection=models.Collection(
+                                        name="<value>",
+                                        description="cheetah amid lest nor instead consequently upbeat fuel incidentally",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        id=65448,
+                                        creator=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    answer_board=models.AnswerBoard(
+                                        name="<value>",
+                                        description="abaft tightly blah redound qua",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        id=843154,
+                                        creator=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    code=models.Code(
+                                        repo_name="scio",
+                                        file_name="README.md",
+                                    ),
+                                    shortcut=models.Shortcut(
+                                        input_alias="<value>",
+                                        created_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        destination_document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
+                                    query_suggestions=models.QuerySuggestionList(
+                                        person=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    related_question=models.RelatedQuestion(),
+                                ),
+                                models.StructuredResult(
+                                    document=models.Document(
+                                        metadata=models.DocumentMetadata(
+                                            datasource="datasource",
+                                            object_type="Feature Request",
+                                            container="container",
+                                            parent_id="JIRA_EN-1337",
+                                            mime_type="mimeType",
+                                            document_id="documentId",
+                                            create_time=parse_datetime(
+                                                "2000-01-23T04:56:07.000Z"
+                                            ),
+                                            update_time=parse_datetime(
+                                                "2000-01-23T04:56:07.000Z"
+                                            ),
+                                            author=models.Person(
+                                                name="name",
+                                                obfuscated_id="<id>",
+                                            ),
+                                            components=[
+                                                "Backend",
+                                                "Networking",
+                                            ],
+                                            status='["Done"]',
+                                            custom_data={
+                                                "someCustomField": models.CustomDataValue(),
+                                            },
+                                        ),
+                                    ),
+                                    person=models.Person(
+                                        name="George Clooney",
+                                        obfuscated_id="abc123",
+                                    ),
+                                    customer=models.Customer(
+                                        id="<id>",
+                                        company=models.Company(
+                                            name="<value>",
+                                            location="New York City",
+                                            industry="Finances",
+                                            about="Financial, software, data, and media company headquartered in Midtown Manhattan, New York City",
+                                        ),
+                                        notes="CIO is interested in trying out the product.",
+                                    ),
+                                    team=models.Team(
+                                        id="<id>",
+                                        name="<value>",
+                                        datasource_profiles=[
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                        ],
+                                    ),
+                                    custom_entity=models.CustomEntity(),
+                                    answer=models.Answer(
+                                        id=3,
+                                        doc_id="ANSWERS_answer_3",
+                                        question="Why is the sky blue?",
+                                        body_text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        combined_answer_text=models.StructuredText(
+                                            text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                                        ),
+                                        likes=models.AnswerLikes(
+                                            liked_by=[],
+                                            liked_by_user=False,
+                                            num_likes=25770,
+                                        ),
+                                        author=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        verification=models.Verification(
+                                            state=models.State.UNVERIFIED,
+                                            metadata=models.VerificationMetadata(
+                                                last_verifier=models.Person(
+                                                    name="George Clooney",
+                                                    obfuscated_id="abc123",
+                                                ),
+                                                document=models.Document(
+                                                    metadata=models.DocumentMetadata(
+                                                        datasource="datasource",
+                                                        object_type="Feature Request",
+                                                        container="container",
+                                                        parent_id="JIRA_EN-1337",
+                                                        mime_type="mimeType",
+                                                        document_id="documentId",
+                                                        create_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        update_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        author=models.Person(
+                                                            name="name",
+                                                            obfuscated_id="<id>",
+                                                        ),
+                                                        components=[
+                                                            "Backend",
+                                                            "Networking",
+                                                        ],
+                                                        status='["Done"]',
+                                                        custom_data={
+                                                            "someCustomField": models.CustomDataValue(),
+                                                        },
+                                                    ),
+                                                ),
+                                                last_reminder=models.Reminder(
+                                                    assignee=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                    requestor=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                    remind_at=103920,
+                                                ),
+                                            ),
+                                        ),
+                                        board=models.AnswerBoard(
+                                            name="<value>",
+                                            description="gratefully failing square consequently discourse since",
+                                            audience_filters=[
+                                                models.FacetFilter(
+                                                    field_name="type",
+                                                    values=[
+                                                        models.FacetFilterValue(
+                                                            value="Spreadsheet",
+                                                            relation_type=models.RelationType.EQUALS,
+                                                        ),
+                                                        models.FacetFilterValue(
+                                                            value="Presentation",
+                                                            relation_type=models.RelationType.EQUALS,
+                                                        ),
+                                                    ],
+                                                ),
+                                            ],
+                                            id=139991,
+                                            creator=models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
+                                            updated_by=models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
+                                        ),
+                                        source_document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
+                                    extracted_qn_a=models.ExtractedQnA(
+                                        question_result=models.SearchResult(
+                                            title="title",
+                                            url="https://example.com/foo/bar",
+                                            native_app_url="slack://foo/bar",
+                                        ),
+                                    ),
+                                    meeting=models.Meeting(
+                                        attendees=models.CalendarAttendees(),
+                                    ),
+                                    collection=models.Collection(
+                                        name="<value>",
+                                        description="futon geez oof coolly selfishly proselytise lest fooey and",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        id=455101,
+                                        creator=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    answer_board=models.AnswerBoard(
+                                        name="<value>",
+                                        description="able mockingly boo entice softly furthermore woeful",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        id=33669,
+                                        creator=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    code=models.Code(
+                                        repo_name="scio",
+                                        file_name="README.md",
+                                    ),
+                                    shortcut=models.Shortcut(
+                                        input_alias="<value>",
+                                        created_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        destination_document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
+                                    query_suggestions=models.QuerySuggestionList(
+                                        person=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    related_question=models.RelatedQuestion(),
+                                ),
                             ],
+                            query_suggestion=models.QuerySuggestion(
+                                query="app:github type:pull author:mortimer",
+                                label="Mortimer's PRs",
+                                datasource="github",
+                            ),
                             file=models.ChatFile(
                                 id="FILE_1234",
                                 url="www.google.com",
@@ -1107,13 +8115,76 @@ def test_client_chat_chat_stream_citation_response():
                 {
                     "citations": [
                         models.ChatMessageCitation(
+                            source_document=models.Document(
+                                metadata=models.DocumentMetadata(
+                                    datasource="datasource",
+                                    object_type="Feature Request",
+                                    container="container",
+                                    parent_id="JIRA_EN-1337",
+                                    mime_type="mimeType",
+                                    document_id="documentId",
+                                    create_time=parse_datetime(
+                                        "2000-01-23T04:56:07.000Z"
+                                    ),
+                                    update_time=parse_datetime(
+                                        "2000-01-23T04:56:07.000Z"
+                                    ),
+                                    author=models.Person(
+                                        name="name",
+                                        obfuscated_id="<id>",
+                                    ),
+                                    components=[
+                                        "Backend",
+                                        "Networking",
+                                    ],
+                                    status='["Done"]',
+                                    custom_data={
+                                        "someCustomField": models.CustomDataValue(),
+                                    },
+                                ),
+                            ),
                             source_file=models.ChatFile(
                                 id="FILE_1234",
                                 url="www.google.com",
                                 name="sample.pdf",
                             ),
+                            source_person=models.Person(
+                                name="George Clooney",
+                                obfuscated_id="abc123",
+                            ),
                             reference_ranges=[
                                 models.ReferenceRange(
+                                    text_range=models.TextRange(
+                                        start_index=171021,
+                                        document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
                                     snippets=[
                                         models.SearchResultSnippet(
                                             snippet="snippet",
@@ -1122,6 +8193,37 @@ def test_client_chat_chat_stream_citation_response():
                                     ],
                                 ),
                                 models.ReferenceRange(
+                                    text_range=models.TextRange(
+                                        start_index=383744,
+                                        document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
                                     snippets=[
                                         models.SearchResultSnippet(
                                             snippet="snippet",
@@ -1132,13 +8234,76 @@ def test_client_chat_chat_stream_citation_response():
                             ],
                         ),
                         models.ChatMessageCitation(
+                            source_document=models.Document(
+                                metadata=models.DocumentMetadata(
+                                    datasource="datasource",
+                                    object_type="Feature Request",
+                                    container="container",
+                                    parent_id="JIRA_EN-1337",
+                                    mime_type="mimeType",
+                                    document_id="documentId",
+                                    create_time=parse_datetime(
+                                        "2000-01-23T04:56:07.000Z"
+                                    ),
+                                    update_time=parse_datetime(
+                                        "2000-01-23T04:56:07.000Z"
+                                    ),
+                                    author=models.Person(
+                                        name="name",
+                                        obfuscated_id="<id>",
+                                    ),
+                                    components=[
+                                        "Backend",
+                                        "Networking",
+                                    ],
+                                    status='["Done"]',
+                                    custom_data={
+                                        "someCustomField": models.CustomDataValue(),
+                                    },
+                                ),
+                            ),
                             source_file=models.ChatFile(
                                 id="FILE_1234",
                                 url="www.google.com",
                                 name="sample.pdf",
                             ),
+                            source_person=models.Person(
+                                name="George Clooney",
+                                obfuscated_id="abc123",
+                            ),
                             reference_ranges=[
                                 models.ReferenceRange(
+                                    text_range=models.TextRange(
+                                        start_index=343186,
+                                        document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
                                     snippets=[
                                         models.SearchResultSnippet(
                                             snippet="snippet",
@@ -1147,6 +8312,37 @@ def test_client_chat_chat_stream_citation_response():
                                     ],
                                 ),
                                 models.ReferenceRange(
+                                    text_range=models.TextRange(
+                                        start_index=227225,
+                                        document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
                                     snippets=[
                                         models.SearchResultSnippet(
                                             snippet="snippet",
@@ -1155,6 +8351,37 @@ def test_client_chat_chat_stream_citation_response():
                                     ],
                                 ),
                                 models.ReferenceRange(
+                                    text_range=models.TextRange(
+                                        start_index=55034,
+                                        document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
                                     snippets=[
                                         models.SearchResultSnippet(
                                             snippet="snippet",
@@ -1165,13 +8392,76 @@ def test_client_chat_chat_stream_citation_response():
                             ],
                         ),
                         models.ChatMessageCitation(
+                            source_document=models.Document(
+                                metadata=models.DocumentMetadata(
+                                    datasource="datasource",
+                                    object_type="Feature Request",
+                                    container="container",
+                                    parent_id="JIRA_EN-1337",
+                                    mime_type="mimeType",
+                                    document_id="documentId",
+                                    create_time=parse_datetime(
+                                        "2000-01-23T04:56:07.000Z"
+                                    ),
+                                    update_time=parse_datetime(
+                                        "2000-01-23T04:56:07.000Z"
+                                    ),
+                                    author=models.Person(
+                                        name="name",
+                                        obfuscated_id="<id>",
+                                    ),
+                                    components=[
+                                        "Backend",
+                                        "Networking",
+                                    ],
+                                    status='["Done"]',
+                                    custom_data={
+                                        "someCustomField": models.CustomDataValue(),
+                                    },
+                                ),
+                            ),
                             source_file=models.ChatFile(
                                 id="FILE_1234",
                                 url="www.google.com",
                                 name="sample.pdf",
                             ),
+                            source_person=models.Person(
+                                name="George Clooney",
+                                obfuscated_id="abc123",
+                            ),
                             reference_ranges=[
                                 models.ReferenceRange(
+                                    text_range=models.TextRange(
+                                        start_index=935065,
+                                        document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
                                     snippets=[
                                         models.SearchResultSnippet(
                                             snippet="snippet",
@@ -1180,6 +8470,37 @@ def test_client_chat_chat_stream_citation_response():
                                     ],
                                 ),
                                 models.ReferenceRange(
+                                    text_range=models.TextRange(
+                                        start_index=816251,
+                                        document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
                                     snippets=[
                                         models.SearchResultSnippet(
                                             snippet="snippet",
@@ -1193,10 +8514,968 @@ def test_client_chat_chat_stream_citation_response():
                     "fragments": [
                         models.ChatMessageFragment(
                             structured_results=[
-                                models.StructuredResult(),
-                                models.StructuredResult(),
-                                models.StructuredResult(),
+                                models.StructuredResult(
+                                    document=models.Document(
+                                        metadata=models.DocumentMetadata(
+                                            datasource="datasource",
+                                            object_type="Feature Request",
+                                            container="container",
+                                            parent_id="JIRA_EN-1337",
+                                            mime_type="mimeType",
+                                            document_id="documentId",
+                                            create_time=parse_datetime(
+                                                "2000-01-23T04:56:07.000Z"
+                                            ),
+                                            update_time=parse_datetime(
+                                                "2000-01-23T04:56:07.000Z"
+                                            ),
+                                            author=models.Person(
+                                                name="name",
+                                                obfuscated_id="<id>",
+                                            ),
+                                            components=[
+                                                "Backend",
+                                                "Networking",
+                                            ],
+                                            status='["Done"]',
+                                            custom_data={
+                                                "someCustomField": models.CustomDataValue(),
+                                            },
+                                        ),
+                                    ),
+                                    person=models.Person(
+                                        name="George Clooney",
+                                        obfuscated_id="abc123",
+                                    ),
+                                    customer=models.Customer(
+                                        id="<id>",
+                                        company=models.Company(
+                                            name="<value>",
+                                            location="New York City",
+                                            industry="Finances",
+                                            about="Financial, software, data, and media company headquartered in Midtown Manhattan, New York City",
+                                        ),
+                                        notes="CIO is interested in trying out the product.",
+                                    ),
+                                    team=models.Team(
+                                        id="<id>",
+                                        name="<value>",
+                                        datasource_profiles=[
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                        ],
+                                    ),
+                                    custom_entity=models.CustomEntity(),
+                                    answer=models.Answer(
+                                        id=3,
+                                        doc_id="ANSWERS_answer_3",
+                                        question="Why is the sky blue?",
+                                        body_text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        combined_answer_text=models.StructuredText(
+                                            text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                                        ),
+                                        likes=models.AnswerLikes(
+                                            liked_by=[],
+                                            liked_by_user=True,
+                                            num_likes=251149,
+                                        ),
+                                        author=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        verification=models.Verification(
+                                            state=models.State.VERIFIED,
+                                            metadata=models.VerificationMetadata(
+                                                last_verifier=models.Person(
+                                                    name="George Clooney",
+                                                    obfuscated_id="abc123",
+                                                ),
+                                                document=models.Document(
+                                                    metadata=models.DocumentMetadata(
+                                                        datasource="datasource",
+                                                        object_type="Feature Request",
+                                                        container="container",
+                                                        parent_id="JIRA_EN-1337",
+                                                        mime_type="mimeType",
+                                                        document_id="documentId",
+                                                        create_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        update_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        author=models.Person(
+                                                            name="name",
+                                                            obfuscated_id="<id>",
+                                                        ),
+                                                        components=[
+                                                            "Backend",
+                                                            "Networking",
+                                                        ],
+                                                        status='["Done"]',
+                                                        custom_data={
+                                                            "someCustomField": models.CustomDataValue(),
+                                                        },
+                                                    ),
+                                                ),
+                                                last_reminder=models.Reminder(
+                                                    assignee=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                    requestor=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                    remind_at=23422,
+                                                ),
+                                            ),
+                                        ),
+                                        board=models.AnswerBoard(
+                                            name="<value>",
+                                            description="affiliate who lamp blushing plait after violent",
+                                            audience_filters=[
+                                                models.FacetFilter(
+                                                    field_name="type",
+                                                    values=[
+                                                        models.FacetFilterValue(
+                                                            value="Spreadsheet",
+                                                            relation_type=models.RelationType.EQUALS,
+                                                        ),
+                                                        models.FacetFilterValue(
+                                                            value="Presentation",
+                                                            relation_type=models.RelationType.EQUALS,
+                                                        ),
+                                                    ],
+                                                ),
+                                            ],
+                                            id=55380,
+                                            creator=models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
+                                            updated_by=models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
+                                        ),
+                                        source_document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
+                                    extracted_qn_a=models.ExtractedQnA(
+                                        question_result=models.SearchResult(
+                                            title="title",
+                                            url="https://example.com/foo/bar",
+                                            native_app_url="slack://foo/bar",
+                                        ),
+                                    ),
+                                    meeting=models.Meeting(
+                                        attendees=models.CalendarAttendees(),
+                                    ),
+                                    collection=models.Collection(
+                                        name="<value>",
+                                        description="thankfully bliss merge inside without regarding how endow",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        id=420468,
+                                        creator=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    answer_board=models.AnswerBoard(
+                                        name="<value>",
+                                        description="gee edge scholarship",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        id=632878,
+                                        creator=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    code=models.Code(
+                                        repo_name="scio",
+                                        file_name="README.md",
+                                    ),
+                                    shortcut=models.Shortcut(
+                                        input_alias="<value>",
+                                        created_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        destination_document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
+                                    query_suggestions=models.QuerySuggestionList(
+                                        person=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    related_question=models.RelatedQuestion(),
+                                ),
+                                models.StructuredResult(
+                                    document=models.Document(
+                                        metadata=models.DocumentMetadata(
+                                            datasource="datasource",
+                                            object_type="Feature Request",
+                                            container="container",
+                                            parent_id="JIRA_EN-1337",
+                                            mime_type="mimeType",
+                                            document_id="documentId",
+                                            create_time=parse_datetime(
+                                                "2000-01-23T04:56:07.000Z"
+                                            ),
+                                            update_time=parse_datetime(
+                                                "2000-01-23T04:56:07.000Z"
+                                            ),
+                                            author=models.Person(
+                                                name="name",
+                                                obfuscated_id="<id>",
+                                            ),
+                                            components=[
+                                                "Backend",
+                                                "Networking",
+                                            ],
+                                            status='["Done"]',
+                                            custom_data={
+                                                "someCustomField": models.CustomDataValue(),
+                                            },
+                                        ),
+                                    ),
+                                    person=models.Person(
+                                        name="George Clooney",
+                                        obfuscated_id="abc123",
+                                    ),
+                                    customer=models.Customer(
+                                        id="<id>",
+                                        company=models.Company(
+                                            name="<value>",
+                                            location="New York City",
+                                            industry="Finances",
+                                            about="Financial, software, data, and media company headquartered in Midtown Manhattan, New York City",
+                                        ),
+                                        notes="CIO is interested in trying out the product.",
+                                    ),
+                                    team=models.Team(
+                                        id="<id>",
+                                        name="<value>",
+                                        datasource_profiles=[
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                        ],
+                                    ),
+                                    custom_entity=models.CustomEntity(),
+                                    answer=models.Answer(
+                                        id=3,
+                                        doc_id="ANSWERS_answer_3",
+                                        question="Why is the sky blue?",
+                                        body_text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        combined_answer_text=models.StructuredText(
+                                            text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                                        ),
+                                        likes=models.AnswerLikes(
+                                            liked_by=[],
+                                            liked_by_user=True,
+                                            num_likes=18033,
+                                        ),
+                                        author=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        verification=models.Verification(
+                                            state=models.State.VERIFIED,
+                                            metadata=models.VerificationMetadata(
+                                                last_verifier=models.Person(
+                                                    name="George Clooney",
+                                                    obfuscated_id="abc123",
+                                                ),
+                                                document=models.Document(
+                                                    metadata=models.DocumentMetadata(
+                                                        datasource="datasource",
+                                                        object_type="Feature Request",
+                                                        container="container",
+                                                        parent_id="JIRA_EN-1337",
+                                                        mime_type="mimeType",
+                                                        document_id="documentId",
+                                                        create_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        update_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        author=models.Person(
+                                                            name="name",
+                                                            obfuscated_id="<id>",
+                                                        ),
+                                                        components=[
+                                                            "Backend",
+                                                            "Networking",
+                                                        ],
+                                                        status='["Done"]',
+                                                        custom_data={
+                                                            "someCustomField": models.CustomDataValue(),
+                                                        },
+                                                    ),
+                                                ),
+                                                last_reminder=models.Reminder(
+                                                    assignee=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                    requestor=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                    remind_at=807925,
+                                                ),
+                                            ),
+                                        ),
+                                        board=models.AnswerBoard(
+                                            name="<value>",
+                                            description="rust forenenst phew immediately",
+                                            audience_filters=[
+                                                models.FacetFilter(
+                                                    field_name="type",
+                                                    values=[
+                                                        models.FacetFilterValue(
+                                                            value="Spreadsheet",
+                                                            relation_type=models.RelationType.EQUALS,
+                                                        ),
+                                                        models.FacetFilterValue(
+                                                            value="Presentation",
+                                                            relation_type=models.RelationType.EQUALS,
+                                                        ),
+                                                    ],
+                                                ),
+                                            ],
+                                            id=277574,
+                                            creator=models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
+                                            updated_by=models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
+                                        ),
+                                        source_document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
+                                    extracted_qn_a=models.ExtractedQnA(
+                                        question_result=models.SearchResult(
+                                            title="title",
+                                            url="https://example.com/foo/bar",
+                                            native_app_url="slack://foo/bar",
+                                        ),
+                                    ),
+                                    meeting=models.Meeting(
+                                        attendees=models.CalendarAttendees(),
+                                    ),
+                                    collection=models.Collection(
+                                        name="<value>",
+                                        description="till likewise boiling yesterday gah upward brr",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        id=377350,
+                                        creator=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    answer_board=models.AnswerBoard(
+                                        name="<value>",
+                                        description="blah lowball who moor following folklore as or",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        id=115719,
+                                        creator=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    code=models.Code(
+                                        repo_name="scio",
+                                        file_name="README.md",
+                                    ),
+                                    shortcut=models.Shortcut(
+                                        input_alias="<value>",
+                                        created_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        destination_document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
+                                    query_suggestions=models.QuerySuggestionList(
+                                        person=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    related_question=models.RelatedQuestion(),
+                                ),
+                                models.StructuredResult(
+                                    document=models.Document(
+                                        metadata=models.DocumentMetadata(
+                                            datasource="datasource",
+                                            object_type="Feature Request",
+                                            container="container",
+                                            parent_id="JIRA_EN-1337",
+                                            mime_type="mimeType",
+                                            document_id="documentId",
+                                            create_time=parse_datetime(
+                                                "2000-01-23T04:56:07.000Z"
+                                            ),
+                                            update_time=parse_datetime(
+                                                "2000-01-23T04:56:07.000Z"
+                                            ),
+                                            author=models.Person(
+                                                name="name",
+                                                obfuscated_id="<id>",
+                                            ),
+                                            components=[
+                                                "Backend",
+                                                "Networking",
+                                            ],
+                                            status='["Done"]',
+                                            custom_data={
+                                                "someCustomField": models.CustomDataValue(),
+                                            },
+                                        ),
+                                    ),
+                                    person=models.Person(
+                                        name="George Clooney",
+                                        obfuscated_id="abc123",
+                                    ),
+                                    customer=models.Customer(
+                                        id="<id>",
+                                        company=models.Company(
+                                            name="<value>",
+                                            location="New York City",
+                                            industry="Finances",
+                                            about="Financial, software, data, and media company headquartered in Midtown Manhattan, New York City",
+                                        ),
+                                        notes="CIO is interested in trying out the product.",
+                                    ),
+                                    team=models.Team(
+                                        id="<id>",
+                                        name="<value>",
+                                        datasource_profiles=[
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                        ],
+                                    ),
+                                    custom_entity=models.CustomEntity(),
+                                    answer=models.Answer(
+                                        id=3,
+                                        doc_id="ANSWERS_answer_3",
+                                        question="Why is the sky blue?",
+                                        body_text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        combined_answer_text=models.StructuredText(
+                                            text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                                        ),
+                                        likes=models.AnswerLikes(
+                                            liked_by=[],
+                                            liked_by_user=True,
+                                            num_likes=591310,
+                                        ),
+                                        author=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        verification=models.Verification(
+                                            state=models.State.UNVERIFIED,
+                                            metadata=models.VerificationMetadata(
+                                                last_verifier=models.Person(
+                                                    name="George Clooney",
+                                                    obfuscated_id="abc123",
+                                                ),
+                                                document=models.Document(
+                                                    metadata=models.DocumentMetadata(
+                                                        datasource="datasource",
+                                                        object_type="Feature Request",
+                                                        container="container",
+                                                        parent_id="JIRA_EN-1337",
+                                                        mime_type="mimeType",
+                                                        document_id="documentId",
+                                                        create_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        update_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        author=models.Person(
+                                                            name="name",
+                                                            obfuscated_id="<id>",
+                                                        ),
+                                                        components=[
+                                                            "Backend",
+                                                            "Networking",
+                                                        ],
+                                                        status='["Done"]',
+                                                        custom_data={
+                                                            "someCustomField": models.CustomDataValue(),
+                                                        },
+                                                    ),
+                                                ),
+                                                last_reminder=models.Reminder(
+                                                    assignee=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                    requestor=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                    remind_at=265693,
+                                                ),
+                                            ),
+                                        ),
+                                        board=models.AnswerBoard(
+                                            name="<value>",
+                                            description="among under although ack gee atop horn",
+                                            audience_filters=[
+                                                models.FacetFilter(
+                                                    field_name="type",
+                                                    values=[
+                                                        models.FacetFilterValue(
+                                                            value="Spreadsheet",
+                                                            relation_type=models.RelationType.EQUALS,
+                                                        ),
+                                                        models.FacetFilterValue(
+                                                            value="Presentation",
+                                                            relation_type=models.RelationType.EQUALS,
+                                                        ),
+                                                    ],
+                                                ),
+                                            ],
+                                            id=170010,
+                                            creator=models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
+                                            updated_by=models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
+                                        ),
+                                        source_document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
+                                    extracted_qn_a=models.ExtractedQnA(
+                                        question_result=models.SearchResult(
+                                            title="title",
+                                            url="https://example.com/foo/bar",
+                                            native_app_url="slack://foo/bar",
+                                        ),
+                                    ),
+                                    meeting=models.Meeting(
+                                        attendees=models.CalendarAttendees(),
+                                    ),
+                                    collection=models.Collection(
+                                        name="<value>",
+                                        description="owlishly genuine woot ocelot nor next",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        id=754074,
+                                        creator=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    answer_board=models.AnswerBoard(
+                                        name="<value>",
+                                        description="finally jaggedly nightlife surface",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        id=435267,
+                                        creator=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    code=models.Code(
+                                        repo_name="scio",
+                                        file_name="README.md",
+                                    ),
+                                    shortcut=models.Shortcut(
+                                        input_alias="<value>",
+                                        created_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        destination_document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
+                                    query_suggestions=models.QuerySuggestionList(
+                                        person=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    related_question=models.RelatedQuestion(),
+                                ),
                             ],
+                            query_suggestion=models.QuerySuggestion(
+                                query="app:github type:pull author:mortimer",
+                                label="Mortimer's PRs",
+                                datasource="github",
+                            ),
                             file=models.ChatFile(
                                 id="FILE_1234",
                                 url="www.google.com",
@@ -1214,10 +9493,964 @@ def test_client_chat_chat_stream_citation_response():
                         ),
                         models.ChatMessageFragment(
                             structured_results=[
-                                models.StructuredResult(),
-                                models.StructuredResult(),
-                                models.StructuredResult(),
+                                models.StructuredResult(
+                                    document=models.Document(
+                                        metadata=models.DocumentMetadata(
+                                            datasource="datasource",
+                                            object_type="Feature Request",
+                                            container="container",
+                                            parent_id="JIRA_EN-1337",
+                                            mime_type="mimeType",
+                                            document_id="documentId",
+                                            create_time=parse_datetime(
+                                                "2000-01-23T04:56:07.000Z"
+                                            ),
+                                            update_time=parse_datetime(
+                                                "2000-01-23T04:56:07.000Z"
+                                            ),
+                                            author=models.Person(
+                                                name="name",
+                                                obfuscated_id="<id>",
+                                            ),
+                                            components=[
+                                                "Backend",
+                                                "Networking",
+                                            ],
+                                            status='["Done"]',
+                                            custom_data={
+                                                "someCustomField": models.CustomDataValue(),
+                                            },
+                                        ),
+                                    ),
+                                    person=models.Person(
+                                        name="George Clooney",
+                                        obfuscated_id="abc123",
+                                    ),
+                                    customer=models.Customer(
+                                        id="<id>",
+                                        company=models.Company(
+                                            name="<value>",
+                                            location="New York City",
+                                            industry="Finances",
+                                            about="Financial, software, data, and media company headquartered in Midtown Manhattan, New York City",
+                                        ),
+                                        notes="CIO is interested in trying out the product.",
+                                    ),
+                                    team=models.Team(
+                                        id="<id>",
+                                        name="<value>",
+                                        datasource_profiles=[
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                        ],
+                                    ),
+                                    custom_entity=models.CustomEntity(),
+                                    answer=models.Answer(
+                                        id=3,
+                                        doc_id="ANSWERS_answer_3",
+                                        question="Why is the sky blue?",
+                                        body_text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        combined_answer_text=models.StructuredText(
+                                            text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                                        ),
+                                        likes=models.AnswerLikes(
+                                            liked_by=[],
+                                            liked_by_user=True,
+                                            num_likes=464085,
+                                        ),
+                                        author=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        verification=models.Verification(
+                                            state=models.State.DEPRECATED,
+                                            metadata=models.VerificationMetadata(
+                                                last_verifier=models.Person(
+                                                    name="George Clooney",
+                                                    obfuscated_id="abc123",
+                                                ),
+                                                document=models.Document(
+                                                    metadata=models.DocumentMetadata(
+                                                        datasource="datasource",
+                                                        object_type="Feature Request",
+                                                        container="container",
+                                                        parent_id="JIRA_EN-1337",
+                                                        mime_type="mimeType",
+                                                        document_id="documentId",
+                                                        create_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        update_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        author=models.Person(
+                                                            name="name",
+                                                            obfuscated_id="<id>",
+                                                        ),
+                                                        components=[
+                                                            "Backend",
+                                                            "Networking",
+                                                        ],
+                                                        status='["Done"]',
+                                                        custom_data={
+                                                            "someCustomField": models.CustomDataValue(),
+                                                        },
+                                                    ),
+                                                ),
+                                                last_reminder=models.Reminder(
+                                                    assignee=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                    requestor=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                    remind_at=197253,
+                                                ),
+                                            ),
+                                        ),
+                                        board=models.AnswerBoard(
+                                            name="<value>",
+                                            description="ah once gee",
+                                            audience_filters=[
+                                                models.FacetFilter(
+                                                    field_name="type",
+                                                    values=[
+                                                        models.FacetFilterValue(
+                                                            value="Spreadsheet",
+                                                            relation_type=models.RelationType.EQUALS,
+                                                        ),
+                                                        models.FacetFilterValue(
+                                                            value="Presentation",
+                                                            relation_type=models.RelationType.EQUALS,
+                                                        ),
+                                                    ],
+                                                ),
+                                            ],
+                                            id=785222,
+                                            creator=models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
+                                            updated_by=models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
+                                        ),
+                                        source_document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
+                                    extracted_qn_a=models.ExtractedQnA(
+                                        question_result=models.SearchResult(
+                                            title="title",
+                                            url="https://example.com/foo/bar",
+                                            native_app_url="slack://foo/bar",
+                                        ),
+                                    ),
+                                    meeting=models.Meeting(
+                                        attendees=models.CalendarAttendees(),
+                                    ),
+                                    collection=models.Collection(
+                                        name="<value>",
+                                        description="toe yowza yum soon hypothesize",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        id=655575,
+                                        creator=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    answer_board=models.AnswerBoard(
+                                        name="<value>",
+                                        description="godparent before colorize",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        id=624868,
+                                        creator=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    code=models.Code(
+                                        repo_name="scio",
+                                        file_name="README.md",
+                                    ),
+                                    shortcut=models.Shortcut(
+                                        input_alias="<value>",
+                                        created_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        destination_document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
+                                    query_suggestions=models.QuerySuggestionList(
+                                        person=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    related_question=models.RelatedQuestion(),
+                                ),
+                                models.StructuredResult(
+                                    document=models.Document(
+                                        metadata=models.DocumentMetadata(
+                                            datasource="datasource",
+                                            object_type="Feature Request",
+                                            container="container",
+                                            parent_id="JIRA_EN-1337",
+                                            mime_type="mimeType",
+                                            document_id="documentId",
+                                            create_time=parse_datetime(
+                                                "2000-01-23T04:56:07.000Z"
+                                            ),
+                                            update_time=parse_datetime(
+                                                "2000-01-23T04:56:07.000Z"
+                                            ),
+                                            author=models.Person(
+                                                name="name",
+                                                obfuscated_id="<id>",
+                                            ),
+                                            components=[
+                                                "Backend",
+                                                "Networking",
+                                            ],
+                                            status='["Done"]',
+                                            custom_data={
+                                                "someCustomField": models.CustomDataValue(),
+                                            },
+                                        ),
+                                    ),
+                                    person=models.Person(
+                                        name="George Clooney",
+                                        obfuscated_id="abc123",
+                                    ),
+                                    customer=models.Customer(
+                                        id="<id>",
+                                        company=models.Company(
+                                            name="<value>",
+                                            location="New York City",
+                                            industry="Finances",
+                                            about="Financial, software, data, and media company headquartered in Midtown Manhattan, New York City",
+                                        ),
+                                        notes="CIO is interested in trying out the product.",
+                                    ),
+                                    team=models.Team(
+                                        id="<id>",
+                                        name="<value>",
+                                        datasource_profiles=[
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                        ],
+                                    ),
+                                    custom_entity=models.CustomEntity(),
+                                    answer=models.Answer(
+                                        id=3,
+                                        doc_id="ANSWERS_answer_3",
+                                        question="Why is the sky blue?",
+                                        body_text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        combined_answer_text=models.StructuredText(
+                                            text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                                        ),
+                                        likes=models.AnswerLikes(
+                                            liked_by=[],
+                                            liked_by_user=True,
+                                            num_likes=439860,
+                                        ),
+                                        author=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        verification=models.Verification(
+                                            state=models.State.UNVERIFIED,
+                                            metadata=models.VerificationMetadata(
+                                                last_verifier=models.Person(
+                                                    name="George Clooney",
+                                                    obfuscated_id="abc123",
+                                                ),
+                                                document=models.Document(
+                                                    metadata=models.DocumentMetadata(
+                                                        datasource="datasource",
+                                                        object_type="Feature Request",
+                                                        container="container",
+                                                        parent_id="JIRA_EN-1337",
+                                                        mime_type="mimeType",
+                                                        document_id="documentId",
+                                                        create_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        update_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        author=models.Person(
+                                                            name="name",
+                                                            obfuscated_id="<id>",
+                                                        ),
+                                                        components=[
+                                                            "Backend",
+                                                            "Networking",
+                                                        ],
+                                                        status='["Done"]',
+                                                        custom_data={
+                                                            "someCustomField": models.CustomDataValue(),
+                                                        },
+                                                    ),
+                                                ),
+                                                last_reminder=models.Reminder(
+                                                    assignee=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                    requestor=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                    remind_at=257885,
+                                                ),
+                                            ),
+                                        ),
+                                        board=models.AnswerBoard(
+                                            name="<value>",
+                                            description="uh-huh ha notwithstanding so near troubled onto volunteer hm",
+                                            audience_filters=[
+                                                models.FacetFilter(
+                                                    field_name="type",
+                                                    values=[
+                                                        models.FacetFilterValue(
+                                                            value="Spreadsheet",
+                                                            relation_type=models.RelationType.EQUALS,
+                                                        ),
+                                                        models.FacetFilterValue(
+                                                            value="Presentation",
+                                                            relation_type=models.RelationType.EQUALS,
+                                                        ),
+                                                    ],
+                                                ),
+                                            ],
+                                            id=38370,
+                                            creator=models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
+                                            updated_by=models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
+                                        ),
+                                        source_document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
+                                    extracted_qn_a=models.ExtractedQnA(
+                                        question_result=models.SearchResult(
+                                            title="title",
+                                            url="https://example.com/foo/bar",
+                                            native_app_url="slack://foo/bar",
+                                        ),
+                                    ),
+                                    meeting=models.Meeting(
+                                        attendees=models.CalendarAttendees(),
+                                    ),
+                                    collection=models.Collection(
+                                        name="<value>",
+                                        description="for now role baseboard woot entrench",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        id=816883,
+                                        creator=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    answer_board=models.AnswerBoard(
+                                        name="<value>",
+                                        description="meanwhile instead colorfully overheard",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        id=209097,
+                                        creator=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    code=models.Code(
+                                        repo_name="scio",
+                                        file_name="README.md",
+                                    ),
+                                    shortcut=models.Shortcut(
+                                        input_alias="<value>",
+                                        created_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        destination_document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
+                                    query_suggestions=models.QuerySuggestionList(
+                                        person=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    related_question=models.RelatedQuestion(),
+                                ),
+                                models.StructuredResult(
+                                    document=models.Document(
+                                        metadata=models.DocumentMetadata(
+                                            datasource="datasource",
+                                            object_type="Feature Request",
+                                            container="container",
+                                            parent_id="JIRA_EN-1337",
+                                            mime_type="mimeType",
+                                            document_id="documentId",
+                                            create_time=parse_datetime(
+                                                "2000-01-23T04:56:07.000Z"
+                                            ),
+                                            update_time=parse_datetime(
+                                                "2000-01-23T04:56:07.000Z"
+                                            ),
+                                            author=models.Person(
+                                                name="name",
+                                                obfuscated_id="<id>",
+                                            ),
+                                            components=[
+                                                "Backend",
+                                                "Networking",
+                                            ],
+                                            status='["Done"]',
+                                            custom_data={
+                                                "someCustomField": models.CustomDataValue(),
+                                            },
+                                        ),
+                                    ),
+                                    person=models.Person(
+                                        name="George Clooney",
+                                        obfuscated_id="abc123",
+                                    ),
+                                    customer=models.Customer(
+                                        id="<id>",
+                                        company=models.Company(
+                                            name="<value>",
+                                            location="New York City",
+                                            industry="Finances",
+                                            about="Financial, software, data, and media company headquartered in Midtown Manhattan, New York City",
+                                        ),
+                                        notes="CIO is interested in trying out the product.",
+                                    ),
+                                    team=models.Team(
+                                        id="<id>",
+                                        name="<value>",
+                                        datasource_profiles=[
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                            models.DatasourceProfile(
+                                                datasource="github",
+                                                handle="<value>",
+                                            ),
+                                        ],
+                                    ),
+                                    custom_entity=models.CustomEntity(),
+                                    answer=models.Answer(
+                                        id=3,
+                                        doc_id="ANSWERS_answer_3",
+                                        question="Why is the sky blue?",
+                                        body_text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        combined_answer_text=models.StructuredText(
+                                            text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                                        ),
+                                        likes=models.AnswerLikes(
+                                            liked_by=[],
+                                            liked_by_user=True,
+                                            num_likes=788886,
+                                        ),
+                                        author=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        verification=models.Verification(
+                                            state=models.State.UNVERIFIED,
+                                            metadata=models.VerificationMetadata(
+                                                last_verifier=models.Person(
+                                                    name="George Clooney",
+                                                    obfuscated_id="abc123",
+                                                ),
+                                                document=models.Document(
+                                                    metadata=models.DocumentMetadata(
+                                                        datasource="datasource",
+                                                        object_type="Feature Request",
+                                                        container="container",
+                                                        parent_id="JIRA_EN-1337",
+                                                        mime_type="mimeType",
+                                                        document_id="documentId",
+                                                        create_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        update_time=parse_datetime(
+                                                            "2000-01-23T04:56:07.000Z"
+                                                        ),
+                                                        author=models.Person(
+                                                            name="name",
+                                                            obfuscated_id="<id>",
+                                                        ),
+                                                        components=[
+                                                            "Backend",
+                                                            "Networking",
+                                                        ],
+                                                        status='["Done"]',
+                                                        custom_data={
+                                                            "someCustomField": models.CustomDataValue(),
+                                                        },
+                                                    ),
+                                                ),
+                                                last_reminder=models.Reminder(
+                                                    assignee=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                    requestor=models.Person(
+                                                        name="George Clooney",
+                                                        obfuscated_id="abc123",
+                                                    ),
+                                                    remind_at=820471,
+                                                ),
+                                            ),
+                                        ),
+                                        board=models.AnswerBoard(
+                                            name="<value>",
+                                            description="indelible aha yuck loyally",
+                                            audience_filters=[
+                                                models.FacetFilter(
+                                                    field_name="type",
+                                                    values=[
+                                                        models.FacetFilterValue(
+                                                            value="Spreadsheet",
+                                                            relation_type=models.RelationType.EQUALS,
+                                                        ),
+                                                        models.FacetFilterValue(
+                                                            value="Presentation",
+                                                            relation_type=models.RelationType.EQUALS,
+                                                        ),
+                                                    ],
+                                                ),
+                                            ],
+                                            id=278807,
+                                            creator=models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
+                                            updated_by=models.Person(
+                                                name="George Clooney",
+                                                obfuscated_id="abc123",
+                                            ),
+                                        ),
+                                        source_document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
+                                    extracted_qn_a=models.ExtractedQnA(
+                                        question_result=models.SearchResult(
+                                            title="title",
+                                            url="https://example.com/foo/bar",
+                                            native_app_url="slack://foo/bar",
+                                        ),
+                                    ),
+                                    meeting=models.Meeting(
+                                        attendees=models.CalendarAttendees(),
+                                    ),
+                                    collection=models.Collection(
+                                        name="<value>",
+                                        description="throughout though reluctantly healthily furlough minister unique simple over sidetrack",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        id=316354,
+                                        creator=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    answer_board=models.AnswerBoard(
+                                        name="<value>",
+                                        description="frequent aw above ultimate into till pish husky wetly agitated",
+                                        audience_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        id=744434,
+                                        creator=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    code=models.Code(
+                                        repo_name="scio",
+                                        file_name="README.md",
+                                    ),
+                                    shortcut=models.Shortcut(
+                                        input_alias="<value>",
+                                        created_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        updated_by=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                        destination_document=models.Document(
+                                            metadata=models.DocumentMetadata(
+                                                datasource="datasource",
+                                                object_type="Feature Request",
+                                                container="container",
+                                                parent_id="JIRA_EN-1337",
+                                                mime_type="mimeType",
+                                                document_id="documentId",
+                                                create_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                update_time=parse_datetime(
+                                                    "2000-01-23T04:56:07.000Z"
+                                                ),
+                                                author=models.Person(
+                                                    name="name",
+                                                    obfuscated_id="<id>",
+                                                ),
+                                                components=[
+                                                    "Backend",
+                                                    "Networking",
+                                                ],
+                                                status='["Done"]',
+                                                custom_data={
+                                                    "someCustomField": models.CustomDataValue(),
+                                                },
+                                            ),
+                                        ),
+                                    ),
+                                    query_suggestions=models.QuerySuggestionList(
+                                        person=models.Person(
+                                            name="George Clooney",
+                                            obfuscated_id="abc123",
+                                        ),
+                                    ),
+                                    related_question=models.RelatedQuestion(),
+                                ),
                             ],
+                            query_suggestion=models.QuerySuggestion(
+                                query="app:github type:pull author:mortimer",
+                                label="Mortimer's PRs",
+                                datasource="github",
+                            ),
                             file=models.ChatFile(
                                 id="FILE_1234",
                                 url="www.google.com",

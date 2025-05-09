@@ -41,7 +41,7 @@ class Glean(BaseSDK):
     def __init__(
         self,
         api_token: Optional[Union[Optional[str], Callable[[], Optional[str]]]] = None,
-        domain: Optional[str] = None,
+        instance: Optional[str] = None,
         server_idx: Optional[int] = None,
         server_url: Optional[str] = None,
         url_params: Optional[Dict[str, str]] = None,
@@ -54,7 +54,7 @@ class Glean(BaseSDK):
         r"""Instantiates the SDK configuring it with the provided parameters.
 
         :param api_token: The api_token required for authentication
-        :param domain: Allows setting the domain variable for url substitution
+        :param instance: Allows setting the instance variable for url substitution
         :param server_idx: The index of the server to use for all methods
         :param server_url: The server URL to use for all methods
         :param url_params: Parameters to optionally template the server URL with
@@ -96,7 +96,7 @@ class Glean(BaseSDK):
                 server_url = utils.template_url(server_url, url_params)
         server_defaults: List[Dict[str, str]] = [
             {
-                "domain": domain or "domain",
+                "instance": instance or "instance-name",
             },
         ]
 
