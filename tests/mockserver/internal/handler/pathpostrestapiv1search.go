@@ -55,13 +55,19 @@ func testSearchSearch0(w http.ResponseWriter, req *http.Request) {
 		TrackingToken: types.String("trackingToken"),
 		Results: []components.SearchResult{
 			components.SearchResult{
+				Title: types.String("title"),
+				URL:   "https://www.example.com/",
+				Snippets: []components.SearchResultSnippet{
+					components.SearchResultSnippet{
+						Snippet:  "snippet",
+						MimeType: types.String("mimeType"),
+					},
+				},
+			},
+			components.SearchResult{
 				Title:    types.String("title"),
 				URL:      "https://www.example.com/",
 				Snippets: []components.SearchResultSnippet{},
-			},
-			components.SearchResult{
-				Title: types.String("title"),
-				URL:   "https://www.example.com/",
 			},
 		},
 		GleanDataError: &components.GleanDataError{
