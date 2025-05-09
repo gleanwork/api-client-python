@@ -25,11 +25,11 @@ info:
         url: https://app.glean.com/images/glean-text2.svg
     x-speakeasy-name: "Glean API"
 servers:
-    - url: https://{domain}-be.glean.com
+    - url: https://{instance}-be.glean.com
       variables:
-        domain:
-            default: domain
-            description: Email domain (without extension) that determines the deployment backend.
+        instance:
+            default: instance-name
+            description: The instance name (typically the email domain without the extension) that determines the deployment backend.
 security:
     - APIToken: []
 paths:

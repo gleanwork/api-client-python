@@ -68,9 +68,96 @@ func testRunagentRunagent0(w http.ResponseWriter, req *http.Request) {
 								CreateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
 								UpdateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
 								Author: &components.Person{
-									Name:             "George Clooney",
-									ObfuscatedID:     "abc123",
-									RelatedDocuments: []components.RelatedDocuments{},
+									Name:         "George Clooney",
+									ObfuscatedID: "abc123",
+									RelatedDocuments: []components.RelatedDocuments{
+										components.RelatedDocuments{
+											QuerySuggestion: &components.QuerySuggestion{
+												Query: "app:github type:pull author:mortimer",
+												SearchProviderInfo: &components.SearchProviderInfo{
+													Name:                  types.String("Google"),
+													SearchLinkURLTemplate: types.String("https://www.google.com/search?q={query}&hl=en"),
+												},
+												Label:      types.String("Mortimer's PRs"),
+												Datasource: types.String("github"),
+												RequestOptions: &components.SearchRequestOptions{
+													DatasourceFilter: types.String("JIRA"),
+													DatasourcesFilter: []string{
+														"JIRA",
+													},
+													QueryOverridesFacetFilters: types.Bool(true),
+													FacetFilters: []components.FacetFilter{
+														components.FacetFilter{
+															FieldName: types.String("type"),
+															Values: []components.FacetFilterValue{
+																components.FacetFilterValue{
+																	Value:        types.String("Spreadsheet"),
+																	RelationType: components.RelationTypeEquals.ToPointer(),
+																},
+																components.FacetFilterValue{
+																	Value:        types.String("Presentation"),
+																	RelationType: components.RelationTypeEquals.ToPointer(),
+																},
+															},
+														},
+													},
+													FacetFilterSets: []components.FacetFilterSet{
+														components.FacetFilterSet{
+															Filters: []components.FacetFilter{
+																components.FacetFilter{
+																	FieldName: types.String("type"),
+																	Values: []components.FacetFilterValue{
+																		components.FacetFilterValue{
+																			Value:        types.String("Spreadsheet"),
+																			RelationType: components.RelationTypeEquals.ToPointer(),
+																		},
+																		components.FacetFilterValue{
+																			Value:        types.String("Presentation"),
+																			RelationType: components.RelationTypeEquals.ToPointer(),
+																		},
+																	},
+																},
+															},
+														},
+													},
+													FacetBucketSize: 354544,
+													AuthTokens: []components.AuthToken{
+														components.AuthToken{
+															AccessToken: "123abc",
+															Datasource:  "gmail",
+															Scope:       types.String("email profile https://www.googleapis.com/auth/gmail.readonly"),
+															TokenType:   types.String("Bearer"),
+															AuthUser:    types.String("1"),
+														},
+													},
+												},
+												Ranges: []components.TextRange{
+													components.TextRange{
+														StartIndex: 627698,
+													},
+													components.TextRange{
+														StartIndex: 281232,
+													},
+												},
+												InputDetails: &components.SearchRequestInputDetails{
+													HasCopyPaste: types.Bool(true),
+												},
+											},
+											Results: []components.SearchResult{
+												components.SearchResult{
+													Title:        types.String("title"),
+													URL:          "https://example.com/foo/bar",
+													NativeAppURL: types.String("slack://foo/bar"),
+													Snippets: []components.SearchResultSnippet{
+														components.SearchResultSnippet{
+															Snippet:  "snippet",
+															MimeType: types.String("mimeType"),
+														},
+													},
+												},
+											},
+										},
+									},
 									Metadata: &components.PersonMetadata{
 										Type:       components.PersonMetadataTypeFullTime.ToPointer(),
 										Title:      types.String("Actor"),
@@ -87,12 +174,41 @@ func testRunagentRunagent0(w http.ResponseWriter, req *http.Request) {
 											},
 										},
 										QuerySuggestions: &components.QuerySuggestionList{
-											Suggestions: []components.QuerySuggestion{},
+											Suggestions: []components.QuerySuggestion{
+												components.QuerySuggestion{
+													Query:      "app:github type:pull author:mortimer",
+													Label:      types.String("Mortimer's PRs"),
+													Datasource: types.String("github"),
+												},
+											},
 										},
 										InviteInfo: &components.InviteInfo{
-											Invites: []components.ChannelInviteInfo{},
+											Invites: []components.ChannelInviteInfo{
+												components.ChannelInviteInfo{},
+											},
 										},
-										CustomFields: []components.CustomFieldData{},
+										CustomFields: []components.CustomFieldData{
+											components.CustomFieldData{
+												Label: "<value>",
+												Values: []components.CustomFieldValue{
+													components.CreateCustomFieldValueCustomFieldValueStr(
+														components.CustomFieldValueStr{},
+													),
+													components.CreateCustomFieldValueCustomFieldValueStr(
+														components.CustomFieldValueStr{},
+													),
+													components.CreateCustomFieldValueCustomFieldValueStr(
+														components.CustomFieldValueStr{},
+													),
+												},
+												Displayable: types.Bool(true),
+											},
+											components.CustomFieldData{
+												Label:       "<value>",
+												Values:      []components.CustomFieldValue{},
+												Displayable: types.Bool(true),
+											},
+										},
 										Badges: []components.Badge{
 											components.Badge{
 												Key:         types.String("deployment_name_new_hire"),
@@ -110,26 +226,1112 @@ func testRunagentRunagent0(w http.ResponseWriter, req *http.Request) {
 								Owner: &components.Person{
 									Name:         "George Clooney",
 									ObfuscatedID: "abc123",
+									Metadata: &components.PersonMetadata{
+										Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+										Title:      types.String("Actor"),
+										Department: types.String("Movies"),
+										Email:      types.String("george@example.com"),
+										Location:   types.String("Hollywood, CA"),
+										Phone:      types.String("6505551234"),
+										PhotoURL:   types.String("https://example.com/george.jpg"),
+										StartDate:  types.MustNewDateFromString("2000-01-23"),
+										DatasourceProfile: []components.DatasourceProfile{
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+										},
+										QuerySuggestions: &components.QuerySuggestionList{},
+										InviteInfo:       &components.InviteInfo{},
+										Badges: []components.Badge{
+											components.Badge{
+												Key:         types.String("deployment_name_new_hire"),
+												DisplayName: types.String("New hire"),
+												IconConfig: &components.IconConfig{
+													Color:    types.String("#343CED"),
+													Key:      types.String("person_icon"),
+													IconType: components.IconTypeGlyph.ToPointer(),
+													Name:     types.String("user"),
+												},
+											},
+										},
+									},
 								},
-								MentionedPeople: []components.Person{},
+								MentionedPeople: []components.Person{
+									components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+									},
+								},
 								Components: []string{
 									"Backend",
 									"Networking",
 								},
 								Status: types.String("[\"Done\"]"),
-								Pins:   []components.PinDocument{},
+								Pins: []components.PinDocument{
+									components.PinDocument{
+										AudienceFilters: []components.FacetFilter{
+											components.FacetFilter{
+												FieldName: types.String("type"),
+												Values: []components.FacetFilterValue{
+													components.FacetFilterValue{
+														Value:        types.String("Spreadsheet"),
+														RelationType: components.RelationTypeEquals.ToPointer(),
+													},
+													components.FacetFilterValue{
+														Value:        types.String("Presentation"),
+														RelationType: components.RelationTypeEquals.ToPointer(),
+													},
+												},
+											},
+										},
+										DocumentID: "<id>",
+										Attribution: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+										UpdatedBy: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+									},
+									components.PinDocument{
+										AudienceFilters: []components.FacetFilter{
+											components.FacetFilter{
+												FieldName: types.String("type"),
+												Values: []components.FacetFilterValue{
+													components.FacetFilterValue{
+														Value:        types.String("Spreadsheet"),
+														RelationType: components.RelationTypeEquals.ToPointer(),
+													},
+													components.FacetFilterValue{
+														Value:        types.String("Presentation"),
+														RelationType: components.RelationTypeEquals.ToPointer(),
+													},
+												},
+											},
+										},
+										DocumentID: "<id>",
+										Attribution: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+										UpdatedBy: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+									},
+								},
 								AssignedTo: &components.Person{
 									Name:         "George Clooney",
 									ObfuscatedID: "abc123",
+									Metadata: &components.PersonMetadata{
+										Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+										Title:      types.String("Actor"),
+										Department: types.String("Movies"),
+										Email:      types.String("george@example.com"),
+										Location:   types.String("Hollywood, CA"),
+										Phone:      types.String("6505551234"),
+										PhotoURL:   types.String("https://example.com/george.jpg"),
+										StartDate:  types.MustNewDateFromString("2000-01-23"),
+										DatasourceProfile: []components.DatasourceProfile{
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+										},
+										QuerySuggestions: &components.QuerySuggestionList{},
+										InviteInfo:       &components.InviteInfo{},
+										Badges: []components.Badge{
+											components.Badge{
+												Key:         types.String("deployment_name_new_hire"),
+												DisplayName: types.String("New hire"),
+												IconConfig: &components.IconConfig{
+													Color:    types.String("#343CED"),
+													Key:      types.String("person_icon"),
+													IconType: components.IconTypeGlyph.ToPointer(),
+													Name:     types.String("user"),
+												},
+											},
+										},
+									},
 								},
 								UpdatedBy: &components.Person{
 									Name:         "George Clooney",
 									ObfuscatedID: "abc123",
+									Metadata: &components.PersonMetadata{
+										Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+										Title:      types.String("Actor"),
+										Department: types.String("Movies"),
+										Email:      types.String("george@example.com"),
+										Location:   types.String("Hollywood, CA"),
+										Phone:      types.String("6505551234"),
+										PhotoURL:   types.String("https://example.com/george.jpg"),
+										StartDate:  types.MustNewDateFromString("2000-01-23"),
+										DatasourceProfile: []components.DatasourceProfile{
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+										},
+										QuerySuggestions: &components.QuerySuggestionList{},
+										InviteInfo:       &components.InviteInfo{},
+										Badges: []components.Badge{
+											components.Badge{
+												Key:         types.String("deployment_name_new_hire"),
+												DisplayName: types.String("New hire"),
+												IconConfig: &components.IconConfig{
+													Color:    types.String("#343CED"),
+													Key:      types.String("person_icon"),
+													IconType: components.IconTypeGlyph.ToPointer(),
+													Name:     types.String("user"),
+												},
+											},
+										},
+									},
 								},
-								Collections: []components.Collection{},
+								Collections: []components.Collection{
+									components.Collection{
+										Name:        "<value>",
+										Description: "duh language whenever appliance exactly sticker versus phew zowie",
+										AddedRoles: []components.UserRoleSpecification{
+											components.UserRoleSpecification{
+												Person: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												Role: components.UserRoleAnswerModerator,
+											},
+											components.UserRoleSpecification{
+												Person: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												Role: components.UserRoleAnswerModerator,
+											},
+											components.UserRoleSpecification{
+												Person: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												Role: components.UserRoleAnswerModerator,
+											},
+										},
+										RemovedRoles: []components.UserRoleSpecification{
+											components.UserRoleSpecification{
+												Person: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												Role: components.UserRoleViewer,
+											},
+											components.UserRoleSpecification{
+												Person: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												Role: components.UserRoleViewer,
+											},
+										},
+										AudienceFilters: []components.FacetFilter{
+											components.FacetFilter{
+												FieldName: types.String("type"),
+												Values: []components.FacetFilterValue{
+													components.FacetFilterValue{
+														Value:        types.String("Spreadsheet"),
+														RelationType: components.RelationTypeEquals.ToPointer(),
+													},
+													components.FacetFilterValue{
+														Value:        types.String("Presentation"),
+														RelationType: components.RelationTypeEquals.ToPointer(),
+													},
+												},
+											},
+										},
+										ID: 621323,
+										Creator: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+										UpdatedBy: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+										Items: []components.CollectionItem{
+											components.CollectionItem{
+												CollectionID: 401026,
+												CreatedBy: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												ItemType: components.CollectionItemItemTypeURL,
+											},
+											components.CollectionItem{
+												CollectionID: 507317,
+												CreatedBy: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												ItemType: components.CollectionItemItemTypeURL,
+											},
+											components.CollectionItem{
+												CollectionID: 239633,
+												CreatedBy: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												ItemType: components.CollectionItemItemTypeText,
+											},
+										},
+										Roles: []components.UserRoleSpecification{
+											components.UserRoleSpecification{
+												Person: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												Role: components.UserRoleOwner,
+											},
+										},
+									},
+									components.Collection{
+										Name:        "<value>",
+										Description: "drat furthermore rich since like however hm which shrilly",
+										AudienceFilters: []components.FacetFilter{
+											components.FacetFilter{
+												FieldName: types.String("type"),
+												Values: []components.FacetFilterValue{
+													components.FacetFilterValue{
+														Value:        types.String("Spreadsheet"),
+														RelationType: components.RelationTypeEquals.ToPointer(),
+													},
+													components.FacetFilterValue{
+														Value:        types.String("Presentation"),
+														RelationType: components.RelationTypeEquals.ToPointer(),
+													},
+												},
+											},
+										},
+										ID: 63528,
+										Creator: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+										UpdatedBy: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+									},
+									components.Collection{
+										Name:        "<value>",
+										Description: "blah while gadzooks orchid forenenst tomb through",
+										AudienceFilters: []components.FacetFilter{
+											components.FacetFilter{
+												FieldName: types.String("type"),
+												Values: []components.FacetFilterValue{
+													components.FacetFilterValue{
+														Value:        types.String("Spreadsheet"),
+														RelationType: components.RelationTypeEquals.ToPointer(),
+													},
+													components.FacetFilterValue{
+														Value:        types.String("Presentation"),
+														RelationType: components.RelationTypeEquals.ToPointer(),
+													},
+												},
+											},
+										},
+										ID: 978852,
+										Creator: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+										UpdatedBy: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+									},
+								},
 								Interactions: &components.DocumentInteractions{
-									Reacts: []components.Reaction{},
-									Shares: []components.Share{},
+									Reacts: []components.Reaction{
+										components.Reaction{
+											Reactors: []components.Person{
+												components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+												},
+											},
+										},
+									},
+									Shares: []components.Share{
+										components.Share{
+											NumDaysAgo: 733382,
+											Sharer: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+										},
+										components.Share{
+											NumDaysAgo: 538326,
+											Sharer: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+										},
+										components.Share{
+											NumDaysAgo: 605737,
+											Sharer: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+										},
+									},
 								},
 								Verification: &components.Verification{
 									State: components.StateVerified,
@@ -137,20 +1339,286 @@ func testRunagentRunagent0(w http.ResponseWriter, req *http.Request) {
 										LastVerifier: &components.Person{
 											Name:         "George Clooney",
 											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
 										},
-										Reminders: []components.Reminder{},
+										Reminders: []components.Reminder{
+											components.Reminder{
+												Assignee: components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												Requestor: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												RemindAt: 151632,
+											},
+											components.Reminder{
+												Assignee: components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												Requestor: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												RemindAt: 460754,
+											},
+										},
 										LastReminder: &components.Reminder{
 											Assignee: components.Person{
 												Name:         "George Clooney",
 												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
 											},
 											Requestor: &components.Person{
 												Name:         "George Clooney",
 												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
 											},
 											RemindAt: 906369,
 										},
-										CandidateVerifiers: []components.Person{},
+										CandidateVerifiers: []components.Person{
+											components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+											},
+										},
 									},
 								},
 								CustomData: map[string]components.CustomDataValue{
@@ -159,6 +1627,44 @@ func testRunagentRunagent0(w http.ResponseWriter, req *http.Request) {
 								ContactPerson: &components.Person{
 									Name:         "George Clooney",
 									ObfuscatedID: "abc123",
+									Metadata: &components.PersonMetadata{
+										Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+										Title:      types.String("Actor"),
+										Department: types.String("Movies"),
+										Email:      types.String("george@example.com"),
+										Location:   types.String("Hollywood, CA"),
+										Phone:      types.String("6505551234"),
+										PhotoURL:   types.String("https://example.com/george.jpg"),
+										StartDate:  types.MustNewDateFromString("2000-01-23"),
+										DatasourceProfile: []components.DatasourceProfile{
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+										},
+										QuerySuggestions: &components.QuerySuggestionList{},
+										InviteInfo:       &components.InviteInfo{},
+										Badges: []components.Badge{
+											components.Badge{
+												Key:         types.String("deployment_name_new_hire"),
+												DisplayName: types.String("New hire"),
+												IconConfig: &components.IconConfig{
+													Color:    types.String("#343CED"),
+													Key:      types.String("person_icon"),
+													IconType: components.IconTypeGlyph.ToPointer(),
+													Name:     types.String("user"),
+												},
+											},
+										},
+									},
 								},
 							},
 						},
@@ -170,12 +1676,378 @@ func testRunagentRunagent0(w http.ResponseWriter, req *http.Request) {
 						SourcePerson: &components.Person{
 							Name:         "George Clooney",
 							ObfuscatedID: "abc123",
+							Metadata: &components.PersonMetadata{
+								Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+								Title:      types.String("Actor"),
+								Department: types.String("Movies"),
+								Email:      types.String("george@example.com"),
+								Location:   types.String("Hollywood, CA"),
+								Phone:      types.String("6505551234"),
+								PhotoURL:   types.String("https://example.com/george.jpg"),
+								StartDate:  types.MustNewDateFromString("2000-01-23"),
+								DatasourceProfile: []components.DatasourceProfile{
+									components.DatasourceProfile{
+										Datasource: "github",
+										Handle:     "<value>",
+									},
+								},
+								QuerySuggestions: &components.QuerySuggestionList{},
+								InviteInfo:       &components.InviteInfo{},
+								Badges: []components.Badge{
+									components.Badge{
+										Key:         types.String("deployment_name_new_hire"),
+										DisplayName: types.String("New hire"),
+										IconConfig: &components.IconConfig{
+											Color:    types.String("#343CED"),
+											Key:      types.String("person_icon"),
+											IconType: components.IconTypeGlyph.ToPointer(),
+											Name:     types.String("user"),
+										},
+									},
+								},
+							},
 						},
 						ReferenceRanges: []components.ReferenceRange{
 							components.ReferenceRange{
 								TextRange: &components.TextRange{
 									StartIndex: 540779,
-									Document:   &components.Document{},
+									Document: &components.Document{
+										Metadata: &components.DocumentMetadata{
+											Datasource: types.String("datasource"),
+											ObjectType: types.String("Feature Request"),
+											Container:  types.String("container"),
+											ParentID:   types.String("JIRA_EN-1337"),
+											MimeType:   types.String("mimeType"),
+											DocumentID: types.String("documentId"),
+											CreateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+											UpdateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+											Author: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Owner: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Components: []string{
+												"Backend",
+												"Networking",
+											},
+											Status: types.String("[\"Done\"]"),
+											AssignedTo: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											UpdatedBy: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Interactions: &components.DocumentInteractions{},
+											Verification: &components.Verification{
+												State: components.StateDeprecated,
+												Metadata: &components.VerificationMetadata{
+													LastVerifier: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													LastReminder: &components.Reminder{
+														Assignee: components.Person{
+															Name:         "George Clooney",
+															ObfuscatedID: "abc123",
+															Metadata: &components.PersonMetadata{
+																Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																Title:      types.String("Actor"),
+																Department: types.String("Movies"),
+																Email:      types.String("george@example.com"),
+																Location:   types.String("Hollywood, CA"),
+																Phone:      types.String("6505551234"),
+																PhotoURL:   types.String("https://example.com/george.jpg"),
+																StartDate:  types.MustNewDateFromString("2000-01-23"),
+																DatasourceProfile: []components.DatasourceProfile{
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																},
+																QuerySuggestions: &components.QuerySuggestionList{},
+																InviteInfo:       &components.InviteInfo{},
+																Badges: []components.Badge{
+																	components.Badge{
+																		Key:         types.String("deployment_name_new_hire"),
+																		DisplayName: types.String("New hire"),
+																		IconConfig: &components.IconConfig{
+																			Color:    types.String("#343CED"),
+																			Key:      types.String("person_icon"),
+																			IconType: components.IconTypeGlyph.ToPointer(),
+																			Name:     types.String("user"),
+																		},
+																	},
+																},
+															},
+														},
+														Requestor: &components.Person{
+															Name:         "George Clooney",
+															ObfuscatedID: "abc123",
+															Metadata: &components.PersonMetadata{
+																Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																Title:      types.String("Actor"),
+																Department: types.String("Movies"),
+																Email:      types.String("george@example.com"),
+																Location:   types.String("Hollywood, CA"),
+																Phone:      types.String("6505551234"),
+																PhotoURL:   types.String("https://example.com/george.jpg"),
+																StartDate:  types.MustNewDateFromString("2000-01-23"),
+																DatasourceProfile: []components.DatasourceProfile{
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																},
+																QuerySuggestions: &components.QuerySuggestionList{},
+																InviteInfo:       &components.InviteInfo{},
+																Badges: []components.Badge{
+																	components.Badge{
+																		Key:         types.String("deployment_name_new_hire"),
+																		DisplayName: types.String("New hire"),
+																		IconConfig: &components.IconConfig{
+																			Color:    types.String("#343CED"),
+																			Key:      types.String("person_icon"),
+																			IconType: components.IconTypeGlyph.ToPointer(),
+																			Name:     types.String("user"),
+																		},
+																	},
+																},
+															},
+														},
+														RemindAt: 705561,
+													},
+												},
+											},
+											CustomData: map[string]components.CustomDataValue{
+												"someCustomField": components.CustomDataValue{},
+											},
+											ContactPerson: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+										},
+									},
 								},
 								Snippets: []components.SearchResultSnippet{
 									components.SearchResultSnippet{
@@ -187,13 +2059,724 @@ func testRunagentRunagent0(w http.ResponseWriter, req *http.Request) {
 						},
 					},
 					components.ChatMessageCitation{
+						SourceDocument: &components.Document{
+							Metadata: &components.DocumentMetadata{
+								Datasource: types.String("datasource"),
+								ObjectType: types.String("Feature Request"),
+								Container:  types.String("container"),
+								ParentID:   types.String("JIRA_EN-1337"),
+								MimeType:   types.String("mimeType"),
+								DocumentID: types.String("documentId"),
+								CreateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+								UpdateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+								Author: &components.Person{
+									Name:         "George Clooney",
+									ObfuscatedID: "abc123",
+									Metadata: &components.PersonMetadata{
+										Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+										Title:      types.String("Actor"),
+										Department: types.String("Movies"),
+										Email:      types.String("george@example.com"),
+										Location:   types.String("Hollywood, CA"),
+										Phone:      types.String("6505551234"),
+										PhotoURL:   types.String("https://example.com/george.jpg"),
+										StartDate:  types.MustNewDateFromString("2000-01-23"),
+										DatasourceProfile: []components.DatasourceProfile{
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+										},
+										QuerySuggestions: &components.QuerySuggestionList{},
+										InviteInfo:       &components.InviteInfo{},
+										Badges: []components.Badge{
+											components.Badge{
+												Key:         types.String("deployment_name_new_hire"),
+												DisplayName: types.String("New hire"),
+												IconConfig: &components.IconConfig{
+													Color:    types.String("#343CED"),
+													Key:      types.String("person_icon"),
+													IconType: components.IconTypeGlyph.ToPointer(),
+													Name:     types.String("user"),
+												},
+											},
+										},
+									},
+								},
+								Owner: &components.Person{
+									Name:         "George Clooney",
+									ObfuscatedID: "abc123",
+									Metadata: &components.PersonMetadata{
+										Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+										Title:      types.String("Actor"),
+										Department: types.String("Movies"),
+										Email:      types.String("george@example.com"),
+										Location:   types.String("Hollywood, CA"),
+										Phone:      types.String("6505551234"),
+										PhotoURL:   types.String("https://example.com/george.jpg"),
+										StartDate:  types.MustNewDateFromString("2000-01-23"),
+										DatasourceProfile: []components.DatasourceProfile{
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+										},
+										QuerySuggestions: &components.QuerySuggestionList{},
+										InviteInfo:       &components.InviteInfo{},
+										Badges: []components.Badge{
+											components.Badge{
+												Key:         types.String("deployment_name_new_hire"),
+												DisplayName: types.String("New hire"),
+												IconConfig: &components.IconConfig{
+													Color:    types.String("#343CED"),
+													Key:      types.String("person_icon"),
+													IconType: components.IconTypeGlyph.ToPointer(),
+													Name:     types.String("user"),
+												},
+											},
+										},
+									},
+								},
+								Components: []string{
+									"Backend",
+									"Networking",
+								},
+								Status: types.String("[\"Done\"]"),
+								AssignedTo: &components.Person{
+									Name:         "George Clooney",
+									ObfuscatedID: "abc123",
+									Metadata: &components.PersonMetadata{
+										Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+										Title:      types.String("Actor"),
+										Department: types.String("Movies"),
+										Email:      types.String("george@example.com"),
+										Location:   types.String("Hollywood, CA"),
+										Phone:      types.String("6505551234"),
+										PhotoURL:   types.String("https://example.com/george.jpg"),
+										StartDate:  types.MustNewDateFromString("2000-01-23"),
+										DatasourceProfile: []components.DatasourceProfile{
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+										},
+										QuerySuggestions: &components.QuerySuggestionList{},
+										InviteInfo:       &components.InviteInfo{},
+										Badges: []components.Badge{
+											components.Badge{
+												Key:         types.String("deployment_name_new_hire"),
+												DisplayName: types.String("New hire"),
+												IconConfig: &components.IconConfig{
+													Color:    types.String("#343CED"),
+													Key:      types.String("person_icon"),
+													IconType: components.IconTypeGlyph.ToPointer(),
+													Name:     types.String("user"),
+												},
+											},
+										},
+									},
+								},
+								UpdatedBy: &components.Person{
+									Name:         "George Clooney",
+									ObfuscatedID: "abc123",
+									Metadata: &components.PersonMetadata{
+										Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+										Title:      types.String("Actor"),
+										Department: types.String("Movies"),
+										Email:      types.String("george@example.com"),
+										Location:   types.String("Hollywood, CA"),
+										Phone:      types.String("6505551234"),
+										PhotoURL:   types.String("https://example.com/george.jpg"),
+										StartDate:  types.MustNewDateFromString("2000-01-23"),
+										DatasourceProfile: []components.DatasourceProfile{
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+										},
+										QuerySuggestions: &components.QuerySuggestionList{},
+										InviteInfo:       &components.InviteInfo{},
+										Badges: []components.Badge{
+											components.Badge{
+												Key:         types.String("deployment_name_new_hire"),
+												DisplayName: types.String("New hire"),
+												IconConfig: &components.IconConfig{
+													Color:    types.String("#343CED"),
+													Key:      types.String("person_icon"),
+													IconType: components.IconTypeGlyph.ToPointer(),
+													Name:     types.String("user"),
+												},
+											},
+										},
+									},
+								},
+								Interactions: &components.DocumentInteractions{},
+								Verification: &components.Verification{
+									State: components.StateDeprecated,
+									Metadata: &components.VerificationMetadata{
+										LastVerifier: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+										LastReminder: &components.Reminder{
+											Assignee: components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Requestor: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											RemindAt: 390134,
+										},
+									},
+								},
+								CustomData: map[string]components.CustomDataValue{
+									"someCustomField": components.CustomDataValue{},
+								},
+								ContactPerson: &components.Person{
+									Name:         "George Clooney",
+									ObfuscatedID: "abc123",
+									Metadata: &components.PersonMetadata{
+										Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+										Title:      types.String("Actor"),
+										Department: types.String("Movies"),
+										Email:      types.String("george@example.com"),
+										Location:   types.String("Hollywood, CA"),
+										Phone:      types.String("6505551234"),
+										PhotoURL:   types.String("https://example.com/george.jpg"),
+										StartDate:  types.MustNewDateFromString("2000-01-23"),
+										DatasourceProfile: []components.DatasourceProfile{
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+										},
+										QuerySuggestions: &components.QuerySuggestionList{},
+										InviteInfo:       &components.InviteInfo{},
+										Badges: []components.Badge{
+											components.Badge{
+												Key:         types.String("deployment_name_new_hire"),
+												DisplayName: types.String("New hire"),
+												IconConfig: &components.IconConfig{
+													Color:    types.String("#343CED"),
+													Key:      types.String("person_icon"),
+													IconType: components.IconTypeGlyph.ToPointer(),
+													Name:     types.String("user"),
+												},
+											},
+										},
+									},
+								},
+							},
+						},
 						SourceFile: &components.ChatFile{
 							ID:   types.String("FILE_1234"),
 							URL:  types.String("www.google.com"),
 							Name: types.String("sample.pdf"),
 						},
+						SourcePerson: &components.Person{
+							Name:         "George Clooney",
+							ObfuscatedID: "abc123",
+							Metadata: &components.PersonMetadata{
+								Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+								Title:      types.String("Actor"),
+								Department: types.String("Movies"),
+								Email:      types.String("george@example.com"),
+								Location:   types.String("Hollywood, CA"),
+								Phone:      types.String("6505551234"),
+								PhotoURL:   types.String("https://example.com/george.jpg"),
+								StartDate:  types.MustNewDateFromString("2000-01-23"),
+								DatasourceProfile: []components.DatasourceProfile{
+									components.DatasourceProfile{
+										Datasource: "github",
+										Handle:     "<value>",
+									},
+									components.DatasourceProfile{
+										Datasource: "github",
+										Handle:     "<value>",
+									},
+									components.DatasourceProfile{
+										Datasource: "github",
+										Handle:     "<value>",
+									},
+								},
+								QuerySuggestions: &components.QuerySuggestionList{},
+								InviteInfo:       &components.InviteInfo{},
+								Badges: []components.Badge{
+									components.Badge{
+										Key:         types.String("deployment_name_new_hire"),
+										DisplayName: types.String("New hire"),
+										IconConfig: &components.IconConfig{
+											Color:    types.String("#343CED"),
+											Key:      types.String("person_icon"),
+											IconType: components.IconTypeGlyph.ToPointer(),
+											Name:     types.String("user"),
+										},
+									},
+								},
+							},
+						},
 						ReferenceRanges: []components.ReferenceRange{
 							components.ReferenceRange{
+								TextRange: &components.TextRange{
+									StartIndex: 508023,
+									Document: &components.Document{
+										Metadata: &components.DocumentMetadata{
+											Datasource: types.String("datasource"),
+											ObjectType: types.String("Feature Request"),
+											Container:  types.String("container"),
+											ParentID:   types.String("JIRA_EN-1337"),
+											MimeType:   types.String("mimeType"),
+											DocumentID: types.String("documentId"),
+											CreateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+											UpdateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+											Author: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Owner: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Components: []string{
+												"Backend",
+												"Networking",
+											},
+											Status: types.String("[\"Done\"]"),
+											AssignedTo: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											UpdatedBy: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Interactions: &components.DocumentInteractions{},
+											Verification: &components.Verification{
+												State: components.StateVerified,
+												Metadata: &components.VerificationMetadata{
+													LastVerifier: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													LastReminder: &components.Reminder{
+														Assignee: components.Person{
+															Name:         "George Clooney",
+															ObfuscatedID: "abc123",
+															Metadata: &components.PersonMetadata{
+																Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																Title:      types.String("Actor"),
+																Department: types.String("Movies"),
+																Email:      types.String("george@example.com"),
+																Location:   types.String("Hollywood, CA"),
+																Phone:      types.String("6505551234"),
+																PhotoURL:   types.String("https://example.com/george.jpg"),
+																StartDate:  types.MustNewDateFromString("2000-01-23"),
+																DatasourceProfile: []components.DatasourceProfile{
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																},
+																QuerySuggestions: &components.QuerySuggestionList{},
+																InviteInfo:       &components.InviteInfo{},
+																Badges: []components.Badge{
+																	components.Badge{
+																		Key:         types.String("deployment_name_new_hire"),
+																		DisplayName: types.String("New hire"),
+																		IconConfig: &components.IconConfig{
+																			Color:    types.String("#343CED"),
+																			Key:      types.String("person_icon"),
+																			IconType: components.IconTypeGlyph.ToPointer(),
+																			Name:     types.String("user"),
+																		},
+																	},
+																},
+															},
+														},
+														Requestor: &components.Person{
+															Name:         "George Clooney",
+															ObfuscatedID: "abc123",
+															Metadata: &components.PersonMetadata{
+																Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																Title:      types.String("Actor"),
+																Department: types.String("Movies"),
+																Email:      types.String("george@example.com"),
+																Location:   types.String("Hollywood, CA"),
+																Phone:      types.String("6505551234"),
+																PhotoURL:   types.String("https://example.com/george.jpg"),
+																StartDate:  types.MustNewDateFromString("2000-01-23"),
+																DatasourceProfile: []components.DatasourceProfile{
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																},
+																QuerySuggestions: &components.QuerySuggestionList{},
+																InviteInfo:       &components.InviteInfo{},
+																Badges: []components.Badge{
+																	components.Badge{
+																		Key:         types.String("deployment_name_new_hire"),
+																		DisplayName: types.String("New hire"),
+																		IconConfig: &components.IconConfig{
+																			Color:    types.String("#343CED"),
+																			Key:      types.String("person_icon"),
+																			IconType: components.IconTypeGlyph.ToPointer(),
+																			Name:     types.String("user"),
+																		},
+																	},
+																},
+															},
+														},
+														RemindAt: 140891,
+													},
+												},
+											},
+											CustomData: map[string]components.CustomDataValue{
+												"someCustomField": components.CustomDataValue{},
+											},
+											ContactPerson: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+										},
+									},
+								},
 								Snippets: []components.SearchResultSnippet{
 									components.SearchResultSnippet{
 										Snippet:  "snippet",
@@ -202,6 +2785,342 @@ func testRunagentRunagent0(w http.ResponseWriter, req *http.Request) {
 								},
 							},
 							components.ReferenceRange{
+								TextRange: &components.TextRange{
+									StartIndex: 557350,
+									Document: &components.Document{
+										Metadata: &components.DocumentMetadata{
+											Datasource: types.String("datasource"),
+											ObjectType: types.String("Feature Request"),
+											Container:  types.String("container"),
+											ParentID:   types.String("JIRA_EN-1337"),
+											MimeType:   types.String("mimeType"),
+											DocumentID: types.String("documentId"),
+											CreateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+											UpdateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+											Author: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Owner: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Components: []string{
+												"Backend",
+												"Networking",
+											},
+											Status: types.String("[\"Done\"]"),
+											AssignedTo: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											UpdatedBy: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Interactions: &components.DocumentInteractions{},
+											Verification: &components.Verification{
+												State: components.StateUnverified,
+												Metadata: &components.VerificationMetadata{
+													LastVerifier: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													LastReminder: &components.Reminder{
+														Assignee: components.Person{
+															Name:         "George Clooney",
+															ObfuscatedID: "abc123",
+															Metadata: &components.PersonMetadata{
+																Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																Title:      types.String("Actor"),
+																Department: types.String("Movies"),
+																Email:      types.String("george@example.com"),
+																Location:   types.String("Hollywood, CA"),
+																Phone:      types.String("6505551234"),
+																PhotoURL:   types.String("https://example.com/george.jpg"),
+																StartDate:  types.MustNewDateFromString("2000-01-23"),
+																DatasourceProfile: []components.DatasourceProfile{
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																},
+																QuerySuggestions: &components.QuerySuggestionList{},
+																InviteInfo:       &components.InviteInfo{},
+																Badges: []components.Badge{
+																	components.Badge{
+																		Key:         types.String("deployment_name_new_hire"),
+																		DisplayName: types.String("New hire"),
+																		IconConfig: &components.IconConfig{
+																			Color:    types.String("#343CED"),
+																			Key:      types.String("person_icon"),
+																			IconType: components.IconTypeGlyph.ToPointer(),
+																			Name:     types.String("user"),
+																		},
+																	},
+																},
+															},
+														},
+														Requestor: &components.Person{
+															Name:         "George Clooney",
+															ObfuscatedID: "abc123",
+															Metadata: &components.PersonMetadata{
+																Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																Title:      types.String("Actor"),
+																Department: types.String("Movies"),
+																Email:      types.String("george@example.com"),
+																Location:   types.String("Hollywood, CA"),
+																Phone:      types.String("6505551234"),
+																PhotoURL:   types.String("https://example.com/george.jpg"),
+																StartDate:  types.MustNewDateFromString("2000-01-23"),
+																DatasourceProfile: []components.DatasourceProfile{
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																},
+																QuerySuggestions: &components.QuerySuggestionList{},
+																InviteInfo:       &components.InviteInfo{},
+																Badges: []components.Badge{
+																	components.Badge{
+																		Key:         types.String("deployment_name_new_hire"),
+																		DisplayName: types.String("New hire"),
+																		IconConfig: &components.IconConfig{
+																			Color:    types.String("#343CED"),
+																			Key:      types.String("person_icon"),
+																			IconType: components.IconTypeGlyph.ToPointer(),
+																			Name:     types.String("user"),
+																		},
+																	},
+																},
+															},
+														},
+														RemindAt: 695202,
+													},
+												},
+											},
+											CustomData: map[string]components.CustomDataValue{
+												"someCustomField": components.CustomDataValue{},
+											},
+											ContactPerson: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+										},
+									},
+								},
 								Snippets: []components.SearchResultSnippet{
 									components.SearchResultSnippet{
 										Snippet:  "snippet",
@@ -212,13 +3131,728 @@ func testRunagentRunagent0(w http.ResponseWriter, req *http.Request) {
 						},
 					},
 					components.ChatMessageCitation{
+						SourceDocument: &components.Document{
+							Metadata: &components.DocumentMetadata{
+								Datasource: types.String("datasource"),
+								ObjectType: types.String("Feature Request"),
+								Container:  types.String("container"),
+								ParentID:   types.String("JIRA_EN-1337"),
+								MimeType:   types.String("mimeType"),
+								DocumentID: types.String("documentId"),
+								CreateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+								UpdateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+								Author: &components.Person{
+									Name:         "George Clooney",
+									ObfuscatedID: "abc123",
+									Metadata: &components.PersonMetadata{
+										Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+										Title:      types.String("Actor"),
+										Department: types.String("Movies"),
+										Email:      types.String("george@example.com"),
+										Location:   types.String("Hollywood, CA"),
+										Phone:      types.String("6505551234"),
+										PhotoURL:   types.String("https://example.com/george.jpg"),
+										StartDate:  types.MustNewDateFromString("2000-01-23"),
+										DatasourceProfile: []components.DatasourceProfile{
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+										},
+										QuerySuggestions: &components.QuerySuggestionList{},
+										InviteInfo:       &components.InviteInfo{},
+										Badges: []components.Badge{
+											components.Badge{
+												Key:         types.String("deployment_name_new_hire"),
+												DisplayName: types.String("New hire"),
+												IconConfig: &components.IconConfig{
+													Color:    types.String("#343CED"),
+													Key:      types.String("person_icon"),
+													IconType: components.IconTypeGlyph.ToPointer(),
+													Name:     types.String("user"),
+												},
+											},
+										},
+									},
+								},
+								Owner: &components.Person{
+									Name:         "George Clooney",
+									ObfuscatedID: "abc123",
+									Metadata: &components.PersonMetadata{
+										Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+										Title:      types.String("Actor"),
+										Department: types.String("Movies"),
+										Email:      types.String("george@example.com"),
+										Location:   types.String("Hollywood, CA"),
+										Phone:      types.String("6505551234"),
+										PhotoURL:   types.String("https://example.com/george.jpg"),
+										StartDate:  types.MustNewDateFromString("2000-01-23"),
+										DatasourceProfile: []components.DatasourceProfile{
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+										},
+										QuerySuggestions: &components.QuerySuggestionList{},
+										InviteInfo:       &components.InviteInfo{},
+										Badges: []components.Badge{
+											components.Badge{
+												Key:         types.String("deployment_name_new_hire"),
+												DisplayName: types.String("New hire"),
+												IconConfig: &components.IconConfig{
+													Color:    types.String("#343CED"),
+													Key:      types.String("person_icon"),
+													IconType: components.IconTypeGlyph.ToPointer(),
+													Name:     types.String("user"),
+												},
+											},
+										},
+									},
+								},
+								Components: []string{
+									"Backend",
+									"Networking",
+								},
+								Status: types.String("[\"Done\"]"),
+								AssignedTo: &components.Person{
+									Name:         "George Clooney",
+									ObfuscatedID: "abc123",
+									Metadata: &components.PersonMetadata{
+										Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+										Title:      types.String("Actor"),
+										Department: types.String("Movies"),
+										Email:      types.String("george@example.com"),
+										Location:   types.String("Hollywood, CA"),
+										Phone:      types.String("6505551234"),
+										PhotoURL:   types.String("https://example.com/george.jpg"),
+										StartDate:  types.MustNewDateFromString("2000-01-23"),
+										DatasourceProfile: []components.DatasourceProfile{
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+										},
+										QuerySuggestions: &components.QuerySuggestionList{},
+										InviteInfo:       &components.InviteInfo{},
+										Badges: []components.Badge{
+											components.Badge{
+												Key:         types.String("deployment_name_new_hire"),
+												DisplayName: types.String("New hire"),
+												IconConfig: &components.IconConfig{
+													Color:    types.String("#343CED"),
+													Key:      types.String("person_icon"),
+													IconType: components.IconTypeGlyph.ToPointer(),
+													Name:     types.String("user"),
+												},
+											},
+										},
+									},
+								},
+								UpdatedBy: &components.Person{
+									Name:         "George Clooney",
+									ObfuscatedID: "abc123",
+									Metadata: &components.PersonMetadata{
+										Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+										Title:      types.String("Actor"),
+										Department: types.String("Movies"),
+										Email:      types.String("george@example.com"),
+										Location:   types.String("Hollywood, CA"),
+										Phone:      types.String("6505551234"),
+										PhotoURL:   types.String("https://example.com/george.jpg"),
+										StartDate:  types.MustNewDateFromString("2000-01-23"),
+										DatasourceProfile: []components.DatasourceProfile{
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+										},
+										QuerySuggestions: &components.QuerySuggestionList{},
+										InviteInfo:       &components.InviteInfo{},
+										Badges: []components.Badge{
+											components.Badge{
+												Key:         types.String("deployment_name_new_hire"),
+												DisplayName: types.String("New hire"),
+												IconConfig: &components.IconConfig{
+													Color:    types.String("#343CED"),
+													Key:      types.String("person_icon"),
+													IconType: components.IconTypeGlyph.ToPointer(),
+													Name:     types.String("user"),
+												},
+											},
+										},
+									},
+								},
+								Interactions: &components.DocumentInteractions{},
+								Verification: &components.Verification{
+									State: components.StateVerified,
+									Metadata: &components.VerificationMetadata{
+										LastVerifier: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+										LastReminder: &components.Reminder{
+											Assignee: components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Requestor: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											RemindAt: 389575,
+										},
+									},
+								},
+								CustomData: map[string]components.CustomDataValue{
+									"someCustomField": components.CustomDataValue{},
+								},
+								ContactPerson: &components.Person{
+									Name:         "George Clooney",
+									ObfuscatedID: "abc123",
+									Metadata: &components.PersonMetadata{
+										Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+										Title:      types.String("Actor"),
+										Department: types.String("Movies"),
+										Email:      types.String("george@example.com"),
+										Location:   types.String("Hollywood, CA"),
+										Phone:      types.String("6505551234"),
+										PhotoURL:   types.String("https://example.com/george.jpg"),
+										StartDate:  types.MustNewDateFromString("2000-01-23"),
+										DatasourceProfile: []components.DatasourceProfile{
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+										},
+										QuerySuggestions: &components.QuerySuggestionList{},
+										InviteInfo:       &components.InviteInfo{},
+										Badges: []components.Badge{
+											components.Badge{
+												Key:         types.String("deployment_name_new_hire"),
+												DisplayName: types.String("New hire"),
+												IconConfig: &components.IconConfig{
+													Color:    types.String("#343CED"),
+													Key:      types.String("person_icon"),
+													IconType: components.IconTypeGlyph.ToPointer(),
+													Name:     types.String("user"),
+												},
+											},
+										},
+									},
+								},
+							},
+						},
 						SourceFile: &components.ChatFile{
 							ID:   types.String("FILE_1234"),
 							URL:  types.String("www.google.com"),
 							Name: types.String("sample.pdf"),
 						},
+						SourcePerson: &components.Person{
+							Name:         "George Clooney",
+							ObfuscatedID: "abc123",
+							Metadata: &components.PersonMetadata{
+								Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+								Title:      types.String("Actor"),
+								Department: types.String("Movies"),
+								Email:      types.String("george@example.com"),
+								Location:   types.String("Hollywood, CA"),
+								Phone:      types.String("6505551234"),
+								PhotoURL:   types.String("https://example.com/george.jpg"),
+								StartDate:  types.MustNewDateFromString("2000-01-23"),
+								DatasourceProfile: []components.DatasourceProfile{
+									components.DatasourceProfile{
+										Datasource: "github",
+										Handle:     "<value>",
+									},
+									components.DatasourceProfile{
+										Datasource: "github",
+										Handle:     "<value>",
+									},
+									components.DatasourceProfile{
+										Datasource: "github",
+										Handle:     "<value>",
+									},
+								},
+								QuerySuggestions: &components.QuerySuggestionList{},
+								InviteInfo:       &components.InviteInfo{},
+								Badges: []components.Badge{
+									components.Badge{
+										Key:         types.String("deployment_name_new_hire"),
+										DisplayName: types.String("New hire"),
+										IconConfig: &components.IconConfig{
+											Color:    types.String("#343CED"),
+											Key:      types.String("person_icon"),
+											IconType: components.IconTypeGlyph.ToPointer(),
+											Name:     types.String("user"),
+										},
+									},
+								},
+							},
+						},
 						ReferenceRanges: []components.ReferenceRange{
 							components.ReferenceRange{
+								TextRange: &components.TextRange{
+									StartIndex: 892825,
+									Document: &components.Document{
+										Metadata: &components.DocumentMetadata{
+											Datasource: types.String("datasource"),
+											ObjectType: types.String("Feature Request"),
+											Container:  types.String("container"),
+											ParentID:   types.String("JIRA_EN-1337"),
+											MimeType:   types.String("mimeType"),
+											DocumentID: types.String("documentId"),
+											CreateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+											UpdateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+											Author: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Owner: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Components: []string{
+												"Backend",
+												"Networking",
+											},
+											Status: types.String("[\"Done\"]"),
+											AssignedTo: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											UpdatedBy: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Interactions: &components.DocumentInteractions{},
+											Verification: &components.Verification{
+												State: components.StateDeprecated,
+												Metadata: &components.VerificationMetadata{
+													LastVerifier: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													LastReminder: &components.Reminder{
+														Assignee: components.Person{
+															Name:         "George Clooney",
+															ObfuscatedID: "abc123",
+															Metadata: &components.PersonMetadata{
+																Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																Title:      types.String("Actor"),
+																Department: types.String("Movies"),
+																Email:      types.String("george@example.com"),
+																Location:   types.String("Hollywood, CA"),
+																Phone:      types.String("6505551234"),
+																PhotoURL:   types.String("https://example.com/george.jpg"),
+																StartDate:  types.MustNewDateFromString("2000-01-23"),
+																DatasourceProfile: []components.DatasourceProfile{
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																},
+																QuerySuggestions: &components.QuerySuggestionList{},
+																InviteInfo:       &components.InviteInfo{},
+																Badges: []components.Badge{
+																	components.Badge{
+																		Key:         types.String("deployment_name_new_hire"),
+																		DisplayName: types.String("New hire"),
+																		IconConfig: &components.IconConfig{
+																			Color:    types.String("#343CED"),
+																			Key:      types.String("person_icon"),
+																			IconType: components.IconTypeGlyph.ToPointer(),
+																			Name:     types.String("user"),
+																		},
+																	},
+																},
+															},
+														},
+														Requestor: &components.Person{
+															Name:         "George Clooney",
+															ObfuscatedID: "abc123",
+															Metadata: &components.PersonMetadata{
+																Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																Title:      types.String("Actor"),
+																Department: types.String("Movies"),
+																Email:      types.String("george@example.com"),
+																Location:   types.String("Hollywood, CA"),
+																Phone:      types.String("6505551234"),
+																PhotoURL:   types.String("https://example.com/george.jpg"),
+																StartDate:  types.MustNewDateFromString("2000-01-23"),
+																DatasourceProfile: []components.DatasourceProfile{
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																},
+																QuerySuggestions: &components.QuerySuggestionList{},
+																InviteInfo:       &components.InviteInfo{},
+																Badges: []components.Badge{
+																	components.Badge{
+																		Key:         types.String("deployment_name_new_hire"),
+																		DisplayName: types.String("New hire"),
+																		IconConfig: &components.IconConfig{
+																			Color:    types.String("#343CED"),
+																			Key:      types.String("person_icon"),
+																			IconType: components.IconTypeGlyph.ToPointer(),
+																			Name:     types.String("user"),
+																		},
+																	},
+																},
+															},
+														},
+														RemindAt: 941397,
+													},
+												},
+											},
+											CustomData: map[string]components.CustomDataValue{
+												"someCustomField": components.CustomDataValue{},
+											},
+											ContactPerson: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+										},
+									},
+								},
 								Snippets: []components.SearchResultSnippet{
 									components.SearchResultSnippet{
 										Snippet:  "snippet",
@@ -227,6 +3861,334 @@ func testRunagentRunagent0(w http.ResponseWriter, req *http.Request) {
 								},
 							},
 							components.ReferenceRange{
+								TextRange: &components.TextRange{
+									StartIndex: 216013,
+									Document: &components.Document{
+										Metadata: &components.DocumentMetadata{
+											Datasource: types.String("datasource"),
+											ObjectType: types.String("Feature Request"),
+											Container:  types.String("container"),
+											ParentID:   types.String("JIRA_EN-1337"),
+											MimeType:   types.String("mimeType"),
+											DocumentID: types.String("documentId"),
+											CreateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+											UpdateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+											Author: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Owner: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Components: []string{
+												"Backend",
+												"Networking",
+											},
+											Status: types.String("[\"Done\"]"),
+											AssignedTo: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											UpdatedBy: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Interactions: &components.DocumentInteractions{},
+											Verification: &components.Verification{
+												State: components.StateDeprecated,
+												Metadata: &components.VerificationMetadata{
+													LastVerifier: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													LastReminder: &components.Reminder{
+														Assignee: components.Person{
+															Name:         "George Clooney",
+															ObfuscatedID: "abc123",
+															Metadata: &components.PersonMetadata{
+																Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																Title:      types.String("Actor"),
+																Department: types.String("Movies"),
+																Email:      types.String("george@example.com"),
+																Location:   types.String("Hollywood, CA"),
+																Phone:      types.String("6505551234"),
+																PhotoURL:   types.String("https://example.com/george.jpg"),
+																StartDate:  types.MustNewDateFromString("2000-01-23"),
+																DatasourceProfile: []components.DatasourceProfile{
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																},
+																QuerySuggestions: &components.QuerySuggestionList{},
+																InviteInfo:       &components.InviteInfo{},
+																Badges: []components.Badge{
+																	components.Badge{
+																		Key:         types.String("deployment_name_new_hire"),
+																		DisplayName: types.String("New hire"),
+																		IconConfig: &components.IconConfig{
+																			Color:    types.String("#343CED"),
+																			Key:      types.String("person_icon"),
+																			IconType: components.IconTypeGlyph.ToPointer(),
+																			Name:     types.String("user"),
+																		},
+																	},
+																},
+															},
+														},
+														Requestor: &components.Person{
+															Name:         "George Clooney",
+															ObfuscatedID: "abc123",
+															Metadata: &components.PersonMetadata{
+																Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																Title:      types.String("Actor"),
+																Department: types.String("Movies"),
+																Email:      types.String("george@example.com"),
+																Location:   types.String("Hollywood, CA"),
+																Phone:      types.String("6505551234"),
+																PhotoURL:   types.String("https://example.com/george.jpg"),
+																StartDate:  types.MustNewDateFromString("2000-01-23"),
+																DatasourceProfile: []components.DatasourceProfile{
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																},
+																QuerySuggestions: &components.QuerySuggestionList{},
+																InviteInfo:       &components.InviteInfo{},
+																Badges: []components.Badge{
+																	components.Badge{
+																		Key:         types.String("deployment_name_new_hire"),
+																		DisplayName: types.String("New hire"),
+																		IconConfig: &components.IconConfig{
+																			Color:    types.String("#343CED"),
+																			Key:      types.String("person_icon"),
+																			IconType: components.IconTypeGlyph.ToPointer(),
+																			Name:     types.String("user"),
+																		},
+																	},
+																},
+															},
+														},
+														RemindAt: 732268,
+													},
+												},
+											},
+											CustomData: map[string]components.CustomDataValue{
+												"someCustomField": components.CustomDataValue{},
+											},
+											ContactPerson: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+										},
+									},
+								},
 								Snippets: []components.SearchResultSnippet{
 									components.SearchResultSnippet{
 										Snippet:  "snippet",
@@ -241,9 +4203,364 @@ func testRunagentRunagent0(w http.ResponseWriter, req *http.Request) {
 					components.ChatMessageFragment{
 						StructuredResults: []components.StructuredResult{
 							components.StructuredResult{
+								Document: &components.Document{
+									Metadata: &components.DocumentMetadata{
+										Datasource: types.String("datasource"),
+										ObjectType: types.String("Feature Request"),
+										Container:  types.String("container"),
+										ParentID:   types.String("JIRA_EN-1337"),
+										MimeType:   types.String("mimeType"),
+										DocumentID: types.String("documentId"),
+										CreateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+										UpdateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+										Author: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+										Owner: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+										Components: []string{
+											"Backend",
+											"Networking",
+										},
+										Status: types.String("[\"Done\"]"),
+										AssignedTo: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+										UpdatedBy: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+										Interactions: &components.DocumentInteractions{},
+										Verification: &components.Verification{
+											State: components.StateVerified,
+											Metadata: &components.VerificationMetadata{
+												LastVerifier: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												LastReminder: &components.Reminder{
+													Assignee: components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													Requestor: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													RemindAt: 448100,
+												},
+											},
+										},
+										CustomData: map[string]components.CustomDataValue{
+											"someCustomField": components.CustomDataValue{},
+										},
+										ContactPerson: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+									},
+								},
 								Person: &components.Person{
 									Name:         "George Clooney",
 									ObfuscatedID: "abc123",
+									Metadata: &components.PersonMetadata{
+										Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+										Title:      types.String("Actor"),
+										Department: types.String("Movies"),
+										Email:      types.String("george@example.com"),
+										Location:   types.String("Hollywood, CA"),
+										Phone:      types.String("6505551234"),
+										PhotoURL:   types.String("https://example.com/george.jpg"),
+										StartDate:  types.MustNewDateFromString("2000-01-23"),
+										DatasourceProfile: []components.DatasourceProfile{
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+										},
+										QuerySuggestions: &components.QuerySuggestionList{},
+										InviteInfo:       &components.InviteInfo{},
+										Badges: []components.Badge{
+											components.Badge{
+												Key:         types.String("deployment_name_new_hire"),
+												DisplayName: types.String("New hire"),
+												IconConfig: &components.IconConfig{
+													Color:    types.String("#343CED"),
+													Key:      types.String("person_icon"),
+													IconType: components.IconTypeGlyph.ToPointer(),
+													Name:     types.String("user"),
+												},
+											},
+										},
+									},
 								},
 								Customer: &components.Customer{
 									ID: "<id>",
@@ -253,13 +4570,93 @@ func testRunagentRunagent0(w http.ResponseWriter, req *http.Request) {
 										Industry: types.String("Finances"),
 										About:    types.String("Financial, software, data, and media company headquartered in Midtown Manhattan, New York City"),
 									},
-									Poc:   []components.Person{},
+									Poc: []components.Person{
+										components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+										},
+									},
 									Notes: types.String("CIO is interested in trying out the product."),
 								},
 								Team: &components.Team{
-									ID:      "<id>",
-									Name:    "<value>",
-									Members: []components.PersonToTeamRelationship{},
+									ID:   "<id>",
+									Name: "<value>",
+									Members: []components.PersonToTeamRelationship{
+										components.PersonToTeamRelationship{
+											Person: components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Relationship: components.PersonToTeamRelationshipRelationshipMember.ToPointer(),
+										},
+										components.PersonToTeamRelationship{
+											Person: components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Relationship: components.PersonToTeamRelationshipRelationshipMember.ToPointer(),
+										},
+									},
 									DatasourceProfiles: []components.DatasourceProfile{
 										components.DatasourceProfile{
 											Datasource: "github",
@@ -291,13 +4688,1230 @@ func testRunagentRunagent0(w http.ResponseWriter, req *http.Request) {
 										},
 									},
 									CombinedAnswerText: &components.StructuredText{
-										Text:           "From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
-										StructuredList: []components.StructuredTextItem{},
+										Text: "From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+										StructuredList: []components.StructuredTextItem{
+											components.StructuredTextItem{
+												Link: types.String("https://en.wikipedia.org/wiki/Diffuse_sky_radiation"),
+												Document: &components.Document{
+													Metadata: &components.DocumentMetadata{
+														Datasource: types.String("datasource"),
+														ObjectType: types.String("Feature Request"),
+														Container:  types.String("container"),
+														ParentID:   types.String("JIRA_EN-1337"),
+														MimeType:   types.String("mimeType"),
+														DocumentID: types.String("documentId"),
+														CreateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+														UpdateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+														Author: &components.Person{
+															Name:         "George Clooney",
+															ObfuscatedID: "abc123",
+															Metadata: &components.PersonMetadata{
+																Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																Title:      types.String("Actor"),
+																Department: types.String("Movies"),
+																Email:      types.String("george@example.com"),
+																Location:   types.String("Hollywood, CA"),
+																Phone:      types.String("6505551234"),
+																PhotoURL:   types.String("https://example.com/george.jpg"),
+																StartDate:  types.MustNewDateFromString("2000-01-23"),
+																DatasourceProfile: []components.DatasourceProfile{
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																},
+																QuerySuggestions: &components.QuerySuggestionList{},
+																InviteInfo:       &components.InviteInfo{},
+																Badges: []components.Badge{
+																	components.Badge{
+																		Key:         types.String("deployment_name_new_hire"),
+																		DisplayName: types.String("New hire"),
+																		IconConfig: &components.IconConfig{
+																			Color:    types.String("#343CED"),
+																			Key:      types.String("person_icon"),
+																			IconType: components.IconTypeGlyph.ToPointer(),
+																			Name:     types.String("user"),
+																		},
+																	},
+																},
+															},
+														},
+														Owner: &components.Person{
+															Name:         "George Clooney",
+															ObfuscatedID: "abc123",
+															Metadata: &components.PersonMetadata{
+																Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																Title:      types.String("Actor"),
+																Department: types.String("Movies"),
+																Email:      types.String("george@example.com"),
+																Location:   types.String("Hollywood, CA"),
+																Phone:      types.String("6505551234"),
+																PhotoURL:   types.String("https://example.com/george.jpg"),
+																StartDate:  types.MustNewDateFromString("2000-01-23"),
+																DatasourceProfile: []components.DatasourceProfile{
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																},
+																QuerySuggestions: &components.QuerySuggestionList{},
+																InviteInfo:       &components.InviteInfo{},
+																Badges: []components.Badge{
+																	components.Badge{
+																		Key:         types.String("deployment_name_new_hire"),
+																		DisplayName: types.String("New hire"),
+																		IconConfig: &components.IconConfig{
+																			Color:    types.String("#343CED"),
+																			Key:      types.String("person_icon"),
+																			IconType: components.IconTypeGlyph.ToPointer(),
+																			Name:     types.String("user"),
+																		},
+																	},
+																},
+															},
+														},
+														Components: []string{
+															"Backend",
+															"Networking",
+														},
+														Status: types.String("[\"Done\"]"),
+														AssignedTo: &components.Person{
+															Name:         "George Clooney",
+															ObfuscatedID: "abc123",
+															Metadata: &components.PersonMetadata{
+																Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																Title:      types.String("Actor"),
+																Department: types.String("Movies"),
+																Email:      types.String("george@example.com"),
+																Location:   types.String("Hollywood, CA"),
+																Phone:      types.String("6505551234"),
+																PhotoURL:   types.String("https://example.com/george.jpg"),
+																StartDate:  types.MustNewDateFromString("2000-01-23"),
+																DatasourceProfile: []components.DatasourceProfile{
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																},
+																QuerySuggestions: &components.QuerySuggestionList{},
+																InviteInfo:       &components.InviteInfo{},
+																Badges: []components.Badge{
+																	components.Badge{
+																		Key:         types.String("deployment_name_new_hire"),
+																		DisplayName: types.String("New hire"),
+																		IconConfig: &components.IconConfig{
+																			Color:    types.String("#343CED"),
+																			Key:      types.String("person_icon"),
+																			IconType: components.IconTypeGlyph.ToPointer(),
+																			Name:     types.String("user"),
+																		},
+																	},
+																},
+															},
+														},
+														UpdatedBy: &components.Person{
+															Name:         "George Clooney",
+															ObfuscatedID: "abc123",
+															Metadata: &components.PersonMetadata{
+																Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																Title:      types.String("Actor"),
+																Department: types.String("Movies"),
+																Email:      types.String("george@example.com"),
+																Location:   types.String("Hollywood, CA"),
+																Phone:      types.String("6505551234"),
+																PhotoURL:   types.String("https://example.com/george.jpg"),
+																StartDate:  types.MustNewDateFromString("2000-01-23"),
+																DatasourceProfile: []components.DatasourceProfile{
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																},
+																QuerySuggestions: &components.QuerySuggestionList{},
+																InviteInfo:       &components.InviteInfo{},
+																Badges: []components.Badge{
+																	components.Badge{
+																		Key:         types.String("deployment_name_new_hire"),
+																		DisplayName: types.String("New hire"),
+																		IconConfig: &components.IconConfig{
+																			Color:    types.String("#343CED"),
+																			Key:      types.String("person_icon"),
+																			IconType: components.IconTypeGlyph.ToPointer(),
+																			Name:     types.String("user"),
+																		},
+																	},
+																},
+															},
+														},
+														Interactions: &components.DocumentInteractions{},
+														Verification: &components.Verification{
+															State: components.StateVerified,
+															Metadata: &components.VerificationMetadata{
+																LastVerifier: &components.Person{
+																	Name:         "George Clooney",
+																	ObfuscatedID: "abc123",
+																	Metadata: &components.PersonMetadata{
+																		Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																		Title:      types.String("Actor"),
+																		Department: types.String("Movies"),
+																		Email:      types.String("george@example.com"),
+																		Location:   types.String("Hollywood, CA"),
+																		Phone:      types.String("6505551234"),
+																		PhotoURL:   types.String("https://example.com/george.jpg"),
+																		StartDate:  types.MustNewDateFromString("2000-01-23"),
+																		DatasourceProfile: []components.DatasourceProfile{
+																			components.DatasourceProfile{
+																				Datasource: "github",
+																				Handle:     "<value>",
+																			},
+																			components.DatasourceProfile{
+																				Datasource: "github",
+																				Handle:     "<value>",
+																			},
+																		},
+																		QuerySuggestions: &components.QuerySuggestionList{},
+																		InviteInfo:       &components.InviteInfo{},
+																		Badges: []components.Badge{
+																			components.Badge{
+																				Key:         types.String("deployment_name_new_hire"),
+																				DisplayName: types.String("New hire"),
+																				IconConfig: &components.IconConfig{
+																					Color:    types.String("#343CED"),
+																					Key:      types.String("person_icon"),
+																					IconType: components.IconTypeGlyph.ToPointer(),
+																					Name:     types.String("user"),
+																				},
+																			},
+																		},
+																	},
+																},
+																LastReminder: &components.Reminder{
+																	Assignee: components.Person{
+																		Name:         "George Clooney",
+																		ObfuscatedID: "abc123",
+																		Metadata: &components.PersonMetadata{
+																			Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																			Title:      types.String("Actor"),
+																			Department: types.String("Movies"),
+																			Email:      types.String("george@example.com"),
+																			Location:   types.String("Hollywood, CA"),
+																			Phone:      types.String("6505551234"),
+																			PhotoURL:   types.String("https://example.com/george.jpg"),
+																			StartDate:  types.MustNewDateFromString("2000-01-23"),
+																			DatasourceProfile: []components.DatasourceProfile{
+																				components.DatasourceProfile{
+																					Datasource: "github",
+																					Handle:     "<value>",
+																				},
+																			},
+																			QuerySuggestions: &components.QuerySuggestionList{},
+																			InviteInfo:       &components.InviteInfo{},
+																			Badges: []components.Badge{
+																				components.Badge{
+																					Key:         types.String("deployment_name_new_hire"),
+																					DisplayName: types.String("New hire"),
+																					IconConfig: &components.IconConfig{
+																						Color:    types.String("#343CED"),
+																						Key:      types.String("person_icon"),
+																						IconType: components.IconTypeGlyph.ToPointer(),
+																						Name:     types.String("user"),
+																					},
+																				},
+																			},
+																		},
+																	},
+																	Requestor: &components.Person{
+																		Name:         "George Clooney",
+																		ObfuscatedID: "abc123",
+																		Metadata: &components.PersonMetadata{
+																			Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																			Title:      types.String("Actor"),
+																			Department: types.String("Movies"),
+																			Email:      types.String("george@example.com"),
+																			Location:   types.String("Hollywood, CA"),
+																			Phone:      types.String("6505551234"),
+																			PhotoURL:   types.String("https://example.com/george.jpg"),
+																			StartDate:  types.MustNewDateFromString("2000-01-23"),
+																			DatasourceProfile: []components.DatasourceProfile{
+																				components.DatasourceProfile{
+																					Datasource: "github",
+																					Handle:     "<value>",
+																				},
+																				components.DatasourceProfile{
+																					Datasource: "github",
+																					Handle:     "<value>",
+																				},
+																				components.DatasourceProfile{
+																					Datasource: "github",
+																					Handle:     "<value>",
+																				},
+																			},
+																			QuerySuggestions: &components.QuerySuggestionList{},
+																			InviteInfo:       &components.InviteInfo{},
+																			Badges: []components.Badge{
+																				components.Badge{
+																					Key:         types.String("deployment_name_new_hire"),
+																					DisplayName: types.String("New hire"),
+																					IconConfig: &components.IconConfig{
+																						Color:    types.String("#343CED"),
+																						Key:      types.String("person_icon"),
+																						IconType: components.IconTypeGlyph.ToPointer(),
+																						Name:     types.String("user"),
+																					},
+																				},
+																			},
+																		},
+																	},
+																	RemindAt: 20244,
+																},
+															},
+														},
+														CustomData: map[string]components.CustomDataValue{
+															"someCustomField": components.CustomDataValue{},
+														},
+														ContactPerson: &components.Person{
+															Name:         "George Clooney",
+															ObfuscatedID: "abc123",
+															Metadata: &components.PersonMetadata{
+																Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																Title:      types.String("Actor"),
+																Department: types.String("Movies"),
+																Email:      types.String("george@example.com"),
+																Location:   types.String("Hollywood, CA"),
+																Phone:      types.String("6505551234"),
+																PhotoURL:   types.String("https://example.com/george.jpg"),
+																StartDate:  types.MustNewDateFromString("2000-01-23"),
+																DatasourceProfile: []components.DatasourceProfile{
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																},
+																QuerySuggestions: &components.QuerySuggestionList{},
+																InviteInfo:       &components.InviteInfo{},
+																Badges: []components.Badge{
+																	components.Badge{
+																		Key:         types.String("deployment_name_new_hire"),
+																		DisplayName: types.String("New hire"),
+																		IconConfig: &components.IconConfig{
+																			Color:    types.String("#343CED"),
+																			Key:      types.String("person_icon"),
+																			IconType: components.IconTypeGlyph.ToPointer(),
+																			Name:     types.String("user"),
+																		},
+																	},
+																},
+															},
+														},
+													},
+												},
+												Text: types.String("Because its wavelengths are shorter, blue light is more strongly scattered than the longer-wavelength lights, red or green. Hence the result that when looking at the sky away from the direct incident sunlight, the human eye perceives the sky to be blue."),
+											},
+											components.StructuredTextItem{
+												Link: types.String("https://en.wikipedia.org/wiki/Diffuse_sky_radiation"),
+												Document: &components.Document{
+													Metadata: &components.DocumentMetadata{
+														Datasource: types.String("datasource"),
+														ObjectType: types.String("Feature Request"),
+														Container:  types.String("container"),
+														ParentID:   types.String("JIRA_EN-1337"),
+														MimeType:   types.String("mimeType"),
+														DocumentID: types.String("documentId"),
+														CreateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+														UpdateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+														Author: &components.Person{
+															Name:         "George Clooney",
+															ObfuscatedID: "abc123",
+															Metadata: &components.PersonMetadata{
+																Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																Title:      types.String("Actor"),
+																Department: types.String("Movies"),
+																Email:      types.String("george@example.com"),
+																Location:   types.String("Hollywood, CA"),
+																Phone:      types.String("6505551234"),
+																PhotoURL:   types.String("https://example.com/george.jpg"),
+																StartDate:  types.MustNewDateFromString("2000-01-23"),
+																DatasourceProfile: []components.DatasourceProfile{
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																},
+																QuerySuggestions: &components.QuerySuggestionList{},
+																InviteInfo:       &components.InviteInfo{},
+																Badges: []components.Badge{
+																	components.Badge{
+																		Key:         types.String("deployment_name_new_hire"),
+																		DisplayName: types.String("New hire"),
+																		IconConfig: &components.IconConfig{
+																			Color:    types.String("#343CED"),
+																			Key:      types.String("person_icon"),
+																			IconType: components.IconTypeGlyph.ToPointer(),
+																			Name:     types.String("user"),
+																		},
+																	},
+																},
+															},
+														},
+														Owner: &components.Person{
+															Name:         "George Clooney",
+															ObfuscatedID: "abc123",
+															Metadata: &components.PersonMetadata{
+																Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																Title:      types.String("Actor"),
+																Department: types.String("Movies"),
+																Email:      types.String("george@example.com"),
+																Location:   types.String("Hollywood, CA"),
+																Phone:      types.String("6505551234"),
+																PhotoURL:   types.String("https://example.com/george.jpg"),
+																StartDate:  types.MustNewDateFromString("2000-01-23"),
+																DatasourceProfile: []components.DatasourceProfile{
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																},
+																QuerySuggestions: &components.QuerySuggestionList{},
+																InviteInfo:       &components.InviteInfo{},
+																Badges: []components.Badge{
+																	components.Badge{
+																		Key:         types.String("deployment_name_new_hire"),
+																		DisplayName: types.String("New hire"),
+																		IconConfig: &components.IconConfig{
+																			Color:    types.String("#343CED"),
+																			Key:      types.String("person_icon"),
+																			IconType: components.IconTypeGlyph.ToPointer(),
+																			Name:     types.String("user"),
+																		},
+																	},
+																},
+															},
+														},
+														Components: []string{
+															"Backend",
+															"Networking",
+														},
+														Status: types.String("[\"Done\"]"),
+														AssignedTo: &components.Person{
+															Name:         "George Clooney",
+															ObfuscatedID: "abc123",
+															Metadata: &components.PersonMetadata{
+																Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																Title:      types.String("Actor"),
+																Department: types.String("Movies"),
+																Email:      types.String("george@example.com"),
+																Location:   types.String("Hollywood, CA"),
+																Phone:      types.String("6505551234"),
+																PhotoURL:   types.String("https://example.com/george.jpg"),
+																StartDate:  types.MustNewDateFromString("2000-01-23"),
+																DatasourceProfile: []components.DatasourceProfile{
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																},
+																QuerySuggestions: &components.QuerySuggestionList{},
+																InviteInfo:       &components.InviteInfo{},
+																Badges: []components.Badge{
+																	components.Badge{
+																		Key:         types.String("deployment_name_new_hire"),
+																		DisplayName: types.String("New hire"),
+																		IconConfig: &components.IconConfig{
+																			Color:    types.String("#343CED"),
+																			Key:      types.String("person_icon"),
+																			IconType: components.IconTypeGlyph.ToPointer(),
+																			Name:     types.String("user"),
+																		},
+																	},
+																},
+															},
+														},
+														UpdatedBy: &components.Person{
+															Name:         "George Clooney",
+															ObfuscatedID: "abc123",
+															Metadata: &components.PersonMetadata{
+																Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																Title:      types.String("Actor"),
+																Department: types.String("Movies"),
+																Email:      types.String("george@example.com"),
+																Location:   types.String("Hollywood, CA"),
+																Phone:      types.String("6505551234"),
+																PhotoURL:   types.String("https://example.com/george.jpg"),
+																StartDate:  types.MustNewDateFromString("2000-01-23"),
+																DatasourceProfile: []components.DatasourceProfile{
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																},
+																QuerySuggestions: &components.QuerySuggestionList{},
+																InviteInfo:       &components.InviteInfo{},
+																Badges: []components.Badge{
+																	components.Badge{
+																		Key:         types.String("deployment_name_new_hire"),
+																		DisplayName: types.String("New hire"),
+																		IconConfig: &components.IconConfig{
+																			Color:    types.String("#343CED"),
+																			Key:      types.String("person_icon"),
+																			IconType: components.IconTypeGlyph.ToPointer(),
+																			Name:     types.String("user"),
+																		},
+																	},
+																},
+															},
+														},
+														Interactions: &components.DocumentInteractions{},
+														Verification: &components.Verification{
+															State: components.StateVerified,
+															Metadata: &components.VerificationMetadata{
+																LastVerifier: &components.Person{
+																	Name:         "George Clooney",
+																	ObfuscatedID: "abc123",
+																	Metadata: &components.PersonMetadata{
+																		Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																		Title:      types.String("Actor"),
+																		Department: types.String("Movies"),
+																		Email:      types.String("george@example.com"),
+																		Location:   types.String("Hollywood, CA"),
+																		Phone:      types.String("6505551234"),
+																		PhotoURL:   types.String("https://example.com/george.jpg"),
+																		StartDate:  types.MustNewDateFromString("2000-01-23"),
+																		DatasourceProfile: []components.DatasourceProfile{
+																			components.DatasourceProfile{
+																				Datasource: "github",
+																				Handle:     "<value>",
+																			},
+																		},
+																		QuerySuggestions: &components.QuerySuggestionList{},
+																		InviteInfo:       &components.InviteInfo{},
+																		Badges: []components.Badge{
+																			components.Badge{
+																				Key:         types.String("deployment_name_new_hire"),
+																				DisplayName: types.String("New hire"),
+																				IconConfig: &components.IconConfig{
+																					Color:    types.String("#343CED"),
+																					Key:      types.String("person_icon"),
+																					IconType: components.IconTypeGlyph.ToPointer(),
+																					Name:     types.String("user"),
+																				},
+																			},
+																		},
+																	},
+																},
+																LastReminder: &components.Reminder{
+																	Assignee: components.Person{
+																		Name:         "George Clooney",
+																		ObfuscatedID: "abc123",
+																		Metadata: &components.PersonMetadata{
+																			Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																			Title:      types.String("Actor"),
+																			Department: types.String("Movies"),
+																			Email:      types.String("george@example.com"),
+																			Location:   types.String("Hollywood, CA"),
+																			Phone:      types.String("6505551234"),
+																			PhotoURL:   types.String("https://example.com/george.jpg"),
+																			StartDate:  types.MustNewDateFromString("2000-01-23"),
+																			DatasourceProfile: []components.DatasourceProfile{
+																				components.DatasourceProfile{
+																					Datasource: "github",
+																					Handle:     "<value>",
+																				},
+																				components.DatasourceProfile{
+																					Datasource: "github",
+																					Handle:     "<value>",
+																				},
+																				components.DatasourceProfile{
+																					Datasource: "github",
+																					Handle:     "<value>",
+																				},
+																			},
+																			QuerySuggestions: &components.QuerySuggestionList{},
+																			InviteInfo:       &components.InviteInfo{},
+																			Badges: []components.Badge{
+																				components.Badge{
+																					Key:         types.String("deployment_name_new_hire"),
+																					DisplayName: types.String("New hire"),
+																					IconConfig: &components.IconConfig{
+																						Color:    types.String("#343CED"),
+																						Key:      types.String("person_icon"),
+																						IconType: components.IconTypeGlyph.ToPointer(),
+																						Name:     types.String("user"),
+																					},
+																				},
+																			},
+																		},
+																	},
+																	Requestor: &components.Person{
+																		Name:         "George Clooney",
+																		ObfuscatedID: "abc123",
+																		Metadata: &components.PersonMetadata{
+																			Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																			Title:      types.String("Actor"),
+																			Department: types.String("Movies"),
+																			Email:      types.String("george@example.com"),
+																			Location:   types.String("Hollywood, CA"),
+																			Phone:      types.String("6505551234"),
+																			PhotoURL:   types.String("https://example.com/george.jpg"),
+																			StartDate:  types.MustNewDateFromString("2000-01-23"),
+																			DatasourceProfile: []components.DatasourceProfile{
+																				components.DatasourceProfile{
+																					Datasource: "github",
+																					Handle:     "<value>",
+																				},
+																			},
+																			QuerySuggestions: &components.QuerySuggestionList{},
+																			InviteInfo:       &components.InviteInfo{},
+																			Badges: []components.Badge{
+																				components.Badge{
+																					Key:         types.String("deployment_name_new_hire"),
+																					DisplayName: types.String("New hire"),
+																					IconConfig: &components.IconConfig{
+																						Color:    types.String("#343CED"),
+																						Key:      types.String("person_icon"),
+																						IconType: components.IconTypeGlyph.ToPointer(),
+																						Name:     types.String("user"),
+																					},
+																				},
+																			},
+																		},
+																	},
+																	RemindAt: 469524,
+																},
+															},
+														},
+														CustomData: map[string]components.CustomDataValue{
+															"someCustomField": components.CustomDataValue{},
+														},
+														ContactPerson: &components.Person{
+															Name:         "George Clooney",
+															ObfuscatedID: "abc123",
+															Metadata: &components.PersonMetadata{
+																Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																Title:      types.String("Actor"),
+																Department: types.String("Movies"),
+																Email:      types.String("george@example.com"),
+																Location:   types.String("Hollywood, CA"),
+																Phone:      types.String("6505551234"),
+																PhotoURL:   types.String("https://example.com/george.jpg"),
+																StartDate:  types.MustNewDateFromString("2000-01-23"),
+																DatasourceProfile: []components.DatasourceProfile{
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																},
+																QuerySuggestions: &components.QuerySuggestionList{},
+																InviteInfo:       &components.InviteInfo{},
+																Badges: []components.Badge{
+																	components.Badge{
+																		Key:         types.String("deployment_name_new_hire"),
+																		DisplayName: types.String("New hire"),
+																		IconConfig: &components.IconConfig{
+																			Color:    types.String("#343CED"),
+																			Key:      types.String("person_icon"),
+																			IconType: components.IconTypeGlyph.ToPointer(),
+																			Name:     types.String("user"),
+																		},
+																	},
+																},
+															},
+														},
+													},
+												},
+												Text: types.String("Because its wavelengths are shorter, blue light is more strongly scattered than the longer-wavelength lights, red or green. Hence the result that when looking at the sky away from the direct incident sunlight, the human eye perceives the sky to be blue."),
+											},
+										},
 									},
 									Likes: &components.AnswerLikes{
-										LikedBy:     []components.AnswerLike{},
+										LikedBy: []components.AnswerLike{
+											components.AnswerLike{
+												User: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+											},
+											components.AnswerLike{
+												User: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+											},
+											components.AnswerLike{
+												User: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+											},
+										},
 										LikedByUser: false,
 										NumLikes:    320829,
+									},
+									Author: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											QuerySuggestions: &components.QuerySuggestionList{},
+											InviteInfo:       &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+									UpdatedBy: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											QuerySuggestions: &components.QuerySuggestionList{},
+											InviteInfo:       &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+									Verification: &components.Verification{
+										State: components.StateVerified,
+										Metadata: &components.VerificationMetadata{
+											LastVerifier: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Document: &components.Document{
+												Metadata: &components.DocumentMetadata{
+													Datasource: types.String("datasource"),
+													ObjectType: types.String("Feature Request"),
+													Container:  types.String("container"),
+													ParentID:   types.String("JIRA_EN-1337"),
+													MimeType:   types.String("mimeType"),
+													DocumentID: types.String("documentId"),
+													CreateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+													UpdateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+													Author: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													Owner: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													Components: []string{
+														"Backend",
+														"Networking",
+													},
+													Status: types.String("[\"Done\"]"),
+													AssignedTo: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													UpdatedBy: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													Interactions: &components.DocumentInteractions{},
+													CustomData: map[string]components.CustomDataValue{
+														"someCustomField": components.CustomDataValue{},
+													},
+													ContactPerson: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+												},
+											},
+											LastReminder: &components.Reminder{
+												Assignee: components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												Requestor: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												RemindAt: 329590,
+											},
+										},
 									},
 									Board: &components.AnswerBoard{
 										Name:        "<value>",
@@ -321,17 +5935,936 @@ func testRunagentRunagent0(w http.ResponseWriter, req *http.Request) {
 										Creator: &components.Person{
 											Name:         "George Clooney",
 											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+										UpdatedBy: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+									},
+									SourceDocument: &components.Document{
+										Metadata: &components.DocumentMetadata{
+											Datasource: types.String("datasource"),
+											ObjectType: types.String("Feature Request"),
+											Container:  types.String("container"),
+											ParentID:   types.String("JIRA_EN-1337"),
+											MimeType:   types.String("mimeType"),
+											DocumentID: types.String("documentId"),
+											CreateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+											UpdateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+											Author: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Owner: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Components: []string{
+												"Backend",
+												"Networking",
+											},
+											Status: types.String("[\"Done\"]"),
+											AssignedTo: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											UpdatedBy: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Interactions: &components.DocumentInteractions{},
+											Verification: &components.Verification{
+												State: components.StateDeprecated,
+												Metadata: &components.VerificationMetadata{
+													LastVerifier: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													LastReminder: &components.Reminder{
+														Assignee: components.Person{
+															Name:         "George Clooney",
+															ObfuscatedID: "abc123",
+															Metadata: &components.PersonMetadata{
+																Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																Title:      types.String("Actor"),
+																Department: types.String("Movies"),
+																Email:      types.String("george@example.com"),
+																Location:   types.String("Hollywood, CA"),
+																Phone:      types.String("6505551234"),
+																PhotoURL:   types.String("https://example.com/george.jpg"),
+																StartDate:  types.MustNewDateFromString("2000-01-23"),
+																DatasourceProfile: []components.DatasourceProfile{
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																},
+																QuerySuggestions: &components.QuerySuggestionList{},
+																InviteInfo:       &components.InviteInfo{},
+																Badges: []components.Badge{
+																	components.Badge{
+																		Key:         types.String("deployment_name_new_hire"),
+																		DisplayName: types.String("New hire"),
+																		IconConfig: &components.IconConfig{
+																			Color:    types.String("#343CED"),
+																			Key:      types.String("person_icon"),
+																			IconType: components.IconTypeGlyph.ToPointer(),
+																			Name:     types.String("user"),
+																		},
+																	},
+																},
+															},
+														},
+														Requestor: &components.Person{
+															Name:         "George Clooney",
+															ObfuscatedID: "abc123",
+															Metadata: &components.PersonMetadata{
+																Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																Title:      types.String("Actor"),
+																Department: types.String("Movies"),
+																Email:      types.String("george@example.com"),
+																Location:   types.String("Hollywood, CA"),
+																Phone:      types.String("6505551234"),
+																PhotoURL:   types.String("https://example.com/george.jpg"),
+																StartDate:  types.MustNewDateFromString("2000-01-23"),
+																DatasourceProfile: []components.DatasourceProfile{
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																},
+																QuerySuggestions: &components.QuerySuggestionList{},
+																InviteInfo:       &components.InviteInfo{},
+																Badges: []components.Badge{
+																	components.Badge{
+																		Key:         types.String("deployment_name_new_hire"),
+																		DisplayName: types.String("New hire"),
+																		IconConfig: &components.IconConfig{
+																			Color:    types.String("#343CED"),
+																			Key:      types.String("person_icon"),
+																			IconType: components.IconTypeGlyph.ToPointer(),
+																			Name:     types.String("user"),
+																		},
+																	},
+																},
+															},
+														},
+														RemindAt: 687405,
+													},
+												},
+											},
+											CustomData: map[string]components.CustomDataValue{
+												"someCustomField": components.CustomDataValue{},
+											},
+											ContactPerson: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
 										},
 									},
 								},
 								ExtractedQnA: &components.ExtractedQnA{
 									QuestionResult: &components.SearchResult{
-										Title:                  types.String("title"),
-										URL:                    "https://example.com/foo/bar",
-										NativeAppURL:           types.String("slack://foo/bar"),
-										RelatedResults:         []components.RelatedDocuments{},
-										AllClusteredResults:    []components.ClusterGroup{},
-										MustIncludeSuggestions: &components.QuerySuggestionList{},
+										Document: &components.Document{
+											Metadata: &components.DocumentMetadata{
+												Datasource: types.String("datasource"),
+												ObjectType: types.String("Feature Request"),
+												Container:  types.String("container"),
+												ParentID:   types.String("JIRA_EN-1337"),
+												MimeType:   types.String("mimeType"),
+												DocumentID: types.String("documentId"),
+												CreateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+												UpdateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+												Author: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												Owner: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												Components: []string{
+													"Backend",
+													"Networking",
+												},
+												Status: types.String("[\"Done\"]"),
+												AssignedTo: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												UpdatedBy: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												Interactions: &components.DocumentInteractions{},
+												Verification: &components.Verification{
+													State: components.StateUnverified,
+													Metadata: &components.VerificationMetadata{
+														LastVerifier: &components.Person{
+															Name:         "George Clooney",
+															ObfuscatedID: "abc123",
+															Metadata: &components.PersonMetadata{
+																Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																Title:      types.String("Actor"),
+																Department: types.String("Movies"),
+																Email:      types.String("george@example.com"),
+																Location:   types.String("Hollywood, CA"),
+																Phone:      types.String("6505551234"),
+																PhotoURL:   types.String("https://example.com/george.jpg"),
+																StartDate:  types.MustNewDateFromString("2000-01-23"),
+																DatasourceProfile: []components.DatasourceProfile{
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																},
+																QuerySuggestions: &components.QuerySuggestionList{},
+																InviteInfo:       &components.InviteInfo{},
+																Badges: []components.Badge{
+																	components.Badge{
+																		Key:         types.String("deployment_name_new_hire"),
+																		DisplayName: types.String("New hire"),
+																		IconConfig: &components.IconConfig{
+																			Color:    types.String("#343CED"),
+																			Key:      types.String("person_icon"),
+																			IconType: components.IconTypeGlyph.ToPointer(),
+																			Name:     types.String("user"),
+																		},
+																	},
+																},
+															},
+														},
+														LastReminder: &components.Reminder{
+															Assignee: components.Person{
+																Name:         "George Clooney",
+																ObfuscatedID: "abc123",
+																Metadata: &components.PersonMetadata{
+																	Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																	Title:      types.String("Actor"),
+																	Department: types.String("Movies"),
+																	Email:      types.String("george@example.com"),
+																	Location:   types.String("Hollywood, CA"),
+																	Phone:      types.String("6505551234"),
+																	PhotoURL:   types.String("https://example.com/george.jpg"),
+																	StartDate:  types.MustNewDateFromString("2000-01-23"),
+																	DatasourceProfile: []components.DatasourceProfile{
+																		components.DatasourceProfile{
+																			Datasource: "github",
+																			Handle:     "<value>",
+																		},
+																	},
+																	QuerySuggestions: &components.QuerySuggestionList{},
+																	InviteInfo:       &components.InviteInfo{},
+																	Badges: []components.Badge{
+																		components.Badge{
+																			Key:         types.String("deployment_name_new_hire"),
+																			DisplayName: types.String("New hire"),
+																			IconConfig: &components.IconConfig{
+																				Color:    types.String("#343CED"),
+																				Key:      types.String("person_icon"),
+																				IconType: components.IconTypeGlyph.ToPointer(),
+																				Name:     types.String("user"),
+																			},
+																		},
+																	},
+																},
+															},
+															Requestor: &components.Person{
+																Name:         "George Clooney",
+																ObfuscatedID: "abc123",
+																Metadata: &components.PersonMetadata{
+																	Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																	Title:      types.String("Actor"),
+																	Department: types.String("Movies"),
+																	Email:      types.String("george@example.com"),
+																	Location:   types.String("Hollywood, CA"),
+																	Phone:      types.String("6505551234"),
+																	PhotoURL:   types.String("https://example.com/george.jpg"),
+																	StartDate:  types.MustNewDateFromString("2000-01-23"),
+																	DatasourceProfile: []components.DatasourceProfile{
+																		components.DatasourceProfile{
+																			Datasource: "github",
+																			Handle:     "<value>",
+																		},
+																	},
+																	QuerySuggestions: &components.QuerySuggestionList{},
+																	InviteInfo:       &components.InviteInfo{},
+																	Badges: []components.Badge{
+																		components.Badge{
+																			Key:         types.String("deployment_name_new_hire"),
+																			DisplayName: types.String("New hire"),
+																			IconConfig: &components.IconConfig{
+																				Color:    types.String("#343CED"),
+																				Key:      types.String("person_icon"),
+																				IconType: components.IconTypeGlyph.ToPointer(),
+																				Name:     types.String("user"),
+																			},
+																		},
+																	},
+																},
+															},
+															RemindAt: 404308,
+														},
+													},
+												},
+												CustomData: map[string]components.CustomDataValue{
+													"someCustomField": components.CustomDataValue{},
+												},
+												ContactPerson: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+											},
+										},
+										Title:        types.String("title"),
+										URL:          "https://example.com/foo/bar",
+										NativeAppURL: types.String("slack://foo/bar"),
+										RelatedResults: []components.RelatedDocuments{
+											components.RelatedDocuments{
+												QuerySuggestion: &components.QuerySuggestion{
+													Query: "app:github type:pull author:mortimer",
+													SearchProviderInfo: &components.SearchProviderInfo{
+														Name:                  types.String("Google"),
+														SearchLinkURLTemplate: types.String("https://www.google.com/search?q={query}&hl=en"),
+													},
+													Label:      types.String("Mortimer's PRs"),
+													Datasource: types.String("github"),
+													RequestOptions: &components.SearchRequestOptions{
+														DatasourceFilter: types.String("JIRA"),
+														DatasourcesFilter: []string{
+															"JIRA",
+														},
+														QueryOverridesFacetFilters: types.Bool(true),
+														FacetFilters: []components.FacetFilter{
+															components.FacetFilter{
+																FieldName: types.String("type"),
+																Values: []components.FacetFilterValue{
+																	components.FacetFilterValue{
+																		Value:        types.String("Spreadsheet"),
+																		RelationType: components.RelationTypeEquals.ToPointer(),
+																	},
+																	components.FacetFilterValue{
+																		Value:        types.String("Presentation"),
+																		RelationType: components.RelationTypeEquals.ToPointer(),
+																	},
+																},
+															},
+														},
+														FacetFilterSets: []components.FacetFilterSet{
+															components.FacetFilterSet{
+																Filters: []components.FacetFilter{
+																	components.FacetFilter{
+																		FieldName: types.String("type"),
+																		Values: []components.FacetFilterValue{
+																			components.FacetFilterValue{
+																				Value:        types.String("Spreadsheet"),
+																				RelationType: components.RelationTypeEquals.ToPointer(),
+																			},
+																			components.FacetFilterValue{
+																				Value:        types.String("Presentation"),
+																				RelationType: components.RelationTypeEquals.ToPointer(),
+																			},
+																		},
+																	},
+																},
+															},
+															components.FacetFilterSet{
+																Filters: []components.FacetFilter{
+																	components.FacetFilter{
+																		FieldName: types.String("type"),
+																		Values: []components.FacetFilterValue{
+																			components.FacetFilterValue{
+																				Value:        types.String("Spreadsheet"),
+																				RelationType: components.RelationTypeEquals.ToPointer(),
+																			},
+																			components.FacetFilterValue{
+																				Value:        types.String("Presentation"),
+																				RelationType: components.RelationTypeEquals.ToPointer(),
+																			},
+																		},
+																	},
+																},
+															},
+														},
+														FacetBucketSize: 926158,
+														AuthTokens: []components.AuthToken{
+															components.AuthToken{
+																AccessToken: "123abc",
+																Datasource:  "gmail",
+																Scope:       types.String("email profile https://www.googleapis.com/auth/gmail.readonly"),
+																TokenType:   types.String("Bearer"),
+																AuthUser:    types.String("1"),
+															},
+														},
+													},
+													InputDetails: &components.SearchRequestInputDetails{
+														HasCopyPaste: types.Bool(true),
+													},
+												},
+											},
+											components.RelatedDocuments{
+												QuerySuggestion: &components.QuerySuggestion{
+													Query: "app:github type:pull author:mortimer",
+													SearchProviderInfo: &components.SearchProviderInfo{
+														Name:                  types.String("Google"),
+														SearchLinkURLTemplate: types.String("https://www.google.com/search?q={query}&hl=en"),
+													},
+													Label:      types.String("Mortimer's PRs"),
+													Datasource: types.String("github"),
+													RequestOptions: &components.SearchRequestOptions{
+														DatasourceFilter: types.String("JIRA"),
+														DatasourcesFilter: []string{
+															"JIRA",
+														},
+														QueryOverridesFacetFilters: types.Bool(true),
+														FacetFilters: []components.FacetFilter{
+															components.FacetFilter{
+																FieldName: types.String("type"),
+																Values: []components.FacetFilterValue{
+																	components.FacetFilterValue{
+																		Value:        types.String("Spreadsheet"),
+																		RelationType: components.RelationTypeEquals.ToPointer(),
+																	},
+																	components.FacetFilterValue{
+																		Value:        types.String("Presentation"),
+																		RelationType: components.RelationTypeEquals.ToPointer(),
+																	},
+																},
+															},
+														},
+														FacetFilterSets: []components.FacetFilterSet{
+															components.FacetFilterSet{
+																Filters: []components.FacetFilter{
+																	components.FacetFilter{
+																		FieldName: types.String("type"),
+																		Values: []components.FacetFilterValue{
+																			components.FacetFilterValue{
+																				Value:        types.String("Spreadsheet"),
+																				RelationType: components.RelationTypeEquals.ToPointer(),
+																			},
+																			components.FacetFilterValue{
+																				Value:        types.String("Presentation"),
+																				RelationType: components.RelationTypeEquals.ToPointer(),
+																			},
+																		},
+																	},
+																},
+															},
+														},
+														FacetBucketSize: 752712,
+														AuthTokens: []components.AuthToken{
+															components.AuthToken{
+																AccessToken: "123abc",
+																Datasource:  "gmail",
+																Scope:       types.String("email profile https://www.googleapis.com/auth/gmail.readonly"),
+																TokenType:   types.String("Bearer"),
+																AuthUser:    types.String("1"),
+															},
+														},
+													},
+													InputDetails: &components.SearchRequestInputDetails{
+														HasCopyPaste: types.Bool(true),
+													},
+												},
+											},
+										},
+										AllClusteredResults: []components.ClusterGroup{
+											components.ClusterGroup{
+												VisibleCountHint: 671466,
+											},
+											components.ClusterGroup{
+												VisibleCountHint: 638439,
+											},
+										},
+										MustIncludeSuggestions: &components.QuerySuggestionList{
+											Person: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													InviteInfo: &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+										},
 										QuerySuggestion: &components.QuerySuggestion{
 											Query: "app:github type:pull author:mortimer",
 											SearchProviderInfo: &components.SearchProviderInfo{
@@ -416,7 +6949,92 @@ func testRunagentRunagent0(w http.ResponseWriter, req *http.Request) {
 								},
 								Meeting: &components.Meeting{
 									Attendees: &components.CalendarAttendees{
-										People: []components.CalendarAttendee{},
+										People: []components.CalendarAttendee{
+											components.CalendarAttendee{
+												Person: components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+											},
+											components.CalendarAttendee{
+												Person: components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+											},
+										},
 									},
 								},
 								Collection: &components.Collection{
@@ -438,6 +7056,78 @@ func testRunagentRunagent0(w http.ResponseWriter, req *http.Request) {
 										},
 									},
 									ID: 511700,
+									Creator: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											QuerySuggestions: &components.QuerySuggestionList{},
+											InviteInfo:       &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+									UpdatedBy: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											QuerySuggestions: &components.QuerySuggestionList{},
+											InviteInfo:       &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
 								},
 								AnswerBoard: &components.AnswerBoard{
 									Name:        "<value>",
@@ -458,13 +7148,193 @@ func testRunagentRunagent0(w http.ResponseWriter, req *http.Request) {
 										},
 									},
 									ID: 51997,
+									Creator: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											QuerySuggestions: &components.QuerySuggestionList{},
+											InviteInfo:       &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+									UpdatedBy: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											QuerySuggestions: &components.QuerySuggestionList{},
+											InviteInfo:       &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
 								},
 								Code: &components.Code{
 									RepoName: types.String("scio"),
 									FileName: types.String("README.md"),
-									Lines:    []components.CodeLine{},
+									Lines: []components.CodeLine{
+										components.CodeLine{},
+									},
+								},
+								QuerySuggestions: &components.QuerySuggestionList{
+									Person: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											InviteInfo: &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
 								},
 								RelatedQuestion: &components.RelatedQuestion{},
+							},
+						},
+						QuerySuggestion: &components.QuerySuggestion{
+							Query: "app:github type:pull author:mortimer",
+							SearchProviderInfo: &components.SearchProviderInfo{
+								Name:                  types.String("Google"),
+								SearchLinkURLTemplate: types.String("https://www.google.com/search?q={query}&hl=en"),
+							},
+							Label:      types.String("Mortimer's PRs"),
+							Datasource: types.String("github"),
+							RequestOptions: &components.SearchRequestOptions{
+								DatasourceFilter: types.String("JIRA"),
+								DatasourcesFilter: []string{
+									"JIRA",
+								},
+								QueryOverridesFacetFilters: types.Bool(true),
+								FacetFilters: []components.FacetFilter{
+									components.FacetFilter{
+										FieldName: types.String("type"),
+										Values: []components.FacetFilterValue{
+											components.FacetFilterValue{
+												Value:        types.String("Spreadsheet"),
+												RelationType: components.RelationTypeEquals.ToPointer(),
+											},
+											components.FacetFilterValue{
+												Value:        types.String("Presentation"),
+												RelationType: components.RelationTypeEquals.ToPointer(),
+											},
+										},
+									},
+								},
+								FacetFilterSets: []components.FacetFilterSet{
+									components.FacetFilterSet{
+										Filters: []components.FacetFilter{
+											components.FacetFilter{
+												FieldName: types.String("type"),
+												Values: []components.FacetFilterValue{
+													components.FacetFilterValue{
+														Value:        types.String("Spreadsheet"),
+														RelationType: components.RelationTypeEquals.ToPointer(),
+													},
+													components.FacetFilterValue{
+														Value:        types.String("Presentation"),
+														RelationType: components.RelationTypeEquals.ToPointer(),
+													},
+												},
+											},
+										},
+									},
+								},
+								FacetBucketSize: 952416,
+								AuthTokens: []components.AuthToken{
+									components.AuthToken{
+										AccessToken: "123abc",
+										Datasource:  "gmail",
+										Scope:       types.String("email profile https://www.googleapis.com/auth/gmail.readonly"),
+										TokenType:   types.String("Bearer"),
+										AuthUser:    types.String("1"),
+									},
+								},
+							},
+							InputDetails: &components.SearchRequestInputDetails{
+								HasCopyPaste: types.Bool(true),
 							},
 						},
 						File: &components.ChatFile{
@@ -484,8 +7354,3948 @@ func testRunagentRunagent0(w http.ResponseWriter, req *http.Request) {
 					},
 					components.ChatMessageFragment{
 						StructuredResults: []components.StructuredResult{
-							components.StructuredResult{},
-							components.StructuredResult{},
+							components.StructuredResult{
+								Document: &components.Document{
+									Metadata: &components.DocumentMetadata{
+										Datasource: types.String("datasource"),
+										ObjectType: types.String("Feature Request"),
+										Container:  types.String("container"),
+										ParentID:   types.String("JIRA_EN-1337"),
+										MimeType:   types.String("mimeType"),
+										DocumentID: types.String("documentId"),
+										CreateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+										UpdateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+										Author: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+										Owner: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+										Components: []string{
+											"Backend",
+											"Networking",
+										},
+										Status: types.String("[\"Done\"]"),
+										AssignedTo: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+										UpdatedBy: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+										Interactions: &components.DocumentInteractions{},
+										Verification: &components.Verification{
+											State: components.StateDeprecated,
+											Metadata: &components.VerificationMetadata{
+												LastVerifier: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												LastReminder: &components.Reminder{
+													Assignee: components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													Requestor: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													RemindAt: 109796,
+												},
+											},
+										},
+										CustomData: map[string]components.CustomDataValue{
+											"someCustomField": components.CustomDataValue{},
+										},
+										ContactPerson: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+									},
+								},
+								Person: &components.Person{
+									Name:         "George Clooney",
+									ObfuscatedID: "abc123",
+									Metadata: &components.PersonMetadata{
+										Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+										Title:      types.String("Actor"),
+										Department: types.String("Movies"),
+										Email:      types.String("george@example.com"),
+										Location:   types.String("Hollywood, CA"),
+										Phone:      types.String("6505551234"),
+										PhotoURL:   types.String("https://example.com/george.jpg"),
+										StartDate:  types.MustNewDateFromString("2000-01-23"),
+										DatasourceProfile: []components.DatasourceProfile{
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+										},
+										QuerySuggestions: &components.QuerySuggestionList{},
+										InviteInfo:       &components.InviteInfo{},
+										Badges: []components.Badge{
+											components.Badge{
+												Key:         types.String("deployment_name_new_hire"),
+												DisplayName: types.String("New hire"),
+												IconConfig: &components.IconConfig{
+													Color:    types.String("#343CED"),
+													Key:      types.String("person_icon"),
+													IconType: components.IconTypeGlyph.ToPointer(),
+													Name:     types.String("user"),
+												},
+											},
+										},
+									},
+								},
+								Customer: &components.Customer{
+									ID: "<id>",
+									Company: components.Company{
+										Name:     "<value>",
+										Location: types.String("New York City"),
+										Industry: types.String("Finances"),
+										About:    types.String("Financial, software, data, and media company headquartered in Midtown Manhattan, New York City"),
+									},
+									Notes: types.String("CIO is interested in trying out the product."),
+								},
+								Team: &components.Team{
+									ID:   "<id>",
+									Name: "<value>",
+									DatasourceProfiles: []components.DatasourceProfile{
+										components.DatasourceProfile{
+											Datasource: "github",
+											Handle:     "<value>",
+										},
+										components.DatasourceProfile{
+											Datasource: "github",
+											Handle:     "<value>",
+										},
+									},
+									Status:       components.TeamStatusProcessed.ToPointer(),
+									CanBeDeleted: types.Bool(true),
+								},
+								CustomEntity: &components.CustomEntity{},
+								Answer: &components.Answer{
+									ID:       3,
+									DocID:    types.String("ANSWERS_answer_3"),
+									Question: types.String("Why is the sky blue?"),
+									BodyText: types.String("From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light."),
+									AudienceFilters: []components.FacetFilter{
+										components.FacetFilter{
+											FieldName: types.String("type"),
+											Values: []components.FacetFilterValue{
+												components.FacetFilterValue{
+													Value:        types.String("Spreadsheet"),
+													RelationType: components.RelationTypeEquals.ToPointer(),
+												},
+												components.FacetFilterValue{
+													Value:        types.String("Presentation"),
+													RelationType: components.RelationTypeEquals.ToPointer(),
+												},
+											},
+										},
+									},
+									CombinedAnswerText: &components.StructuredText{
+										Text: "From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+									},
+									Likes: &components.AnswerLikes{
+										LikedBy:     []components.AnswerLike{},
+										LikedByUser: true,
+										NumLikes:    541134,
+									},
+									Author: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											QuerySuggestions: &components.QuerySuggestionList{},
+											InviteInfo:       &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+									UpdatedBy: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											QuerySuggestions: &components.QuerySuggestionList{},
+											InviteInfo:       &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+									Verification: &components.Verification{
+										State: components.StateVerified,
+										Metadata: &components.VerificationMetadata{
+											LastVerifier: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Document: &components.Document{
+												Metadata: &components.DocumentMetadata{
+													Datasource: types.String("datasource"),
+													ObjectType: types.String("Feature Request"),
+													Container:  types.String("container"),
+													ParentID:   types.String("JIRA_EN-1337"),
+													MimeType:   types.String("mimeType"),
+													DocumentID: types.String("documentId"),
+													CreateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+													UpdateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+													Author: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													Owner: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													Components: []string{
+														"Backend",
+														"Networking",
+													},
+													Status: types.String("[\"Done\"]"),
+													AssignedTo: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													UpdatedBy: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													Interactions: &components.DocumentInteractions{},
+													CustomData: map[string]components.CustomDataValue{
+														"someCustomField": components.CustomDataValue{},
+													},
+													ContactPerson: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+												},
+											},
+											LastReminder: &components.Reminder{
+												Assignee: components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												Requestor: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												RemindAt: 975017,
+											},
+										},
+									},
+									Board: &components.AnswerBoard{
+										Name:        "<value>",
+										Description: "like commonly knavishly during responsibility phooey sympathetically overstay",
+										AudienceFilters: []components.FacetFilter{
+											components.FacetFilter{
+												FieldName: types.String("type"),
+												Values: []components.FacetFilterValue{
+													components.FacetFilterValue{
+														Value:        types.String("Spreadsheet"),
+														RelationType: components.RelationTypeEquals.ToPointer(),
+													},
+													components.FacetFilterValue{
+														Value:        types.String("Presentation"),
+														RelationType: components.RelationTypeEquals.ToPointer(),
+													},
+												},
+											},
+										},
+										ID: 32548,
+										Creator: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+										UpdatedBy: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+									},
+									SourceDocument: &components.Document{
+										Metadata: &components.DocumentMetadata{
+											Datasource: types.String("datasource"),
+											ObjectType: types.String("Feature Request"),
+											Container:  types.String("container"),
+											ParentID:   types.String("JIRA_EN-1337"),
+											MimeType:   types.String("mimeType"),
+											DocumentID: types.String("documentId"),
+											CreateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+											UpdateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+											Author: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Owner: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Components: []string{
+												"Backend",
+												"Networking",
+											},
+											Status: types.String("[\"Done\"]"),
+											AssignedTo: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											UpdatedBy: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Interactions: &components.DocumentInteractions{},
+											Verification: &components.Verification{
+												State: components.StateUnverified,
+												Metadata: &components.VerificationMetadata{
+													LastVerifier: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													LastReminder: &components.Reminder{
+														Assignee: components.Person{
+															Name:         "George Clooney",
+															ObfuscatedID: "abc123",
+															Metadata: &components.PersonMetadata{
+																Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																Title:      types.String("Actor"),
+																Department: types.String("Movies"),
+																Email:      types.String("george@example.com"),
+																Location:   types.String("Hollywood, CA"),
+																Phone:      types.String("6505551234"),
+																PhotoURL:   types.String("https://example.com/george.jpg"),
+																StartDate:  types.MustNewDateFromString("2000-01-23"),
+																DatasourceProfile: []components.DatasourceProfile{
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																},
+																QuerySuggestions: &components.QuerySuggestionList{},
+																InviteInfo:       &components.InviteInfo{},
+																Badges: []components.Badge{
+																	components.Badge{
+																		Key:         types.String("deployment_name_new_hire"),
+																		DisplayName: types.String("New hire"),
+																		IconConfig: &components.IconConfig{
+																			Color:    types.String("#343CED"),
+																			Key:      types.String("person_icon"),
+																			IconType: components.IconTypeGlyph.ToPointer(),
+																			Name:     types.String("user"),
+																		},
+																	},
+																},
+															},
+														},
+														Requestor: &components.Person{
+															Name:         "George Clooney",
+															ObfuscatedID: "abc123",
+															Metadata: &components.PersonMetadata{
+																Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																Title:      types.String("Actor"),
+																Department: types.String("Movies"),
+																Email:      types.String("george@example.com"),
+																Location:   types.String("Hollywood, CA"),
+																Phone:      types.String("6505551234"),
+																PhotoURL:   types.String("https://example.com/george.jpg"),
+																StartDate:  types.MustNewDateFromString("2000-01-23"),
+																DatasourceProfile: []components.DatasourceProfile{
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																},
+																QuerySuggestions: &components.QuerySuggestionList{},
+																InviteInfo:       &components.InviteInfo{},
+																Badges: []components.Badge{
+																	components.Badge{
+																		Key:         types.String("deployment_name_new_hire"),
+																		DisplayName: types.String("New hire"),
+																		IconConfig: &components.IconConfig{
+																			Color:    types.String("#343CED"),
+																			Key:      types.String("person_icon"),
+																			IconType: components.IconTypeGlyph.ToPointer(),
+																			Name:     types.String("user"),
+																		},
+																	},
+																},
+															},
+														},
+														RemindAt: 968502,
+													},
+												},
+											},
+											CustomData: map[string]components.CustomDataValue{
+												"someCustomField": components.CustomDataValue{},
+											},
+											ContactPerson: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+										},
+									},
+								},
+								ExtractedQnA: &components.ExtractedQnA{
+									QuestionResult: &components.SearchResult{
+										Document: &components.Document{
+											Metadata: &components.DocumentMetadata{
+												Datasource: types.String("datasource"),
+												ObjectType: types.String("Feature Request"),
+												Container:  types.String("container"),
+												ParentID:   types.String("JIRA_EN-1337"),
+												MimeType:   types.String("mimeType"),
+												DocumentID: types.String("documentId"),
+												CreateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+												UpdateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+												Author: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												Owner: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												Components: []string{
+													"Backend",
+													"Networking",
+												},
+												Status: types.String("[\"Done\"]"),
+												AssignedTo: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												UpdatedBy: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												Interactions: &components.DocumentInteractions{},
+												Verification: &components.Verification{
+													State: components.StateVerified,
+													Metadata: &components.VerificationMetadata{
+														LastVerifier: &components.Person{
+															Name:         "George Clooney",
+															ObfuscatedID: "abc123",
+															Metadata: &components.PersonMetadata{
+																Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																Title:      types.String("Actor"),
+																Department: types.String("Movies"),
+																Email:      types.String("george@example.com"),
+																Location:   types.String("Hollywood, CA"),
+																Phone:      types.String("6505551234"),
+																PhotoURL:   types.String("https://example.com/george.jpg"),
+																StartDate:  types.MustNewDateFromString("2000-01-23"),
+																DatasourceProfile: []components.DatasourceProfile{
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																},
+																QuerySuggestions: &components.QuerySuggestionList{},
+																InviteInfo:       &components.InviteInfo{},
+																Badges: []components.Badge{
+																	components.Badge{
+																		Key:         types.String("deployment_name_new_hire"),
+																		DisplayName: types.String("New hire"),
+																		IconConfig: &components.IconConfig{
+																			Color:    types.String("#343CED"),
+																			Key:      types.String("person_icon"),
+																			IconType: components.IconTypeGlyph.ToPointer(),
+																			Name:     types.String("user"),
+																		},
+																	},
+																},
+															},
+														},
+														LastReminder: &components.Reminder{
+															Assignee: components.Person{
+																Name:         "George Clooney",
+																ObfuscatedID: "abc123",
+																Metadata: &components.PersonMetadata{
+																	Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																	Title:      types.String("Actor"),
+																	Department: types.String("Movies"),
+																	Email:      types.String("george@example.com"),
+																	Location:   types.String("Hollywood, CA"),
+																	Phone:      types.String("6505551234"),
+																	PhotoURL:   types.String("https://example.com/george.jpg"),
+																	StartDate:  types.MustNewDateFromString("2000-01-23"),
+																	DatasourceProfile: []components.DatasourceProfile{
+																		components.DatasourceProfile{
+																			Datasource: "github",
+																			Handle:     "<value>",
+																		},
+																		components.DatasourceProfile{
+																			Datasource: "github",
+																			Handle:     "<value>",
+																		},
+																	},
+																	QuerySuggestions: &components.QuerySuggestionList{},
+																	InviteInfo:       &components.InviteInfo{},
+																	Badges: []components.Badge{
+																		components.Badge{
+																			Key:         types.String("deployment_name_new_hire"),
+																			DisplayName: types.String("New hire"),
+																			IconConfig: &components.IconConfig{
+																				Color:    types.String("#343CED"),
+																				Key:      types.String("person_icon"),
+																				IconType: components.IconTypeGlyph.ToPointer(),
+																				Name:     types.String("user"),
+																			},
+																		},
+																	},
+																},
+															},
+															Requestor: &components.Person{
+																Name:         "George Clooney",
+																ObfuscatedID: "abc123",
+																Metadata: &components.PersonMetadata{
+																	Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																	Title:      types.String("Actor"),
+																	Department: types.String("Movies"),
+																	Email:      types.String("george@example.com"),
+																	Location:   types.String("Hollywood, CA"),
+																	Phone:      types.String("6505551234"),
+																	PhotoURL:   types.String("https://example.com/george.jpg"),
+																	StartDate:  types.MustNewDateFromString("2000-01-23"),
+																	DatasourceProfile: []components.DatasourceProfile{
+																		components.DatasourceProfile{
+																			Datasource: "github",
+																			Handle:     "<value>",
+																		},
+																		components.DatasourceProfile{
+																			Datasource: "github",
+																			Handle:     "<value>",
+																		},
+																	},
+																	QuerySuggestions: &components.QuerySuggestionList{},
+																	InviteInfo:       &components.InviteInfo{},
+																	Badges: []components.Badge{
+																		components.Badge{
+																			Key:         types.String("deployment_name_new_hire"),
+																			DisplayName: types.String("New hire"),
+																			IconConfig: &components.IconConfig{
+																				Color:    types.String("#343CED"),
+																				Key:      types.String("person_icon"),
+																				IconType: components.IconTypeGlyph.ToPointer(),
+																				Name:     types.String("user"),
+																			},
+																		},
+																	},
+																},
+															},
+															RemindAt: 582533,
+														},
+													},
+												},
+												CustomData: map[string]components.CustomDataValue{
+													"someCustomField": components.CustomDataValue{},
+												},
+												ContactPerson: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+											},
+										},
+										Title:        types.String("title"),
+										URL:          "https://example.com/foo/bar",
+										NativeAppURL: types.String("slack://foo/bar"),
+										MustIncludeSuggestions: &components.QuerySuggestionList{
+											Person: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													InviteInfo: &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+										},
+										QuerySuggestion: &components.QuerySuggestion{
+											Query: "app:github type:pull author:mortimer",
+											SearchProviderInfo: &components.SearchProviderInfo{
+												Name:                  types.String("Google"),
+												SearchLinkURLTemplate: types.String("https://www.google.com/search?q={query}&hl=en"),
+											},
+											Label:      types.String("Mortimer's PRs"),
+											Datasource: types.String("github"),
+											RequestOptions: &components.SearchRequestOptions{
+												DatasourceFilter: types.String("JIRA"),
+												DatasourcesFilter: []string{
+													"JIRA",
+												},
+												QueryOverridesFacetFilters: types.Bool(true),
+												FacetFilters: []components.FacetFilter{
+													components.FacetFilter{
+														FieldName: types.String("type"),
+														Values: []components.FacetFilterValue{
+															components.FacetFilterValue{
+																Value:        types.String("Spreadsheet"),
+																RelationType: components.RelationTypeEquals.ToPointer(),
+															},
+															components.FacetFilterValue{
+																Value:        types.String("Presentation"),
+																RelationType: components.RelationTypeEquals.ToPointer(),
+															},
+														},
+													},
+												},
+												FacetFilterSets: []components.FacetFilterSet{
+													components.FacetFilterSet{
+														Filters: []components.FacetFilter{
+															components.FacetFilter{
+																FieldName: types.String("type"),
+																Values: []components.FacetFilterValue{
+																	components.FacetFilterValue{
+																		Value:        types.String("Spreadsheet"),
+																		RelationType: components.RelationTypeEquals.ToPointer(),
+																	},
+																	components.FacetFilterValue{
+																		Value:        types.String("Presentation"),
+																		RelationType: components.RelationTypeEquals.ToPointer(),
+																	},
+																},
+															},
+														},
+													},
+												},
+												FacetBucketSize: 995202,
+												AuthTokens: []components.AuthToken{
+													components.AuthToken{
+														AccessToken: "123abc",
+														Datasource:  "gmail",
+														Scope:       types.String("email profile https://www.googleapis.com/auth/gmail.readonly"),
+														TokenType:   types.String("Bearer"),
+														AuthUser:    types.String("1"),
+													},
+												},
+											},
+											InputDetails: &components.SearchRequestInputDetails{
+												HasCopyPaste: types.Bool(true),
+											},
+										},
+									},
+								},
+								Meeting: &components.Meeting{
+									Attendees: &components.CalendarAttendees{},
+								},
+								Collection: &components.Collection{
+									Name:        "<value>",
+									Description: "amid ugh er chubby why phooey so",
+									AudienceFilters: []components.FacetFilter{
+										components.FacetFilter{
+											FieldName: types.String("type"),
+											Values: []components.FacetFilterValue{
+												components.FacetFilterValue{
+													Value:        types.String("Spreadsheet"),
+													RelationType: components.RelationTypeEquals.ToPointer(),
+												},
+												components.FacetFilterValue{
+													Value:        types.String("Presentation"),
+													RelationType: components.RelationTypeEquals.ToPointer(),
+												},
+											},
+										},
+									},
+									ID: 592269,
+									Creator: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											QuerySuggestions: &components.QuerySuggestionList{},
+											InviteInfo:       &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+									UpdatedBy: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											QuerySuggestions: &components.QuerySuggestionList{},
+											InviteInfo:       &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+								},
+								AnswerBoard: &components.AnswerBoard{
+									Name:        "<value>",
+									Description: "after hot vulgarise gosh indeed misread",
+									AudienceFilters: []components.FacetFilter{
+										components.FacetFilter{
+											FieldName: types.String("type"),
+											Values: []components.FacetFilterValue{
+												components.FacetFilterValue{
+													Value:        types.String("Spreadsheet"),
+													RelationType: components.RelationTypeEquals.ToPointer(),
+												},
+												components.FacetFilterValue{
+													Value:        types.String("Presentation"),
+													RelationType: components.RelationTypeEquals.ToPointer(),
+												},
+											},
+										},
+									},
+									ID: 239738,
+									Creator: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											QuerySuggestions: &components.QuerySuggestionList{},
+											InviteInfo:       &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+									UpdatedBy: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											QuerySuggestions: &components.QuerySuggestionList{},
+											InviteInfo:       &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+								},
+								Code: &components.Code{
+									RepoName: types.String("scio"),
+									FileName: types.String("README.md"),
+								},
+								QuerySuggestions: &components.QuerySuggestionList{
+									Person: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											InviteInfo: &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+								},
+								RelatedQuestion: &components.RelatedQuestion{},
+							},
+							components.StructuredResult{
+								Document: &components.Document{
+									Metadata: &components.DocumentMetadata{
+										Datasource: types.String("datasource"),
+										ObjectType: types.String("Feature Request"),
+										Container:  types.String("container"),
+										ParentID:   types.String("JIRA_EN-1337"),
+										MimeType:   types.String("mimeType"),
+										DocumentID: types.String("documentId"),
+										CreateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+										UpdateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+										Author: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+										Owner: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+										Components: []string{
+											"Backend",
+											"Networking",
+										},
+										Status: types.String("[\"Done\"]"),
+										AssignedTo: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+										UpdatedBy: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+										Interactions: &components.DocumentInteractions{},
+										Verification: &components.Verification{
+											State: components.StateUnverified,
+											Metadata: &components.VerificationMetadata{
+												LastVerifier: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												LastReminder: &components.Reminder{
+													Assignee: components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													Requestor: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													RemindAt: 420328,
+												},
+											},
+										},
+										CustomData: map[string]components.CustomDataValue{
+											"someCustomField": components.CustomDataValue{},
+										},
+										ContactPerson: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+									},
+								},
+								Person: &components.Person{
+									Name:         "George Clooney",
+									ObfuscatedID: "abc123",
+									Metadata: &components.PersonMetadata{
+										Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+										Title:      types.String("Actor"),
+										Department: types.String("Movies"),
+										Email:      types.String("george@example.com"),
+										Location:   types.String("Hollywood, CA"),
+										Phone:      types.String("6505551234"),
+										PhotoURL:   types.String("https://example.com/george.jpg"),
+										StartDate:  types.MustNewDateFromString("2000-01-23"),
+										DatasourceProfile: []components.DatasourceProfile{
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+										},
+										QuerySuggestions: &components.QuerySuggestionList{},
+										InviteInfo:       &components.InviteInfo{},
+										Badges: []components.Badge{
+											components.Badge{
+												Key:         types.String("deployment_name_new_hire"),
+												DisplayName: types.String("New hire"),
+												IconConfig: &components.IconConfig{
+													Color:    types.String("#343CED"),
+													Key:      types.String("person_icon"),
+													IconType: components.IconTypeGlyph.ToPointer(),
+													Name:     types.String("user"),
+												},
+											},
+										},
+									},
+								},
+								Customer: &components.Customer{
+									ID: "<id>",
+									Company: components.Company{
+										Name:     "<value>",
+										Location: types.String("New York City"),
+										Industry: types.String("Finances"),
+										About:    types.String("Financial, software, data, and media company headquartered in Midtown Manhattan, New York City"),
+									},
+									Notes: types.String("CIO is interested in trying out the product."),
+								},
+								Team: &components.Team{
+									ID:   "<id>",
+									Name: "<value>",
+									DatasourceProfiles: []components.DatasourceProfile{
+										components.DatasourceProfile{
+											Datasource: "github",
+											Handle:     "<value>",
+										},
+										components.DatasourceProfile{
+											Datasource: "github",
+											Handle:     "<value>",
+										},
+										components.DatasourceProfile{
+											Datasource: "github",
+											Handle:     "<value>",
+										},
+									},
+									Status:       components.TeamStatusProcessed.ToPointer(),
+									CanBeDeleted: types.Bool(true),
+								},
+								CustomEntity: &components.CustomEntity{},
+								Answer: &components.Answer{
+									ID:       3,
+									DocID:    types.String("ANSWERS_answer_3"),
+									Question: types.String("Why is the sky blue?"),
+									BodyText: types.String("From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light."),
+									AudienceFilters: []components.FacetFilter{
+										components.FacetFilter{
+											FieldName: types.String("type"),
+											Values: []components.FacetFilterValue{
+												components.FacetFilterValue{
+													Value:        types.String("Spreadsheet"),
+													RelationType: components.RelationTypeEquals.ToPointer(),
+												},
+												components.FacetFilterValue{
+													Value:        types.String("Presentation"),
+													RelationType: components.RelationTypeEquals.ToPointer(),
+												},
+											},
+										},
+									},
+									CombinedAnswerText: &components.StructuredText{
+										Text: "From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+									},
+									Likes: &components.AnswerLikes{
+										LikedBy:     []components.AnswerLike{},
+										LikedByUser: false,
+										NumLikes:    480201,
+									},
+									Author: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											QuerySuggestions: &components.QuerySuggestionList{},
+											InviteInfo:       &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+									UpdatedBy: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											QuerySuggestions: &components.QuerySuggestionList{},
+											InviteInfo:       &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+									Verification: &components.Verification{
+										State: components.StateVerified,
+										Metadata: &components.VerificationMetadata{
+											LastVerifier: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Document: &components.Document{
+												Metadata: &components.DocumentMetadata{
+													Datasource: types.String("datasource"),
+													ObjectType: types.String("Feature Request"),
+													Container:  types.String("container"),
+													ParentID:   types.String("JIRA_EN-1337"),
+													MimeType:   types.String("mimeType"),
+													DocumentID: types.String("documentId"),
+													CreateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+													UpdateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+													Author: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													Owner: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													Components: []string{
+														"Backend",
+														"Networking",
+													},
+													Status: types.String("[\"Done\"]"),
+													AssignedTo: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													UpdatedBy: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													Interactions: &components.DocumentInteractions{},
+													CustomData: map[string]components.CustomDataValue{
+														"someCustomField": components.CustomDataValue{},
+													},
+													ContactPerson: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+												},
+											},
+											LastReminder: &components.Reminder{
+												Assignee: components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												Requestor: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												RemindAt: 11013,
+											},
+										},
+									},
+									Board: &components.AnswerBoard{
+										Name:        "<value>",
+										Description: "however impassioned along ill pace buzzing",
+										AudienceFilters: []components.FacetFilter{
+											components.FacetFilter{
+												FieldName: types.String("type"),
+												Values: []components.FacetFilterValue{
+													components.FacetFilterValue{
+														Value:        types.String("Spreadsheet"),
+														RelationType: components.RelationTypeEquals.ToPointer(),
+													},
+													components.FacetFilterValue{
+														Value:        types.String("Presentation"),
+														RelationType: components.RelationTypeEquals.ToPointer(),
+													},
+												},
+											},
+										},
+										ID: 101590,
+										Creator: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+										UpdatedBy: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+									},
+									SourceDocument: &components.Document{
+										Metadata: &components.DocumentMetadata{
+											Datasource: types.String("datasource"),
+											ObjectType: types.String("Feature Request"),
+											Container:  types.String("container"),
+											ParentID:   types.String("JIRA_EN-1337"),
+											MimeType:   types.String("mimeType"),
+											DocumentID: types.String("documentId"),
+											CreateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+											UpdateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+											Author: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Owner: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Components: []string{
+												"Backend",
+												"Networking",
+											},
+											Status: types.String("[\"Done\"]"),
+											AssignedTo: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											UpdatedBy: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Interactions: &components.DocumentInteractions{},
+											Verification: &components.Verification{
+												State: components.StateVerified,
+												Metadata: &components.VerificationMetadata{
+													LastVerifier: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													LastReminder: &components.Reminder{
+														Assignee: components.Person{
+															Name:         "George Clooney",
+															ObfuscatedID: "abc123",
+															Metadata: &components.PersonMetadata{
+																Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																Title:      types.String("Actor"),
+																Department: types.String("Movies"),
+																Email:      types.String("george@example.com"),
+																Location:   types.String("Hollywood, CA"),
+																Phone:      types.String("6505551234"),
+																PhotoURL:   types.String("https://example.com/george.jpg"),
+																StartDate:  types.MustNewDateFromString("2000-01-23"),
+																DatasourceProfile: []components.DatasourceProfile{
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																},
+																QuerySuggestions: &components.QuerySuggestionList{},
+																InviteInfo:       &components.InviteInfo{},
+																Badges: []components.Badge{
+																	components.Badge{
+																		Key:         types.String("deployment_name_new_hire"),
+																		DisplayName: types.String("New hire"),
+																		IconConfig: &components.IconConfig{
+																			Color:    types.String("#343CED"),
+																			Key:      types.String("person_icon"),
+																			IconType: components.IconTypeGlyph.ToPointer(),
+																			Name:     types.String("user"),
+																		},
+																	},
+																},
+															},
+														},
+														Requestor: &components.Person{
+															Name:         "George Clooney",
+															ObfuscatedID: "abc123",
+															Metadata: &components.PersonMetadata{
+																Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																Title:      types.String("Actor"),
+																Department: types.String("Movies"),
+																Email:      types.String("george@example.com"),
+																Location:   types.String("Hollywood, CA"),
+																Phone:      types.String("6505551234"),
+																PhotoURL:   types.String("https://example.com/george.jpg"),
+																StartDate:  types.MustNewDateFromString("2000-01-23"),
+																DatasourceProfile: []components.DatasourceProfile{
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																},
+																QuerySuggestions: &components.QuerySuggestionList{},
+																InviteInfo:       &components.InviteInfo{},
+																Badges: []components.Badge{
+																	components.Badge{
+																		Key:         types.String("deployment_name_new_hire"),
+																		DisplayName: types.String("New hire"),
+																		IconConfig: &components.IconConfig{
+																			Color:    types.String("#343CED"),
+																			Key:      types.String("person_icon"),
+																			IconType: components.IconTypeGlyph.ToPointer(),
+																			Name:     types.String("user"),
+																		},
+																	},
+																},
+															},
+														},
+														RemindAt: 560878,
+													},
+												},
+											},
+											CustomData: map[string]components.CustomDataValue{
+												"someCustomField": components.CustomDataValue{},
+											},
+											ContactPerson: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+										},
+									},
+								},
+								ExtractedQnA: &components.ExtractedQnA{
+									QuestionResult: &components.SearchResult{
+										Document: &components.Document{
+											Metadata: &components.DocumentMetadata{
+												Datasource: types.String("datasource"),
+												ObjectType: types.String("Feature Request"),
+												Container:  types.String("container"),
+												ParentID:   types.String("JIRA_EN-1337"),
+												MimeType:   types.String("mimeType"),
+												DocumentID: types.String("documentId"),
+												CreateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+												UpdateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+												Author: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												Owner: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												Components: []string{
+													"Backend",
+													"Networking",
+												},
+												Status: types.String("[\"Done\"]"),
+												AssignedTo: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												UpdatedBy: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												Interactions: &components.DocumentInteractions{},
+												Verification: &components.Verification{
+													State: components.StateDeprecated,
+													Metadata: &components.VerificationMetadata{
+														LastVerifier: &components.Person{
+															Name:         "George Clooney",
+															ObfuscatedID: "abc123",
+															Metadata: &components.PersonMetadata{
+																Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																Title:      types.String("Actor"),
+																Department: types.String("Movies"),
+																Email:      types.String("george@example.com"),
+																Location:   types.String("Hollywood, CA"),
+																Phone:      types.String("6505551234"),
+																PhotoURL:   types.String("https://example.com/george.jpg"),
+																StartDate:  types.MustNewDateFromString("2000-01-23"),
+																DatasourceProfile: []components.DatasourceProfile{
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																},
+																QuerySuggestions: &components.QuerySuggestionList{},
+																InviteInfo:       &components.InviteInfo{},
+																Badges: []components.Badge{
+																	components.Badge{
+																		Key:         types.String("deployment_name_new_hire"),
+																		DisplayName: types.String("New hire"),
+																		IconConfig: &components.IconConfig{
+																			Color:    types.String("#343CED"),
+																			Key:      types.String("person_icon"),
+																			IconType: components.IconTypeGlyph.ToPointer(),
+																			Name:     types.String("user"),
+																		},
+																	},
+																},
+															},
+														},
+														LastReminder: &components.Reminder{
+															Assignee: components.Person{
+																Name:         "George Clooney",
+																ObfuscatedID: "abc123",
+																Metadata: &components.PersonMetadata{
+																	Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																	Title:      types.String("Actor"),
+																	Department: types.String("Movies"),
+																	Email:      types.String("george@example.com"),
+																	Location:   types.String("Hollywood, CA"),
+																	Phone:      types.String("6505551234"),
+																	PhotoURL:   types.String("https://example.com/george.jpg"),
+																	StartDate:  types.MustNewDateFromString("2000-01-23"),
+																	DatasourceProfile: []components.DatasourceProfile{
+																		components.DatasourceProfile{
+																			Datasource: "github",
+																			Handle:     "<value>",
+																		},
+																		components.DatasourceProfile{
+																			Datasource: "github",
+																			Handle:     "<value>",
+																		},
+																	},
+																	QuerySuggestions: &components.QuerySuggestionList{},
+																	InviteInfo:       &components.InviteInfo{},
+																	Badges: []components.Badge{
+																		components.Badge{
+																			Key:         types.String("deployment_name_new_hire"),
+																			DisplayName: types.String("New hire"),
+																			IconConfig: &components.IconConfig{
+																				Color:    types.String("#343CED"),
+																				Key:      types.String("person_icon"),
+																				IconType: components.IconTypeGlyph.ToPointer(),
+																				Name:     types.String("user"),
+																			},
+																		},
+																	},
+																},
+															},
+															Requestor: &components.Person{
+																Name:         "George Clooney",
+																ObfuscatedID: "abc123",
+																Metadata: &components.PersonMetadata{
+																	Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																	Title:      types.String("Actor"),
+																	Department: types.String("Movies"),
+																	Email:      types.String("george@example.com"),
+																	Location:   types.String("Hollywood, CA"),
+																	Phone:      types.String("6505551234"),
+																	PhotoURL:   types.String("https://example.com/george.jpg"),
+																	StartDate:  types.MustNewDateFromString("2000-01-23"),
+																	DatasourceProfile: []components.DatasourceProfile{
+																		components.DatasourceProfile{
+																			Datasource: "github",
+																			Handle:     "<value>",
+																		},
+																		components.DatasourceProfile{
+																			Datasource: "github",
+																			Handle:     "<value>",
+																		},
+																	},
+																	QuerySuggestions: &components.QuerySuggestionList{},
+																	InviteInfo:       &components.InviteInfo{},
+																	Badges: []components.Badge{
+																		components.Badge{
+																			Key:         types.String("deployment_name_new_hire"),
+																			DisplayName: types.String("New hire"),
+																			IconConfig: &components.IconConfig{
+																				Color:    types.String("#343CED"),
+																				Key:      types.String("person_icon"),
+																				IconType: components.IconTypeGlyph.ToPointer(),
+																				Name:     types.String("user"),
+																			},
+																		},
+																	},
+																},
+															},
+															RemindAt: 61136,
+														},
+													},
+												},
+												CustomData: map[string]components.CustomDataValue{
+													"someCustomField": components.CustomDataValue{},
+												},
+												ContactPerson: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+											},
+										},
+										Title:        types.String("title"),
+										URL:          "https://example.com/foo/bar",
+										NativeAppURL: types.String("slack://foo/bar"),
+										MustIncludeSuggestions: &components.QuerySuggestionList{
+											Person: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													InviteInfo: &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+										},
+										QuerySuggestion: &components.QuerySuggestion{
+											Query: "app:github type:pull author:mortimer",
+											SearchProviderInfo: &components.SearchProviderInfo{
+												Name:                  types.String("Google"),
+												SearchLinkURLTemplate: types.String("https://www.google.com/search?q={query}&hl=en"),
+											},
+											Label:      types.String("Mortimer's PRs"),
+											Datasource: types.String("github"),
+											RequestOptions: &components.SearchRequestOptions{
+												DatasourceFilter: types.String("JIRA"),
+												DatasourcesFilter: []string{
+													"JIRA",
+												},
+												QueryOverridesFacetFilters: types.Bool(true),
+												FacetFilters: []components.FacetFilter{
+													components.FacetFilter{
+														FieldName: types.String("type"),
+														Values: []components.FacetFilterValue{
+															components.FacetFilterValue{
+																Value:        types.String("Spreadsheet"),
+																RelationType: components.RelationTypeEquals.ToPointer(),
+															},
+															components.FacetFilterValue{
+																Value:        types.String("Presentation"),
+																RelationType: components.RelationTypeEquals.ToPointer(),
+															},
+														},
+													},
+												},
+												FacetFilterSets: []components.FacetFilterSet{
+													components.FacetFilterSet{
+														Filters: []components.FacetFilter{
+															components.FacetFilter{
+																FieldName: types.String("type"),
+																Values: []components.FacetFilterValue{
+																	components.FacetFilterValue{
+																		Value:        types.String("Spreadsheet"),
+																		RelationType: components.RelationTypeEquals.ToPointer(),
+																	},
+																	components.FacetFilterValue{
+																		Value:        types.String("Presentation"),
+																		RelationType: components.RelationTypeEquals.ToPointer(),
+																	},
+																},
+															},
+														},
+													},
+													components.FacetFilterSet{
+														Filters: []components.FacetFilter{
+															components.FacetFilter{
+																FieldName: types.String("type"),
+																Values: []components.FacetFilterValue{
+																	components.FacetFilterValue{
+																		Value:        types.String("Spreadsheet"),
+																		RelationType: components.RelationTypeEquals.ToPointer(),
+																	},
+																	components.FacetFilterValue{
+																		Value:        types.String("Presentation"),
+																		RelationType: components.RelationTypeEquals.ToPointer(),
+																	},
+																},
+															},
+														},
+													},
+													components.FacetFilterSet{
+														Filters: []components.FacetFilter{
+															components.FacetFilter{
+																FieldName: types.String("type"),
+																Values: []components.FacetFilterValue{
+																	components.FacetFilterValue{
+																		Value:        types.String("Spreadsheet"),
+																		RelationType: components.RelationTypeEquals.ToPointer(),
+																	},
+																	components.FacetFilterValue{
+																		Value:        types.String("Presentation"),
+																		RelationType: components.RelationTypeEquals.ToPointer(),
+																	},
+																},
+															},
+														},
+													},
+												},
+												FacetBucketSize: 106627,
+												AuthTokens: []components.AuthToken{
+													components.AuthToken{
+														AccessToken: "123abc",
+														Datasource:  "gmail",
+														Scope:       types.String("email profile https://www.googleapis.com/auth/gmail.readonly"),
+														TokenType:   types.String("Bearer"),
+														AuthUser:    types.String("1"),
+													},
+												},
+											},
+											InputDetails: &components.SearchRequestInputDetails{
+												HasCopyPaste: types.Bool(true),
+											},
+										},
+									},
+								},
+								Meeting: &components.Meeting{
+									Attendees: &components.CalendarAttendees{},
+								},
+								Collection: &components.Collection{
+									Name:        "<value>",
+									Description: "consequently gee almost instance valentine armoire repeat bitter",
+									AudienceFilters: []components.FacetFilter{
+										components.FacetFilter{
+											FieldName: types.String("type"),
+											Values: []components.FacetFilterValue{
+												components.FacetFilterValue{
+													Value:        types.String("Spreadsheet"),
+													RelationType: components.RelationTypeEquals.ToPointer(),
+												},
+												components.FacetFilterValue{
+													Value:        types.String("Presentation"),
+													RelationType: components.RelationTypeEquals.ToPointer(),
+												},
+											},
+										},
+									},
+									ID: 653155,
+									Creator: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											QuerySuggestions: &components.QuerySuggestionList{},
+											InviteInfo:       &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+									UpdatedBy: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											QuerySuggestions: &components.QuerySuggestionList{},
+											InviteInfo:       &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+								},
+								AnswerBoard: &components.AnswerBoard{
+									Name:        "<value>",
+									Description: "whispered striking ack transcend supposing pleasure",
+									AudienceFilters: []components.FacetFilter{
+										components.FacetFilter{
+											FieldName: types.String("type"),
+											Values: []components.FacetFilterValue{
+												components.FacetFilterValue{
+													Value:        types.String("Spreadsheet"),
+													RelationType: components.RelationTypeEquals.ToPointer(),
+												},
+												components.FacetFilterValue{
+													Value:        types.String("Presentation"),
+													RelationType: components.RelationTypeEquals.ToPointer(),
+												},
+											},
+										},
+									},
+									ID: 740382,
+									Creator: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											QuerySuggestions: &components.QuerySuggestionList{},
+											InviteInfo:       &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+									UpdatedBy: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											QuerySuggestions: &components.QuerySuggestionList{},
+											InviteInfo:       &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+								},
+								Code: &components.Code{
+									RepoName: types.String("scio"),
+									FileName: types.String("README.md"),
+								},
+								QuerySuggestions: &components.QuerySuggestionList{
+									Person: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											InviteInfo: &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+								},
+								RelatedQuestion: &components.RelatedQuestion{},
+							},
+						},
+						QuerySuggestion: &components.QuerySuggestion{
+							Query: "app:github type:pull author:mortimer",
+							SearchProviderInfo: &components.SearchProviderInfo{
+								Name:                  types.String("Google"),
+								SearchLinkURLTemplate: types.String("https://www.google.com/search?q={query}&hl=en"),
+							},
+							Label:      types.String("Mortimer's PRs"),
+							Datasource: types.String("github"),
+							RequestOptions: &components.SearchRequestOptions{
+								DatasourceFilter: types.String("JIRA"),
+								DatasourcesFilter: []string{
+									"JIRA",
+								},
+								QueryOverridesFacetFilters: types.Bool(true),
+								FacetFilters: []components.FacetFilter{
+									components.FacetFilter{
+										FieldName: types.String("type"),
+										Values: []components.FacetFilterValue{
+											components.FacetFilterValue{
+												Value:        types.String("Spreadsheet"),
+												RelationType: components.RelationTypeEquals.ToPointer(),
+											},
+											components.FacetFilterValue{
+												Value:        types.String("Presentation"),
+												RelationType: components.RelationTypeEquals.ToPointer(),
+											},
+										},
+									},
+								},
+								FacetFilterSets: []components.FacetFilterSet{
+									components.FacetFilterSet{
+										Filters: []components.FacetFilter{
+											components.FacetFilter{
+												FieldName: types.String("type"),
+												Values: []components.FacetFilterValue{
+													components.FacetFilterValue{
+														Value:        types.String("Spreadsheet"),
+														RelationType: components.RelationTypeEquals.ToPointer(),
+													},
+													components.FacetFilterValue{
+														Value:        types.String("Presentation"),
+														RelationType: components.RelationTypeEquals.ToPointer(),
+													},
+												},
+											},
+										},
+									},
+									components.FacetFilterSet{
+										Filters: []components.FacetFilter{
+											components.FacetFilter{
+												FieldName: types.String("type"),
+												Values: []components.FacetFilterValue{
+													components.FacetFilterValue{
+														Value:        types.String("Spreadsheet"),
+														RelationType: components.RelationTypeEquals.ToPointer(),
+													},
+													components.FacetFilterValue{
+														Value:        types.String("Presentation"),
+														RelationType: components.RelationTypeEquals.ToPointer(),
+													},
+												},
+											},
+										},
+									},
+								},
+								FacetBucketSize: 735682,
+								AuthTokens: []components.AuthToken{
+									components.AuthToken{
+										AccessToken: "123abc",
+										Datasource:  "gmail",
+										Scope:       types.String("email profile https://www.googleapis.com/auth/gmail.readonly"),
+										TokenType:   types.String("Bearer"),
+										AuthUser:    types.String("1"),
+									},
+								},
+							},
+							InputDetails: &components.SearchRequestInputDetails{
+								HasCopyPaste: types.Bool(true),
+							},
 						},
 						File: &components.ChatFile{
 							ID:   types.String("FILE_1234"),
@@ -509,13 +11319,712 @@ func testRunagentRunagent0(w http.ResponseWriter, req *http.Request) {
 				Author: components.AuthorUser.ToPointer(),
 				Citations: []components.ChatMessageCitation{
 					components.ChatMessageCitation{
+						SourceDocument: &components.Document{
+							Metadata: &components.DocumentMetadata{
+								Datasource: types.String("datasource"),
+								ObjectType: types.String("Feature Request"),
+								Container:  types.String("container"),
+								ParentID:   types.String("JIRA_EN-1337"),
+								MimeType:   types.String("mimeType"),
+								DocumentID: types.String("documentId"),
+								CreateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+								UpdateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+								Author: &components.Person{
+									Name:         "George Clooney",
+									ObfuscatedID: "abc123",
+									Metadata: &components.PersonMetadata{
+										Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+										Title:      types.String("Actor"),
+										Department: types.String("Movies"),
+										Email:      types.String("george@example.com"),
+										Location:   types.String("Hollywood, CA"),
+										Phone:      types.String("6505551234"),
+										PhotoURL:   types.String("https://example.com/george.jpg"),
+										StartDate:  types.MustNewDateFromString("2000-01-23"),
+										DatasourceProfile: []components.DatasourceProfile{
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+										},
+										QuerySuggestions: &components.QuerySuggestionList{},
+										InviteInfo:       &components.InviteInfo{},
+										Badges: []components.Badge{
+											components.Badge{
+												Key:         types.String("deployment_name_new_hire"),
+												DisplayName: types.String("New hire"),
+												IconConfig: &components.IconConfig{
+													Color:    types.String("#343CED"),
+													Key:      types.String("person_icon"),
+													IconType: components.IconTypeGlyph.ToPointer(),
+													Name:     types.String("user"),
+												},
+											},
+										},
+									},
+								},
+								Owner: &components.Person{
+									Name:         "George Clooney",
+									ObfuscatedID: "abc123",
+									Metadata: &components.PersonMetadata{
+										Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+										Title:      types.String("Actor"),
+										Department: types.String("Movies"),
+										Email:      types.String("george@example.com"),
+										Location:   types.String("Hollywood, CA"),
+										Phone:      types.String("6505551234"),
+										PhotoURL:   types.String("https://example.com/george.jpg"),
+										StartDate:  types.MustNewDateFromString("2000-01-23"),
+										DatasourceProfile: []components.DatasourceProfile{
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+										},
+										QuerySuggestions: &components.QuerySuggestionList{},
+										InviteInfo:       &components.InviteInfo{},
+										Badges: []components.Badge{
+											components.Badge{
+												Key:         types.String("deployment_name_new_hire"),
+												DisplayName: types.String("New hire"),
+												IconConfig: &components.IconConfig{
+													Color:    types.String("#343CED"),
+													Key:      types.String("person_icon"),
+													IconType: components.IconTypeGlyph.ToPointer(),
+													Name:     types.String("user"),
+												},
+											},
+										},
+									},
+								},
+								Components: []string{
+									"Backend",
+									"Networking",
+								},
+								Status: types.String("[\"Done\"]"),
+								AssignedTo: &components.Person{
+									Name:         "George Clooney",
+									ObfuscatedID: "abc123",
+									Metadata: &components.PersonMetadata{
+										Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+										Title:      types.String("Actor"),
+										Department: types.String("Movies"),
+										Email:      types.String("george@example.com"),
+										Location:   types.String("Hollywood, CA"),
+										Phone:      types.String("6505551234"),
+										PhotoURL:   types.String("https://example.com/george.jpg"),
+										StartDate:  types.MustNewDateFromString("2000-01-23"),
+										DatasourceProfile: []components.DatasourceProfile{
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+										},
+										QuerySuggestions: &components.QuerySuggestionList{},
+										InviteInfo:       &components.InviteInfo{},
+										Badges: []components.Badge{
+											components.Badge{
+												Key:         types.String("deployment_name_new_hire"),
+												DisplayName: types.String("New hire"),
+												IconConfig: &components.IconConfig{
+													Color:    types.String("#343CED"),
+													Key:      types.String("person_icon"),
+													IconType: components.IconTypeGlyph.ToPointer(),
+													Name:     types.String("user"),
+												},
+											},
+										},
+									},
+								},
+								UpdatedBy: &components.Person{
+									Name:         "George Clooney",
+									ObfuscatedID: "abc123",
+									Metadata: &components.PersonMetadata{
+										Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+										Title:      types.String("Actor"),
+										Department: types.String("Movies"),
+										Email:      types.String("george@example.com"),
+										Location:   types.String("Hollywood, CA"),
+										Phone:      types.String("6505551234"),
+										PhotoURL:   types.String("https://example.com/george.jpg"),
+										StartDate:  types.MustNewDateFromString("2000-01-23"),
+										DatasourceProfile: []components.DatasourceProfile{
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+										},
+										QuerySuggestions: &components.QuerySuggestionList{},
+										InviteInfo:       &components.InviteInfo{},
+										Badges: []components.Badge{
+											components.Badge{
+												Key:         types.String("deployment_name_new_hire"),
+												DisplayName: types.String("New hire"),
+												IconConfig: &components.IconConfig{
+													Color:    types.String("#343CED"),
+													Key:      types.String("person_icon"),
+													IconType: components.IconTypeGlyph.ToPointer(),
+													Name:     types.String("user"),
+												},
+											},
+										},
+									},
+								},
+								Interactions: &components.DocumentInteractions{},
+								Verification: &components.Verification{
+									State: components.StateVerified,
+									Metadata: &components.VerificationMetadata{
+										LastVerifier: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+										LastReminder: &components.Reminder{
+											Assignee: components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Requestor: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											RemindAt: 565864,
+										},
+									},
+								},
+								CustomData: map[string]components.CustomDataValue{
+									"someCustomField": components.CustomDataValue{},
+								},
+								ContactPerson: &components.Person{
+									Name:         "George Clooney",
+									ObfuscatedID: "abc123",
+									Metadata: &components.PersonMetadata{
+										Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+										Title:      types.String("Actor"),
+										Department: types.String("Movies"),
+										Email:      types.String("george@example.com"),
+										Location:   types.String("Hollywood, CA"),
+										Phone:      types.String("6505551234"),
+										PhotoURL:   types.String("https://example.com/george.jpg"),
+										StartDate:  types.MustNewDateFromString("2000-01-23"),
+										DatasourceProfile: []components.DatasourceProfile{
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+										},
+										QuerySuggestions: &components.QuerySuggestionList{},
+										InviteInfo:       &components.InviteInfo{},
+										Badges: []components.Badge{
+											components.Badge{
+												Key:         types.String("deployment_name_new_hire"),
+												DisplayName: types.String("New hire"),
+												IconConfig: &components.IconConfig{
+													Color:    types.String("#343CED"),
+													Key:      types.String("person_icon"),
+													IconType: components.IconTypeGlyph.ToPointer(),
+													Name:     types.String("user"),
+												},
+											},
+										},
+									},
+								},
+							},
+						},
 						SourceFile: &components.ChatFile{
 							ID:   types.String("FILE_1234"),
 							URL:  types.String("www.google.com"),
 							Name: types.String("sample.pdf"),
 						},
+						SourcePerson: &components.Person{
+							Name:         "George Clooney",
+							ObfuscatedID: "abc123",
+							Metadata: &components.PersonMetadata{
+								Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+								Title:      types.String("Actor"),
+								Department: types.String("Movies"),
+								Email:      types.String("george@example.com"),
+								Location:   types.String("Hollywood, CA"),
+								Phone:      types.String("6505551234"),
+								PhotoURL:   types.String("https://example.com/george.jpg"),
+								StartDate:  types.MustNewDateFromString("2000-01-23"),
+								DatasourceProfile: []components.DatasourceProfile{
+									components.DatasourceProfile{
+										Datasource: "github",
+										Handle:     "<value>",
+									},
+									components.DatasourceProfile{
+										Datasource: "github",
+										Handle:     "<value>",
+									},
+								},
+								QuerySuggestions: &components.QuerySuggestionList{},
+								InviteInfo:       &components.InviteInfo{},
+								Badges: []components.Badge{
+									components.Badge{
+										Key:         types.String("deployment_name_new_hire"),
+										DisplayName: types.String("New hire"),
+										IconConfig: &components.IconConfig{
+											Color:    types.String("#343CED"),
+											Key:      types.String("person_icon"),
+											IconType: components.IconTypeGlyph.ToPointer(),
+											Name:     types.String("user"),
+										},
+									},
+								},
+							},
+						},
 						ReferenceRanges: []components.ReferenceRange{
 							components.ReferenceRange{
+								TextRange: &components.TextRange{
+									StartIndex: 49131,
+									Document: &components.Document{
+										Metadata: &components.DocumentMetadata{
+											Datasource: types.String("datasource"),
+											ObjectType: types.String("Feature Request"),
+											Container:  types.String("container"),
+											ParentID:   types.String("JIRA_EN-1337"),
+											MimeType:   types.String("mimeType"),
+											DocumentID: types.String("documentId"),
+											CreateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+											UpdateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+											Author: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Owner: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Components: []string{
+												"Backend",
+												"Networking",
+											},
+											Status: types.String("[\"Done\"]"),
+											AssignedTo: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											UpdatedBy: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Interactions: &components.DocumentInteractions{},
+											Verification: &components.Verification{
+												State: components.StateUnverified,
+												Metadata: &components.VerificationMetadata{
+													LastVerifier: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													LastReminder: &components.Reminder{
+														Assignee: components.Person{
+															Name:         "George Clooney",
+															ObfuscatedID: "abc123",
+															Metadata: &components.PersonMetadata{
+																Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																Title:      types.String("Actor"),
+																Department: types.String("Movies"),
+																Email:      types.String("george@example.com"),
+																Location:   types.String("Hollywood, CA"),
+																Phone:      types.String("6505551234"),
+																PhotoURL:   types.String("https://example.com/george.jpg"),
+																StartDate:  types.MustNewDateFromString("2000-01-23"),
+																DatasourceProfile: []components.DatasourceProfile{
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																},
+																QuerySuggestions: &components.QuerySuggestionList{},
+																InviteInfo:       &components.InviteInfo{},
+																Badges: []components.Badge{
+																	components.Badge{
+																		Key:         types.String("deployment_name_new_hire"),
+																		DisplayName: types.String("New hire"),
+																		IconConfig: &components.IconConfig{
+																			Color:    types.String("#343CED"),
+																			Key:      types.String("person_icon"),
+																			IconType: components.IconTypeGlyph.ToPointer(),
+																			Name:     types.String("user"),
+																		},
+																	},
+																},
+															},
+														},
+														Requestor: &components.Person{
+															Name:         "George Clooney",
+															ObfuscatedID: "abc123",
+															Metadata: &components.PersonMetadata{
+																Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																Title:      types.String("Actor"),
+																Department: types.String("Movies"),
+																Email:      types.String("george@example.com"),
+																Location:   types.String("Hollywood, CA"),
+																Phone:      types.String("6505551234"),
+																PhotoURL:   types.String("https://example.com/george.jpg"),
+																StartDate:  types.MustNewDateFromString("2000-01-23"),
+																DatasourceProfile: []components.DatasourceProfile{
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																},
+																QuerySuggestions: &components.QuerySuggestionList{},
+																InviteInfo:       &components.InviteInfo{},
+																Badges: []components.Badge{
+																	components.Badge{
+																		Key:         types.String("deployment_name_new_hire"),
+																		DisplayName: types.String("New hire"),
+																		IconConfig: &components.IconConfig{
+																			Color:    types.String("#343CED"),
+																			Key:      types.String("person_icon"),
+																			IconType: components.IconTypeGlyph.ToPointer(),
+																			Name:     types.String("user"),
+																		},
+																	},
+																},
+															},
+														},
+														RemindAt: 223157,
+													},
+												},
+											},
+											CustomData: map[string]components.CustomDataValue{
+												"someCustomField": components.CustomDataValue{},
+											},
+											ContactPerson: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+										},
+									},
+								},
 								Snippets: []components.SearchResultSnippet{
 									components.SearchResultSnippet{
 										Snippet:  "snippet",
@@ -529,9 +12038,5927 @@ func testRunagentRunagent0(w http.ResponseWriter, req *http.Request) {
 				Fragments: []components.ChatMessageFragment{
 					components.ChatMessageFragment{
 						StructuredResults: []components.StructuredResult{
-							components.StructuredResult{},
-							components.StructuredResult{},
-							components.StructuredResult{},
+							components.StructuredResult{
+								Document: &components.Document{
+									Metadata: &components.DocumentMetadata{
+										Datasource: types.String("datasource"),
+										ObjectType: types.String("Feature Request"),
+										Container:  types.String("container"),
+										ParentID:   types.String("JIRA_EN-1337"),
+										MimeType:   types.String("mimeType"),
+										DocumentID: types.String("documentId"),
+										CreateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+										UpdateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+										Author: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+										Owner: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+										Components: []string{
+											"Backend",
+											"Networking",
+										},
+										Status: types.String("[\"Done\"]"),
+										AssignedTo: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+										UpdatedBy: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+										Interactions: &components.DocumentInteractions{},
+										Verification: &components.Verification{
+											State: components.StateDeprecated,
+											Metadata: &components.VerificationMetadata{
+												LastVerifier: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												LastReminder: &components.Reminder{
+													Assignee: components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													Requestor: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													RemindAt: 912549,
+												},
+											},
+										},
+										CustomData: map[string]components.CustomDataValue{
+											"someCustomField": components.CustomDataValue{},
+										},
+										ContactPerson: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+									},
+								},
+								Person: &components.Person{
+									Name:         "George Clooney",
+									ObfuscatedID: "abc123",
+									Metadata: &components.PersonMetadata{
+										Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+										Title:      types.String("Actor"),
+										Department: types.String("Movies"),
+										Email:      types.String("george@example.com"),
+										Location:   types.String("Hollywood, CA"),
+										Phone:      types.String("6505551234"),
+										PhotoURL:   types.String("https://example.com/george.jpg"),
+										StartDate:  types.MustNewDateFromString("2000-01-23"),
+										DatasourceProfile: []components.DatasourceProfile{
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+										},
+										QuerySuggestions: &components.QuerySuggestionList{},
+										InviteInfo:       &components.InviteInfo{},
+										Badges: []components.Badge{
+											components.Badge{
+												Key:         types.String("deployment_name_new_hire"),
+												DisplayName: types.String("New hire"),
+												IconConfig: &components.IconConfig{
+													Color:    types.String("#343CED"),
+													Key:      types.String("person_icon"),
+													IconType: components.IconTypeGlyph.ToPointer(),
+													Name:     types.String("user"),
+												},
+											},
+										},
+									},
+								},
+								Customer: &components.Customer{
+									ID: "<id>",
+									Company: components.Company{
+										Name:     "<value>",
+										Location: types.String("New York City"),
+										Industry: types.String("Finances"),
+										About:    types.String("Financial, software, data, and media company headquartered in Midtown Manhattan, New York City"),
+									},
+									Notes: types.String("CIO is interested in trying out the product."),
+								},
+								Team: &components.Team{
+									ID:   "<id>",
+									Name: "<value>",
+									DatasourceProfiles: []components.DatasourceProfile{
+										components.DatasourceProfile{
+											Datasource: "github",
+											Handle:     "<value>",
+										},
+									},
+									Status:       components.TeamStatusProcessed.ToPointer(),
+									CanBeDeleted: types.Bool(true),
+								},
+								CustomEntity: &components.CustomEntity{},
+								Answer: &components.Answer{
+									ID:       3,
+									DocID:    types.String("ANSWERS_answer_3"),
+									Question: types.String("Why is the sky blue?"),
+									BodyText: types.String("From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light."),
+									AudienceFilters: []components.FacetFilter{
+										components.FacetFilter{
+											FieldName: types.String("type"),
+											Values: []components.FacetFilterValue{
+												components.FacetFilterValue{
+													Value:        types.String("Spreadsheet"),
+													RelationType: components.RelationTypeEquals.ToPointer(),
+												},
+												components.FacetFilterValue{
+													Value:        types.String("Presentation"),
+													RelationType: components.RelationTypeEquals.ToPointer(),
+												},
+											},
+										},
+									},
+									CombinedAnswerText: &components.StructuredText{
+										Text: "From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+									},
+									Likes: &components.AnswerLikes{
+										LikedBy:     []components.AnswerLike{},
+										LikedByUser: false,
+										NumLikes:    99865,
+									},
+									Author: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											QuerySuggestions: &components.QuerySuggestionList{},
+											InviteInfo:       &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+									UpdatedBy: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											QuerySuggestions: &components.QuerySuggestionList{},
+											InviteInfo:       &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+									Verification: &components.Verification{
+										State: components.StateUnverified,
+										Metadata: &components.VerificationMetadata{
+											LastVerifier: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Document: &components.Document{
+												Metadata: &components.DocumentMetadata{
+													Datasource: types.String("datasource"),
+													ObjectType: types.String("Feature Request"),
+													Container:  types.String("container"),
+													ParentID:   types.String("JIRA_EN-1337"),
+													MimeType:   types.String("mimeType"),
+													DocumentID: types.String("documentId"),
+													CreateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+													UpdateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+													Author: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													Owner: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													Components: []string{
+														"Backend",
+														"Networking",
+													},
+													Status: types.String("[\"Done\"]"),
+													AssignedTo: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													UpdatedBy: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													Interactions: &components.DocumentInteractions{},
+													CustomData: map[string]components.CustomDataValue{
+														"someCustomField": components.CustomDataValue{},
+													},
+													ContactPerson: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+												},
+											},
+											LastReminder: &components.Reminder{
+												Assignee: components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												Requestor: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												RemindAt: 10382,
+											},
+										},
+									},
+									Board: &components.AnswerBoard{
+										Name:        "<value>",
+										Description: "dual swiftly beautifully slake vastly kissingly",
+										AudienceFilters: []components.FacetFilter{
+											components.FacetFilter{
+												FieldName: types.String("type"),
+												Values: []components.FacetFilterValue{
+													components.FacetFilterValue{
+														Value:        types.String("Spreadsheet"),
+														RelationType: components.RelationTypeEquals.ToPointer(),
+													},
+													components.FacetFilterValue{
+														Value:        types.String("Presentation"),
+														RelationType: components.RelationTypeEquals.ToPointer(),
+													},
+												},
+											},
+										},
+										ID: 89347,
+										Creator: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+										UpdatedBy: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+									},
+									SourceDocument: &components.Document{
+										Metadata: &components.DocumentMetadata{
+											Datasource: types.String("datasource"),
+											ObjectType: types.String("Feature Request"),
+											Container:  types.String("container"),
+											ParentID:   types.String("JIRA_EN-1337"),
+											MimeType:   types.String("mimeType"),
+											DocumentID: types.String("documentId"),
+											CreateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+											UpdateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+											Author: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Owner: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Components: []string{
+												"Backend",
+												"Networking",
+											},
+											Status: types.String("[\"Done\"]"),
+											AssignedTo: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											UpdatedBy: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Interactions: &components.DocumentInteractions{},
+											Verification: &components.Verification{
+												State: components.StateUnverified,
+												Metadata: &components.VerificationMetadata{
+													LastVerifier: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													LastReminder: &components.Reminder{
+														Assignee: components.Person{
+															Name:         "George Clooney",
+															ObfuscatedID: "abc123",
+															Metadata: &components.PersonMetadata{
+																Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																Title:      types.String("Actor"),
+																Department: types.String("Movies"),
+																Email:      types.String("george@example.com"),
+																Location:   types.String("Hollywood, CA"),
+																Phone:      types.String("6505551234"),
+																PhotoURL:   types.String("https://example.com/george.jpg"),
+																StartDate:  types.MustNewDateFromString("2000-01-23"),
+																DatasourceProfile: []components.DatasourceProfile{
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																},
+																QuerySuggestions: &components.QuerySuggestionList{},
+																InviteInfo:       &components.InviteInfo{},
+																Badges: []components.Badge{
+																	components.Badge{
+																		Key:         types.String("deployment_name_new_hire"),
+																		DisplayName: types.String("New hire"),
+																		IconConfig: &components.IconConfig{
+																			Color:    types.String("#343CED"),
+																			Key:      types.String("person_icon"),
+																			IconType: components.IconTypeGlyph.ToPointer(),
+																			Name:     types.String("user"),
+																		},
+																	},
+																},
+															},
+														},
+														Requestor: &components.Person{
+															Name:         "George Clooney",
+															ObfuscatedID: "abc123",
+															Metadata: &components.PersonMetadata{
+																Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																Title:      types.String("Actor"),
+																Department: types.String("Movies"),
+																Email:      types.String("george@example.com"),
+																Location:   types.String("Hollywood, CA"),
+																Phone:      types.String("6505551234"),
+																PhotoURL:   types.String("https://example.com/george.jpg"),
+																StartDate:  types.MustNewDateFromString("2000-01-23"),
+																DatasourceProfile: []components.DatasourceProfile{
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																},
+																QuerySuggestions: &components.QuerySuggestionList{},
+																InviteInfo:       &components.InviteInfo{},
+																Badges: []components.Badge{
+																	components.Badge{
+																		Key:         types.String("deployment_name_new_hire"),
+																		DisplayName: types.String("New hire"),
+																		IconConfig: &components.IconConfig{
+																			Color:    types.String("#343CED"),
+																			Key:      types.String("person_icon"),
+																			IconType: components.IconTypeGlyph.ToPointer(),
+																			Name:     types.String("user"),
+																		},
+																	},
+																},
+															},
+														},
+														RemindAt: 848520,
+													},
+												},
+											},
+											CustomData: map[string]components.CustomDataValue{
+												"someCustomField": components.CustomDataValue{},
+											},
+											ContactPerson: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+										},
+									},
+								},
+								ExtractedQnA: &components.ExtractedQnA{
+									QuestionResult: &components.SearchResult{
+										Document: &components.Document{
+											Metadata: &components.DocumentMetadata{
+												Datasource: types.String("datasource"),
+												ObjectType: types.String("Feature Request"),
+												Container:  types.String("container"),
+												ParentID:   types.String("JIRA_EN-1337"),
+												MimeType:   types.String("mimeType"),
+												DocumentID: types.String("documentId"),
+												CreateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+												UpdateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+												Author: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												Owner: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												Components: []string{
+													"Backend",
+													"Networking",
+												},
+												Status: types.String("[\"Done\"]"),
+												AssignedTo: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												UpdatedBy: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												Interactions: &components.DocumentInteractions{},
+												Verification: &components.Verification{
+													State: components.StateVerified,
+													Metadata: &components.VerificationMetadata{
+														LastVerifier: &components.Person{
+															Name:         "George Clooney",
+															ObfuscatedID: "abc123",
+															Metadata: &components.PersonMetadata{
+																Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																Title:      types.String("Actor"),
+																Department: types.String("Movies"),
+																Email:      types.String("george@example.com"),
+																Location:   types.String("Hollywood, CA"),
+																Phone:      types.String("6505551234"),
+																PhotoURL:   types.String("https://example.com/george.jpg"),
+																StartDate:  types.MustNewDateFromString("2000-01-23"),
+																DatasourceProfile: []components.DatasourceProfile{
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																},
+																QuerySuggestions: &components.QuerySuggestionList{},
+																InviteInfo:       &components.InviteInfo{},
+																Badges: []components.Badge{
+																	components.Badge{
+																		Key:         types.String("deployment_name_new_hire"),
+																		DisplayName: types.String("New hire"),
+																		IconConfig: &components.IconConfig{
+																			Color:    types.String("#343CED"),
+																			Key:      types.String("person_icon"),
+																			IconType: components.IconTypeGlyph.ToPointer(),
+																			Name:     types.String("user"),
+																		},
+																	},
+																},
+															},
+														},
+														LastReminder: &components.Reminder{
+															Assignee: components.Person{
+																Name:         "George Clooney",
+																ObfuscatedID: "abc123",
+																Metadata: &components.PersonMetadata{
+																	Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																	Title:      types.String("Actor"),
+																	Department: types.String("Movies"),
+																	Email:      types.String("george@example.com"),
+																	Location:   types.String("Hollywood, CA"),
+																	Phone:      types.String("6505551234"),
+																	PhotoURL:   types.String("https://example.com/george.jpg"),
+																	StartDate:  types.MustNewDateFromString("2000-01-23"),
+																	DatasourceProfile: []components.DatasourceProfile{
+																		components.DatasourceProfile{
+																			Datasource: "github",
+																			Handle:     "<value>",
+																		},
+																		components.DatasourceProfile{
+																			Datasource: "github",
+																			Handle:     "<value>",
+																		},
+																	},
+																	QuerySuggestions: &components.QuerySuggestionList{},
+																	InviteInfo:       &components.InviteInfo{},
+																	Badges: []components.Badge{
+																		components.Badge{
+																			Key:         types.String("deployment_name_new_hire"),
+																			DisplayName: types.String("New hire"),
+																			IconConfig: &components.IconConfig{
+																				Color:    types.String("#343CED"),
+																				Key:      types.String("person_icon"),
+																				IconType: components.IconTypeGlyph.ToPointer(),
+																				Name:     types.String("user"),
+																			},
+																		},
+																	},
+																},
+															},
+															Requestor: &components.Person{
+																Name:         "George Clooney",
+																ObfuscatedID: "abc123",
+																Metadata: &components.PersonMetadata{
+																	Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																	Title:      types.String("Actor"),
+																	Department: types.String("Movies"),
+																	Email:      types.String("george@example.com"),
+																	Location:   types.String("Hollywood, CA"),
+																	Phone:      types.String("6505551234"),
+																	PhotoURL:   types.String("https://example.com/george.jpg"),
+																	StartDate:  types.MustNewDateFromString("2000-01-23"),
+																	DatasourceProfile: []components.DatasourceProfile{
+																		components.DatasourceProfile{
+																			Datasource: "github",
+																			Handle:     "<value>",
+																		},
+																	},
+																	QuerySuggestions: &components.QuerySuggestionList{},
+																	InviteInfo:       &components.InviteInfo{},
+																	Badges: []components.Badge{
+																		components.Badge{
+																			Key:         types.String("deployment_name_new_hire"),
+																			DisplayName: types.String("New hire"),
+																			IconConfig: &components.IconConfig{
+																				Color:    types.String("#343CED"),
+																				Key:      types.String("person_icon"),
+																				IconType: components.IconTypeGlyph.ToPointer(),
+																				Name:     types.String("user"),
+																			},
+																		},
+																	},
+																},
+															},
+															RemindAt: 903550,
+														},
+													},
+												},
+												CustomData: map[string]components.CustomDataValue{
+													"someCustomField": components.CustomDataValue{},
+												},
+												ContactPerson: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+											},
+										},
+										Title:        types.String("title"),
+										URL:          "https://example.com/foo/bar",
+										NativeAppURL: types.String("slack://foo/bar"),
+										MustIncludeSuggestions: &components.QuerySuggestionList{
+											Person: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													InviteInfo: &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+										},
+										QuerySuggestion: &components.QuerySuggestion{
+											Query: "app:github type:pull author:mortimer",
+											SearchProviderInfo: &components.SearchProviderInfo{
+												Name:                  types.String("Google"),
+												SearchLinkURLTemplate: types.String("https://www.google.com/search?q={query}&hl=en"),
+											},
+											Label:      types.String("Mortimer's PRs"),
+											Datasource: types.String("github"),
+											RequestOptions: &components.SearchRequestOptions{
+												DatasourceFilter: types.String("JIRA"),
+												DatasourcesFilter: []string{
+													"JIRA",
+												},
+												QueryOverridesFacetFilters: types.Bool(true),
+												FacetFilters: []components.FacetFilter{
+													components.FacetFilter{
+														FieldName: types.String("type"),
+														Values: []components.FacetFilterValue{
+															components.FacetFilterValue{
+																Value:        types.String("Spreadsheet"),
+																RelationType: components.RelationTypeEquals.ToPointer(),
+															},
+															components.FacetFilterValue{
+																Value:        types.String("Presentation"),
+																RelationType: components.RelationTypeEquals.ToPointer(),
+															},
+														},
+													},
+												},
+												FacetFilterSets: []components.FacetFilterSet{
+													components.FacetFilterSet{
+														Filters: []components.FacetFilter{
+															components.FacetFilter{
+																FieldName: types.String("type"),
+																Values: []components.FacetFilterValue{
+																	components.FacetFilterValue{
+																		Value:        types.String("Spreadsheet"),
+																		RelationType: components.RelationTypeEquals.ToPointer(),
+																	},
+																	components.FacetFilterValue{
+																		Value:        types.String("Presentation"),
+																		RelationType: components.RelationTypeEquals.ToPointer(),
+																	},
+																},
+															},
+														},
+													},
+												},
+												FacetBucketSize: 262994,
+												AuthTokens: []components.AuthToken{
+													components.AuthToken{
+														AccessToken: "123abc",
+														Datasource:  "gmail",
+														Scope:       types.String("email profile https://www.googleapis.com/auth/gmail.readonly"),
+														TokenType:   types.String("Bearer"),
+														AuthUser:    types.String("1"),
+													},
+												},
+											},
+											InputDetails: &components.SearchRequestInputDetails{
+												HasCopyPaste: types.Bool(true),
+											},
+										},
+									},
+								},
+								Meeting: &components.Meeting{
+									Attendees: &components.CalendarAttendees{},
+								},
+								Collection: &components.Collection{
+									Name:        "<value>",
+									Description: "fathom amidst quintuple queasily bourgeoisie pepper as",
+									AudienceFilters: []components.FacetFilter{
+										components.FacetFilter{
+											FieldName: types.String("type"),
+											Values: []components.FacetFilterValue{
+												components.FacetFilterValue{
+													Value:        types.String("Spreadsheet"),
+													RelationType: components.RelationTypeEquals.ToPointer(),
+												},
+												components.FacetFilterValue{
+													Value:        types.String("Presentation"),
+													RelationType: components.RelationTypeEquals.ToPointer(),
+												},
+											},
+										},
+									},
+									ID: 703545,
+									Creator: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											QuerySuggestions: &components.QuerySuggestionList{},
+											InviteInfo:       &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+									UpdatedBy: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											QuerySuggestions: &components.QuerySuggestionList{},
+											InviteInfo:       &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+								},
+								AnswerBoard: &components.AnswerBoard{
+									Name:        "<value>",
+									Description: "silky phew an",
+									AudienceFilters: []components.FacetFilter{
+										components.FacetFilter{
+											FieldName: types.String("type"),
+											Values: []components.FacetFilterValue{
+												components.FacetFilterValue{
+													Value:        types.String("Spreadsheet"),
+													RelationType: components.RelationTypeEquals.ToPointer(),
+												},
+												components.FacetFilterValue{
+													Value:        types.String("Presentation"),
+													RelationType: components.RelationTypeEquals.ToPointer(),
+												},
+											},
+										},
+									},
+									ID: 501378,
+									Creator: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											QuerySuggestions: &components.QuerySuggestionList{},
+											InviteInfo:       &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+									UpdatedBy: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											QuerySuggestions: &components.QuerySuggestionList{},
+											InviteInfo:       &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+								},
+								Code: &components.Code{
+									RepoName: types.String("scio"),
+									FileName: types.String("README.md"),
+								},
+								QuerySuggestions: &components.QuerySuggestionList{
+									Person: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											InviteInfo: &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+								},
+								RelatedQuestion: &components.RelatedQuestion{},
+							},
+							components.StructuredResult{
+								Document: &components.Document{
+									Metadata: &components.DocumentMetadata{
+										Datasource: types.String("datasource"),
+										ObjectType: types.String("Feature Request"),
+										Container:  types.String("container"),
+										ParentID:   types.String("JIRA_EN-1337"),
+										MimeType:   types.String("mimeType"),
+										DocumentID: types.String("documentId"),
+										CreateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+										UpdateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+										Author: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+										Owner: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+										Components: []string{
+											"Backend",
+											"Networking",
+										},
+										Status: types.String("[\"Done\"]"),
+										AssignedTo: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+										UpdatedBy: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+										Interactions: &components.DocumentInteractions{},
+										Verification: &components.Verification{
+											State: components.StateDeprecated,
+											Metadata: &components.VerificationMetadata{
+												LastVerifier: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												LastReminder: &components.Reminder{
+													Assignee: components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													Requestor: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													RemindAt: 472248,
+												},
+											},
+										},
+										CustomData: map[string]components.CustomDataValue{
+											"someCustomField": components.CustomDataValue{},
+										},
+										ContactPerson: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+									},
+								},
+								Person: &components.Person{
+									Name:         "George Clooney",
+									ObfuscatedID: "abc123",
+									Metadata: &components.PersonMetadata{
+										Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+										Title:      types.String("Actor"),
+										Department: types.String("Movies"),
+										Email:      types.String("george@example.com"),
+										Location:   types.String("Hollywood, CA"),
+										Phone:      types.String("6505551234"),
+										PhotoURL:   types.String("https://example.com/george.jpg"),
+										StartDate:  types.MustNewDateFromString("2000-01-23"),
+										DatasourceProfile: []components.DatasourceProfile{
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+										},
+										QuerySuggestions: &components.QuerySuggestionList{},
+										InviteInfo:       &components.InviteInfo{},
+										Badges: []components.Badge{
+											components.Badge{
+												Key:         types.String("deployment_name_new_hire"),
+												DisplayName: types.String("New hire"),
+												IconConfig: &components.IconConfig{
+													Color:    types.String("#343CED"),
+													Key:      types.String("person_icon"),
+													IconType: components.IconTypeGlyph.ToPointer(),
+													Name:     types.String("user"),
+												},
+											},
+										},
+									},
+								},
+								Customer: &components.Customer{
+									ID: "<id>",
+									Company: components.Company{
+										Name:     "<value>",
+										Location: types.String("New York City"),
+										Industry: types.String("Finances"),
+										About:    types.String("Financial, software, data, and media company headquartered in Midtown Manhattan, New York City"),
+									},
+									Notes: types.String("CIO is interested in trying out the product."),
+								},
+								Team: &components.Team{
+									ID:   "<id>",
+									Name: "<value>",
+									DatasourceProfiles: []components.DatasourceProfile{
+										components.DatasourceProfile{
+											Datasource: "github",
+											Handle:     "<value>",
+										},
+										components.DatasourceProfile{
+											Datasource: "github",
+											Handle:     "<value>",
+										},
+									},
+									Status:       components.TeamStatusProcessed.ToPointer(),
+									CanBeDeleted: types.Bool(true),
+								},
+								CustomEntity: &components.CustomEntity{},
+								Answer: &components.Answer{
+									ID:       3,
+									DocID:    types.String("ANSWERS_answer_3"),
+									Question: types.String("Why is the sky blue?"),
+									BodyText: types.String("From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light."),
+									AudienceFilters: []components.FacetFilter{
+										components.FacetFilter{
+											FieldName: types.String("type"),
+											Values: []components.FacetFilterValue{
+												components.FacetFilterValue{
+													Value:        types.String("Spreadsheet"),
+													RelationType: components.RelationTypeEquals.ToPointer(),
+												},
+												components.FacetFilterValue{
+													Value:        types.String("Presentation"),
+													RelationType: components.RelationTypeEquals.ToPointer(),
+												},
+											},
+										},
+									},
+									CombinedAnswerText: &components.StructuredText{
+										Text: "From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+									},
+									Likes: &components.AnswerLikes{
+										LikedBy:     []components.AnswerLike{},
+										LikedByUser: true,
+										NumLikes:    58533,
+									},
+									Author: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											QuerySuggestions: &components.QuerySuggestionList{},
+											InviteInfo:       &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+									UpdatedBy: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											QuerySuggestions: &components.QuerySuggestionList{},
+											InviteInfo:       &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+									Verification: &components.Verification{
+										State: components.StateVerified,
+										Metadata: &components.VerificationMetadata{
+											LastVerifier: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Document: &components.Document{
+												Metadata: &components.DocumentMetadata{
+													Datasource: types.String("datasource"),
+													ObjectType: types.String("Feature Request"),
+													Container:  types.String("container"),
+													ParentID:   types.String("JIRA_EN-1337"),
+													MimeType:   types.String("mimeType"),
+													DocumentID: types.String("documentId"),
+													CreateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+													UpdateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+													Author: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													Owner: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													Components: []string{
+														"Backend",
+														"Networking",
+													},
+													Status: types.String("[\"Done\"]"),
+													AssignedTo: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													UpdatedBy: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													Interactions: &components.DocumentInteractions{},
+													CustomData: map[string]components.CustomDataValue{
+														"someCustomField": components.CustomDataValue{},
+													},
+													ContactPerson: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+												},
+											},
+											LastReminder: &components.Reminder{
+												Assignee: components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												Requestor: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												RemindAt: 58341,
+											},
+										},
+									},
+									Board: &components.AnswerBoard{
+										Name:        "<value>",
+										Description: "webbed loudly huzzah peppery scamper ack",
+										AudienceFilters: []components.FacetFilter{
+											components.FacetFilter{
+												FieldName: types.String("type"),
+												Values: []components.FacetFilterValue{
+													components.FacetFilterValue{
+														Value:        types.String("Spreadsheet"),
+														RelationType: components.RelationTypeEquals.ToPointer(),
+													},
+													components.FacetFilterValue{
+														Value:        types.String("Presentation"),
+														RelationType: components.RelationTypeEquals.ToPointer(),
+													},
+												},
+											},
+										},
+										ID: 531890,
+										Creator: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+										UpdatedBy: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+									},
+									SourceDocument: &components.Document{
+										Metadata: &components.DocumentMetadata{
+											Datasource: types.String("datasource"),
+											ObjectType: types.String("Feature Request"),
+											Container:  types.String("container"),
+											ParentID:   types.String("JIRA_EN-1337"),
+											MimeType:   types.String("mimeType"),
+											DocumentID: types.String("documentId"),
+											CreateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+											UpdateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+											Author: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Owner: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Components: []string{
+												"Backend",
+												"Networking",
+											},
+											Status: types.String("[\"Done\"]"),
+											AssignedTo: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											UpdatedBy: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Interactions: &components.DocumentInteractions{},
+											Verification: &components.Verification{
+												State: components.StateVerified,
+												Metadata: &components.VerificationMetadata{
+													LastVerifier: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													LastReminder: &components.Reminder{
+														Assignee: components.Person{
+															Name:         "George Clooney",
+															ObfuscatedID: "abc123",
+															Metadata: &components.PersonMetadata{
+																Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																Title:      types.String("Actor"),
+																Department: types.String("Movies"),
+																Email:      types.String("george@example.com"),
+																Location:   types.String("Hollywood, CA"),
+																Phone:      types.String("6505551234"),
+																PhotoURL:   types.String("https://example.com/george.jpg"),
+																StartDate:  types.MustNewDateFromString("2000-01-23"),
+																DatasourceProfile: []components.DatasourceProfile{
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																},
+																QuerySuggestions: &components.QuerySuggestionList{},
+																InviteInfo:       &components.InviteInfo{},
+																Badges: []components.Badge{
+																	components.Badge{
+																		Key:         types.String("deployment_name_new_hire"),
+																		DisplayName: types.String("New hire"),
+																		IconConfig: &components.IconConfig{
+																			Color:    types.String("#343CED"),
+																			Key:      types.String("person_icon"),
+																			IconType: components.IconTypeGlyph.ToPointer(),
+																			Name:     types.String("user"),
+																		},
+																	},
+																},
+															},
+														},
+														Requestor: &components.Person{
+															Name:         "George Clooney",
+															ObfuscatedID: "abc123",
+															Metadata: &components.PersonMetadata{
+																Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																Title:      types.String("Actor"),
+																Department: types.String("Movies"),
+																Email:      types.String("george@example.com"),
+																Location:   types.String("Hollywood, CA"),
+																Phone:      types.String("6505551234"),
+																PhotoURL:   types.String("https://example.com/george.jpg"),
+																StartDate:  types.MustNewDateFromString("2000-01-23"),
+																DatasourceProfile: []components.DatasourceProfile{
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																},
+																QuerySuggestions: &components.QuerySuggestionList{},
+																InviteInfo:       &components.InviteInfo{},
+																Badges: []components.Badge{
+																	components.Badge{
+																		Key:         types.String("deployment_name_new_hire"),
+																		DisplayName: types.String("New hire"),
+																		IconConfig: &components.IconConfig{
+																			Color:    types.String("#343CED"),
+																			Key:      types.String("person_icon"),
+																			IconType: components.IconTypeGlyph.ToPointer(),
+																			Name:     types.String("user"),
+																		},
+																	},
+																},
+															},
+														},
+														RemindAt: 330027,
+													},
+												},
+											},
+											CustomData: map[string]components.CustomDataValue{
+												"someCustomField": components.CustomDataValue{},
+											},
+											ContactPerson: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+										},
+									},
+								},
+								ExtractedQnA: &components.ExtractedQnA{
+									QuestionResult: &components.SearchResult{
+										Document: &components.Document{
+											Metadata: &components.DocumentMetadata{
+												Datasource: types.String("datasource"),
+												ObjectType: types.String("Feature Request"),
+												Container:  types.String("container"),
+												ParentID:   types.String("JIRA_EN-1337"),
+												MimeType:   types.String("mimeType"),
+												DocumentID: types.String("documentId"),
+												CreateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+												UpdateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+												Author: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												Owner: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												Components: []string{
+													"Backend",
+													"Networking",
+												},
+												Status: types.String("[\"Done\"]"),
+												AssignedTo: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												UpdatedBy: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												Interactions: &components.DocumentInteractions{},
+												Verification: &components.Verification{
+													State: components.StateDeprecated,
+													Metadata: &components.VerificationMetadata{
+														LastVerifier: &components.Person{
+															Name:         "George Clooney",
+															ObfuscatedID: "abc123",
+															Metadata: &components.PersonMetadata{
+																Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																Title:      types.String("Actor"),
+																Department: types.String("Movies"),
+																Email:      types.String("george@example.com"),
+																Location:   types.String("Hollywood, CA"),
+																Phone:      types.String("6505551234"),
+																PhotoURL:   types.String("https://example.com/george.jpg"),
+																StartDate:  types.MustNewDateFromString("2000-01-23"),
+																DatasourceProfile: []components.DatasourceProfile{
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																},
+																QuerySuggestions: &components.QuerySuggestionList{},
+																InviteInfo:       &components.InviteInfo{},
+																Badges: []components.Badge{
+																	components.Badge{
+																		Key:         types.String("deployment_name_new_hire"),
+																		DisplayName: types.String("New hire"),
+																		IconConfig: &components.IconConfig{
+																			Color:    types.String("#343CED"),
+																			Key:      types.String("person_icon"),
+																			IconType: components.IconTypeGlyph.ToPointer(),
+																			Name:     types.String("user"),
+																		},
+																	},
+																},
+															},
+														},
+														LastReminder: &components.Reminder{
+															Assignee: components.Person{
+																Name:         "George Clooney",
+																ObfuscatedID: "abc123",
+																Metadata: &components.PersonMetadata{
+																	Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																	Title:      types.String("Actor"),
+																	Department: types.String("Movies"),
+																	Email:      types.String("george@example.com"),
+																	Location:   types.String("Hollywood, CA"),
+																	Phone:      types.String("6505551234"),
+																	PhotoURL:   types.String("https://example.com/george.jpg"),
+																	StartDate:  types.MustNewDateFromString("2000-01-23"),
+																	DatasourceProfile: []components.DatasourceProfile{
+																		components.DatasourceProfile{
+																			Datasource: "github",
+																			Handle:     "<value>",
+																		},
+																	},
+																	QuerySuggestions: &components.QuerySuggestionList{},
+																	InviteInfo:       &components.InviteInfo{},
+																	Badges: []components.Badge{
+																		components.Badge{
+																			Key:         types.String("deployment_name_new_hire"),
+																			DisplayName: types.String("New hire"),
+																			IconConfig: &components.IconConfig{
+																				Color:    types.String("#343CED"),
+																				Key:      types.String("person_icon"),
+																				IconType: components.IconTypeGlyph.ToPointer(),
+																				Name:     types.String("user"),
+																			},
+																		},
+																	},
+																},
+															},
+															Requestor: &components.Person{
+																Name:         "George Clooney",
+																ObfuscatedID: "abc123",
+																Metadata: &components.PersonMetadata{
+																	Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																	Title:      types.String("Actor"),
+																	Department: types.String("Movies"),
+																	Email:      types.String("george@example.com"),
+																	Location:   types.String("Hollywood, CA"),
+																	Phone:      types.String("6505551234"),
+																	PhotoURL:   types.String("https://example.com/george.jpg"),
+																	StartDate:  types.MustNewDateFromString("2000-01-23"),
+																	DatasourceProfile: []components.DatasourceProfile{
+																		components.DatasourceProfile{
+																			Datasource: "github",
+																			Handle:     "<value>",
+																		},
+																		components.DatasourceProfile{
+																			Datasource: "github",
+																			Handle:     "<value>",
+																		},
+																	},
+																	QuerySuggestions: &components.QuerySuggestionList{},
+																	InviteInfo:       &components.InviteInfo{},
+																	Badges: []components.Badge{
+																		components.Badge{
+																			Key:         types.String("deployment_name_new_hire"),
+																			DisplayName: types.String("New hire"),
+																			IconConfig: &components.IconConfig{
+																				Color:    types.String("#343CED"),
+																				Key:      types.String("person_icon"),
+																				IconType: components.IconTypeGlyph.ToPointer(),
+																				Name:     types.String("user"),
+																			},
+																		},
+																	},
+																},
+															},
+															RemindAt: 707674,
+														},
+													},
+												},
+												CustomData: map[string]components.CustomDataValue{
+													"someCustomField": components.CustomDataValue{},
+												},
+												ContactPerson: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+											},
+										},
+										Title:        types.String("title"),
+										URL:          "https://example.com/foo/bar",
+										NativeAppURL: types.String("slack://foo/bar"),
+										MustIncludeSuggestions: &components.QuerySuggestionList{
+											Person: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													InviteInfo: &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+										},
+										QuerySuggestion: &components.QuerySuggestion{
+											Query: "app:github type:pull author:mortimer",
+											SearchProviderInfo: &components.SearchProviderInfo{
+												Name:                  types.String("Google"),
+												SearchLinkURLTemplate: types.String("https://www.google.com/search?q={query}&hl=en"),
+											},
+											Label:      types.String("Mortimer's PRs"),
+											Datasource: types.String("github"),
+											RequestOptions: &components.SearchRequestOptions{
+												DatasourceFilter: types.String("JIRA"),
+												DatasourcesFilter: []string{
+													"JIRA",
+												},
+												QueryOverridesFacetFilters: types.Bool(true),
+												FacetFilters: []components.FacetFilter{
+													components.FacetFilter{
+														FieldName: types.String("type"),
+														Values: []components.FacetFilterValue{
+															components.FacetFilterValue{
+																Value:        types.String("Spreadsheet"),
+																RelationType: components.RelationTypeEquals.ToPointer(),
+															},
+															components.FacetFilterValue{
+																Value:        types.String("Presentation"),
+																RelationType: components.RelationTypeEquals.ToPointer(),
+															},
+														},
+													},
+												},
+												FacetFilterSets: []components.FacetFilterSet{
+													components.FacetFilterSet{
+														Filters: []components.FacetFilter{
+															components.FacetFilter{
+																FieldName: types.String("type"),
+																Values: []components.FacetFilterValue{
+																	components.FacetFilterValue{
+																		Value:        types.String("Spreadsheet"),
+																		RelationType: components.RelationTypeEquals.ToPointer(),
+																	},
+																	components.FacetFilterValue{
+																		Value:        types.String("Presentation"),
+																		RelationType: components.RelationTypeEquals.ToPointer(),
+																	},
+																},
+															},
+														},
+													},
+												},
+												FacetBucketSize: 646501,
+												AuthTokens: []components.AuthToken{
+													components.AuthToken{
+														AccessToken: "123abc",
+														Datasource:  "gmail",
+														Scope:       types.String("email profile https://www.googleapis.com/auth/gmail.readonly"),
+														TokenType:   types.String("Bearer"),
+														AuthUser:    types.String("1"),
+													},
+												},
+											},
+											InputDetails: &components.SearchRequestInputDetails{
+												HasCopyPaste: types.Bool(true),
+											},
+										},
+									},
+								},
+								Meeting: &components.Meeting{
+									Attendees: &components.CalendarAttendees{},
+								},
+								Collection: &components.Collection{
+									Name:        "<value>",
+									Description: "overfeed piglet midst along remarkable behind fireplace forgo",
+									AudienceFilters: []components.FacetFilter{
+										components.FacetFilter{
+											FieldName: types.String("type"),
+											Values: []components.FacetFilterValue{
+												components.FacetFilterValue{
+													Value:        types.String("Spreadsheet"),
+													RelationType: components.RelationTypeEquals.ToPointer(),
+												},
+												components.FacetFilterValue{
+													Value:        types.String("Presentation"),
+													RelationType: components.RelationTypeEquals.ToPointer(),
+												},
+											},
+										},
+									},
+									ID: 961331,
+									Creator: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											QuerySuggestions: &components.QuerySuggestionList{},
+											InviteInfo:       &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+									UpdatedBy: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											QuerySuggestions: &components.QuerySuggestionList{},
+											InviteInfo:       &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+								},
+								AnswerBoard: &components.AnswerBoard{
+									Name:        "<value>",
+									Description: "phew enfold atop than",
+									AudienceFilters: []components.FacetFilter{
+										components.FacetFilter{
+											FieldName: types.String("type"),
+											Values: []components.FacetFilterValue{
+												components.FacetFilterValue{
+													Value:        types.String("Spreadsheet"),
+													RelationType: components.RelationTypeEquals.ToPointer(),
+												},
+												components.FacetFilterValue{
+													Value:        types.String("Presentation"),
+													RelationType: components.RelationTypeEquals.ToPointer(),
+												},
+											},
+										},
+									},
+									ID: 7506,
+									Creator: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											QuerySuggestions: &components.QuerySuggestionList{},
+											InviteInfo:       &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+									UpdatedBy: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											QuerySuggestions: &components.QuerySuggestionList{},
+											InviteInfo:       &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+								},
+								Code: &components.Code{
+									RepoName: types.String("scio"),
+									FileName: types.String("README.md"),
+								},
+								QuerySuggestions: &components.QuerySuggestionList{
+									Person: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											InviteInfo: &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+								},
+								RelatedQuestion: &components.RelatedQuestion{},
+							},
+							components.StructuredResult{
+								Document: &components.Document{
+									Metadata: &components.DocumentMetadata{
+										Datasource: types.String("datasource"),
+										ObjectType: types.String("Feature Request"),
+										Container:  types.String("container"),
+										ParentID:   types.String("JIRA_EN-1337"),
+										MimeType:   types.String("mimeType"),
+										DocumentID: types.String("documentId"),
+										CreateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+										UpdateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+										Author: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+										Owner: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+										Components: []string{
+											"Backend",
+											"Networking",
+										},
+										Status: types.String("[\"Done\"]"),
+										AssignedTo: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+										UpdatedBy: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+										Interactions: &components.DocumentInteractions{},
+										Verification: &components.Verification{
+											State: components.StateVerified,
+											Metadata: &components.VerificationMetadata{
+												LastVerifier: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												LastReminder: &components.Reminder{
+													Assignee: components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													Requestor: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													RemindAt: 182398,
+												},
+											},
+										},
+										CustomData: map[string]components.CustomDataValue{
+											"someCustomField": components.CustomDataValue{},
+										},
+										ContactPerson: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+									},
+								},
+								Person: &components.Person{
+									Name:         "George Clooney",
+									ObfuscatedID: "abc123",
+									Metadata: &components.PersonMetadata{
+										Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+										Title:      types.String("Actor"),
+										Department: types.String("Movies"),
+										Email:      types.String("george@example.com"),
+										Location:   types.String("Hollywood, CA"),
+										Phone:      types.String("6505551234"),
+										PhotoURL:   types.String("https://example.com/george.jpg"),
+										StartDate:  types.MustNewDateFromString("2000-01-23"),
+										DatasourceProfile: []components.DatasourceProfile{
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+										},
+										QuerySuggestions: &components.QuerySuggestionList{},
+										InviteInfo:       &components.InviteInfo{},
+										Badges: []components.Badge{
+											components.Badge{
+												Key:         types.String("deployment_name_new_hire"),
+												DisplayName: types.String("New hire"),
+												IconConfig: &components.IconConfig{
+													Color:    types.String("#343CED"),
+													Key:      types.String("person_icon"),
+													IconType: components.IconTypeGlyph.ToPointer(),
+													Name:     types.String("user"),
+												},
+											},
+										},
+									},
+								},
+								Customer: &components.Customer{
+									ID: "<id>",
+									Company: components.Company{
+										Name:     "<value>",
+										Location: types.String("New York City"),
+										Industry: types.String("Finances"),
+										About:    types.String("Financial, software, data, and media company headquartered in Midtown Manhattan, New York City"),
+									},
+									Notes: types.String("CIO is interested in trying out the product."),
+								},
+								Team: &components.Team{
+									ID:   "<id>",
+									Name: "<value>",
+									DatasourceProfiles: []components.DatasourceProfile{
+										components.DatasourceProfile{
+											Datasource: "github",
+											Handle:     "<value>",
+										},
+										components.DatasourceProfile{
+											Datasource: "github",
+											Handle:     "<value>",
+										},
+									},
+									Status:       components.TeamStatusProcessed.ToPointer(),
+									CanBeDeleted: types.Bool(true),
+								},
+								CustomEntity: &components.CustomEntity{},
+								Answer: &components.Answer{
+									ID:       3,
+									DocID:    types.String("ANSWERS_answer_3"),
+									Question: types.String("Why is the sky blue?"),
+									BodyText: types.String("From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light."),
+									AudienceFilters: []components.FacetFilter{
+										components.FacetFilter{
+											FieldName: types.String("type"),
+											Values: []components.FacetFilterValue{
+												components.FacetFilterValue{
+													Value:        types.String("Spreadsheet"),
+													RelationType: components.RelationTypeEquals.ToPointer(),
+												},
+												components.FacetFilterValue{
+													Value:        types.String("Presentation"),
+													RelationType: components.RelationTypeEquals.ToPointer(),
+												},
+											},
+										},
+									},
+									CombinedAnswerText: &components.StructuredText{
+										Text: "From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+									},
+									Likes: &components.AnswerLikes{
+										LikedBy:     []components.AnswerLike{},
+										LikedByUser: false,
+										NumLikes:    239394,
+									},
+									Author: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											QuerySuggestions: &components.QuerySuggestionList{},
+											InviteInfo:       &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+									UpdatedBy: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											QuerySuggestions: &components.QuerySuggestionList{},
+											InviteInfo:       &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+									Verification: &components.Verification{
+										State: components.StateUnverified,
+										Metadata: &components.VerificationMetadata{
+											LastVerifier: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Document: &components.Document{
+												Metadata: &components.DocumentMetadata{
+													Datasource: types.String("datasource"),
+													ObjectType: types.String("Feature Request"),
+													Container:  types.String("container"),
+													ParentID:   types.String("JIRA_EN-1337"),
+													MimeType:   types.String("mimeType"),
+													DocumentID: types.String("documentId"),
+													CreateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+													UpdateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+													Author: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													Owner: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													Components: []string{
+														"Backend",
+														"Networking",
+													},
+													Status: types.String("[\"Done\"]"),
+													AssignedTo: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													UpdatedBy: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													Interactions: &components.DocumentInteractions{},
+													CustomData: map[string]components.CustomDataValue{
+														"someCustomField": components.CustomDataValue{},
+													},
+													ContactPerson: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+												},
+											},
+											LastReminder: &components.Reminder{
+												Assignee: components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												Requestor: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												RemindAt: 168952,
+											},
+										},
+									},
+									Board: &components.AnswerBoard{
+										Name:        "<value>",
+										Description: "aware the yowza where realistic",
+										AudienceFilters: []components.FacetFilter{
+											components.FacetFilter{
+												FieldName: types.String("type"),
+												Values: []components.FacetFilterValue{
+													components.FacetFilterValue{
+														Value:        types.String("Spreadsheet"),
+														RelationType: components.RelationTypeEquals.ToPointer(),
+													},
+													components.FacetFilterValue{
+														Value:        types.String("Presentation"),
+														RelationType: components.RelationTypeEquals.ToPointer(),
+													},
+												},
+											},
+										},
+										ID: 512489,
+										Creator: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+										UpdatedBy: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+									},
+									SourceDocument: &components.Document{
+										Metadata: &components.DocumentMetadata{
+											Datasource: types.String("datasource"),
+											ObjectType: types.String("Feature Request"),
+											Container:  types.String("container"),
+											ParentID:   types.String("JIRA_EN-1337"),
+											MimeType:   types.String("mimeType"),
+											DocumentID: types.String("documentId"),
+											CreateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+											UpdateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+											Author: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Owner: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Components: []string{
+												"Backend",
+												"Networking",
+											},
+											Status: types.String("[\"Done\"]"),
+											AssignedTo: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											UpdatedBy: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Interactions: &components.DocumentInteractions{},
+											Verification: &components.Verification{
+												State: components.StateVerified,
+												Metadata: &components.VerificationMetadata{
+													LastVerifier: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													LastReminder: &components.Reminder{
+														Assignee: components.Person{
+															Name:         "George Clooney",
+															ObfuscatedID: "abc123",
+															Metadata: &components.PersonMetadata{
+																Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																Title:      types.String("Actor"),
+																Department: types.String("Movies"),
+																Email:      types.String("george@example.com"),
+																Location:   types.String("Hollywood, CA"),
+																Phone:      types.String("6505551234"),
+																PhotoURL:   types.String("https://example.com/george.jpg"),
+																StartDate:  types.MustNewDateFromString("2000-01-23"),
+																DatasourceProfile: []components.DatasourceProfile{
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																},
+																QuerySuggestions: &components.QuerySuggestionList{},
+																InviteInfo:       &components.InviteInfo{},
+																Badges: []components.Badge{
+																	components.Badge{
+																		Key:         types.String("deployment_name_new_hire"),
+																		DisplayName: types.String("New hire"),
+																		IconConfig: &components.IconConfig{
+																			Color:    types.String("#343CED"),
+																			Key:      types.String("person_icon"),
+																			IconType: components.IconTypeGlyph.ToPointer(),
+																			Name:     types.String("user"),
+																		},
+																	},
+																},
+															},
+														},
+														Requestor: &components.Person{
+															Name:         "George Clooney",
+															ObfuscatedID: "abc123",
+															Metadata: &components.PersonMetadata{
+																Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																Title:      types.String("Actor"),
+																Department: types.String("Movies"),
+																Email:      types.String("george@example.com"),
+																Location:   types.String("Hollywood, CA"),
+																Phone:      types.String("6505551234"),
+																PhotoURL:   types.String("https://example.com/george.jpg"),
+																StartDate:  types.MustNewDateFromString("2000-01-23"),
+																DatasourceProfile: []components.DatasourceProfile{
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																},
+																QuerySuggestions: &components.QuerySuggestionList{},
+																InviteInfo:       &components.InviteInfo{},
+																Badges: []components.Badge{
+																	components.Badge{
+																		Key:         types.String("deployment_name_new_hire"),
+																		DisplayName: types.String("New hire"),
+																		IconConfig: &components.IconConfig{
+																			Color:    types.String("#343CED"),
+																			Key:      types.String("person_icon"),
+																			IconType: components.IconTypeGlyph.ToPointer(),
+																			Name:     types.String("user"),
+																		},
+																	},
+																},
+															},
+														},
+														RemindAt: 597770,
+													},
+												},
+											},
+											CustomData: map[string]components.CustomDataValue{
+												"someCustomField": components.CustomDataValue{},
+											},
+											ContactPerson: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+										},
+									},
+								},
+								ExtractedQnA: &components.ExtractedQnA{
+									QuestionResult: &components.SearchResult{
+										Document: &components.Document{
+											Metadata: &components.DocumentMetadata{
+												Datasource: types.String("datasource"),
+												ObjectType: types.String("Feature Request"),
+												Container:  types.String("container"),
+												ParentID:   types.String("JIRA_EN-1337"),
+												MimeType:   types.String("mimeType"),
+												DocumentID: types.String("documentId"),
+												CreateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+												UpdateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+												Author: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												Owner: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												Components: []string{
+													"Backend",
+													"Networking",
+												},
+												Status: types.String("[\"Done\"]"),
+												AssignedTo: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												UpdatedBy: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												Interactions: &components.DocumentInteractions{},
+												Verification: &components.Verification{
+													State: components.StateVerified,
+													Metadata: &components.VerificationMetadata{
+														LastVerifier: &components.Person{
+															Name:         "George Clooney",
+															ObfuscatedID: "abc123",
+															Metadata: &components.PersonMetadata{
+																Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																Title:      types.String("Actor"),
+																Department: types.String("Movies"),
+																Email:      types.String("george@example.com"),
+																Location:   types.String("Hollywood, CA"),
+																Phone:      types.String("6505551234"),
+																PhotoURL:   types.String("https://example.com/george.jpg"),
+																StartDate:  types.MustNewDateFromString("2000-01-23"),
+																DatasourceProfile: []components.DatasourceProfile{
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																},
+																QuerySuggestions: &components.QuerySuggestionList{},
+																InviteInfo:       &components.InviteInfo{},
+																Badges: []components.Badge{
+																	components.Badge{
+																		Key:         types.String("deployment_name_new_hire"),
+																		DisplayName: types.String("New hire"),
+																		IconConfig: &components.IconConfig{
+																			Color:    types.String("#343CED"),
+																			Key:      types.String("person_icon"),
+																			IconType: components.IconTypeGlyph.ToPointer(),
+																			Name:     types.String("user"),
+																		},
+																	},
+																},
+															},
+														},
+														LastReminder: &components.Reminder{
+															Assignee: components.Person{
+																Name:         "George Clooney",
+																ObfuscatedID: "abc123",
+																Metadata: &components.PersonMetadata{
+																	Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																	Title:      types.String("Actor"),
+																	Department: types.String("Movies"),
+																	Email:      types.String("george@example.com"),
+																	Location:   types.String("Hollywood, CA"),
+																	Phone:      types.String("6505551234"),
+																	PhotoURL:   types.String("https://example.com/george.jpg"),
+																	StartDate:  types.MustNewDateFromString("2000-01-23"),
+																	DatasourceProfile: []components.DatasourceProfile{
+																		components.DatasourceProfile{
+																			Datasource: "github",
+																			Handle:     "<value>",
+																		},
+																		components.DatasourceProfile{
+																			Datasource: "github",
+																			Handle:     "<value>",
+																		},
+																	},
+																	QuerySuggestions: &components.QuerySuggestionList{},
+																	InviteInfo:       &components.InviteInfo{},
+																	Badges: []components.Badge{
+																		components.Badge{
+																			Key:         types.String("deployment_name_new_hire"),
+																			DisplayName: types.String("New hire"),
+																			IconConfig: &components.IconConfig{
+																				Color:    types.String("#343CED"),
+																				Key:      types.String("person_icon"),
+																				IconType: components.IconTypeGlyph.ToPointer(),
+																				Name:     types.String("user"),
+																			},
+																		},
+																	},
+																},
+															},
+															Requestor: &components.Person{
+																Name:         "George Clooney",
+																ObfuscatedID: "abc123",
+																Metadata: &components.PersonMetadata{
+																	Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																	Title:      types.String("Actor"),
+																	Department: types.String("Movies"),
+																	Email:      types.String("george@example.com"),
+																	Location:   types.String("Hollywood, CA"),
+																	Phone:      types.String("6505551234"),
+																	PhotoURL:   types.String("https://example.com/george.jpg"),
+																	StartDate:  types.MustNewDateFromString("2000-01-23"),
+																	DatasourceProfile: []components.DatasourceProfile{
+																		components.DatasourceProfile{
+																			Datasource: "github",
+																			Handle:     "<value>",
+																		},
+																	},
+																	QuerySuggestions: &components.QuerySuggestionList{},
+																	InviteInfo:       &components.InviteInfo{},
+																	Badges: []components.Badge{
+																		components.Badge{
+																			Key:         types.String("deployment_name_new_hire"),
+																			DisplayName: types.String("New hire"),
+																			IconConfig: &components.IconConfig{
+																				Color:    types.String("#343CED"),
+																				Key:      types.String("person_icon"),
+																				IconType: components.IconTypeGlyph.ToPointer(),
+																				Name:     types.String("user"),
+																			},
+																		},
+																	},
+																},
+															},
+															RemindAt: 492556,
+														},
+													},
+												},
+												CustomData: map[string]components.CustomDataValue{
+													"someCustomField": components.CustomDataValue{},
+												},
+												ContactPerson: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+											},
+										},
+										Title:        types.String("title"),
+										URL:          "https://example.com/foo/bar",
+										NativeAppURL: types.String("slack://foo/bar"),
+										MustIncludeSuggestions: &components.QuerySuggestionList{
+											Person: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													InviteInfo: &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+										},
+										QuerySuggestion: &components.QuerySuggestion{
+											Query: "app:github type:pull author:mortimer",
+											SearchProviderInfo: &components.SearchProviderInfo{
+												Name:                  types.String("Google"),
+												SearchLinkURLTemplate: types.String("https://www.google.com/search?q={query}&hl=en"),
+											},
+											Label:      types.String("Mortimer's PRs"),
+											Datasource: types.String("github"),
+											RequestOptions: &components.SearchRequestOptions{
+												DatasourceFilter: types.String("JIRA"),
+												DatasourcesFilter: []string{
+													"JIRA",
+												},
+												QueryOverridesFacetFilters: types.Bool(true),
+												FacetFilters: []components.FacetFilter{
+													components.FacetFilter{
+														FieldName: types.String("type"),
+														Values: []components.FacetFilterValue{
+															components.FacetFilterValue{
+																Value:        types.String("Spreadsheet"),
+																RelationType: components.RelationTypeEquals.ToPointer(),
+															},
+															components.FacetFilterValue{
+																Value:        types.String("Presentation"),
+																RelationType: components.RelationTypeEquals.ToPointer(),
+															},
+														},
+													},
+												},
+												FacetFilterSets: []components.FacetFilterSet{
+													components.FacetFilterSet{
+														Filters: []components.FacetFilter{
+															components.FacetFilter{
+																FieldName: types.String("type"),
+																Values: []components.FacetFilterValue{
+																	components.FacetFilterValue{
+																		Value:        types.String("Spreadsheet"),
+																		RelationType: components.RelationTypeEquals.ToPointer(),
+																	},
+																	components.FacetFilterValue{
+																		Value:        types.String("Presentation"),
+																		RelationType: components.RelationTypeEquals.ToPointer(),
+																	},
+																},
+															},
+														},
+													},
+													components.FacetFilterSet{
+														Filters: []components.FacetFilter{
+															components.FacetFilter{
+																FieldName: types.String("type"),
+																Values: []components.FacetFilterValue{
+																	components.FacetFilterValue{
+																		Value:        types.String("Spreadsheet"),
+																		RelationType: components.RelationTypeEquals.ToPointer(),
+																	},
+																	components.FacetFilterValue{
+																		Value:        types.String("Presentation"),
+																		RelationType: components.RelationTypeEquals.ToPointer(),
+																	},
+																},
+															},
+														},
+													},
+												},
+												FacetBucketSize: 334636,
+												AuthTokens: []components.AuthToken{
+													components.AuthToken{
+														AccessToken: "123abc",
+														Datasource:  "gmail",
+														Scope:       types.String("email profile https://www.googleapis.com/auth/gmail.readonly"),
+														TokenType:   types.String("Bearer"),
+														AuthUser:    types.String("1"),
+													},
+												},
+											},
+											InputDetails: &components.SearchRequestInputDetails{
+												HasCopyPaste: types.Bool(true),
+											},
+										},
+									},
+								},
+								Meeting: &components.Meeting{
+									Attendees: &components.CalendarAttendees{},
+								},
+								Collection: &components.Collection{
+									Name:        "<value>",
+									Description: "quickly aw mythology yuck geez while",
+									AudienceFilters: []components.FacetFilter{
+										components.FacetFilter{
+											FieldName: types.String("type"),
+											Values: []components.FacetFilterValue{
+												components.FacetFilterValue{
+													Value:        types.String("Spreadsheet"),
+													RelationType: components.RelationTypeEquals.ToPointer(),
+												},
+												components.FacetFilterValue{
+													Value:        types.String("Presentation"),
+													RelationType: components.RelationTypeEquals.ToPointer(),
+												},
+											},
+										},
+									},
+									ID: 714699,
+									Creator: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											QuerySuggestions: &components.QuerySuggestionList{},
+											InviteInfo:       &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+									UpdatedBy: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											QuerySuggestions: &components.QuerySuggestionList{},
+											InviteInfo:       &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+								},
+								AnswerBoard: &components.AnswerBoard{
+									Name:        "<value>",
+									Description: "spring tightly on yeast",
+									AudienceFilters: []components.FacetFilter{
+										components.FacetFilter{
+											FieldName: types.String("type"),
+											Values: []components.FacetFilterValue{
+												components.FacetFilterValue{
+													Value:        types.String("Spreadsheet"),
+													RelationType: components.RelationTypeEquals.ToPointer(),
+												},
+												components.FacetFilterValue{
+													Value:        types.String("Presentation"),
+													RelationType: components.RelationTypeEquals.ToPointer(),
+												},
+											},
+										},
+									},
+									ID: 325568,
+									Creator: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											QuerySuggestions: &components.QuerySuggestionList{},
+											InviteInfo:       &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+									UpdatedBy: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											QuerySuggestions: &components.QuerySuggestionList{},
+											InviteInfo:       &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+								},
+								Code: &components.Code{
+									RepoName: types.String("scio"),
+									FileName: types.String("README.md"),
+								},
+								QuerySuggestions: &components.QuerySuggestionList{
+									Person: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											InviteInfo: &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+								},
+								RelatedQuestion: &components.RelatedQuestion{},
+							},
+						},
+						QuerySuggestion: &components.QuerySuggestion{
+							Query: "app:github type:pull author:mortimer",
+							SearchProviderInfo: &components.SearchProviderInfo{
+								Name:                  types.String("Google"),
+								SearchLinkURLTemplate: types.String("https://www.google.com/search?q={query}&hl=en"),
+							},
+							Label:      types.String("Mortimer's PRs"),
+							Datasource: types.String("github"),
+							RequestOptions: &components.SearchRequestOptions{
+								DatasourceFilter: types.String("JIRA"),
+								DatasourcesFilter: []string{
+									"JIRA",
+								},
+								QueryOverridesFacetFilters: types.Bool(true),
+								FacetFilters: []components.FacetFilter{
+									components.FacetFilter{
+										FieldName: types.String("type"),
+										Values: []components.FacetFilterValue{
+											components.FacetFilterValue{
+												Value:        types.String("Spreadsheet"),
+												RelationType: components.RelationTypeEquals.ToPointer(),
+											},
+											components.FacetFilterValue{
+												Value:        types.String("Presentation"),
+												RelationType: components.RelationTypeEquals.ToPointer(),
+											},
+										},
+									},
+								},
+								FacetFilterSets: []components.FacetFilterSet{
+									components.FacetFilterSet{
+										Filters: []components.FacetFilter{
+											components.FacetFilter{
+												FieldName: types.String("type"),
+												Values: []components.FacetFilterValue{
+													components.FacetFilterValue{
+														Value:        types.String("Spreadsheet"),
+														RelationType: components.RelationTypeEquals.ToPointer(),
+													},
+													components.FacetFilterValue{
+														Value:        types.String("Presentation"),
+														RelationType: components.RelationTypeEquals.ToPointer(),
+													},
+												},
+											},
+										},
+									},
+									components.FacetFilterSet{
+										Filters: []components.FacetFilter{
+											components.FacetFilter{
+												FieldName: types.String("type"),
+												Values: []components.FacetFilterValue{
+													components.FacetFilterValue{
+														Value:        types.String("Spreadsheet"),
+														RelationType: components.RelationTypeEquals.ToPointer(),
+													},
+													components.FacetFilterValue{
+														Value:        types.String("Presentation"),
+														RelationType: components.RelationTypeEquals.ToPointer(),
+													},
+												},
+											},
+										},
+									},
+								},
+								FacetBucketSize: 685202,
+								AuthTokens: []components.AuthToken{
+									components.AuthToken{
+										AccessToken: "123abc",
+										Datasource:  "gmail",
+										Scope:       types.String("email profile https://www.googleapis.com/auth/gmail.readonly"),
+										TokenType:   types.String("Bearer"),
+										AuthUser:    types.String("1"),
+									},
+								},
+							},
+							InputDetails: &components.SearchRequestInputDetails{
+								HasCopyPaste: types.Bool(true),
+							},
 						},
 						File: &components.ChatFile{
 							ID:   types.String("FILE_1234"),
@@ -550,8 +17977,4072 @@ func testRunagentRunagent0(w http.ResponseWriter, req *http.Request) {
 					},
 					components.ChatMessageFragment{
 						StructuredResults: []components.StructuredResult{
-							components.StructuredResult{},
-							components.StructuredResult{},
+							components.StructuredResult{
+								Document: &components.Document{
+									Metadata: &components.DocumentMetadata{
+										Datasource: types.String("datasource"),
+										ObjectType: types.String("Feature Request"),
+										Container:  types.String("container"),
+										ParentID:   types.String("JIRA_EN-1337"),
+										MimeType:   types.String("mimeType"),
+										DocumentID: types.String("documentId"),
+										CreateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+										UpdateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+										Author: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+										Owner: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+										Components: []string{
+											"Backend",
+											"Networking",
+										},
+										Status: types.String("[\"Done\"]"),
+										AssignedTo: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+										UpdatedBy: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+										Interactions: &components.DocumentInteractions{},
+										Verification: &components.Verification{
+											State: components.StateVerified,
+											Metadata: &components.VerificationMetadata{
+												LastVerifier: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												LastReminder: &components.Reminder{
+													Assignee: components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													Requestor: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													RemindAt: 925944,
+												},
+											},
+										},
+										CustomData: map[string]components.CustomDataValue{
+											"someCustomField": components.CustomDataValue{},
+										},
+										ContactPerson: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+									},
+								},
+								Person: &components.Person{
+									Name:         "George Clooney",
+									ObfuscatedID: "abc123",
+									Metadata: &components.PersonMetadata{
+										Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+										Title:      types.String("Actor"),
+										Department: types.String("Movies"),
+										Email:      types.String("george@example.com"),
+										Location:   types.String("Hollywood, CA"),
+										Phone:      types.String("6505551234"),
+										PhotoURL:   types.String("https://example.com/george.jpg"),
+										StartDate:  types.MustNewDateFromString("2000-01-23"),
+										DatasourceProfile: []components.DatasourceProfile{
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+										},
+										QuerySuggestions: &components.QuerySuggestionList{},
+										InviteInfo:       &components.InviteInfo{},
+										Badges: []components.Badge{
+											components.Badge{
+												Key:         types.String("deployment_name_new_hire"),
+												DisplayName: types.String("New hire"),
+												IconConfig: &components.IconConfig{
+													Color:    types.String("#343CED"),
+													Key:      types.String("person_icon"),
+													IconType: components.IconTypeGlyph.ToPointer(),
+													Name:     types.String("user"),
+												},
+											},
+										},
+									},
+								},
+								Customer: &components.Customer{
+									ID: "<id>",
+									Company: components.Company{
+										Name:     "<value>",
+										Location: types.String("New York City"),
+										Industry: types.String("Finances"),
+										About:    types.String("Financial, software, data, and media company headquartered in Midtown Manhattan, New York City"),
+									},
+									Notes: types.String("CIO is interested in trying out the product."),
+								},
+								Team: &components.Team{
+									ID:   "<id>",
+									Name: "<value>",
+									DatasourceProfiles: []components.DatasourceProfile{
+										components.DatasourceProfile{
+											Datasource: "github",
+											Handle:     "<value>",
+										},
+										components.DatasourceProfile{
+											Datasource: "github",
+											Handle:     "<value>",
+										},
+									},
+									Status:       components.TeamStatusProcessed.ToPointer(),
+									CanBeDeleted: types.Bool(true),
+								},
+								CustomEntity: &components.CustomEntity{},
+								Answer: &components.Answer{
+									ID:       3,
+									DocID:    types.String("ANSWERS_answer_3"),
+									Question: types.String("Why is the sky blue?"),
+									BodyText: types.String("From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light."),
+									AudienceFilters: []components.FacetFilter{
+										components.FacetFilter{
+											FieldName: types.String("type"),
+											Values: []components.FacetFilterValue{
+												components.FacetFilterValue{
+													Value:        types.String("Spreadsheet"),
+													RelationType: components.RelationTypeEquals.ToPointer(),
+												},
+												components.FacetFilterValue{
+													Value:        types.String("Presentation"),
+													RelationType: components.RelationTypeEquals.ToPointer(),
+												},
+											},
+										},
+									},
+									CombinedAnswerText: &components.StructuredText{
+										Text: "From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+									},
+									Likes: &components.AnswerLikes{
+										LikedBy:     []components.AnswerLike{},
+										LikedByUser: true,
+										NumLikes:    189781,
+									},
+									Author: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											QuerySuggestions: &components.QuerySuggestionList{},
+											InviteInfo:       &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+									UpdatedBy: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											QuerySuggestions: &components.QuerySuggestionList{},
+											InviteInfo:       &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+									Verification: &components.Verification{
+										State: components.StateDeprecated,
+										Metadata: &components.VerificationMetadata{
+											LastVerifier: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Document: &components.Document{
+												Metadata: &components.DocumentMetadata{
+													Datasource: types.String("datasource"),
+													ObjectType: types.String("Feature Request"),
+													Container:  types.String("container"),
+													ParentID:   types.String("JIRA_EN-1337"),
+													MimeType:   types.String("mimeType"),
+													DocumentID: types.String("documentId"),
+													CreateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+													UpdateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+													Author: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													Owner: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													Components: []string{
+														"Backend",
+														"Networking",
+													},
+													Status: types.String("[\"Done\"]"),
+													AssignedTo: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													UpdatedBy: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													Interactions: &components.DocumentInteractions{},
+													CustomData: map[string]components.CustomDataValue{
+														"someCustomField": components.CustomDataValue{},
+													},
+													ContactPerson: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+												},
+											},
+											LastReminder: &components.Reminder{
+												Assignee: components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												Requestor: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												RemindAt: 508971,
+											},
+										},
+									},
+									Board: &components.AnswerBoard{
+										Name:        "<value>",
+										Description: "than stitcher stabilise instead pish bah",
+										AudienceFilters: []components.FacetFilter{
+											components.FacetFilter{
+												FieldName: types.String("type"),
+												Values: []components.FacetFilterValue{
+													components.FacetFilterValue{
+														Value:        types.String("Spreadsheet"),
+														RelationType: components.RelationTypeEquals.ToPointer(),
+													},
+													components.FacetFilterValue{
+														Value:        types.String("Presentation"),
+														RelationType: components.RelationTypeEquals.ToPointer(),
+													},
+												},
+											},
+										},
+										ID: 254840,
+										Creator: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+										UpdatedBy: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+									},
+									SourceDocument: &components.Document{
+										Metadata: &components.DocumentMetadata{
+											Datasource: types.String("datasource"),
+											ObjectType: types.String("Feature Request"),
+											Container:  types.String("container"),
+											ParentID:   types.String("JIRA_EN-1337"),
+											MimeType:   types.String("mimeType"),
+											DocumentID: types.String("documentId"),
+											CreateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+											UpdateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+											Author: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Owner: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Components: []string{
+												"Backend",
+												"Networking",
+											},
+											Status: types.String("[\"Done\"]"),
+											AssignedTo: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											UpdatedBy: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Interactions: &components.DocumentInteractions{},
+											Verification: &components.Verification{
+												State: components.StateUnverified,
+												Metadata: &components.VerificationMetadata{
+													LastVerifier: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													LastReminder: &components.Reminder{
+														Assignee: components.Person{
+															Name:         "George Clooney",
+															ObfuscatedID: "abc123",
+															Metadata: &components.PersonMetadata{
+																Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																Title:      types.String("Actor"),
+																Department: types.String("Movies"),
+																Email:      types.String("george@example.com"),
+																Location:   types.String("Hollywood, CA"),
+																Phone:      types.String("6505551234"),
+																PhotoURL:   types.String("https://example.com/george.jpg"),
+																StartDate:  types.MustNewDateFromString("2000-01-23"),
+																DatasourceProfile: []components.DatasourceProfile{
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																},
+																QuerySuggestions: &components.QuerySuggestionList{},
+																InviteInfo:       &components.InviteInfo{},
+																Badges: []components.Badge{
+																	components.Badge{
+																		Key:         types.String("deployment_name_new_hire"),
+																		DisplayName: types.String("New hire"),
+																		IconConfig: &components.IconConfig{
+																			Color:    types.String("#343CED"),
+																			Key:      types.String("person_icon"),
+																			IconType: components.IconTypeGlyph.ToPointer(),
+																			Name:     types.String("user"),
+																		},
+																	},
+																},
+															},
+														},
+														Requestor: &components.Person{
+															Name:         "George Clooney",
+															ObfuscatedID: "abc123",
+															Metadata: &components.PersonMetadata{
+																Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																Title:      types.String("Actor"),
+																Department: types.String("Movies"),
+																Email:      types.String("george@example.com"),
+																Location:   types.String("Hollywood, CA"),
+																Phone:      types.String("6505551234"),
+																PhotoURL:   types.String("https://example.com/george.jpg"),
+																StartDate:  types.MustNewDateFromString("2000-01-23"),
+																DatasourceProfile: []components.DatasourceProfile{
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																},
+																QuerySuggestions: &components.QuerySuggestionList{},
+																InviteInfo:       &components.InviteInfo{},
+																Badges: []components.Badge{
+																	components.Badge{
+																		Key:         types.String("deployment_name_new_hire"),
+																		DisplayName: types.String("New hire"),
+																		IconConfig: &components.IconConfig{
+																			Color:    types.String("#343CED"),
+																			Key:      types.String("person_icon"),
+																			IconType: components.IconTypeGlyph.ToPointer(),
+																			Name:     types.String("user"),
+																		},
+																	},
+																},
+															},
+														},
+														RemindAt: 427630,
+													},
+												},
+											},
+											CustomData: map[string]components.CustomDataValue{
+												"someCustomField": components.CustomDataValue{},
+											},
+											ContactPerson: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+										},
+									},
+								},
+								ExtractedQnA: &components.ExtractedQnA{
+									QuestionResult: &components.SearchResult{
+										Document: &components.Document{
+											Metadata: &components.DocumentMetadata{
+												Datasource: types.String("datasource"),
+												ObjectType: types.String("Feature Request"),
+												Container:  types.String("container"),
+												ParentID:   types.String("JIRA_EN-1337"),
+												MimeType:   types.String("mimeType"),
+												DocumentID: types.String("documentId"),
+												CreateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+												UpdateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+												Author: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												Owner: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												Components: []string{
+													"Backend",
+													"Networking",
+												},
+												Status: types.String("[\"Done\"]"),
+												AssignedTo: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												UpdatedBy: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												Interactions: &components.DocumentInteractions{},
+												Verification: &components.Verification{
+													State: components.StateDeprecated,
+													Metadata: &components.VerificationMetadata{
+														LastVerifier: &components.Person{
+															Name:         "George Clooney",
+															ObfuscatedID: "abc123",
+															Metadata: &components.PersonMetadata{
+																Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																Title:      types.String("Actor"),
+																Department: types.String("Movies"),
+																Email:      types.String("george@example.com"),
+																Location:   types.String("Hollywood, CA"),
+																Phone:      types.String("6505551234"),
+																PhotoURL:   types.String("https://example.com/george.jpg"),
+																StartDate:  types.MustNewDateFromString("2000-01-23"),
+																DatasourceProfile: []components.DatasourceProfile{
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																},
+																QuerySuggestions: &components.QuerySuggestionList{},
+																InviteInfo:       &components.InviteInfo{},
+																Badges: []components.Badge{
+																	components.Badge{
+																		Key:         types.String("deployment_name_new_hire"),
+																		DisplayName: types.String("New hire"),
+																		IconConfig: &components.IconConfig{
+																			Color:    types.String("#343CED"),
+																			Key:      types.String("person_icon"),
+																			IconType: components.IconTypeGlyph.ToPointer(),
+																			Name:     types.String("user"),
+																		},
+																	},
+																},
+															},
+														},
+														LastReminder: &components.Reminder{
+															Assignee: components.Person{
+																Name:         "George Clooney",
+																ObfuscatedID: "abc123",
+																Metadata: &components.PersonMetadata{
+																	Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																	Title:      types.String("Actor"),
+																	Department: types.String("Movies"),
+																	Email:      types.String("george@example.com"),
+																	Location:   types.String("Hollywood, CA"),
+																	Phone:      types.String("6505551234"),
+																	PhotoURL:   types.String("https://example.com/george.jpg"),
+																	StartDate:  types.MustNewDateFromString("2000-01-23"),
+																	DatasourceProfile: []components.DatasourceProfile{
+																		components.DatasourceProfile{
+																			Datasource: "github",
+																			Handle:     "<value>",
+																		},
+																		components.DatasourceProfile{
+																			Datasource: "github",
+																			Handle:     "<value>",
+																		},
+																	},
+																	QuerySuggestions: &components.QuerySuggestionList{},
+																	InviteInfo:       &components.InviteInfo{},
+																	Badges: []components.Badge{
+																		components.Badge{
+																			Key:         types.String("deployment_name_new_hire"),
+																			DisplayName: types.String("New hire"),
+																			IconConfig: &components.IconConfig{
+																				Color:    types.String("#343CED"),
+																				Key:      types.String("person_icon"),
+																				IconType: components.IconTypeGlyph.ToPointer(),
+																				Name:     types.String("user"),
+																			},
+																		},
+																	},
+																},
+															},
+															Requestor: &components.Person{
+																Name:         "George Clooney",
+																ObfuscatedID: "abc123",
+																Metadata: &components.PersonMetadata{
+																	Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																	Title:      types.String("Actor"),
+																	Department: types.String("Movies"),
+																	Email:      types.String("george@example.com"),
+																	Location:   types.String("Hollywood, CA"),
+																	Phone:      types.String("6505551234"),
+																	PhotoURL:   types.String("https://example.com/george.jpg"),
+																	StartDate:  types.MustNewDateFromString("2000-01-23"),
+																	DatasourceProfile: []components.DatasourceProfile{
+																		components.DatasourceProfile{
+																			Datasource: "github",
+																			Handle:     "<value>",
+																		},
+																		components.DatasourceProfile{
+																			Datasource: "github",
+																			Handle:     "<value>",
+																		},
+																		components.DatasourceProfile{
+																			Datasource: "github",
+																			Handle:     "<value>",
+																		},
+																	},
+																	QuerySuggestions: &components.QuerySuggestionList{},
+																	InviteInfo:       &components.InviteInfo{},
+																	Badges: []components.Badge{
+																		components.Badge{
+																			Key:         types.String("deployment_name_new_hire"),
+																			DisplayName: types.String("New hire"),
+																			IconConfig: &components.IconConfig{
+																				Color:    types.String("#343CED"),
+																				Key:      types.String("person_icon"),
+																				IconType: components.IconTypeGlyph.ToPointer(),
+																				Name:     types.String("user"),
+																			},
+																		},
+																	},
+																},
+															},
+															RemindAt: 446533,
+														},
+													},
+												},
+												CustomData: map[string]components.CustomDataValue{
+													"someCustomField": components.CustomDataValue{},
+												},
+												ContactPerson: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+											},
+										},
+										Title:        types.String("title"),
+										URL:          "https://example.com/foo/bar",
+										NativeAppURL: types.String("slack://foo/bar"),
+										MustIncludeSuggestions: &components.QuerySuggestionList{
+											Person: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													InviteInfo: &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+										},
+										QuerySuggestion: &components.QuerySuggestion{
+											Query: "app:github type:pull author:mortimer",
+											SearchProviderInfo: &components.SearchProviderInfo{
+												Name:                  types.String("Google"),
+												SearchLinkURLTemplate: types.String("https://www.google.com/search?q={query}&hl=en"),
+											},
+											Label:      types.String("Mortimer's PRs"),
+											Datasource: types.String("github"),
+											RequestOptions: &components.SearchRequestOptions{
+												DatasourceFilter: types.String("JIRA"),
+												DatasourcesFilter: []string{
+													"JIRA",
+												},
+												QueryOverridesFacetFilters: types.Bool(true),
+												FacetFilters: []components.FacetFilter{
+													components.FacetFilter{
+														FieldName: types.String("type"),
+														Values: []components.FacetFilterValue{
+															components.FacetFilterValue{
+																Value:        types.String("Spreadsheet"),
+																RelationType: components.RelationTypeEquals.ToPointer(),
+															},
+															components.FacetFilterValue{
+																Value:        types.String("Presentation"),
+																RelationType: components.RelationTypeEquals.ToPointer(),
+															},
+														},
+													},
+												},
+												FacetFilterSets: []components.FacetFilterSet{
+													components.FacetFilterSet{
+														Filters: []components.FacetFilter{
+															components.FacetFilter{
+																FieldName: types.String("type"),
+																Values: []components.FacetFilterValue{
+																	components.FacetFilterValue{
+																		Value:        types.String("Spreadsheet"),
+																		RelationType: components.RelationTypeEquals.ToPointer(),
+																	},
+																	components.FacetFilterValue{
+																		Value:        types.String("Presentation"),
+																		RelationType: components.RelationTypeEquals.ToPointer(),
+																	},
+																},
+															},
+														},
+													},
+												},
+												FacetBucketSize: 110931,
+												AuthTokens: []components.AuthToken{
+													components.AuthToken{
+														AccessToken: "123abc",
+														Datasource:  "gmail",
+														Scope:       types.String("email profile https://www.googleapis.com/auth/gmail.readonly"),
+														TokenType:   types.String("Bearer"),
+														AuthUser:    types.String("1"),
+													},
+												},
+											},
+											InputDetails: &components.SearchRequestInputDetails{
+												HasCopyPaste: types.Bool(true),
+											},
+										},
+									},
+								},
+								Meeting: &components.Meeting{
+									Attendees: &components.CalendarAttendees{},
+								},
+								Collection: &components.Collection{
+									Name:        "<value>",
+									Description: "crest pastel and",
+									AudienceFilters: []components.FacetFilter{
+										components.FacetFilter{
+											FieldName: types.String("type"),
+											Values: []components.FacetFilterValue{
+												components.FacetFilterValue{
+													Value:        types.String("Spreadsheet"),
+													RelationType: components.RelationTypeEquals.ToPointer(),
+												},
+												components.FacetFilterValue{
+													Value:        types.String("Presentation"),
+													RelationType: components.RelationTypeEquals.ToPointer(),
+												},
+											},
+										},
+									},
+									ID: 404097,
+									Creator: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											QuerySuggestions: &components.QuerySuggestionList{},
+											InviteInfo:       &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+									UpdatedBy: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											QuerySuggestions: &components.QuerySuggestionList{},
+											InviteInfo:       &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+								},
+								AnswerBoard: &components.AnswerBoard{
+									Name:        "<value>",
+									Description: "athwart vastly yowza than who joyous",
+									AudienceFilters: []components.FacetFilter{
+										components.FacetFilter{
+											FieldName: types.String("type"),
+											Values: []components.FacetFilterValue{
+												components.FacetFilterValue{
+													Value:        types.String("Spreadsheet"),
+													RelationType: components.RelationTypeEquals.ToPointer(),
+												},
+												components.FacetFilterValue{
+													Value:        types.String("Presentation"),
+													RelationType: components.RelationTypeEquals.ToPointer(),
+												},
+											},
+										},
+									},
+									ID: 852336,
+									Creator: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											QuerySuggestions: &components.QuerySuggestionList{},
+											InviteInfo:       &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+									UpdatedBy: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											QuerySuggestions: &components.QuerySuggestionList{},
+											InviteInfo:       &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+								},
+								Code: &components.Code{
+									RepoName: types.String("scio"),
+									FileName: types.String("README.md"),
+								},
+								QuerySuggestions: &components.QuerySuggestionList{
+									Person: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											InviteInfo: &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+								},
+								RelatedQuestion: &components.RelatedQuestion{},
+							},
+							components.StructuredResult{
+								Document: &components.Document{
+									Metadata: &components.DocumentMetadata{
+										Datasource: types.String("datasource"),
+										ObjectType: types.String("Feature Request"),
+										Container:  types.String("container"),
+										ParentID:   types.String("JIRA_EN-1337"),
+										MimeType:   types.String("mimeType"),
+										DocumentID: types.String("documentId"),
+										CreateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+										UpdateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+										Author: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+										Owner: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+										Components: []string{
+											"Backend",
+											"Networking",
+										},
+										Status: types.String("[\"Done\"]"),
+										AssignedTo: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+										UpdatedBy: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+										Interactions: &components.DocumentInteractions{},
+										Verification: &components.Verification{
+											State: components.StateUnverified,
+											Metadata: &components.VerificationMetadata{
+												LastVerifier: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												LastReminder: &components.Reminder{
+													Assignee: components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													Requestor: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													RemindAt: 984423,
+												},
+											},
+										},
+										CustomData: map[string]components.CustomDataValue{
+											"someCustomField": components.CustomDataValue{},
+										},
+										ContactPerson: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+									},
+								},
+								Person: &components.Person{
+									Name:         "George Clooney",
+									ObfuscatedID: "abc123",
+									Metadata: &components.PersonMetadata{
+										Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+										Title:      types.String("Actor"),
+										Department: types.String("Movies"),
+										Email:      types.String("george@example.com"),
+										Location:   types.String("Hollywood, CA"),
+										Phone:      types.String("6505551234"),
+										PhotoURL:   types.String("https://example.com/george.jpg"),
+										StartDate:  types.MustNewDateFromString("2000-01-23"),
+										DatasourceProfile: []components.DatasourceProfile{
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+											components.DatasourceProfile{
+												Datasource: "github",
+												Handle:     "<value>",
+											},
+										},
+										QuerySuggestions: &components.QuerySuggestionList{},
+										InviteInfo:       &components.InviteInfo{},
+										Badges: []components.Badge{
+											components.Badge{
+												Key:         types.String("deployment_name_new_hire"),
+												DisplayName: types.String("New hire"),
+												IconConfig: &components.IconConfig{
+													Color:    types.String("#343CED"),
+													Key:      types.String("person_icon"),
+													IconType: components.IconTypeGlyph.ToPointer(),
+													Name:     types.String("user"),
+												},
+											},
+										},
+									},
+								},
+								Customer: &components.Customer{
+									ID: "<id>",
+									Company: components.Company{
+										Name:     "<value>",
+										Location: types.String("New York City"),
+										Industry: types.String("Finances"),
+										About:    types.String("Financial, software, data, and media company headquartered in Midtown Manhattan, New York City"),
+									},
+									Notes: types.String("CIO is interested in trying out the product."),
+								},
+								Team: &components.Team{
+									ID:   "<id>",
+									Name: "<value>",
+									DatasourceProfiles: []components.DatasourceProfile{
+										components.DatasourceProfile{
+											Datasource: "github",
+											Handle:     "<value>",
+										},
+										components.DatasourceProfile{
+											Datasource: "github",
+											Handle:     "<value>",
+										},
+									},
+									Status:       components.TeamStatusProcessed.ToPointer(),
+									CanBeDeleted: types.Bool(true),
+								},
+								CustomEntity: &components.CustomEntity{},
+								Answer: &components.Answer{
+									ID:       3,
+									DocID:    types.String("ANSWERS_answer_3"),
+									Question: types.String("Why is the sky blue?"),
+									BodyText: types.String("From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light."),
+									AudienceFilters: []components.FacetFilter{
+										components.FacetFilter{
+											FieldName: types.String("type"),
+											Values: []components.FacetFilterValue{
+												components.FacetFilterValue{
+													Value:        types.String("Spreadsheet"),
+													RelationType: components.RelationTypeEquals.ToPointer(),
+												},
+												components.FacetFilterValue{
+													Value:        types.String("Presentation"),
+													RelationType: components.RelationTypeEquals.ToPointer(),
+												},
+											},
+										},
+									},
+									CombinedAnswerText: &components.StructuredText{
+										Text: "From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+									},
+									Likes: &components.AnswerLikes{
+										LikedBy:     []components.AnswerLike{},
+										LikedByUser: true,
+										NumLikes:    501227,
+									},
+									Author: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											QuerySuggestions: &components.QuerySuggestionList{},
+											InviteInfo:       &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+									UpdatedBy: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											QuerySuggestions: &components.QuerySuggestionList{},
+											InviteInfo:       &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+									Verification: &components.Verification{
+										State: components.StateVerified,
+										Metadata: &components.VerificationMetadata{
+											LastVerifier: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Document: &components.Document{
+												Metadata: &components.DocumentMetadata{
+													Datasource: types.String("datasource"),
+													ObjectType: types.String("Feature Request"),
+													Container:  types.String("container"),
+													ParentID:   types.String("JIRA_EN-1337"),
+													MimeType:   types.String("mimeType"),
+													DocumentID: types.String("documentId"),
+													CreateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+													UpdateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+													Author: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													Owner: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													Components: []string{
+														"Backend",
+														"Networking",
+													},
+													Status: types.String("[\"Done\"]"),
+													AssignedTo: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													UpdatedBy: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													Interactions: &components.DocumentInteractions{},
+													CustomData: map[string]components.CustomDataValue{
+														"someCustomField": components.CustomDataValue{},
+													},
+													ContactPerson: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+												},
+											},
+											LastReminder: &components.Reminder{
+												Assignee: components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												Requestor: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												RemindAt: 66030,
+											},
+										},
+									},
+									Board: &components.AnswerBoard{
+										Name:        "<value>",
+										Description: "whoa opposite the",
+										AudienceFilters: []components.FacetFilter{
+											components.FacetFilter{
+												FieldName: types.String("type"),
+												Values: []components.FacetFilterValue{
+													components.FacetFilterValue{
+														Value:        types.String("Spreadsheet"),
+														RelationType: components.RelationTypeEquals.ToPointer(),
+													},
+													components.FacetFilterValue{
+														Value:        types.String("Presentation"),
+														RelationType: components.RelationTypeEquals.ToPointer(),
+													},
+												},
+											},
+										},
+										ID: 136672,
+										Creator: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+										UpdatedBy: &components.Person{
+											Name:         "George Clooney",
+											ObfuscatedID: "abc123",
+											Metadata: &components.PersonMetadata{
+												Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+												Title:      types.String("Actor"),
+												Department: types.String("Movies"),
+												Email:      types.String("george@example.com"),
+												Location:   types.String("Hollywood, CA"),
+												Phone:      types.String("6505551234"),
+												PhotoURL:   types.String("https://example.com/george.jpg"),
+												StartDate:  types.MustNewDateFromString("2000-01-23"),
+												DatasourceProfile: []components.DatasourceProfile{
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+													components.DatasourceProfile{
+														Datasource: "github",
+														Handle:     "<value>",
+													},
+												},
+												QuerySuggestions: &components.QuerySuggestionList{},
+												InviteInfo:       &components.InviteInfo{},
+												Badges: []components.Badge{
+													components.Badge{
+														Key:         types.String("deployment_name_new_hire"),
+														DisplayName: types.String("New hire"),
+														IconConfig: &components.IconConfig{
+															Color:    types.String("#343CED"),
+															Key:      types.String("person_icon"),
+															IconType: components.IconTypeGlyph.ToPointer(),
+															Name:     types.String("user"),
+														},
+													},
+												},
+											},
+										},
+									},
+									SourceDocument: &components.Document{
+										Metadata: &components.DocumentMetadata{
+											Datasource: types.String("datasource"),
+											ObjectType: types.String("Feature Request"),
+											Container:  types.String("container"),
+											ParentID:   types.String("JIRA_EN-1337"),
+											MimeType:   types.String("mimeType"),
+											DocumentID: types.String("documentId"),
+											CreateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+											UpdateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+											Author: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Owner: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Components: []string{
+												"Backend",
+												"Networking",
+											},
+											Status: types.String("[\"Done\"]"),
+											AssignedTo: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											UpdatedBy: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+											Interactions: &components.DocumentInteractions{},
+											Verification: &components.Verification{
+												State: components.StateVerified,
+												Metadata: &components.VerificationMetadata{
+													LastVerifier: &components.Person{
+														Name:         "George Clooney",
+														ObfuscatedID: "abc123",
+														Metadata: &components.PersonMetadata{
+															Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+															Title:      types.String("Actor"),
+															Department: types.String("Movies"),
+															Email:      types.String("george@example.com"),
+															Location:   types.String("Hollywood, CA"),
+															Phone:      types.String("6505551234"),
+															PhotoURL:   types.String("https://example.com/george.jpg"),
+															StartDate:  types.MustNewDateFromString("2000-01-23"),
+															DatasourceProfile: []components.DatasourceProfile{
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+																components.DatasourceProfile{
+																	Datasource: "github",
+																	Handle:     "<value>",
+																},
+															},
+															QuerySuggestions: &components.QuerySuggestionList{},
+															InviteInfo:       &components.InviteInfo{},
+															Badges: []components.Badge{
+																components.Badge{
+																	Key:         types.String("deployment_name_new_hire"),
+																	DisplayName: types.String("New hire"),
+																	IconConfig: &components.IconConfig{
+																		Color:    types.String("#343CED"),
+																		Key:      types.String("person_icon"),
+																		IconType: components.IconTypeGlyph.ToPointer(),
+																		Name:     types.String("user"),
+																	},
+																},
+															},
+														},
+													},
+													LastReminder: &components.Reminder{
+														Assignee: components.Person{
+															Name:         "George Clooney",
+															ObfuscatedID: "abc123",
+															Metadata: &components.PersonMetadata{
+																Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																Title:      types.String("Actor"),
+																Department: types.String("Movies"),
+																Email:      types.String("george@example.com"),
+																Location:   types.String("Hollywood, CA"),
+																Phone:      types.String("6505551234"),
+																PhotoURL:   types.String("https://example.com/george.jpg"),
+																StartDate:  types.MustNewDateFromString("2000-01-23"),
+																DatasourceProfile: []components.DatasourceProfile{
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																},
+																QuerySuggestions: &components.QuerySuggestionList{},
+																InviteInfo:       &components.InviteInfo{},
+																Badges: []components.Badge{
+																	components.Badge{
+																		Key:         types.String("deployment_name_new_hire"),
+																		DisplayName: types.String("New hire"),
+																		IconConfig: &components.IconConfig{
+																			Color:    types.String("#343CED"),
+																			Key:      types.String("person_icon"),
+																			IconType: components.IconTypeGlyph.ToPointer(),
+																			Name:     types.String("user"),
+																		},
+																	},
+																},
+															},
+														},
+														Requestor: &components.Person{
+															Name:         "George Clooney",
+															ObfuscatedID: "abc123",
+															Metadata: &components.PersonMetadata{
+																Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																Title:      types.String("Actor"),
+																Department: types.String("Movies"),
+																Email:      types.String("george@example.com"),
+																Location:   types.String("Hollywood, CA"),
+																Phone:      types.String("6505551234"),
+																PhotoURL:   types.String("https://example.com/george.jpg"),
+																StartDate:  types.MustNewDateFromString("2000-01-23"),
+																DatasourceProfile: []components.DatasourceProfile{
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																},
+																QuerySuggestions: &components.QuerySuggestionList{},
+																InviteInfo:       &components.InviteInfo{},
+																Badges: []components.Badge{
+																	components.Badge{
+																		Key:         types.String("deployment_name_new_hire"),
+																		DisplayName: types.String("New hire"),
+																		IconConfig: &components.IconConfig{
+																			Color:    types.String("#343CED"),
+																			Key:      types.String("person_icon"),
+																			IconType: components.IconTypeGlyph.ToPointer(),
+																			Name:     types.String("user"),
+																		},
+																	},
+																},
+															},
+														},
+														RemindAt: 393938,
+													},
+												},
+											},
+											CustomData: map[string]components.CustomDataValue{
+												"someCustomField": components.CustomDataValue{},
+											},
+											ContactPerson: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													QuerySuggestions: &components.QuerySuggestionList{},
+													InviteInfo:       &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+										},
+									},
+								},
+								ExtractedQnA: &components.ExtractedQnA{
+									QuestionResult: &components.SearchResult{
+										Document: &components.Document{
+											Metadata: &components.DocumentMetadata{
+												Datasource: types.String("datasource"),
+												ObjectType: types.String("Feature Request"),
+												Container:  types.String("container"),
+												ParentID:   types.String("JIRA_EN-1337"),
+												MimeType:   types.String("mimeType"),
+												DocumentID: types.String("documentId"),
+												CreateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+												UpdateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+												Author: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												Owner: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												Components: []string{
+													"Backend",
+													"Networking",
+												},
+												Status: types.String("[\"Done\"]"),
+												AssignedTo: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												UpdatedBy: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+												Interactions: &components.DocumentInteractions{},
+												Verification: &components.Verification{
+													State: components.StateDeprecated,
+													Metadata: &components.VerificationMetadata{
+														LastVerifier: &components.Person{
+															Name:         "George Clooney",
+															ObfuscatedID: "abc123",
+															Metadata: &components.PersonMetadata{
+																Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																Title:      types.String("Actor"),
+																Department: types.String("Movies"),
+																Email:      types.String("george@example.com"),
+																Location:   types.String("Hollywood, CA"),
+																Phone:      types.String("6505551234"),
+																PhotoURL:   types.String("https://example.com/george.jpg"),
+																StartDate:  types.MustNewDateFromString("2000-01-23"),
+																DatasourceProfile: []components.DatasourceProfile{
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																	components.DatasourceProfile{
+																		Datasource: "github",
+																		Handle:     "<value>",
+																	},
+																},
+																QuerySuggestions: &components.QuerySuggestionList{},
+																InviteInfo:       &components.InviteInfo{},
+																Badges: []components.Badge{
+																	components.Badge{
+																		Key:         types.String("deployment_name_new_hire"),
+																		DisplayName: types.String("New hire"),
+																		IconConfig: &components.IconConfig{
+																			Color:    types.String("#343CED"),
+																			Key:      types.String("person_icon"),
+																			IconType: components.IconTypeGlyph.ToPointer(),
+																			Name:     types.String("user"),
+																		},
+																	},
+																},
+															},
+														},
+														LastReminder: &components.Reminder{
+															Assignee: components.Person{
+																Name:         "George Clooney",
+																ObfuscatedID: "abc123",
+																Metadata: &components.PersonMetadata{
+																	Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																	Title:      types.String("Actor"),
+																	Department: types.String("Movies"),
+																	Email:      types.String("george@example.com"),
+																	Location:   types.String("Hollywood, CA"),
+																	Phone:      types.String("6505551234"),
+																	PhotoURL:   types.String("https://example.com/george.jpg"),
+																	StartDate:  types.MustNewDateFromString("2000-01-23"),
+																	DatasourceProfile: []components.DatasourceProfile{
+																		components.DatasourceProfile{
+																			Datasource: "github",
+																			Handle:     "<value>",
+																		},
+																		components.DatasourceProfile{
+																			Datasource: "github",
+																			Handle:     "<value>",
+																		},
+																	},
+																	QuerySuggestions: &components.QuerySuggestionList{},
+																	InviteInfo:       &components.InviteInfo{},
+																	Badges: []components.Badge{
+																		components.Badge{
+																			Key:         types.String("deployment_name_new_hire"),
+																			DisplayName: types.String("New hire"),
+																			IconConfig: &components.IconConfig{
+																				Color:    types.String("#343CED"),
+																				Key:      types.String("person_icon"),
+																				IconType: components.IconTypeGlyph.ToPointer(),
+																				Name:     types.String("user"),
+																			},
+																		},
+																	},
+																},
+															},
+															Requestor: &components.Person{
+																Name:         "George Clooney",
+																ObfuscatedID: "abc123",
+																Metadata: &components.PersonMetadata{
+																	Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+																	Title:      types.String("Actor"),
+																	Department: types.String("Movies"),
+																	Email:      types.String("george@example.com"),
+																	Location:   types.String("Hollywood, CA"),
+																	Phone:      types.String("6505551234"),
+																	PhotoURL:   types.String("https://example.com/george.jpg"),
+																	StartDate:  types.MustNewDateFromString("2000-01-23"),
+																	DatasourceProfile: []components.DatasourceProfile{
+																		components.DatasourceProfile{
+																			Datasource: "github",
+																			Handle:     "<value>",
+																		},
+																		components.DatasourceProfile{
+																			Datasource: "github",
+																			Handle:     "<value>",
+																		},
+																		components.DatasourceProfile{
+																			Datasource: "github",
+																			Handle:     "<value>",
+																		},
+																	},
+																	QuerySuggestions: &components.QuerySuggestionList{},
+																	InviteInfo:       &components.InviteInfo{},
+																	Badges: []components.Badge{
+																		components.Badge{
+																			Key:         types.String("deployment_name_new_hire"),
+																			DisplayName: types.String("New hire"),
+																			IconConfig: &components.IconConfig{
+																				Color:    types.String("#343CED"),
+																				Key:      types.String("person_icon"),
+																				IconType: components.IconTypeGlyph.ToPointer(),
+																				Name:     types.String("user"),
+																			},
+																		},
+																	},
+																},
+															},
+															RemindAt: 971110,
+														},
+													},
+												},
+												CustomData: map[string]components.CustomDataValue{
+													"someCustomField": components.CustomDataValue{},
+												},
+												ContactPerson: &components.Person{
+													Name:         "George Clooney",
+													ObfuscatedID: "abc123",
+													Metadata: &components.PersonMetadata{
+														Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+														Title:      types.String("Actor"),
+														Department: types.String("Movies"),
+														Email:      types.String("george@example.com"),
+														Location:   types.String("Hollywood, CA"),
+														Phone:      types.String("6505551234"),
+														PhotoURL:   types.String("https://example.com/george.jpg"),
+														StartDate:  types.MustNewDateFromString("2000-01-23"),
+														DatasourceProfile: []components.DatasourceProfile{
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+															components.DatasourceProfile{
+																Datasource: "github",
+																Handle:     "<value>",
+															},
+														},
+														QuerySuggestions: &components.QuerySuggestionList{},
+														InviteInfo:       &components.InviteInfo{},
+														Badges: []components.Badge{
+															components.Badge{
+																Key:         types.String("deployment_name_new_hire"),
+																DisplayName: types.String("New hire"),
+																IconConfig: &components.IconConfig{
+																	Color:    types.String("#343CED"),
+																	Key:      types.String("person_icon"),
+																	IconType: components.IconTypeGlyph.ToPointer(),
+																	Name:     types.String("user"),
+																},
+															},
+														},
+													},
+												},
+											},
+										},
+										Title:        types.String("title"),
+										URL:          "https://example.com/foo/bar",
+										NativeAppURL: types.String("slack://foo/bar"),
+										MustIncludeSuggestions: &components.QuerySuggestionList{
+											Person: &components.Person{
+												Name:         "George Clooney",
+												ObfuscatedID: "abc123",
+												Metadata: &components.PersonMetadata{
+													Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+													Title:      types.String("Actor"),
+													Department: types.String("Movies"),
+													Email:      types.String("george@example.com"),
+													Location:   types.String("Hollywood, CA"),
+													Phone:      types.String("6505551234"),
+													PhotoURL:   types.String("https://example.com/george.jpg"),
+													StartDate:  types.MustNewDateFromString("2000-01-23"),
+													DatasourceProfile: []components.DatasourceProfile{
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+														components.DatasourceProfile{
+															Datasource: "github",
+															Handle:     "<value>",
+														},
+													},
+													InviteInfo: &components.InviteInfo{},
+													Badges: []components.Badge{
+														components.Badge{
+															Key:         types.String("deployment_name_new_hire"),
+															DisplayName: types.String("New hire"),
+															IconConfig: &components.IconConfig{
+																Color:    types.String("#343CED"),
+																Key:      types.String("person_icon"),
+																IconType: components.IconTypeGlyph.ToPointer(),
+																Name:     types.String("user"),
+															},
+														},
+													},
+												},
+											},
+										},
+										QuerySuggestion: &components.QuerySuggestion{
+											Query: "app:github type:pull author:mortimer",
+											SearchProviderInfo: &components.SearchProviderInfo{
+												Name:                  types.String("Google"),
+												SearchLinkURLTemplate: types.String("https://www.google.com/search?q={query}&hl=en"),
+											},
+											Label:      types.String("Mortimer's PRs"),
+											Datasource: types.String("github"),
+											RequestOptions: &components.SearchRequestOptions{
+												DatasourceFilter: types.String("JIRA"),
+												DatasourcesFilter: []string{
+													"JIRA",
+												},
+												QueryOverridesFacetFilters: types.Bool(true),
+												FacetFilters: []components.FacetFilter{
+													components.FacetFilter{
+														FieldName: types.String("type"),
+														Values: []components.FacetFilterValue{
+															components.FacetFilterValue{
+																Value:        types.String("Spreadsheet"),
+																RelationType: components.RelationTypeEquals.ToPointer(),
+															},
+															components.FacetFilterValue{
+																Value:        types.String("Presentation"),
+																RelationType: components.RelationTypeEquals.ToPointer(),
+															},
+														},
+													},
+												},
+												FacetFilterSets: []components.FacetFilterSet{
+													components.FacetFilterSet{
+														Filters: []components.FacetFilter{
+															components.FacetFilter{
+																FieldName: types.String("type"),
+																Values: []components.FacetFilterValue{
+																	components.FacetFilterValue{
+																		Value:        types.String("Spreadsheet"),
+																		RelationType: components.RelationTypeEquals.ToPointer(),
+																	},
+																	components.FacetFilterValue{
+																		Value:        types.String("Presentation"),
+																		RelationType: components.RelationTypeEquals.ToPointer(),
+																	},
+																},
+															},
+														},
+													},
+													components.FacetFilterSet{
+														Filters: []components.FacetFilter{
+															components.FacetFilter{
+																FieldName: types.String("type"),
+																Values: []components.FacetFilterValue{
+																	components.FacetFilterValue{
+																		Value:        types.String("Spreadsheet"),
+																		RelationType: components.RelationTypeEquals.ToPointer(),
+																	},
+																	components.FacetFilterValue{
+																		Value:        types.String("Presentation"),
+																		RelationType: components.RelationTypeEquals.ToPointer(),
+																	},
+																},
+															},
+														},
+													},
+												},
+												FacetBucketSize: 808175,
+												AuthTokens: []components.AuthToken{
+													components.AuthToken{
+														AccessToken: "123abc",
+														Datasource:  "gmail",
+														Scope:       types.String("email profile https://www.googleapis.com/auth/gmail.readonly"),
+														TokenType:   types.String("Bearer"),
+														AuthUser:    types.String("1"),
+													},
+												},
+											},
+											InputDetails: &components.SearchRequestInputDetails{
+												HasCopyPaste: types.Bool(true),
+											},
+										},
+									},
+								},
+								Meeting: &components.Meeting{
+									Attendees: &components.CalendarAttendees{},
+								},
+								Collection: &components.Collection{
+									Name:        "<value>",
+									Description: "via march international including never palate while faithfully",
+									AudienceFilters: []components.FacetFilter{
+										components.FacetFilter{
+											FieldName: types.String("type"),
+											Values: []components.FacetFilterValue{
+												components.FacetFilterValue{
+													Value:        types.String("Spreadsheet"),
+													RelationType: components.RelationTypeEquals.ToPointer(),
+												},
+												components.FacetFilterValue{
+													Value:        types.String("Presentation"),
+													RelationType: components.RelationTypeEquals.ToPointer(),
+												},
+											},
+										},
+									},
+									ID: 895984,
+									Creator: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											QuerySuggestions: &components.QuerySuggestionList{},
+											InviteInfo:       &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+									UpdatedBy: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											QuerySuggestions: &components.QuerySuggestionList{},
+											InviteInfo:       &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+								},
+								AnswerBoard: &components.AnswerBoard{
+									Name:        "<value>",
+									Description: "for difficult roughly newsstand train blah",
+									AudienceFilters: []components.FacetFilter{
+										components.FacetFilter{
+											FieldName: types.String("type"),
+											Values: []components.FacetFilterValue{
+												components.FacetFilterValue{
+													Value:        types.String("Spreadsheet"),
+													RelationType: components.RelationTypeEquals.ToPointer(),
+												},
+												components.FacetFilterValue{
+													Value:        types.String("Presentation"),
+													RelationType: components.RelationTypeEquals.ToPointer(),
+												},
+											},
+										},
+									},
+									ID: 697761,
+									Creator: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											QuerySuggestions: &components.QuerySuggestionList{},
+											InviteInfo:       &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+									UpdatedBy: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											QuerySuggestions: &components.QuerySuggestionList{},
+											InviteInfo:       &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+								},
+								Code: &components.Code{
+									RepoName: types.String("scio"),
+									FileName: types.String("README.md"),
+								},
+								QuerySuggestions: &components.QuerySuggestionList{
+									Person: &components.Person{
+										Name:         "George Clooney",
+										ObfuscatedID: "abc123",
+										Metadata: &components.PersonMetadata{
+											Type:       components.PersonMetadataTypeFullTime.ToPointer(),
+											Title:      types.String("Actor"),
+											Department: types.String("Movies"),
+											Email:      types.String("george@example.com"),
+											Location:   types.String("Hollywood, CA"),
+											Phone:      types.String("6505551234"),
+											PhotoURL:   types.String("https://example.com/george.jpg"),
+											StartDate:  types.MustNewDateFromString("2000-01-23"),
+											DatasourceProfile: []components.DatasourceProfile{
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+												components.DatasourceProfile{
+													Datasource: "github",
+													Handle:     "<value>",
+												},
+											},
+											InviteInfo: &components.InviteInfo{},
+											Badges: []components.Badge{
+												components.Badge{
+													Key:         types.String("deployment_name_new_hire"),
+													DisplayName: types.String("New hire"),
+													IconConfig: &components.IconConfig{
+														Color:    types.String("#343CED"),
+														Key:      types.String("person_icon"),
+														IconType: components.IconTypeGlyph.ToPointer(),
+														Name:     types.String("user"),
+													},
+												},
+											},
+										},
+									},
+								},
+								RelatedQuestion: &components.RelatedQuestion{},
+							},
+						},
+						QuerySuggestion: &components.QuerySuggestion{
+							Query: "app:github type:pull author:mortimer",
+							SearchProviderInfo: &components.SearchProviderInfo{
+								Name:                  types.String("Google"),
+								SearchLinkURLTemplate: types.String("https://www.google.com/search?q={query}&hl=en"),
+							},
+							Label:      types.String("Mortimer's PRs"),
+							Datasource: types.String("github"),
+							RequestOptions: &components.SearchRequestOptions{
+								DatasourceFilter: types.String("JIRA"),
+								DatasourcesFilter: []string{
+									"JIRA",
+								},
+								QueryOverridesFacetFilters: types.Bool(true),
+								FacetFilters: []components.FacetFilter{
+									components.FacetFilter{
+										FieldName: types.String("type"),
+										Values: []components.FacetFilterValue{
+											components.FacetFilterValue{
+												Value:        types.String("Spreadsheet"),
+												RelationType: components.RelationTypeEquals.ToPointer(),
+											},
+											components.FacetFilterValue{
+												Value:        types.String("Presentation"),
+												RelationType: components.RelationTypeEquals.ToPointer(),
+											},
+										},
+									},
+								},
+								FacetFilterSets: []components.FacetFilterSet{
+									components.FacetFilterSet{
+										Filters: []components.FacetFilter{
+											components.FacetFilter{
+												FieldName: types.String("type"),
+												Values: []components.FacetFilterValue{
+													components.FacetFilterValue{
+														Value:        types.String("Spreadsheet"),
+														RelationType: components.RelationTypeEquals.ToPointer(),
+													},
+													components.FacetFilterValue{
+														Value:        types.String("Presentation"),
+														RelationType: components.RelationTypeEquals.ToPointer(),
+													},
+												},
+											},
+										},
+									},
+									components.FacetFilterSet{
+										Filters: []components.FacetFilter{
+											components.FacetFilter{
+												FieldName: types.String("type"),
+												Values: []components.FacetFilterValue{
+													components.FacetFilterValue{
+														Value:        types.String("Spreadsheet"),
+														RelationType: components.RelationTypeEquals.ToPointer(),
+													},
+													components.FacetFilterValue{
+														Value:        types.String("Presentation"),
+														RelationType: components.RelationTypeEquals.ToPointer(),
+													},
+												},
+											},
+										},
+									},
+									components.FacetFilterSet{
+										Filters: []components.FacetFilter{
+											components.FacetFilter{
+												FieldName: types.String("type"),
+												Values: []components.FacetFilterValue{
+													components.FacetFilterValue{
+														Value:        types.String("Spreadsheet"),
+														RelationType: components.RelationTypeEquals.ToPointer(),
+													},
+													components.FacetFilterValue{
+														Value:        types.String("Presentation"),
+														RelationType: components.RelationTypeEquals.ToPointer(),
+													},
+												},
+											},
+										},
+									},
+								},
+								FacetBucketSize: 532356,
+								AuthTokens: []components.AuthToken{
+									components.AuthToken{
+										AccessToken: "123abc",
+										Datasource:  "gmail",
+										Scope:       types.String("email profile https://www.googleapis.com/auth/gmail.readonly"),
+										TokenType:   types.String("Bearer"),
+										AuthUser:    types.String("1"),
+									},
+								},
+							},
+							InputDetails: &components.SearchRequestInputDetails{
+								HasCopyPaste: types.Bool(true),
+							},
 						},
 						File: &components.ChatFile{
 							ID:   types.String("FILE_1234"),

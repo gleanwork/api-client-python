@@ -29,3 +29,13 @@ Based on:
 - [python v0.2.0] .
 ### Releases
 - [PyPI v0.2.0] https://pypi.org/project/glean/0.2.0 - .
+
+## 2025-05-09 21:49:56
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.543.4 (2.598.22) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [python v0.3.0] .
+### Releases
+- [PyPI v0.3.0] https://pypi.org/project/glean/0.3.0 - .

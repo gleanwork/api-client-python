@@ -2,6 +2,7 @@
 
 from datetime import date
 from glean import Glean, models
+from glean.utils import parse_datetime
 import os
 import pytest
 from tests.test_client import create_test_http_client
@@ -38,7 +39,354 @@ def test_collections_createcollection():
                     person=models.Person(
                         name="George Clooney",
                         obfuscated_id="abc123",
-                        related_documents=[],
+                        related_documents=[
+                            models.RelatedDocuments(
+                                query_suggestion=models.QuerySuggestion(
+                                    query="app:github type:pull author:mortimer",
+                                    search_provider_info=models.SearchProviderInfo(
+                                        name="Google",
+                                        search_link_url_template="https://www.google.com/search?q={query}&hl=en",
+                                    ),
+                                    label="Mortimer's PRs",
+                                    datasource="github",
+                                    request_options=models.SearchRequestOptions(
+                                        datasource_filter="JIRA",
+                                        datasources_filter=[
+                                            "JIRA",
+                                        ],
+                                        query_overrides_facet_filters=True,
+                                        facet_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        facet_filter_sets=[
+                                            models.FacetFilterSet(
+                                                filters=[
+                                                    models.FacetFilter(
+                                                        field_name="type",
+                                                        values=[
+                                                            models.FacetFilterValue(
+                                                                value="Spreadsheet",
+                                                                relation_type=models.RelationType.EQUALS,
+                                                            ),
+                                                            models.FacetFilterValue(
+                                                                value="Presentation",
+                                                                relation_type=models.RelationType.EQUALS,
+                                                            ),
+                                                        ],
+                                                    ),
+                                                ],
+                                            ),
+                                            models.FacetFilterSet(
+                                                filters=[
+                                                    models.FacetFilter(
+                                                        field_name="type",
+                                                        values=[
+                                                            models.FacetFilterValue(
+                                                                value="Spreadsheet",
+                                                                relation_type=models.RelationType.EQUALS,
+                                                            ),
+                                                            models.FacetFilterValue(
+                                                                value="Presentation",
+                                                                relation_type=models.RelationType.EQUALS,
+                                                            ),
+                                                        ],
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        facet_bucket_size=134365,
+                                        auth_tokens=[
+                                            models.AuthToken(
+                                                access_token="123abc",
+                                                datasource="gmail",
+                                                scope="email profile https://www.googleapis.com/auth/gmail.readonly",
+                                                token_type="Bearer",
+                                                auth_user="1",
+                                            ),
+                                        ],
+                                    ),
+                                    ranges=[
+                                        models.TextRange(
+                                            start_index=796474,
+                                            document=models.Document(
+                                                metadata=models.DocumentMetadata(
+                                                    datasource="datasource",
+                                                    object_type="Feature Request",
+                                                    container="container",
+                                                    parent_id="JIRA_EN-1337",
+                                                    mime_type="mimeType",
+                                                    document_id="documentId",
+                                                    create_time=parse_datetime(
+                                                        "2000-01-23T04:56:07.000Z"
+                                                    ),
+                                                    update_time=parse_datetime(
+                                                        "2000-01-23T04:56:07.000Z"
+                                                    ),
+                                                    components=[
+                                                        "Backend",
+                                                        "Networking",
+                                                    ],
+                                                    status='["Done"]',
+                                                    pins=[
+                                                        models.PinDocument(
+                                                            audience_filters=[
+                                                                models.FacetFilter(
+                                                                    field_name="type",
+                                                                    values=[
+                                                                        models.FacetFilterValue(
+                                                                            value="Spreadsheet",
+                                                                            relation_type=models.RelationType.EQUALS,
+                                                                        ),
+                                                                        models.FacetFilterValue(
+                                                                            value="Presentation",
+                                                                            relation_type=models.RelationType.EQUALS,
+                                                                        ),
+                                                                    ],
+                                                                ),
+                                                            ],
+                                                            document_id="<id>",
+                                                        ),
+                                                        models.PinDocument(
+                                                            audience_filters=[
+                                                                models.FacetFilter(
+                                                                    field_name="type",
+                                                                    values=[
+                                                                        models.FacetFilterValue(
+                                                                            value="Spreadsheet",
+                                                                            relation_type=models.RelationType.EQUALS,
+                                                                        ),
+                                                                        models.FacetFilterValue(
+                                                                            value="Presentation",
+                                                                            relation_type=models.RelationType.EQUALS,
+                                                                        ),
+                                                                    ],
+                                                                ),
+                                                            ],
+                                                            document_id="<id>",
+                                                        ),
+                                                        models.PinDocument(
+                                                            audience_filters=[
+                                                                models.FacetFilter(
+                                                                    field_name="type",
+                                                                    values=[
+                                                                        models.FacetFilterValue(
+                                                                            value="Spreadsheet",
+                                                                            relation_type=models.RelationType.EQUALS,
+                                                                        ),
+                                                                        models.FacetFilterValue(
+                                                                            value="Presentation",
+                                                                            relation_type=models.RelationType.EQUALS,
+                                                                        ),
+                                                                    ],
+                                                                ),
+                                                            ],
+                                                            document_id="<id>",
+                                                        ),
+                                                    ],
+                                                    collections=[
+                                                        models.Collection(
+                                                            name="<value>",
+                                                            description="fumigate convection though zowie",
+                                                            audience_filters=[
+                                                                models.FacetFilter(
+                                                                    field_name="type",
+                                                                    values=[
+                                                                        models.FacetFilterValue(
+                                                                            value="Spreadsheet",
+                                                                            relation_type=models.RelationType.EQUALS,
+                                                                        ),
+                                                                        models.FacetFilterValue(
+                                                                            value="Presentation",
+                                                                            relation_type=models.RelationType.EQUALS,
+                                                                        ),
+                                                                    ],
+                                                                ),
+                                                            ],
+                                                            id=496323,
+                                                            items=[
+                                                                models.CollectionItem(
+                                                                    collection_id=782367,
+                                                                    item_type=models.CollectionItemItemType.DOCUMENT,
+                                                                ),
+                                                            ],
+                                                        ),
+                                                    ],
+                                                    interactions=models.DocumentInteractions(
+                                                        reacts=[
+                                                            models.Reaction(),
+                                                            models.Reaction(),
+                                                            models.Reaction(),
+                                                        ],
+                                                        shares=[
+                                                            models.Share(
+                                                                num_days_ago=219974,
+                                                            ),
+                                                            models.Share(
+                                                                num_days_ago=449221,
+                                                            ),
+                                                            models.Share(
+                                                                num_days_ago=427887,
+                                                            ),
+                                                        ],
+                                                    ),
+                                                    verification=models.Verification(
+                                                        state=models.State.VERIFIED,
+                                                        metadata=models.VerificationMetadata(
+                                                            reminders=[
+                                                                models.Reminder(
+                                                                    assignee=models.Person(
+                                                                        name="George Clooney",
+                                                                        obfuscated_id="abc123",
+                                                                    ),
+                                                                    remind_at=491427,
+                                                                ),
+                                                            ],
+                                                            last_reminder=models.Reminder(
+                                                                assignee=models.Person(
+                                                                    name="George Clooney",
+                                                                    obfuscated_id="abc123",
+                                                                ),
+                                                                remind_at=490420,
+                                                            ),
+                                                        ),
+                                                    ),
+                                                    custom_data={
+                                                        "someCustomField": models.CustomDataValue(),
+                                                    },
+                                                ),
+                                            ),
+                                        ),
+                                    ],
+                                    input_details=models.SearchRequestInputDetails(
+                                        has_copy_paste=True,
+                                    ),
+                                ),
+                                results=[
+                                    models.SearchResult(
+                                        title="title",
+                                        url="https://example.com/foo/bar",
+                                        native_app_url="slack://foo/bar",
+                                        snippets=[
+                                            models.SearchResultSnippet(
+                                                snippet="snippet",
+                                                mime_type="mimeType",
+                                            ),
+                                        ],
+                                    ),
+                                ],
+                            ),
+                            models.RelatedDocuments(
+                                query_suggestion=models.QuerySuggestion(
+                                    query="app:github type:pull author:mortimer",
+                                    search_provider_info=models.SearchProviderInfo(
+                                        name="Google",
+                                        search_link_url_template="https://www.google.com/search?q={query}&hl=en",
+                                    ),
+                                    label="Mortimer's PRs",
+                                    datasource="github",
+                                    request_options=models.SearchRequestOptions(
+                                        datasource_filter="JIRA",
+                                        datasources_filter=[
+                                            "JIRA",
+                                        ],
+                                        query_overrides_facet_filters=True,
+                                        facet_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        facet_filter_sets=[
+                                            models.FacetFilterSet(
+                                                filters=[
+                                                    models.FacetFilter(
+                                                        field_name="type",
+                                                        values=[
+                                                            models.FacetFilterValue(
+                                                                value="Spreadsheet",
+                                                                relation_type=models.RelationType.EQUALS,
+                                                            ),
+                                                            models.FacetFilterValue(
+                                                                value="Presentation",
+                                                                relation_type=models.RelationType.EQUALS,
+                                                            ),
+                                                        ],
+                                                    ),
+                                                ],
+                                            ),
+                                            models.FacetFilterSet(
+                                                filters=[
+                                                    models.FacetFilter(
+                                                        field_name="type",
+                                                        values=[
+                                                            models.FacetFilterValue(
+                                                                value="Spreadsheet",
+                                                                relation_type=models.RelationType.EQUALS,
+                                                            ),
+                                                            models.FacetFilterValue(
+                                                                value="Presentation",
+                                                                relation_type=models.RelationType.EQUALS,
+                                                            ),
+                                                        ],
+                                                    ),
+                                                ],
+                                            ),
+                                            models.FacetFilterSet(
+                                                filters=[
+                                                    models.FacetFilter(
+                                                        field_name="type",
+                                                        values=[
+                                                            models.FacetFilterValue(
+                                                                value="Spreadsheet",
+                                                                relation_type=models.RelationType.EQUALS,
+                                                            ),
+                                                            models.FacetFilterValue(
+                                                                value="Presentation",
+                                                                relation_type=models.RelationType.EQUALS,
+                                                            ),
+                                                        ],
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        facet_bucket_size=45416,
+                                        auth_tokens=[
+                                            models.AuthToken(
+                                                access_token="123abc",
+                                                datasource="gmail",
+                                                scope="email profile https://www.googleapis.com/auth/gmail.readonly",
+                                                token_type="Bearer",
+                                                auth_user="1",
+                                            ),
+                                        ],
+                                    ),
+                                    input_details=models.SearchRequestInputDetails(
+                                        has_copy_paste=True,
+                                    ),
+                                ),
+                            ),
+                        ],
                         metadata=models.PersonMetadata(
                             type=models.PersonMetadataType.FULL_TIME,
                             title="Actor",
@@ -55,12 +403,32 @@ def test_collections_createcollection():
                                 ),
                             ],
                             query_suggestions=models.QuerySuggestionList(
-                                suggestions=[],
+                                suggestions=[
+                                    models.QuerySuggestion(
+                                        query="app:github type:pull author:mortimer",
+                                        label="Mortimer's PRs",
+                                        datasource="github",
+                                    ),
+                                ],
                             ),
                             invite_info=models.InviteInfo(
-                                invites=[],
+                                invites=[
+                                    models.ChannelInviteInfo(),
+                                ],
                             ),
-                            custom_fields=[],
+                            custom_fields=[
+                                models.CustomFieldData(
+                                    label="<value>",
+                                    values=[
+                                        models.CustomFieldValueStr(),
+                                        models.CustomFieldValueStr(),
+                                    ],
+                                ),
+                                models.CustomFieldData(
+                                    label="<value>",
+                                    values=[],
+                                ),
+                            ],
                             badges=[
                                 models.Badge(
                                     key="deployment_name_new_hire",
@@ -78,6 +446,40 @@ def test_collections_createcollection():
                     role=models.UserRole.OWNER,
                 ),
                 models.UserRoleSpecification(
+                    person=models.Person(
+                        name="George Clooney",
+                        obfuscated_id="abc123",
+                        metadata=models.PersonMetadata(
+                            type=models.PersonMetadataType.FULL_TIME,
+                            title="Actor",
+                            department="Movies",
+                            email="george@example.com",
+                            location="Hollywood, CA",
+                            phone="6505551234",
+                            photo_url="https://example.com/george.jpg",
+                            start_date=date.fromisoformat("2000-01-23"),
+                            datasource_profile=[
+                                models.DatasourceProfile(
+                                    datasource="github",
+                                    handle="<value>",
+                                ),
+                            ],
+                            query_suggestions=models.QuerySuggestionList(),
+                            invite_info=models.InviteInfo(),
+                            badges=[
+                                models.Badge(
+                                    key="deployment_name_new_hire",
+                                    display_name="New hire",
+                                    icon_config=models.IconConfig(
+                                        color="#343CED",
+                                        key="person_icon",
+                                        icon_type=models.IconType.GLYPH,
+                                        name="user",
+                                    ),
+                                ),
+                            ],
+                        ),
+                    ),
                     role=models.UserRole.VERIFIER,
                 ),
             ],
@@ -120,9 +522,85 @@ def test_collections_createcollection():
                     role=models.UserRole.VERIFIER,
                 ),
                 models.UserRoleSpecification(
+                    person=models.Person(
+                        name="George Clooney",
+                        obfuscated_id="abc123",
+                        metadata=models.PersonMetadata(
+                            type=models.PersonMetadataType.FULL_TIME,
+                            title="Actor",
+                            department="Movies",
+                            email="george@example.com",
+                            location="Hollywood, CA",
+                            phone="6505551234",
+                            photo_url="https://example.com/george.jpg",
+                            start_date=date.fromisoformat("2000-01-23"),
+                            datasource_profile=[
+                                models.DatasourceProfile(
+                                    datasource="github",
+                                    handle="<value>",
+                                ),
+                                models.DatasourceProfile(
+                                    datasource="github",
+                                    handle="<value>",
+                                ),
+                                models.DatasourceProfile(
+                                    datasource="github",
+                                    handle="<value>",
+                                ),
+                            ],
+                            query_suggestions=models.QuerySuggestionList(),
+                            invite_info=models.InviteInfo(),
+                            badges=[
+                                models.Badge(
+                                    key="deployment_name_new_hire",
+                                    display_name="New hire",
+                                    icon_config=models.IconConfig(
+                                        color="#343CED",
+                                        key="person_icon",
+                                        icon_type=models.IconType.GLYPH,
+                                        name="user",
+                                    ),
+                                ),
+                            ],
+                        ),
+                    ),
                     role=models.UserRole.ANSWER_MODERATOR,
                 ),
                 models.UserRoleSpecification(
+                    person=models.Person(
+                        name="George Clooney",
+                        obfuscated_id="abc123",
+                        metadata=models.PersonMetadata(
+                            type=models.PersonMetadataType.FULL_TIME,
+                            title="Actor",
+                            department="Movies",
+                            email="george@example.com",
+                            location="Hollywood, CA",
+                            phone="6505551234",
+                            photo_url="https://example.com/george.jpg",
+                            start_date=date.fromisoformat("2000-01-23"),
+                            datasource_profile=[
+                                models.DatasourceProfile(
+                                    datasource="github",
+                                    handle="<value>",
+                                ),
+                            ],
+                            query_suggestions=models.QuerySuggestionList(),
+                            invite_info=models.InviteInfo(),
+                            badges=[
+                                models.Badge(
+                                    key="deployment_name_new_hire",
+                                    display_name="New hire",
+                                    icon_config=models.IconConfig(
+                                        color="#343CED",
+                                        key="person_icon",
+                                        icon_type=models.IconType.GLYPH,
+                                        name="user",
+                                    ),
+                                ),
+                            ],
+                        ),
+                    ),
                     role=models.UserRole.OWNER,
                 ),
             ],
@@ -197,7 +675,359 @@ def test_collections_editcollection():
                     person=models.Person(
                         name="George Clooney",
                         obfuscated_id="abc123",
-                        related_documents=[],
+                        related_documents=[
+                            models.RelatedDocuments(
+                                query_suggestion=models.QuerySuggestion(
+                                    query="app:github type:pull author:mortimer",
+                                    search_provider_info=models.SearchProviderInfo(
+                                        name="Google",
+                                        search_link_url_template="https://www.google.com/search?q={query}&hl=en",
+                                    ),
+                                    label="Mortimer's PRs",
+                                    datasource="github",
+                                    request_options=models.SearchRequestOptions(
+                                        datasource_filter="JIRA",
+                                        datasources_filter=[
+                                            "JIRA",
+                                        ],
+                                        query_overrides_facet_filters=True,
+                                        facet_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        facet_filter_sets=[
+                                            models.FacetFilterSet(
+                                                filters=[
+                                                    models.FacetFilter(
+                                                        field_name="type",
+                                                        values=[
+                                                            models.FacetFilterValue(
+                                                                value="Spreadsheet",
+                                                                relation_type=models.RelationType.EQUALS,
+                                                            ),
+                                                            models.FacetFilterValue(
+                                                                value="Presentation",
+                                                                relation_type=models.RelationType.EQUALS,
+                                                            ),
+                                                        ],
+                                                    ),
+                                                ],
+                                            ),
+                                            models.FacetFilterSet(
+                                                filters=[
+                                                    models.FacetFilter(
+                                                        field_name="type",
+                                                        values=[
+                                                            models.FacetFilterValue(
+                                                                value="Spreadsheet",
+                                                                relation_type=models.RelationType.EQUALS,
+                                                            ),
+                                                            models.FacetFilterValue(
+                                                                value="Presentation",
+                                                                relation_type=models.RelationType.EQUALS,
+                                                            ),
+                                                        ],
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        facet_bucket_size=991464,
+                                        auth_tokens=[
+                                            models.AuthToken(
+                                                access_token="123abc",
+                                                datasource="gmail",
+                                                scope="email profile https://www.googleapis.com/auth/gmail.readonly",
+                                                token_type="Bearer",
+                                                auth_user="1",
+                                            ),
+                                        ],
+                                    ),
+                                    ranges=[
+                                        models.TextRange(
+                                            start_index=488852,
+                                            document=models.Document(
+                                                metadata=models.DocumentMetadata(
+                                                    datasource="datasource",
+                                                    object_type="Feature Request",
+                                                    container="container",
+                                                    parent_id="JIRA_EN-1337",
+                                                    mime_type="mimeType",
+                                                    document_id="documentId",
+                                                    create_time=parse_datetime(
+                                                        "2000-01-23T04:56:07.000Z"
+                                                    ),
+                                                    update_time=parse_datetime(
+                                                        "2000-01-23T04:56:07.000Z"
+                                                    ),
+                                                    components=[
+                                                        "Backend",
+                                                        "Networking",
+                                                    ],
+                                                    status='["Done"]',
+                                                    pins=[
+                                                        models.PinDocument(
+                                                            audience_filters=[
+                                                                models.FacetFilter(
+                                                                    field_name="type",
+                                                                    values=[
+                                                                        models.FacetFilterValue(
+                                                                            value="Spreadsheet",
+                                                                            relation_type=models.RelationType.EQUALS,
+                                                                        ),
+                                                                        models.FacetFilterValue(
+                                                                            value="Presentation",
+                                                                            relation_type=models.RelationType.EQUALS,
+                                                                        ),
+                                                                    ],
+                                                                ),
+                                                            ],
+                                                            document_id="<id>",
+                                                        ),
+                                                        models.PinDocument(
+                                                            audience_filters=[
+                                                                models.FacetFilter(
+                                                                    field_name="type",
+                                                                    values=[
+                                                                        models.FacetFilterValue(
+                                                                            value="Spreadsheet",
+                                                                            relation_type=models.RelationType.EQUALS,
+                                                                        ),
+                                                                        models.FacetFilterValue(
+                                                                            value="Presentation",
+                                                                            relation_type=models.RelationType.EQUALS,
+                                                                        ),
+                                                                    ],
+                                                                ),
+                                                            ],
+                                                            document_id="<id>",
+                                                        ),
+                                                        models.PinDocument(
+                                                            audience_filters=[
+                                                                models.FacetFilter(
+                                                                    field_name="type",
+                                                                    values=[
+                                                                        models.FacetFilterValue(
+                                                                            value="Spreadsheet",
+                                                                            relation_type=models.RelationType.EQUALS,
+                                                                        ),
+                                                                        models.FacetFilterValue(
+                                                                            value="Presentation",
+                                                                            relation_type=models.RelationType.EQUALS,
+                                                                        ),
+                                                                    ],
+                                                                ),
+                                                            ],
+                                                            document_id="<id>",
+                                                        ),
+                                                    ],
+                                                    collections=[
+                                                        models.Collection(
+                                                            name="<value>",
+                                                            description="eulogise whereas till mild than during meanwhile disapprove finer ha",
+                                                            audience_filters=[
+                                                                models.FacetFilter(
+                                                                    field_name="type",
+                                                                    values=[
+                                                                        models.FacetFilterValue(
+                                                                            value="Spreadsheet",
+                                                                            relation_type=models.RelationType.EQUALS,
+                                                                        ),
+                                                                        models.FacetFilterValue(
+                                                                            value="Presentation",
+                                                                            relation_type=models.RelationType.EQUALS,
+                                                                        ),
+                                                                    ],
+                                                                ),
+                                                            ],
+                                                            id=2984,
+                                                            items=[
+                                                                models.CollectionItem(
+                                                                    collection_id=477967,
+                                                                    item_type=models.CollectionItemItemType.URL,
+                                                                ),
+                                                                models.CollectionItem(
+                                                                    collection_id=813577,
+                                                                    item_type=models.CollectionItemItemType.TEXT,
+                                                                ),
+                                                            ],
+                                                        ),
+                                                    ],
+                                                    interactions=models.DocumentInteractions(
+                                                        reacts=[
+                                                            models.Reaction(),
+                                                        ],
+                                                        shares=[
+                                                            models.Share(
+                                                                num_days_ago=301848,
+                                                            ),
+                                                            models.Share(
+                                                                num_days_ago=657278,
+                                                            ),
+                                                        ],
+                                                    ),
+                                                    verification=models.Verification(
+                                                        state=models.State.UNVERIFIED,
+                                                        metadata=models.VerificationMetadata(
+                                                            reminders=[
+                                                                models.Reminder(
+                                                                    assignee=models.Person(
+                                                                        name="George Clooney",
+                                                                        obfuscated_id="abc123",
+                                                                    ),
+                                                                    remind_at=335191,
+                                                                ),
+                                                            ],
+                                                            last_reminder=models.Reminder(
+                                                                assignee=models.Person(
+                                                                    name="George Clooney",
+                                                                    obfuscated_id="abc123",
+                                                                ),
+                                                                remind_at=532806,
+                                                            ),
+                                                        ),
+                                                    ),
+                                                    custom_data={
+                                                        "someCustomField": models.CustomDataValue(),
+                                                    },
+                                                ),
+                                            ),
+                                        ),
+                                        models.TextRange(
+                                            start_index=556706,
+                                            document=models.Document(
+                                                metadata=models.DocumentMetadata(
+                                                    datasource="datasource",
+                                                    object_type="Feature Request",
+                                                    container="container",
+                                                    parent_id="JIRA_EN-1337",
+                                                    mime_type="mimeType",
+                                                    document_id="documentId",
+                                                    create_time=parse_datetime(
+                                                        "2000-01-23T04:56:07.000Z"
+                                                    ),
+                                                    update_time=parse_datetime(
+                                                        "2000-01-23T04:56:07.000Z"
+                                                    ),
+                                                    components=[
+                                                        "Backend",
+                                                        "Networking",
+                                                    ],
+                                                    status='["Done"]',
+                                                    interactions=models.DocumentInteractions(),
+                                                    verification=models.Verification(
+                                                        state=models.State.VERIFIED,
+                                                        metadata=models.VerificationMetadata(
+                                                            last_reminder=models.Reminder(
+                                                                assignee=models.Person(
+                                                                    name="George Clooney",
+                                                                    obfuscated_id="abc123",
+                                                                ),
+                                                                remind_at=416023,
+                                                            ),
+                                                        ),
+                                                    ),
+                                                    custom_data={
+                                                        "someCustomField": models.CustomDataValue(),
+                                                    },
+                                                ),
+                                            ),
+                                        ),
+                                    ],
+                                    input_details=models.SearchRequestInputDetails(
+                                        has_copy_paste=True,
+                                    ),
+                                ),
+                                results=[
+                                    models.SearchResult(
+                                        title="title",
+                                        url="https://example.com/foo/bar",
+                                        native_app_url="slack://foo/bar",
+                                        snippets=[
+                                            models.SearchResultSnippet(
+                                                snippet="snippet",
+                                                mime_type="mimeType",
+                                            ),
+                                        ],
+                                    ),
+                                ],
+                            ),
+                            models.RelatedDocuments(
+                                query_suggestion=models.QuerySuggestion(
+                                    query="app:github type:pull author:mortimer",
+                                    search_provider_info=models.SearchProviderInfo(
+                                        name="Google",
+                                        search_link_url_template="https://www.google.com/search?q={query}&hl=en",
+                                    ),
+                                    label="Mortimer's PRs",
+                                    datasource="github",
+                                    request_options=models.SearchRequestOptions(
+                                        datasource_filter="JIRA",
+                                        datasources_filter=[
+                                            "JIRA",
+                                        ],
+                                        query_overrides_facet_filters=True,
+                                        facet_filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        facet_filter_sets=[
+                                            models.FacetFilterSet(
+                                                filters=[
+                                                    models.FacetFilter(
+                                                        field_name="type",
+                                                        values=[
+                                                            models.FacetFilterValue(
+                                                                value="Spreadsheet",
+                                                                relation_type=models.RelationType.EQUALS,
+                                                            ),
+                                                            models.FacetFilterValue(
+                                                                value="Presentation",
+                                                                relation_type=models.RelationType.EQUALS,
+                                                            ),
+                                                        ],
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                        facet_bucket_size=967252,
+                                        auth_tokens=[
+                                            models.AuthToken(
+                                                access_token="123abc",
+                                                datasource="gmail",
+                                                scope="email profile https://www.googleapis.com/auth/gmail.readonly",
+                                                token_type="Bearer",
+                                                auth_user="1",
+                                            ),
+                                        ],
+                                    ),
+                                    input_details=models.SearchRequestInputDetails(
+                                        has_copy_paste=True,
+                                    ),
+                                ),
+                            ),
+                        ],
                         metadata=models.PersonMetadata(
                             type=models.PersonMetadataType.FULL_TIME,
                             title="Actor",
@@ -214,12 +1044,33 @@ def test_collections_editcollection():
                                 ),
                             ],
                             query_suggestions=models.QuerySuggestionList(
-                                suggestions=[],
+                                suggestions=[
+                                    models.QuerySuggestion(
+                                        query="app:github type:pull author:mortimer",
+                                        label="Mortimer's PRs",
+                                        datasource="github",
+                                    ),
+                                ],
                             ),
                             invite_info=models.InviteInfo(
-                                invites=[],
+                                invites=[
+                                    models.ChannelInviteInfo(),
+                                ],
                             ),
-                            custom_fields=[],
+                            custom_fields=[
+                                models.CustomFieldData(
+                                    label="<value>",
+                                    values=[],
+                                ),
+                                models.CustomFieldData(
+                                    label="<value>",
+                                    values=[],
+                                ),
+                                models.CustomFieldData(
+                                    label="<value>",
+                                    values=[],
+                                ),
+                            ],
                             badges=[
                                 models.Badge(
                                     key="deployment_name_new_hire",
@@ -237,9 +1088,85 @@ def test_collections_editcollection():
                     role=models.UserRole.ANSWER_MODERATOR,
                 ),
                 models.UserRoleSpecification(
+                    person=models.Person(
+                        name="George Clooney",
+                        obfuscated_id="abc123",
+                        metadata=models.PersonMetadata(
+                            type=models.PersonMetadataType.FULL_TIME,
+                            title="Actor",
+                            department="Movies",
+                            email="george@example.com",
+                            location="Hollywood, CA",
+                            phone="6505551234",
+                            photo_url="https://example.com/george.jpg",
+                            start_date=date.fromisoformat("2000-01-23"),
+                            datasource_profile=[
+                                models.DatasourceProfile(
+                                    datasource="github",
+                                    handle="<value>",
+                                ),
+                                models.DatasourceProfile(
+                                    datasource="github",
+                                    handle="<value>",
+                                ),
+                            ],
+                            query_suggestions=models.QuerySuggestionList(),
+                            invite_info=models.InviteInfo(),
+                            badges=[
+                                models.Badge(
+                                    key="deployment_name_new_hire",
+                                    display_name="New hire",
+                                    icon_config=models.IconConfig(
+                                        color="#343CED",
+                                        key="person_icon",
+                                        icon_type=models.IconType.GLYPH,
+                                        name="user",
+                                    ),
+                                ),
+                            ],
+                        ),
+                    ),
                     role=models.UserRole.EDITOR,
                 ),
                 models.UserRoleSpecification(
+                    person=models.Person(
+                        name="George Clooney",
+                        obfuscated_id="abc123",
+                        metadata=models.PersonMetadata(
+                            type=models.PersonMetadataType.FULL_TIME,
+                            title="Actor",
+                            department="Movies",
+                            email="george@example.com",
+                            location="Hollywood, CA",
+                            phone="6505551234",
+                            photo_url="https://example.com/george.jpg",
+                            start_date=date.fromisoformat("2000-01-23"),
+                            datasource_profile=[
+                                models.DatasourceProfile(
+                                    datasource="github",
+                                    handle="<value>",
+                                ),
+                                models.DatasourceProfile(
+                                    datasource="github",
+                                    handle="<value>",
+                                ),
+                            ],
+                            query_suggestions=models.QuerySuggestionList(),
+                            invite_info=models.InviteInfo(),
+                            badges=[
+                                models.Badge(
+                                    key="deployment_name_new_hire",
+                                    display_name="New hire",
+                                    icon_config=models.IconConfig(
+                                        color="#343CED",
+                                        key="person_icon",
+                                        icon_type=models.IconType.GLYPH,
+                                        name="user",
+                                    ),
+                                ),
+                            ],
+                        ),
+                    ),
                     role=models.UserRole.ANSWER_MODERATOR,
                 ),
             ],
