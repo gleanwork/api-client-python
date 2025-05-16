@@ -7,6 +7,7 @@ from .utils.logger import Logger, get_default_logger
 from .utils.retries import RetryConfig
 from glean import models, utils
 from glean._hooks import SDKHooks
+from glean.agents import Agents
 from glean.client import Client
 from glean.indexing import Indexing
 from glean.types import OptionalNullable, UNSET
@@ -36,6 +37,7 @@ class Glean(BaseSDK):
     """
 
     client: Client
+    agents: Agents
     indexing: Indexing
 
     def __init__(
@@ -143,6 +145,7 @@ class Glean(BaseSDK):
 
     def _init_sdks(self):
         self.client = Client(self.sdk_configuration)
+        self.agents = Agents(self.sdk_configuration)
         self.indexing = Indexing(self.sdk_configuration)
 
     def __enter__(self):

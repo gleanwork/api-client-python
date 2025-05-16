@@ -126,6 +126,15 @@ DEBUG	discriminated: Renamed to "WriteActionParameter_type"
 	 registrationID: "scope:shared refType:Schemas refName:WriteActionParameter originalName:type"
 DEBUG	
 
+--- Renaming 2 types with name "metadata" ---
+DEBUG	discriminated: Renamed to "RelatedObject_metadata" 
+	 labels: "original_name:metadata scope:shared refName:RelatedObject" 
+	 registrationID: "scope:shared refType:Schemas refName:RelatedObject originalName:metadata"
+DEBUG	discriminated: Renamed to "Agent_Metadata" 
+	 labels: "original_name:Metadata scope:shared refName:Agent" 
+	 registrationID: "scope:shared refType:Schemas refName:Agent property:metadata originalName:Metadata"
+DEBUG	
+
 --- Renaming 2 types with name "relationship" ---
 DEBUG	discriminated: Renamed to "PersonToTeamRelationship_relationship" 
 	 labels: "original_name:relationship scope:shared data_type:enum refName:PersonToTeamRelationship" 
@@ -220,6 +229,15 @@ DEBUG
 DEBUG	discriminated: Renamed to "agent_enum" 
 	 labels: "original_name:agent scope:shared data_type:enum refName:AgentConfig" 
 	 registrationID: "scope:shared refType:Schemas refName:AgentConfig originalName:agent"
+DEBUG	
+
+--- Renaming 2 types with name "Input" ---
+DEBUG	discriminated: Renamed to "AgentRunCreate_Input" 
+	 labels: "original_name:Input scope:shared refName:AgentRunCreate" 
+	 registrationID: "scope:shared refType:Schemas refName:AgentRunCreate property:input originalName:Input"
+DEBUG	discriminated: Renamed to "AgentRun_Input" 
+	 labels: "original_name:Input scope:shared refName:AgentRun" 
+	 registrationID: "scope:shared refType:Schemas refName:AgentRun property:input originalName:Input"
 DEBUG	
 
 --- Renaming 3 types with name "errorCode" ---
@@ -339,7 +357,7 @@ FeedbackResponse (HttpMeta: HTTPMetadata)
 Announcements (SDK empty)
 CreateAnnouncementRequest (startTime: date-time, endTime: date-time, title: string ...)
  StructuredText (text: string, structuredList: array)
-   StructuredTextItem (link: string, document: Document, text: string)
+   StructuredTextItem (link: string, document: Document, text: string ...)
     Document (id: string, datasource: string, connectorType: ConnectorType ...)
      ConnectorType (enum: API_CRAWL, BROWSER_CRAWL, BROWSER_HISTORY ...)
      DocumentContent (fullTextList: array)
@@ -404,7 +422,7 @@ CreateAnnouncementRequest (startTime: date-time, endTime: date-time, title: stri
                Team (relatedObjects: map, permissions: ObjectPermissions, id: string ...)
                  RelatedObjectEdge (objects: array)
                    RelatedObject (id: string, metadata: class)
-                    Metadata (name: string)
+                    RelatedObjectMetadata (name: string)
                 ObjectPermissions (write: WritePermission)
                  PersonToTeamRelationship (person: Person, relationship: enum, customRelationshipStr: string ...)
                   PersonToTeamRelationshipRelationship (enum: MEMBER, MANAGER, LEAD ...)
@@ -566,20 +584,6 @@ DeletechatfilesRequest (timezoneOffset: integer, DeleteChatFilesRequest: DeleteC
 DeletechatfilesResponse (HttpMeta: HTTPMetadata)
 ChatStreamRequest (timezoneOffset: integer, ChatRequest: ChatRequest)
 ChatStreamResponse (HttpMeta: HTTPMetadata, ChatRequestStream: string)
-Agents (SDK empty)
-RunagentRequest (timezoneOffset: integer, RunAgentRequest: RunAgentRequest)
- RunAgentRequest (agentId: string, fields: map, stream: boolean)
-RunagentResponse (HttpMeta: HTTPMetadata, ChatResponse: ChatResponse)
-ListagentsRequest (timezoneOffset: integer, RequestBody: any)
-ListagentsResponse (HttpMeta: HTTPMetadata, ListAgentsResponse: ListAgentsResponse)
- ListAgentsResponse (agents: array)
-   AgentResult (agent: Agent)
-    Agent (author: Person, createTimestamp: integer, lastUpdateTimestamp: integer ...)
-GetagentinputsRequest (timezoneOffset: integer, GetAgentInputsRequest: GetAgentInputsRequest)
- GetAgentInputsRequest (agentId: string)
-GetagentinputsResponse (HttpMeta: HTTPMetadata, GetAgentInputsResponse: GetAgentInputsResponse)
- GetAgentInputsResponse (inputs: array)
-   WorkflowInputField (name: string)
 Collections (SDK empty)
 AddCollectionItemsRequest (collectionId: number, addedCollectionItemDescriptors: array)
   CollectionItemDescriptor (name: string, description: string, icon: string ...)
@@ -787,6 +791,31 @@ ListverificationsResponse (HttpMeta: HTTPMetadata, VerificationFeed: Verificatio
 VerifyRequest (documentId: string, action: enum)
  VerifyRequestAction (enum: VERIFY, DEPRECATE, UNVERIFY)
 VerifyResponse (HttpMeta: HTTPMetadata, Verification: Verification)
+Agents (SDK empty)
+GetAgentRequest (timezoneOffset: integer, agent_id: string)
+GetAgentResponse (HttpMeta: HTTPMetadata, Agent: Agent)
+ Agent (agent_id: string, name: string, description: string ...)
+  AgentMetadata (empty)
+  AgentCapabilities (ap.io.messages: boolean, ap.io.streaming: boolean, AdditionalProperties: map)
+GetAgentSchemasRequest (timezoneOffset: integer, agent_id: string)
+GetAgentSchemasResponse (HttpMeta: HTTPMetadata, AgentSchemas: AgentSchemas)
+ AgentSchemas (agent_id: string, input_schema: class, output_schema: class)
+  InputSchema (empty)
+  OutputSchema (empty)
+SearchAgentsRequest (name: string)
+SearchAgentsResponse (HttpMeta: HTTPMetadata, SearchAgentsResponse: SearchAgentsResponse)
+ SearchAgentsResponse (agents: array)
+AgentRunCreate (agent_id: string, input: class, messages: array)
+ AgentRunCreateInput (empty)
+  Message (role: string, content: array)
+    MessageTextBlock (text: string, type: ContentType)
+     ContentType (enum: text)
+CreateAndStreamRunResponse (HttpMeta: HTTPMetadata, res: string)
+CreateAndWaitRunResponse (HttpMeta: HTTPMetadata, AgentRunWaitResponse: AgentRunWaitResponse)
+ AgentRunWaitResponse (run: AgentRun, messages: array)
+  AgentRun (agent_id: string, input: class, messages: array ...)
+   AgentRunInput (empty)
+   AgentExecutionStatus (enum: error, success)
 Indexing (SDK empty)
 IndexingDocuments (SDK empty)
 IndexDocumentRequest (version: integer, document: DocumentDefinition)

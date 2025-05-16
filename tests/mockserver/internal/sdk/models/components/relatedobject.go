@@ -2,13 +2,13 @@
 
 package components
 
-// Metadata - Some metadata of the object which can be displayed, while not having the actual object.
-type Metadata struct {
+// RelatedObjectMetadata - Some metadata of the object which can be displayed, while not having the actual object.
+type RelatedObjectMetadata struct {
 	// Placeholder name of the object, not the relationship.
 	Name *string `json:"name,omitempty"`
 }
 
-func (o *Metadata) GetName() *string {
+func (o *RelatedObjectMetadata) GetName() *string {
 	if o == nil {
 		return nil
 	}
@@ -19,7 +19,7 @@ type RelatedObject struct {
 	// The ID of the related object
 	ID string `json:"id"`
 	// Some metadata of the object which can be displayed, while not having the actual object.
-	Metadata *Metadata `json:"metadata,omitempty"`
+	Metadata *RelatedObjectMetadata `json:"metadata,omitempty"`
 }
 
 func (o *RelatedObject) GetID() string {
@@ -29,7 +29,7 @@ func (o *RelatedObject) GetID() string {
 	return o.ID
 }
 
-func (o *RelatedObject) GetMetadata() *Metadata {
+func (o *RelatedObject) GetMetadata() *RelatedObjectMetadata {
 	if o == nil {
 		return nil
 	}

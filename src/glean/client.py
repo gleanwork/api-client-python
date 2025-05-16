@@ -2,7 +2,6 @@
 
 from .basesdk import BaseSDK
 from .sdkconfiguration import SDKConfiguration
-from glean.agents import Agents
 from glean.announcements import Announcements
 from glean.answers import Answers
 from glean.client_activity import ClientActivity
@@ -25,7 +24,6 @@ class Client(BaseSDK):
     answers: Answers
     authentication: ClientAuthentication
     chat: ClientChat
-    agents: Agents
     collections: Collections
     documents: ClientDocuments
     insights: Insights
@@ -47,7 +45,6 @@ class Client(BaseSDK):
         self.answers = Answers(self.sdk_configuration)
         self.authentication = ClientAuthentication(self.sdk_configuration)
         self.chat = ClientChat(self.sdk_configuration)
-        self.agents = Agents(self.sdk_configuration)
         self.collections = Collections(self.sdk_configuration)
         self.documents = ClientDocuments(self.sdk_configuration)
         self.insights = Insights(self.sdk_configuration)

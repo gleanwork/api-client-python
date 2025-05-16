@@ -6,14 +6,14 @@ from typing import Optional
 from typing_extensions import NotRequired, TypedDict
 
 
-class MetadataTypedDict(TypedDict):
+class RelatedObjectMetadataTypedDict(TypedDict):
     r"""Some metadata of the object which can be displayed, while not having the actual object."""
 
     name: NotRequired[str]
     r"""Placeholder name of the object, not the relationship."""
 
 
-class Metadata(BaseModel):
+class RelatedObjectMetadata(BaseModel):
     r"""Some metadata of the object which can be displayed, while not having the actual object."""
 
     name: Optional[str] = None
@@ -23,7 +23,7 @@ class Metadata(BaseModel):
 class RelatedObjectTypedDict(TypedDict):
     id: str
     r"""The ID of the related object"""
-    metadata: NotRequired[MetadataTypedDict]
+    metadata: NotRequired[RelatedObjectMetadataTypedDict]
     r"""Some metadata of the object which can be displayed, while not having the actual object."""
 
 
@@ -31,5 +31,5 @@ class RelatedObject(BaseModel):
     id: str
     r"""The ID of the related object"""
 
-    metadata: Optional[Metadata] = None
+    metadata: Optional[RelatedObjectMetadata] = None
     r"""Some metadata of the object which can be displayed, while not having the actual object."""

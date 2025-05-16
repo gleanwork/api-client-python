@@ -1,9 +1,0 @@
-# GetagentinputsRequestRequest
-
-
-## Fields
-
-| Field                                                                                                      | Type                                                                                                       | Required                                                                                                   | Description                                                                                                |
-| ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| `timezone_offset`                                                                                          | *Optional[int]*                                                                                            | :heavy_minus_sign:                                                                                         | The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC. |
-| `get_agent_inputs_request`                                                                                 | [models.GetAgentInputsRequest](../models/getagentinputsrequest.md)                                         | :heavy_check_mark:                                                                                         | N/A                                                                                                        |

@@ -22,9 +22,32 @@ from .additionalfielddefinition import (
     Value,
     ValueTypedDict,
 )
-from .agent import Agent, AgentTypedDict
+from .agent import (
+    Agent,
+    AgentCapabilities,
+    AgentCapabilitiesTypedDict,
+    AgentMetadata,
+    AgentMetadataTypedDict,
+    AgentTypedDict,
+)
 from .agentconfig import AgentConfig, AgentConfigTypedDict, AgentEnum, Mode
-from .agentresult import AgentResult, AgentResultTypedDict
+from .agentexecutionstatus import AgentExecutionStatus
+from .agentrun import AgentRun, AgentRunInput, AgentRunInputTypedDict, AgentRunTypedDict
+from .agentruncreate import (
+    AgentRunCreate,
+    AgentRunCreateInput,
+    AgentRunCreateInputTypedDict,
+    AgentRunCreateTypedDict,
+)
+from .agentrunwaitresponse import AgentRunWaitResponse, AgentRunWaitResponseTypedDict
+from .agentschemas import (
+    AgentSchemas,
+    AgentSchemasTypedDict,
+    InputSchema,
+    InputSchemaTypedDict,
+    OutputSchema,
+    OutputSchemaTypedDict,
+)
 from .aiappactioncounts import AiAppActionCounts, AiAppActionCountsTypedDict
 from .aiappsinsightsresponse import (
     AiAppsInsightsResponse,
@@ -193,6 +216,7 @@ from .contentinsightsresponse import (
     ContentInsightsResponse,
     ContentInsightsResponseTypedDict,
 )
+from .contenttype import ContentType
 from .countinfo import CountInfo, CountInfoTypedDict
 from .createannouncementrequest import (
     CreateAnnouncementRequest,
@@ -454,15 +478,8 @@ from .generatedattachmentcontent import (
     GeneratedAttachmentContentTypedDict,
 )
 from .generatedqna import GeneratedQna, GeneratedQnaStatus, GeneratedQnaTypedDict
-from .getagentinputsop import (
-    GetagentinputsRequestRequest,
-    GetagentinputsRequestRequestTypedDict,
-)
-from .getagentinputsrequest import GetAgentInputsRequest, GetAgentInputsRequestTypedDict
-from .getagentinputsresponse import (
-    GetAgentInputsResponse,
-    GetAgentInputsResponseTypedDict,
-)
+from .getagentop import GetAgentRequest, GetAgentRequestTypedDict
+from .getagentschemasop import GetAgentSchemasRequest, GetAgentSchemasRequestTypedDict
 from .getanswererror import (
     GetAnswerError,
     GetAnswerErrorErrorType,
@@ -589,8 +606,6 @@ from .invalidoperatorvalueerror import (
 )
 from .inviteinfo import InviteInfo, InviteInfoTypedDict
 from .labeledcountinfo import LabeledCountInfo, LabeledCountInfoTypedDict
-from .listagentsop import ListagentsRequest, ListagentsRequestTypedDict
-from .listagentsresponse import ListAgentsResponse, ListAgentsResponseTypedDict
 from .listanswersrequest import ListAnswersRequest, ListAnswersRequestTypedDict
 from .listanswersresponse import ListAnswersResponse, ListAnswersResponseTypedDict
 from .listchatsop import ListchatsRequest, ListchatsRequestTypedDict
@@ -633,6 +648,12 @@ from .manualfeedbackinfo import (
     Vote,
 )
 from .meeting import Meeting, MeetingTypedDict
+from .message import (
+    Message,
+    MessageTextBlock,
+    MessageTextBlockTypedDict,
+    MessageTypedDict,
+)
 from .messagesrequest import (
     Datasource,
     Direction,
@@ -726,9 +747,9 @@ from .recommendationsrequestoptions import (
 from .referencerange import ReferenceRange, ReferenceRangeTypedDict
 from .relateddocuments import RelatedDocuments, RelatedDocumentsTypedDict, Relation
 from .relatedobject import (
-    Metadata,
-    MetadataTypedDict,
     RelatedObject,
+    RelatedObjectMetadata,
+    RelatedObjectMetadataTypedDict,
     RelatedObjectTypedDict,
 )
 from .relatedobjectedge import RelatedObjectEdge, RelatedObjectEdgeTypedDict
@@ -740,9 +761,9 @@ from .resultsdescription import ResultsDescription, ResultsDescriptionTypedDict
 from .resultsresponse import ResultsResponse, ResultsResponseTypedDict
 from .resulttab import ResultTab, ResultTabTypedDict
 from .rotatetokenresponse import RotateTokenResponse, RotateTokenResponseTypedDict
-from .runagentop import RunagentRequestRequest, RunagentRequestRequestTypedDict
-from .runagentrequest import RunAgentRequest, RunAgentRequestTypedDict
 from .scopetype import ScopeType
+from .searchagentsrequest import SearchAgentsRequest, SearchAgentsRequestTypedDict
+from .searchagentsresponse import SearchAgentsResponse, SearchAgentsResponseTypedDict
 from .searchproviderinfo import SearchProviderInfo, SearchProviderInfoTypedDict
 from .searchrequest import SearchRequest, SearchRequestTypedDict
 from .searchrequestinputdetails import (
@@ -894,7 +915,6 @@ from .workflowfeedbackinfo import (
     WorkflowFeedbackInfoSource,
     WorkflowFeedbackInfoTypedDict,
 )
-from .workflowinputfield import WorkflowInputField, WorkflowInputFieldTypedDict
 from .workflowresult import WorkflowResult, WorkflowResultTypedDict
 from .writeactionparameter import (
     WriteActionParameter,
@@ -968,11 +988,26 @@ __all__ = [
     "AdditionalFieldDefinition",
     "AdditionalFieldDefinitionTypedDict",
     "Agent",
+    "AgentCapabilities",
+    "AgentCapabilitiesTypedDict",
     "AgentConfig",
     "AgentConfigTypedDict",
     "AgentEnum",
-    "AgentResult",
-    "AgentResultTypedDict",
+    "AgentExecutionStatus",
+    "AgentMetadata",
+    "AgentMetadataTypedDict",
+    "AgentRun",
+    "AgentRunCreate",
+    "AgentRunCreateInput",
+    "AgentRunCreateInputTypedDict",
+    "AgentRunCreateTypedDict",
+    "AgentRunInput",
+    "AgentRunInputTypedDict",
+    "AgentRunTypedDict",
+    "AgentRunWaitResponse",
+    "AgentRunWaitResponseTypedDict",
+    "AgentSchemas",
+    "AgentSchemasTypedDict",
     "AgentTypedDict",
     "AiAppActionCounts",
     "AiAppActionCountsTypedDict",
@@ -1131,6 +1166,7 @@ __all__ = [
     "ContentDefinitionTypedDict",
     "ContentInsightsResponse",
     "ContentInsightsResponseTypedDict",
+    "ContentType",
     "CountInfo",
     "CountInfoTypedDict",
     "CreateAnnouncementRequest",
@@ -1371,10 +1407,10 @@ __all__ = [
     "GeneratedQna",
     "GeneratedQnaStatus",
     "GeneratedQnaTypedDict",
-    "GetAgentInputsRequest",
-    "GetAgentInputsRequestTypedDict",
-    "GetAgentInputsResponse",
-    "GetAgentInputsResponseTypedDict",
+    "GetAgentRequest",
+    "GetAgentRequestTypedDict",
+    "GetAgentSchemasRequest",
+    "GetAgentSchemasRequestTypedDict",
     "GetAnswerError",
     "GetAnswerErrorErrorType",
     "GetAnswerErrorTypedDict",
@@ -1435,8 +1471,6 @@ __all__ = [
     "GetUserCountRequestTypedDict",
     "GetUserCountResponse",
     "GetUserCountResponseTypedDict",
-    "GetagentinputsRequestRequest",
-    "GetagentinputsRequestRequestTypedDict",
     "GetchatRequestRequest",
     "GetchatRequestRequestTypedDict",
     "GetchatapplicationRequestRequest",
@@ -1481,6 +1515,8 @@ __all__ = [
     "IndexUserRequestTypedDict",
     "IndexingShortcut",
     "IndexingShortcutTypedDict",
+    "InputSchema",
+    "InputSchemaTypedDict",
     "InsightsAgentsRequestOptions",
     "InsightsAgentsRequestOptionsTypedDict",
     "InsightsAiAppRequestOptions",
@@ -1499,8 +1535,6 @@ __all__ = [
     "KnowledgeType",
     "LabeledCountInfo",
     "LabeledCountInfoTypedDict",
-    "ListAgentsResponse",
-    "ListAgentsResponseTypedDict",
     "ListAnswersRequest",
     "ListAnswersRequestTypedDict",
     "ListAnswersResponse",
@@ -1524,8 +1558,6 @@ __all__ = [
     "ListShortcutsPaginatedRequestTypedDict",
     "ListShortcutsPaginatedResponse",
     "ListShortcutsPaginatedResponseTypedDict",
-    "ListagentsRequest",
-    "ListagentsRequestTypedDict",
     "ListchatsRequest",
     "ListchatsRequestTypedDict",
     "ListpinsRequest",
@@ -1537,13 +1569,15 @@ __all__ = [
     "ManualFeedbackInfoTypedDict",
     "Meeting",
     "MeetingTypedDict",
+    "Message",
+    "MessageTextBlock",
+    "MessageTextBlockTypedDict",
     "MessageType",
+    "MessageTypedDict",
     "MessagesRequest",
     "MessagesRequestTypedDict",
     "MessagesResponse",
     "MessagesResponseTypedDict",
-    "Metadata",
-    "MetadataTypedDict",
     "Mode",
     "ObjectDefinition",
     "ObjectDefinitionTypedDict",
@@ -1555,6 +1589,8 @@ __all__ = [
     "OperatorScopeTypedDict",
     "OperatorType",
     "OrderBy",
+    "OutputSchema",
+    "OutputSchemaTypedDict",
     "PeopleRequest",
     "PeopleRequestIncludeField",
     "PeopleRequestTypedDict",
@@ -1638,6 +1674,8 @@ __all__ = [
     "RelatedObject",
     "RelatedObjectEdge",
     "RelatedObjectEdgeTypedDict",
+    "RelatedObjectMetadata",
+    "RelatedObjectMetadataTypedDict",
     "RelatedObjectTypedDict",
     "RelatedQuestion",
     "RelatedQuestionTypedDict",
@@ -1662,12 +1700,12 @@ __all__ = [
     "Role",
     "RotateTokenResponse",
     "RotateTokenResponseTypedDict",
-    "RunAgentRequest",
-    "RunAgentRequestTypedDict",
-    "RunagentRequestRequest",
-    "RunagentRequestRequestTypedDict",
     "Scope",
     "ScopeType",
+    "SearchAgentsRequest",
+    "SearchAgentsRequestTypedDict",
+    "SearchAgentsResponse",
+    "SearchAgentsResponseTypedDict",
     "SearchProviderInfo",
     "SearchProviderInfoTypedDict",
     "SearchRequest",
@@ -1821,8 +1859,6 @@ __all__ = [
     "WorkflowFeedbackInfo",
     "WorkflowFeedbackInfoSource",
     "WorkflowFeedbackInfoTypedDict",
-    "WorkflowInputField",
-    "WorkflowInputFieldTypedDict",
     "WorkflowResult",
     "WorkflowResultTypedDict",
     "WorkflowTypedDict",

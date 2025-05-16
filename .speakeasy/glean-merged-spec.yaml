@@ -754,109 +754,209 @@ paths:
                     description: Too Many Requests
             x-speakeasy-name-override: deleteFiles
             x-speakeasy-group: client.chat
-    /rest/api/v1/runagent:
+    /rest/api/v1/agents/{agent_id}:
+        get:
+            tags:
+                - Agents
+            summary: Get Agent
+            description: Get an agent by ID. This endpoint implements the LangChain Agent Protocol, specifically part of the Agents stage (https://langchain-ai.github.io/agent-protocol/api.html#tag/agents/GET/agents/{agent_id}). It adheres to the standard contract defined for agent interoperability and can be used by agent runtimes that support the Agent Protocol.
+            operationId: getAgent
+            x-visibility: Preview
+            parameters:
+                - $ref: "#/components/parameters/timezoneOffset"
+                - description: The ID of the agent.
+                  required: true
+                  schema:
+                    type: string
+                    title: Agent ID
+                    description: The ID of the agent.
+                  name: agent_id
+                  in: path
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Agent"
+                "400":
+                    description: Bad request
+                "403":
+                    description: Forbidden
+                "404":
+                    description: Not Found
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ErrorResponse"
+                "500":
+                    description: Internal server error
+    /rest/api/v1/agents/{agent_id}/schemas:
+        get:
+            tags:
+                - Agents
+            summary: Get Agent Schemas
+            description: Get an agent's schemas by ID. This endpoint implements the LangChain Agent Protocol, specifically part of the Agents stage (https://langchain-ai.github.io/agent-protocol/api.html#tag/agents/GET/agents/{agent_id}/schemas). It adheres to the standard contract defined for agent interoperability and can be used by agent runtimes that support the Agent Protocol.
+            operationId: getAgentSchemas
+            x-visibility: Preview
+            parameters:
+                - $ref: "#/components/parameters/timezoneOffset"
+                - description: The ID of the agent.
+                  required: true
+                  schema:
+                    type: string
+                    title: Agent Id
+                    description: The ID of the agent.
+                  name: agent_id
+                  in: path
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/AgentSchemas"
+                "400":
+                    description: Bad request
+                "403":
+                    description: Forbidden
+                "404":
+                    description: Not Found
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ErrorResponse"
+                "422":
+                    description: Validation Error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ErrorResponse"
+                "500":
+                    description: Internal server error
+    /rest/api/v1/agents/search:
         post:
             tags:
                 - Agents
-            summary: Runs an Agent.
-            description: Trigger an Agent with a given id.
-            operationId: runagent
+            summary: Search Agents
+            description: List Agents available in this service. This endpoint implements the LangChain Agent Protocol, specifically part of the Agents stage (https://langchain-ai.github.io/agent-protocol/api.html#tag/agents/POST/agents/search). It adheres to the standard contract defined for agent interoperability and can be used by agent runtimes that support the Agent Protocol.
+            operationId: searchAgents
             x-visibility: Preview
-            x-codegen-request-body-name: payload
-            parameters:
-                - $ref: "#/components/parameters/timezoneOffset"
             requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: "#/components/schemas/RunAgentRequest"
                 required: true
-                x-exportParamName: Request
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/SearchAgentsRequest"
             responses:
                 "200":
-                    description: OK
+                    description: Success
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/ChatResponse"
+                                $ref: "#/components/schemas/SearchAgentsResponse"
                 "400":
-                    description: Invalid request
-                "401":
-                    description: Not Authorized
-                "408":
-                    description: Request Timeout
-                "429":
-                    description: Too Many Requests
-            x-speakeasy-group: client.agents
-            x-speakeasy-name-override: run
-    /rest/api/v1/listagents:
+                    description: Bad request
+                "403":
+                    description: Forbidden
+                "404":
+                    description: Not Found
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ErrorResponse"
+                "422":
+                    description: Validation Error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ErrorResponse"
+                "500":
+                    description: Internal server error
+    /rest/api/v1/agents/runs/stream:
         post:
             tags:
                 - Agents
+            summary: Create Run, Stream Output
+            description: Creates and triggers a run of an agent. Streams the output in SSE format. This endpoint implements the LangChain Agent Protocol, specifically part of the Runs stage (https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/POST/runs/stream). It adheres to the standard contract defined for agent interoperability and can be used by agent runtimes that support the Agent Protocol. Note that running agents that reference third party platform write actions is unsupported as it requires user confirmation.
+            operationId: createAndStreamRun
             x-visibility: Preview
-            summary: Lists all agents.
-            x-codegen-request-body-name: payload
-            description: Lists all agents that are available.
-            operationId: listagents
-            parameters:
-                - $ref: "#/components/parameters/timezoneOffset"
             requestBody:
                 content:
                     application/json:
                         schema:
-                            $ref: "#/components/schemas/ListWorkflowsRequest"
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/ListAgentsResponse"
-                "400":
-                    description: Invalid request
-                "401":
-                    description: Not Authorized
-                "408":
-                    description: Request Timeout
-                "429":
-                    description: Too Many Requests
-            x-speakeasy-group: client.agents
-            x-speakeasy-name-override: list
-    /rest/api/v1/getagentinputs:
-        post:
-            tags:
-                - Agents
-            summary: Gets the inputs to an agent.
-            description: Get the inputs to an agent with a given id.
-            operationId: getagentinputs
-            x-visibility: Preview
-            x-codegen-request-body-name: payload
-            parameters:
-                - $ref: "#/components/parameters/timezoneOffset"
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: "#/components/schemas/GetAgentInputsRequest"
+                            $ref: "#/components/schemas/AgentRunCreate"
                 required: true
-                x-exportParamName: Request
             responses:
                 "200":
-                    description: OK
+                    description: Success
+                    content:
+                        text/event-stream:
+                            schema:
+                                type: string
+                                description: |-
+                                    The server will send a stream of events in SSE format.
+                                    **Example event**:
+                                    id: 1
+                                    event: message
+                                    data: {}
+                "400":
+                    description: Bad request
+                "403":
+                    description: Forbidden
+                "404":
+                    description: Not Found
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/GetAgentInputsResponse"
+                                $ref: "#/components/schemas/ErrorResponse"
+                "409":
+                    description: Conflict
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ErrorResponse"
+                "422":
+                    description: Validation Error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ErrorResponse"
+                "500":
+                    description: Internal server error
+    /rest/api/v1/agents/runs/wait:
+        post:
+            tags:
+                - Agents
+            summary: Create Run, Wait for Output
+            description: Creates and triggers a run of an agent. Waits for final output and then returns it. This endpoint implements the LangChain Agent Protocol, specifically part of the Runs stage (https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/POST/runs/wait). It adheres to the standard contract defined for agent interoperability and can be used by agent runtimes that support the Agent Protocol. Note that running agents that reference third party platform write actions is unsupported as it requires user confirmation.
+            operationId: createAndWaitRun
+            x-visibility: Preview
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/AgentRunCreate"
+                required: true
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/AgentRunWaitResponse"
                 "400":
-                    description: Invalid request
-                "401":
-                    description: Not Authorized
-                "408":
-                    description: Request Timeout
-                "429":
-                    description: Too Many Requests
-            x-speakeasy-group: client.agents
-            x-speakeasy-name-override: retrieveInputs
+                    description: Bad request
+                "403":
+                    description: Forbidden
+                "404":
+                    description: Not Found
+                "409":
+                    description: Conflict
+                "422":
+                    description: Validation Error
+                "500":
+                    description: Internal server error
     /rest/api/v1/addcollectionitems:
         post:
             tags:
@@ -6101,10 +6201,14 @@ components:
                     type: string
                     example: https://en.wikipedia.org/wiki/Diffuse_sky_radiation
                 document:
+                    deprecated: true
+                    description: Deprecated. To be gradually migrated to structuredResult.
                     $ref: "#/components/schemas/Document"
                 text:
                     type: string
                     example: Because its wavelengths are shorter, blue light is more strongly scattered than the longer-wavelength lights, red or green. Hence the result that when looking at the sky away from the direct incident sunlight, the human eye perceives the sky to be blue.
+                structuredResult:
+                    $ref: "#/components/schemas/StructuredResult"
         AnnouncementMutableProperties:
             properties:
                 startTime:
@@ -6926,83 +7030,154 @@ components:
                     items:
                         type: string
                     description: IDs of files to delete.
-        WorkflowInputFieldValues:
+        Agent:
+            title: Agent
             type: object
-            description: Key-value mapping of string -> string where the key is the name of the field in the prompt.
-            additionalProperties:
-                type: string
-        RunAgentRequest:
+            required:
+                - agent_id
+                - name
+                - capabilities
             properties:
-                agentId:
+                agent_id:
                     type: string
-                    description: The ID of the agent to be run.
-                fields:
-                    $ref: "#/components/schemas/WorkflowInputFieldValues"
-                stream:
-                    type: boolean
-                    description: Whether to stream responses as they become available. If false, the entire response will be returned at once.
-        ListWorkflowsRequest: {}
-        AgentMutableProperties:
+                    title: Agent Id
+                    description: The ID of the agent.
+                name:
+                    type: string
+                    title: Agent Name
+                    description: The name of the agent
+                description:
+                    type: string
+                    title: Description
+                    description: The description of the agent.
+                metadata:
+                    type: object
+                    title: Metadata
+                    description: The agent metadata.
+                capabilities:
+                    type: object
+                    title: Agent Capabilities
+                    description: Describes which protocol features the agent supports. In addition to the standard capabilities (prefixed with ap.), implementations can declare custom capabilities, named in reverse domain notation (eg. com.example.some.capability).
+                    properties:
+                        ap.io.messages:
+                            type: boolean
+                            title: Messages
+                            description: Whether the agent supports Messages as input/output/state. If true, the agent uses the `messages` key in threads/runs endpoints.
+                        ap.io.streaming:
+                            type: boolean
+                            title: Streaming
+                            description: Whether the agent supports streaming output.
+                    additionalProperties: true
+        ErrorResponse:
+            type: string
+            title: ErrorResponse
+            description: Error message returned from the server
+        AgentSchemas:
+            properties:
+                agent_id:
+                    type: string
+                    title: Agent Id
+                    description: The ID of the agent.
+                input_schema:
+                    type: object
+                    title: Input Schema
+                    description: The schema for the agent input. In JSON Schema format.
+                output_schema:
+                    type: object
+                    title: Output Schema
+                    description: The schema for the agent output. In JSON Schema format.
+            type: object
+            required:
+                - agent_id
+                - input_schema
+                - output_schema
+            title: AgentSchemas
+            description: Defines the structure and properties of an agent.
+        SearchAgentsRequest:
+            type: object
             properties:
                 name:
                     type: string
-                    description: The name of the agent.
-        WorkflowMetadata:
-            allOf:
-                - type: object
-                  properties:
-                    author:
-                        $ref: "#/components/schemas/Person"
-                    createTimestamp:
-                        type: integer
-                        description: Server Unix timestamp of the creation time.
-                    lastUpdateTimestamp:
-                        type: integer
-                        description: Server Unix timestamp of the last update time.
-                    lastUpdatedBy:
-                        $ref: "#/components/schemas/Person"
-        Agent:
-            allOf:
-                - type: object
-                  properties:
-                    id:
-                        type: string
-                        description: The ID of the agent.
-                - $ref: "#/components/schemas/AgentMutableProperties"
-                - $ref: "#/components/schemas/WorkflowMetadata"
-                - $ref: "#/components/schemas/PermissionedObject"
-        AgentResult:
+                    description: Filters on the name of the agent. If empty, acts as no filter.
+        SearchAgentsResponse:
             type: object
-            required:
-                - agent
-            properties:
-                agent:
-                    $ref: "#/components/schemas/Agent"
-        ListAgentsResponse:
-            description: List of all agents and their metadata.
+            title: Response Search Agents
             properties:
                 agents:
                     type: array
                     items:
-                        $ref: "#/components/schemas/AgentResult"
-        GetAgentInputsRequest:
-            properties:
-                agentId:
-                    type: string
-                    description: The id of the agent.
-        WorkflowInputField:
+                        $ref: "#/components/schemas/Agent"
+        ContentType:
+            type: string
+            enum:
+                - text
+        Message:
             type: object
             properties:
-                name:
+                role:
                     type: string
-                    description: The name of the input.
-        GetAgentInputsResponse:
-            properties:
-                inputs:
-                    description: The inputs to the agent.
+                    title: Role
+                    description: The role of the message.
+                content:
+                    title: Content
+                    description: The content of the message.
                     type: array
                     items:
-                        $ref: "#/components/schemas/WorkflowInputField"
+                        type: object
+                        properties:
+                            text:
+                                type: string
+                            type:
+                                $ref: "#/components/schemas/ContentType"
+                        required:
+                            - text
+                            - type
+                        title: MessageTextBlock
+        AgentRunCreate:
+            description: Payload for creating a run.
+            type: object
+            properties:
+                agent_id:
+                    type: string
+                    title: Agent Id
+                    description: The ID of the agent to run.
+                input:
+                    type: object
+                    title: Input
+                    description: The input to the agent.
+                messages:
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/Message"
+                    title: Messages
+                    description: The messages to pass an input to the agent.
+        AgentExecutionStatus:
+            description: The status of the run. One of 'error', 'success'.
+            type: string
+            enum:
+                - error
+                - success
+            title: AgentExecutionStatus
+        AgentRun:
+            allOf:
+                - $ref: "#/components/schemas/AgentRunCreate"
+                - type: object
+                  properties:
+                    status:
+                        $ref: "#/components/schemas/AgentExecutionStatus"
+        AgentRunWaitResponse:
+            type: object
+            properties:
+                run:
+                    $ref: "#/components/schemas/AgentRun"
+                    title: Run
+                    description: The run information.
+                messages:
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/Message"
+                    title: Messages
+                    description: The messages returned by the run.
         CollectionItemDescriptor:
             allOf:
                 - $ref: "#/components/schemas/CollectionItemMutableProperties"
@@ -8724,6 +8899,20 @@ components:
                 name:
                     type: string
                     description: The name of the workflow.
+        WorkflowMetadata:
+            allOf:
+                - type: object
+                  properties:
+                    author:
+                        $ref: "#/components/schemas/Person"
+                    createTimestamp:
+                        type: integer
+                        description: Server Unix timestamp of the creation time.
+                    lastUpdateTimestamp:
+                        type: integer
+                        description: Server Unix timestamp of the last update time.
+                    lastUpdatedBy:
+                        $ref: "#/components/schemas/Person"
         Workflow:
             allOf:
                 - $ref: "#/components/schemas/PermissionedObject"

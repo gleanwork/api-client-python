@@ -1,0 +1,13 @@
+# AgentRun
+
+Payload for creating a run.
+
+
+## Fields
+
+| Field                                                                      | Type                                                                       | Required                                                                   | Description                                                                |
+| -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| `agent_id`                                                                 | *Optional[str]*                                                            | :heavy_minus_sign:                                                         | The ID of the agent to run.                                                |
+| `input`                                                                    | [Optional[models.AgentRunInput]](../models/agentruninput.md)               | :heavy_minus_sign:                                                         | The input to the agent.                                                    |
+| `messages`                                                                 | List[[models.Message](../models/message.md)]                               | :heavy_minus_sign:                                                         | The messages to pass an input to the agent.                                |
+| `status`                                                                   | [Optional[models.AgentExecutionStatus]](../models/agentexecutionstatus.md) | :heavy_minus_sign:                                                         | The status of the run. One of 'error', 'success'.                          |

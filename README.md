@@ -334,6 +334,14 @@ For more information on obtaining the appropriate token type, please contact you
 <details open>
 <summary>Available methods</summary>
 
+### [agents](docs/sdks/agents/README.md)
+
+* [get_agent](docs/sdks/agents/README.md#get_agent) - Get Agent
+* [get_agent_schemas](docs/sdks/agents/README.md#get_agent_schemas) - Get Agent Schemas
+* [search_agents](docs/sdks/agents/README.md#search_agents) - Search Agents
+* [create_and_stream_run](docs/sdks/agents/README.md#create_and_stream_run) - Create Run, Stream Output
+* [create_and_wait_run](docs/sdks/agents/README.md#create_and_wait_run) - Create Run, Wait for Output
+
 ### [client](docs/sdks/client/README.md)
 
 
@@ -341,12 +349,6 @@ For more information on obtaining the appropriate token type, please contact you
 
 * [report](docs/sdks/clientactivity/README.md#report) - Report document activity
 * [feedback](docs/sdks/clientactivity/README.md#feedback) - Report client activity
-
-#### [client.agents](docs/sdks/agents/README.md)
-
-* [run](docs/sdks/agents/README.md#run) - Runs an Agent.
-* [list](docs/sdks/agents/README.md#list) - Lists all agents.
-* [retrieve_inputs](docs/sdks/agents/README.md#retrieve_inputs) - Gets the inputs to an agent.
 
 #### [client.announcements](docs/sdks/announcements/README.md)
 
