@@ -28,7 +28,9 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
     res = g_client.client.chat.create(messages=[
@@ -79,12 +81,14 @@ Deletes all saved Chats a user has had and all their contained conversational co
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean import Glean, models
 import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
     g_client.client.chat.delete_all()
@@ -113,18 +117,17 @@ Deletes saved Chats and all their contained conversational content.
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean import Glean, models
 import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
-    g_client.client.chat.delete(ids=[
-        "<value>",
-        "<value>",
-    ])
+    g_client.client.chat.delete(ids=[])
 
     # Use the SDK ...
 
@@ -151,12 +154,14 @@ Retrieves the chat history between Glean Assistant and the user for a given Chat
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean import Glean, models
 import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
     res = g_client.client.chat.retrieve(id="<id>")
@@ -191,12 +196,14 @@ Retrieves all the saved Chats between Glean Assistant and the user. The returned
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean import Glean, models
 import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
     res = g_client.client.chat.list()
@@ -230,12 +237,14 @@ Gets the Chat application details for the specified application ID.
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean import Glean, models
 import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
     res = g_client.client.chat.retrieve_application(id="<id>")
@@ -270,15 +279,22 @@ Upload files for Chat.
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean import Glean, models
 import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
-    res = g_client.client.chat.upload_files(files=[])
+    res = g_client.client.chat.upload_files(files=[
+        {
+            "file_name": "example.file",
+            "content": open("example.file", "rb"),
+        },
+    ])
 
     # Handle response
     print(res)
@@ -310,17 +326,18 @@ Get files uploaded by a user for Chat.
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean import Glean, models
 import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
     res = g_client.client.chat.retrieve_files(file_ids=[
-        "<value>",
-        "<value>",
+        "<value 1>",
     ])
 
     # Handle response
@@ -353,16 +370,20 @@ Delete files uploaded by a user for Chat.
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean import Glean, models
 import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
     g_client.client.chat.delete_files(file_ids=[
-        "<value>",
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
     ])
 
     # Use the SDK ...
@@ -395,7 +416,9 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
     res = g_client.client.chat.create_stream(messages=[

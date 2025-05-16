@@ -6,6 +6,8 @@ type StructuredTextItem struct {
 	Link     *string   `json:"link,omitempty"`
 	Document *Document `json:"document,omitempty"`
 	Text     *string   `json:"text,omitempty"`
+	// A single object that can support any object in the work graph. Only a single object will be populated.
+	StructuredResult *StructuredResult `json:"structuredResult,omitempty"`
 }
 
 func (o *StructuredTextItem) GetLink() *string {
@@ -27,4 +29,11 @@ func (o *StructuredTextItem) GetText() *string {
 		return nil
 	}
 	return o.Text
+}
+
+func (o *StructuredTextItem) GetStructuredResult() *StructuredResult {
+	if o == nil {
+		return nil
+	}
+	return o.StructuredResult
 }

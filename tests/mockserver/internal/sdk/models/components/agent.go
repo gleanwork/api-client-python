@@ -2,65 +2,99 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
+// AgentMetadata - The agent metadata.
+type AgentMetadata struct {
+}
+
+// AgentCapabilities - Describes which protocol features the agent supports. In addition to the standard capabilities (prefixed with ap.), implementations can declare custom capabilities, named in reverse domain notation (eg. com.example.some.capability).
+type AgentCapabilities struct {
+	// Whether the agent supports Messages as input/output/state. If true, the agent uses the `messages` key in threads/runs endpoints.
+	ApIoMessages *bool `json:"ap.io.messages,omitempty"`
+	// Whether the agent supports streaming output.
+	ApIoStreaming        *bool          `json:"ap.io.streaming,omitempty"`
+	AdditionalProperties map[string]any `additionalProperties:"true" json:"-"`
+}
+
+func (a AgentCapabilities) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(a, "", false)
+}
+
+func (a *AgentCapabilities) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &a, "", false, false); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *AgentCapabilities) GetApIoMessages() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ApIoMessages
+}
+
+func (o *AgentCapabilities) GetApIoStreaming() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ApIoStreaming
+}
+
+func (o *AgentCapabilities) GetAdditionalProperties() map[string]any {
+	if o == nil {
+		return nil
+	}
+	return o.AdditionalProperties
+}
+
 type Agent struct {
-	Author *Person `json:"author,omitempty"`
-	// Server Unix timestamp of the creation time.
-	CreateTimestamp *int64 `json:"createTimestamp,omitempty"`
-	// Server Unix timestamp of the last update time.
-	LastUpdateTimestamp *int64  `json:"lastUpdateTimestamp,omitempty"`
-	LastUpdatedBy       *Person `json:"lastUpdatedBy,omitempty"`
 	// The ID of the agent.
-	ID *string `json:"id,omitempty"`
-	// The name of the agent.
-	Name        *string            `json:"name,omitempty"`
-	Permissions *ObjectPermissions `json:"permissions,omitempty"`
+	AgentID string `json:"agent_id"`
+	// The name of the agent
+	Name string `json:"name"`
+	// The description of the agent.
+	Description *string `json:"description,omitempty"`
+	// The agent metadata.
+	Metadata *AgentMetadata `json:"metadata,omitempty"`
+	// Describes which protocol features the agent supports. In addition to the standard capabilities (prefixed with ap.), implementations can declare custom capabilities, named in reverse domain notation (eg. com.example.some.capability).
+	Capabilities AgentCapabilities `json:"capabilities"`
 }
 
-func (o *Agent) GetAuthor() *Person {
+func (o *Agent) GetAgentID() string {
 	if o == nil {
-		return nil
+		return ""
 	}
-	return o.Author
+	return o.AgentID
 }
 
-func (o *Agent) GetCreateTimestamp() *int64 {
+func (o *Agent) GetName() string {
 	if o == nil {
-		return nil
-	}
-	return o.CreateTimestamp
-}
-
-func (o *Agent) GetLastUpdateTimestamp() *int64 {
-	if o == nil {
-		return nil
-	}
-	return o.LastUpdateTimestamp
-}
-
-func (o *Agent) GetLastUpdatedBy() *Person {
-	if o == nil {
-		return nil
-	}
-	return o.LastUpdatedBy
-}
-
-func (o *Agent) GetID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ID
-}
-
-func (o *Agent) GetName() *string {
-	if o == nil {
-		return nil
+		return ""
 	}
 	return o.Name
 }
 
-func (o *Agent) GetPermissions() *ObjectPermissions {
+func (o *Agent) GetDescription() *string {
 	if o == nil {
 		return nil
 	}
-	return o.Permissions
+	return o.Description
+}
+
+func (o *Agent) GetMetadata() *AgentMetadata {
+	if o == nil {
+		return nil
+	}
+	return o.Metadata
+}
+
+func (o *Agent) GetCapabilities() AgentCapabilities {
+	if o == nil {
+		return AgentCapabilities{}
+	}
+	return o.Capabilities
 }

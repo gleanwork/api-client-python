@@ -31,7 +31,7 @@ func pathPostRestAPIV1Addverificationreminder(dir *logging.HTTPFileDirectory, rt
 }
 
 func testAddverificationreminderAddverificationreminder0(w http.ResponseWriter, req *http.Request) {
-	if err := assert.SecurityAuthorizationHeader(req, false, "Bearer"); err != nil {
+	if err := assert.SecurityAuthorizationHeader(req, true, ""); err != nil {
 		log.Printf("assertion error: %s\n", err)
 		http.Error(w, err.Error(), http.StatusUnauthorized)
 		return

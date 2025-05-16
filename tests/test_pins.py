@@ -11,7 +11,9 @@ def test_pins_editpin():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+        security=models.Security(
+            act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", "value"),
+        ),
     ) as g_client:
         assert g_client is not None
 
@@ -43,7 +45,9 @@ def test_pins_getpin():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+        security=models.Security(
+            act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", "value"),
+        ),
     ) as g_client:
         assert g_client is not None
 
@@ -57,7 +61,9 @@ def test_pins_listpins():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+        security=models.Security(
+            act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", "value"),
+        ),
     ) as g_client:
         assert g_client is not None
 
@@ -71,7 +77,9 @@ def test_pins_pin():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+        security=models.Security(
+            act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", "value"),
+        ),
     ) as g_client:
         assert g_client is not None
 
@@ -103,7 +111,9 @@ def test_pins_unpin():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+        security=models.Security(
+            act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", "value"),
+        ),
     ) as g_client:
         assert g_client is not None
 

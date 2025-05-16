@@ -15,6 +15,7 @@ type GleanDataError struct {
 	// Indicates results could not be fetched due to invalid operators in the query.
 	InvalidOperators []components.InvalidOperatorValueError `json:"invalidOperators,omitempty"`
 	ErrorMessages    []components.ErrorMessage              `json:"errorMessages,omitempty"`
+	HTTPMeta         components.HTTPMetadata                `json:"-"`
 }
 
 var _ error = &GleanDataError{}

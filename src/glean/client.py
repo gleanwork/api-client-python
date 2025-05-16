@@ -13,6 +13,7 @@ from glean.client_shortcuts import ClientShortcuts
 from glean.client_verification import ClientVerification
 from glean.collections import Collections
 from glean.entities import Entities
+from glean.governance import Governance
 from glean.insights import Insights
 from glean.messages import Messages
 from glean.pins import Pins
@@ -35,6 +36,7 @@ class Client(BaseSDK):
     entities: Entities
     shortcuts: ClientShortcuts
     verification: ClientVerification
+    governance: Governance
 
     def __init__(self, sdk_config: SDKConfiguration) -> None:
         BaseSDK.__init__(self, sdk_config)
@@ -57,3 +59,4 @@ class Client(BaseSDK):
         self.entities = Entities(self.sdk_configuration)
         self.shortcuts = ClientShortcuts(self.sdk_configuration)
         self.verification = ClientVerification(self.sdk_configuration)
+        self.governance = Governance(self.sdk_configuration)

@@ -28,7 +28,7 @@ func pathPostAPIIndexV1Deletedocument(dir *logging.HTTPFileDirectory, rt *tracki
 }
 
 func testPostAPIIndexV1DeletedocumentPostAPIIndexV1Deletedocument0(w http.ResponseWriter, req *http.Request) {
-	if err := assert.SecurityAuthorizationHeader(req, false, "Bearer"); err != nil {
+	if err := assert.SecurityAuthorizationHeader(req, true, ""); err != nil {
 		log.Printf("assertion error: %s\n", err)
 		http.Error(w, err.Error(), http.StatusUnauthorized)
 		return

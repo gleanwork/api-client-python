@@ -1,0 +1,9 @@
+# DocumentVisibilityOverride
+
+
+## Fields
+
+| Field                                                                                                  | Type                                                                                                   | Required                                                                                               | Description                                                                                            |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `doc_id`                                                                                               | *Optional[str]*                                                                                        | :heavy_minus_sign:                                                                                     | N/A                                                                                                    |
+| `override`                                                                                             | [Optional[models.DocumentVisibilityOverrideOverride]](../models/documentvisibilityoverrideoverride.md) | :heavy_minus_sign:                                                                                     | The visibility-override state of the document.                                                         |

@@ -20,18 +20,12 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
     g_client.indexing.datasources.add(name="<value>", url_regex="https://example-company.datasource.com/.*", quicklinks=[
-        {
-            "icon_config": {
-                "color": "#343CED",
-                "key": "person_icon",
-                "icon_type": models.IconType.GLYPH,
-                "name": "user",
-            },
-        },
         {
             "icon_config": {
                 "color": "#343CED",
@@ -92,12 +86,14 @@ Fetches the datasource config for the specified custom datasource.
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean import Glean, models
 import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
     res = g_client.indexing.datasources.retrieve_config(datasource="<value>")

@@ -26,12 +26,14 @@ Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/docs/i
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean import Glean, models
 import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
     res = g_client.indexing.people.debug(datasource="<value>", email="u1@foo.com")
@@ -71,12 +73,14 @@ Tip: Use [/debug/{datasource}/status](https://developers.glean.com/docs/indexing
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean import Glean, models
 import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
     res = g_client.indexing.people.count(datasource="<value>")
@@ -110,22 +114,20 @@ Adds an employee or updates information about an employee
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean import Glean, models
 import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
     g_client.indexing.people.index(employee={
-        "email": "Santos.Turcotte@yahoo.com",
+        "email": "Jerrold_Hermann@hotmail.com",
         "department": "<value>",
         "datasource_profiles": [
-            {
-                "datasource": "github",
-                "handle": "<value>",
-            },
             {
                 "datasource": "github",
                 "handle": "<value>",
@@ -158,15 +160,48 @@ Replaces all the currently indexed employees using paginated batch API calls. Pl
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean import Glean, models
 import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
-    g_client.indexing.people.bulk_index(upload_id="<id>", employees=[])
+    g_client.indexing.people.bulk_index(upload_id="<id>", employees=[
+        {
+            "email": "Robin.Stoltenberg@yahoo.com",
+            "department": "<value>",
+            "datasource_profiles": [
+                {
+                    "datasource": "github",
+                    "handle": "<value>",
+                },
+            ],
+        },
+        {
+            "email": "Robin.Stoltenberg@yahoo.com",
+            "department": "<value>",
+            "datasource_profiles": [
+                {
+                    "datasource": "github",
+                    "handle": "<value>",
+                },
+            ],
+        },
+        {
+            "email": "Robin.Stoltenberg@yahoo.com",
+            "department": "<value>",
+            "datasource_profiles": [
+                {
+                    "datasource": "github",
+                    "handle": "<value>",
+                },
+            ],
+        },
+    ])
 
     # Use the SDK ...
 
@@ -198,12 +233,14 @@ Schedules the immediate processing of employees and teams uploaded through the i
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean import Glean, models
 import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
     g_client.indexing.people.process_all_employees_and_teams()
@@ -231,12 +268,14 @@ Delete an employee. Silently succeeds if employee is not present.
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean import Glean, models
 import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
     g_client.indexing.people.delete(employee_email="<value>")
@@ -266,12 +305,14 @@ Adds a team or updates information about a team
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean import Glean, models
 import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
     g_client.indexing.people.index_team(team={
@@ -293,13 +334,7 @@ with Glean(
         ],
         "members": [
             {
-                "email": "Rachelle20@yahoo.com",
-            },
-            {
-                "email": "Rebeka.Gerhold@hotmail.com",
-            },
-            {
-                "email": "Jace86@yahoo.com",
+                "email": "Nasir.Hilll73@hotmail.com",
             },
         ],
     })
@@ -329,12 +364,14 @@ Delete a team based on provided id.
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean import Glean, models
 import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
     g_client.indexing.people.delete_team(id="<id>")
@@ -363,15 +400,63 @@ Replaces all the currently indexed teams using paginated batch API calls. Please
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean import Glean, models
 import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
-    g_client.indexing.people.bulk_index_teams(upload_id="<id>", teams=[])
+    g_client.indexing.people.bulk_index_teams(upload_id="<id>", teams=[
+        {
+            "id": "<id>",
+            "name": "<value>",
+            "datasource_profiles": [
+                {
+                    "datasource": "github",
+                    "handle": "<value>",
+                },
+                {
+                    "datasource": "github",
+                    "handle": "<value>",
+                },
+            ],
+            "members": [],
+        },
+        {
+            "id": "<id>",
+            "name": "<value>",
+            "datasource_profiles": [
+                {
+                    "datasource": "github",
+                    "handle": "<value>",
+                },
+                {
+                    "datasource": "github",
+                    "handle": "<value>",
+                },
+            ],
+            "members": [],
+        },
+        {
+            "id": "<id>",
+            "name": "<value>",
+            "datasource_profiles": [
+                {
+                    "datasource": "github",
+                    "handle": "<value>",
+                },
+                {
+                    "datasource": "github",
+                    "handle": "<value>",
+                },
+            ],
+            "members": [],
+        },
+    ])
 
     # Use the SDK ...
 

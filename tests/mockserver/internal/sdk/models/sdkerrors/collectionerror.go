@@ -9,6 +9,7 @@ import (
 
 type CollectionError struct {
 	ErrorCode components.CollectionErrorErrorCode `json:"errorCode"`
+	HTTPMeta  components.HTTPMetadata             `json:"-"`
 }
 
 var _ error = &CollectionError{}

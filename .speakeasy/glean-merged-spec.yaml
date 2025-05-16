@@ -29,9 +29,10 @@ servers:
       variables:
         instance:
             default: instance-name
-            description: The instance name (typically the email domain without the extension) that determines the deployment backend.
+            description: The instance name (typically the email domain without the TLD) that determines the deployment backend.
 security:
-    - APIToken: []
+    - actAsBearerToken: []
+    - cookieAuth: []
 paths:
     /rest/api/v1/activity:
         post:
@@ -754,109 +755,219 @@ paths:
                     description: Too Many Requests
             x-speakeasy-name-override: deleteFiles
             x-speakeasy-group: client.chat
-    /rest/api/v1/runagent:
-        post:
+    /rest/api/v1/agents/{agent_id}:
+        get:
             tags:
                 - Agents
-            summary: Runs an Agent.
-            description: Trigger an Agent with a given id.
-            operationId: runagent
+            summary: Get Agent
+            description: Get an agent by ID. This endpoint implements the LangChain Agent Protocol, specifically part of the Agents stage (https://langchain-ai.github.io/agent-protocol/api.html#tag/agents/GET/agents/{agent_id}). It adheres to the standard contract defined for agent interoperability and can be used by agent runtimes that support the Agent Protocol.
+            operationId: getAgent
             x-visibility: Preview
-            x-codegen-request-body-name: payload
             parameters:
                 - $ref: "#/components/parameters/timezoneOffset"
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: "#/components/schemas/RunAgentRequest"
-                required: true
-                x-exportParamName: Request
+                - description: The ID of the agent.
+                  required: true
+                  schema:
+                    type: string
+                    title: Agent ID
+                    description: The ID of the agent.
+                  name: agent_id
+                  in: path
             responses:
                 "200":
-                    description: OK
+                    description: Success
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/ChatResponse"
+                                $ref: "#/components/schemas/Agent"
                 "400":
-                    description: Invalid request
-                "401":
-                    description: Not Authorized
-                "408":
-                    description: Request Timeout
-                "429":
-                    description: Too Many Requests
+                    description: Bad request
+                "403":
+                    description: Forbidden
+                "404":
+                    description: Not Found
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ErrorResponse"
+                "500":
+                    description: Internal server error
             x-speakeasy-group: client.agents
-            x-speakeasy-name-override: run
-    /rest/api/v1/listagents:
-        post:
+            x-speakeasy-name-override: retrieve
+    /rest/api/v1/agents/{agent_id}/schemas:
+        get:
             tags:
                 - Agents
+            summary: Get Agent Schemas
+            description: Get an agent's schemas by ID. This endpoint implements the LangChain Agent Protocol, specifically part of the Agents stage (https://langchain-ai.github.io/agent-protocol/api.html#tag/agents/GET/agents/{agent_id}/schemas). It adheres to the standard contract defined for agent interoperability and can be used by agent runtimes that support the Agent Protocol.
+            operationId: getAgentSchemas
             x-visibility: Preview
-            summary: Lists all agents.
-            x-codegen-request-body-name: payload
-            description: Lists all agents that are available.
-            operationId: listagents
             parameters:
                 - $ref: "#/components/parameters/timezoneOffset"
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: "#/components/schemas/ListWorkflowsRequest"
+                - description: The ID of the agent.
+                  required: true
+                  schema:
+                    type: string
+                    title: Agent Id
+                    description: The ID of the agent.
+                  name: agent_id
+                  in: path
             responses:
                 "200":
-                    description: OK
+                    description: Success
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/ListAgentsResponse"
+                                $ref: "#/components/schemas/AgentSchemas"
                 "400":
-                    description: Invalid request
-                "401":
-                    description: Not Authorized
-                "408":
-                    description: Request Timeout
-                "429":
-                    description: Too Many Requests
+                    description: Bad request
+                "403":
+                    description: Forbidden
+                "404":
+                    description: Not Found
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ErrorResponse"
+                "422":
+                    description: Validation Error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ErrorResponse"
+                "500":
+                    description: Internal server error
+            x-speakeasy-group: client.agents
+            x-speakeasy-name-override: retrieveSchemas
+    /rest/api/v1/agents/search:
+        post:
+            tags:
+                - Agents
+            summary: Search Agents
+            description: List Agents available in this service. This endpoint implements the LangChain Agent Protocol, specifically part of the Agents stage (https://langchain-ai.github.io/agent-protocol/api.html#tag/agents/POST/agents/search). It adheres to the standard contract defined for agent interoperability and can be used by agent runtimes that support the Agent Protocol.
+            operationId: searchAgents
+            x-visibility: Preview
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/SearchAgentsRequest"
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/SearchAgentsResponse"
+                "400":
+                    description: Bad request
+                "403":
+                    description: Forbidden
+                "404":
+                    description: Not Found
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ErrorResponse"
+                "422":
+                    description: Validation Error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ErrorResponse"
+                "500":
+                    description: Internal server error
             x-speakeasy-group: client.agents
             x-speakeasy-name-override: list
-    /rest/api/v1/getagentinputs:
+    /rest/api/v1/agents/runs/stream:
         post:
             tags:
                 - Agents
-            summary: Gets the inputs to an agent.
-            description: Get the inputs to an agent with a given id.
-            operationId: getagentinputs
+            summary: Create Run, Stream Output
+            description: Creates and triggers a run of an agent. Streams the output in SSE format. This endpoint implements the LangChain Agent Protocol, specifically part of the Runs stage (https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/POST/runs/stream). It adheres to the standard contract defined for agent interoperability and can be used by agent runtimes that support the Agent Protocol. Note that running agents that reference third party platform write actions is unsupported as it requires user confirmation.
+            operationId: createAndStreamRun
             x-visibility: Preview
-            x-codegen-request-body-name: payload
-            parameters:
-                - $ref: "#/components/parameters/timezoneOffset"
             requestBody:
                 content:
                     application/json:
                         schema:
-                            $ref: "#/components/schemas/GetAgentInputsRequest"
+                            $ref: "#/components/schemas/AgentRunCreate"
                 required: true
-                x-exportParamName: Request
             responses:
                 "200":
-                    description: OK
+                    description: Success
+                    content:
+                        text/event-stream:
+                            schema:
+                                type: string
+                                description: |-
+                                    The server will send a stream of events in SSE format.
+                                    **Example event**:
+                                    id: 1
+                                    event: message
+                                    data: {}
+                "400":
+                    description: Bad request
+                "403":
+                    description: Forbidden
+                "404":
+                    description: Not Found
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/GetAgentInputsResponse"
-                "400":
-                    description: Invalid request
-                "401":
-                    description: Not Authorized
-                "408":
-                    description: Request Timeout
-                "429":
-                    description: Too Many Requests
+                                $ref: "#/components/schemas/ErrorResponse"
+                "409":
+                    description: Conflict
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ErrorResponse"
+                "422":
+                    description: Validation Error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ErrorResponse"
+                "500":
+                    description: Internal server error
             x-speakeasy-group: client.agents
-            x-speakeasy-name-override: retrieveInputs
+            x-speakeasy-name-override: runStream
+    /rest/api/v1/agents/runs/wait:
+        post:
+            tags:
+                - Agents
+            summary: Create Run, Wait for Output
+            description: Creates and triggers a run of an agent. Waits for final output and then returns it. This endpoint implements the LangChain Agent Protocol, specifically part of the Runs stage (https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/POST/runs/wait). It adheres to the standard contract defined for agent interoperability and can be used by agent runtimes that support the Agent Protocol. Note that running agents that reference third party platform write actions is unsupported as it requires user confirmation.
+            operationId: createAndWaitRun
+            x-visibility: Preview
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/AgentRunCreate"
+                required: true
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/AgentRunWaitResponse"
+                "400":
+                    description: Bad request
+                "403":
+                    description: Forbidden
+                "404":
+                    description: Not Found
+                "409":
+                    description: Conflict
+                "422":
+                    description: Validation Error
+                "500":
+                    description: Internal server error
+            x-speakeasy-group: client.agents
+            x-speakeasy-name-override: run
     /rest/api/v1/addcollectionitems:
         post:
             tags:
@@ -2998,6 +3109,301 @@ paths:
                     description: Conflict
             x-speakeasy-name-override: upload
             x-speakeasy-group: indexing.shortcuts
+    /rest/api/v1/governance/data/policies/{id}:
+        get:
+            description: Fetches the specified policy version, or the latest if no version is provided.
+            summary: Gets specified Policy.
+            operationId: getpolicy
+            x-visibility: Public
+            tags:
+                - Governance
+            parameters:
+                - name: id
+                  in: path
+                  description: The id of the policy to fetch.
+                  required: true
+                  schema:
+                    type: string
+                - name: version
+                  in: query
+                  description: The version of the policy to fetch. Each time a policy is updated, the older version is still stored. If this is left empty, the latest policy is fetched.
+                  required: false
+                  schema:
+                    type: integer
+                    format: int64
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/GetDlpReportResponse"
+                "403":
+                    description: Permissions error
+                "500":
+                    description: Internal error
+            x-speakeasy-group: client.governance.data.policies
+            x-speakeasy-name-override: retrieve
+        post:
+            description: Updates an existing policy.
+            summary: Updates an existing policy.
+            operationId: updatepolicy
+            tags:
+                - Governance
+            parameters:
+                - name: id
+                  in: path
+                  description: The id of the policy to fetch.
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json; charset=UTF-8:
+                        schema:
+                            $ref: "#/components/schemas/UpdateDlpReportRequest"
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json; charset=UTF-8:
+                            schema:
+                                $ref: "#/components/schemas/UpdateDlpReportResponse"
+                "403":
+                    description: Permissions error
+                "500":
+                    description: Internal error
+            x-speakeasy-group: client.governance.data.policies
+            x-speakeasy-name-override: update
+    /rest/api/v1/governance/data/policies:
+        get:
+            description: Lists policies with filtering.
+            summary: Lists policies.
+            operationId: getpolicies
+            x-visibility: Public
+            tags:
+                - Governance
+            parameters:
+                - name: autoHide
+                  in: query
+                  description: Filter to return reports with a given value of auto-hide.
+                  required: false
+                  schema:
+                    type: boolean
+                - name: frequency
+                  in: query
+                  description: Filter to return reports with a given frequency.
+                  required: false
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ListDlpReportsResponse"
+                "403":
+                    description: Permissions error
+                "500":
+                    description: Internal error
+            x-speakeasy-group: client.governance.data.policies
+            x-speakeasy-name-override: list
+        post:
+            description: Creates a new policy with specified specifications and returns its id.
+            summary: Creates new policy.
+            operationId: createpolicy
+            x-visibility: Public
+            tags:
+                - Governance
+            requestBody:
+                content:
+                    application/json; charset=UTF-8:
+                        schema:
+                            $ref: "#/components/schemas/CreateDlpReportRequest"
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json; charset=UTF-8:
+                            schema:
+                                $ref: "#/components/schemas/CreateDlpReportResponse"
+                "403":
+                    description: Permissions error
+                "500":
+                    description: Internal error
+            x-speakeasy-group: client.governance.data.policies
+            x-speakeasy-name-override: create
+    /rest/api/v1/governance/data/policies/{id}/download:
+        get:
+            description: Downloads CSV violations report for a specific policy id. This does not support continuous policies.
+            summary: Downloads violations CSV for policy.
+            operationId: downloadpolicycsv
+            x-visibility: Public
+            tags:
+                - Governance
+            parameters:
+                - name: id
+                  in: path
+                  description: The id of the policy to download violations for.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: Downloads csv of batch policy violations.
+                    content:
+                        text/csv; charset=UTF-8:
+                            schema:
+                                description: CSV of all the violations found for this policy.
+                                type: string
+                "403":
+                    description: Permissions error
+                "500":
+                    description: Internal error
+            x-speakeasy-group: client.governance.data.policies
+            x-speakeasy-name-override: download
+    /rest/api/v1/governance/data/reports:
+        post:
+            description: Creates a new one-time report and executes its batch job.
+            summary: Creates new one-time report.
+            operationId: createreport
+            x-visibility: Public
+            tags:
+                - Governance
+            requestBody:
+                content:
+                    application/json; charset=UTF-8:
+                        schema:
+                            $ref: "#/components/schemas/UpdateDlpConfigRequest"
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json; charset=UTF-8:
+                            schema:
+                                $ref: "#/components/schemas/UpdateDlpConfigResponse"
+                "403":
+                    description: Permissions error
+                "500":
+                    description: Internal error
+            x-speakeasy-group: client.governance.data.reports
+            x-speakeasy-name-override: create
+    /rest/api/v1/governance/data/reports/{id}/download:
+        get:
+            description: Downloads CSV violations report for a specific report id.
+            summary: Downloads violations CSV for report.
+            operationId: downloadreportcsv
+            x-visibility: Public
+            tags:
+                - Governance
+            parameters:
+                - name: id
+                  in: path
+                  description: The id of the report to download violations for.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: Downloads csv of one-time report violations.
+                    content:
+                        text/csv; charset=UTF-8:
+                            schema:
+                                description: CSV of all the violations found for this report.
+                                type: string
+                "403":
+                    description: Permissions error
+                "500":
+                    description: Internal error
+            x-speakeasy-group: client.governance.data.reports
+            x-speakeasy-name-override: download
+    /rest/api/v1/governance/data/reports/{id}/status:
+        get:
+            description: Fetches the status of the run corresponding to the report-id.
+            summary: Fetches report run status.
+            operationId: getreportstatus
+            x-visibility: Public
+            tags:
+                - Governance
+            parameters:
+                - name: id
+                  in: path
+                  description: The id of the report to get run status for.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: Fetches status of report run.
+                    content:
+                        application/json; charset=UTF-8:
+                            schema:
+                                $ref: "#/components/schemas/ReportStatusResponse"
+                "403":
+                    description: Permissions error
+                "500":
+                    description: Internal error
+            x-speakeasy-group: client.governance.data.reports
+            x-speakeasy-name-override: status
+    /rest/api/v1/governance/documents/visibilityoverrides:
+        get:
+            description: Fetches the visibility override status of the documents passed.
+            summary: Fetches documents visibility.
+            operationId: getdocvisibility
+            x-visibility: Public
+            tags:
+                - Governance
+            parameters:
+                - name: docIds
+                  in: query
+                  description: List of doc-ids which will have their hide status fetched.
+                  schema:
+                    type: array
+                    items:
+                        type: string
+            responses:
+                "200":
+                    description: The visibility status of documents
+                    content:
+                        application/json; charset=UTF-8:
+                            schema:
+                                $ref: "#/components/schemas/GetDocumentVisibilityOverridesResponse"
+                "403":
+                    description: Permissions error
+                "500":
+                    description: Internal error
+            x-speakeasy-group: client.governance.documents.visibilityoverrides
+            x-speakeasy-name-override: list
+        post:
+            description: Sets the visibility-override state of the documents specified, effectively hiding or un-hiding documents.
+            summary: Hide/Un-hide docs.
+            operationId: setdocvisibility
+            x-visibility: Public
+            tags:
+                - Governance
+            requestBody:
+                content:
+                    application/json; charset=UTF-8:
+                        schema:
+                            $ref: "#/components/schemas/UpdateDocumentVisibilityOverridesRequest"
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json; charset=UTF-8:
+                            schema:
+                                $ref: "#/components/schemas/UpdateDocumentVisibilityOverridesResponse"
+                "403":
+                    description: Permissions error
+                "500":
+                    description: Internal error
+            x-speakeasy-group: client.governance.documents.visibilityoverrides
+            x-speakeasy-name-override: create
     /rest/api/v1/chat#stream:
         post:
             tags:
@@ -6101,10 +6507,14 @@ components:
                     type: string
                     example: https://en.wikipedia.org/wiki/Diffuse_sky_radiation
                 document:
+                    deprecated: true
+                    description: Deprecated. To be gradually migrated to structuredResult.
                     $ref: "#/components/schemas/Document"
                 text:
                     type: string
                     example: Because its wavelengths are shorter, blue light is more strongly scattered than the longer-wavelength lights, red or green. Hence the result that when looking at the sky away from the direct incident sunlight, the human eye perceives the sky to be blue.
+                structuredResult:
+                    $ref: "#/components/schemas/StructuredResult"
         AnnouncementMutableProperties:
             properties:
                 startTime:
@@ -6926,83 +7336,154 @@ components:
                     items:
                         type: string
                     description: IDs of files to delete.
-        WorkflowInputFieldValues:
+        Agent:
+            title: Agent
             type: object
-            description: Key-value mapping of string -> string where the key is the name of the field in the prompt.
-            additionalProperties:
-                type: string
-        RunAgentRequest:
+            required:
+                - agent_id
+                - name
+                - capabilities
             properties:
-                agentId:
+                agent_id:
                     type: string
-                    description: The ID of the agent to be run.
-                fields:
-                    $ref: "#/components/schemas/WorkflowInputFieldValues"
-                stream:
-                    type: boolean
-                    description: Whether to stream responses as they become available. If false, the entire response will be returned at once.
-        ListWorkflowsRequest: {}
-        AgentMutableProperties:
+                    title: Agent Id
+                    description: The ID of the agent.
+                name:
+                    type: string
+                    title: Agent Name
+                    description: The name of the agent
+                description:
+                    type: string
+                    title: Description
+                    description: The description of the agent.
+                metadata:
+                    type: object
+                    title: Metadata
+                    description: The agent metadata.
+                capabilities:
+                    type: object
+                    title: Agent Capabilities
+                    description: Describes which protocol features the agent supports. In addition to the standard capabilities (prefixed with ap.), implementations can declare custom capabilities, named in reverse domain notation (eg. com.example.some.capability).
+                    properties:
+                        ap.io.messages:
+                            type: boolean
+                            title: Messages
+                            description: Whether the agent supports Messages as input/output/state. If true, the agent uses the `messages` key in threads/runs endpoints.
+                        ap.io.streaming:
+                            type: boolean
+                            title: Streaming
+                            description: Whether the agent supports streaming output.
+                    additionalProperties: true
+        ErrorResponse:
+            type: string
+            title: ErrorResponse
+            description: Error message returned from the server
+        AgentSchemas:
+            properties:
+                agent_id:
+                    type: string
+                    title: Agent Id
+                    description: The ID of the agent.
+                input_schema:
+                    type: object
+                    title: Input Schema
+                    description: The schema for the agent input. In JSON Schema format.
+                output_schema:
+                    type: object
+                    title: Output Schema
+                    description: The schema for the agent output. In JSON Schema format.
+            type: object
+            required:
+                - agent_id
+                - input_schema
+                - output_schema
+            title: AgentSchemas
+            description: Defines the structure and properties of an agent.
+        SearchAgentsRequest:
+            type: object
             properties:
                 name:
                     type: string
-                    description: The name of the agent.
-        WorkflowMetadata:
-            allOf:
-                - type: object
-                  properties:
-                    author:
-                        $ref: "#/components/schemas/Person"
-                    createTimestamp:
-                        type: integer
-                        description: Server Unix timestamp of the creation time.
-                    lastUpdateTimestamp:
-                        type: integer
-                        description: Server Unix timestamp of the last update time.
-                    lastUpdatedBy:
-                        $ref: "#/components/schemas/Person"
-        Agent:
-            allOf:
-                - type: object
-                  properties:
-                    id:
-                        type: string
-                        description: The ID of the agent.
-                - $ref: "#/components/schemas/AgentMutableProperties"
-                - $ref: "#/components/schemas/WorkflowMetadata"
-                - $ref: "#/components/schemas/PermissionedObject"
-        AgentResult:
+                    description: Filters on the name of the agent. If empty, acts as no filter.
+        SearchAgentsResponse:
             type: object
-            required:
-                - agent
-            properties:
-                agent:
-                    $ref: "#/components/schemas/Agent"
-        ListAgentsResponse:
-            description: List of all agents and their metadata.
+            title: Response Search Agents
             properties:
                 agents:
                     type: array
                     items:
-                        $ref: "#/components/schemas/AgentResult"
-        GetAgentInputsRequest:
-            properties:
-                agentId:
-                    type: string
-                    description: The id of the agent.
-        WorkflowInputField:
+                        $ref: "#/components/schemas/Agent"
+        ContentType:
+            type: string
+            enum:
+                - text
+        Message:
             type: object
             properties:
-                name:
+                role:
                     type: string
-                    description: The name of the input.
-        GetAgentInputsResponse:
-            properties:
-                inputs:
-                    description: The inputs to the agent.
+                    title: Role
+                    description: The role of the message.
+                content:
+                    title: Content
+                    description: The content of the message.
                     type: array
                     items:
-                        $ref: "#/components/schemas/WorkflowInputField"
+                        type: object
+                        properties:
+                            text:
+                                type: string
+                            type:
+                                $ref: "#/components/schemas/ContentType"
+                        required:
+                            - text
+                            - type
+                        title: MessageTextBlock
+        AgentRunCreate:
+            description: Payload for creating a run.
+            type: object
+            properties:
+                agent_id:
+                    type: string
+                    title: Agent Id
+                    description: The ID of the agent to run.
+                input:
+                    type: object
+                    title: Input
+                    description: The input to the agent.
+                messages:
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/Message"
+                    title: Messages
+                    description: The messages to pass an input to the agent.
+        AgentExecutionStatus:
+            description: The status of the run. One of 'error', 'success'.
+            type: string
+            enum:
+                - error
+                - success
+            title: AgentExecutionStatus
+        AgentRun:
+            allOf:
+                - $ref: "#/components/schemas/AgentRunCreate"
+                - type: object
+                  properties:
+                    status:
+                        $ref: "#/components/schemas/AgentExecutionStatus"
+        AgentRunWaitResponse:
+            type: object
+            properties:
+                run:
+                    $ref: "#/components/schemas/AgentRun"
+                    title: Run
+                    description: The run information.
+                messages:
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/Message"
+                    title: Messages
+                    description: The messages returned by the run.
         CollectionItemDescriptor:
             allOf:
                 - $ref: "#/components/schemas/CollectionItemMutableProperties"
@@ -8724,6 +9205,20 @@ components:
                 name:
                     type: string
                     description: The name of the workflow.
+        WorkflowMetadata:
+            allOf:
+                - type: object
+                  properties:
+                    author:
+                        $ref: "#/components/schemas/Person"
+                    createTimestamp:
+                        type: integer
+                        description: Server Unix timestamp of the creation time.
+                    lastUpdateTimestamp:
+                        type: integer
+                        description: Server Unix timestamp of the last update time.
+                    lastUpdatedBy:
+                        $ref: "#/components/schemas/Person"
         Workflow:
             allOf:
                 - $ref: "#/components/schemas/PermissionedObject"
@@ -10610,6 +11105,22 @@ components:
                     type: string
                     description: Permission identity status, enum of NOT_UPLOADED, UPLOADED, STATUS_UNKNOWN (Always unknown if `identityDatasourceName` is set). Document visibility may be affected status is `NOT_UPLOADED`.
                     example: UPLOADED
+        LifeCycleEvent:
+            type: object
+            properties:
+                event:
+                    type: string
+                    description: Type of event
+                    enum:
+                        - UPLOADED
+                        - INDEXED
+                        - DELETION_REQUESTED
+                        - DELETED
+                    example: INDEXED
+                timestamp:
+                    type: string
+                    description: Timestamp of the event
+                    example: "2021-08-06T17:58:01.000Z"
         ProcessingHistoryEvent:
             type: object
             description: Processing history event for a datasource
@@ -10990,6 +11501,405 @@ components:
                 urlTemplate:
                     type: string
                     description: For variable shortcuts, contains the URL template; note, `destinationUrl` contains default URL.
+        SensitiveInfoType:
+            properties:
+                likelihoodThreshold:
+                    deprecated: true
+                    type: string
+                    enum:
+                        - LIKELY
+                        - VERY_LIKELY
+                infoType:
+                    description: Text representation of an info-type to scan for.
+                    type: string
+        TimeRange:
+            properties:
+                startTime:
+                    type: string
+                    description: start time of the time range, applicable for the CUSTOM type.
+                    format: date-time
+                endTime:
+                    type: string
+                    description: end time of the time range, applicable for the CUSTOM type.
+                    format: date-time
+        InputOptions:
+            description: Controls which data-sources and what time-range to include in scans.
+            properties:
+                urlGreenlist:
+                    deprecated: true
+                    type: array
+                    description: list of url regex matching documents excluded from report
+                    items:
+                        type: string
+                datasourcesType:
+                    type: string
+                    description: The types of datasource for which to run the report/policy.
+                    enum:
+                        - ALL
+                        - CUSTOM
+                datasources:
+                    deprecated: true
+                    type: array
+                    description: List of datasources to consider for report. DEPRECATED - use datasourceInstances instead.
+                    items:
+                        type: string
+                datasourceInstances:
+                    type: array
+                    description: List of datasource instances to consider for report/policy.
+                    items:
+                        type: string
+                timePeriodType:
+                    type: string
+                    description: Type of time period for which to run the report/policy. PAST_DAY is deprecated.
+                    enum:
+                        - ALL_TIME
+                        - PAST_YEAR
+                        - PAST_DAY
+                        - CUSTOM
+                customTimeRange:
+                    $ref: "#/components/schemas/TimeRange"
+        SharingOptions:
+            description: Controls how "shared" a document must be to get picked for scans.
+            properties:
+                enabled:
+                    deprecated: true
+                    type: boolean
+                threshold:
+                    description: The minimum number of users the document is shared with.
+                    type: integer
+                thresholdEnabled:
+                    description: Documents will be filtered based on how many people have access to it.
+                    type: boolean
+                anyoneWithLinkEnabled:
+                    deprecated: true
+                    type: boolean
+                anyoneInternalEnabled:
+                    description: Only users within the organization can access the document.
+                    type: boolean
+                anonymousAccessEnabled:
+                    description: Anyone on the internet can access the document.
+                    type: boolean
+                userAccessEnabled:
+                    description: Enable user access check
+                    type: boolean
+                userIds:
+                    type: array
+                    description: Any one of the specified users can access the document.
+                    items:
+                        type: string
+        ExternalSharingOptions:
+            deprecated: true
+            allOf:
+                - description: DEPRECATED - use `broadSharingOptions` instead.
+                - $ref: "#/components/schemas/SharingOptions"
+                - type: object
+                  properties:
+                    domainAccessEnabled:
+                        type: boolean
+        HotwordProximity:
+            properties:
+                windowBefore:
+                    type: integer
+                windowAfter:
+                    type: integer
+        Hotword:
+            properties:
+                regex:
+                    type: string
+                proximity:
+                    $ref: "#/components/schemas/HotwordProximity"
+        SensitiveExpression:
+            properties:
+                expression:
+                    description: Sensitive word, phrase, or regular expression.
+                    type: string
+                hotwords:
+                    description: Zero to three proximate regular expressions necessary to consider an expression as sensitive content.
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/Hotword"
+        SensitiveContentOptions:
+            description: Options for defining sensitive content within scanned documents.
+            properties:
+                sensitiveInfoTypes:
+                    description: Predefined categories of terms to consider as sensitive content. See https://cloud.google.com/dlp/docs/infotypes-reference for available types.
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/SensitiveInfoType"
+                sensitiveTerms:
+                    description: list of words and phrases to consider as sensitive content
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/SensitiveExpression"
+                sensitiveRegexes:
+                    description: list of regular expressions to consider as sensitive content
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/SensitiveExpression"
+        DlpPersonMetadata:
+            properties:
+                firstName:
+                    type: string
+                    description: The first name of the person
+                email:
+                    type: string
+                    description: The user's primary email address
+        DlpPerson:
+            description: Details about the person who created this report/policy.
+            required:
+                - name
+                - obfuscatedId
+            properties:
+                name:
+                    type: string
+                    description: The display name.
+                obfuscatedId:
+                    type: string
+                    description: An opaque identifier that can be used to request metadata for a Person.
+                metadata:
+                    $ref: "#/components/schemas/DlpPersonMetadata"
+        AllowlistOptions:
+            description: Terms that are allow-listed during the scans. If any finding picked up by a rule exactly matches a term in the allow-list, it will not be counted as a violation.
+            properties:
+                terms:
+                    type: array
+                    description: list of words and phrases to consider as whitelisted content
+                    items:
+                        type: string
+        DlpConfig:
+            description: Detailed configuration of what documents and sensitive content will be scanned.
+            properties:
+                version:
+                    description: Synonymous with report/policy id.
+                    type: integer
+                    format: int64
+                sensitiveInfoTypes:
+                    deprecated: true
+                    description: DEPRECATED - use `sensitiveContentOptions` instead.
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/SensitiveInfoType"
+                inputOptions:
+                    description: Options for documents to include or exclude in a report
+                    $ref: "#/components/schemas/InputOptions"
+                externalSharingOptions:
+                    deprecated: true
+                    description: DEPRECATED - use `broadSharingOptions` instead.
+                    $ref: "#/components/schemas/ExternalSharingOptions"
+                broadSharingOptions:
+                    description: Options for defining documents to scan for sensitive content.
+                    $ref: "#/components/schemas/SharingOptions"
+                sensitiveContentOptions:
+                    description: Options for defining sensitive content within scanned documents.
+                    $ref: "#/components/schemas/SensitiveContentOptions"
+                reportName:
+                    type: string
+                frequency:
+                    description: Interval between scans.
+                    type: string
+                createdBy:
+                    description: Person who created this report/policy.
+                    $ref: "#/components/schemas/DlpPerson"
+                createdAt:
+                    description: Timestamp at which this configuration was created.
+                    type: string
+                    format: iso-date-time
+                redactQuote:
+                    description: redact quote in findings of the report
+                    type: boolean
+                autoHideDocs:
+                    description: auto hide documents with findings in the report
+                    type: boolean
+                allowlistOptions:
+                    description: Options for defining whitelisting content within scanned documents
+                    $ref: "#/components/schemas/AllowlistOptions"
+        DlpFrequency:
+            type: string
+            description: Interval between scans. DAILY is deprecated.
+            x-include-enum-class-prefix: true
+            enum:
+                - ONCE
+                - DAILY
+                - WEEKLY
+                - CONTINUOUS
+                - NONE
+        DlpReportStatus:
+            type: string
+            description: The status of the policy/report. Only ACTIVE status will be picked for scans.
+            x-include-enum-class-prefix: true
+            enum:
+                - ACTIVE
+                - INACTIVE
+                - CANCELLED
+                - NONE
+        DlpReport:
+            description: Full policy information that will be used for scans.
+            properties:
+                id:
+                    type: string
+                name:
+                    type: string
+                config:
+                    description: All details of the policy that is needed for a scan.
+                    $ref: "#/components/schemas/DlpConfig"
+                frequency:
+                    description: The interval between scans.
+                    $ref: "#/components/schemas/DlpFrequency"
+                status:
+                    description: The status of the policy.
+                    $ref: "#/components/schemas/DlpReportStatus"
+                createdBy:
+                    description: Person who created this report.
+                    $ref: "#/components/schemas/DlpPerson"
+                createdAt:
+                    description: Timestamp at which the policy was created.
+                    type: string
+                    format: iso-date-time
+                lastUpdatedAt:
+                    description: Timestamp at which the policy was last updated.
+                    type: string
+                    format: iso-date-time
+                autoHideDocs:
+                    description: Auto hide documents with findings in the policy.
+                    type: boolean
+                lastScanStatus:
+                    type: string
+                    enum:
+                        - PENDING
+                        - SUCCESS
+                        - FAILURE
+                        - CANCELLED
+                        - CANCELLING
+                        - ACTIVE
+                lastScanStartTime:
+                    description: The timestamp at which the report's last run/scan began.
+                    type: string
+                    format: iso-date-time
+                updatedBy:
+                    description: Person who last updated this report.
+                    $ref: "#/components/schemas/DlpPerson"
+        GetDlpReportResponse:
+            properties:
+                report:
+                    $ref: "#/components/schemas/DlpReport"
+        UpdateDlpReportRequest:
+            properties:
+                config:
+                    description: The new configuration the policy will follow if provided.
+                    $ref: "#/components/schemas/DlpConfig"
+                frequency:
+                    description: The new frequency the policy will follow if provided.
+                    $ref: "#/components/schemas/DlpFrequency"
+                status:
+                    description: The new status the policy will be updated to if provided.
+                    $ref: "#/components/schemas/DlpReportStatus"
+                autoHideDocs:
+                    description: The new autoHideDoc boolean the policy will be updated to if provided.
+                    type: boolean
+                reportName:
+                    description: The new name of the policy if provided.
+                    type: string
+        DlpSimpleResult:
+            type: string
+            enum:
+                - SUCCESS
+                - FAILURE
+        UpdateDlpReportResponse:
+            properties:
+                result:
+                    $ref: "#/components/schemas/DlpSimpleResult"
+        ListDlpReportsResponse:
+            properties:
+                reports:
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/DlpReport"
+        CreateDlpReportRequest:
+            properties:
+                name:
+                    description: Name of the policy being created.
+                    type: string
+                config:
+                    description: Details on the configuration used in the scans.
+                    $ref: "#/components/schemas/DlpConfig"
+                frequency:
+                    description: Interval between scans.
+                    $ref: "#/components/schemas/DlpFrequency"
+                autoHideDocs:
+                    description: Controls whether the policy should hide documents with violations.
+                    type: boolean
+        CreateDlpReportResponse:
+            properties:
+                report:
+                    $ref: "#/components/schemas/DlpReport"
+        UpdateDlpConfigRequest:
+            properties:
+                config:
+                    $ref: "#/components/schemas/DlpConfig"
+                frequency:
+                    description: Only "ONCE" is supported for reports.
+                    type: string
+        UpdateDlpConfigResponse:
+            properties:
+                result:
+                    $ref: "#/components/schemas/DlpSimpleResult"
+                reportId:
+                    description: The id of the report that was just created and run.
+                    type: string
+        ReportStatusResponse:
+            properties:
+                status:
+                    type: string
+                    enum:
+                        - PENDING
+                        - SUCCESS
+                        - FAILURE
+                        - CANCELLED
+                        - CANCELLING
+                        - ACTIVE
+                startTime:
+                    description: The timestamp at which the report's run/scan began.
+                    type: string
+                    format: iso-date-time
+        DocumentVisibilityOverride:
+            properties:
+                docId:
+                    type: string
+                override:
+                    description: The visibility-override state of the document.
+                    type: string
+                    enum:
+                        - NONE
+                        - HIDE_FROM_ALL
+                        - HIDE_FROM_GROUPS
+                        - HIDE_FROM_ALL_EXCEPT_OWNER
+        GetDocumentVisibilityOverridesResponse:
+            properties:
+                visibilityOverrides:
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/DocumentVisibilityOverride"
+        UpdateDocumentVisibilityOverridesRequest:
+            properties:
+                visibilityOverrides:
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/DocumentVisibilityOverride"
+        DocumentVisibilityUpdateResult:
+            allOf:
+                - $ref: "#/components/schemas/DocumentVisibilityOverride"
+                - type: object
+                  properties:
+                    success:
+                        description: Whether this document was successfully set to its desired visibility state.
+                        type: boolean
+        UpdateDocumentVisibilityOverridesResponse:
+            properties:
+                results:
+                    description: The documents and whether their visibility was successfully updated.
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/DocumentVisibilityUpdateResult"
         ChatRequestStream:
             required:
                 - messages

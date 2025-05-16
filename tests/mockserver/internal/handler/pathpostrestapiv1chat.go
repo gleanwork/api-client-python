@@ -36,7 +36,7 @@ func pathPostRestAPIV1Chat(dir *logging.HTTPFileDirectory, rt *tracking.RequestT
 }
 
 func testChatStreamChatStreamDefaultExample0(w http.ResponseWriter, req *http.Request) {
-	if err := assert.SecurityAuthorizationHeader(req, false, "Bearer"); err != nil {
+	if err := assert.SecurityAuthorizationHeader(req, true, ""); err != nil {
 		log.Printf("assertion error: %s\n", err)
 		http.Error(w, err.Error(), http.StatusUnauthorized)
 		return
@@ -63,7 +63,7 @@ func testChatStreamChatStreamDefaultExample0(w http.ResponseWriter, req *http.Re
 }
 
 func testChatStreamChatStreamGptAgentExample0(w http.ResponseWriter, req *http.Request) {
-	if err := assert.SecurityAuthorizationHeader(req, false, "Bearer"); err != nil {
+	if err := assert.SecurityAuthorizationHeader(req, true, ""); err != nil {
 		log.Printf("assertion error: %s\n", err)
 		http.Error(w, err.Error(), http.StatusUnauthorized)
 		return
@@ -90,7 +90,7 @@ func testChatStreamChatStreamGptAgentExample0(w http.ResponseWriter, req *http.R
 }
 
 func testChatStreamChatStreamStreamingExample0(w http.ResponseWriter, req *http.Request) {
-	if err := assert.SecurityAuthorizationHeader(req, false, "Bearer"); err != nil {
+	if err := assert.SecurityAuthorizationHeader(req, true, ""); err != nil {
 		log.Printf("assertion error: %s\n", err)
 		http.Error(w, err.Error(), http.StatusUnauthorized)
 		return
@@ -117,7 +117,7 @@ func testChatStreamChatStreamStreamingExample0(w http.ResponseWriter, req *http.
 }
 
 func testChatStreamChatStreamUpdateResponse0(w http.ResponseWriter, req *http.Request) {
-	if err := assert.SecurityAuthorizationHeader(req, false, "Bearer"); err != nil {
+	if err := assert.SecurityAuthorizationHeader(req, true, ""); err != nil {
 		log.Printf("assertion error: %s\n", err)
 		http.Error(w, err.Error(), http.StatusUnauthorized)
 		return
@@ -144,7 +144,7 @@ func testChatStreamChatStreamUpdateResponse0(w http.ResponseWriter, req *http.Re
 }
 
 func testChatStreamChatStreamCitationResponse0(w http.ResponseWriter, req *http.Request) {
-	if err := assert.SecurityAuthorizationHeader(req, false, "Bearer"); err != nil {
+	if err := assert.SecurityAuthorizationHeader(req, true, ""); err != nil {
 		log.Printf("assertion error: %s\n", err)
 		http.Error(w, err.Error(), http.StatusUnauthorized)
 		return
