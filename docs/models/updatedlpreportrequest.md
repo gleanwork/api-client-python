@@ -1,0 +1,12 @@
+# UpdateDlpReportRequest
+
+
+## Fields
+
+| Field                                                                           | Type                                                                            | Required                                                                        | Description                                                                     |
+| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `config`                                                                        | [Optional[models.DlpConfig]](../models/dlpconfig.md)                            | :heavy_minus_sign:                                                              | Detailed configuration of what documents and sensitive content will be scanned. |
+| `frequency`                                                                     | [Optional[models.DlpFrequency]](../models/dlpfrequency.md)                      | :heavy_minus_sign:                                                              | Interval between scans. DAILY is deprecated.                                    |
+| `status`                                                                        | [Optional[models.DlpReportStatus]](../models/dlpreportstatus.md)                | :heavy_minus_sign:                                                              | The status of the policy/report. Only ACTIVE status will be picked for scans.   |
+| `auto_hide_docs`                                                                | *Optional[bool]*                                                                | :heavy_minus_sign:                                                              | The new autoHideDoc boolean the policy will be updated to if provided.          |
+| `report_name`                                                                   | *Optional[str]*                                                                 | :heavy_minus_sign:                                                              | The new name of the policy if provided.                                         |

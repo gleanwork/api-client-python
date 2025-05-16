@@ -6,7 +6,9 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
     res = g_client.client.chat.create(messages=[
@@ -35,7 +37,9 @@ import os
 async def main():
 
     async with Glean(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
+        security=models.Security(
+            act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+        ),
     ) as g_client:
 
         res = await g_client.client.chat.create_async(messages=[
@@ -61,7 +65,9 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
     res = g_client.client.chat.create_stream(messages=[
@@ -90,7 +96,9 @@ import os
 async def main():
 
     async with Glean(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
+        security=models.Security(
+            act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+        ),
     ) as g_client:
 
         res = await g_client.client.chat.create_stream_async(messages=[

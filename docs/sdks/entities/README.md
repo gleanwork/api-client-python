@@ -20,7 +20,9 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
     res = g_client.client.entities.list(request={
@@ -71,12 +73,14 @@ Read people details for the given IDs.
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean import Glean, models
 import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
     res = g_client.client.entities.read_people(request={

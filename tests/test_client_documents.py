@@ -12,7 +12,9 @@ def test_client_documents_getdocpermissions():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+        security=models.Security(
+            act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", "value"),
+        ),
     ) as g_client:
         assert g_client is not None
 
@@ -26,7 +28,9 @@ def test_client_documents_getdocuments():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+        security=models.Security(
+            act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", "value"),
+        ),
     ) as g_client:
         assert g_client is not None
 
@@ -40,7 +44,9 @@ def test_client_documents_getdocumentsbyfacets():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+        security=models.Security(
+            act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", "value"),
+        ),
     ) as g_client:
         assert g_client is not None
 

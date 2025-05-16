@@ -15,20 +15,28 @@ Replaces all the currently indexed shortcuts using paginated batch API calls. No
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean import Glean, models
 import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
     g_client.indexing.shortcuts.bulk_index(upload_id="<id>", shortcuts=[
         {
             "input_alias": "<value>",
-            "destination_url": "https://only-juggernaut.com/",
+            "destination_url": "https://plump-tune-up.biz/",
             "created_by": "<value>",
-            "intermediate_url": "https://descriptive-electronics.name",
+            "intermediate_url": "https://lean-sightseeing.net",
+        },
+        {
+            "input_alias": "<value>",
+            "destination_url": "https://plump-tune-up.biz/",
+            "created_by": "<value>",
+            "intermediate_url": "https://lean-sightseeing.net",
         },
     ])
 
@@ -60,18 +68,30 @@ Creates glean shortcuts for uploaded shortcuts info. Glean would host the shortc
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean import Glean, models
 import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
     g_client.indexing.shortcuts.upload(upload_id="<id>", shortcuts=[
         {
             "input_alias": "<value>",
-            "destination_url": "https://needy-harp.name",
+            "destination_url": "https://majestic-pharmacopoeia.info/",
+            "created_by": "<value>",
+        },
+        {
+            "input_alias": "<value>",
+            "destination_url": "https://majestic-pharmacopoeia.info/",
+            "created_by": "<value>",
+        },
+        {
+            "input_alias": "<value>",
+            "destination_url": "https://majestic-pharmacopoeia.info/",
             "created_by": "<value>",
         },
     ])

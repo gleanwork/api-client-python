@@ -16,12 +16,14 @@ Creates a verification reminder for the document. Users can create verification 
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean import Glean, models
 import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
     res = g_client.client.verification.add_reminder(document_id="<id>")
@@ -58,12 +60,14 @@ Returns the information to be rendered in verification dashboard. Includes infor
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean import Glean, models
 import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
     res = g_client.client.verification.list()
@@ -97,12 +101,14 @@ Verify documents to keep the knowledge up to date within customer corpus.
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean import Glean, models
 import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
     res = g_client.client.verification.verify(document_id="<id>")

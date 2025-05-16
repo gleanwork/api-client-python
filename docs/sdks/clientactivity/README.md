@@ -21,7 +21,9 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
     g_client.client.activity.report(events=[
@@ -78,7 +80,9 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
     g_client.client.activity.feedback(feedback1={

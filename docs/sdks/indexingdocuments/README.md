@@ -30,7 +30,9 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
     g_client.indexing.documents.add_or_update(document=models.DocumentDefinition(
@@ -67,14 +69,12 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
-    g_client.indexing.documents.index(datasource="<value>", documents=[
-        models.DocumentDefinition(
-            datasource="<value>",
-        ),
-    ])
+    g_client.indexing.documents.index(datasource="<value>", documents=[])
 
     # Use the SDK ...
 
@@ -107,14 +107,12 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
-    g_client.indexing.documents.bulk_index(upload_id="<id>", datasource="<value>", documents=[
-        models.DocumentDefinition(
-            datasource="<value>",
-        ),
-    ])
+    g_client.indexing.documents.bulk_index(upload_id="<id>", datasource="<value>", documents=[])
 
     # Use the SDK ...
 
@@ -157,12 +155,14 @@ For more frequent document processing, contact Glean support.
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean import Glean, models
 import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
     g_client.indexing.documents.process_all()
@@ -191,12 +191,14 @@ Deletes the specified document from the index. Succeeds if document is not prese
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean import Glean, models
 import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
     g_client.indexing.documents.delete(datasource="<value>", object_type="<value>", id="<id>")
@@ -231,12 +233,14 @@ Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/docs/i
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean import Glean, models
 import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
     res = g_client.indexing.documents.debug(datasource="<value>", object_type="Article", doc_id="art123")
@@ -275,19 +279,17 @@ Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/docs/i
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean import Glean, models
 import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
     res = g_client.indexing.documents.debug_many(datasource="<value>", debug_documents=[
-        {
-            "object_type": "Article",
-            "doc_id": "art123",
-        },
         {
             "object_type": "Article",
             "doc_id": "art123",
@@ -327,12 +329,14 @@ Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/docs/i
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean import Glean, models
 import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
     res = g_client.indexing.documents.check_access(datasource="<value>", object_type="<value>", doc_id="<id>", user_email="<value>")
@@ -374,12 +378,14 @@ Tip: Use [/debug/{datasource}/document](https://developers.glean.com/docs/indexi
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean import Glean, models
 import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
     res = g_client.indexing.documents.status(datasource="<value>", object_type="<value>", doc_id="<id>")
@@ -420,12 +426,14 @@ Tip: Use [/debug/{datasource}/status](https://developers.glean.com/docs/indexing
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean import Glean, models
 import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
     res = g_client.indexing.documents.count(datasource="<value>")

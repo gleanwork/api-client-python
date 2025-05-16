@@ -141,7 +141,9 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
     res = g_client.client.chat.create(messages=[
@@ -170,7 +172,9 @@ import os
 async def main():
 
     async with Glean(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
+        security=models.Security(
+            act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+        ),
     ) as g_client:
 
         res = await g_client.client.chat.create_async(messages=[
@@ -198,7 +202,9 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
     res = g_client.client.chat.create_stream(messages=[
@@ -227,7 +233,9 @@ import os
 async def main():
 
     async with Glean(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
+        security=models.Security(
+            act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+        ),
     ) as g_client:
 
         res = await g_client.client.chat.create_stream_async(messages=[
@@ -252,13 +260,14 @@ asyncio.run(main())
 
 ### Per-Client Security Schemes
 
-This SDK supports the following security scheme globally:
+This SDK supports the following security schemes globally:
 
-| Name        | Type | Scheme      | Environment Variable |
-| ----------- | ---- | ----------- | -------------------- |
-| `api_token` | http | HTTP Bearer | `GLEAN_API_TOKEN`    |
+| Name                  | Type   | Scheme  | Environment Variable        |
+| --------------------- | ------ | ------- | --------------------------- |
+| `act_as_bearer_token` | apiKey | API key | `GLEAN_ACT_AS_BEARER_TOKEN` |
+| `cookie_auth`         | apiKey | API key | `GLEAN_COOKIE_AUTH`         |
 
-To authenticate with the API the `api_token` parameter must be set when initializing the SDK client instance. For example:
+You can set the security parameters through the `security` optional parameter when initializing the SDK client instance. The selected scheme will be used by default to authenticate with the API for all operations that support it. For example:
 ```python
 from glean import Glean, models
 from glean.utils import parse_datetime
@@ -266,7 +275,9 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
     g_client.client.activity.report(events=[
@@ -344,9 +355,11 @@ For more information on obtaining the appropriate token type, please contact you
 
 #### [client.agents](docs/sdks/agents/README.md)
 
-* [run](docs/sdks/agents/README.md#run) - Runs an Agent.
-* [list](docs/sdks/agents/README.md#list) - Lists all agents.
-* [retrieve_inputs](docs/sdks/agents/README.md#retrieve_inputs) - Gets the inputs to an agent.
+* [retrieve](docs/sdks/agents/README.md#retrieve) - Get Agent
+* [retrieve_schemas](docs/sdks/agents/README.md#retrieve_schemas) - Get Agent Schemas
+* [list](docs/sdks/agents/README.md#list) - Search Agents
+* [run_stream](docs/sdks/agents/README.md#run_stream) - Create Run, Stream Output
+* [run](docs/sdks/agents/README.md#run) - Create Run, Wait for Output
 
 #### [client.announcements](docs/sdks/announcements/README.md)
 
@@ -401,6 +414,32 @@ For more information on obtaining the appropriate token type, please contact you
 
 * [list](docs/sdks/entities/README.md#list) - List entities
 * [read_people](docs/sdks/entities/README.md#read_people) - Read people
+
+
+#### [client.governance.data](docs/sdks/data/README.md)
+
+
+#### [client.governance.data.policies](docs/sdks/policies/README.md)
+
+* [retrieve](docs/sdks/policies/README.md#retrieve) - Gets specified Policy.
+* [update](docs/sdks/policies/README.md#update) - Updates an existing policy.
+* [list](docs/sdks/policies/README.md#list) - Lists policies.
+* [create](docs/sdks/policies/README.md#create) - Creates new policy.
+* [download](docs/sdks/policies/README.md#download) - Downloads violations CSV for policy.
+
+#### [client.governance.data.reports](docs/sdks/reports/README.md)
+
+* [create](docs/sdks/reports/README.md#create) - Creates new one-time report.
+* [download](docs/sdks/reports/README.md#download) - Downloads violations CSV for report.
+* [status](docs/sdks/reports/README.md#status) - Fetches report run status.
+
+#### [client.governance.documents](docs/sdks/governancedocuments/README.md)
+
+
+#### [client.governance.documents.visibilityoverrides](docs/sdks/visibilityoverrides/README.md)
+
+* [list](docs/sdks/visibilityoverrides/README.md#list) - Fetches documents visibility.
+* [create](docs/sdks/visibilityoverrides/README.md#create) - Hide/Un-hide docs.
 
 #### [client.insights](docs/sdks/insights/README.md)
 
@@ -522,7 +561,9 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
     g_client.client.activity.report(events=[
@@ -564,7 +605,9 @@ import os
 
 with Glean(
     retry_config=RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False),
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
     g_client.client.activity.report(events=[
@@ -688,9 +731,9 @@ By default, an API error will raise a errors.GleanError exception, which has the
 
 The default server `https://{instance}-be.glean.com` contains variables and is set to `https://instance-name-be.glean.com` by default. To override default values, the following parameters are available when initializing the SDK client instance:
 
-| Variable   | Parameter       | Default           | Description                                                                                                  |
-| ---------- | --------------- | ----------------- | ------------------------------------------------------------------------------------------------------------ |
-| `instance` | `instance: str` | `"instance-name"` | The instance name (typically the email domain without the extension) that determines the deployment backend. |
+| Variable   | Parameter       | Default           | Description                                                                                            |
+| ---------- | --------------- | ----------------- | ------------------------------------------------------------------------------------------------------ |
+| `instance` | `instance: str` | `"instance-name"` | The instance name (typically the email domain without the TLD) that determines the deployment backend. |
 
 #### Example
 
@@ -702,7 +745,9 @@ import os
 
 with Glean(
     instance="<value>"
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
     g_client.client.activity.report(events=[
@@ -745,7 +790,9 @@ import os
 
 with Glean(
     server_url="https://instance-name-be.glean.com",
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
     g_client.client.activity.report(events=[
@@ -867,12 +914,14 @@ The `Glean` class implements the context manager protocol and registers a finali
 [context-manager]: https://docs.python.org/3/reference/datamodel.html#context-managers
 
 ```python
-from glean import Glean
+from glean import Glean, models
 import os
 def main():
 
     with Glean(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
+        security=models.Security(
+            act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+        ),
     ) as g_client:
         # Rest of application here...
 
@@ -881,7 +930,9 @@ def main():
 async def amain():
 
     async with Glean(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
+        security=models.Security(
+            act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+        ),
     ) as g_client:
         # Rest of application here...
 ```

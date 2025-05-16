@@ -11,7 +11,7 @@ from glean.client import Client
 from glean.indexing import Indexing
 from glean.types import OptionalNullable, UNSET
 import httpx
-from typing import Any, Callable, Dict, List, Optional, Union, cast
+from typing import Callable, Dict, List, Optional, Union, cast
 import weakref
 
 
@@ -40,7 +40,9 @@ class Glean(BaseSDK):
 
     def __init__(
         self,
-        api_token: Optional[Union[Optional[str], Callable[[], Optional[str]]]] = None,
+        security: Optional[
+            Union[models.Security, Callable[[], models.Security]]
+        ] = None,
         instance: Optional[str] = None,
         server_idx: Optional[int] = None,
         server_url: Optional[str] = None,
@@ -53,7 +55,7 @@ class Glean(BaseSDK):
     ) -> None:
         r"""Instantiates the SDK configuring it with the provided parameters.
 
-        :param api_token: The api_token required for authentication
+        :param security: The security details required for authentication
         :param instance: Allows setting the instance variable for url substitution
         :param server_idx: The index of the server to use for all methods
         :param server_url: The server URL to use for all methods
@@ -83,13 +85,6 @@ class Glean(BaseSDK):
         assert issubclass(
             type(async_client), AsyncHttpClient
         ), "The provided async_client must implement the AsyncHttpClient protocol."
-
-        security: Any = None
-        if callable(api_token):
-            # pylint: disable=unnecessary-lambda-assignment
-            security = lambda: models.Security(api_token=api_token())
-        else:
-            security = models.Security(api_token=api_token)
 
         if server_url is not None:
             if url_params is not None:

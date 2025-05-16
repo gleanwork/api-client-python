@@ -22,15 +22,39 @@ from .additionalfielddefinition import (
     Value,
     ValueTypedDict,
 )
-from .agent import Agent, AgentTypedDict
+from .agent import (
+    Agent,
+    AgentCapabilities,
+    AgentCapabilitiesTypedDict,
+    AgentMetadata,
+    AgentMetadataTypedDict,
+    AgentTypedDict,
+)
 from .agentconfig import AgentConfig, AgentConfigTypedDict, AgentEnum, Mode
-from .agentresult import AgentResult, AgentResultTypedDict
+from .agentexecutionstatus import AgentExecutionStatus
+from .agentrun import AgentRun, AgentRunInput, AgentRunInputTypedDict, AgentRunTypedDict
+from .agentruncreate import (
+    AgentRunCreate,
+    AgentRunCreateInput,
+    AgentRunCreateInputTypedDict,
+    AgentRunCreateTypedDict,
+)
+from .agentrunwaitresponse import AgentRunWaitResponse, AgentRunWaitResponseTypedDict
+from .agentschemas import (
+    AgentSchemas,
+    AgentSchemasTypedDict,
+    InputSchema,
+    InputSchemaTypedDict,
+    OutputSchema,
+    OutputSchemaTypedDict,
+)
 from .aiappactioncounts import AiAppActionCounts, AiAppActionCountsTypedDict
 from .aiappsinsightsresponse import (
     AiAppsInsightsResponse,
     AiAppsInsightsResponseTypedDict,
 )
 from .aiinsightsresponse import AiInsightsResponse, AiInsightsResponseTypedDict
+from .allowlistoptions import AllowlistOptions, AllowlistOptionsTypedDict
 from .announcement import (
     Announcement,
     AnnouncementChannel,
@@ -193,6 +217,7 @@ from .contentinsightsresponse import (
     ContentInsightsResponse,
     ContentInsightsResponseTypedDict,
 )
+from .contenttype import ContentType
 from .countinfo import CountInfo, CountInfoTypedDict
 from .createannouncementrequest import (
     CreateAnnouncementRequest,
@@ -213,6 +238,14 @@ from .createcollectionresponse import (
     CreateCollectionResponse,
     CreateCollectionResponseErrorCode,
     CreateCollectionResponseTypedDict,
+)
+from .createdlpreportrequest import (
+    CreateDlpReportRequest,
+    CreateDlpReportRequestTypedDict,
+)
+from .createdlpreportresponse import (
+    CreateDlpReportResponse,
+    CreateDlpReportResponseTypedDict,
 )
 from .createshortcutrequest import CreateShortcutRequest, CreateShortcutRequestTypedDict
 from .createshortcutresponse import (
@@ -337,6 +370,13 @@ from .displayablelistitemuiconfig import (
     DisplayableListItemUIConfig,
     DisplayableListItemUIConfigTypedDict,
 )
+from .dlpconfig import DlpConfig, DlpConfigTypedDict
+from .dlpfrequency import DlpFrequency
+from .dlpperson import DlpPerson, DlpPersonTypedDict
+from .dlppersonmetadata import DlpPersonMetadata, DlpPersonMetadataTypedDict
+from .dlpreport import DlpReport, DlpReportTypedDict, LastScanStatus
+from .dlpreportstatus import DlpReportStatus
+from .dlpsimpleresult import DlpSimpleResult
 from .document import Document, DocumentTypedDict
 from .documentcontent import DocumentContent, DocumentContentTypedDict
 from .documentdefinition import DocumentDefinition, DocumentDefinitionTypedDict
@@ -374,6 +414,24 @@ from .documentstatusresponse import (
     DocumentStatusResponseTypedDict,
 )
 from .documentvisibility import DocumentVisibility
+from .documentvisibilityoverride import (
+    DocumentVisibilityOverride,
+    DocumentVisibilityOverrideOverride,
+    DocumentVisibilityOverrideTypedDict,
+)
+from .documentvisibilityupdateresult import (
+    DocumentVisibilityUpdateResult,
+    DocumentVisibilityUpdateResultOverride,
+    DocumentVisibilityUpdateResultTypedDict,
+)
+from .downloadpolicycsvop import (
+    DownloadpolicycsvRequest,
+    DownloadpolicycsvRequestTypedDict,
+)
+from .downloadreportcsvop import (
+    DownloadreportcsvRequest,
+    DownloadreportcsvRequestTypedDict,
+)
 from .editanswerrequest import (
     EditAnswerRequest,
     EditAnswerRequestSourceType,
@@ -406,6 +464,10 @@ from .errormessage import ErrorMessage, ErrorMessageTypedDict
 from .eventclassification import EventClassification, EventClassificationTypedDict
 from .eventclassificationname import EventClassificationName
 from .eventstrategyname import EventStrategyName
+from .externalsharingoptions import (
+    ExternalSharingOptions,
+    ExternalSharingOptionsTypedDict,
+)
 from .externalshortcut import ExternalShortcut, ExternalShortcutTypedDict
 from .extractedqna import ExtractedQnA, ExtractedQnATypedDict
 from .facetbucket import FacetBucket, FacetBucketTypedDict
@@ -454,15 +516,8 @@ from .generatedattachmentcontent import (
     GeneratedAttachmentContentTypedDict,
 )
 from .generatedqna import GeneratedQna, GeneratedQnaStatus, GeneratedQnaTypedDict
-from .getagentinputsop import (
-    GetagentinputsRequestRequest,
-    GetagentinputsRequestRequestTypedDict,
-)
-from .getagentinputsrequest import GetAgentInputsRequest, GetAgentInputsRequestTypedDict
-from .getagentinputsresponse import (
-    GetAgentInputsResponse,
-    GetAgentInputsResponseTypedDict,
-)
+from .getagentop import GetAgentRequest, GetAgentRequestTypedDict
+from .getagentschemasop import GetAgentSchemasRequest, GetAgentSchemasRequestTypedDict
 from .getanswererror import (
     GetAnswerError,
     GetAnswerErrorErrorType,
@@ -497,6 +552,7 @@ from .getdatasourceconfigrequest import (
     GetDatasourceConfigRequest,
     GetDatasourceConfigRequestTypedDict,
 )
+from .getdlpreportresponse import GetDlpReportResponse, GetDlpReportResponseTypedDict
 from .getdocpermissionsrequest import (
     GetDocPermissionsRequest,
     GetDocPermissionsRequestTypedDict,
@@ -535,8 +591,19 @@ from .getdocumentstatusresponse import (
     GetDocumentStatusResponse,
     GetDocumentStatusResponseTypedDict,
 )
+from .getdocumentvisibilityoverridesresponse import (
+    GetDocumentVisibilityOverridesResponse,
+    GetDocumentVisibilityOverridesResponseTypedDict,
+)
+from .getdocvisibilityop import (
+    GetdocvisibilityRequest,
+    GetdocvisibilityRequestTypedDict,
+)
 from .getpinrequest import GetPinRequest, GetPinRequestTypedDict
 from .getpinresponse import GetPinResponse, GetPinResponseTypedDict
+from .getpoliciesop import GetpoliciesRequest, GetpoliciesRequestTypedDict
+from .getpolicyop import GetpolicyRequest, GetpolicyRequestTypedDict
+from .getreportstatusop import GetreportstatusRequest, GetreportstatusRequestTypedDict
 from .getshortcutrequest_union import (
     GetShortcutRequest,
     GetShortcutRequestTypedDict,
@@ -555,6 +622,8 @@ from .grantpermission import GrantPermission, GrantPermissionTypedDict
 from .greenlistusersrequest import GreenlistUsersRequest, GreenlistUsersRequestTypedDict
 from .group import Group, GroupTypedDict
 from .grouptype import GroupType
+from .hotword import Hotword, HotwordTypedDict
+from .hotwordproximity import HotwordProximity, HotwordProximityTypedDict
 from .iconconfig import IconConfig, IconConfigTypedDict, IconType
 from .indexdocumentrequest import IndexDocumentRequest, IndexDocumentRequestTypedDict
 from .indexdocumentsrequest import IndexDocumentsRequest, IndexDocumentsRequestTypedDict
@@ -568,6 +637,12 @@ from .indexmembershiprequest import (
 from .indexstatus import IndexStatus, IndexStatusTypedDict
 from .indexteamrequest import IndexTeamRequest, IndexTeamRequestTypedDict
 from .indexuserrequest import IndexUserRequest, IndexUserRequestTypedDict
+from .inputoptions import (
+    DatasourcesType,
+    InputOptions,
+    InputOptionsTypedDict,
+    TimePeriodType,
+)
 from .insightsagentsrequestoptions import (
     InsightsAgentsRequestOptions,
     InsightsAgentsRequestOptionsTypedDict,
@@ -589,8 +664,6 @@ from .invalidoperatorvalueerror import (
 )
 from .inviteinfo import InviteInfo, InviteInfoTypedDict
 from .labeledcountinfo import LabeledCountInfo, LabeledCountInfoTypedDict
-from .listagentsop import ListagentsRequest, ListagentsRequestTypedDict
-from .listagentsresponse import ListAgentsResponse, ListAgentsResponseTypedDict
 from .listanswersrequest import ListAnswersRequest, ListAnswersRequestTypedDict
 from .listanswersresponse import ListAnswersResponse, ListAnswersResponseTypedDict
 from .listchatsop import ListchatsRequest, ListchatsRequestTypedDict
@@ -602,6 +675,10 @@ from .listcollectionsrequest import (
 from .listcollectionsresponse import (
     ListCollectionsResponse,
     ListCollectionsResponseTypedDict,
+)
+from .listdlpreportsresponse import (
+    ListDlpReportsResponse,
+    ListDlpReportsResponseTypedDict,
 )
 from .listentitiesrequest import (
     ListEntitiesRequest,
@@ -633,6 +710,12 @@ from .manualfeedbackinfo import (
     Vote,
 )
 from .meeting import Meeting, MeetingTypedDict
+from .message import (
+    Message,
+    MessageTextBlock,
+    MessageTextBlockTypedDict,
+    MessageTypedDict,
+)
 from .messagesrequest import (
     Datasource,
     Direction,
@@ -726,23 +809,28 @@ from .recommendationsrequestoptions import (
 from .referencerange import ReferenceRange, ReferenceRangeTypedDict
 from .relateddocuments import RelatedDocuments, RelatedDocumentsTypedDict, Relation
 from .relatedobject import (
-    Metadata,
-    MetadataTypedDict,
     RelatedObject,
+    RelatedObjectMetadata,
+    RelatedObjectMetadataTypedDict,
     RelatedObjectTypedDict,
 )
 from .relatedobjectedge import RelatedObjectEdge, RelatedObjectEdgeTypedDict
 from .relatedquestion import RelatedQuestion, RelatedQuestionTypedDict
 from .reminder import Reminder, ReminderTypedDict
 from .reminderrequest import ReminderRequest, ReminderRequestTypedDict
+from .reportstatusresponse import (
+    ReportStatusResponse,
+    ReportStatusResponseStatus,
+    ReportStatusResponseTypedDict,
+)
 from .restrictionfilters import RestrictionFilters, RestrictionFiltersTypedDict
 from .resultsdescription import ResultsDescription, ResultsDescriptionTypedDict
 from .resultsresponse import ResultsResponse, ResultsResponseTypedDict
 from .resulttab import ResultTab, ResultTabTypedDict
 from .rotatetokenresponse import RotateTokenResponse, RotateTokenResponseTypedDict
-from .runagentop import RunagentRequestRequest, RunagentRequestRequestTypedDict
-from .runagentrequest import RunAgentRequest, RunAgentRequestTypedDict
 from .scopetype import ScopeType
+from .searchagentsrequest import SearchAgentsRequest, SearchAgentsRequestTypedDict
+from .searchagentsresponse import SearchAgentsResponse, SearchAgentsResponseTypedDict
 from .searchproviderinfo import SearchProviderInfo, SearchProviderInfoTypedDict
 from .searchrequest import SearchRequest, SearchRequestTypedDict
 from .searchrequestinputdetails import (
@@ -765,8 +853,19 @@ from .searchresultsnippet import SearchResultSnippet, SearchResultSnippetTypedDi
 from .searchwarning import SearchWarning, SearchWarningTypedDict, WarningType
 from .security import Security, SecurityTypedDict
 from .seenfeedbackinfo import SeenFeedbackInfo, SeenFeedbackInfoTypedDict
+from .sensitivecontentoptions import (
+    SensitiveContentOptions,
+    SensitiveContentOptionsTypedDict,
+)
+from .sensitiveexpression import SensitiveExpression, SensitiveExpressionTypedDict
+from .sensitiveinfotype import (
+    LikelihoodThreshold,
+    SensitiveInfoType,
+    SensitiveInfoTypeTypedDict,
+)
 from .sessioninfo import SessionInfo, SessionInfoTypedDict
 from .share import Share, ShareTypedDict
+from .sharingoptions import SharingOptions, SharingOptionsTypedDict
 from .shortcut import Shortcut, ShortcutTypedDict
 from .shortcuterror import ShortcutError, ShortcutErrorErrorType, ShortcutErrorTypedDict
 from .shortcutinsight import ShortcutInsight, ShortcutInsightTypedDict
@@ -818,6 +917,7 @@ from .textrange import TextRange, TextRangeType, TextRangeTypedDict
 from .thumbnail import Thumbnail, ThumbnailTypedDict
 from .timeinterval import TimeInterval, TimeIntervalTypedDict
 from .timepoint import TimePoint, TimePointTypedDict
+from .timerange import TimeRange, TimeRangeTypedDict
 from .toolinfo import ToolInfo, ToolInfoTypedDict
 from .toolmetadata import (
     AuthType,
@@ -835,10 +935,35 @@ from .updateannouncementrequest import (
     UpdateAnnouncementRequestPostType,
     UpdateAnnouncementRequestTypedDict,
 )
+from .updatedlpconfigrequest import (
+    UpdateDlpConfigRequest,
+    UpdateDlpConfigRequestTypedDict,
+)
+from .updatedlpconfigresponse import (
+    UpdateDlpConfigResponse,
+    UpdateDlpConfigResponseTypedDict,
+)
+from .updatedlpreportrequest import (
+    UpdateDlpReportRequest,
+    UpdateDlpReportRequestTypedDict,
+)
+from .updatedlpreportresponse import (
+    UpdateDlpReportResponse,
+    UpdateDlpReportResponseTypedDict,
+)
+from .updatedocumentvisibilityoverridesrequest import (
+    UpdateDocumentVisibilityOverridesRequest,
+    UpdateDocumentVisibilityOverridesRequestTypedDict,
+)
+from .updatedocumentvisibilityoverridesresponse import (
+    UpdateDocumentVisibilityOverridesResponse,
+    UpdateDocumentVisibilityOverridesResponseTypedDict,
+)
 from .updatepermissionsrequest import (
     UpdatePermissionsRequest,
     UpdatePermissionsRequestTypedDict,
 )
+from .updatepolicyop import UpdatepolicyRequest, UpdatepolicyRequestTypedDict
 from .updateshortcutrequest import UpdateShortcutRequest, UpdateShortcutRequestTypedDict
 from .updateshortcutresponse import (
     UpdateShortcutResponse,
@@ -894,7 +1019,6 @@ from .workflowfeedbackinfo import (
     WorkflowFeedbackInfoSource,
     WorkflowFeedbackInfoTypedDict,
 )
-from .workflowinputfield import WorkflowInputField, WorkflowInputFieldTypedDict
 from .workflowresult import WorkflowResult, WorkflowResultTypedDict
 from .writeactionparameter import (
     WriteActionParameter,
@@ -968,11 +1092,26 @@ __all__ = [
     "AdditionalFieldDefinition",
     "AdditionalFieldDefinitionTypedDict",
     "Agent",
+    "AgentCapabilities",
+    "AgentCapabilitiesTypedDict",
     "AgentConfig",
     "AgentConfigTypedDict",
     "AgentEnum",
-    "AgentResult",
-    "AgentResultTypedDict",
+    "AgentExecutionStatus",
+    "AgentMetadata",
+    "AgentMetadataTypedDict",
+    "AgentRun",
+    "AgentRunCreate",
+    "AgentRunCreateInput",
+    "AgentRunCreateInputTypedDict",
+    "AgentRunCreateTypedDict",
+    "AgentRunInput",
+    "AgentRunInputTypedDict",
+    "AgentRunTypedDict",
+    "AgentRunWaitResponse",
+    "AgentRunWaitResponseTypedDict",
+    "AgentSchemas",
+    "AgentSchemasTypedDict",
     "AgentTypedDict",
     "AiAppActionCounts",
     "AiAppActionCountsTypedDict",
@@ -980,6 +1119,8 @@ __all__ = [
     "AiAppsInsightsResponseTypedDict",
     "AiInsightsResponse",
     "AiInsightsResponseTypedDict",
+    "AllowlistOptions",
+    "AllowlistOptionsTypedDict",
     "Announcement",
     "AnnouncementChannel",
     "AnnouncementPostType",
@@ -1131,6 +1272,7 @@ __all__ = [
     "ContentDefinitionTypedDict",
     "ContentInsightsResponse",
     "ContentInsightsResponseTypedDict",
+    "ContentType",
     "CountInfo",
     "CountInfoTypedDict",
     "CreateAnnouncementRequest",
@@ -1146,6 +1288,10 @@ __all__ = [
     "CreateCollectionResponse",
     "CreateCollectionResponseErrorCode",
     "CreateCollectionResponseTypedDict",
+    "CreateDlpReportRequest",
+    "CreateDlpReportRequestTypedDict",
+    "CreateDlpReportResponse",
+    "CreateDlpReportResponseTypedDict",
     "CreateShortcutRequest",
     "CreateShortcutRequestTypedDict",
     "CreateShortcutResponse",
@@ -1190,6 +1336,7 @@ __all__ = [
     "DatasourceUserDefinition",
     "DatasourceUserDefinitionTypedDict",
     "DatasourceVisibility",
+    "DatasourcesType",
     "DebugDatasourceStatusIdentityResponseComponent",
     "DebugDatasourceStatusIdentityResponseComponentCounts",
     "DebugDatasourceStatusIdentityResponseComponentCountsTypedDict",
@@ -1251,6 +1398,17 @@ __all__ = [
     "DisambiguationTypedDict",
     "DisplayableListItemUIConfig",
     "DisplayableListItemUIConfigTypedDict",
+    "DlpConfig",
+    "DlpConfigTypedDict",
+    "DlpFrequency",
+    "DlpPerson",
+    "DlpPersonMetadata",
+    "DlpPersonMetadataTypedDict",
+    "DlpPersonTypedDict",
+    "DlpReport",
+    "DlpReportStatus",
+    "DlpReportTypedDict",
+    "DlpSimpleResult",
     "DocCategory",
     "Document",
     "DocumentContent",
@@ -1286,8 +1444,18 @@ __all__ = [
     "DocumentStatusResponseTypedDict",
     "DocumentTypedDict",
     "DocumentVisibility",
+    "DocumentVisibilityOverride",
+    "DocumentVisibilityOverrideOverride",
+    "DocumentVisibilityOverrideTypedDict",
+    "DocumentVisibilityUpdateResult",
+    "DocumentVisibilityUpdateResultOverride",
+    "DocumentVisibilityUpdateResultTypedDict",
     "Documents",
     "DocumentsTypedDict",
+    "DownloadpolicycsvRequest",
+    "DownloadpolicycsvRequestTypedDict",
+    "DownloadreportcsvRequest",
+    "DownloadreportcsvRequestTypedDict",
     "EditAnswerRequest",
     "EditAnswerRequestSourceType",
     "EditAnswerRequestTypedDict",
@@ -1319,6 +1487,8 @@ __all__ = [
     "EventClassificationName",
     "EventClassificationTypedDict",
     "EventStrategyName",
+    "ExternalSharingOptions",
+    "ExternalSharingOptionsTypedDict",
     "ExternalShortcut",
     "ExternalShortcutTypedDict",
     "ExtractedQnA",
@@ -1371,10 +1541,10 @@ __all__ = [
     "GeneratedQna",
     "GeneratedQnaStatus",
     "GeneratedQnaTypedDict",
-    "GetAgentInputsRequest",
-    "GetAgentInputsRequestTypedDict",
-    "GetAgentInputsResponse",
-    "GetAgentInputsResponseTypedDict",
+    "GetAgentRequest",
+    "GetAgentRequestTypedDict",
+    "GetAgentSchemasRequest",
+    "GetAgentSchemasRequestTypedDict",
     "GetAnswerError",
     "GetAnswerErrorErrorType",
     "GetAnswerErrorTypedDict",
@@ -1400,6 +1570,8 @@ __all__ = [
     "GetCollectionResponseTypedDict",
     "GetDatasourceConfigRequest",
     "GetDatasourceConfigRequestTypedDict",
+    "GetDlpReportResponse",
+    "GetDlpReportResponseTypedDict",
     "GetDocPermissionsRequest",
     "GetDocPermissionsRequestTypedDict",
     "GetDocPermissionsResponse",
@@ -1412,6 +1584,8 @@ __all__ = [
     "GetDocumentStatusRequestTypedDict",
     "GetDocumentStatusResponse",
     "GetDocumentStatusResponseTypedDict",
+    "GetDocumentVisibilityOverridesResponse",
+    "GetDocumentVisibilityOverridesResponseTypedDict",
     "GetDocumentsByFacetsRequest",
     "GetDocumentsByFacetsRequestTypedDict",
     "GetDocumentsByFacetsResponse",
@@ -1435,14 +1609,20 @@ __all__ = [
     "GetUserCountRequestTypedDict",
     "GetUserCountResponse",
     "GetUserCountResponseTypedDict",
-    "GetagentinputsRequestRequest",
-    "GetagentinputsRequestRequestTypedDict",
     "GetchatRequestRequest",
     "GetchatRequestRequestTypedDict",
     "GetchatapplicationRequestRequest",
     "GetchatapplicationRequestRequestTypedDict",
     "GetchatfilesRequestRequest",
     "GetchatfilesRequestRequestTypedDict",
+    "GetdocvisibilityRequest",
+    "GetdocvisibilityRequestTypedDict",
+    "GetpoliciesRequest",
+    "GetpoliciesRequestTypedDict",
+    "GetpolicyRequest",
+    "GetpolicyRequestTypedDict",
+    "GetreportstatusRequest",
+    "GetreportstatusRequestTypedDict",
     "GleanAssistInsightsResponse",
     "GleanAssistInsightsResponseTypedDict",
     "GleanDataError",
@@ -1456,6 +1636,10 @@ __all__ = [
     "GroupType",
     "GroupTypedDict",
     "HideBuiltInFacet",
+    "Hotword",
+    "HotwordProximity",
+    "HotwordProximityTypedDict",
+    "HotwordTypedDict",
     "IDType",
     "IconConfig",
     "IconConfigTypedDict",
@@ -1481,6 +1665,10 @@ __all__ = [
     "IndexUserRequestTypedDict",
     "IndexingShortcut",
     "IndexingShortcutTypedDict",
+    "InputOptions",
+    "InputOptionsTypedDict",
+    "InputSchema",
+    "InputSchemaTypedDict",
     "InsightsAgentsRequestOptions",
     "InsightsAgentsRequestOptionsTypedDict",
     "InsightsAiAppRequestOptions",
@@ -1499,8 +1687,8 @@ __all__ = [
     "KnowledgeType",
     "LabeledCountInfo",
     "LabeledCountInfoTypedDict",
-    "ListAgentsResponse",
-    "ListAgentsResponseTypedDict",
+    "LastScanStatus",
+    "LikelihoodThreshold",
     "ListAnswersRequest",
     "ListAnswersRequestTypedDict",
     "ListAnswersResponse",
@@ -1511,6 +1699,8 @@ __all__ = [
     "ListCollectionsRequestTypedDict",
     "ListCollectionsResponse",
     "ListCollectionsResponseTypedDict",
+    "ListDlpReportsResponse",
+    "ListDlpReportsResponseTypedDict",
     "ListEntitiesRequest",
     "ListEntitiesRequestEntityType",
     "ListEntitiesRequestIncludeField",
@@ -1524,8 +1714,6 @@ __all__ = [
     "ListShortcutsPaginatedRequestTypedDict",
     "ListShortcutsPaginatedResponse",
     "ListShortcutsPaginatedResponseTypedDict",
-    "ListagentsRequest",
-    "ListagentsRequestTypedDict",
     "ListchatsRequest",
     "ListchatsRequestTypedDict",
     "ListpinsRequest",
@@ -1537,13 +1725,15 @@ __all__ = [
     "ManualFeedbackInfoTypedDict",
     "Meeting",
     "MeetingTypedDict",
+    "Message",
+    "MessageTextBlock",
+    "MessageTextBlockTypedDict",
     "MessageType",
+    "MessageTypedDict",
     "MessagesRequest",
     "MessagesRequestTypedDict",
     "MessagesResponse",
     "MessagesResponseTypedDict",
-    "Metadata",
-    "MetadataTypedDict",
     "Mode",
     "ObjectDefinition",
     "ObjectDefinitionTypedDict",
@@ -1555,6 +1745,8 @@ __all__ = [
     "OperatorScopeTypedDict",
     "OperatorType",
     "OrderBy",
+    "OutputSchema",
+    "OutputSchemaTypedDict",
     "PeopleRequest",
     "PeopleRequestIncludeField",
     "PeopleRequestTypedDict",
@@ -1638,6 +1830,8 @@ __all__ = [
     "RelatedObject",
     "RelatedObjectEdge",
     "RelatedObjectEdgeTypedDict",
+    "RelatedObjectMetadata",
+    "RelatedObjectMetadataTypedDict",
     "RelatedObjectTypedDict",
     "RelatedQuestion",
     "RelatedQuestionTypedDict",
@@ -1647,6 +1841,9 @@ __all__ = [
     "ReminderRequest",
     "ReminderRequestTypedDict",
     "ReminderTypedDict",
+    "ReportStatusResponse",
+    "ReportStatusResponseStatus",
+    "ReportStatusResponseTypedDict",
     "ResponseHint",
     "ResponseStatus",
     "RestrictionFilters",
@@ -1662,12 +1859,12 @@ __all__ = [
     "Role",
     "RotateTokenResponse",
     "RotateTokenResponseTypedDict",
-    "RunAgentRequest",
-    "RunAgentRequestTypedDict",
-    "RunagentRequestRequest",
-    "RunagentRequestRequestTypedDict",
     "Scope",
     "ScopeType",
+    "SearchAgentsRequest",
+    "SearchAgentsRequestTypedDict",
+    "SearchAgentsResponse",
+    "SearchAgentsResponseTypedDict",
     "SearchProviderInfo",
     "SearchProviderInfoTypedDict",
     "SearchRequest",
@@ -1691,10 +1888,18 @@ __all__ = [
     "SecurityTypedDict",
     "SeenFeedbackInfo",
     "SeenFeedbackInfoTypedDict",
+    "SensitiveContentOptions",
+    "SensitiveContentOptionsTypedDict",
+    "SensitiveExpression",
+    "SensitiveExpressionTypedDict",
+    "SensitiveInfoType",
+    "SensitiveInfoTypeTypedDict",
     "SessionInfo",
     "SessionInfoTypedDict",
     "Share",
     "ShareTypedDict",
+    "SharingOptions",
+    "SharingOptionsTypedDict",
     "Shortcut",
     "ShortcutError",
     "ShortcutErrorErrorType",
@@ -1750,8 +1955,11 @@ __all__ = [
     "ThumbnailTypedDict",
     "TimeInterval",
     "TimeIntervalTypedDict",
+    "TimePeriodType",
     "TimePoint",
     "TimePointTypedDict",
+    "TimeRange",
+    "TimeRangeTypedDict",
     "ToolInfo",
     "ToolInfoTypedDict",
     "ToolMetadata",
@@ -1767,12 +1975,26 @@ __all__ = [
     "UpdateAnnouncementRequestChannel",
     "UpdateAnnouncementRequestPostType",
     "UpdateAnnouncementRequestTypedDict",
+    "UpdateDlpConfigRequest",
+    "UpdateDlpConfigRequestTypedDict",
+    "UpdateDlpConfigResponse",
+    "UpdateDlpConfigResponseTypedDict",
+    "UpdateDlpReportRequest",
+    "UpdateDlpReportRequestTypedDict",
+    "UpdateDlpReportResponse",
+    "UpdateDlpReportResponseTypedDict",
+    "UpdateDocumentVisibilityOverridesRequest",
+    "UpdateDocumentVisibilityOverridesRequestTypedDict",
+    "UpdateDocumentVisibilityOverridesResponse",
+    "UpdateDocumentVisibilityOverridesResponseTypedDict",
     "UpdatePermissionsRequest",
     "UpdatePermissionsRequestTypedDict",
     "UpdateShortcutRequest",
     "UpdateShortcutRequestTypedDict",
     "UpdateShortcutResponse",
     "UpdateShortcutResponseTypedDict",
+    "UpdatepolicyRequest",
+    "UpdatepolicyRequestTypedDict",
     "UploadChatFilesRequest",
     "UploadChatFilesRequestTypedDict",
     "UploadChatFilesResponse",
@@ -1821,8 +2043,6 @@ __all__ = [
     "WorkflowFeedbackInfo",
     "WorkflowFeedbackInfoSource",
     "WorkflowFeedbackInfoTypedDict",
-    "WorkflowInputField",
-    "WorkflowInputFieldTypedDict",
     "WorkflowResult",
     "WorkflowResultTypedDict",
     "WorkflowTypedDict",

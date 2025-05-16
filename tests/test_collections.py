@@ -14,7 +14,9 @@ def test_collections_addcollectionitems():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+        security=models.Security(
+            act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", "value"),
+        ),
     ) as g_client:
         assert g_client is not None
 
@@ -28,7 +30,9 @@ def test_collections_createcollection():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+        security=models.Security(
+            act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", "value"),
+        ),
     ) as g_client:
         assert g_client is not None
 
@@ -629,7 +633,9 @@ def test_collections_deletecollection():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+        security=models.Security(
+            act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", "value"),
+        ),
     ) as g_client:
         assert g_client is not None
 
@@ -647,7 +653,9 @@ def test_collections_deletecollectionitem():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+        security=models.Security(
+            act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", "value"),
+        ),
     ) as g_client:
         assert g_client is not None
 
@@ -663,7 +671,9 @@ def test_collections_editcollection():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+        security=models.Security(
+            act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", "value"),
+        ),
     ) as g_client:
         assert g_client is not None
 
@@ -1234,7 +1244,9 @@ def test_collections_editcollectionitem():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+        security=models.Security(
+            act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", "value"),
+        ),
     ) as g_client:
         assert g_client is not None
 
@@ -1257,7 +1269,9 @@ def test_collections_getcollection():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+        security=models.Security(
+            act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", "value"),
+        ),
     ) as g_client:
         assert g_client is not None
 
@@ -1271,7 +1285,9 @@ def test_collections_listcollections():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+        security=models.Security(
+            act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", "value"),
+        ),
     ) as g_client:
         assert g_client is not None
 

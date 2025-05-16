@@ -21,15 +21,17 @@ Add items to a Collection.
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean import Glean, models
 import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
-    res = g_client.client.collections.add_items(collection_id=6460.15)
+    res = g_client.client.collections.add_items(collection_id=7742.68)
 
     # Handle response
     print(res)
@@ -68,7 +70,9 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
     res = g_client.client.collections.create(name="<value>", added_roles=[
@@ -142,8 +146,25 @@ with Glean(
                                             ),
                                         ],
                                     ),
+                                    models.FacetFilterSet(
+                                        filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                    ),
                                 ],
-                                facet_bucket_size=134365,
+                                facet_bucket_size=977077,
                                 auth_tokens=[
                                     models.AuthToken(
                                         access_token="123abc",
@@ -156,7 +177,7 @@ with Glean(
                             ),
                             ranges=[
                                 models.TextRange(
-                                    start_index=796474,
+                                    start_index=86650,
                                     document=models.Document(
                                         metadata=models.DocumentMetadata(
                                             datasource="datasource",
@@ -191,47 +212,11 @@ with Glean(
                                                     ],
                                                     document_id="<id>",
                                                 ),
-                                                models.PinDocument(
-                                                    audience_filters=[
-                                                        models.FacetFilter(
-                                                            field_name="type",
-                                                            values=[
-                                                                models.FacetFilterValue(
-                                                                    value="Spreadsheet",
-                                                                    relation_type=models.RelationType.EQUALS,
-                                                                ),
-                                                                models.FacetFilterValue(
-                                                                    value="Presentation",
-                                                                    relation_type=models.RelationType.EQUALS,
-                                                                ),
-                                                            ],
-                                                        ),
-                                                    ],
-                                                    document_id="<id>",
-                                                ),
-                                                models.PinDocument(
-                                                    audience_filters=[
-                                                        models.FacetFilter(
-                                                            field_name="type",
-                                                            values=[
-                                                                models.FacetFilterValue(
-                                                                    value="Spreadsheet",
-                                                                    relation_type=models.RelationType.EQUALS,
-                                                                ),
-                                                                models.FacetFilterValue(
-                                                                    value="Presentation",
-                                                                    relation_type=models.RelationType.EQUALS,
-                                                                ),
-                                                            ],
-                                                        ),
-                                                    ],
-                                                    document_id="<id>",
-                                                ),
                                             ],
                                             collections=[
                                                 models.Collection(
                                                     name="<value>",
-                                                    description="fumigate convection though zowie",
+                                                    description="meaty dial elegantly while react",
                                                     audience_filters=[
                                                         models.FacetFilter(
                                                             field_name="type",
@@ -247,14 +232,28 @@ with Glean(
                                                             ],
                                                         ),
                                                     ],
-                                                    id=496323,
+                                                    id=854591,
                                                     items=[
                                                         models.CollectionItem(
-                                                            collection_id=782367,
+                                                            collection_id=697663,
                                                             shortcut=models.Shortcut(
                                                                 input_alias="<value>",
                                                             ),
-                                                            item_type=models.CollectionItemItemType.DOCUMENT,
+                                                            item_type=models.CollectionItemItemType.TEXT,
+                                                        ),
+                                                        models.CollectionItem(
+                                                            collection_id=697663,
+                                                            shortcut=models.Shortcut(
+                                                                input_alias="<value>",
+                                                            ),
+                                                            item_type=models.CollectionItemItemType.TEXT,
+                                                        ),
+                                                        models.CollectionItem(
+                                                            collection_id=697663,
+                                                            shortcut=models.Shortcut(
+                                                                input_alias="<value>",
+                                                            ),
+                                                            item_type=models.CollectionItemItemType.TEXT,
                                                         ),
                                                     ],
                                                 ),
@@ -263,22 +262,21 @@ with Glean(
                                                 reacts=[
                                                     models.Reaction(),
                                                     models.Reaction(),
-                                                    models.Reaction(),
                                                 ],
                                                 shares=[
                                                     models.Share(
-                                                        num_days_ago=219974,
+                                                        num_days_ago=365776,
                                                     ),
                                                     models.Share(
-                                                        num_days_ago=449221,
+                                                        num_days_ago=365776,
                                                     ),
                                                     models.Share(
-                                                        num_days_ago=427887,
+                                                        num_days_ago=365776,
                                                     ),
                                                 ],
                                             ),
                                             verification=models.Verification(
-                                                state=models.State.VERIFIED,
+                                                state=models.State.DEPRECATED,
                                                 metadata=models.VerificationMetadata(
                                                     reminders=[
                                                         models.Reminder(
@@ -286,7 +284,7 @@ with Glean(
                                                                 name="George Clooney",
                                                                 obfuscated_id="abc123",
                                                             ),
-                                                            remind_at=491427,
+                                                            remind_at=268615,
                                                         ),
                                                     ],
                                                     last_reminder=models.Reminder(
@@ -294,11 +292,17 @@ with Glean(
                                                             name="George Clooney",
                                                             obfuscated_id="abc123",
                                                         ),
-                                                        remind_at=490420,
+                                                        remind_at=423482,
                                                     ),
                                                 ),
                                             ),
                                             shortcuts=[
+                                                models.Shortcut(
+                                                    input_alias="<value>",
+                                                ),
+                                                models.Shortcut(
+                                                    input_alias="<value>",
+                                                ),
                                                 models.Shortcut(
                                                     input_alias="<value>",
                                                 ),
@@ -411,7 +415,7 @@ with Glean(
                                         ],
                                     ),
                                 ],
-                                facet_bucket_size=45416,
+                                facet_bucket_size=977077,
                                 auth_tokens=[
                                     models.AuthToken(
                                         access_token="123abc",
@@ -422,10 +426,162 @@ with Glean(
                                     ),
                                 ],
                             ),
+                            ranges=[
+                                models.TextRange(
+                                    start_index=86650,
+                                    document=models.Document(
+                                        metadata=models.DocumentMetadata(
+                                            datasource="datasource",
+                                            object_type="Feature Request",
+                                            container="container",
+                                            parent_id="JIRA_EN-1337",
+                                            mime_type="mimeType",
+                                            document_id="documentId",
+                                            create_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+                                            update_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+                                            components=[
+                                                "Backend",
+                                                "Networking",
+                                            ],
+                                            status="[\"Done\"]",
+                                            pins=[
+                                                models.PinDocument(
+                                                    audience_filters=[
+                                                        models.FacetFilter(
+                                                            field_name="type",
+                                                            values=[
+                                                                models.FacetFilterValue(
+                                                                    value="Spreadsheet",
+                                                                    relation_type=models.RelationType.EQUALS,
+                                                                ),
+                                                                models.FacetFilterValue(
+                                                                    value="Presentation",
+                                                                    relation_type=models.RelationType.EQUALS,
+                                                                ),
+                                                            ],
+                                                        ),
+                                                    ],
+                                                    document_id="<id>",
+                                                ),
+                                            ],
+                                            collections=[
+                                                models.Collection(
+                                                    name="<value>",
+                                                    description="meaty dial elegantly while react",
+                                                    audience_filters=[
+                                                        models.FacetFilter(
+                                                            field_name="type",
+                                                            values=[
+                                                                models.FacetFilterValue(
+                                                                    value="Spreadsheet",
+                                                                    relation_type=models.RelationType.EQUALS,
+                                                                ),
+                                                                models.FacetFilterValue(
+                                                                    value="Presentation",
+                                                                    relation_type=models.RelationType.EQUALS,
+                                                                ),
+                                                            ],
+                                                        ),
+                                                    ],
+                                                    id=854591,
+                                                    items=[
+                                                        models.CollectionItem(
+                                                            collection_id=697663,
+                                                            shortcut=models.Shortcut(
+                                                                input_alias="<value>",
+                                                            ),
+                                                            item_type=models.CollectionItemItemType.TEXT,
+                                                        ),
+                                                        models.CollectionItem(
+                                                            collection_id=697663,
+                                                            shortcut=models.Shortcut(
+                                                                input_alias="<value>",
+                                                            ),
+                                                            item_type=models.CollectionItemItemType.TEXT,
+                                                        ),
+                                                        models.CollectionItem(
+                                                            collection_id=697663,
+                                                            shortcut=models.Shortcut(
+                                                                input_alias="<value>",
+                                                            ),
+                                                            item_type=models.CollectionItemItemType.TEXT,
+                                                        ),
+                                                    ],
+                                                ),
+                                            ],
+                                            interactions=models.DocumentInteractions(
+                                                reacts=[
+                                                    models.Reaction(),
+                                                    models.Reaction(),
+                                                ],
+                                                shares=[
+                                                    models.Share(
+                                                        num_days_ago=365776,
+                                                    ),
+                                                    models.Share(
+                                                        num_days_ago=365776,
+                                                    ),
+                                                    models.Share(
+                                                        num_days_ago=365776,
+                                                    ),
+                                                ],
+                                            ),
+                                            verification=models.Verification(
+                                                state=models.State.DEPRECATED,
+                                                metadata=models.VerificationMetadata(
+                                                    reminders=[
+                                                        models.Reminder(
+                                                            assignee=models.Person(
+                                                                name="George Clooney",
+                                                                obfuscated_id="abc123",
+                                                            ),
+                                                            remind_at=268615,
+                                                        ),
+                                                    ],
+                                                    last_reminder=models.Reminder(
+                                                        assignee=models.Person(
+                                                            name="George Clooney",
+                                                            obfuscated_id="abc123",
+                                                        ),
+                                                        remind_at=423482,
+                                                    ),
+                                                ),
+                                            ),
+                                            shortcuts=[
+                                                models.Shortcut(
+                                                    input_alias="<value>",
+                                                ),
+                                                models.Shortcut(
+                                                    input_alias="<value>",
+                                                ),
+                                                models.Shortcut(
+                                                    input_alias="<value>",
+                                                ),
+                                            ],
+                                            custom_data={
+                                                "someCustomField": models.CustomDataValue(),
+                                            },
+                                        ),
+                                    ),
+                                ),
+                            ],
                             input_details=models.SearchRequestInputDetails(
                                 has_copy_paste=True,
                             ),
                         ),
+                        results=[
+                            models.SearchResult(
+                                title="title",
+                                url="https://example.com/foo/bar",
+                                native_app_url="slack://foo/bar",
+                                snippets=[
+                                    models.SearchResultSnippet(
+                                        snippet="snippet",
+                                        mime_type="mimeType",
+                                    ),
+                                ],
+                            ),
+                        ],
                     ),
                 ],
                 metadata=models.PersonMetadata(
@@ -438,6 +594,10 @@ with Glean(
                     photo_url="https://example.com/george.jpg",
                     start_date=date.fromisoformat("2000-01-23"),
                     datasource_profile=[
+                        models.DatasourceProfile(
+                            datasource="github",
+                            handle="<value>",
+                        ),
                         models.DatasourceProfile(
                             datasource="github",
                             handle="<value>",
@@ -455,6 +615,7 @@ with Glean(
                     invite_info=models.InviteInfo(
                         invites=[
                             models.ChannelInviteInfo(),
+                            models.ChannelInviteInfo(),
                         ],
                     ),
                     custom_fields=[
@@ -463,50 +624,18 @@ with Glean(
                             values=[
                                 models.CustomFieldValueStr(),
                                 models.CustomFieldValueStr(),
+                                models.CustomFieldValueStr(),
                             ],
                         ),
                         models.CustomFieldData(
                             label="<value>",
-                            values=[],
+                            values=[
+                                models.CustomFieldValueStr(),
+                                models.CustomFieldValueStr(),
+                                models.CustomFieldValueStr(),
+                            ],
                         ),
                     ],
-                    badges=[
-                        models.Badge(
-                            key="deployment_name_new_hire",
-                            display_name="New hire",
-                            icon_config=models.IconConfig(
-                                color="#343CED",
-                                key="person_icon",
-                                icon_type=models.IconType.GLYPH,
-                                name="user",
-                            ),
-                        ),
-                    ],
-                ),
-            ),
-            role=models.UserRole.OWNER,
-        ),
-        models.UserRoleSpecification(
-            person=models.Person(
-                name="George Clooney",
-                obfuscated_id="abc123",
-                metadata=models.PersonMetadata(
-                    type=models.PersonMetadataType.FULL_TIME,
-                    title="Actor",
-                    department="Movies",
-                    email="george@example.com",
-                    location="Hollywood, CA",
-                    phone="6505551234",
-                    photo_url="https://example.com/george.jpg",
-                    start_date=date.fromisoformat("2000-01-23"),
-                    datasource_profile=[
-                        models.DatasourceProfile(
-                            datasource="github",
-                            handle="<value>",
-                        ),
-                    ],
-                    query_suggestions=models.QuerySuggestionList(),
-                    invite_info=models.InviteInfo(),
                     badges=[
                         models.Badge(
                             key="deployment_name_new_hire",
@@ -542,9 +671,26 @@ with Glean(
                             datasource="github",
                             handle="<value>",
                         ),
+                        models.DatasourceProfile(
+                            datasource="github",
+                            handle="<value>",
+                        ),
                     ],
-                    query_suggestions=models.QuerySuggestionList(),
-                    invite_info=models.InviteInfo(),
+                    query_suggestions=models.QuerySuggestionList(
+                        suggestions=[
+                            models.QuerySuggestion(
+                                query="app:github type:pull author:mortimer",
+                                label="Mortimer's PRs",
+                                datasource="github",
+                            ),
+                        ],
+                    ),
+                    invite_info=models.InviteInfo(
+                        invites=[
+                            models.ChannelInviteInfo(),
+                            models.ChannelInviteInfo(),
+                        ],
+                    ),
                     badges=[
                         models.Badge(
                             key="deployment_name_new_hire",
@@ -559,89 +705,7 @@ with Glean(
                     ],
                 ),
             ),
-            role=models.UserRole.VERIFIER,
-        ),
-        models.UserRoleSpecification(
-            person=models.Person(
-                name="George Clooney",
-                obfuscated_id="abc123",
-                metadata=models.PersonMetadata(
-                    type=models.PersonMetadataType.FULL_TIME,
-                    title="Actor",
-                    department="Movies",
-                    email="george@example.com",
-                    location="Hollywood, CA",
-                    phone="6505551234",
-                    photo_url="https://example.com/george.jpg",
-                    start_date=date.fromisoformat("2000-01-23"),
-                    datasource_profile=[
-                        models.DatasourceProfile(
-                            datasource="github",
-                            handle="<value>",
-                        ),
-                        models.DatasourceProfile(
-                            datasource="github",
-                            handle="<value>",
-                        ),
-                        models.DatasourceProfile(
-                            datasource="github",
-                            handle="<value>",
-                        ),
-                    ],
-                    query_suggestions=models.QuerySuggestionList(),
-                    invite_info=models.InviteInfo(),
-                    badges=[
-                        models.Badge(
-                            key="deployment_name_new_hire",
-                            display_name="New hire",
-                            icon_config=models.IconConfig(
-                                color="#343CED",
-                                key="person_icon",
-                                icon_type=models.IconType.GLYPH,
-                                name="user",
-                            ),
-                        ),
-                    ],
-                ),
-            ),
-            role=models.UserRole.ANSWER_MODERATOR,
-        ),
-        models.UserRoleSpecification(
-            person=models.Person(
-                name="George Clooney",
-                obfuscated_id="abc123",
-                metadata=models.PersonMetadata(
-                    type=models.PersonMetadataType.FULL_TIME,
-                    title="Actor",
-                    department="Movies",
-                    email="george@example.com",
-                    location="Hollywood, CA",
-                    phone="6505551234",
-                    photo_url="https://example.com/george.jpg",
-                    start_date=date.fromisoformat("2000-01-23"),
-                    datasource_profile=[
-                        models.DatasourceProfile(
-                            datasource="github",
-                            handle="<value>",
-                        ),
-                    ],
-                    query_suggestions=models.QuerySuggestionList(),
-                    invite_info=models.InviteInfo(),
-                    badges=[
-                        models.Badge(
-                            key="deployment_name_new_hire",
-                            display_name="New hire",
-                            icon_config=models.IconConfig(
-                                color="#343CED",
-                                key="person_icon",
-                                icon_type=models.IconType.GLYPH,
-                                name="user",
-                            ),
-                        ),
-                    ],
-                ),
-            ),
-            role=models.UserRole.OWNER,
+            role=models.UserRole.VIEWER,
         ),
     ], audience_filters=[
         {
@@ -699,17 +763,20 @@ Delete a Collection given the Collection's ID.
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean import Glean, models
 import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
     g_client.client.collections.delete(ids=[
-        698486,
-        386564,
+        930352,
+        156719,
+        25102,
     ])
 
     # Use the SDK ...
@@ -738,15 +805,17 @@ Delete a single item from a Collection.
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean import Glean, models
 import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
-    res = g_client.client.collections.delete_item(collection_id=1357.59, item_id="<id>")
+    res = g_client.client.collections.delete_item(collection_id=6980.49, item_id="<id>")
 
     # Handle response
     print(res)
@@ -786,10 +855,12 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
-    res = g_client.client.collections.update(name="<value>", id=720396, added_roles=[
+    res = g_client.client.collections.update(name="<value>", id=671264, added_roles=[
         models.UserRoleSpecification(
             person=models.Person(
                 name="George Clooney",
@@ -861,7 +932,7 @@ with Glean(
                                         ],
                                     ),
                                 ],
-                                facet_bucket_size=991464,
+                                facet_bucket_size=797260,
                                 auth_tokens=[
                                     models.AuthToken(
                                         access_token="123abc",
@@ -874,7 +945,7 @@ with Glean(
                             ),
                             ranges=[
                                 models.TextRange(
-                                    start_index=488852,
+                                    start_index=932928,
                                     document=models.Document(
                                         metadata=models.DocumentMetadata(
                                             datasource="datasource",
@@ -927,29 +998,11 @@ with Glean(
                                                     ],
                                                     document_id="<id>",
                                                 ),
-                                                models.PinDocument(
-                                                    audience_filters=[
-                                                        models.FacetFilter(
-                                                            field_name="type",
-                                                            values=[
-                                                                models.FacetFilterValue(
-                                                                    value="Spreadsheet",
-                                                                    relation_type=models.RelationType.EQUALS,
-                                                                ),
-                                                                models.FacetFilterValue(
-                                                                    value="Presentation",
-                                                                    relation_type=models.RelationType.EQUALS,
-                                                                ),
-                                                            ],
-                                                        ),
-                                                    ],
-                                                    document_id="<id>",
-                                                ),
                                             ],
                                             collections=[
                                                 models.Collection(
                                                     name="<value>",
-                                                    description="eulogise whereas till mild than during meanwhile disapprove finer ha",
+                                                    description="how by extroverted excess kissingly scruple yearningly",
                                                     audience_filters=[
                                                         models.FacetFilter(
                                                             field_name="type",
@@ -965,17 +1018,67 @@ with Glean(
                                                             ],
                                                         ),
                                                     ],
-                                                    id=2984,
+                                                    id=416110,
                                                     items=[
                                                         models.CollectionItem(
-                                                            collection_id=477967,
+                                                            collection_id=959645,
                                                             shortcut=models.Shortcut(
                                                                 input_alias="<value>",
                                                             ),
-                                                            item_type=models.CollectionItemItemType.URL,
+                                                            item_type=models.CollectionItemItemType.TEXT,
                                                         ),
                                                         models.CollectionItem(
-                                                            collection_id=813577,
+                                                            collection_id=959645,
+                                                            shortcut=models.Shortcut(
+                                                                input_alias="<value>",
+                                                            ),
+                                                            item_type=models.CollectionItemItemType.TEXT,
+                                                        ),
+                                                        models.CollectionItem(
+                                                            collection_id=959645,
+                                                            shortcut=models.Shortcut(
+                                                                input_alias="<value>",
+                                                            ),
+                                                            item_type=models.CollectionItemItemType.TEXT,
+                                                        ),
+                                                    ],
+                                                ),
+                                                models.Collection(
+                                                    name="<value>",
+                                                    description="how by extroverted excess kissingly scruple yearningly",
+                                                    audience_filters=[
+                                                        models.FacetFilter(
+                                                            field_name="type",
+                                                            values=[
+                                                                models.FacetFilterValue(
+                                                                    value="Spreadsheet",
+                                                                    relation_type=models.RelationType.EQUALS,
+                                                                ),
+                                                                models.FacetFilterValue(
+                                                                    value="Presentation",
+                                                                    relation_type=models.RelationType.EQUALS,
+                                                                ),
+                                                            ],
+                                                        ),
+                                                    ],
+                                                    id=416110,
+                                                    items=[
+                                                        models.CollectionItem(
+                                                            collection_id=959645,
+                                                            shortcut=models.Shortcut(
+                                                                input_alias="<value>",
+                                                            ),
+                                                            item_type=models.CollectionItemItemType.TEXT,
+                                                        ),
+                                                        models.CollectionItem(
+                                                            collection_id=959645,
+                                                            shortcut=models.Shortcut(
+                                                                input_alias="<value>",
+                                                            ),
+                                                            item_type=models.CollectionItemItemType.TEXT,
+                                                        ),
+                                                        models.CollectionItem(
+                                                            collection_id=959645,
                                                             shortcut=models.Shortcut(
                                                                 input_alias="<value>",
                                                             ),
@@ -987,13 +1090,18 @@ with Glean(
                                             interactions=models.DocumentInteractions(
                                                 reacts=[
                                                     models.Reaction(),
+                                                    models.Reaction(),
+                                                    models.Reaction(),
                                                 ],
                                                 shares=[
                                                     models.Share(
-                                                        num_days_ago=301848,
+                                                        num_days_ago=927933,
                                                     ),
                                                     models.Share(
-                                                        num_days_ago=657278,
+                                                        num_days_ago=927933,
+                                                    ),
+                                                    models.Share(
+                                                        num_days_ago=927933,
                                                     ),
                                                 ],
                                             ),
@@ -1006,7 +1114,14 @@ with Glean(
                                                                 name="George Clooney",
                                                                 obfuscated_id="abc123",
                                                             ),
-                                                            remind_at=335191,
+                                                            remind_at=353914,
+                                                        ),
+                                                        models.Reminder(
+                                                            assignee=models.Person(
+                                                                name="George Clooney",
+                                                                obfuscated_id="abc123",
+                                                            ),
+                                                            remind_at=353914,
                                                         ),
                                                     ],
                                                     last_reminder=models.Reminder(
@@ -1014,7 +1129,7 @@ with Glean(
                                                             name="George Clooney",
                                                             obfuscated_id="abc123",
                                                         ),
-                                                        remind_at=532806,
+                                                        remind_at=314497,
                                                     ),
                                                 ),
                                             ),
@@ -1025,46 +1140,7 @@ with Glean(
                                                 models.Shortcut(
                                                     input_alias="<value>",
                                                 ),
-                                                models.Shortcut(
-                                                    input_alias="<value>",
-                                                ),
                                             ],
-                                            custom_data={
-                                                "someCustomField": models.CustomDataValue(),
-                                            },
-                                        ),
-                                    ),
-                                ),
-                                models.TextRange(
-                                    start_index=556706,
-                                    document=models.Document(
-                                        metadata=models.DocumentMetadata(
-                                            datasource="datasource",
-                                            object_type="Feature Request",
-                                            container="container",
-                                            parent_id="JIRA_EN-1337",
-                                            mime_type="mimeType",
-                                            document_id="documentId",
-                                            create_time=parse_datetime("2000-01-23T04:56:07.000Z"),
-                                            update_time=parse_datetime("2000-01-23T04:56:07.000Z"),
-                                            components=[
-                                                "Backend",
-                                                "Networking",
-                                            ],
-                                            status="[\"Done\"]",
-                                            interactions=models.DocumentInteractions(),
-                                            verification=models.Verification(
-                                                state=models.State.VERIFIED,
-                                                metadata=models.VerificationMetadata(
-                                                    last_reminder=models.Reminder(
-                                                        assignee=models.Person(
-                                                            name="George Clooney",
-                                                            obfuscated_id="abc123",
-                                                        ),
-                                                        remind_at=416023,
-                                                    ),
-                                                ),
-                                            ),
                                             custom_data={
                                                 "someCustomField": models.CustomDataValue(),
                                             },
@@ -1138,8 +1214,25 @@ with Glean(
                                             ),
                                         ],
                                     ),
+                                    models.FacetFilterSet(
+                                        filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                    ),
                                 ],
-                                facet_bucket_size=967252,
+                                facet_bucket_size=797260,
                                 auth_tokens=[
                                     models.AuthToken(
                                         access_token="123abc",
@@ -1150,10 +1243,528 @@ with Glean(
                                     ),
                                 ],
                             ),
+                            ranges=[
+                                models.TextRange(
+                                    start_index=932928,
+                                    document=models.Document(
+                                        metadata=models.DocumentMetadata(
+                                            datasource="datasource",
+                                            object_type="Feature Request",
+                                            container="container",
+                                            parent_id="JIRA_EN-1337",
+                                            mime_type="mimeType",
+                                            document_id="documentId",
+                                            create_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+                                            update_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+                                            components=[
+                                                "Backend",
+                                                "Networking",
+                                            ],
+                                            status="[\"Done\"]",
+                                            pins=[
+                                                models.PinDocument(
+                                                    audience_filters=[
+                                                        models.FacetFilter(
+                                                            field_name="type",
+                                                            values=[
+                                                                models.FacetFilterValue(
+                                                                    value="Spreadsheet",
+                                                                    relation_type=models.RelationType.EQUALS,
+                                                                ),
+                                                                models.FacetFilterValue(
+                                                                    value="Presentation",
+                                                                    relation_type=models.RelationType.EQUALS,
+                                                                ),
+                                                            ],
+                                                        ),
+                                                    ],
+                                                    document_id="<id>",
+                                                ),
+                                                models.PinDocument(
+                                                    audience_filters=[
+                                                        models.FacetFilter(
+                                                            field_name="type",
+                                                            values=[
+                                                                models.FacetFilterValue(
+                                                                    value="Spreadsheet",
+                                                                    relation_type=models.RelationType.EQUALS,
+                                                                ),
+                                                                models.FacetFilterValue(
+                                                                    value="Presentation",
+                                                                    relation_type=models.RelationType.EQUALS,
+                                                                ),
+                                                            ],
+                                                        ),
+                                                    ],
+                                                    document_id="<id>",
+                                                ),
+                                            ],
+                                            collections=[
+                                                models.Collection(
+                                                    name="<value>",
+                                                    description="how by extroverted excess kissingly scruple yearningly",
+                                                    audience_filters=[
+                                                        models.FacetFilter(
+                                                            field_name="type",
+                                                            values=[
+                                                                models.FacetFilterValue(
+                                                                    value="Spreadsheet",
+                                                                    relation_type=models.RelationType.EQUALS,
+                                                                ),
+                                                                models.FacetFilterValue(
+                                                                    value="Presentation",
+                                                                    relation_type=models.RelationType.EQUALS,
+                                                                ),
+                                                            ],
+                                                        ),
+                                                    ],
+                                                    id=416110,
+                                                    items=[
+                                                        models.CollectionItem(
+                                                            collection_id=959645,
+                                                            shortcut=models.Shortcut(
+                                                                input_alias="<value>",
+                                                            ),
+                                                            item_type=models.CollectionItemItemType.TEXT,
+                                                        ),
+                                                        models.CollectionItem(
+                                                            collection_id=959645,
+                                                            shortcut=models.Shortcut(
+                                                                input_alias="<value>",
+                                                            ),
+                                                            item_type=models.CollectionItemItemType.TEXT,
+                                                        ),
+                                                        models.CollectionItem(
+                                                            collection_id=959645,
+                                                            shortcut=models.Shortcut(
+                                                                input_alias="<value>",
+                                                            ),
+                                                            item_type=models.CollectionItemItemType.TEXT,
+                                                        ),
+                                                    ],
+                                                ),
+                                                models.Collection(
+                                                    name="<value>",
+                                                    description="how by extroverted excess kissingly scruple yearningly",
+                                                    audience_filters=[
+                                                        models.FacetFilter(
+                                                            field_name="type",
+                                                            values=[
+                                                                models.FacetFilterValue(
+                                                                    value="Spreadsheet",
+                                                                    relation_type=models.RelationType.EQUALS,
+                                                                ),
+                                                                models.FacetFilterValue(
+                                                                    value="Presentation",
+                                                                    relation_type=models.RelationType.EQUALS,
+                                                                ),
+                                                            ],
+                                                        ),
+                                                    ],
+                                                    id=416110,
+                                                    items=[
+                                                        models.CollectionItem(
+                                                            collection_id=959645,
+                                                            shortcut=models.Shortcut(
+                                                                input_alias="<value>",
+                                                            ),
+                                                            item_type=models.CollectionItemItemType.TEXT,
+                                                        ),
+                                                        models.CollectionItem(
+                                                            collection_id=959645,
+                                                            shortcut=models.Shortcut(
+                                                                input_alias="<value>",
+                                                            ),
+                                                            item_type=models.CollectionItemItemType.TEXT,
+                                                        ),
+                                                        models.CollectionItem(
+                                                            collection_id=959645,
+                                                            shortcut=models.Shortcut(
+                                                                input_alias="<value>",
+                                                            ),
+                                                            item_type=models.CollectionItemItemType.TEXT,
+                                                        ),
+                                                    ],
+                                                ),
+                                            ],
+                                            interactions=models.DocumentInteractions(
+                                                reacts=[
+                                                    models.Reaction(),
+                                                    models.Reaction(),
+                                                    models.Reaction(),
+                                                ],
+                                                shares=[
+                                                    models.Share(
+                                                        num_days_ago=927933,
+                                                    ),
+                                                    models.Share(
+                                                        num_days_ago=927933,
+                                                    ),
+                                                    models.Share(
+                                                        num_days_ago=927933,
+                                                    ),
+                                                ],
+                                            ),
+                                            verification=models.Verification(
+                                                state=models.State.UNVERIFIED,
+                                                metadata=models.VerificationMetadata(
+                                                    reminders=[
+                                                        models.Reminder(
+                                                            assignee=models.Person(
+                                                                name="George Clooney",
+                                                                obfuscated_id="abc123",
+                                                            ),
+                                                            remind_at=353914,
+                                                        ),
+                                                        models.Reminder(
+                                                            assignee=models.Person(
+                                                                name="George Clooney",
+                                                                obfuscated_id="abc123",
+                                                            ),
+                                                            remind_at=353914,
+                                                        ),
+                                                    ],
+                                                    last_reminder=models.Reminder(
+                                                        assignee=models.Person(
+                                                            name="George Clooney",
+                                                            obfuscated_id="abc123",
+                                                        ),
+                                                        remind_at=314497,
+                                                    ),
+                                                ),
+                                            ),
+                                            shortcuts=[
+                                                models.Shortcut(
+                                                    input_alias="<value>",
+                                                ),
+                                                models.Shortcut(
+                                                    input_alias="<value>",
+                                                ),
+                                            ],
+                                            custom_data={
+                                                "someCustomField": models.CustomDataValue(),
+                                            },
+                                        ),
+                                    ),
+                                ),
+                            ],
                             input_details=models.SearchRequestInputDetails(
                                 has_copy_paste=True,
                             ),
                         ),
+                        results=[
+                            models.SearchResult(
+                                title="title",
+                                url="https://example.com/foo/bar",
+                                native_app_url="slack://foo/bar",
+                                snippets=[
+                                    models.SearchResultSnippet(
+                                        snippet="snippet",
+                                        mime_type="mimeType",
+                                    ),
+                                ],
+                            ),
+                        ],
+                    ),
+                    models.RelatedDocuments(
+                        query_suggestion=models.QuerySuggestion(
+                            query="app:github type:pull author:mortimer",
+                            search_provider_info=models.SearchProviderInfo(
+                                name="Google",
+                                search_link_url_template="https://www.google.com/search?q={query}&hl=en",
+                            ),
+                            label="Mortimer's PRs",
+                            datasource="github",
+                            request_options=models.SearchRequestOptions(
+                                datasource_filter="JIRA",
+                                datasources_filter=[
+                                    "JIRA",
+                                ],
+                                query_overrides_facet_filters=True,
+                                facet_filters=[
+                                    models.FacetFilter(
+                                        field_name="type",
+                                        values=[
+                                            models.FacetFilterValue(
+                                                value="Spreadsheet",
+                                                relation_type=models.RelationType.EQUALS,
+                                            ),
+                                            models.FacetFilterValue(
+                                                value="Presentation",
+                                                relation_type=models.RelationType.EQUALS,
+                                            ),
+                                        ],
+                                    ),
+                                ],
+                                facet_filter_sets=[
+                                    models.FacetFilterSet(
+                                        filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                    ),
+                                    models.FacetFilterSet(
+                                        filters=[
+                                            models.FacetFilter(
+                                                field_name="type",
+                                                values=[
+                                                    models.FacetFilterValue(
+                                                        value="Spreadsheet",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                    models.FacetFilterValue(
+                                                        value="Presentation",
+                                                        relation_type=models.RelationType.EQUALS,
+                                                    ),
+                                                ],
+                                            ),
+                                        ],
+                                    ),
+                                ],
+                                facet_bucket_size=797260,
+                                auth_tokens=[
+                                    models.AuthToken(
+                                        access_token="123abc",
+                                        datasource="gmail",
+                                        scope="email profile https://www.googleapis.com/auth/gmail.readonly",
+                                        token_type="Bearer",
+                                        auth_user="1",
+                                    ),
+                                ],
+                            ),
+                            ranges=[
+                                models.TextRange(
+                                    start_index=932928,
+                                    document=models.Document(
+                                        metadata=models.DocumentMetadata(
+                                            datasource="datasource",
+                                            object_type="Feature Request",
+                                            container="container",
+                                            parent_id="JIRA_EN-1337",
+                                            mime_type="mimeType",
+                                            document_id="documentId",
+                                            create_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+                                            update_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+                                            components=[
+                                                "Backend",
+                                                "Networking",
+                                            ],
+                                            status="[\"Done\"]",
+                                            pins=[
+                                                models.PinDocument(
+                                                    audience_filters=[
+                                                        models.FacetFilter(
+                                                            field_name="type",
+                                                            values=[
+                                                                models.FacetFilterValue(
+                                                                    value="Spreadsheet",
+                                                                    relation_type=models.RelationType.EQUALS,
+                                                                ),
+                                                                models.FacetFilterValue(
+                                                                    value="Presentation",
+                                                                    relation_type=models.RelationType.EQUALS,
+                                                                ),
+                                                            ],
+                                                        ),
+                                                    ],
+                                                    document_id="<id>",
+                                                ),
+                                                models.PinDocument(
+                                                    audience_filters=[
+                                                        models.FacetFilter(
+                                                            field_name="type",
+                                                            values=[
+                                                                models.FacetFilterValue(
+                                                                    value="Spreadsheet",
+                                                                    relation_type=models.RelationType.EQUALS,
+                                                                ),
+                                                                models.FacetFilterValue(
+                                                                    value="Presentation",
+                                                                    relation_type=models.RelationType.EQUALS,
+                                                                ),
+                                                            ],
+                                                        ),
+                                                    ],
+                                                    document_id="<id>",
+                                                ),
+                                            ],
+                                            collections=[
+                                                models.Collection(
+                                                    name="<value>",
+                                                    description="how by extroverted excess kissingly scruple yearningly",
+                                                    audience_filters=[
+                                                        models.FacetFilter(
+                                                            field_name="type",
+                                                            values=[
+                                                                models.FacetFilterValue(
+                                                                    value="Spreadsheet",
+                                                                    relation_type=models.RelationType.EQUALS,
+                                                                ),
+                                                                models.FacetFilterValue(
+                                                                    value="Presentation",
+                                                                    relation_type=models.RelationType.EQUALS,
+                                                                ),
+                                                            ],
+                                                        ),
+                                                    ],
+                                                    id=416110,
+                                                    items=[
+                                                        models.CollectionItem(
+                                                            collection_id=959645,
+                                                            shortcut=models.Shortcut(
+                                                                input_alias="<value>",
+                                                            ),
+                                                            item_type=models.CollectionItemItemType.TEXT,
+                                                        ),
+                                                        models.CollectionItem(
+                                                            collection_id=959645,
+                                                            shortcut=models.Shortcut(
+                                                                input_alias="<value>",
+                                                            ),
+                                                            item_type=models.CollectionItemItemType.TEXT,
+                                                        ),
+                                                        models.CollectionItem(
+                                                            collection_id=959645,
+                                                            shortcut=models.Shortcut(
+                                                                input_alias="<value>",
+                                                            ),
+                                                            item_type=models.CollectionItemItemType.TEXT,
+                                                        ),
+                                                    ],
+                                                ),
+                                                models.Collection(
+                                                    name="<value>",
+                                                    description="how by extroverted excess kissingly scruple yearningly",
+                                                    audience_filters=[
+                                                        models.FacetFilter(
+                                                            field_name="type",
+                                                            values=[
+                                                                models.FacetFilterValue(
+                                                                    value="Spreadsheet",
+                                                                    relation_type=models.RelationType.EQUALS,
+                                                                ),
+                                                                models.FacetFilterValue(
+                                                                    value="Presentation",
+                                                                    relation_type=models.RelationType.EQUALS,
+                                                                ),
+                                                            ],
+                                                        ),
+                                                    ],
+                                                    id=416110,
+                                                    items=[
+                                                        models.CollectionItem(
+                                                            collection_id=959645,
+                                                            shortcut=models.Shortcut(
+                                                                input_alias="<value>",
+                                                            ),
+                                                            item_type=models.CollectionItemItemType.TEXT,
+                                                        ),
+                                                        models.CollectionItem(
+                                                            collection_id=959645,
+                                                            shortcut=models.Shortcut(
+                                                                input_alias="<value>",
+                                                            ),
+                                                            item_type=models.CollectionItemItemType.TEXT,
+                                                        ),
+                                                        models.CollectionItem(
+                                                            collection_id=959645,
+                                                            shortcut=models.Shortcut(
+                                                                input_alias="<value>",
+                                                            ),
+                                                            item_type=models.CollectionItemItemType.TEXT,
+                                                        ),
+                                                    ],
+                                                ),
+                                            ],
+                                            interactions=models.DocumentInteractions(
+                                                reacts=[
+                                                    models.Reaction(),
+                                                    models.Reaction(),
+                                                    models.Reaction(),
+                                                ],
+                                                shares=[
+                                                    models.Share(
+                                                        num_days_ago=927933,
+                                                    ),
+                                                    models.Share(
+                                                        num_days_ago=927933,
+                                                    ),
+                                                    models.Share(
+                                                        num_days_ago=927933,
+                                                    ),
+                                                ],
+                                            ),
+                                            verification=models.Verification(
+                                                state=models.State.UNVERIFIED,
+                                                metadata=models.VerificationMetadata(
+                                                    reminders=[
+                                                        models.Reminder(
+                                                            assignee=models.Person(
+                                                                name="George Clooney",
+                                                                obfuscated_id="abc123",
+                                                            ),
+                                                            remind_at=353914,
+                                                        ),
+                                                        models.Reminder(
+                                                            assignee=models.Person(
+                                                                name="George Clooney",
+                                                                obfuscated_id="abc123",
+                                                            ),
+                                                            remind_at=353914,
+                                                        ),
+                                                    ],
+                                                    last_reminder=models.Reminder(
+                                                        assignee=models.Person(
+                                                            name="George Clooney",
+                                                            obfuscated_id="abc123",
+                                                        ),
+                                                        remind_at=314497,
+                                                    ),
+                                                ),
+                                            ),
+                                            shortcuts=[
+                                                models.Shortcut(
+                                                    input_alias="<value>",
+                                                ),
+                                                models.Shortcut(
+                                                    input_alias="<value>",
+                                                ),
+                                            ],
+                                            custom_data={
+                                                "someCustomField": models.CustomDataValue(),
+                                            },
+                                        ),
+                                    ),
+                                ),
+                            ],
+                            input_details=models.SearchRequestInputDetails(
+                                has_copy_paste=True,
+                            ),
+                        ),
+                        results=[
+                            models.SearchResult(
+                                title="title",
+                                url="https://example.com/foo/bar",
+                                native_app_url="slack://foo/bar",
+                                snippets=[
+                                    models.SearchResultSnippet(
+                                        snippet="snippet",
+                                        mime_type="mimeType",
+                                    ),
+                                ],
+                            ),
+                        ],
                     ),
                 ],
                 metadata=models.PersonMetadata(
@@ -1166,6 +1777,14 @@ with Glean(
                     photo_url="https://example.com/george.jpg",
                     start_date=date.fromisoformat("2000-01-23"),
                     datasource_profile=[
+                        models.DatasourceProfile(
+                            datasource="github",
+                            handle="<value>",
+                        ),
+                        models.DatasourceProfile(
+                            datasource="github",
+                            handle="<value>",
+                        ),
                         models.DatasourceProfile(
                             datasource="github",
                             handle="<value>",
@@ -1183,20 +1802,18 @@ with Glean(
                     invite_info=models.InviteInfo(
                         invites=[
                             models.ChannelInviteInfo(),
+                            models.ChannelInviteInfo(),
+                            models.ChannelInviteInfo(),
                         ],
                     ),
                     custom_fields=[
                         models.CustomFieldData(
                             label="<value>",
-                            values=[],
-                        ),
-                        models.CustomFieldData(
-                            label="<value>",
-                            values=[],
-                        ),
-                        models.CustomFieldData(
-                            label="<value>",
-                            values=[],
+                            values=[
+                                models.CustomFieldValueStr(),
+                                models.CustomFieldValueStr(),
+                                models.CustomFieldValueStr(),
+                            ],
                         ),
                     ],
                     badges=[
@@ -1213,89 +1830,7 @@ with Glean(
                     ],
                 ),
             ),
-            role=models.UserRole.ANSWER_MODERATOR,
-        ),
-        models.UserRoleSpecification(
-            person=models.Person(
-                name="George Clooney",
-                obfuscated_id="abc123",
-                metadata=models.PersonMetadata(
-                    type=models.PersonMetadataType.FULL_TIME,
-                    title="Actor",
-                    department="Movies",
-                    email="george@example.com",
-                    location="Hollywood, CA",
-                    phone="6505551234",
-                    photo_url="https://example.com/george.jpg",
-                    start_date=date.fromisoformat("2000-01-23"),
-                    datasource_profile=[
-                        models.DatasourceProfile(
-                            datasource="github",
-                            handle="<value>",
-                        ),
-                        models.DatasourceProfile(
-                            datasource="github",
-                            handle="<value>",
-                        ),
-                    ],
-                    query_suggestions=models.QuerySuggestionList(),
-                    invite_info=models.InviteInfo(),
-                    badges=[
-                        models.Badge(
-                            key="deployment_name_new_hire",
-                            display_name="New hire",
-                            icon_config=models.IconConfig(
-                                color="#343CED",
-                                key="person_icon",
-                                icon_type=models.IconType.GLYPH,
-                                name="user",
-                            ),
-                        ),
-                    ],
-                ),
-            ),
-            role=models.UserRole.EDITOR,
-        ),
-        models.UserRoleSpecification(
-            person=models.Person(
-                name="George Clooney",
-                obfuscated_id="abc123",
-                metadata=models.PersonMetadata(
-                    type=models.PersonMetadataType.FULL_TIME,
-                    title="Actor",
-                    department="Movies",
-                    email="george@example.com",
-                    location="Hollywood, CA",
-                    phone="6505551234",
-                    photo_url="https://example.com/george.jpg",
-                    start_date=date.fromisoformat("2000-01-23"),
-                    datasource_profile=[
-                        models.DatasourceProfile(
-                            datasource="github",
-                            handle="<value>",
-                        ),
-                        models.DatasourceProfile(
-                            datasource="github",
-                            handle="<value>",
-                        ),
-                    ],
-                    query_suggestions=models.QuerySuggestionList(),
-                    invite_info=models.InviteInfo(),
-                    badges=[
-                        models.Badge(
-                            key="deployment_name_new_hire",
-                            display_name="New hire",
-                            icon_config=models.IconConfig(
-                                color="#343CED",
-                                key="person_icon",
-                                icon_type=models.IconType.GLYPH,
-                                name="user",
-                            ),
-                        ),
-                    ],
-                ),
-            ),
-            role=models.UserRole.ANSWER_MODERATOR,
+            role=models.UserRole.OWNER,
         ),
     ], removed_roles=[
         models.UserRoleSpecification(
@@ -1316,9 +1851,31 @@ with Glean(
                             datasource="github",
                             handle="<value>",
                         ),
+                        models.DatasourceProfile(
+                            datasource="github",
+                            handle="<value>",
+                        ),
+                        models.DatasourceProfile(
+                            datasource="github",
+                            handle="<value>",
+                        ),
                     ],
-                    query_suggestions=models.QuerySuggestionList(),
-                    invite_info=models.InviteInfo(),
+                    query_suggestions=models.QuerySuggestionList(
+                        suggestions=[
+                            models.QuerySuggestion(
+                                query="app:github type:pull author:mortimer",
+                                label="Mortimer's PRs",
+                                datasource="github",
+                            ),
+                        ],
+                    ),
+                    invite_info=models.InviteInfo(
+                        invites=[
+                            models.ChannelInviteInfo(),
+                            models.ChannelInviteInfo(),
+                            models.ChannelInviteInfo(),
+                        ],
+                    ),
                     badges=[
                         models.Badge(
                             key="deployment_name_new_hire",
@@ -1391,15 +1948,17 @@ Update the URL, Glean Document ID, description of an item within a Collection gi
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean import Glean, models
 import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
-    res = g_client.client.collections.update_item(collection_id=795203, item_id="<id>")
+    res = g_client.client.collections.update_item(collection_id=142375, item_id="<id>")
 
     # Handle response
     print(res)
@@ -1434,15 +1993,17 @@ Read the details of a Collection given its ID. Does not fetch items in this Coll
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean import Glean, models
 import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
-    res = g_client.client.collections.retrieve(id=700347)
+    res = g_client.client.collections.retrieve(id=425335)
 
     # Handle response
     print(res)
@@ -1476,12 +2037,14 @@ List all existing Collections.
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean import Glean, models
 import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    security=models.Security(
+        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+    ),
 ) as g_client:
 
     res = g_client.client.collections.list(request={})

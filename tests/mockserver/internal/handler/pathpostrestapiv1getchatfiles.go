@@ -31,7 +31,7 @@ func pathPostRestAPIV1Getchatfiles(dir *logging.HTTPFileDirectory, rt *tracking.
 }
 
 func testGetchatfilesGetchatfiles0(w http.ResponseWriter, req *http.Request) {
-	if err := assert.SecurityAuthorizationHeader(req, false, "Bearer"); err != nil {
+	if err := assert.SecurityAuthorizationHeader(req, true, ""); err != nil {
 		log.Printf("assertion error: %s\n", err)
 		http.Error(w, err.Error(), http.StatusUnauthorized)
 		return
