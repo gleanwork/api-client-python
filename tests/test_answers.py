@@ -15,7 +15,7 @@ def test_answers_createanswer():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         security=models.Security(
-            act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", "value"),
+            api_token=os.getenv("GLEAN_API_TOKEN", "value"),
         ),
     ) as g_client:
         assert g_client is not None
@@ -757,7 +757,7 @@ def test_answers_deleteanswer():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         security=models.Security(
-            act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", "value"),
+            api_token=os.getenv("GLEAN_API_TOKEN", "value"),
         ),
     ) as g_client:
         assert g_client is not None
@@ -772,7 +772,7 @@ def test_answers_editanswer():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         security=models.Security(
-            act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", "value"),
+            api_token=os.getenv("GLEAN_API_TOKEN", "value"),
         ),
     ) as g_client:
         assert g_client is not None
@@ -1388,7 +1388,7 @@ def test_answers_getanswer():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         security=models.Security(
-            act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", "value"),
+            api_token=os.getenv("GLEAN_API_TOKEN", "value"),
         ),
     ) as g_client:
         assert g_client is not None
@@ -1409,7 +1409,7 @@ def test_answers_listanswers():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         security=models.Security(
-            act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", "value"),
+            api_token=os.getenv("GLEAN_API_TOKEN", "value"),
         ),
     ) as g_client:
         assert g_client is not None

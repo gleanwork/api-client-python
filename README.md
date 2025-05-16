@@ -142,7 +142,7 @@ import os
 
 with Glean(
     security=models.Security(
-        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+        api_token=os.getenv("GLEAN_API_TOKEN", ""),
     ),
 ) as g_client:
 
@@ -173,7 +173,7 @@ async def main():
 
     async with Glean(
         security=models.Security(
-            act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+            api_token=os.getenv("GLEAN_API_TOKEN", ""),
         ),
     ) as g_client:
 
@@ -203,7 +203,7 @@ import os
 
 with Glean(
     security=models.Security(
-        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+        api_token=os.getenv("GLEAN_API_TOKEN", ""),
     ),
 ) as g_client:
 
@@ -234,7 +234,7 @@ async def main():
 
     async with Glean(
         security=models.Security(
-            act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+            api_token=os.getenv("GLEAN_API_TOKEN", ""),
         ),
     ) as g_client:
 
@@ -262,10 +262,10 @@ asyncio.run(main())
 
 This SDK supports the following security schemes globally:
 
-| Name                  | Type   | Scheme  | Environment Variable        |
-| --------------------- | ------ | ------- | --------------------------- |
-| `act_as_bearer_token` | apiKey | API key | `GLEAN_ACT_AS_BEARER_TOKEN` |
-| `cookie_auth`         | apiKey | API key | `GLEAN_COOKIE_AUTH`         |
+| Name          | Type   | Scheme      | Environment Variable |
+| ------------- | ------ | ----------- | -------------------- |
+| `api_token`   | http   | HTTP Bearer | `GLEAN_API_TOKEN`    |
+| `cookie_auth` | apiKey | API key     | `GLEAN_COOKIE_AUTH`  |
 
 You can set the security parameters through the `security` optional parameter when initializing the SDK client instance. The selected scheme will be used by default to authenticate with the API for all operations that support it. For example:
 ```python
@@ -276,7 +276,7 @@ import os
 
 with Glean(
     security=models.Security(
-        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+        api_token=os.getenv("GLEAN_API_TOKEN", ""),
     ),
 ) as g_client:
 
@@ -562,7 +562,7 @@ import os
 
 with Glean(
     security=models.Security(
-        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+        api_token=os.getenv("GLEAN_API_TOKEN", ""),
     ),
 ) as g_client:
 
@@ -606,7 +606,7 @@ import os
 with Glean(
     retry_config=RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False),
     security=models.Security(
-        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+        api_token=os.getenv("GLEAN_API_TOKEN", ""),
     ),
 ) as g_client:
 
@@ -746,7 +746,7 @@ import os
 with Glean(
     instance="<value>"
     security=models.Security(
-        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+        api_token=os.getenv("GLEAN_API_TOKEN", ""),
     ),
 ) as g_client:
 
@@ -791,7 +791,7 @@ import os
 with Glean(
     server_url="https://instance-name-be.glean.com",
     security=models.Security(
-        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+        api_token=os.getenv("GLEAN_API_TOKEN", ""),
     ),
 ) as g_client:
 
@@ -920,7 +920,7 @@ def main():
 
     with Glean(
         security=models.Security(
-            act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+            api_token=os.getenv("GLEAN_API_TOKEN", ""),
         ),
     ) as g_client:
         # Rest of application here...
@@ -931,7 +931,7 @@ async def amain():
 
     async with Glean(
         security=models.Security(
-            act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+            api_token=os.getenv("GLEAN_API_TOKEN", ""),
         ),
     ) as g_client:
         # Rest of application here...

@@ -20,7 +20,7 @@ def test_client_authentication_createauthtoken():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         security=models.Security(
-            act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", "value"),
+            api_token=os.getenv("GLEAN_API_TOKEN", "value"),
         ),
     ) as g_client:
         assert g_client is not None

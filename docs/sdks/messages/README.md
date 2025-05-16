@@ -20,7 +20,7 @@ import os
 
 with Glean(
     security=models.Security(
-        act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", ""),
+        api_token=os.getenv("GLEAN_API_TOKEN", ""),
     ),
 ) as g_client:
 

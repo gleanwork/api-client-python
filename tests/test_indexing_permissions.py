@@ -12,7 +12,7 @@ def test_indexing_permissions_post_api_index_v1_updatepermissions():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         security=models.Security(
-            act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", "value"),
+            api_token=os.getenv("GLEAN_API_TOKEN", "value"),
         ),
     ) as g_client:
         assert g_client is not None
@@ -29,7 +29,7 @@ def test_indexing_permissions_post_api_index_v1_indexuser():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         security=models.Security(
-            act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", "value"),
+            api_token=os.getenv("GLEAN_API_TOKEN", "value"),
         ),
     ) as g_client:
         assert g_client is not None
@@ -50,7 +50,7 @@ def test_indexing_permissions_post_api_index_v1_bulkindexusers():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         security=models.Security(
-            act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", "value"),
+            api_token=os.getenv("GLEAN_API_TOKEN", "value"),
         ),
     ) as g_client:
         assert g_client is not None
@@ -82,7 +82,7 @@ def test_indexing_permissions_post_api_index_v1_indexgroup():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         security=models.Security(
-            act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", "value"),
+            api_token=os.getenv("GLEAN_API_TOKEN", "value"),
         ),
     ) as g_client:
         assert g_client is not None
@@ -102,7 +102,7 @@ def test_indexing_permissions_post_api_index_v1_bulkindexgroups():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         security=models.Security(
-            act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", "value"),
+            api_token=os.getenv("GLEAN_API_TOKEN", "value"),
         ),
     ) as g_client:
         assert g_client is not None
@@ -128,7 +128,7 @@ def test_indexing_permissions_post_api_index_v1_indexmembership():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         security=models.Security(
-            act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", "value"),
+            api_token=os.getenv("GLEAN_API_TOKEN", "value"),
         ),
     ) as g_client:
         assert g_client is not None
@@ -150,7 +150,7 @@ def test_indexing_permissions_post_api_index_v1_bulkindexmemberships():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         security=models.Security(
-            act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", "value"),
+            api_token=os.getenv("GLEAN_API_TOKEN", "value"),
         ),
     ) as g_client:
         assert g_client is not None
@@ -175,7 +175,7 @@ def test_indexing_permissions_post_api_index_v1_processallmemberships():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         security=models.Security(
-            act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", "value"),
+            api_token=os.getenv("GLEAN_API_TOKEN", "value"),
         ),
     ) as g_client:
         assert g_client is not None
@@ -190,7 +190,7 @@ def test_indexing_permissions_post_api_index_v1_deleteuser():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         security=models.Security(
-            act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", "value"),
+            api_token=os.getenv("GLEAN_API_TOKEN", "value"),
         ),
     ) as g_client:
         assert g_client is not None
@@ -207,7 +207,7 @@ def test_indexing_permissions_post_api_index_v1_deletegroup():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         security=models.Security(
-            act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", "value"),
+            api_token=os.getenv("GLEAN_API_TOKEN", "value"),
         ),
     ) as g_client:
         assert g_client is not None
@@ -224,7 +224,7 @@ def test_indexing_permissions_post_api_index_v1_deletemembership():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         security=models.Security(
-            act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", "value"),
+            api_token=os.getenv("GLEAN_API_TOKEN", "value"),
         ),
     ) as g_client:
         assert g_client is not None
@@ -244,7 +244,7 @@ def test_indexing_permissions_post_api_index_v1_betausers():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         security=models.Security(
-            act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", "value"),
+            api_token=os.getenv("GLEAN_API_TOKEN", "value"),
         ),
     ) as g_client:
         assert g_client is not None
