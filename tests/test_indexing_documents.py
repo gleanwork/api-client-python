@@ -12,7 +12,7 @@ def test_indexing_documents_post_api_index_v1_indexdocument():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         security=models.Security(
-            act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", "value"),
+            api_token=os.getenv("GLEAN_API_TOKEN", "value"),
         ),
     ) as g_client:
         assert g_client is not None
@@ -31,7 +31,7 @@ def test_indexing_documents_post_api_index_v1_indexdocuments():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         security=models.Security(
-            act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", "value"),
+            api_token=os.getenv("GLEAN_API_TOKEN", "value"),
         ),
     ) as g_client:
         assert g_client is not None
@@ -53,7 +53,7 @@ def test_indexing_documents_post_api_index_v1_bulkindexdocuments():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         security=models.Security(
-            act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", "value"),
+            api_token=os.getenv("GLEAN_API_TOKEN", "value"),
         ),
     ) as g_client:
         assert g_client is not None
@@ -76,7 +76,7 @@ def test_indexing_documents_post_api_index_v1_processalldocuments():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         security=models.Security(
-            act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", "value"),
+            api_token=os.getenv("GLEAN_API_TOKEN", "value"),
         ),
     ) as g_client:
         assert g_client is not None
@@ -91,7 +91,7 @@ def test_indexing_documents_post_api_index_v1_deletedocument():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         security=models.Security(
-            act_as_bearer_token=os.getenv("GLEAN_ACT_AS_BEARER_TOKEN", "value"),
+            api_token=os.getenv("GLEAN_API_TOKEN", "value"),
         ),
     ) as g_client:
         assert g_client is not None

@@ -8,18 +8,18 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class SecurityTypedDict(TypedDict):
-    act_as_bearer_token: NotRequired[str]
+    api_token: NotRequired[str]
     cookie_auth: NotRequired[str]
 
 
 class Security(BaseModel):
-    act_as_bearer_token: Annotated[
+    api_token: Annotated[
         Optional[str],
         FieldMetadata(
             security=SecurityMetadata(
                 scheme=True,
-                scheme_type="apiKey",
-                sub_type="header",
+                scheme_type="http",
+                sub_type="bearer",
                 field_name="Authorization",
             )
         ),
