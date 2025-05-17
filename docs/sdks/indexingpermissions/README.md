@@ -25,14 +25,12 @@ Updates the permissions for a given document without modifying document content.
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean import Glean
 import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     g_client.indexing.permissions.update_permissions(datasource="<value>", permissions={})
@@ -65,14 +63,12 @@ Adds a datasource user or updates an existing user.
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean import Glean
 import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     g_client.indexing.permissions.index_user(datasource="<value>", user={
@@ -106,14 +102,12 @@ Replaces the users in a datasource using paginated batch API calls. Please refer
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean import Glean
 import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     g_client.indexing.permissions.bulk_index_users(upload_id="<id>", datasource="<value>", users=[
@@ -161,14 +155,12 @@ Add or update a group in the datasource.
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean import Glean
 import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     g_client.indexing.permissions.index_group(datasource="<value>", group={
@@ -201,14 +193,12 @@ Replaces the groups in a datasource using paginated batch API calls. Please refe
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean import Glean
 import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     g_client.indexing.permissions.bulk_index_groups(upload_id="<id>", datasource="<value>", groups=[
@@ -250,14 +240,12 @@ Add the memberships of a group in the datasource.
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean import Glean
 import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     g_client.indexing.permissions.index_membership(datasource="<value>", membership={
@@ -290,14 +278,12 @@ Replaces the memberships for a group in a datasource using paginated batch API c
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean import Glean
 import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     g_client.indexing.permissions.bulk_index_memberships(upload_id="<id>", datasource="<value>", memberships=[
@@ -337,14 +323,12 @@ Schedules the immediate processing of all group memberships uploaded through the
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean import Glean
 import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     g_client.indexing.permissions.process_memberships()
@@ -373,14 +357,12 @@ Delete the user from the datasource. Silently succeeds if user is not present.
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean import Glean
 import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     g_client.indexing.permissions.delete_user(datasource="<value>", email="Ed.Johnston@gmail.com")
@@ -411,14 +393,12 @@ Delete group from the datasource. Silently succeeds if group is not present.
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean import Glean
 import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     g_client.indexing.permissions.delete_group(datasource="<value>", group_name="<value>")
@@ -449,14 +429,12 @@ Delete membership to a group in the specified datasource. Silently succeeds if m
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean import Glean
 import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     g_client.indexing.permissions.delete_membership(datasource="<value>", membership={
@@ -489,14 +467,12 @@ Allow the datasource be visible to the specified beta users. The default behavio
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean import Glean
 import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     g_client.indexing.permissions.authorize_beta_users(datasource="<value>", emails=[

@@ -141,9 +141,7 @@ import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     res = g_client.client.chat.create(messages=[
@@ -172,9 +170,7 @@ import os
 async def main():
 
     async with Glean(
-        security=models.Security(
-            api_token=os.getenv("GLEAN_API_TOKEN", ""),
-        ),
+        api_token=os.getenv("GLEAN_API_TOKEN", ""),
     ) as g_client:
 
         res = await g_client.client.chat.create_async(messages=[
@@ -202,9 +198,7 @@ import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     res = g_client.client.chat.create_stream(messages=[
@@ -233,9 +227,7 @@ import os
 async def main():
 
     async with Glean(
-        security=models.Security(
-            api_token=os.getenv("GLEAN_API_TOKEN", ""),
-        ),
+        api_token=os.getenv("GLEAN_API_TOKEN", ""),
     ) as g_client:
 
         res = await g_client.client.chat.create_stream_async(messages=[
@@ -260,14 +252,13 @@ asyncio.run(main())
 
 ### Per-Client Security Schemes
 
-This SDK supports the following security schemes globally:
+This SDK supports the following security scheme globally:
 
-| Name          | Type   | Scheme      | Environment Variable |
-| ------------- | ------ | ----------- | -------------------- |
-| `api_token`   | http   | HTTP Bearer | `GLEAN_API_TOKEN`    |
-| `cookie_auth` | apiKey | API key     | `GLEAN_COOKIE_AUTH`  |
+| Name        | Type | Scheme      | Environment Variable |
+| ----------- | ---- | ----------- | -------------------- |
+| `api_token` | http | HTTP Bearer | `GLEAN_API_TOKEN`    |
 
-You can set the security parameters through the `security` optional parameter when initializing the SDK client instance. The selected scheme will be used by default to authenticate with the API for all operations that support it. For example:
+To authenticate with the API the `api_token` parameter must be set when initializing the SDK client instance. For example:
 ```python
 from glean import Glean, models
 from glean.utils import parse_datetime
@@ -275,9 +266,7 @@ import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     g_client.client.activity.report(events=[
@@ -561,9 +550,7 @@ import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     g_client.client.activity.report(events=[
@@ -605,9 +592,7 @@ import os
 
 with Glean(
     retry_config=RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False),
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     g_client.client.activity.report(events=[
@@ -745,9 +730,7 @@ import os
 
 with Glean(
     instance="<value>"
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     g_client.client.activity.report(events=[
@@ -790,9 +773,7 @@ import os
 
 with Glean(
     server_url="https://instance-name-be.glean.com",
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     g_client.client.activity.report(events=[
@@ -914,14 +895,12 @@ The `Glean` class implements the context manager protocol and registers a finali
 [context-manager]: https://docs.python.org/3/reference/datamodel.html#context-managers
 
 ```python
-from glean import Glean, models
+from glean import Glean
 import os
 def main():
 
     with Glean(
-        security=models.Security(
-            api_token=os.getenv("GLEAN_API_TOKEN", ""),
-        ),
+        api_token=os.getenv("GLEAN_API_TOKEN", ""),
     ) as g_client:
         # Rest of application here...
 
@@ -930,9 +909,7 @@ def main():
 async def amain():
 
     async with Glean(
-        security=models.Security(
-            api_token=os.getenv("GLEAN_API_TOKEN", ""),
-        ),
+        api_token=os.getenv("GLEAN_API_TOKEN", ""),
     ) as g_client:
         # Rest of application here...
 ```

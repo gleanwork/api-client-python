@@ -20,9 +20,7 @@ import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     g_client.indexing.datasources.add(name="<value>", url_regex="https://example-company.datasource.com/.*", quicklinks=[
@@ -86,14 +84,12 @@ Fetches the datasource config for the specified custom datasource.
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean import Glean
 import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     res = g_client.indexing.datasources.retrieve_config(datasource="<value>")

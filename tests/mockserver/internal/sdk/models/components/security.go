@@ -3,20 +3,12 @@
 package components
 
 type Security struct {
-	APIToken   *string `security:"scheme,type=http,subtype=bearer,name=Authorization"`
-	CookieAuth *string `security:"scheme,type=apiKey,subtype=header,name=Authorization"`
+	APIToken string `security:"scheme,type=http,subtype=bearer,name=Authorization"`
 }
 
-func (o *Security) GetAPIToken() *string {
+func (o *Security) GetAPIToken() string {
 	if o == nil {
-		return nil
+		return ""
 	}
 	return o.APIToken
-}
-
-func (o *Security) GetCookieAuth() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CookieAuth
 }

@@ -30,9 +30,7 @@ import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     g_client.indexing.documents.add_or_update(document=models.DocumentDefinition(
@@ -64,14 +62,12 @@ Adds or updates multiple documents in the index. Please refer to the [bulk index
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean import Glean
 import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     g_client.indexing.documents.index(datasource="<value>", documents=[])
@@ -102,14 +98,12 @@ Replaces the documents in a datasource using paginated batch API calls. Please r
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean import Glean
 import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     g_client.indexing.documents.bulk_index(upload_id="<id>", datasource="<value>", documents=[])
@@ -155,14 +149,12 @@ For more frequent document processing, contact Glean support.
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean import Glean
 import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     g_client.indexing.documents.process_all()
@@ -191,14 +183,12 @@ Deletes the specified document from the index. Succeeds if document is not prese
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean import Glean
 import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     g_client.indexing.documents.delete(datasource="<value>", object_type="<value>", id="<id>")
@@ -233,14 +223,12 @@ Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/docs/i
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean import Glean
 import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     res = g_client.indexing.documents.debug(datasource="<value>", object_type="Article", doc_id="art123")
@@ -279,14 +267,12 @@ Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/docs/i
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean import Glean
 import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     res = g_client.indexing.documents.debug_many(datasource="<value>", debug_documents=[
@@ -329,14 +315,12 @@ Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/docs/i
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean import Glean
 import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     res = g_client.indexing.documents.check_access(datasource="<value>", object_type="<value>", doc_id="<id>", user_email="<value>")
@@ -378,14 +362,12 @@ Tip: Use [/debug/{datasource}/document](https://developers.glean.com/docs/indexi
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean import Glean
 import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     res = g_client.indexing.documents.status(datasource="<value>", object_type="<value>", doc_id="<id>")
@@ -426,14 +408,12 @@ Tip: Use [/debug/{datasource}/status](https://developers.glean.com/docs/indexing
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean import Glean
 import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     res = g_client.indexing.documents.count(datasource="<value>")

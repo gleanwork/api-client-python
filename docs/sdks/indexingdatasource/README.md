@@ -18,14 +18,12 @@ Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/docs/i
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean import Glean
 import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     res = g_client.indexing.datasource.status(datasource="<value>")
