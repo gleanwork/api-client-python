@@ -30,7 +30,7 @@ func pathPostRestAPIV1Createshortcut(dir *logging.HTTPFileDirectory, rt *trackin
 }
 
 func testCreateshortcutCreateshortcut0(w http.ResponseWriter, req *http.Request) {
-	if err := assert.SecurityAuthorizationHeader(req, true, ""); err != nil {
+	if err := assert.SecurityAuthorizationHeader(req, false, "Bearer"); err != nil {
 		log.Printf("assertion error: %s\n", err)
 		http.Error(w, err.Error(), http.StatusUnauthorized)
 		return

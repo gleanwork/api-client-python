@@ -67,9 +67,6 @@ def get_security_from_env(security: Any, security_class: Any) -> Optional[BaseMo
     if os.getenv("GLEAN_API_TOKEN"):
         security_dict["api_token"] = os.getenv("GLEAN_API_TOKEN")
 
-    if os.getenv("GLEAN_COOKIE_AUTH"):
-        security_dict["cookie_auth"] = os.getenv("GLEAN_COOKIE_AUTH")
-
     return security_class(**security_dict) if security_dict else None
 
 

@@ -15,14 +15,12 @@ Replaces all the currently indexed shortcuts using paginated batch API calls. No
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean import Glean
 import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     g_client.indexing.shortcuts.bulk_index(upload_id="<id>", shortcuts=[
@@ -68,14 +66,12 @@ Creates glean shortcuts for uploaded shortcuts info. Glean would host the shortc
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean import Glean
 import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     g_client.indexing.shortcuts.upload(upload_id="<id>", shortcuts=[

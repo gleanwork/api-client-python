@@ -26,14 +26,12 @@ Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/docs/i
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean import Glean
 import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     res = g_client.indexing.people.debug(datasource="<value>", email="u1@foo.com")
@@ -73,14 +71,12 @@ Tip: Use [/debug/{datasource}/status](https://developers.glean.com/docs/indexing
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean import Glean
 import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     res = g_client.indexing.people.count(datasource="<value>")
@@ -114,14 +110,12 @@ Adds an employee or updates information about an employee
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean import Glean
 import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     g_client.indexing.people.index(employee={
@@ -160,14 +154,12 @@ Replaces all the currently indexed employees using paginated batch API calls. Pl
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean import Glean
 import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     g_client.indexing.people.bulk_index(upload_id="<id>", employees=[
@@ -233,14 +225,12 @@ Schedules the immediate processing of employees and teams uploaded through the i
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean import Glean
 import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     g_client.indexing.people.process_all_employees_and_teams()
@@ -268,14 +258,12 @@ Delete an employee. Silently succeeds if employee is not present.
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean import Glean
 import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     g_client.indexing.people.delete(employee_email="<value>")
@@ -305,14 +293,12 @@ Adds a team or updates information about a team
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean import Glean
 import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     g_client.indexing.people.index_team(team={
@@ -364,14 +350,12 @@ Delete a team based on provided id.
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean import Glean
 import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     g_client.indexing.people.delete_team(id="<id>")
@@ -400,14 +384,12 @@ Replaces all the currently indexed teams using paginated batch API calls. Please
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean import Glean
 import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     g_client.indexing.people.bulk_index_teams(upload_id="<id>", teams=[

@@ -21,14 +21,12 @@ Add items to a Collection.
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean import Glean
 import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     res = g_client.client.collections.add_items(collection_id=7742.68)
@@ -70,9 +68,7 @@ import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     res = g_client.client.collections.create(name="<value>", added_roles=[
@@ -763,14 +759,12 @@ Delete a Collection given the Collection's ID.
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean import Glean
 import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     g_client.client.collections.delete(ids=[
@@ -805,14 +799,12 @@ Delete a single item from a Collection.
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean import Glean
 import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     res = g_client.client.collections.delete_item(collection_id=6980.49, item_id="<id>")
@@ -855,9 +847,7 @@ import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     res = g_client.client.collections.update(name="<value>", id=671264, added_roles=[
@@ -1948,14 +1938,12 @@ Update the URL, Glean Document ID, description of an item within a Collection gi
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean import Glean
 import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     res = g_client.client.collections.update_item(collection_id=142375, item_id="<id>")
@@ -1993,14 +1981,12 @@ Read the details of a Collection given its ID. Does not fetch items in this Coll
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean import Glean
 import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     res = g_client.client.collections.retrieve(id=425335)
@@ -2037,14 +2023,12 @@ List all existing Collections.
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean import Glean
 import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     res = g_client.client.collections.list(request={})

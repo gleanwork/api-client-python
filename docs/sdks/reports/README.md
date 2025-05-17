@@ -16,14 +16,12 @@ Creates a new one-time report and executes its batch job.
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean import Glean
 import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     res = g_client.client.governance.data.reports.create()
@@ -57,14 +55,12 @@ Downloads CSV violations report for a specific report id.
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean import Glean
 import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     res = g_client.client.governance.data.reports.download(id="<id>")
@@ -98,14 +94,12 @@ Fetches the status of the run corresponding to the report-id.
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean import Glean
 import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     res = g_client.client.governance.data.reports.status(id="<id>")

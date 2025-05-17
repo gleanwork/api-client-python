@@ -30,7 +30,7 @@ func pathPostAPIIndexV1Rotatetoken(dir *logging.HTTPFileDirectory, rt *tracking.
 }
 
 func testPostAPIIndexV1RotatetokenPostAPIIndexV1Rotatetoken0(w http.ResponseWriter, req *http.Request) {
-	if err := assert.SecurityAuthorizationHeader(req, true, ""); err != nil {
+	if err := assert.SecurityAuthorizationHeader(req, false, "Bearer"); err != nil {
 		log.Printf("assertion error: %s\n", err)
 		http.Error(w, err.Error(), http.StatusUnauthorized)
 		return

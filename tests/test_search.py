@@ -14,9 +14,7 @@ def test_search_adminsearch():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        security=models.Security(
-            api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-        ),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
@@ -63,9 +61,7 @@ def test_search_autocomplete():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        security=models.Security(
-            api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-        ),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
@@ -95,9 +91,7 @@ def test_search_feed():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        security=models.Security(
-            api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-        ),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
@@ -125,9 +119,7 @@ def test_search_recommendations():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        security=models.Security(
-            api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-        ),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
@@ -2051,9 +2043,7 @@ def test_search_search():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        security=models.Security(
-            api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-        ),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 

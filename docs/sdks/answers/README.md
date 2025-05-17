@@ -25,9 +25,7 @@ import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     res = g_client.client.answers.create(data={
@@ -1392,14 +1390,12 @@ Delete an existing user-generated Answer.
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean import Glean
 import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     g_client.client.answers.delete(id=3, doc_id="ANSWERS_answer_3")
@@ -1436,9 +1432,7 @@ import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     res = g_client.client.answers.update(id=3, doc_id="ANSWERS_answer_3", question="Why is the sky blue?", body_text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.", audience_filters=[
@@ -2397,14 +2391,12 @@ Read the details of a particular Answer given its ID.
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean import Glean
 import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     res = g_client.client.answers.retrieve(request={
@@ -2441,14 +2433,12 @@ List Answers created by the current user.
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean import Glean
 import os
 
 
 with Glean(
-    security=models.Security(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ),
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
     res = g_client.client.answers.list(request={})

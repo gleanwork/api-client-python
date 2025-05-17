@@ -55,9 +55,7 @@ def test_client_chat_deleteallchats():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        security=models.Security(
-            api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-        ),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
@@ -70,9 +68,7 @@ def test_client_chat_deletechats():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        security=models.Security(
-            api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-        ),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
@@ -90,9 +86,7 @@ def test_client_chat_getchat():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        security=models.Security(
-            api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-        ),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
@@ -106,9 +100,7 @@ def test_client_chat_listchats():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        security=models.Security(
-            api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-        ),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
@@ -122,9 +114,7 @@ def test_client_chat_getchatapplication():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        security=models.Security(
-            api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-        ),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
@@ -138,9 +128,7 @@ def test_client_chat_getchatfiles():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        security=models.Security(
-            api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-        ),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
@@ -159,9 +147,7 @@ def test_client_chat_deletechatfiles():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        security=models.Security(
-            api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-        ),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
@@ -178,9 +164,7 @@ def test_client_chat_chat_stream_default_example():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        security=models.Security(
-            api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-        ),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
@@ -205,9 +189,7 @@ def test_client_chat_chat_stream_gpt_agent_example():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        security=models.Security(
-            api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-        ),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
@@ -235,9 +217,7 @@ def test_client_chat_chat_stream_streaming_example():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        security=models.Security(
-            api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-        ),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
@@ -251,9 +231,7 @@ def test_client_chat_chat_stream_update_response():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        security=models.Security(
-            api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-        ),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 
@@ -4865,9 +4843,7 @@ def test_client_chat_chat_stream_citation_response():
     with Glean(
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
-        security=models.Security(
-            api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-        ),
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
     ) as g_client:
         assert g_client is not None
 

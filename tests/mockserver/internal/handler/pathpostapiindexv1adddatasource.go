@@ -28,7 +28,7 @@ func pathPostAPIIndexV1Adddatasource(dir *logging.HTTPFileDirectory, rt *trackin
 }
 
 func testPostAPIIndexV1AdddatasourcePostAPIIndexV1Adddatasource0(w http.ResponseWriter, req *http.Request) {
-	if err := assert.SecurityAuthorizationHeader(req, true, ""); err != nil {
+	if err := assert.SecurityAuthorizationHeader(req, false, "Bearer"); err != nil {
 		log.Printf("assertion error: %s\n", err)
 		http.Error(w, err.Error(), http.StatusUnauthorized)
 		return

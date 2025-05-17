@@ -32,7 +32,6 @@ servers:
             description: The instance name (typically the email domain without the TLD) that determines the deployment backend.
 security:
     - APIToken: []
-    - cookieAuth: []
 paths:
     /rest/api/v1/activity:
         post:
