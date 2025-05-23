@@ -3,16 +3,8 @@
 from __future__ import annotations
 from .message import Message, MessageTypedDict
 from glean.types import BaseModel
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from typing_extensions import NotRequired, TypedDict
-
-
-class AgentRunCreateInputTypedDict(TypedDict):
-    r"""The input to the agent."""
-
-
-class AgentRunCreateInput(BaseModel):
-    r"""The input to the agent."""
 
 
 class AgentRunCreateTypedDict(TypedDict):
@@ -20,7 +12,7 @@ class AgentRunCreateTypedDict(TypedDict):
 
     agent_id: NotRequired[str]
     r"""The ID of the agent to run."""
-    input: NotRequired[AgentRunCreateInputTypedDict]
+    input: NotRequired[Dict[str, Any]]
     r"""The input to the agent."""
     messages: NotRequired[List[MessageTypedDict]]
     r"""The messages to pass an input to the agent."""
@@ -32,7 +24,7 @@ class AgentRunCreate(BaseModel):
     agent_id: Optional[str] = None
     r"""The ID of the agent to run."""
 
-    input: Optional[AgentRunCreateInput] = None
+    input: Optional[Dict[str, Any]] = None
     r"""The input to the agent."""
 
     messages: Optional[List[Message]] = None

@@ -1593,6 +1593,7 @@ paths:
                         schema:
                             $ref: "#/components/schemas/SearchRequest"
                 description: Admin search request
+                required: true
                 x-exportParamName: Request
             responses:
                 "200":
@@ -1705,6 +1706,7 @@ paths:
                         schema:
                             $ref: "#/components/schemas/RecommendationsRequest"
                 description: Recommendations request
+                required: true
                 x-exportParamName: Request
             responses:
                 "200":
@@ -1743,6 +1745,7 @@ paths:
                         schema:
                             $ref: "#/components/schemas/SearchRequest"
                 description: Search request
+                required: true
                 x-exportParamName: Request
             responses:
                 "200":
@@ -2134,6 +2137,67 @@ paths:
                     description: Too Many Requests
             x-speakeasy-name-override: verify
             x-speakeasy-group: client.verification
+    /rest/api/v1/tools/list:
+        get:
+            summary: List available tools
+            description: Returns a filtered set of available tools based on optional tool name parameters. If no filters are provided, all available tools are returned.
+            x-visibility: Preview
+            parameters:
+                - in: query
+                  name: toolNames
+                  description: Optional array of tool names to filter by
+                  required: false
+                  schema:
+                    type: array
+                    items:
+                        type: string
+                  style: form
+                  explode: false
+            responses:
+                "200":
+                    description: Successful operation
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ToolsListResponse"
+                "400":
+                    description: Bad Request
+                "401":
+                    description: Unauthorized
+                "404":
+                    description: Not Found
+                "429":
+                    description: Too Many Requests
+            x-speakeasy-name-override: list
+            x-speakeasy-group: client.tools
+    /rest/api/v1/tools/call:
+        post:
+            summary: Execute the specified tool
+            description: Execute the specified tool with provided parameters
+            x-visibility: Preview
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/ToolsCallRequest"
+            responses:
+                "200":
+                    description: Successful operation
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ToolsCallResponse"
+                "400":
+                    description: Bad Request
+                "401":
+                    description: Unauthorized
+                "404":
+                    description: Not Found
+                "429":
+                    description: Too Many Requests
+            x-speakeasy-name-override: run
+            x-speakeasy-group: client.tools
     /api/index/v1/indexdocument:
         post:
             summary: Index document
@@ -3179,7 +3243,7 @@ paths:
         get:
             description: Lists policies with filtering.
             summary: Lists policies.
-            operationId: getpolicies
+            operationId: listpolicies
             x-visibility: Public
             tags:
                 - Governance
@@ -7450,6 +7514,7 @@ components:
                     type: object
                     title: Input
                     description: The input to the agent.
+                    additionalProperties: true
                 messages:
                     type: array
                     items:
@@ -9828,6 +9893,117 @@ components:
                         - DEPRECATE
                         - UNVERIFY
                     description: The verification action requested.
+        ToolParameter:
+            type: object
+            properties:
+                type:
+                    type: string
+                    description: Parameter type (string, number, boolean, object, array)
+                    enum:
+                        - string
+                        - number
+                        - boolean
+                        - object
+                        - array
+                name:
+                    type: string
+                    description: The name of the parameter
+                description:
+                    type: string
+                    description: The description of the parameter
+                isRequired:
+                    type: boolean
+                    description: Whether the parameter is required
+                possibleValues:
+                    type: array
+                    description: The possible values for the parameter. Can contain only primitive values or arrays of primitive values.
+                    items:
+                        type: string
+                items:
+                    type: object
+                    description: When type is 'array', this describes the structure of the item in the array.
+                    $ref: "#/components/schemas/ToolParameter"
+                properties:
+                    type: object
+                    description: When type is 'object', this describes the structure of the object.
+                    additionalProperties:
+                        $ref: "#/components/schemas/ToolParameter"
+        Tool:
+            type: object
+            properties:
+                type:
+                    type: string
+                    description: Type of tool (READ, WRITE)
+                    enum:
+                        - READ
+                        - WRITE
+                name:
+                    type: string
+                    description: Unique identifier for the tool
+                displayName:
+                    type: string
+                    description: Human-readable name
+                description:
+                    type: string
+                    description: LLM friendly description of the tool
+                parameters:
+                    type: object
+                    description: The parameters for the tool. Each key is the name of the parameter and the value is the parameter object.
+                    additionalProperties:
+                        $ref: "#/components/schemas/ToolParameter"
+        ToolsListResponse:
+            type: object
+            properties:
+                tools:
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/Tool"
+        ToolsCallParameter:
+            type: object
+            required:
+                - name
+                - value
+            properties:
+                name:
+                    type: string
+                    description: The name of the parameter
+                value:
+                    type: string
+                    description: The value of the parameter (for primitive types)
+                items:
+                    type: array
+                    description: The value of the parameter (for array types)
+                    items:
+                        $ref: "#/components/schemas/ToolsCallParameter"
+                properties:
+                    type: object
+                    description: The value of the parameter (for object types)
+                    additionalProperties:
+                        $ref: "#/components/schemas/ToolsCallParameter"
+        ToolsCallRequest:
+            type: object
+            required:
+                - name
+                - parameters
+            properties:
+                name:
+                    type: string
+                    description: Required name of the tool to execute
+                parameters:
+                    type: object
+                    description: The parameters for the tool. Each key is the name of the parameter and the value is the parameter object.
+                    additionalProperties:
+                        $ref: "#/components/schemas/ToolsCallParameter"
+        ToolsCallResponse:
+            type: object
+            properties:
+                rawResponse:
+                    additionalProperties: true
+                    type: object
+                    description: The raw response from the tool
+                error:
+                    type: string
+                    description: The error message if applicable
         IndexDocumentRequest:
             type: object
             description: Describes the request body of the /indexdocument API call

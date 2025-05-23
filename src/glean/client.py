@@ -18,6 +18,7 @@ from glean.insights import Insights
 from glean.messages import Messages
 from glean.pins import Pins
 from glean.search import Search
+from glean.tools import Tools
 
 
 class Client(BaseSDK):
@@ -36,6 +37,7 @@ class Client(BaseSDK):
     entities: Entities
     shortcuts: ClientShortcuts
     verification: ClientVerification
+    tools: Tools
     governance: Governance
 
     def __init__(self, sdk_config: SDKConfiguration) -> None:
@@ -59,4 +61,5 @@ class Client(BaseSDK):
         self.entities = Entities(self.sdk_configuration)
         self.shortcuts = ClientShortcuts(self.sdk_configuration)
         self.verification = ClientVerification(self.sdk_configuration)
+        self.tools = Tools(self.sdk_configuration)
         self.governance = Governance(self.sdk_configuration)

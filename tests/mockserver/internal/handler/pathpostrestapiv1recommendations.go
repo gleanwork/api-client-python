@@ -36,7 +36,7 @@ func testRecommendationsRecommendations0(w http.ResponseWriter, req *http.Reques
 		http.Error(w, err.Error(), http.StatusUnauthorized)
 		return
 	}
-	if err := assert.ContentType(req, "application/json", false); err != nil {
+	if err := assert.ContentType(req, "application/json", true); err != nil {
 		log.Printf("assertion error: %s\n", err)
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
