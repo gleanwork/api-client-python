@@ -19,38 +19,75 @@ def test_search_adminsearch():
         assert g_client is not None
 
         res = g_client.client.search.query_as_admin(
-            request=models.SearchRequest(
-                tracking_token="trackingToken",
-                page_size=10,
-                query="vacation policy",
-                request_options=models.SearchRequestOptions(
-                    facet_filters=[
-                        models.FacetFilter(
-                            field_name="type",
-                            values=[
-                                models.FacetFilterValue(
-                                    value="article",
-                                    relation_type=models.RelationType.EQUALS,
-                                ),
-                                models.FacetFilterValue(
-                                    value="document",
-                                    relation_type=models.RelationType.EQUALS,
-                                ),
+            query="vacation policy",
+            tracking_token="trackingToken",
+            source_document=models.Document(
+                container_document=models.Document(
+                    parent_document=models.Document(
+                        metadata=models.DocumentMetadata(
+                            datasource="datasource",
+                            object_type="Feature Request",
+                            container="container",
+                            parent_id="JIRA_EN-1337",
+                            mime_type="mimeType",
+                            document_id="documentId",
+                            create_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+                            update_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+                            author=models.Person(
+                                name="name",
+                                obfuscated_id="<id>",
+                            ),
+                            components=[
+                                "Backend",
+                                "Networking",
                             ],
+                            status='["Done"]',
+                            custom_data={
+                                "someCustomField": models.CustomDataValue(),
+                            },
                         ),
-                        models.FacetFilter(
-                            field_name="department",
-                            values=[
-                                models.FacetFilterValue(
-                                    value="engineering",
-                                    relation_type=models.RelationType.EQUALS,
-                                ),
-                            ],
-                        ),
-                    ],
-                    facet_bucket_size=254944,
+                    ),
                 ),
-            )
+            ),
+            page_size=10,
+            max_snippet_size=400,
+            input_details={
+                "has_copy_paste": True,
+            },
+            request_options=models.SearchRequestOptions(
+                facet_filters=[
+                    models.FacetFilter(
+                        field_name="type",
+                        values=[
+                            models.FacetFilterValue(
+                                value="article",
+                                relation_type=models.RelationType.EQUALS,
+                            ),
+                            models.FacetFilterValue(
+                                value="document",
+                                relation_type=models.RelationType.EQUALS,
+                            ),
+                        ],
+                    ),
+                    models.FacetFilter(
+                        field_name="department",
+                        values=[
+                            models.FacetFilterValue(
+                                value="engineering",
+                                relation_type=models.RelationType.EQUALS,
+                            ),
+                        ],
+                    ),
+                ],
+                facet_bucket_size=254944,
+            ),
+            timeout_millis=5000,
+            people=[
+                models.Person(
+                    name="George Clooney",
+                    obfuscated_id="abc123",
+                ),
+            ],
         )
         assert res is not None
 
@@ -2048,37 +2085,74 @@ def test_search_search():
         assert g_client is not None
 
         res = g_client.client.search.query(
-            request=models.SearchRequest(
-                tracking_token="trackingToken",
-                page_size=10,
-                query="vacation policy",
-                request_options=models.SearchRequestOptions(
-                    facet_filters=[
-                        models.FacetFilter(
-                            field_name="type",
-                            values=[
-                                models.FacetFilterValue(
-                                    value="article",
-                                    relation_type=models.RelationType.EQUALS,
-                                ),
-                                models.FacetFilterValue(
-                                    value="document",
-                                    relation_type=models.RelationType.EQUALS,
-                                ),
+            query="vacation policy",
+            tracking_token="trackingToken",
+            source_document=models.Document(
+                container_document=models.Document(
+                    parent_document=models.Document(
+                        metadata=models.DocumentMetadata(
+                            datasource="datasource",
+                            object_type="Feature Request",
+                            container="container",
+                            parent_id="JIRA_EN-1337",
+                            mime_type="mimeType",
+                            document_id="documentId",
+                            create_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+                            update_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+                            author=models.Person(
+                                name="name",
+                                obfuscated_id="<id>",
+                            ),
+                            components=[
+                                "Backend",
+                                "Networking",
                             ],
+                            status='["Done"]',
+                            custom_data={
+                                "someCustomField": models.CustomDataValue(),
+                            },
                         ),
-                        models.FacetFilter(
-                            field_name="department",
-                            values=[
-                                models.FacetFilterValue(
-                                    value="engineering",
-                                    relation_type=models.RelationType.EQUALS,
-                                ),
-                            ],
-                        ),
-                    ],
-                    facet_bucket_size=246815,
+                    ),
                 ),
-            )
+            ),
+            page_size=10,
+            max_snippet_size=400,
+            input_details={
+                "has_copy_paste": True,
+            },
+            request_options=models.SearchRequestOptions(
+                facet_filters=[
+                    models.FacetFilter(
+                        field_name="type",
+                        values=[
+                            models.FacetFilterValue(
+                                value="article",
+                                relation_type=models.RelationType.EQUALS,
+                            ),
+                            models.FacetFilterValue(
+                                value="document",
+                                relation_type=models.RelationType.EQUALS,
+                            ),
+                        ],
+                    ),
+                    models.FacetFilter(
+                        field_name="department",
+                        values=[
+                            models.FacetFilterValue(
+                                value="engineering",
+                                relation_type=models.RelationType.EQUALS,
+                            ),
+                        ],
+                    ),
+                ],
+                facet_bucket_size=246815,
+            ),
+            timeout_millis=5000,
+            people=[
+                models.Person(
+                    name="George Clooney",
+                    obfuscated_id="abc123",
+                ),
+            ],
         )
         assert res is not None

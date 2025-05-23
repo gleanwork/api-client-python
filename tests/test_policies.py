@@ -20,18 +20,11 @@ def test_policies_getpolicy():
         assert res is not None
 
 
+@pytest.mark.skip(
+    reason="incomplete test found please make sure to address the following errors: [`workflow step getpolicies.test referencing operation getpolicies not found in document`]"
+)
 def test_policies_getpolicies():
-    test_http_client = create_test_http_client("getpolicies")
-
-    with Glean(
-        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
-        client=test_http_client,
-        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
-
-        res = g_client.client.governance.data.policies.list()
-        assert res is not None
+    pass
 
 
 @pytest.mark.skip(
@@ -46,3 +39,17 @@ def test_policies_createpolicy():
 )
 def test_policies_downloadpolicycsv():
     pass
+
+
+def test_policies_listpolicies():
+    test_http_client = create_test_http_client("listpolicies")
+
+    with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
+        client=test_http_client,
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+    ) as g_client:
+        assert g_client is not None
+
+        res = g_client.client.governance.data.policies.list()
+        assert res is not None

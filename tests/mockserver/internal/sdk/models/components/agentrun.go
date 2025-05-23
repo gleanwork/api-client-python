@@ -2,16 +2,12 @@
 
 package components
 
-// AgentRunInput - The input to the agent.
-type AgentRunInput struct {
-}
-
 // AgentRun - Payload for creating a run.
 type AgentRun struct {
 	// The ID of the agent to run.
 	AgentID *string `json:"agent_id,omitempty"`
 	// The input to the agent.
-	Input *AgentRunInput `json:"input,omitempty"`
+	Input map[string]any `json:"input,omitempty"`
 	// The messages to pass an input to the agent.
 	Messages []Message `json:"messages,omitempty"`
 	// The status of the run. One of 'error', 'success'.
@@ -25,7 +21,7 @@ func (o *AgentRun) GetAgentID() *string {
 	return o.AgentID
 }
 
-func (o *AgentRun) GetInput() *AgentRunInput {
+func (o *AgentRun) GetInput() map[string]any {
 	if o == nil {
 		return nil
 	}

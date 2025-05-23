@@ -462,6 +462,11 @@ For more information on obtaining the appropriate token type, please contact you
 * [list](docs/sdks/clientshortcuts/README.md#list) - List shortcuts
 * [update](docs/sdks/clientshortcuts/README.md#update) - Update shortcut
 
+#### [client.tools](docs/sdks/tools/README.md)
+
+* [list](docs/sdks/tools/README.md#list) - List available tools
+* [run](docs/sdks/tools/README.md#run) - Execute the specified tool
+
 #### [client.verification](docs/sdks/clientverification/README.md)
 
 * [add_reminder](docs/sdks/clientverification/README.md#add_reminder) - Create verification

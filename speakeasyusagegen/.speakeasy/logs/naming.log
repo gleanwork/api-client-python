@@ -108,7 +108,7 @@ DEBUG	discriminated: Renamed to "DocumentSpec_ugcType"
 	 registrationID: "scope:shared refType:Schemas refName:DocumentSpec component:true oneOfPosition:3 originalName:ugcType"
 DEBUG	
 
---- Renaming 5 types with name "type" ---
+--- Renaming 7 types with name "type" ---
 DEBUG	discriminated: Renamed to "TextRange_type" 
 	 labels: "original_name:type scope:shared data_type:enum refName:TextRange" 
 	 registrationID: "scope:shared refType:Schemas refName:TextRange originalName:type"
@@ -124,6 +124,12 @@ DEBUG	discriminated: Renamed to "AuthConfig_type"
 DEBUG	discriminated: Renamed to "WriteActionParameter_type" 
 	 labels: "original_name:type scope:shared data_type:enum refName:WriteActionParameter" 
 	 registrationID: "scope:shared refType:Schemas refName:WriteActionParameter originalName:type"
+DEBUG	discriminated: Renamed to "Tool_type" 
+	 labels: "original_name:type scope:shared data_type:enum refName:Tool" 
+	 registrationID: "scope:shared refType:Schemas refName:Tool originalName:type"
+DEBUG	discriminated: Renamed to "ToolParameter_type" 
+	 labels: "original_name:type scope:shared data_type:enum refName:ToolParameter" 
+	 registrationID: "scope:shared refType:Schemas refName:ToolParameter originalName:type"
 DEBUG	
 
 --- Renaming 2 types with name "metadata" ---
@@ -232,15 +238,6 @@ DEBUG
 DEBUG	discriminated: Renamed to "agent_enum" 
 	 labels: "original_name:agent scope:shared data_type:enum refName:AgentConfig" 
 	 registrationID: "scope:shared refType:Schemas refName:AgentConfig originalName:agent"
-DEBUG	
-
---- Renaming 2 types with name "Input" ---
-DEBUG	discriminated: Renamed to "AgentRunCreate_Input" 
-	 labels: "original_name:Input scope:shared refName:AgentRunCreate" 
-	 registrationID: "scope:shared refType:Schemas refName:AgentRunCreate property:input originalName:Input"
-DEBUG	discriminated: Renamed to "AgentRun_Input" 
-	 labels: "original_name:Input scope:shared refName:AgentRun" 
-	 registrationID: "scope:shared refType:Schemas refName:AgentRun property:input originalName:Input"
 DEBUG	
 
 --- Renaming 3 types with name "errorCode" ---
@@ -613,16 +610,14 @@ GetAgentSchemasResponse (HttpMeta: HTTPMetadata, AgentSchemas: AgentSchemas)
 SearchAgentsRequest (name: string)
 SearchAgentsResponse (HttpMeta: HTTPMetadata, SearchAgentsResponse: SearchAgentsResponse)
  SearchAgentsResponse (agents: array)
-AgentRunCreate (agent_id: string, input: class, messages: array)
- AgentRunCreateInput (empty)
+AgentRunCreate (agent_id: string, input: map, messages: array)
   Message (role: string, content: array)
     MessageTextBlock (text: string, type: ContentType)
      ContentType (enum: text)
 CreateAndStreamRunResponse (HttpMeta: HTTPMetadata, res: string)
 CreateAndWaitRunResponse (HttpMeta: HTTPMetadata, AgentRunWaitResponse: AgentRunWaitResponse)
  AgentRunWaitResponse (run: AgentRun, messages: array)
-  AgentRun (agent_id: string, input: class, messages: array ...)
-   AgentRunInput (empty)
+  AgentRun (agent_id: string, input: map, messages: array ...)
    AgentExecutionStatus (enum: error, success)
 Collections (SDK empty)
 AddCollectionItemsRequest (collectionId: number, addedCollectionItemDescriptors: array)
@@ -831,6 +826,18 @@ ListverificationsResponse (HttpMeta: HTTPMetadata, VerificationFeed: Verificatio
 VerifyRequest (documentId: string, action: enum)
  VerifyRequestAction (enum: VERIFY, DEPRECATE, UNVERIFY)
 VerifyResponse (HttpMeta: HTTPMetadata, Verification: Verification)
+Tools (SDK empty)
+Get/rest/api/v1/tools/listRequest (toolNames: array)
+GetRestApiV1ToolsListResponse (HttpMeta: HTTPMetadata, ToolsListResponse: ToolsListResponse)
+ ToolsListResponse (tools: array)
+   Tool (type: enum, name: string, displayName: string ...)
+    ToolType (enum: READ, WRITE)
+     ToolParameter (type: enum, name: string, description: string ...)
+      ToolParameterType (enum: string, number, boolean ...)
+ToolsCallRequest (name: string, parameters: map)
+  ToolsCallParameter (name: string, value: string, items: array ...)
+PostRestApiV1ToolsCallResponse (HttpMeta: HTTPMetadata, ToolsCallResponse: ToolsCallResponse)
+ ToolsCallResponse (rawResponse: map, error: string)
 Governance (SDK empty)
 Data (SDK empty)
 Policies (SDK empty)
@@ -862,8 +869,8 @@ UpdatepolicyRequest (id: string, UpdateDlpReportRequest: UpdateDlpReportRequest)
 UpdatepolicyResponse (HttpMeta: HTTPMetadata, UpdateDlpReportResponse: UpdateDlpReportResponse)
  UpdateDlpReportResponse (result: DlpSimpleResult)
   DlpSimpleResult (enum: SUCCESS, FAILURE)
-GetpoliciesRequest (autoHide: boolean, frequency: string)
-GetpoliciesResponse (HttpMeta: HTTPMetadata, ListDlpReportsResponse: ListDlpReportsResponse)
+ListpoliciesRequest (autoHide: boolean, frequency: string)
+ListpoliciesResponse (HttpMeta: HTTPMetadata, ListDlpReportsResponse: ListDlpReportsResponse)
  ListDlpReportsResponse (reports: array)
 CreateDlpReportRequest (name: string, config: DlpConfig, frequency: DlpFrequency ...)
 CreatepolicyResponse (HttpMeta: HTTPMetadata, CreateDlpReportResponse: CreateDlpReportResponse)

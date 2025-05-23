@@ -466,7 +466,7 @@ class Policies(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.GetpoliciesRequest(
+        request = models.ListpoliciesRequest(
             auto_hide=auto_hide,
             frequency=frequency,
         )
@@ -498,7 +498,7 @@ class Policies(BaseSDK):
         http_res = self.do_request(
             hook_ctx=HookContext(
                 base_url=base_url or "",
-                operation_id="getpolicies",
+                operation_id="listpolicies",
                 oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
@@ -562,7 +562,7 @@ class Policies(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.GetpoliciesRequest(
+        request = models.ListpoliciesRequest(
             auto_hide=auto_hide,
             frequency=frequency,
         )
@@ -594,7 +594,7 @@ class Policies(BaseSDK):
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
                 base_url=base_url or "",
-                operation_id="getpolicies",
+                operation_id="listpolicies",
                 oauth2_scopes=[],
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security

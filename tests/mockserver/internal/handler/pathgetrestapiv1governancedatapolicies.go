@@ -21,15 +21,15 @@ func pathGetRestAPIV1GovernanceDataPolicies(dir *logging.HTTPFileDirectory, rt *
 		count := rt.GetRequestCount(test, instanceID)
 
 		switch fmt.Sprintf("%s[%d]", test, count) {
-		case "getpolicies[0]":
-			dir.HandlerFunc("getpolicies", testGetpoliciesGetpolicies0)(w, req)
+		case "listpolicies[0]":
+			dir.HandlerFunc("listpolicies", testListpoliciesListpolicies0)(w, req)
 		default:
 			http.Error(w, fmt.Sprintf("Unknown test: %s[%d]", test, count), http.StatusBadRequest)
 		}
 	}
 }
 
-func testGetpoliciesGetpolicies0(w http.ResponseWriter, req *http.Request) {
+func testListpoliciesListpolicies0(w http.ResponseWriter, req *http.Request) {
 	if err := assert.SecurityAuthorizationHeader(req, false, "Bearer"); err != nil {
 		log.Printf("assertion error: %s\n", err)
 		http.Error(w, err.Error(), http.StatusUnauthorized)
