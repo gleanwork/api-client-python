@@ -5,6 +5,7 @@ on:
     types: [opened, synchronize]
     paths:
       - 'src/glean/__init__.py'
+  workflow_dispatch:
 
 jobs:
   add-extend-path:
