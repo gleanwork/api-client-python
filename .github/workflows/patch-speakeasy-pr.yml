@@ -9,7 +9,7 @@ on:
 
 jobs:
   add-extend-path:
-    if: contains(github.event.pull_request.title, 'Update SDK - Generate')
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'pull_request' && contains(github.event.pull_request.title, 'Update SDK - Generate'))
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -18,7 +18,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.head_ref }}
+          ref: ${{ github.head_ref || github.ref_name }}
           fetch-depth: 0
 
       - name: Patch glean/__init__.py with extend_path
@@ -34,4 +34,4 @@ jobs:
 
           git add src/glean/__init__.py
           git commit -m "ci: ensure extend_path lines in glean/__init__.py" || echo "No changes to commit"
-          git push origin HEAD:${{ github.head_ref }}
+          git push origin HEAD:${{ github.head_ref || github.ref_name }}
