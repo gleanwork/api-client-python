@@ -394,7 +394,7 @@ CreateAnnouncementRequest (startTime: date-time, endTime: date-time, title: stri
                 DocumentSpec3 (ugcType: enum, contentId: integer, docType: string)
                  DocumentSpecUgcType (enum: ANNOUNCEMENTS, ANSWERS, COLLECTIONS ...)
              TextRange (startIndex: integer, endIndex: integer, type: enum ...)
-              TextRangeType (enum: BOLD, CITATION, LINK)
+              TextRangeType (enum: BOLD, CITATION, HIGHLIGHT ...)
                 DocumentSection (title: string, url: string)
             SearchRequestInputDetails (hasCopyPaste: boolean)
             SearchResult (structuredResults: array, trackingToken: string, document: Document ...)

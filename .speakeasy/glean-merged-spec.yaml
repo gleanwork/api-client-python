@@ -2168,6 +2168,8 @@ paths:
                     description: Not Found
                 "429":
                     description: Too Many Requests
+            tags:
+                - Tools
             x-speakeasy-name-override: list
             x-speakeasy-group: client.tools
     /rest/api/v1/tools/call:
@@ -2196,6 +2198,8 @@ paths:
                     description: Not Found
                 "429":
                     description: Too Many Requests
+            tags:
+                - Tools
             x-speakeasy-name-override: run
             x-speakeasy-group: client.tools
     /api/index/v1/indexdocument:
@@ -4315,6 +4319,7 @@ components:
                     enum:
                         - BOLD
                         - CITATION
+                        - HIGHLIGHT
                         - LINK
                 url:
                     type: string

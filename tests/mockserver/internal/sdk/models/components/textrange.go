@@ -10,9 +10,10 @@ import (
 type TextRangeType string
 
 const (
-	TextRangeTypeBold     TextRangeType = "BOLD"
-	TextRangeTypeCitation TextRangeType = "CITATION"
-	TextRangeTypeLink     TextRangeType = "LINK"
+	TextRangeTypeBold      TextRangeType = "BOLD"
+	TextRangeTypeCitation  TextRangeType = "CITATION"
+	TextRangeTypeHighlight TextRangeType = "HIGHLIGHT"
+	TextRangeTypeLink      TextRangeType = "LINK"
 )
 
 func (e TextRangeType) ToPointer() *TextRangeType {
@@ -27,6 +28,8 @@ func (e *TextRangeType) UnmarshalJSON(data []byte) error {
 	case "BOLD":
 		fallthrough
 	case "CITATION":
+		fallthrough
+	case "HIGHLIGHT":
 		fallthrough
 	case "LINK":
 		*e = TextRangeType(v)
