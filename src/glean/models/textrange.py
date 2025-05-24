@@ -14,6 +14,7 @@ if TYPE_CHECKING:
 class TextRangeType(str, Enum):
     BOLD = "BOLD"
     CITATION = "CITATION"
+    HIGHLIGHT = "HIGHLIGHT"
     LINK = "LINK"
 
 
