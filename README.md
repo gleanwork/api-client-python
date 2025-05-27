@@ -14,13 +14,12 @@ Each namespace has its own authentication requirements and access patterns. Whil
 
 ```python
 # Example of accessing Client namespace
-from glean import Glean, models
+from glean import Glean
 import os
 
 with Glean(api_token="client-token", instance="instance-name") as glean:
-    search_response = glean.client.search.query(
-        request=models.SearchRequest(query="search term")
-    )
+    search_response = glean.client.search.query(query="search term")
+
     print(search_response)
 
 # Example of accessing Indexing namespace 
