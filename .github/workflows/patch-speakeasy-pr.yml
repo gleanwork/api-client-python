@@ -1,10 +1,8 @@
-name: Patch Speakeasy PR
+name: Restructure Speakeasy PR
 
 on:
   pull_request:
     types: [opened, synchronize]
-    paths:
-      - 'src/glean/__init__.py'
   workflow_dispatch:
 
 jobs:
@@ -21,17 +19,19 @@ jobs:
           ref: ${{ github.head_ref || github.ref_name }}
           fetch-depth: 0
 
-      - name: Patch glean/__init__.py with extend_path
-        id: patch
+      - name: Restructure glean package to namespace structure
         run: |
-          OUTPUT=$GITHUB_OUTPUT .github/scripts/patch_extend_path.sh
+          python .github/scripts/restructure_to_namespace.py
 
-      - name: Commit and push if file changed
-        if: steps.patch.outputs.patched == 'true'
+      - name: Commit and push if files changed
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          if [ -n "$(git status --porcelain)" ]; then
+            git config --global user.name "github-actions[bot]"
+            git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-          git add src/glean/__init__.py
-          git commit -m "ci: ensure extend_path lines in glean/__init__.py" || echo "No changes to commit"
-          git push origin HEAD:${{ github.head_ref || github.ref_name }}
+            git add .
+            git commit -m "ci: restructure glean package to namespace structure"
+            git push origin HEAD:${{ github.head_ref || github.ref_name }}
+          else
+            echo "No changes detected"
+          fi
