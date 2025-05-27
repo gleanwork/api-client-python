@@ -2,7 +2,7 @@
 # poetry install
 # poetry run python examples/ask_example.py
 
-from glean import Glean, errors, models
+from glean.api_client import Glean, errors, models
 import os
 
 

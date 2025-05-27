@@ -19,8 +19,8 @@ Create a user-generated shortcut that contains an alias and destination URL.
 
 ```python
 from datetime import date
-from glean import Glean, models
-from glean.utils import parse_datetime
+from glean.api_client import Glean, models
+from glean.api_client.utils import parse_datetime
 import os
 
 
@@ -1642,7 +1642,7 @@ Delete an existing user-generated shortcut.
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean.api_client import Glean
 import os
 
 
@@ -1676,7 +1676,7 @@ Read a particular shortcut's details given its ID.
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean.api_client import Glean
 import os
 
 
@@ -1717,7 +1717,7 @@ List shortcuts editable/owned by the currently authenticated user.
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean.api_client import Glean, models
 import os
 
 
@@ -1776,8 +1776,8 @@ Updates the shortcut with the given ID.
 
 ```python
 from datetime import date
-from glean import Glean, models
-from glean.utils import parse_datetime
+from glean.api_client import Glean, models
+from glean.api_client.utils import parse_datetime
 import os
 
 

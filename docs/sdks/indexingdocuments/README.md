@@ -25,7 +25,7 @@ Adds a document to the index or updates an existing document.
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean.api_client import Glean, models
 import os
 
 
@@ -62,7 +62,7 @@ Adds or updates multiple documents in the index. Please refer to the [bulk index
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean.api_client import Glean
 import os
 
 
@@ -98,7 +98,7 @@ Replaces the documents in a datasource using paginated batch API calls. Please r
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean.api_client import Glean
 import os
 
 
@@ -149,7 +149,7 @@ For more frequent document processing, contact Glean support.
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean.api_client import Glean
 import os
 
 
@@ -183,7 +183,7 @@ Deletes the specified document from the index. Succeeds if document is not prese
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean.api_client import Glean
 import os
 
 
@@ -223,7 +223,7 @@ Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/docs/i
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean.api_client import Glean
 import os
 
 
@@ -267,7 +267,7 @@ Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/docs/i
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean.api_client import Glean
 import os
 
 
@@ -315,7 +315,7 @@ Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/docs/i
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean.api_client import Glean
 import os
 
 
@@ -362,7 +362,7 @@ Tip: Use [/debug/{datasource}/document](https://developers.glean.com/docs/indexi
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean.api_client import Glean
 import os
 
 
@@ -408,7 +408,7 @@ Tip: Use [/debug/{datasource}/status](https://developers.glean.com/docs/indexing
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean.api_client import Glean
 import os
 
 
