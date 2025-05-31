@@ -18,8 +18,8 @@ Retrieves results for search query without respect for permissions. This is avai
 ### Example Usage
 
 ```python
-from glean import Glean, models
-from glean.utils import parse_datetime
+from glean.api_client import Glean, models
+from glean.api_client.utils import parse_datetime
 import os
 
 
@@ -132,7 +132,7 @@ Retrieve query suggestions, operators and documents for the given partially type
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean.api_client import Glean
 import os
 
 
@@ -176,7 +176,7 @@ The personalized feed/home includes different types of contents including sugges
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean.api_client import Glean
 import os
 
 
@@ -217,8 +217,8 @@ Retrieve recommended documents for the given URL or Glean Document ID.
 ### Example Usage
 
 ```python
-from glean import Glean, models
-from glean.utils import parse_datetime
+from glean.api_client import Glean, models
+from glean.api_client.utils import parse_datetime
 import os
 
 
@@ -365,8 +365,8 @@ Retrieve results from the index for the given query and filters.
 ### Example Usage
 
 ```python
-from glean import Glean, models
-from glean.utils import parse_datetime
+from glean.api_client import Glean, models
+from glean.api_client.utils import parse_datetime
 import os
 
 
