@@ -5,8 +5,8 @@
 
 ### Available Operations
 
-* [list](#list) - Fetches documents visibility.
-* [create](#create) - Hide/Un-hide docs.
+* [list](#list) - Fetches documents visibility
+* [create](#create) - Hide or unhide docs
 
 ## list
 

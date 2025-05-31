@@ -26,6 +26,9 @@ class ClientChat(BaseSDK):
             Union[models.ChatRestrictionFilters, models.ChatRestrictionFiltersTypedDict]
         ] = None,
         timeout_millis: Optional[int] = None,
+        session_info: Optional[
+            Union[models.SessionInfo, models.SessionInfoTypedDict]
+        ] = None,
         application_id: Optional[str] = None,
         stream: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -45,6 +48,7 @@ class ClientChat(BaseSDK):
         :param inclusions:
         :param exclusions:
         :param timeout_millis: Timeout in milliseconds for the request. A `408` error will be returned if handling the request takes longer.
+        :param session_info:
         :param application_id: The ID of the application this request originates from, used to determine the configuration of underlying chat processes. This should correspond to the ID set during admin setup. If not specified, the default chat experience will be used.
         :param stream: If set, response lines will be streamed one-by-one as they become available. Each will be a ChatResponse, formatted as JSON, and separated by a new line. If false, the entire response will be returned at once. Note that if this is set and the model being used does not support streaming, the model's response will not be streamed, but other messages from the endpoint still will be.
         :param retries: Override the default retry configuration for this method
@@ -78,6 +82,9 @@ class ClientChat(BaseSDK):
                     exclusions, Optional[models.ChatRestrictionFilters]
                 ),
                 timeout_millis=timeout_millis,
+                session_info=utils.get_pydantic_model(
+                    session_info, Optional[models.SessionInfo]
+                ),
                 application_id=application_id,
                 stream=stream,
             ),
@@ -112,6 +119,7 @@ class ClientChat(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="chat",
                 oauth2_scopes=[],
@@ -163,6 +171,9 @@ class ClientChat(BaseSDK):
             Union[models.ChatRestrictionFilters, models.ChatRestrictionFiltersTypedDict]
         ] = None,
         timeout_millis: Optional[int] = None,
+        session_info: Optional[
+            Union[models.SessionInfo, models.SessionInfoTypedDict]
+        ] = None,
         application_id: Optional[str] = None,
         stream: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -182,6 +193,7 @@ class ClientChat(BaseSDK):
         :param inclusions:
         :param exclusions:
         :param timeout_millis: Timeout in milliseconds for the request. A `408` error will be returned if handling the request takes longer.
+        :param session_info:
         :param application_id: The ID of the application this request originates from, used to determine the configuration of underlying chat processes. This should correspond to the ID set during admin setup. If not specified, the default chat experience will be used.
         :param stream: If set, response lines will be streamed one-by-one as they become available. Each will be a ChatResponse, formatted as JSON, and separated by a new line. If false, the entire response will be returned at once. Note that if this is set and the model being used does not support streaming, the model's response will not be streamed, but other messages from the endpoint still will be.
         :param retries: Override the default retry configuration for this method
@@ -215,6 +227,9 @@ class ClientChat(BaseSDK):
                     exclusions, Optional[models.ChatRestrictionFilters]
                 ),
                 timeout_millis=timeout_millis,
+                session_info=utils.get_pydantic_model(
+                    session_info, Optional[models.SessionInfo]
+                ),
                 application_id=application_id,
                 stream=stream,
             ),
@@ -249,6 +264,7 @@ class ClientChat(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="chat",
                 oauth2_scopes=[],
@@ -342,6 +358,7 @@ class ClientChat(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="deleteallchats",
                 oauth2_scopes=[],
@@ -435,6 +452,7 @@ class ClientChat(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="deleteallchats",
                 oauth2_scopes=[],
@@ -540,6 +558,7 @@ class ClientChat(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="deletechats",
                 oauth2_scopes=[],
@@ -645,6 +664,7 @@ class ClientChat(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="deletechats",
                 oauth2_scopes=[],
@@ -746,6 +766,7 @@ class ClientChat(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getchat",
                 oauth2_scopes=[],
@@ -847,6 +868,7 @@ class ClientChat(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getchat",
                 oauth2_scopes=[],
@@ -940,6 +962,7 @@ class ClientChat(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="listchats",
                 oauth2_scopes=[],
@@ -1033,6 +1056,7 @@ class ClientChat(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="listchats",
                 oauth2_scopes=[],
@@ -1138,6 +1162,7 @@ class ClientChat(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getchatapplication",
                 oauth2_scopes=[],
@@ -1245,6 +1270,7 @@ class ClientChat(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getchatapplication",
                 oauth2_scopes=[],
@@ -1352,6 +1378,7 @@ class ClientChat(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="uploadchatfiles",
                 oauth2_scopes=[],
@@ -1457,6 +1484,7 @@ class ClientChat(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="uploadchatfiles",
                 oauth2_scopes=[],
@@ -1562,6 +1590,7 @@ class ClientChat(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getchatfiles",
                 oauth2_scopes=[],
@@ -1667,6 +1696,7 @@ class ClientChat(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getchatfiles",
                 oauth2_scopes=[],
@@ -1772,6 +1802,7 @@ class ClientChat(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="deletechatfiles",
                 oauth2_scopes=[],
@@ -1877,6 +1908,7 @@ class ClientChat(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="deletechatfiles",
                 oauth2_scopes=[],
@@ -1928,6 +1960,9 @@ class ClientChat(BaseSDK):
             Union[models.ChatRestrictionFilters, models.ChatRestrictionFiltersTypedDict]
         ] = None,
         timeout_millis: Optional[int] = None,
+        session_info: Optional[
+            Union[models.SessionInfo, models.SessionInfoTypedDict]
+        ] = None,
         application_id: Optional[str] = None,
         stream: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1947,6 +1982,7 @@ class ClientChat(BaseSDK):
         :param inclusions:
         :param exclusions:
         :param timeout_millis: Timeout in milliseconds for the request. A `408` error will be returned if handling the request takes longer.
+        :param session_info:
         :param application_id: The ID of the application this request originates from, used to determine the configuration of underlying chat processes. This should correspond to the ID set during admin setup. If not specified, the default chat experience will be used.
         :param stream: If set, response lines will be streamed one-by-one as they become available. Each will be a ChatResponse, formatted as JSON, and separated by a new line. If false, the entire response will be returned at once. Note that if this is set and the model being used does not support streaming, the model's response will not be streamed, but other messages from the endpoint still will be.
         :param retries: Override the default retry configuration for this method
@@ -1980,6 +2016,9 @@ class ClientChat(BaseSDK):
                     exclusions, Optional[models.ChatRestrictionFilters]
                 ),
                 timeout_millis=timeout_millis,
+                session_info=utils.get_pydantic_model(
+                    session_info, Optional[models.SessionInfo]
+                ),
                 application_id=application_id,
                 stream=stream,
             ),
@@ -2014,6 +2053,7 @@ class ClientChat(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="chatStream",
                 oauth2_scopes=[],
@@ -2065,6 +2105,9 @@ class ClientChat(BaseSDK):
             Union[models.ChatRestrictionFilters, models.ChatRestrictionFiltersTypedDict]
         ] = None,
         timeout_millis: Optional[int] = None,
+        session_info: Optional[
+            Union[models.SessionInfo, models.SessionInfoTypedDict]
+        ] = None,
         application_id: Optional[str] = None,
         stream: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -2084,6 +2127,7 @@ class ClientChat(BaseSDK):
         :param inclusions:
         :param exclusions:
         :param timeout_millis: Timeout in milliseconds for the request. A `408` error will be returned if handling the request takes longer.
+        :param session_info:
         :param application_id: The ID of the application this request originates from, used to determine the configuration of underlying chat processes. This should correspond to the ID set during admin setup. If not specified, the default chat experience will be used.
         :param stream: If set, response lines will be streamed one-by-one as they become available. Each will be a ChatResponse, formatted as JSON, and separated by a new line. If false, the entire response will be returned at once. Note that if this is set and the model being used does not support streaming, the model's response will not be streamed, but other messages from the endpoint still will be.
         :param retries: Override the default retry configuration for this method
@@ -2117,6 +2161,9 @@ class ClientChat(BaseSDK):
                     exclusions, Optional[models.ChatRestrictionFilters]
                 ),
                 timeout_millis=timeout_millis,
+                session_info=utils.get_pydantic_model(
+                    session_info, Optional[models.SessionInfo]
+                ),
                 application_id=application_id,
                 stream=stream,
             ),
@@ -2151,6 +2198,7 @@ class ClientChat(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="chatStream",
                 oauth2_scopes=[],

@@ -7,6 +7,7 @@ from .chatrestrictionfilters import (
     ChatRestrictionFilters,
     ChatRestrictionFiltersTypedDict,
 )
+from .sessioninfo import SessionInfo, SessionInfoTypedDict
 from glean.types import BaseModel
 import pydantic
 from typing import List, Optional
@@ -26,6 +27,7 @@ class ChatRequestTypedDict(TypedDict):
     exclusions: NotRequired[ChatRestrictionFiltersTypedDict]
     timeout_millis: NotRequired[int]
     r"""Timeout in milliseconds for the request. A `408` error will be returned if handling the request takes longer."""
+    session_info: NotRequired[SessionInfoTypedDict]
     application_id: NotRequired[str]
     r"""The ID of the application this request originates from, used to determine the configuration of underlying chat processes. This should correspond to the ID set during admin setup. If not specified, the default chat experience will be used."""
     stream: NotRequired[bool]
@@ -55,6 +57,10 @@ class ChatRequest(BaseModel):
         None
     )
     r"""Timeout in milliseconds for the request. A `408` error will be returned if handling the request takes longer."""
+
+    session_info: Annotated[
+        Optional[SessionInfo], pydantic.Field(alias="sessionInfo")
+    ] = None
 
     application_id: Annotated[Optional[str], pydantic.Field(alias="applicationId")] = (
         None

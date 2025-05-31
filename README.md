@@ -403,31 +403,24 @@ For more information on obtaining the appropriate token type, please contact you
 * [list](docs/sdks/entities/README.md#list) - List entities
 * [read_people](docs/sdks/entities/README.md#read_people) - Read people
 
-
-#### [client.governance.data](docs/sdks/data/README.md)
-
-
 #### [client.governance.data.policies](docs/sdks/policies/README.md)
 
-* [retrieve](docs/sdks/policies/README.md#retrieve) - Gets specified Policy.
-* [update](docs/sdks/policies/README.md#update) - Updates an existing policy.
-* [list](docs/sdks/policies/README.md#list) - Lists policies.
-* [create](docs/sdks/policies/README.md#create) - Creates new policy.
-* [download](docs/sdks/policies/README.md#download) - Downloads violations CSV for policy.
+* [retrieve](docs/sdks/policies/README.md#retrieve) - Gets specified policy
+* [update](docs/sdks/policies/README.md#update) - Updates an existing policy
+* [list](docs/sdks/policies/README.md#list) - Lists policies
+* [create](docs/sdks/policies/README.md#create) - Creates new policy
+* [download](docs/sdks/policies/README.md#download) - Downloads violations CSV for policy
 
 #### [client.governance.data.reports](docs/sdks/reports/README.md)
 
-* [create](docs/sdks/reports/README.md#create) - Creates new one-time report.
-* [download](docs/sdks/reports/README.md#download) - Downloads violations CSV for report.
-* [status](docs/sdks/reports/README.md#status) - Fetches report run status.
-
-#### [client.governance.documents](docs/sdks/governancedocuments/README.md)
-
+* [create](docs/sdks/reports/README.md#create) - Creates new one-time report
+* [download](docs/sdks/reports/README.md#download) - Downloads violations CSV for report
+* [status](docs/sdks/reports/README.md#status) - Fetches report run status
 
 #### [client.governance.documents.visibilityoverrides](docs/sdks/visibilityoverrides/README.md)
 
-* [list](docs/sdks/visibilityoverrides/README.md#list) - Fetches documents visibility.
-* [create](docs/sdks/visibilityoverrides/README.md#create) - Hide/Un-hide docs.
+* [list](docs/sdks/visibilityoverrides/README.md#list) - Fetches documents visibility
+* [create](docs/sdks/visibilityoverrides/README.md#create) - Hide or unhide docs
 
 #### [client.insights](docs/sdks/insights/README.md)
 

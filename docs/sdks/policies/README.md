@@ -5,11 +5,11 @@
 
 ### Available Operations
 
-* [retrieve](#retrieve) - Gets specified Policy.
-* [update](#update) - Updates an existing policy.
-* [list](#list) - Lists policies.
-* [create](#create) - Creates new policy.
-* [download](#download) - Downloads violations CSV for policy.
+* [retrieve](#retrieve) - Gets specified policy
+* [update](#update) - Updates an existing policy
+* [list](#list) - Lists policies
+* [create](#create) - Creates new policy
+* [download](#download) - Downloads violations CSV for policy
 
 ## retrieve
 

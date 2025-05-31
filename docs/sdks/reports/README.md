@@ -5,9 +5,9 @@
 
 ### Available Operations
 
-* [create](#create) - Creates new one-time report.
-* [download](#download) - Downloads violations CSV for report.
-* [status](#status) - Fetches report run status.
+* [create](#create) - Creates new one-time report
+* [download](#download) - Downloads violations CSV for report
+* [status](#status) - Fetches report run status
 
 ## create
 

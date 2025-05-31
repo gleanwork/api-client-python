@@ -19,7 +19,7 @@ class Policies(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.GetDlpReportResponse:
-        r"""Gets specified Policy.
+        r"""Gets specified policy
 
         Fetches the specified policy version, or the latest if no version is provided.
 
@@ -71,6 +71,7 @@ class Policies(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getpolicy",
                 oauth2_scopes=[],
@@ -115,7 +116,7 @@ class Policies(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.GetDlpReportResponse:
-        r"""Gets specified Policy.
+        r"""Gets specified policy
 
         Fetches the specified policy version, or the latest if no version is provided.
 
@@ -167,6 +168,7 @@ class Policies(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getpolicy",
                 oauth2_scopes=[],
@@ -215,7 +217,7 @@ class Policies(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.UpdateDlpReportResponse:
-        r"""Updates an existing policy.
+        r"""Updates an existing policy
 
         Updates an existing policy.
 
@@ -284,6 +286,7 @@ class Policies(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="updatepolicy",
                 oauth2_scopes=[],
@@ -332,7 +335,7 @@ class Policies(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.UpdateDlpReportResponse:
-        r"""Updates an existing policy.
+        r"""Updates an existing policy
 
         Updates an existing policy.
 
@@ -401,6 +404,7 @@ class Policies(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="updatepolicy",
                 oauth2_scopes=[],
@@ -445,7 +449,7 @@ class Policies(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.ListDlpReportsResponse:
-        r"""Lists policies.
+        r"""Lists policies
 
         Lists policies with filtering.
 
@@ -497,6 +501,7 @@ class Policies(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="listpolicies",
                 oauth2_scopes=[],
@@ -541,7 +546,7 @@ class Policies(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.ListDlpReportsResponse:
-        r"""Lists policies.
+        r"""Lists policies
 
         Lists policies with filtering.
 
@@ -593,6 +598,7 @@ class Policies(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="listpolicies",
                 oauth2_scopes=[],
@@ -638,7 +644,7 @@ class Policies(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.CreateDlpReportResponse:
-        r"""Creates new policy.
+        r"""Creates new policy
 
         Creates a new policy with specified specifications and returns its id.
 
@@ -691,6 +697,7 @@ class Policies(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="createpolicy",
                 oauth2_scopes=[],
@@ -736,7 +743,7 @@ class Policies(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.CreateDlpReportResponse:
-        r"""Creates new policy.
+        r"""Creates new policy
 
         Creates a new policy with specified specifications and returns its id.
 
@@ -789,6 +796,7 @@ class Policies(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="createpolicy",
                 oauth2_scopes=[],
@@ -832,7 +840,7 @@ class Policies(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> str:
-        r"""Downloads violations CSV for policy.
+        r"""Downloads violations CSV for policy
 
         Downloads CSV violations report for a specific policy id. This does not support continuous policies.
 
@@ -882,6 +890,7 @@ class Policies(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="downloadpolicycsv",
                 oauth2_scopes=[],
@@ -925,7 +934,7 @@ class Policies(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> str:
-        r"""Downloads violations CSV for policy.
+        r"""Downloads violations CSV for policy
 
         Downloads CSV violations report for a specific policy id. This does not support continuous policies.
 
@@ -975,6 +984,7 @@ class Policies(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="downloadpolicycsv",
                 oauth2_scopes=[],

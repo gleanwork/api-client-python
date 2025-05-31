@@ -84,6 +84,7 @@ class People(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/api/index/v1/debug/{datasource}/user",
                 oauth2_scopes=[],
@@ -192,6 +193,7 @@ class People(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/api/index/v1/debug/{datasource}/user",
                 oauth2_scopes=[],
@@ -294,6 +296,7 @@ class People(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/api/index/v1/getusercount",
                 oauth2_scopes=[],
@@ -396,6 +399,7 @@ class People(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/api/index/v1/getusercount",
                 oauth2_scopes=[],
@@ -497,6 +501,7 @@ class People(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/api/index/v1/indexemployee",
                 oauth2_scopes=[],
@@ -598,6 +603,7 @@ class People(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/api/index/v1/indexemployee",
                 oauth2_scopes=[],
@@ -714,6 +720,7 @@ class People(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/api/index/v1/bulkindexemployees",
                 oauth2_scopes=[],
@@ -830,6 +837,7 @@ class People(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/api/index/v1/bulkindexemployees",
                 oauth2_scopes=[],
@@ -917,6 +925,7 @@ class People(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/api/index/v1/processallemployeesandteams",
                 oauth2_scopes=[],
@@ -1004,6 +1013,7 @@ class People(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/api/index/v1/processallemployeesandteams",
                 oauth2_scopes=[],
@@ -1103,6 +1113,7 @@ class People(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/api/index/v1/deleteemployee",
                 oauth2_scopes=[],
@@ -1202,6 +1213,7 @@ class People(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/api/index/v1/deleteemployee",
                 oauth2_scopes=[],
@@ -1301,6 +1313,7 @@ class People(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/api/index/v1/indexteam",
                 oauth2_scopes=[],
@@ -1400,6 +1413,7 @@ class People(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/api/index/v1/indexteam",
                 oauth2_scopes=[],
@@ -1496,6 +1510,7 @@ class People(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/api/index/v1/deleteteam",
                 oauth2_scopes=[],
@@ -1592,6 +1607,7 @@ class People(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/api/index/v1/deleteteam",
                 oauth2_scopes=[],
@@ -1702,6 +1718,7 @@ class People(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/api/index/v1/bulkindexteams",
                 oauth2_scopes=[],
@@ -1812,6 +1829,7 @@ class People(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/api/index/v1/bulkindexteams",
                 oauth2_scopes=[],

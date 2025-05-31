@@ -88,6 +88,7 @@ class IndexingPermissions(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/api/index/v1/updatepermissions",
                 oauth2_scopes=[],
@@ -201,6 +202,7 @@ class IndexingPermissions(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/api/index/v1/updatepermissions",
                 oauth2_scopes=[],
@@ -305,6 +307,7 @@ class IndexingPermissions(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/api/index/v1/indexuser",
                 oauth2_scopes=[],
@@ -409,6 +412,7 @@ class IndexingPermissions(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/api/index/v1/indexuser",
                 oauth2_scopes=[],
@@ -528,6 +532,7 @@ class IndexingPermissions(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/api/index/v1/bulkindexusers",
                 oauth2_scopes=[],
@@ -647,6 +652,7 @@ class IndexingPermissions(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/api/index/v1/bulkindexusers",
                 oauth2_scopes=[],
@@ -751,6 +757,7 @@ class IndexingPermissions(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/api/index/v1/indexgroup",
                 oauth2_scopes=[],
@@ -855,6 +862,7 @@ class IndexingPermissions(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/api/index/v1/indexgroup",
                 oauth2_scopes=[],
@@ -974,6 +982,7 @@ class IndexingPermissions(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/api/index/v1/bulkindexgroups",
                 oauth2_scopes=[],
@@ -1093,6 +1102,7 @@ class IndexingPermissions(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/api/index/v1/bulkindexgroups",
                 oauth2_scopes=[],
@@ -1200,6 +1210,7 @@ class IndexingPermissions(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/api/index/v1/indexmembership",
                 oauth2_scopes=[],
@@ -1307,6 +1318,7 @@ class IndexingPermissions(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/api/index/v1/indexmembership",
                 oauth2_scopes=[],
@@ -1426,6 +1438,7 @@ class IndexingPermissions(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/api/index/v1/bulkindexmemberships",
                 oauth2_scopes=[],
@@ -1545,6 +1558,7 @@ class IndexingPermissions(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/api/index/v1/bulkindexmemberships",
                 oauth2_scopes=[],
@@ -1653,6 +1667,7 @@ class IndexingPermissions(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/api/index/v1/processallmemberships",
                 oauth2_scopes=[],
@@ -1761,6 +1776,7 @@ class IndexingPermissions(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/api/index/v1/processallmemberships",
                 oauth2_scopes=[],
@@ -1863,6 +1879,7 @@ class IndexingPermissions(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/api/index/v1/deleteuser",
                 oauth2_scopes=[],
@@ -1965,6 +1982,7 @@ class IndexingPermissions(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/api/index/v1/deleteuser",
                 oauth2_scopes=[],
@@ -2067,6 +2085,7 @@ class IndexingPermissions(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/api/index/v1/deletegroup",
                 oauth2_scopes=[],
@@ -2169,6 +2188,7 @@ class IndexingPermissions(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/api/index/v1/deletegroup",
                 oauth2_scopes=[],
@@ -2276,6 +2296,7 @@ class IndexingPermissions(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/api/index/v1/deletemembership",
                 oauth2_scopes=[],
@@ -2383,6 +2404,7 @@ class IndexingPermissions(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/api/index/v1/deletemembership",
                 oauth2_scopes=[],
@@ -2482,6 +2504,7 @@ class IndexingPermissions(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/api/index/v1/betausers",
                 oauth2_scopes=[],
@@ -2581,6 +2604,7 @@ class IndexingPermissions(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post_/api/index/v1/betausers",
                 oauth2_scopes=[],

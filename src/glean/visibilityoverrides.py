@@ -18,7 +18,7 @@ class Visibilityoverrides(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.GetDocumentVisibilityOverridesResponse:
-        r"""Fetches documents visibility.
+        r"""Fetches documents visibility
 
         Fetches the visibility override status of the documents passed.
 
@@ -68,6 +68,7 @@ class Visibilityoverrides(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getdocvisibility",
                 oauth2_scopes=[],
@@ -113,7 +114,7 @@ class Visibilityoverrides(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.GetDocumentVisibilityOverridesResponse:
-        r"""Fetches documents visibility.
+        r"""Fetches documents visibility
 
         Fetches the visibility override status of the documents passed.
 
@@ -163,6 +164,7 @@ class Visibilityoverrides(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getdocvisibility",
                 oauth2_scopes=[],
@@ -211,7 +213,7 @@ class Visibilityoverrides(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.UpdateDocumentVisibilityOverridesResponse:
-        r"""Hide/Un-hide docs.
+        r"""Hide or unhide docs
 
         Sets the visibility-override state of the documents specified, effectively hiding or un-hiding documents.
 
@@ -270,6 +272,7 @@ class Visibilityoverrides(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="setdocvisibility",
                 oauth2_scopes=[],
@@ -318,7 +321,7 @@ class Visibilityoverrides(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.UpdateDocumentVisibilityOverridesResponse:
-        r"""Hide/Un-hide docs.
+        r"""Hide or unhide docs
 
         Sets the visibility-override state of the documents specified, effectively hiding or un-hiding documents.
 
@@ -377,6 +380,7 @@ class Visibilityoverrides(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="setdocvisibility",
                 oauth2_scopes=[],

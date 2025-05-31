@@ -73,6 +73,7 @@ class Pins(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="editpin",
                 oauth2_scopes=[],
@@ -171,6 +172,7 @@ class Pins(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="editpin",
                 oauth2_scopes=[],
@@ -269,6 +271,7 @@ class Pins(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getpin",
                 oauth2_scopes=[],
@@ -367,6 +370,7 @@ class Pins(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getpin",
                 oauth2_scopes=[],
@@ -465,6 +469,7 @@ class Pins(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="listpins",
                 oauth2_scopes=[],
@@ -563,6 +568,7 @@ class Pins(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="listpins",
                 oauth2_scopes=[],
@@ -661,6 +667,7 @@ class Pins(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="pin",
                 oauth2_scopes=[],
@@ -759,6 +766,7 @@ class Pins(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="pin",
                 oauth2_scopes=[],
@@ -855,6 +863,7 @@ class Pins(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="unpin",
                 oauth2_scopes=[],
@@ -951,6 +960,7 @@ class Pins(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="unpin",
                 oauth2_scopes=[],

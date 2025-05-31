@@ -82,6 +82,7 @@ class Collections(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="addcollectionitems",
                 oauth2_scopes=[],
@@ -191,6 +192,7 @@ class Collections(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="addcollectionitems",
                 oauth2_scopes=[],
@@ -337,6 +339,7 @@ class Collections(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="createcollection",
                 oauth2_scopes=[],
@@ -487,6 +490,7 @@ class Collections(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="createcollection",
                 oauth2_scopes=[],
@@ -592,6 +596,7 @@ class Collections(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="deletecollection",
                 oauth2_scopes=[],
@@ -697,6 +702,7 @@ class Collections(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="deletecollection",
                 oauth2_scopes=[],
@@ -805,6 +811,7 @@ class Collections(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="deletecollectionitem",
                 oauth2_scopes=[],
@@ -909,6 +916,7 @@ class Collections(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="deletecollectionitem",
                 oauth2_scopes=[],
@@ -1055,6 +1063,7 @@ class Collections(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="editcollection",
                 oauth2_scopes=[],
@@ -1205,6 +1214,7 @@ class Collections(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="editcollection",
                 oauth2_scopes=[],
@@ -1319,6 +1329,7 @@ class Collections(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="editcollectionitem",
                 oauth2_scopes=[],
@@ -1429,6 +1440,7 @@ class Collections(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="editcollectionitem",
                 oauth2_scopes=[],
@@ -1536,6 +1548,7 @@ class Collections(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getcollection",
                 oauth2_scopes=[],
@@ -1641,6 +1654,7 @@ class Collections(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getcollection",
                 oauth2_scopes=[],
@@ -1739,6 +1753,7 @@ class Collections(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="listcollections",
                 oauth2_scopes=[],
@@ -1837,6 +1852,7 @@ class Collections(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="listcollections",
                 oauth2_scopes=[],

@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 3e3290ca-0ee8-4981-b1bc-14536048fa63
 management:
-  docChecksum: 494200b2b5ce073b7458b5d6a0507b42
+  docChecksum: d35fba7b1f9b2598dbc20b6520739922
   docVersion: 0.9.0
-  speakeasyVersion: 1.551.0
-  generationVersion: 2.610.0
-  releaseVersion: 0.5.2
-  configChecksum: 6a95613bf15bc0a00a38f7c157809ca4
+  speakeasyVersion: 1.554.1
+  generationVersion: 2.616.1
+  releaseVersion: 0.6.0
+  configChecksum: c7afa60383cf11a8f5ad959fc0e8e872
   repoURL: https://github.com/gleanwork/api-client-python.git
   installationURL: https://github.com/gleanwork/api-client-python.git
   published: true
@@ -15,7 +15,7 @@ features:
     additionalDependencies: 1.0.0
     additionalProperties: 1.0.1
     constsAndDefaults: 1.0.5
-    core: 5.19.0
+    core: 5.19.1
     defaultEnabledRetries: 0.2.0
     deprecations: 3.0.2
     devContainers: 3.0.0
@@ -35,7 +35,7 @@ features:
     nameOverrides: 3.0.1
     responseFormat: 1.0.1
     retries: 3.0.2
-    sdkHooks: 1.0.1
+    sdkHooks: 1.1.0
     tests: 1.17.0
     unions: 3.0.4
     uploadStreams: 1.0.0
@@ -617,12 +617,9 @@ generatedFiles:
   - docs/sdks/clientshortcuts/README.md
   - docs/sdks/clientverification/README.md
   - docs/sdks/collections/README.md
-  - docs/sdks/data/README.md
   - docs/sdks/datasources/README.md
   - docs/sdks/entities/README.md
   - docs/sdks/glean/README.md
-  - docs/sdks/governance/README.md
-  - docs/sdks/governancedocuments/README.md
   - docs/sdks/indexing/README.md
   - docs/sdks/indexingauthentication/README.md
   - docs/sdks/indexingdatasource/README.md

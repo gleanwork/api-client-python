@@ -71,6 +71,7 @@ class Answers(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="createanswer",
                 oauth2_scopes=[],
@@ -167,6 +168,7 @@ class Answers(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="createanswer",
                 oauth2_scopes=[],
@@ -266,6 +268,7 @@ class Answers(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="deleteanswer",
                 oauth2_scopes=[],
@@ -365,6 +368,7 @@ class Answers(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="deleteanswer",
                 oauth2_scopes=[],
@@ -539,6 +543,7 @@ class Answers(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="editanswer",
                 oauth2_scopes=[],
@@ -713,6 +718,7 @@ class Answers(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="editanswer",
                 oauth2_scopes=[],
@@ -811,6 +817,7 @@ class Answers(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getanswer",
                 oauth2_scopes=[],
@@ -909,6 +916,7 @@ class Answers(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getanswer",
                 oauth2_scopes=[],
@@ -1007,6 +1015,7 @@ class Answers(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="listanswers",
                 oauth2_scopes=[],
@@ -1105,6 +1114,7 @@ class Answers(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="listanswers",
                 oauth2_scopes=[],

@@ -20,7 +20,7 @@ class Reports(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.UpdateDlpConfigResponse:
-        r"""Creates new one-time report.
+        r"""Creates new one-time report
 
         Creates a new one-time report and executes its batch job.
 
@@ -73,6 +73,7 @@ class Reports(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="createreport",
                 oauth2_scopes=[],
@@ -118,7 +119,7 @@ class Reports(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.UpdateDlpConfigResponse:
-        r"""Creates new one-time report.
+        r"""Creates new one-time report
 
         Creates a new one-time report and executes its batch job.
 
@@ -171,6 +172,7 @@ class Reports(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="createreport",
                 oauth2_scopes=[],
@@ -214,7 +216,7 @@ class Reports(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> str:
-        r"""Downloads violations CSV for report.
+        r"""Downloads violations CSV for report
 
         Downloads CSV violations report for a specific report id.
 
@@ -264,6 +266,7 @@ class Reports(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="downloadreportcsv",
                 oauth2_scopes=[],
@@ -307,7 +310,7 @@ class Reports(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> str:
-        r"""Downloads violations CSV for report.
+        r"""Downloads violations CSV for report
 
         Downloads CSV violations report for a specific report id.
 
@@ -357,6 +360,7 @@ class Reports(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="downloadreportcsv",
                 oauth2_scopes=[],
@@ -400,7 +404,7 @@ class Reports(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.ReportStatusResponse:
-        r"""Fetches report run status.
+        r"""Fetches report run status
 
         Fetches the status of the run corresponding to the report-id.
 
@@ -450,6 +454,7 @@ class Reports(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getreportstatus",
                 oauth2_scopes=[],
@@ -493,7 +498,7 @@ class Reports(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.ReportStatusResponse:
-        r"""Fetches report run status.
+        r"""Fetches report run status
 
         Fetches the status of the run corresponding to the report-id.
 
@@ -543,6 +548,7 @@ class Reports(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getreportstatus",
                 oauth2_scopes=[],
