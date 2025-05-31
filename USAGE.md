@@ -1,7 +1,7 @@
 <!-- Start SDK Example Usage [usage] -->
 ```python
 # Synchronous Example
-from glean import Glean, models
+from glean.api_client import Glean, models
 import os
 
 
@@ -29,7 +29,7 @@ The same SDK client can also be used to make asychronous requests by importing a
 ```python
 # Asynchronous Example
 import asyncio
-from glean import Glean, models
+from glean.api_client import Glean, models
 import os
 
 async def main():
@@ -56,7 +56,7 @@ asyncio.run(main())
 
 ```python
 # Synchronous Example
-from glean import Glean, models
+from glean.api_client import Glean, models
 import os
 
 
@@ -84,7 +84,7 @@ The same SDK client can also be used to make asychronous requests by importing a
 ```python
 # Asynchronous Example
 import asyncio
-from glean import Glean, models
+from glean.api_client import Glean, models
 import os
 
 async def main():

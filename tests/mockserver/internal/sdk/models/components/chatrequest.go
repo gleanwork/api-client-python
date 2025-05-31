@@ -14,7 +14,8 @@ type ChatRequest struct {
 	Inclusions  *ChatRestrictionFilters `json:"inclusions,omitempty"`
 	Exclusions  *ChatRestrictionFilters `json:"exclusions,omitempty"`
 	// Timeout in milliseconds for the request. A `408` error will be returned if handling the request takes longer.
-	TimeoutMillis *int64 `json:"timeoutMillis,omitempty"`
+	TimeoutMillis *int64       `json:"timeoutMillis,omitempty"`
+	SessionInfo   *SessionInfo `json:"sessionInfo,omitempty"`
 	// The ID of the application this request originates from, used to determine the configuration of underlying chat processes. This should correspond to the ID set during admin setup. If not specified, the default chat experience will be used.
 	ApplicationID *string `json:"applicationId,omitempty"`
 	// If set, response lines will be streamed one-by-one as they become available. Each will be a ChatResponse, formatted as JSON, and separated by a new line. If false, the entire response will be returned at once. Note that if this is set and the model being used does not support streaming, the model's response will not be streamed, but other messages from the endpoint still will be.
@@ -68,6 +69,13 @@ func (o *ChatRequest) GetTimeoutMillis() *int64 {
 		return nil
 	}
 	return o.TimeoutMillis
+}
+
+func (o *ChatRequest) GetSessionInfo() *SessionInfo {
+	if o == nil {
+		return nil
+	}
+	return o.SessionInfo
 }
 
 func (o *ChatRequest) GetApplicationID() *string {

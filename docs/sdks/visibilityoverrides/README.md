@@ -5,8 +5,8 @@
 
 ### Available Operations
 
-* [list](#list) - Fetches documents visibility.
-* [create](#create) - Hide/Un-hide docs.
+* [list](#list) - Fetches documents visibility
+* [create](#create) - Hide or unhide docs
 
 ## list
 
@@ -15,7 +15,7 @@ Fetches the visibility override status of the documents passed.
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean.api_client import Glean
 import os
 
 
@@ -54,7 +54,7 @@ Sets the visibility-override state of the documents specified, effectively hidin
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean.api_client import Glean
 import os
 
 

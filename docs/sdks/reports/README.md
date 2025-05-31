@@ -5,9 +5,9 @@
 
 ### Available Operations
 
-* [create](#create) - Creates new one-time report.
-* [download](#download) - Downloads violations CSV for report.
-* [status](#status) - Fetches report run status.
+* [create](#create) - Creates new one-time report
+* [download](#download) - Downloads violations CSV for report
+* [status](#status) - Fetches report run status
 
 ## create
 
@@ -16,7 +16,7 @@ Creates a new one-time report and executes its batch job.
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean.api_client import Glean
 import os
 
 
@@ -55,7 +55,7 @@ Downloads CSV violations report for a specific report id.
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean.api_client import Glean
 import os
 
 
@@ -94,7 +94,7 @@ Fetches the status of the run corresponding to the report-id.
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean.api_client import Glean
 import os
 
 

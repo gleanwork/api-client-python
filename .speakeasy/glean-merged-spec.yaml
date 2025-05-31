@@ -2,8 +2,6 @@ openapi: 3.0.0
 info:
     version: 0.9.0
     title: Glean API
-    contact:
-        email: support@glean.com
     description: |
         # Introduction
         In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This is useful, for example, for doing permissions-aware search over content in internal tools that reside on-prem as well as for searching over applications that Glean does not currently support first class. In addition these APIs allow the customer to push organization data (people info, organization structure etc) into Glean.
@@ -23,7 +21,7 @@ info:
         These API clients provide type-safe, idiomatic interfaces for working with Glean IndexingAPIs in your language of choice.
     x-logo:
         url: https://app.glean.com/images/glean-text2.svg
-    x-speakeasy-name: "Glean API"
+    x-speakeasy-name: 'Glean API'
 servers:
     - url: https://{instance}-be.glean.com
       variables:
@@ -414,7 +412,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: "#/components/schemas/ChatResponse"
+                                $ref: '#/components/schemas/ChatResponse'
                             examples:
                                 defaultExample:
                                     value:
@@ -477,10 +475,10 @@ paths:
                                                 agent: DEFAULT
                                                 mode: DEFAULT
                                               fragments:
-                                                - text: "**Reading:**"
+                                                - text: '**Reading:**'
                                                 - structuredResults:
                                                     - document:
-                                                        id: "123"
+                                                        id: '123'
                                                         title: Company Handbook
                                 citationResponse:
                                     value:
@@ -492,7 +490,7 @@ paths:
                                                 mode: DEFAULT
                                               citations:
                                                 - sourceDocument:
-                                                    id: "123"
+                                                    id: '123'
                                                     title: Company Handbook
                                                     referenceRanges:
                                                         - textRange:
@@ -3179,7 +3177,7 @@ paths:
     /rest/api/v1/governance/data/policies/{id}:
         get:
             description: Fetches the specified policy version, or the latest if no version is provided.
-            summary: Gets specified Policy.
+            summary: Gets specified policy
             operationId: getpolicy
             x-visibility: Public
             tags:
@@ -3213,7 +3211,7 @@ paths:
             x-speakeasy-name-override: retrieve
         post:
             description: Updates an existing policy.
-            summary: Updates an existing policy.
+            summary: Updates an existing policy
             operationId: updatepolicy
             tags:
                 - Governance
@@ -3246,7 +3244,7 @@ paths:
     /rest/api/v1/governance/data/policies:
         get:
             description: Lists policies with filtering.
-            summary: Lists policies.
+            summary: Lists policies
             operationId: listpolicies
             x-visibility: Public
             tags:
@@ -3279,7 +3277,7 @@ paths:
             x-speakeasy-name-override: list
         post:
             description: Creates a new policy with specified specifications and returns its id.
-            summary: Creates new policy.
+            summary: Creates new policy
             operationId: createpolicy
             x-visibility: Public
             tags:
@@ -3306,7 +3304,7 @@ paths:
     /rest/api/v1/governance/data/policies/{id}/download:
         get:
             description: Downloads CSV violations report for a specific policy id. This does not support continuous policies.
-            summary: Downloads violations CSV for policy.
+            summary: Downloads violations CSV for policy
             operationId: downloadpolicycsv
             x-visibility: Public
             tags:
@@ -3335,7 +3333,7 @@ paths:
     /rest/api/v1/governance/data/reports:
         post:
             description: Creates a new one-time report and executes its batch job.
-            summary: Creates new one-time report.
+            summary: Creates new one-time report
             operationId: createreport
             x-visibility: Public
             tags:
@@ -3362,7 +3360,7 @@ paths:
     /rest/api/v1/governance/data/reports/{id}/download:
         get:
             description: Downloads CSV violations report for a specific report id.
-            summary: Downloads violations CSV for report.
+            summary: Downloads violations CSV for report
             operationId: downloadreportcsv
             x-visibility: Public
             tags:
@@ -3391,7 +3389,7 @@ paths:
     /rest/api/v1/governance/data/reports/{id}/status:
         get:
             description: Fetches the status of the run corresponding to the report-id.
-            summary: Fetches report run status.
+            summary: Fetches report run status
             operationId: getreportstatus
             x-visibility: Public
             tags:
@@ -3419,7 +3417,7 @@ paths:
     /rest/api/v1/governance/documents/visibilityoverrides:
         get:
             description: Fetches the visibility override status of the documents passed.
-            summary: Fetches documents visibility.
+            summary: Fetches documents visibility
             operationId: getdocvisibility
             x-visibility: Public
             tags:
@@ -3447,7 +3445,7 @@ paths:
             x-speakeasy-name-override: list
         post:
             description: Sets the visibility-override state of the documents specified, effectively hiding or un-hiding documents.
-            summary: Hide/Un-hide docs.
+            summary: Hide or unhide docs
             operationId: setdocvisibility
             x-visibility: Public
             tags:
@@ -7244,6 +7242,9 @@ components:
                     type: integer
                     description: Timeout in milliseconds for the request. A `408` error will be returned if handling the request takes longer.
                     example: 30000
+                sessionInfo:
+                    description: Optional object for tracking the session used by the client and for debugging purposes.
+                    $ref: "#/components/schemas/SessionInfo"
                 applicationId:
                     type: string
                     description: The ID of the application this request originates from, used to determine the configuration of underlying chat processes. This should correspond to the ID set during admin setup. If not specified, the default chat experience will be used.

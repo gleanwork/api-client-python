@@ -17,7 +17,7 @@ Read the emails of all users who have access to the given document.
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean.api_client import Glean
 import os
 
 
@@ -56,7 +56,7 @@ Read the documents including metadata (does not include enhanced metadata via `/
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean.api_client import Glean
 import os
 
 
@@ -95,7 +95,7 @@ Read the documents including metadata (does not include enhanced metadata via `/
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean.api_client import Glean, models
 import os
 
 
@@ -171,7 +171,7 @@ Generate an AI summary of the requested documents.
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean.api_client import Glean
 import os
 
 
