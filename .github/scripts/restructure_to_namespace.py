@@ -29,10 +29,6 @@ class GleanRestructure:
             with open(file_path, "r", encoding="utf-8") as f:
                 content = f.read()
 
-            # Skip if already contains api_client
-            if "api_client" in content:
-                return False
-
             original_content = content
 
             # Apply the actual import transformations
@@ -242,13 +238,6 @@ class GleanRestructure:
             if api_client_dir.exists():
                 shutil.rmtree(api_client_dir)
                 print(f"Removed {api_client_dir}")
-
-        elif api_client_dir.exists() and any(api_client_dir.iterdir()):
-            print("✅ Already restructured - api_client/ exists and contains files")
-            print(
-                "If you want to force re-restructuring, delete src/glean/api_client/ first"
-            )
-            return
 
         print("Starting restructure...")
         print(f"Project root: {self.project_root}")
