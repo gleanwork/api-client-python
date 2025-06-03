@@ -18,7 +18,7 @@ Update an existing user-generated pin.
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean.api_client import Glean, models
 import os
 
 
@@ -73,7 +73,7 @@ Read pin details given its ID.
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean.api_client import Glean
 import os
 
 
@@ -112,7 +112,7 @@ Lists all pins.
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean.api_client import Glean
 import os
 
 
@@ -151,7 +151,7 @@ Pin a document as a result for a given search query.Pin results that are known t
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean.api_client import Glean, models
 import os
 
 
@@ -206,7 +206,7 @@ Unpin a previously pinned result.
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean.api_client import Glean
 import os
 
 

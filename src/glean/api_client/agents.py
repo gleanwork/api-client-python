@@ -5,7 +5,7 @@ from glean.api_client import errors, models, utils
 from glean.api_client._hooks import HookContext
 from glean.api_client.types import BaseModel, OptionalNullable, UNSET
 from glean.api_client.utils import get_security_from_env
-from typing import Mapping, Optional, Union, cast
+from typing import Any, Dict, List, Mapping, Optional, Union, cast
 
 
 class Agents(BaseSDK):
@@ -598,9 +598,11 @@ class Agents(BaseSDK):
     def run_stream(
         self,
         *,
-        request: Union[
-            models.AgentRunCreate, models.AgentRunCreateTypedDict
-        ] = models.AgentRunCreate(),
+        agent_id: str,
+        input_: Optional[Dict[str, Any]] = None,
+        messages: Optional[
+            Union[List[models.Message], List[models.MessageTypedDict]]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -610,7 +612,9 @@ class Agents(BaseSDK):
 
         Creates and triggers a run of an agent. Streams the output in SSE format. This endpoint implements the LangChain Agent Protocol, specifically part of the Runs stage (https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/POST/runs/stream). It adheres to the standard contract defined for agent interoperability and can be used by agent runtimes that support the Agent Protocol. Note that running agents that reference third party platform write actions is unsupported as it requires user confirmation.
 
-        :param request: The request object to send.
+        :param agent_id: The ID of the agent to run.
+        :param input: The input to the agent.
+        :param messages: The messages to pass an input to the agent.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -626,9 +630,11 @@ class Agents(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.AgentRunCreate)
-        request = cast(models.AgentRunCreate, request)
+        request = models.AgentRunCreate(
+            agent_id=agent_id,
+            input=input_,
+            messages=utils.get_pydantic_model(messages, Optional[List[models.Message]]),
+        )
 
         req = self._build_request(
             method="POST",
@@ -644,7 +650,7 @@ class Agents(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.AgentRunCreate]
+                request, False, False, "json", models.AgentRunCreate
             ),
             timeout_ms=timeout_ms,
         )
@@ -699,9 +705,11 @@ class Agents(BaseSDK):
     async def run_stream_async(
         self,
         *,
-        request: Union[
-            models.AgentRunCreate, models.AgentRunCreateTypedDict
-        ] = models.AgentRunCreate(),
+        agent_id: str,
+        input_: Optional[Dict[str, Any]] = None,
+        messages: Optional[
+            Union[List[models.Message], List[models.MessageTypedDict]]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -711,7 +719,9 @@ class Agents(BaseSDK):
 
         Creates and triggers a run of an agent. Streams the output in SSE format. This endpoint implements the LangChain Agent Protocol, specifically part of the Runs stage (https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/POST/runs/stream). It adheres to the standard contract defined for agent interoperability and can be used by agent runtimes that support the Agent Protocol. Note that running agents that reference third party platform write actions is unsupported as it requires user confirmation.
 
-        :param request: The request object to send.
+        :param agent_id: The ID of the agent to run.
+        :param input: The input to the agent.
+        :param messages: The messages to pass an input to the agent.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -727,9 +737,11 @@ class Agents(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.AgentRunCreate)
-        request = cast(models.AgentRunCreate, request)
+        request = models.AgentRunCreate(
+            agent_id=agent_id,
+            input=input_,
+            messages=utils.get_pydantic_model(messages, Optional[List[models.Message]]),
+        )
 
         req = self._build_request_async(
             method="POST",
@@ -745,7 +757,7 @@ class Agents(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.AgentRunCreate]
+                request, False, False, "json", models.AgentRunCreate
             ),
             timeout_ms=timeout_ms,
         )
@@ -800,9 +812,11 @@ class Agents(BaseSDK):
     def run(
         self,
         *,
-        request: Union[
-            models.AgentRunCreate, models.AgentRunCreateTypedDict
-        ] = models.AgentRunCreate(),
+        agent_id: str,
+        input_: Optional[Dict[str, Any]] = None,
+        messages: Optional[
+            Union[List[models.Message], List[models.MessageTypedDict]]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -812,7 +826,9 @@ class Agents(BaseSDK):
 
         Creates and triggers a run of an agent. Waits for final output and then returns it. This endpoint implements the LangChain Agent Protocol, specifically part of the Runs stage (https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/POST/runs/wait). It adheres to the standard contract defined for agent interoperability and can be used by agent runtimes that support the Agent Protocol. Note that running agents that reference third party platform write actions is unsupported as it requires user confirmation.
 
-        :param request: The request object to send.
+        :param agent_id: The ID of the agent to run.
+        :param input: The input to the agent.
+        :param messages: The messages to pass an input to the agent.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -828,9 +844,11 @@ class Agents(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.AgentRunCreate)
-        request = cast(models.AgentRunCreate, request)
+        request = models.AgentRunCreate(
+            agent_id=agent_id,
+            input=input_,
+            messages=utils.get_pydantic_model(messages, Optional[List[models.Message]]),
+        )
 
         req = self._build_request(
             method="POST",
@@ -846,7 +864,7 @@ class Agents(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.AgentRunCreate]
+                request, False, False, "json", models.AgentRunCreate
             ),
             timeout_ms=timeout_ms,
         )
@@ -901,9 +919,11 @@ class Agents(BaseSDK):
     async def run_async(
         self,
         *,
-        request: Union[
-            models.AgentRunCreate, models.AgentRunCreateTypedDict
-        ] = models.AgentRunCreate(),
+        agent_id: str,
+        input_: Optional[Dict[str, Any]] = None,
+        messages: Optional[
+            Union[List[models.Message], List[models.MessageTypedDict]]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -913,7 +933,9 @@ class Agents(BaseSDK):
 
         Creates and triggers a run of an agent. Waits for final output and then returns it. This endpoint implements the LangChain Agent Protocol, specifically part of the Runs stage (https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/POST/runs/wait). It adheres to the standard contract defined for agent interoperability and can be used by agent runtimes that support the Agent Protocol. Note that running agents that reference third party platform write actions is unsupported as it requires user confirmation.
 
-        :param request: The request object to send.
+        :param agent_id: The ID of the agent to run.
+        :param input: The input to the agent.
+        :param messages: The messages to pass an input to the agent.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -929,9 +951,11 @@ class Agents(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.AgentRunCreate)
-        request = cast(models.AgentRunCreate, request)
+        request = models.AgentRunCreate(
+            agent_id=agent_id,
+            input=input_,
+            messages=utils.get_pydantic_model(messages, Optional[List[models.Message]]),
+        )
 
         req = self._build_request_async(
             method="POST",
@@ -947,7 +971,7 @@ class Agents(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.AgentRunCreate]
+                request, False, False, "json", models.AgentRunCreate
             ),
             timeout_ms=timeout_ms,
         )

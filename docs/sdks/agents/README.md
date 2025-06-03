@@ -18,7 +18,7 @@ Get an agent by ID. This endpoint implements the LangChain Agent Protocol, speci
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean.api_client import Glean
 import os
 
 
@@ -58,7 +58,7 @@ Get an agent's schemas by ID. This endpoint implements the LangChain Agent Proto
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean.api_client import Glean
 import os
 
 
@@ -98,7 +98,7 @@ List Agents available in this service. This endpoint implements the LangChain Ag
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean.api_client import Glean
 import os
 
 
@@ -137,7 +137,7 @@ Creates and triggers a run of an agent. Streams the output in SSE format. This e
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean.api_client import Glean
 import os
 
 
@@ -178,7 +178,7 @@ Creates and triggers a run of an agent. Waits for final output and then returns 
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean.api_client import Glean
 import os
 
 
