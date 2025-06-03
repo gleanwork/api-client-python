@@ -7511,6 +7511,8 @@ components:
         AgentRunCreate:
             description: Payload for creating a run.
             type: object
+            required:
+                - agent_id
             properties:
                 agent_id:
                     type: string

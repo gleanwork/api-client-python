@@ -145,7 +145,7 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
-    res = g_client.client.agents.run_stream()
+    res = g_client.client.agents.run_stream(agent_id="<id>")
 
     # Handle response
     print(res)
@@ -156,7 +156,9 @@ with Glean(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `request`                                                           | [models.AgentRunCreate](../../models/agentruncreate.md)             | :heavy_check_mark:                                                  | The request object to use for the request.                          |
+| `agent_id`                                                          | *str*                                                               | :heavy_check_mark:                                                  | The ID of the agent to run.                                         |
+| `input`                                                             | Dict[str, *Any*]                                                    | :heavy_minus_sign:                                                  | The input to the agent.                                             |
+| `messages`                                                          | List[[models.Message](../../models/message.md)]                     | :heavy_minus_sign:                                                  | The messages to pass an input to the agent.                         |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
@@ -184,7 +186,7 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
-    res = g_client.client.agents.run()
+    res = g_client.client.agents.run(agent_id="<id>")
 
     # Handle response
     print(res)
@@ -195,7 +197,9 @@ with Glean(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `request`                                                           | [models.AgentRunCreate](../../models/agentruncreate.md)             | :heavy_check_mark:                                                  | The request object to use for the request.                          |
+| `agent_id`                                                          | *str*                                                               | :heavy_check_mark:                                                  | The ID of the agent to run.                                         |
+| `input`                                                             | Dict[str, *Any*]                                                    | :heavy_minus_sign:                                                  | The input to the agent.                                             |
+| `messages`                                                          | List[[models.Message](../../models/message.md)]                     | :heavy_minus_sign:                                                  | The messages to pass an input to the agent.                         |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response

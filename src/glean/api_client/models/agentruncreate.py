@@ -10,7 +10,7 @@ from typing_extensions import NotRequired, TypedDict
 class AgentRunCreateTypedDict(TypedDict):
     r"""Payload for creating a run."""
 
-    agent_id: NotRequired[str]
+    agent_id: str
     r"""The ID of the agent to run."""
     input: NotRequired[Dict[str, Any]]
     r"""The input to the agent."""
@@ -21,7 +21,7 @@ class AgentRunCreateTypedDict(TypedDict):
 class AgentRunCreate(BaseModel):
     r"""Payload for creating a run."""
 
-    agent_id: Optional[str] = None
+    agent_id: str
     r"""The ID of the agent to run."""
 
     input: Optional[Dict[str, Any]] = None

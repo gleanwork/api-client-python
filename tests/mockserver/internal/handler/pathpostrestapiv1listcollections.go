@@ -213,32 +213,16 @@ func testListcollectionsListcollections0(w http.ResponseWriter, req *http.Reques
 															Metadata: &components.VerificationMetadata{
 																Reminders: []components.Reminder{
 																	components.Reminder{
-																		Assignee: components.Person{
-																			Name:         "George Clooney",
-																			ObfuscatedID: "abc123",
-																		},
 																		RemindAt: 777245,
 																	},
 																	components.Reminder{
-																		Assignee: components.Person{
-																			Name:         "George Clooney",
-																			ObfuscatedID: "abc123",
-																		},
 																		RemindAt: 141764,
 																	},
 																	components.Reminder{
-																		Assignee: components.Person{
-																			Name:         "George Clooney",
-																			ObfuscatedID: "abc123",
-																		},
 																		RemindAt: 664080,
 																	},
 																},
 																LastReminder: &components.Reminder{
-																	Assignee: components.Person{
-																		Name:         "George Clooney",
-																		ObfuscatedID: "abc123",
-																	},
 																	RemindAt: 284580,
 																},
 															},
@@ -271,10 +255,6 @@ func testListcollectionsListcollections0(w http.ResponseWriter, req *http.Reques
 															State: components.StateUnverified,
 															Metadata: &components.VerificationMetadata{
 																LastReminder: &components.Reminder{
-																	Assignee: components.Person{
-																		Name:         "George Clooney",
-																		ObfuscatedID: "abc123",
-																	},
 																	RemindAt: 60868,
 																},
 															},
