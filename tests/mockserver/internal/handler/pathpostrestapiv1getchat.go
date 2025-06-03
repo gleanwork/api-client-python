@@ -1058,16 +1058,10 @@ func testGetchatGetchat0(w http.ResponseWriter, req *http.Request) {
 											Description:    types.String("however generally ew ha sonar usually slow guacamole"),
 											Unlisted:       types.Bool(false),
 											URLTemplate:    types.String("<value>"),
-											CreatedBy: &components.Person{
-												Name:         "<value>",
-												ObfuscatedID: "<id>",
-											},
-											CreateTime: types.MustNewTimeFromString("345296"),
-											UpdatedBy: &components.Person{
-												Name:         "<value>",
-												ObfuscatedID: "<id>",
-											},
-											UpdateTime: types.MustNewTimeFromString("68379"),
+											CreatedBy:      &components.Person{},
+											CreateTime:     types.MustNewTimeFromString("345296"),
+											UpdatedBy:      &components.Person{},
+											UpdateTime:     types.MustNewTimeFromString("68379"),
 										},
 										QuerySuggestions: &components.QuerySuggestionList{
 											Suggestions: []components.QuerySuggestion{},

@@ -15,7 +15,7 @@ Add or update a custom datasource and its schema.
 ### Example Usage
 
 ```python
-from glean.api_client import Glean, models
+from glean import Glean, models
 import os
 
 
@@ -23,7 +23,7 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
-    g_client.indexing.datasources.add(name="<value>", url_regex="https://example-company.datasource.com/.*", quicklinks=[
+    g_client.indexing.datasources.add(name="<value>", datasource_category=models.DatasourceCategory.UNCATEGORIZED, url_regex="https://example-company.datasource.com/.*", quicklinks=[
         {
             "icon_config": {
                 "color": "#343CED",
@@ -32,7 +32,7 @@ with Glean(
                 "name": "user",
             },
         },
-    ])
+    ], trust_url_regex_for_view_activity=True, strip_fragment_in_canonical_url=True, is_entity_datasource=False, is_test_datasource=False)
 
     # Use the SDK ...
 
@@ -84,7 +84,7 @@ Fetches the datasource config for the specified custom datasource.
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 

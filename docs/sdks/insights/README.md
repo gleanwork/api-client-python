@@ -14,7 +14,7 @@ Reads the aggregate information for each user, query, and content.
 ### Example Usage
 
 ```python
-from glean.api_client import Glean, models
+from glean import Glean, models
 import os
 
 

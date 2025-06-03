@@ -18,8 +18,8 @@ Retrieves results for search query without respect for permissions. This is avai
 ### Example Usage
 
 ```python
-from glean.api_client import Glean, models
-from glean.api_client.utils import parse_datetime
+from glean import Glean, models
+from glean.utils import parse_datetime
 import os
 
 
@@ -29,30 +29,74 @@ with Glean(
 
     res = g_client.client.search.query_as_admin(query="vacation policy", tracking_token="trackingToken", source_document=models.Document(
         container_document=models.Document(
-            parent_document=models.Document(
-                metadata=models.DocumentMetadata(
-                    datasource="datasource",
-                    object_type="Feature Request",
-                    container="container",
-                    parent_id="JIRA_EN-1337",
-                    mime_type="mimeType",
-                    document_id="documentId",
-                    create_time=parse_datetime("2000-01-23T04:56:07.000Z"),
-                    update_time=parse_datetime("2000-01-23T04:56:07.000Z"),
-                    author=models.Person(
-                        name="name",
-                        obfuscated_id="<id>",
-                    ),
-                    components=[
-                        "Backend",
-                        "Networking",
-                    ],
-                    status="[\"Done\"]",
-                    custom_data={
-                        "someCustomField": models.CustomDataValue(),
-                    },
+            metadata=models.DocumentMetadata(
+                datasource="datasource",
+                object_type="Feature Request",
+                container="container",
+                parent_id="JIRA_EN-1337",
+                mime_type="mimeType",
+                document_id="documentId",
+                create_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+                update_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+                author=models.Person(
+                    name="name",
+                    obfuscated_id="<id>",
                 ),
+                components=[
+                    "Backend",
+                    "Networking",
+                ],
+                status="[\"Done\"]",
+                custom_data={
+                    "someCustomField": models.CustomDataValue(),
+                },
             ),
+        ),
+        parent_document=models.Document(
+            metadata=models.DocumentMetadata(
+                datasource="datasource",
+                object_type="Feature Request",
+                container="container",
+                parent_id="JIRA_EN-1337",
+                mime_type="mimeType",
+                document_id="documentId",
+                create_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+                update_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+                author=models.Person(
+                    name="name",
+                    obfuscated_id="<id>",
+                ),
+                components=[
+                    "Backend",
+                    "Networking",
+                ],
+                status="[\"Done\"]",
+                custom_data={
+                    "someCustomField": models.CustomDataValue(),
+                },
+            ),
+        ),
+        metadata=models.DocumentMetadata(
+            datasource="datasource",
+            object_type="Feature Request",
+            container="container",
+            parent_id="JIRA_EN-1337",
+            mime_type="mimeType",
+            document_id="documentId",
+            create_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+            update_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+            author=models.Person(
+                name="name",
+                obfuscated_id="<id>",
+            ),
+            components=[
+                "Backend",
+                "Networking",
+            ],
+            status="[\"Done\"]",
+            custom_data={
+                "someCustomField": models.CustomDataValue(),
+            },
         ),
     ), page_size=10, max_snippet_size=400, input_details={
         "has_copy_paste": True,
@@ -132,7 +176,7 @@ Retrieve query suggestions, operators and documents for the given partially type
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 
@@ -176,7 +220,7 @@ The personalized feed/home includes different types of contents including sugges
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 
@@ -217,8 +261,8 @@ Retrieve recommended documents for the given URL or Glean Document ID.
 ### Example Usage
 
 ```python
-from glean.api_client import Glean, models
-from glean.api_client.utils import parse_datetime
+from glean import Glean, models
+from glean.utils import parse_datetime
 import os
 
 
@@ -228,6 +272,54 @@ with Glean(
 
     res = g_client.client.search.recommendations(request=models.RecommendationsRequest(
         source_document=models.Document(
+            container_document=models.Document(
+                metadata=models.DocumentMetadata(
+                    datasource="datasource",
+                    object_type="Feature Request",
+                    container="container",
+                    parent_id="JIRA_EN-1337",
+                    mime_type="mimeType",
+                    document_id="documentId",
+                    create_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+                    update_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+                    author=models.Person(
+                        name="name",
+                        obfuscated_id="<id>",
+                    ),
+                    components=[
+                        "Backend",
+                        "Networking",
+                    ],
+                    status="[\"Done\"]",
+                    custom_data={
+                        "someCustomField": models.CustomDataValue(),
+                    },
+                ),
+            ),
+            parent_document=models.Document(
+                metadata=models.DocumentMetadata(
+                    datasource="datasource",
+                    object_type="Feature Request",
+                    container="container",
+                    parent_id="JIRA_EN-1337",
+                    mime_type="mimeType",
+                    document_id="documentId",
+                    create_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+                    update_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+                    author=models.Person(
+                        name="name",
+                        obfuscated_id="<id>",
+                    ),
+                    components=[
+                        "Backend",
+                        "Networking",
+                    ],
+                    status="[\"Done\"]",
+                    custom_data={
+                        "someCustomField": models.CustomDataValue(),
+                    },
+                ),
+            ),
             metadata=models.DocumentMetadata(
                 datasource="datasource",
                 object_type="Feature Request",
@@ -308,6 +400,54 @@ with Glean(
                 ),
             ],
             context=models.Document(
+                container_document=models.Document(
+                    metadata=models.DocumentMetadata(
+                        datasource="datasource",
+                        object_type="Feature Request",
+                        container="container",
+                        parent_id="JIRA_EN-1337",
+                        mime_type="mimeType",
+                        document_id="documentId",
+                        create_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+                        update_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+                        author=models.Person(
+                            name="name",
+                            obfuscated_id="<id>",
+                        ),
+                        components=[
+                            "Backend",
+                            "Networking",
+                        ],
+                        status="[\"Done\"]",
+                        custom_data={
+                            "someCustomField": models.CustomDataValue(),
+                        },
+                    ),
+                ),
+                parent_document=models.Document(
+                    metadata=models.DocumentMetadata(
+                        datasource="datasource",
+                        object_type="Feature Request",
+                        container="container",
+                        parent_id="JIRA_EN-1337",
+                        mime_type="mimeType",
+                        document_id="documentId",
+                        create_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+                        update_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+                        author=models.Person(
+                            name="name",
+                            obfuscated_id="<id>",
+                        ),
+                        components=[
+                            "Backend",
+                            "Networking",
+                        ],
+                        status="[\"Done\"]",
+                        custom_data={
+                            "someCustomField": models.CustomDataValue(),
+                        },
+                    ),
+                ),
                 metadata=models.DocumentMetadata(
                     datasource="datasource",
                     object_type="Feature Request",
@@ -365,8 +505,8 @@ Retrieve results from the index for the given query and filters.
 ### Example Usage
 
 ```python
-from glean.api_client import Glean, models
-from glean.api_client.utils import parse_datetime
+from glean import Glean, models
+from glean.utils import parse_datetime
 import os
 
 
@@ -376,30 +516,74 @@ with Glean(
 
     res = g_client.client.search.query(query="vacation policy", tracking_token="trackingToken", source_document=models.Document(
         container_document=models.Document(
-            parent_document=models.Document(
-                metadata=models.DocumentMetadata(
-                    datasource="datasource",
-                    object_type="Feature Request",
-                    container="container",
-                    parent_id="JIRA_EN-1337",
-                    mime_type="mimeType",
-                    document_id="documentId",
-                    create_time=parse_datetime("2000-01-23T04:56:07.000Z"),
-                    update_time=parse_datetime("2000-01-23T04:56:07.000Z"),
-                    author=models.Person(
-                        name="name",
-                        obfuscated_id="<id>",
-                    ),
-                    components=[
-                        "Backend",
-                        "Networking",
-                    ],
-                    status="[\"Done\"]",
-                    custom_data={
-                        "someCustomField": models.CustomDataValue(),
-                    },
+            metadata=models.DocumentMetadata(
+                datasource="datasource",
+                object_type="Feature Request",
+                container="container",
+                parent_id="JIRA_EN-1337",
+                mime_type="mimeType",
+                document_id="documentId",
+                create_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+                update_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+                author=models.Person(
+                    name="name",
+                    obfuscated_id="<id>",
                 ),
+                components=[
+                    "Backend",
+                    "Networking",
+                ],
+                status="[\"Done\"]",
+                custom_data={
+                    "someCustomField": models.CustomDataValue(),
+                },
             ),
+        ),
+        parent_document=models.Document(
+            metadata=models.DocumentMetadata(
+                datasource="datasource",
+                object_type="Feature Request",
+                container="container",
+                parent_id="JIRA_EN-1337",
+                mime_type="mimeType",
+                document_id="documentId",
+                create_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+                update_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+                author=models.Person(
+                    name="name",
+                    obfuscated_id="<id>",
+                ),
+                components=[
+                    "Backend",
+                    "Networking",
+                ],
+                status="[\"Done\"]",
+                custom_data={
+                    "someCustomField": models.CustomDataValue(),
+                },
+            ),
+        ),
+        metadata=models.DocumentMetadata(
+            datasource="datasource",
+            object_type="Feature Request",
+            container="container",
+            parent_id="JIRA_EN-1337",
+            mime_type="mimeType",
+            document_id="documentId",
+            create_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+            update_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+            author=models.Person(
+                name="name",
+                obfuscated_id="<id>",
+            ),
+            components=[
+                "Backend",
+                "Networking",
+            ],
+            status="[\"Done\"]",
+            custom_data={
+                "someCustomField": models.CustomDataValue(),
+            },
         ),
     ), page_size=10, max_snippet_size=400, input_details={
         "has_copy_paste": True,

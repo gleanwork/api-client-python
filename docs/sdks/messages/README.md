@@ -14,7 +14,7 @@ Retrieves list of messages from messaging/chat datasources (e.g. Slack, Teams).
 ### Example Usage
 
 ```python
-from glean.api_client import Glean, models
+from glean import Glean, models
 import os
 
 

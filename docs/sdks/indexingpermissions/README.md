@@ -25,7 +25,7 @@ Updates the permissions for a given document without modifying document content.
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 
@@ -63,7 +63,7 @@ Adds a datasource user or updates an existing user.
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 
@@ -102,7 +102,7 @@ Replaces the users in a datasource using paginated batch API calls. Please refer
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 
@@ -155,7 +155,7 @@ Add or update a group in the datasource.
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 
@@ -193,7 +193,7 @@ Replaces the groups in a datasource using paginated batch API calls. Please refe
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 
@@ -240,7 +240,7 @@ Add the memberships of a group in the datasource.
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 
@@ -278,7 +278,7 @@ Replaces the memberships for a group in a datasource using paginated batch API c
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 
@@ -323,7 +323,7 @@ Schedules the immediate processing of all group memberships uploaded through the
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 
@@ -357,7 +357,7 @@ Delete the user from the datasource. Silently succeeds if user is not present.
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 
@@ -393,7 +393,7 @@ Delete group from the datasource. Silently succeeds if group is not present.
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 
@@ -429,7 +429,7 @@ Delete membership to a group in the specified datasource. Silently succeeds if m
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 
@@ -467,7 +467,7 @@ Allow the datasource be visible to the specified beta users. The default behavio
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 
