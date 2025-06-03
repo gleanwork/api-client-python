@@ -18,6 +18,7 @@ targets:
             pypi:
                 token: $pypi_token
         codeSamples:
+            output: .speakeasy/code-samples.yaml
             registry:
                 location: registry.speakeasyapi.dev/glean-el2/sdk/glean-api-specs-python-code-samples
             labelOverride:
@@ -29,6 +30,7 @@ targets:
         target: python
         source: local-debug
         codeSamples:
+            output: .speakeasy/code-samples.yaml
             labelOverride:
                 fixedValue: Python (API Client)
             blocking: false
