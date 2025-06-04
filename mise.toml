@@ -1,0 +1,6 @@
+[settings]
+# forces us to use the version of python defined in .python-version file
+idiomatic_version_file_enable_tools = ["python"]
+
+[tools]
+poetry = "latest"
