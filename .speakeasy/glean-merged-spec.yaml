@@ -9272,11 +9272,16 @@ components:
                 runCount:
                     $ref: "#/components/schemas/CountInfo"
                     description: This tracks how many times this prompt template was run. If user runs a prompt template after modifying the original one, it still counts as a run for the original template.
-        WorkflowMutableProperties:
+        WorkflowDraftableProperties:
             properties:
                 name:
                     type: string
                     description: The name of the workflow.
+        WorkflowMutableProperties:
+            type: object
+            allOf:
+                - $ref: "#/components/schemas/WorkflowDraftableProperties"
+                - type: object
         WorkflowMetadata:
             allOf:
                 - type: object

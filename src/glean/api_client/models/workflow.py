@@ -10,6 +10,8 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class WorkflowTypedDict(TypedDict):
+    name: NotRequired[str]
+    r"""The name of the workflow."""
     author: NotRequired[PersonTypedDict]
     create_timestamp: NotRequired[int]
     r"""Server Unix timestamp of the creation time."""
@@ -17,13 +19,14 @@ class WorkflowTypedDict(TypedDict):
     r"""Server Unix timestamp of the last update time."""
     last_updated_by: NotRequired[PersonTypedDict]
     permissions: NotRequired[ObjectPermissionsTypedDict]
-    name: NotRequired[str]
-    r"""The name of the workflow."""
     id: NotRequired[str]
     r"""The ID of the workflow."""
 
 
 class Workflow(BaseModel):
+    name: Optional[str] = None
+    r"""The name of the workflow."""
+
     author: Optional[Person] = None
 
     create_timestamp: Annotated[
@@ -41,9 +44,6 @@ class Workflow(BaseModel):
     ] = None
 
     permissions: Optional[ObjectPermissions] = None
-
-    name: Optional[str] = None
-    r"""The name of the workflow."""
 
     id: Optional[str] = None
     r"""The ID of the workflow."""

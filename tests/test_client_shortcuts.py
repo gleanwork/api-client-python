@@ -232,10 +232,18 @@ def test_client_shortcuts_createshortcut():
                                                             metadata=models.VerificationMetadata(
                                                                 reminders=[
                                                                     models.Reminder(
+                                                                        assignee=models.Person(
+                                                                            name="George Clooney",
+                                                                            obfuscated_id="abc123",
+                                                                        ),
                                                                         remind_at=491427,
                                                                     ),
                                                                 ],
                                                                 last_reminder=models.Reminder(
+                                                                    assignee=models.Person(
+                                                                        name="George Clooney",
+                                                                        obfuscated_id="abc123",
+                                                                    ),
                                                                     remind_at=490420,
                                                                 ),
                                                             ),
@@ -909,10 +917,18 @@ def test_client_shortcuts_updateshortcut():
                                                         metadata=models.VerificationMetadata(
                                                             reminders=[
                                                                 models.Reminder(
+                                                                    assignee=models.Person(
+                                                                        name="George Clooney",
+                                                                        obfuscated_id="abc123",
+                                                                    ),
                                                                     remind_at=246216,
                                                                 ),
                                                             ],
                                                             last_reminder=models.Reminder(
+                                                                assignee=models.Person(
+                                                                    name="George Clooney",
+                                                                    obfuscated_id="abc123",
+                                                                ),
                                                                 remind_at=778241,
                                                             ),
                                                         ),
@@ -949,6 +965,10 @@ def test_client_shortcuts_updateshortcut():
                                                         state=models.State.DEPRECATED,
                                                         metadata=models.VerificationMetadata(
                                                             last_reminder=models.Reminder(
+                                                                assignee=models.Person(
+                                                                    name="George Clooney",
+                                                                    obfuscated_id="abc123",
+                                                                ),
                                                                 remind_at=234790,
                                                             ),
                                                         ),

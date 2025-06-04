@@ -231,13 +231,25 @@ func testEditcollectionitemEditcollectionitem0(w http.ResponseWriter, req *http.
 														Metadata: &components.VerificationMetadata{
 															Reminders: []components.Reminder{
 																components.Reminder{
+																	Assignee: components.Person{
+																		Name:         "George Clooney",
+																		ObfuscatedID: "abc123",
+																	},
 																	RemindAt: 841463,
 																},
 																components.Reminder{
+																	Assignee: components.Person{
+																		Name:         "George Clooney",
+																		ObfuscatedID: "abc123",
+																	},
 																	RemindAt: 402252,
 																},
 															},
 															LastReminder: &components.Reminder{
+																Assignee: components.Person{
+																	Name:         "George Clooney",
+																	ObfuscatedID: "abc123",
+																},
 																RemindAt: 286790,
 															},
 														},
@@ -270,6 +282,10 @@ func testEditcollectionitemEditcollectionitem0(w http.ResponseWriter, req *http.
 														State: components.StateDeprecated,
 														Metadata: &components.VerificationMetadata{
 															LastReminder: &components.Reminder{
+																Assignee: components.Person{
+																	Name:         "George Clooney",
+																	ObfuscatedID: "abc123",
+																},
 																RemindAt: 90490,
 															},
 														},
@@ -302,6 +318,10 @@ func testEditcollectionitemEditcollectionitem0(w http.ResponseWriter, req *http.
 														State: components.StateDeprecated,
 														Metadata: &components.VerificationMetadata{
 															LastReminder: &components.Reminder{
+																Assignee: components.Person{
+																	Name:         "George Clooney",
+																	ObfuscatedID: "abc123",
+																},
 																RemindAt: 299381,
 															},
 														},

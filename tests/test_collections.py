@@ -246,10 +246,18 @@ def test_collections_createcollection():
                                                         metadata=models.VerificationMetadata(
                                                             reminders=[
                                                                 models.Reminder(
+                                                                    assignee=models.Person(
+                                                                        name="George Clooney",
+                                                                        obfuscated_id="abc123",
+                                                                    ),
                                                                     remind_at=491427,
                                                                 ),
                                                             ],
                                                             last_reminder=models.Reminder(
+                                                                assignee=models.Person(
+                                                                    name="George Clooney",
+                                                                    obfuscated_id="abc123",
+                                                                ),
                                                                 remind_at=490420,
                                                             ),
                                                         ),
@@ -873,10 +881,18 @@ def test_collections_editcollection():
                                                         metadata=models.VerificationMetadata(
                                                             reminders=[
                                                                 models.Reminder(
+                                                                    assignee=models.Person(
+                                                                        name="George Clooney",
+                                                                        obfuscated_id="abc123",
+                                                                    ),
                                                                     remind_at=335191,
                                                                 ),
                                                             ],
                                                             last_reminder=models.Reminder(
+                                                                assignee=models.Person(
+                                                                    name="George Clooney",
+                                                                    obfuscated_id="abc123",
+                                                                ),
                                                                 remind_at=532806,
                                                             ),
                                                         ),
@@ -913,6 +929,10 @@ def test_collections_editcollection():
                                                         state=models.State.VERIFIED,
                                                         metadata=models.VerificationMetadata(
                                                             last_reminder=models.Reminder(
+                                                                assignee=models.Person(
+                                                                    name="George Clooney",
+                                                                    obfuscated_id="abc123",
+                                                                ),
                                                                 remind_at=416023,
                                                             ),
                                                         ),

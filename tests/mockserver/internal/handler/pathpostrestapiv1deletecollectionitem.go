@@ -251,10 +251,18 @@ func testDeletecollectionitemDeletecollectionitem0(w http.ResponseWriter, req *h
 														Metadata: &components.VerificationMetadata{
 															Reminders: []components.Reminder{
 																components.Reminder{
+																	Assignee: components.Person{
+																		Name:         "George Clooney",
+																		ObfuscatedID: "abc123",
+																	},
 																	RemindAt: 835281,
 																},
 															},
 															LastReminder: &components.Reminder{
+																Assignee: components.Person{
+																	Name:         "George Clooney",
+																	ObfuscatedID: "abc123",
+																},
 																RemindAt: 239964,
 															},
 														},

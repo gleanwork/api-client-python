@@ -233,13 +233,25 @@ func testGetcollectionGetcollection0(w http.ResponseWriter, req *http.Request) {
 														Metadata: &components.VerificationMetadata{
 															Reminders: []components.Reminder{
 																components.Reminder{
+																	Assignee: components.Person{
+																		Name:         "George Clooney",
+																		ObfuscatedID: "abc123",
+																	},
 																	RemindAt: 149108,
 																},
 																components.Reminder{
+																	Assignee: components.Person{
+																		Name:         "George Clooney",
+																		ObfuscatedID: "abc123",
+																	},
 																	RemindAt: 741131,
 																},
 															},
 															LastReminder: &components.Reminder{
+																Assignee: components.Person{
+																	Name:         "George Clooney",
+																	ObfuscatedID: "abc123",
+																},
 																RemindAt: 503671,
 															},
 														},
@@ -272,6 +284,10 @@ func testGetcollectionGetcollection0(w http.ResponseWriter, req *http.Request) {
 														State: components.StateUnverified,
 														Metadata: &components.VerificationMetadata{
 															LastReminder: &components.Reminder{
+																Assignee: components.Person{
+																	Name:         "George Clooney",
+																	ObfuscatedID: "abc123",
+																},
 																RemindAt: 81373,
 															},
 														},
@@ -304,6 +320,10 @@ func testGetcollectionGetcollection0(w http.ResponseWriter, req *http.Request) {
 														State: components.StateVerified,
 														Metadata: &components.VerificationMetadata{
 															LastReminder: &components.Reminder{
+																Assignee: components.Person{
+																	Name:         "George Clooney",
+																	ObfuscatedID: "abc123",
+																},
 																RemindAt: 666980,
 															},
 														},
