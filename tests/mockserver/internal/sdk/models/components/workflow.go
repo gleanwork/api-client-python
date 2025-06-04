@@ -3,6 +3,8 @@
 package components
 
 type Workflow struct {
+	// The name of the workflow.
+	Name   *string `json:"name,omitempty"`
 	Author *Person `json:"author,omitempty"`
 	// Server Unix timestamp of the creation time.
 	CreateTimestamp *int64 `json:"createTimestamp,omitempty"`
@@ -10,10 +12,15 @@ type Workflow struct {
 	LastUpdateTimestamp *int64             `json:"lastUpdateTimestamp,omitempty"`
 	LastUpdatedBy       *Person            `json:"lastUpdatedBy,omitempty"`
 	Permissions         *ObjectPermissions `json:"permissions,omitempty"`
-	// The name of the workflow.
-	Name *string `json:"name,omitempty"`
 	// The ID of the workflow.
 	ID *string `json:"id,omitempty"`
+}
+
+func (o *Workflow) GetName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Name
 }
 
 func (o *Workflow) GetAuthor() *Person {
@@ -49,13 +56,6 @@ func (o *Workflow) GetPermissions() *ObjectPermissions {
 		return nil
 	}
 	return o.Permissions
-}
-
-func (o *Workflow) GetName() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Name
 }
 
 func (o *Workflow) GetID() *string {
