@@ -18,7 +18,7 @@ Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/docs/i
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 

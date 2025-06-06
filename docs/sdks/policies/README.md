@@ -18,7 +18,7 @@ Fetches the specified policy version, or the latest if no version is provided.
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 
@@ -58,7 +58,7 @@ Updates an existing policy.
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 
@@ -102,7 +102,7 @@ Lists policies with filtering.
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 
@@ -142,7 +142,7 @@ Creates a new policy with specified specifications and returns its id.
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 
@@ -159,10 +159,13 @@ with Glean(
 
 ### Parameters
 
-| Parameter                                                               | Type                                                                    | Required                                                                | Description                                                             |
-| ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| `request`                                                               | [models.CreateDlpReportRequest](../../models/createdlpreportrequest.md) | :heavy_check_mark:                                                      | The request object to use for the request.                              |
-| `retries`                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)        | :heavy_minus_sign:                                                      | Configuration to override the default retry behavior of the client.     |
+| Parameter                                                                       | Type                                                                            | Required                                                                        | Description                                                                     |
+| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `name`                                                                          | *Optional[str]*                                                                 | :heavy_minus_sign:                                                              | Name of the policy being created.                                               |
+| `config`                                                                        | [Optional[models.DlpConfig]](../../models/dlpconfig.md)                         | :heavy_minus_sign:                                                              | Detailed configuration of what documents and sensitive content will be scanned. |
+| `frequency`                                                                     | [Optional[models.DlpFrequency]](../../models/dlpfrequency.md)                   | :heavy_minus_sign:                                                              | Interval between scans. DAILY is deprecated.                                    |
+| `auto_hide_docs`                                                                | *Optional[bool]*                                                                | :heavy_minus_sign:                                                              | Controls whether the policy should hide documents with violations.              |
+| `retries`                                                                       | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                | :heavy_minus_sign:                                                              | Configuration to override the default retry behavior of the client.             |
 
 ### Response
 
@@ -181,7 +184,7 @@ Downloads CSV violations report for a specific policy id. This does not support 
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 

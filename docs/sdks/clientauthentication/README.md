@@ -14,7 +14,7 @@ Creates an authentication token for the authenticated user.
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 

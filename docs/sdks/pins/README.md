@@ -18,7 +18,7 @@ Update an existing user-generated pin.
 ### Example Usage
 
 ```python
-from glean.api_client import Glean, models
+from glean import Glean, models
 import os
 
 
@@ -26,23 +26,21 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
-    res = g_client.client.pins.update(request={
-        "audience_filters": [
-            {
-                "field_name": "type",
-                "values": [
-                    {
-                        "value": "Spreadsheet",
-                        "relation_type": models.RelationType.EQUALS,
-                    },
-                    {
-                        "value": "Presentation",
-                        "relation_type": models.RelationType.EQUALS,
-                    },
-                ],
-            },
-        ],
-    })
+    res = g_client.client.pins.update(audience_filters=[
+        {
+            "field_name": "type",
+            "values": [
+                {
+                    "value": "Spreadsheet",
+                    "relation_type": models.RelationType.EQUALS,
+                },
+                {
+                    "value": "Presentation",
+                    "relation_type": models.RelationType.EQUALS,
+                },
+            ],
+        },
+    ])
 
     # Handle response
     print(res)
@@ -51,10 +49,12 @@ with Glean(
 
 ### Parameters
 
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `request`                                                           | [models.EditPinRequest](../../models/editpinrequest.md)             | :heavy_check_mark:                                                  | The request object to use for the request.                          |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+| Parameter                                                                                                                    | Type                                                                                                                         | Required                                                                                                                     | Description                                                                                                                  |
+| ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `queries`                                                                                                                    | List[*str*]                                                                                                                  | :heavy_minus_sign:                                                                                                           | The query strings for which the pinned result will show.                                                                     |
+| `audience_filters`                                                                                                           | List[[models.FacetFilter](../../models/facetfilter.md)]                                                                      | :heavy_minus_sign:                                                                                                           | Filters which restrict who should see the pinned document. Values are taken from the corresponding filters in people search. |
+| `id`                                                                                                                         | *Optional[str]*                                                                                                              | :heavy_minus_sign:                                                                                                           | The opaque id of the pin to be edited.                                                                                       |
+| `retries`                                                                                                                    | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                             | :heavy_minus_sign:                                                                                                           | Configuration to override the default retry behavior of the client.                                                          |
 
 ### Response
 
@@ -73,7 +73,7 @@ Read pin details given its ID.
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 
@@ -81,7 +81,7 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
-    res = g_client.client.pins.retrieve(request={})
+    res = g_client.client.pins.retrieve()
 
     # Handle response
     print(res)
@@ -92,7 +92,7 @@ with Glean(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `request`                                                           | [models.GetPinRequest](../../models/getpinrequest.md)               | :heavy_check_mark:                                                  | The request object to use for the request.                          |
+| `id`                                                                | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | The opaque id of the pin to be fetched.                             |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
@@ -112,7 +112,7 @@ Lists all pins.
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 
@@ -151,7 +151,7 @@ Pin a document as a result for a given search query.Pin results that are known t
 ### Example Usage
 
 ```python
-from glean.api_client import Glean, models
+from glean import Glean, models
 import os
 
 
@@ -159,23 +159,21 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
-    res = g_client.client.pins.create(request={
-        "audience_filters": [
-            {
-                "field_name": "type",
-                "values": [
-                    {
-                        "value": "Spreadsheet",
-                        "relation_type": models.RelationType.EQUALS,
-                    },
-                    {
-                        "value": "Presentation",
-                        "relation_type": models.RelationType.EQUALS,
-                    },
-                ],
-            },
-        ],
-    })
+    res = g_client.client.pins.create(audience_filters=[
+        {
+            "field_name": "type",
+            "values": [
+                {
+                    "value": "Spreadsheet",
+                    "relation_type": models.RelationType.EQUALS,
+                },
+                {
+                    "value": "Presentation",
+                    "relation_type": models.RelationType.EQUALS,
+                },
+            ],
+        },
+    ])
 
     # Handle response
     print(res)
@@ -184,10 +182,12 @@ with Glean(
 
 ### Parameters
 
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `request`                                                           | [models.PinRequest](../../models/pinrequest.md)                     | :heavy_check_mark:                                                  | The request object to use for the request.                          |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+| Parameter                                                                                                                    | Type                                                                                                                         | Required                                                                                                                     | Description                                                                                                                  |
+| ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `queries`                                                                                                                    | List[*str*]                                                                                                                  | :heavy_minus_sign:                                                                                                           | The query strings for which the pinned result will show.                                                                     |
+| `audience_filters`                                                                                                           | List[[models.FacetFilter](../../models/facetfilter.md)]                                                                      | :heavy_minus_sign:                                                                                                           | Filters which restrict who should see the pinned document. Values are taken from the corresponding filters in people search. |
+| `document_id`                                                                                                                | *Optional[str]*                                                                                                              | :heavy_minus_sign:                                                                                                           | The document to be pinned.                                                                                                   |
+| `retries`                                                                                                                    | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                             | :heavy_minus_sign:                                                                                                           | Configuration to override the default retry behavior of the client.                                                          |
 
 ### Response
 
@@ -206,7 +206,7 @@ Unpin a previously pinned result.
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 
@@ -214,7 +214,7 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
-    g_client.client.pins.remove(request={})
+    g_client.client.pins.remove()
 
     # Use the SDK ...
 
@@ -224,7 +224,7 @@ with Glean(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `request`                                                           | [models.Unpin](../../models/unpin.md)                               | :heavy_check_mark:                                                  | The request object to use for the request.                          |
+| `id`                                                                | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | The opaque id of the pin to be unpinned.                            |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Errors

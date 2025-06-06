@@ -315,25 +315,13 @@ func testInsightsInsights0(w http.ResponseWriter, req *http.Request) {
 														Metadata: &components.VerificationMetadata{
 															Reminders: []components.Reminder{
 																components.Reminder{
-																	Assignee: components.Person{
-																		Name:         "George Clooney",
-																		ObfuscatedID: "abc123",
-																	},
 																	RemindAt: 856562,
 																},
 																components.Reminder{
-																	Assignee: components.Person{
-																		Name:         "George Clooney",
-																		ObfuscatedID: "abc123",
-																	},
 																	RemindAt: 328633,
 																},
 															},
 															LastReminder: &components.Reminder{
-																Assignee: components.Person{
-																	Name:         "George Clooney",
-																	ObfuscatedID: "abc123",
-																},
 																RemindAt: 287673,
 															},
 														},

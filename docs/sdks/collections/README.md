@@ -21,7 +21,7 @@ Add items to a Collection.
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 
@@ -62,8 +62,8 @@ Create a publicly visible (empty) Collection of documents.
 
 ```python
 from datetime import date
-from glean.api_client import Glean, models
-from glean.api_client.utils import parse_datetime
+from glean import Glean, models
+from glean.utils import parse_datetime
 import os
 
 
@@ -759,7 +759,7 @@ Delete a Collection given the Collection's ID.
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 
@@ -799,7 +799,7 @@ Delete a single item from a Collection.
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 
@@ -841,8 +841,8 @@ Update the properties of an existing Collection.
 
 ```python
 from datetime import date
-from glean.api_client import Glean, models
-from glean.api_client.utils import parse_datetime
+from glean import Glean, models
+from glean.utils import parse_datetime
 import os
 
 
@@ -1938,7 +1938,7 @@ Update the URL, Glean Document ID, description of an item within a Collection gi
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 
@@ -1981,7 +1981,7 @@ Read the details of a Collection given its ID. Does not fetch items in this Coll
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 
@@ -2023,7 +2023,7 @@ List all existing Collections.
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 
@@ -2031,7 +2031,7 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
-    res = g_client.client.collections.list(request={})
+    res = g_client.client.collections.list()
 
     # Handle response
     print(res)
@@ -2040,10 +2040,12 @@ with Glean(
 
 ### Parameters
 
-| Parameter                                                               | Type                                                                    | Required                                                                | Description                                                             |
-| ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| `request`                                                               | [models.ListCollectionsRequest](../../models/listcollectionsrequest.md) | :heavy_check_mark:                                                      | The request object to use for the request.                              |
-| `retries`                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)        | :heavy_minus_sign:                                                      | Configuration to override the default retry behavior of the client.     |
+| Parameter                                                                                          | Type                                                                                               | Required                                                                                           | Description                                                                                        |
+| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `include_audience`                                                                                 | *Optional[bool]*                                                                                   | :heavy_minus_sign:                                                                                 | Whether to include the audience filters with the listed Collections.                               |
+| `include_roles`                                                                                    | *Optional[bool]*                                                                                   | :heavy_minus_sign:                                                                                 | Whether to include the editor roles with the listed Collections.                                   |
+| `allowed_datasource`                                                                               | *Optional[str]*                                                                                    | :heavy_minus_sign:                                                                                 | The datasource type this Collection can hold.<br/>ANSWERS - for Collections representing answer boards |
+| `retries`                                                                                          | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                   | :heavy_minus_sign:                                                                                 | Configuration to override the default retry behavior of the client.                                |
 
 ### Response
 

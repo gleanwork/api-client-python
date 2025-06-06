@@ -6,15 +6,18 @@ import (
 	"mockserver/internal/sdk/utils"
 )
 
-// AgentMetadata - The agent metadata.
+// AgentMetadata - The agent metadata. Currently not implemented.
 type AgentMetadata struct {
 }
 
-// AgentCapabilities - Describes which protocol features the agent supports. In addition to the standard capabilities (prefixed with ap.), implementations can declare custom capabilities, named in reverse domain notation (eg. com.example.some.capability).
+//	AgentCapabilities - Describes features that the agent supports. example: {
+//	  "ap.io.messages": true,
+//	  "ap.io.streaming": true
+//	}
 type AgentCapabilities struct {
-	// Whether the agent supports Messages as input/output/state. If true, the agent uses the `messages` key in threads/runs endpoints.
+	// Whether the agent supports messages as an input. If true, you'll pass `messages` as an input when running the agent.
 	ApIoMessages *bool `json:"ap.io.messages,omitempty"`
-	// Whether the agent supports streaming output.
+	// Whether the agent supports streaming output. If true, you you can stream agent ouput. All agents currently support streaming.
 	ApIoStreaming        *bool          `json:"ap.io.streaming,omitempty"`
 	AdditionalProperties map[string]any `additionalProperties:"true" json:"-"`
 }
@@ -58,9 +61,12 @@ type Agent struct {
 	Name string `json:"name"`
 	// The description of the agent.
 	Description *string `json:"description,omitempty"`
-	// The agent metadata.
+	// The agent metadata. Currently not implemented.
 	Metadata *AgentMetadata `json:"metadata,omitempty"`
-	// Describes which protocol features the agent supports. In addition to the standard capabilities (prefixed with ap.), implementations can declare custom capabilities, named in reverse domain notation (eg. com.example.some.capability).
+	// Describes features that the agent supports. example: {
+	//   "ap.io.messages": true,
+	//   "ap.io.streaming": true
+	// }
 	Capabilities AgentCapabilities `json:"capabilities"`
 }
 

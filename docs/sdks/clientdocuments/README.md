@@ -17,7 +17,7 @@ Read the emails of all users who have access to the given document.
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 
@@ -25,7 +25,7 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
-    res = g_client.client.documents.retrieve_permissions(request={})
+    res = g_client.client.documents.retrieve_permissions()
 
     # Handle response
     print(res)
@@ -34,10 +34,10 @@ with Glean(
 
 ### Parameters
 
-| Parameter                                                                   | Type                                                                        | Required                                                                    | Description                                                                 |
-| --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| `request`                                                                   | [models.GetDocPermissionsRequest](../../models/getdocpermissionsrequest.md) | :heavy_check_mark:                                                          | The request object to use for the request.                                  |
-| `retries`                                                                   | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)            | :heavy_minus_sign:                                                          | Configuration to override the default retry behavior of the client.         |
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `document_id`                                                       | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | The Glean Document ID to retrieve permissions for.                  |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
 
@@ -56,7 +56,7 @@ Read the documents including metadata (does not include enhanced metadata via `/
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 
@@ -95,7 +95,7 @@ Read the documents including metadata (does not include enhanced metadata via `/
 ### Example Usage
 
 ```python
-from glean.api_client import Glean, models
+from glean import Glean, models
 import os
 
 
@@ -171,7 +171,7 @@ Generate an AI summary of the requested documents.
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 
