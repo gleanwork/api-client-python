@@ -8,9 +8,9 @@ from typing_extensions import NotRequired, TypedDict
 
 class SearchAgentsRequestTypedDict(TypedDict):
     name: NotRequired[str]
-    r"""Filters on the name of the agent. If empty, acts as no filter."""
+    r"""Filters on the name of the agent. The keyword search is case-insensitive. If search string is ommited or empty, acts as no filter."""
 
 
 class SearchAgentsRequest(BaseModel):
     name: Optional[str] = None
-    r"""Filters on the name of the agent. If empty, acts as no filter."""
+    r"""Filters on the name of the agent. The keyword search is case-insensitive. If search string is ommited or empty, acts as no filter."""

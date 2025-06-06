@@ -3,9 +3,9 @@
 from .basesdk import BaseSDK
 from glean.api_client import errors, models, utils
 from glean.api_client._hooks import HookContext
-from glean.api_client.types import BaseModel, OptionalNullable, UNSET
+from glean.api_client.types import OptionalNullable, UNSET
 from glean.api_client.utils import get_security_from_env
-from typing import Mapping, Optional, Union, cast
+from typing import Mapping, Optional, Union
 
 
 class Policies(BaseSDK):
@@ -636,9 +636,10 @@ class Policies(BaseSDK):
     def create(
         self,
         *,
-        request: Union[
-            models.CreateDlpReportRequest, models.CreateDlpReportRequestTypedDict
-        ] = models.CreateDlpReportRequest(),
+        name: Optional[str] = None,
+        config: Optional[Union[models.DlpConfig, models.DlpConfigTypedDict]] = None,
+        frequency: Optional[models.DlpFrequency] = None,
+        auto_hide_docs: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -648,7 +649,10 @@ class Policies(BaseSDK):
 
         Creates a new policy with specified specifications and returns its id.
 
-        :param request: The request object to send.
+        :param name: Name of the policy being created.
+        :param config: Detailed configuration of what documents and sensitive content will be scanned.
+        :param frequency: Interval between scans. DAILY is deprecated.
+        :param auto_hide_docs: Controls whether the policy should hide documents with violations.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -664,9 +668,12 @@ class Policies(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.CreateDlpReportRequest)
-        request = cast(models.CreateDlpReportRequest, request)
+        request = models.CreateDlpReportRequest(
+            name=name,
+            config=utils.get_pydantic_model(config, Optional[models.DlpConfig]),
+            frequency=frequency,
+            auto_hide_docs=auto_hide_docs,
+        )
 
         req = self._build_request(
             method="POST",
@@ -682,7 +689,7 @@ class Policies(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.CreateDlpReportRequest]
+                request, False, False, "json", models.CreateDlpReportRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -735,9 +742,10 @@ class Policies(BaseSDK):
     async def create_async(
         self,
         *,
-        request: Union[
-            models.CreateDlpReportRequest, models.CreateDlpReportRequestTypedDict
-        ] = models.CreateDlpReportRequest(),
+        name: Optional[str] = None,
+        config: Optional[Union[models.DlpConfig, models.DlpConfigTypedDict]] = None,
+        frequency: Optional[models.DlpFrequency] = None,
+        auto_hide_docs: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -747,7 +755,10 @@ class Policies(BaseSDK):
 
         Creates a new policy with specified specifications and returns its id.
 
-        :param request: The request object to send.
+        :param name: Name of the policy being created.
+        :param config: Detailed configuration of what documents and sensitive content will be scanned.
+        :param frequency: Interval between scans. DAILY is deprecated.
+        :param auto_hide_docs: Controls whether the policy should hide documents with violations.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -763,9 +774,12 @@ class Policies(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.CreateDlpReportRequest)
-        request = cast(models.CreateDlpReportRequest, request)
+        request = models.CreateDlpReportRequest(
+            name=name,
+            config=utils.get_pydantic_model(config, Optional[models.DlpConfig]),
+            frequency=frequency,
+            auto_hide_docs=auto_hide_docs,
+        )
 
         req = self._build_request_async(
             method="POST",
@@ -781,7 +795,7 @@ class Policies(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.CreateDlpReportRequest]
+                request, False, False, "json", models.CreateDlpReportRequest
             ),
             timeout_ms=timeout_ms,
         )

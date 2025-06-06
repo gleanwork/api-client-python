@@ -4,9 +4,9 @@ from .basesdk import BaseSDK
 from datetime import datetime
 from glean.api_client import errors, models, utils
 from glean.api_client._hooks import HookContext
-from glean.api_client.types import BaseModel, OptionalNullable, UNSET
+from glean.api_client.types import OptionalNullable, UNSET
 from glean.api_client.utils import get_security_from_env
-from typing import Any, List, Mapping, Optional, Union, cast
+from typing import Any, List, Mapping, Optional, Union
 
 
 class Search(BaseSDK):
@@ -339,9 +339,18 @@ class Search(BaseSDK):
     def autocomplete(
         self,
         *,
-        request: Union[
-            models.AutocompleteRequest, models.AutocompleteRequestTypedDict
-        ] = models.AutocompleteRequest(),
+        tracking_token: Optional[str] = None,
+        session_info: Optional[
+            Union[models.SessionInfo, models.SessionInfoTypedDict]
+        ] = None,
+        query: Optional[str] = None,
+        datasources_filter: Optional[List[str]] = None,
+        datasource: Optional[str] = None,
+        result_types: Optional[List[models.AutocompleteRequestResultType]] = None,
+        result_size: Optional[int] = None,
+        auth_tokens: Optional[
+            Union[List[models.AuthToken], List[models.AuthTokenTypedDict]]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -351,7 +360,14 @@ class Search(BaseSDK):
 
         Retrieve query suggestions, operators and documents for the given partially typed query.
 
-        :param request: The request object to send.
+        :param tracking_token:
+        :param session_info:
+        :param query: Partially typed query.
+        :param datasources_filter: Filter results to only those relevant to one or more datasources (e.g. jira, gdrive). Results are unfiltered if missing.
+        :param datasource: Filter to only return results relevant to the given datasource.
+        :param result_types: Filter to only return results of the given type(s). All types may be returned if omitted.
+        :param result_size: Maximum number of results to be returned. If no value is provided, the backend will cap at 200.
+        :param auth_tokens: Auth tokens which may be used for federated results.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -367,9 +383,20 @@ class Search(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.AutocompleteRequest)
-        request = cast(models.AutocompleteRequest, request)
+        request = models.AutocompleteRequest(
+            tracking_token=tracking_token,
+            session_info=utils.get_pydantic_model(
+                session_info, Optional[models.SessionInfo]
+            ),
+            query=query,
+            datasources_filter=datasources_filter,
+            datasource=datasource,
+            result_types=result_types,
+            result_size=result_size,
+            auth_tokens=utils.get_pydantic_model(
+                auth_tokens, Optional[List[models.AuthToken]]
+            ),
+        )
 
         req = self._build_request(
             method="POST",
@@ -385,7 +412,7 @@ class Search(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.AutocompleteRequest]
+                request, False, False, "json", models.AutocompleteRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -438,9 +465,18 @@ class Search(BaseSDK):
     async def autocomplete_async(
         self,
         *,
-        request: Union[
-            models.AutocompleteRequest, models.AutocompleteRequestTypedDict
-        ] = models.AutocompleteRequest(),
+        tracking_token: Optional[str] = None,
+        session_info: Optional[
+            Union[models.SessionInfo, models.SessionInfoTypedDict]
+        ] = None,
+        query: Optional[str] = None,
+        datasources_filter: Optional[List[str]] = None,
+        datasource: Optional[str] = None,
+        result_types: Optional[List[models.AutocompleteRequestResultType]] = None,
+        result_size: Optional[int] = None,
+        auth_tokens: Optional[
+            Union[List[models.AuthToken], List[models.AuthTokenTypedDict]]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -450,7 +486,14 @@ class Search(BaseSDK):
 
         Retrieve query suggestions, operators and documents for the given partially typed query.
 
-        :param request: The request object to send.
+        :param tracking_token:
+        :param session_info:
+        :param query: Partially typed query.
+        :param datasources_filter: Filter results to only those relevant to one or more datasources (e.g. jira, gdrive). Results are unfiltered if missing.
+        :param datasource: Filter to only return results relevant to the given datasource.
+        :param result_types: Filter to only return results of the given type(s). All types may be returned if omitted.
+        :param result_size: Maximum number of results to be returned. If no value is provided, the backend will cap at 200.
+        :param auth_tokens: Auth tokens which may be used for federated results.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -466,9 +509,20 @@ class Search(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.AutocompleteRequest)
-        request = cast(models.AutocompleteRequest, request)
+        request = models.AutocompleteRequest(
+            tracking_token=tracking_token,
+            session_info=utils.get_pydantic_model(
+                session_info, Optional[models.SessionInfo]
+            ),
+            query=query,
+            datasources_filter=datasources_filter,
+            datasource=datasource,
+            result_types=result_types,
+            result_size=result_size,
+            auth_tokens=utils.get_pydantic_model(
+                auth_tokens, Optional[List[models.AuthToken]]
+            ),
+        )
 
         req = self._build_request_async(
             method="POST",
@@ -484,7 +538,7 @@ class Search(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.AutocompleteRequest]
+                request, False, False, "json", models.AutocompleteRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -537,9 +591,14 @@ class Search(BaseSDK):
     def retrieve_feed(
         self,
         *,
-        request: Union[
-            models.FeedRequest, models.FeedRequestTypedDict
-        ] = models.FeedRequest(),
+        categories: Optional[List[models.FeedRequestCategory]] = None,
+        request_options: Optional[
+            Union[models.FeedRequestOptions, models.FeedRequestOptionsTypedDict]
+        ] = None,
+        timeout_millis: Optional[int] = None,
+        session_info: Optional[
+            Union[models.SessionInfo, models.SessionInfoTypedDict]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -549,7 +608,10 @@ class Search(BaseSDK):
 
         The personalized feed/home includes different types of contents including suggestions, recents, calendar events and many more.
 
-        :param request: The request object to send.
+        :param categories: Categories of content requested. An allowlist gives flexibility to request content separately or together.
+        :param request_options:
+        :param timeout_millis: Timeout in milliseconds for the request. A `408` error will be returned if handling the request takes longer.
+        :param session_info:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -565,9 +627,16 @@ class Search(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.FeedRequest)
-        request = cast(models.FeedRequest, request)
+        request = models.FeedRequest(
+            categories=categories,
+            request_options=utils.get_pydantic_model(
+                request_options, Optional[models.FeedRequestOptions]
+            ),
+            timeout_millis=timeout_millis,
+            session_info=utils.get_pydantic_model(
+                session_info, Optional[models.SessionInfo]
+            ),
+        )
 
         req = self._build_request(
             method="POST",
@@ -583,7 +652,7 @@ class Search(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.FeedRequest]
+                request, False, False, "json", models.FeedRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -636,9 +705,14 @@ class Search(BaseSDK):
     async def retrieve_feed_async(
         self,
         *,
-        request: Union[
-            models.FeedRequest, models.FeedRequestTypedDict
-        ] = models.FeedRequest(),
+        categories: Optional[List[models.FeedRequestCategory]] = None,
+        request_options: Optional[
+            Union[models.FeedRequestOptions, models.FeedRequestOptionsTypedDict]
+        ] = None,
+        timeout_millis: Optional[int] = None,
+        session_info: Optional[
+            Union[models.SessionInfo, models.SessionInfoTypedDict]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -648,7 +722,10 @@ class Search(BaseSDK):
 
         The personalized feed/home includes different types of contents including suggestions, recents, calendar events and many more.
 
-        :param request: The request object to send.
+        :param categories: Categories of content requested. An allowlist gives flexibility to request content separately or together.
+        :param request_options:
+        :param timeout_millis: Timeout in milliseconds for the request. A `408` error will be returned if handling the request takes longer.
+        :param session_info:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -664,9 +741,16 @@ class Search(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.FeedRequest)
-        request = cast(models.FeedRequest, request)
+        request = models.FeedRequest(
+            categories=categories,
+            request_options=utils.get_pydantic_model(
+                request_options, Optional[models.FeedRequestOptions]
+            ),
+            timeout_millis=timeout_millis,
+            session_info=utils.get_pydantic_model(
+                session_info, Optional[models.SessionInfo]
+            ),
+        )
 
         req = self._build_request_async(
             method="POST",
@@ -682,7 +766,7 @@ class Search(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.FeedRequest]
+                request, False, False, "json", models.FeedRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -735,9 +819,25 @@ class Search(BaseSDK):
     def recommendations(
         self,
         *,
-        request: Union[
-            models.RecommendationsRequest, models.RecommendationsRequestTypedDict
-        ] = models.RecommendationsRequest(),
+        timestamp: Optional[datetime] = None,
+        tracking_token: Optional[str] = None,
+        session_info: Optional[
+            Union[models.SessionInfo, models.SessionInfoTypedDict]
+        ] = None,
+        source_document: Optional[
+            Union[models.Document, models.DocumentTypedDict]
+        ] = None,
+        page_size: Optional[int] = None,
+        max_snippet_size: Optional[int] = None,
+        recommendation_document_spec: Optional[
+            Union[models.DocumentSpecUnion, models.DocumentSpecUnionTypedDict]
+        ] = None,
+        request_options: Optional[
+            Union[
+                models.RecommendationsRequestOptions,
+                models.RecommendationsRequestOptionsTypedDict,
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -747,7 +847,14 @@ class Search(BaseSDK):
 
         Retrieve recommended documents for the given URL or Glean Document ID.
 
-        :param request: The request object to send.
+        :param timestamp: The ISO 8601 timestamp associated with the client request.
+        :param tracking_token: A previously received trackingToken for a search associated with the same query. Useful for more requests and requests for other tabs.
+        :param session_info:
+        :param source_document:
+        :param page_size: Hint to the server about how many results to send back. Server may return less or more. Structured results and clustered results don't count towards pageSize.
+        :param max_snippet_size: Hint to the server about how many characters long a snippet may be. Server may return less or more.
+        :param recommendation_document_spec:
+        :param request_options:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -763,9 +870,24 @@ class Search(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.RecommendationsRequest)
-        request = cast(models.RecommendationsRequest, request)
+        request = models.RecommendationsRequest(
+            timestamp=timestamp,
+            tracking_token=tracking_token,
+            session_info=utils.get_pydantic_model(
+                session_info, Optional[models.SessionInfo]
+            ),
+            source_document=utils.get_pydantic_model(
+                source_document, Optional[models.Document]
+            ),
+            page_size=page_size,
+            max_snippet_size=max_snippet_size,
+            recommendation_document_spec=utils.get_pydantic_model(
+                recommendation_document_spec, Optional[models.DocumentSpecUnion]
+            ),
+            request_options=utils.get_pydantic_model(
+                request_options, Optional[models.RecommendationsRequestOptions]
+            ),
+        )
 
         req = self._build_request(
             method="POST",
@@ -781,7 +903,7 @@ class Search(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.RecommendationsRequest]
+                request, False, False, "json", models.RecommendationsRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -836,9 +958,25 @@ class Search(BaseSDK):
     async def recommendations_async(
         self,
         *,
-        request: Union[
-            models.RecommendationsRequest, models.RecommendationsRequestTypedDict
-        ] = models.RecommendationsRequest(),
+        timestamp: Optional[datetime] = None,
+        tracking_token: Optional[str] = None,
+        session_info: Optional[
+            Union[models.SessionInfo, models.SessionInfoTypedDict]
+        ] = None,
+        source_document: Optional[
+            Union[models.Document, models.DocumentTypedDict]
+        ] = None,
+        page_size: Optional[int] = None,
+        max_snippet_size: Optional[int] = None,
+        recommendation_document_spec: Optional[
+            Union[models.DocumentSpecUnion, models.DocumentSpecUnionTypedDict]
+        ] = None,
+        request_options: Optional[
+            Union[
+                models.RecommendationsRequestOptions,
+                models.RecommendationsRequestOptionsTypedDict,
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -848,7 +986,14 @@ class Search(BaseSDK):
 
         Retrieve recommended documents for the given URL or Glean Document ID.
 
-        :param request: The request object to send.
+        :param timestamp: The ISO 8601 timestamp associated with the client request.
+        :param tracking_token: A previously received trackingToken for a search associated with the same query. Useful for more requests and requests for other tabs.
+        :param session_info:
+        :param source_document:
+        :param page_size: Hint to the server about how many results to send back. Server may return less or more. Structured results and clustered results don't count towards pageSize.
+        :param max_snippet_size: Hint to the server about how many characters long a snippet may be. Server may return less or more.
+        :param recommendation_document_spec:
+        :param request_options:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -864,9 +1009,24 @@ class Search(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.RecommendationsRequest)
-        request = cast(models.RecommendationsRequest, request)
+        request = models.RecommendationsRequest(
+            timestamp=timestamp,
+            tracking_token=tracking_token,
+            session_info=utils.get_pydantic_model(
+                session_info, Optional[models.SessionInfo]
+            ),
+            source_document=utils.get_pydantic_model(
+                source_document, Optional[models.Document]
+            ),
+            page_size=page_size,
+            max_snippet_size=max_snippet_size,
+            recommendation_document_spec=utils.get_pydantic_model(
+                recommendation_document_spec, Optional[models.DocumentSpecUnion]
+            ),
+            request_options=utils.get_pydantic_model(
+                request_options, Optional[models.RecommendationsRequestOptions]
+            ),
+        )
 
         req = self._build_request_async(
             method="POST",
@@ -882,7 +1042,7 @@ class Search(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.RecommendationsRequest]
+                request, False, False, "json", models.RecommendationsRequest
             ),
             timeout_ms=timeout_ms,
         )

@@ -5,16 +5,18 @@ from glean.api_client import errors, models, utils
 from glean.api_client._hooks import HookContext
 from glean.api_client.types import BaseModel, OptionalNullable, UNSET
 from glean.api_client.utils import get_security_from_env
-from typing import Mapping, Optional, Union, cast
+from typing import List, Mapping, Optional, Union, cast
 
 
 class Pins(BaseSDK):
     def update(
         self,
         *,
-        request: Union[
-            models.EditPinRequest, models.EditPinRequestTypedDict
-        ] = models.EditPinRequest(),
+        queries: Optional[List[str]] = None,
+        audience_filters: Optional[
+            Union[List[models.FacetFilter], List[models.FacetFilterTypedDict]]
+        ] = None,
+        id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -24,7 +26,9 @@ class Pins(BaseSDK):
 
         Update an existing user-generated pin.
 
-        :param request: The request object to send.
+        :param queries: The query strings for which the pinned result will show.
+        :param audience_filters: Filters which restrict who should see the pinned document. Values are taken from the corresponding filters in people search.
+        :param id: The opaque id of the pin to be edited.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -40,9 +44,13 @@ class Pins(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.EditPinRequest)
-        request = cast(models.EditPinRequest, request)
+        request = models.EditPinRequest(
+            queries=queries,
+            audience_filters=utils.get_pydantic_model(
+                audience_filters, Optional[List[models.FacetFilter]]
+            ),
+            id=id,
+        )
 
         req = self._build_request(
             method="POST",
@@ -58,7 +66,7 @@ class Pins(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.EditPinRequest]
+                request, False, False, "json", models.EditPinRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -111,9 +119,11 @@ class Pins(BaseSDK):
     async def update_async(
         self,
         *,
-        request: Union[
-            models.EditPinRequest, models.EditPinRequestTypedDict
-        ] = models.EditPinRequest(),
+        queries: Optional[List[str]] = None,
+        audience_filters: Optional[
+            Union[List[models.FacetFilter], List[models.FacetFilterTypedDict]]
+        ] = None,
+        id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -123,7 +133,9 @@ class Pins(BaseSDK):
 
         Update an existing user-generated pin.
 
-        :param request: The request object to send.
+        :param queries: The query strings for which the pinned result will show.
+        :param audience_filters: Filters which restrict who should see the pinned document. Values are taken from the corresponding filters in people search.
+        :param id: The opaque id of the pin to be edited.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -139,9 +151,13 @@ class Pins(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.EditPinRequest)
-        request = cast(models.EditPinRequest, request)
+        request = models.EditPinRequest(
+            queries=queries,
+            audience_filters=utils.get_pydantic_model(
+                audience_filters, Optional[List[models.FacetFilter]]
+            ),
+            id=id,
+        )
 
         req = self._build_request_async(
             method="POST",
@@ -157,7 +173,7 @@ class Pins(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.EditPinRequest]
+                request, False, False, "json", models.EditPinRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -210,9 +226,7 @@ class Pins(BaseSDK):
     def retrieve(
         self,
         *,
-        request: Union[
-            models.GetPinRequest, models.GetPinRequestTypedDict
-        ] = models.GetPinRequest(),
+        id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -222,7 +236,7 @@ class Pins(BaseSDK):
 
         Read pin details given its ID.
 
-        :param request: The request object to send.
+        :param id: The opaque id of the pin to be fetched.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -238,9 +252,9 @@ class Pins(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.GetPinRequest)
-        request = cast(models.GetPinRequest, request)
+        request = models.GetPinRequest(
+            id=id,
+        )
 
         req = self._build_request(
             method="POST",
@@ -256,7 +270,7 @@ class Pins(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.GetPinRequest]
+                request, False, False, "json", models.GetPinRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -309,9 +323,7 @@ class Pins(BaseSDK):
     async def retrieve_async(
         self,
         *,
-        request: Union[
-            models.GetPinRequest, models.GetPinRequestTypedDict
-        ] = models.GetPinRequest(),
+        id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -321,7 +333,7 @@ class Pins(BaseSDK):
 
         Read pin details given its ID.
 
-        :param request: The request object to send.
+        :param id: The opaque id of the pin to be fetched.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -337,9 +349,9 @@ class Pins(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.GetPinRequest)
-        request = cast(models.GetPinRequest, request)
+        request = models.GetPinRequest(
+            id=id,
+        )
 
         req = self._build_request_async(
             method="POST",
@@ -355,7 +367,7 @@ class Pins(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.GetPinRequest]
+                request, False, False, "json", models.GetPinRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -408,9 +420,7 @@ class Pins(BaseSDK):
     def list(
         self,
         *,
-        request: Union[
-            models.ListpinsRequest, models.ListpinsRequestTypedDict
-        ] = models.ListpinsRequest(),
+        request: Union[models.ListpinsRequest, models.ListpinsRequestTypedDict],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -454,7 +464,7 @@ class Pins(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.ListpinsRequest]
+                request, False, False, "json", models.ListpinsRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -507,9 +517,7 @@ class Pins(BaseSDK):
     async def list_async(
         self,
         *,
-        request: Union[
-            models.ListpinsRequest, models.ListpinsRequestTypedDict
-        ] = models.ListpinsRequest(),
+        request: Union[models.ListpinsRequest, models.ListpinsRequestTypedDict],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -553,7 +561,7 @@ class Pins(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.ListpinsRequest]
+                request, False, False, "json", models.ListpinsRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -606,9 +614,11 @@ class Pins(BaseSDK):
     def create(
         self,
         *,
-        request: Union[
-            models.PinRequest, models.PinRequestTypedDict
-        ] = models.PinRequest(),
+        queries: Optional[List[str]] = None,
+        audience_filters: Optional[
+            Union[List[models.FacetFilter], List[models.FacetFilterTypedDict]]
+        ] = None,
+        document_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -618,7 +628,9 @@ class Pins(BaseSDK):
 
         Pin a document as a result for a given search query.Pin results that are known to be a good match.
 
-        :param request: The request object to send.
+        :param queries: The query strings for which the pinned result will show.
+        :param audience_filters: Filters which restrict who should see the pinned document. Values are taken from the corresponding filters in people search.
+        :param document_id: The document to be pinned.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -634,9 +646,13 @@ class Pins(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.PinRequest)
-        request = cast(models.PinRequest, request)
+        request = models.PinRequest(
+            queries=queries,
+            audience_filters=utils.get_pydantic_model(
+                audience_filters, Optional[List[models.FacetFilter]]
+            ),
+            document_id=document_id,
+        )
 
         req = self._build_request(
             method="POST",
@@ -652,7 +668,7 @@ class Pins(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.PinRequest]
+                request, False, False, "json", models.PinRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -705,9 +721,11 @@ class Pins(BaseSDK):
     async def create_async(
         self,
         *,
-        request: Union[
-            models.PinRequest, models.PinRequestTypedDict
-        ] = models.PinRequest(),
+        queries: Optional[List[str]] = None,
+        audience_filters: Optional[
+            Union[List[models.FacetFilter], List[models.FacetFilterTypedDict]]
+        ] = None,
+        document_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -717,7 +735,9 @@ class Pins(BaseSDK):
 
         Pin a document as a result for a given search query.Pin results that are known to be a good match.
 
-        :param request: The request object to send.
+        :param queries: The query strings for which the pinned result will show.
+        :param audience_filters: Filters which restrict who should see the pinned document. Values are taken from the corresponding filters in people search.
+        :param document_id: The document to be pinned.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -733,9 +753,13 @@ class Pins(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.PinRequest)
-        request = cast(models.PinRequest, request)
+        request = models.PinRequest(
+            queries=queries,
+            audience_filters=utils.get_pydantic_model(
+                audience_filters, Optional[List[models.FacetFilter]]
+            ),
+            document_id=document_id,
+        )
 
         req = self._build_request_async(
             method="POST",
@@ -751,7 +775,7 @@ class Pins(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.PinRequest]
+                request, False, False, "json", models.PinRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -804,7 +828,7 @@ class Pins(BaseSDK):
     def remove(
         self,
         *,
-        request: Union[models.Unpin, models.UnpinTypedDict] = models.Unpin(),
+        id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -814,7 +838,7 @@ class Pins(BaseSDK):
 
         Unpin a previously pinned result.
 
-        :param request: The request object to send.
+        :param id: The opaque id of the pin to be unpinned.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -830,9 +854,9 @@ class Pins(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.Unpin)
-        request = cast(models.Unpin, request)
+        request = models.Unpin(
+            id=id,
+        )
 
         req = self._build_request(
             method="POST",
@@ -848,7 +872,7 @@ class Pins(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.Unpin]
+                request, False, False, "json", models.Unpin
             ),
             timeout_ms=timeout_ms,
         )
@@ -901,7 +925,7 @@ class Pins(BaseSDK):
     async def remove_async(
         self,
         *,
-        request: Union[models.Unpin, models.UnpinTypedDict] = models.Unpin(),
+        id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -911,7 +935,7 @@ class Pins(BaseSDK):
 
         Unpin a previously pinned result.
 
-        :param request: The request object to send.
+        :param id: The opaque id of the pin to be unpinned.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -927,9 +951,9 @@ class Pins(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.Unpin)
-        request = cast(models.Unpin, request)
+        request = models.Unpin(
+            id=id,
+        )
 
         req = self._build_request_async(
             method="POST",
@@ -945,7 +969,7 @@ class Pins(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.Unpin]
+                request, False, False, "json", models.Unpin
             ),
             timeout_ms=timeout_ms,
         )

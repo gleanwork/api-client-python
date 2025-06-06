@@ -3,9 +3,9 @@
 from .basesdk import BaseSDK
 from glean.api_client import errors, models, utils
 from glean.api_client._hooks import HookContext
-from glean.api_client.types import BaseModel, OptionalNullable, UNSET
+from glean.api_client.types import OptionalNullable, UNSET
 from glean.api_client.utils import get_security_from_env
-from typing import Any, Dict, List, Mapping, Optional, Union, cast
+from typing import Any, Dict, List, Mapping, Optional, Union
 
 
 class Agents(BaseSDK):
@@ -19,9 +19,9 @@ class Agents(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.Agent:
-        r"""Get Agent
+        r"""Retrieve an agent
 
-        Get an agent by ID. This endpoint implements the LangChain Agent Protocol, specifically part of the Agents stage (https://langchain-ai.github.io/agent-protocol/api.html#tag/agents/GET/agents/{agent_id}). It adheres to the standard contract defined for agent interoperability and can be used by agent runtimes that support the Agent Protocol.
+        Returns details of an [agent](https://developers.glean.com/agents/agents-api) created in the Agent Builder.
 
         :param agent_id: The ID of the agent.
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
@@ -116,9 +116,9 @@ class Agents(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.Agent:
-        r"""Get Agent
+        r"""Retrieve an agent
 
-        Get an agent by ID. This endpoint implements the LangChain Agent Protocol, specifically part of the Agents stage (https://langchain-ai.github.io/agent-protocol/api.html#tag/agents/GET/agents/{agent_id}). It adheres to the standard contract defined for agent interoperability and can be used by agent runtimes that support the Agent Protocol.
+        Returns details of an [agent](https://developers.glean.com/agents/agents-api) created in the Agent Builder.
 
         :param agent_id: The ID of the agent.
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
@@ -213,9 +213,9 @@ class Agents(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.AgentSchemas:
-        r"""Get Agent Schemas
+        r"""List an agent's schemas
 
-        Get an agent's schemas by ID. This endpoint implements the LangChain Agent Protocol, specifically part of the Agents stage (https://langchain-ai.github.io/agent-protocol/api.html#tag/agents/GET/agents/{agent_id}/schemas). It adheres to the standard contract defined for agent interoperability and can be used by agent runtimes that support the Agent Protocol.
+        Return [agent](https://developers.glean.com/agents/agents-api)'s input and output schemas. You can use these schemas to detect changes to an agent's input or output structure.
 
         :param agent_id: The ID of the agent.
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
@@ -310,9 +310,9 @@ class Agents(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.AgentSchemas:
-        r"""Get Agent Schemas
+        r"""List an agent's schemas
 
-        Get an agent's schemas by ID. This endpoint implements the LangChain Agent Protocol, specifically part of the Agents stage (https://langchain-ai.github.io/agent-protocol/api.html#tag/agents/GET/agents/{agent_id}/schemas). It adheres to the standard contract defined for agent interoperability and can be used by agent runtimes that support the Agent Protocol.
+        Return [agent](https://developers.glean.com/agents/agents-api)'s input and output schemas. You can use these schemas to detect changes to an agent's input or output structure.
 
         :param agent_id: The ID of the agent.
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
@@ -400,19 +400,17 @@ class Agents(BaseSDK):
     def list(
         self,
         *,
-        request: Union[
-            models.SearchAgentsRequest, models.SearchAgentsRequestTypedDict
-        ] = models.SearchAgentsRequest(),
+        name: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.SearchAgentsResponse:
-        r"""Search Agents
+        r"""Search agents
 
-        List Agents available in this service. This endpoint implements the LangChain Agent Protocol, specifically part of the Agents stage (https://langchain-ai.github.io/agent-protocol/api.html#tag/agents/POST/agents/search). It adheres to the standard contract defined for agent interoperability and can be used by agent runtimes that support the Agent Protocol.
+        Search for [agents](https://developers.glean.com/agents/agents-api) by agent name.
 
-        :param request: The request object to send.
+        :param name: Filters on the name of the agent. The keyword search is case-insensitive. If search string is ommited or empty, acts as no filter.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -428,9 +426,9 @@ class Agents(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.SearchAgentsRequest)
-        request = cast(models.SearchAgentsRequest, request)
+        request = models.SearchAgentsRequest(
+            name=name,
+        )
 
         req = self._build_request(
             method="POST",
@@ -446,7 +444,7 @@ class Agents(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.SearchAgentsRequest]
+                request, False, False, "json", models.SearchAgentsRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -499,19 +497,17 @@ class Agents(BaseSDK):
     async def list_async(
         self,
         *,
-        request: Union[
-            models.SearchAgentsRequest, models.SearchAgentsRequestTypedDict
-        ] = models.SearchAgentsRequest(),
+        name: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.SearchAgentsResponse:
-        r"""Search Agents
+        r"""Search agents
 
-        List Agents available in this service. This endpoint implements the LangChain Agent Protocol, specifically part of the Agents stage (https://langchain-ai.github.io/agent-protocol/api.html#tag/agents/POST/agents/search). It adheres to the standard contract defined for agent interoperability and can be used by agent runtimes that support the Agent Protocol.
+        Search for [agents](https://developers.glean.com/agents/agents-api) by agent name.
 
-        :param request: The request object to send.
+        :param name: Filters on the name of the agent. The keyword search is case-insensitive. If search string is ommited or empty, acts as no filter.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -527,9 +523,9 @@ class Agents(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.SearchAgentsRequest)
-        request = cast(models.SearchAgentsRequest, request)
+        request = models.SearchAgentsRequest(
+            name=name,
+        )
 
         req = self._build_request_async(
             method="POST",
@@ -545,7 +541,7 @@ class Agents(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.SearchAgentsRequest]
+                request, False, False, "json", models.SearchAgentsRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -608,9 +604,9 @@ class Agents(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> str:
-        r"""Create Run, Stream Output
+        r"""Create an agent run and stream the response
 
-        Creates and triggers a run of an agent. Streams the output in SSE format. This endpoint implements the LangChain Agent Protocol, specifically part of the Runs stage (https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/POST/runs/stream). It adheres to the standard contract defined for agent interoperability and can be used by agent runtimes that support the Agent Protocol. Note that running agents that reference third party platform write actions is unsupported as it requires user confirmation.
+        Executes an [agent](https://developers.glean.com/agents/agents-api) run and returns the result as a stream of server-sent events (SSE).
 
         :param agent_id: The ID of the agent to run.
         :param input: The input to the agent.
@@ -715,9 +711,9 @@ class Agents(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> str:
-        r"""Create Run, Stream Output
+        r"""Create an agent run and stream the response
 
-        Creates and triggers a run of an agent. Streams the output in SSE format. This endpoint implements the LangChain Agent Protocol, specifically part of the Runs stage (https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/POST/runs/stream). It adheres to the standard contract defined for agent interoperability and can be used by agent runtimes that support the Agent Protocol. Note that running agents that reference third party platform write actions is unsupported as it requires user confirmation.
+        Executes an [agent](https://developers.glean.com/agents/agents-api) run and returns the result as a stream of server-sent events (SSE).
 
         :param agent_id: The ID of the agent to run.
         :param input: The input to the agent.
@@ -822,9 +818,9 @@ class Agents(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.AgentRunWaitResponse:
-        r"""Create Run, Wait for Output
+        r"""Create an [agent](https://developers.glean.com/agents/agents-api) run and wait for the response
 
-        Creates and triggers a run of an agent. Waits for final output and then returns it. This endpoint implements the LangChain Agent Protocol, specifically part of the Runs stage (https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/POST/runs/wait). It adheres to the standard contract defined for agent interoperability and can be used by agent runtimes that support the Agent Protocol. Note that running agents that reference third party platform write actions is unsupported as it requires user confirmation.
+        Executes an agent run and returns the final response.
 
         :param agent_id: The ID of the agent to run.
         :param input: The input to the agent.
@@ -929,9 +925,9 @@ class Agents(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.AgentRunWaitResponse:
-        r"""Create Run, Wait for Output
+        r"""Create an [agent](https://developers.glean.com/agents/agents-api) run and wait for the response
 
-        Creates and triggers a run of an agent. Waits for final output and then returns it. This endpoint implements the LangChain Agent Protocol, specifically part of the Runs stage (https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/POST/runs/wait). It adheres to the standard contract defined for agent interoperability and can be used by agent runtimes that support the Agent Protocol. Note that running agents that reference third party platform write actions is unsupported as it requires user confirmation.
+        Executes an agent run and returns the final response.
 
         :param agent_id: The ID of the agent to run.
         :param input: The input to the agent.

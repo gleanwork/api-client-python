@@ -15,7 +15,7 @@ Returns a filtered set of available tools based on optional tool name parameters
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean.api_client import Glean
 import os
 
 
@@ -54,7 +54,7 @@ Execute the specified tool with provided parameters
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean.api_client import Glean
 import os
 
 

@@ -3,9 +3,9 @@
 from .basesdk import BaseSDK
 from glean.api_client import errors, models, utils
 from glean.api_client._hooks import HookContext
-from glean.api_client.types import BaseModel, OptionalNullable, UNSET
+from glean.api_client.types import OptionalNullable, UNSET
 from glean.api_client.utils import get_security_from_env
-from typing import Any, List, Mapping, Optional, Union, cast
+from typing import Any, List, Mapping, Optional, Union
 
 
 class Collections(BaseSDK):
@@ -1692,9 +1692,9 @@ class Collections(BaseSDK):
     def list(
         self,
         *,
-        request: Union[
-            models.ListCollectionsRequest, models.ListCollectionsRequestTypedDict
-        ] = models.ListCollectionsRequest(),
+        include_audience: Optional[bool] = None,
+        include_roles: Optional[bool] = None,
+        allowed_datasource: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1704,7 +1704,9 @@ class Collections(BaseSDK):
 
         List all existing Collections.
 
-        :param request: The request object to send.
+        :param include_audience: Whether to include the audience filters with the listed Collections.
+        :param include_roles: Whether to include the editor roles with the listed Collections.
+        :param allowed_datasource: The datasource type this Collection can hold. ANSWERS - for Collections representing answer boards
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1720,9 +1722,11 @@ class Collections(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.ListCollectionsRequest)
-        request = cast(models.ListCollectionsRequest, request)
+        request = models.ListCollectionsRequest(
+            include_audience=include_audience,
+            include_roles=include_roles,
+            allowed_datasource=allowed_datasource,
+        )
 
         req = self._build_request(
             method="POST",
@@ -1738,7 +1742,7 @@ class Collections(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.ListCollectionsRequest]
+                request, False, False, "json", models.ListCollectionsRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -1791,9 +1795,9 @@ class Collections(BaseSDK):
     async def list_async(
         self,
         *,
-        request: Union[
-            models.ListCollectionsRequest, models.ListCollectionsRequestTypedDict
-        ] = models.ListCollectionsRequest(),
+        include_audience: Optional[bool] = None,
+        include_roles: Optional[bool] = None,
+        allowed_datasource: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1803,7 +1807,9 @@ class Collections(BaseSDK):
 
         List all existing Collections.
 
-        :param request: The request object to send.
+        :param include_audience: Whether to include the audience filters with the listed Collections.
+        :param include_roles: Whether to include the editor roles with the listed Collections.
+        :param allowed_datasource: The datasource type this Collection can hold. ANSWERS - for Collections representing answer boards
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1819,9 +1825,11 @@ class Collections(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.ListCollectionsRequest)
-        request = cast(models.ListCollectionsRequest, request)
+        request = models.ListCollectionsRequest(
+            include_audience=include_audience,
+            include_roles=include_roles,
+            allowed_datasource=allowed_datasource,
+        )
 
         req = self._build_request_async(
             method="POST",
@@ -1837,7 +1845,7 @@ class Collections(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.ListCollectionsRequest]
+                request, False, False, "json", models.ListCollectionsRequest
             ),
             timeout_ms=timeout_ms,
         )

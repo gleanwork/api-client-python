@@ -6,19 +6,19 @@ from typing_extensions import TypedDict
 
 
 class InputSchemaTypedDict(TypedDict):
-    r"""The schema for the agent input. In JSON Schema format."""
+    r"""The schema for the agent input. In JSON schema format."""
 
 
 class InputSchema(BaseModel):
-    r"""The schema for the agent input. In JSON Schema format."""
+    r"""The schema for the agent input. In JSON schema format."""
 
 
 class OutputSchemaTypedDict(TypedDict):
-    r"""The schema for the agent output. In JSON Schema format."""
+    r"""The schema for the agent output. In JSON schema format."""
 
 
 class OutputSchema(BaseModel):
-    r"""The schema for the agent output. In JSON Schema format."""
+    r"""The schema for the agent output. In JSON schema format."""
 
 
 class AgentSchemasTypedDict(TypedDict):
@@ -27,9 +27,9 @@ class AgentSchemasTypedDict(TypedDict):
     agent_id: str
     r"""The ID of the agent."""
     input_schema: InputSchemaTypedDict
-    r"""The schema for the agent input. In JSON Schema format."""
+    r"""The schema for the agent input. In JSON schema format."""
     output_schema: OutputSchemaTypedDict
-    r"""The schema for the agent output. In JSON Schema format."""
+    r"""The schema for the agent output. In JSON schema format."""
 
 
 class AgentSchemas(BaseModel):
@@ -39,7 +39,7 @@ class AgentSchemas(BaseModel):
     r"""The ID of the agent."""
 
     input_schema: InputSchema
-    r"""The schema for the agent input. In JSON Schema format."""
+    r"""The schema for the agent input. In JSON schema format."""
 
     output_schema: OutputSchema
-    r"""The schema for the agent output. In JSON Schema format."""
+    r"""The schema for the agent output. In JSON schema format."""

@@ -9,24 +9,32 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class AgentMetadataTypedDict(TypedDict):
-    r"""The agent metadata."""
+    r"""The agent metadata. Currently not implemented."""
 
 
 class AgentMetadata(BaseModel):
-    r"""The agent metadata."""
+    r"""The agent metadata. Currently not implemented."""
 
 
 class AgentCapabilitiesTypedDict(TypedDict):
-    r"""Describes which protocol features the agent supports. In addition to the standard capabilities (prefixed with ap.), implementations can declare custom capabilities, named in reverse domain notation (eg. com.example.some.capability)."""
+    r"""Describes features that the agent supports. example: {
+    \"ap.io.messages\": true,
+    \"ap.io.streaming\": true
+    }
+    """
 
     ap_io_messages: NotRequired[bool]
-    r"""Whether the agent supports Messages as input/output/state. If true, the agent uses the `messages` key in threads/runs endpoints."""
+    r"""Whether the agent supports messages as an input. If true, you'll pass `messages` as an input when running the agent."""
     ap_io_streaming: NotRequired[bool]
-    r"""Whether the agent supports streaming output."""
+    r"""Whether the agent supports streaming output. If true, you you can stream agent ouput. All agents currently support streaming."""
 
 
 class AgentCapabilities(BaseModel):
-    r"""Describes which protocol features the agent supports. In addition to the standard capabilities (prefixed with ap.), implementations can declare custom capabilities, named in reverse domain notation (eg. com.example.some.capability)."""
+    r"""Describes features that the agent supports. example: {
+    \"ap.io.messages\": true,
+    \"ap.io.streaming\": true
+    }
+    """
 
     model_config = ConfigDict(
         populate_by_name=True, arbitrary_types_allowed=True, extra="allow"
@@ -36,12 +44,12 @@ class AgentCapabilities(BaseModel):
     ap_io_messages: Annotated[
         Optional[bool], pydantic.Field(alias="ap.io.messages")
     ] = None
-    r"""Whether the agent supports Messages as input/output/state. If true, the agent uses the `messages` key in threads/runs endpoints."""
+    r"""Whether the agent supports messages as an input. If true, you'll pass `messages` as an input when running the agent."""
 
     ap_io_streaming: Annotated[
         Optional[bool], pydantic.Field(alias="ap.io.streaming")
     ] = None
-    r"""Whether the agent supports streaming output."""
+    r"""Whether the agent supports streaming output. If true, you you can stream agent ouput. All agents currently support streaming."""
 
     @property
     def additional_properties(self):
@@ -58,11 +66,15 @@ class AgentTypedDict(TypedDict):
     name: str
     r"""The name of the agent"""
     capabilities: AgentCapabilitiesTypedDict
-    r"""Describes which protocol features the agent supports. In addition to the standard capabilities (prefixed with ap.), implementations can declare custom capabilities, named in reverse domain notation (eg. com.example.some.capability)."""
+    r"""Describes features that the agent supports. example: {
+    \"ap.io.messages\": true,
+    \"ap.io.streaming\": true
+    }
+    """
     description: NotRequired[str]
     r"""The description of the agent."""
     metadata: NotRequired[AgentMetadataTypedDict]
-    r"""The agent metadata."""
+    r"""The agent metadata. Currently not implemented."""
 
 
 class Agent(BaseModel):
@@ -73,10 +85,14 @@ class Agent(BaseModel):
     r"""The name of the agent"""
 
     capabilities: AgentCapabilities
-    r"""Describes which protocol features the agent supports. In addition to the standard capabilities (prefixed with ap.), implementations can declare custom capabilities, named in reverse domain notation (eg. com.example.some.capability)."""
+    r"""Describes features that the agent supports. example: {
+    \"ap.io.messages\": true,
+    \"ap.io.streaming\": true
+    }
+    """
 
     description: Optional[str] = None
     r"""The description of the agent."""
 
     metadata: Optional[AgentMetadata] = None
-    r"""The agent metadata."""
+    r"""The agent metadata. Currently not implemented."""
