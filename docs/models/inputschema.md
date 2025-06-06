@@ -1,6 +1,6 @@
 # InputSchema
 
-The schema for the agent input. In JSON schema format.
+The schema for the agent input. In JSON Schema format.
 
 
 ## Fields

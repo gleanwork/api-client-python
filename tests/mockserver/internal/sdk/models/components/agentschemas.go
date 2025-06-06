@@ -2,11 +2,11 @@
 
 package components
 
-// InputSchema - The schema for the agent input. In JSON schema format.
+// InputSchema - The schema for the agent input. In JSON Schema format.
 type InputSchema struct {
 }
 
-// OutputSchema - The schema for the agent output. In JSON schema format.
+// OutputSchema - The schema for the agent output. In JSON Schema format.
 type OutputSchema struct {
 }
 
@@ -14,9 +14,9 @@ type OutputSchema struct {
 type AgentSchemas struct {
 	// The ID of the agent.
 	AgentID string `json:"agent_id"`
-	// The schema for the agent input. In JSON schema format.
+	// The schema for the agent input. In JSON Schema format.
 	InputSchema InputSchema `json:"input_schema"`
-	// The schema for the agent output. In JSON schema format.
+	// The schema for the agent output. In JSON Schema format.
 	OutputSchema OutputSchema `json:"output_schema"`
 }
 

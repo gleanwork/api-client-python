@@ -9,7 +9,7 @@
 * [retrieve_schemas](#retrieve_schemas) - List an agent's schemas
 * [list](#list) - Search agents
 * [run_stream](#run_stream) - Create an agent run and stream the response
-* [run](#run) - Create an [agent](https://developers.glean.com/agents/agents-api) run and wait for the response
+* [run](#run) - Create an agent run and wait for the response
 
 ## retrieve
 
@@ -18,7 +18,7 @@ Returns details of an [agent](https://developers.glean.com/agents/agents-api) cr
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 
@@ -58,7 +58,7 @@ Return [agent](https://developers.glean.com/agents/agents-api)'s input and outpu
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 
@@ -98,7 +98,7 @@ Search for [agents](https://developers.glean.com/agents/agents-api) by agent nam
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 
@@ -137,7 +137,7 @@ Executes an [agent](https://developers.glean.com/agents/agents-api) run and retu
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 
@@ -173,12 +173,12 @@ with Glean(
 
 ## run
 
-Executes an agent run and returns the final response.
+Executes an [agent](https://developers.glean.com/agents/agents-api) run and returns the final response.
 
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 
