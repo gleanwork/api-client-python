@@ -26,11 +26,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Setup Speakeasy CLI
-        uses: gleanwork/open-api/.github/actions/speakeasy-setup@main
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-
       # run the glean target specified in .speakeasy/workflow.yaml
       - run: speakeasy test --target glean
 
