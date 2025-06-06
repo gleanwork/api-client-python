@@ -6,4 +6,5 @@ python = "3.9"
 
 # needed by speakeasy mockserver
 go = "1.22"
+"aqua:speakeasy-api/speakeasy" = "latest"
 
