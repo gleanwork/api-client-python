@@ -15,7 +15,7 @@ List some set of details for all entities that fit the given criteria and return
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean.api_client import Glean, models
 import os
 
 
@@ -76,7 +76,7 @@ Read people details for the given IDs.
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean.api_client import Glean
 import os
 
 
