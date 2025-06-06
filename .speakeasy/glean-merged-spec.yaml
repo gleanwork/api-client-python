@@ -945,8 +945,8 @@ paths:
         post:
             tags:
                 - Agents
-            summary: Create an [agent](https://developers.glean.com/agents/agents-api) run and wait for the response
-            description: Executes an agent run and returns the final response.
+            summary: Create an agent run and wait for the response
+            description: Executes an [agent](https://developers.glean.com/agents/agents-api) run and returns the final response.
             operationId: createAndWaitRun
             x-visibility: Preview
             requestBody:
@@ -7475,11 +7475,11 @@ components:
                 input_schema:
                     type: object
                     title: Input Schema
-                    description: The schema for the agent input. In JSON schema format.
+                    description: The schema for the agent input. In JSON Schema format.
                 output_schema:
                     type: object
                     title: Output Schema
-                    description: The schema for the agent output. In JSON schema format.
+                    description: The schema for the agent output. In JSON Schema format.
             type: object
             required:
                 - agent_id

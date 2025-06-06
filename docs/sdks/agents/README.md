@@ -9,7 +9,7 @@
 * [retrieve_schemas](#retrieve_schemas) - List an agent's schemas
 * [list](#list) - Search agents
 * [run_stream](#run_stream) - Create an agent run and stream the response
-* [run](#run) - Create an [agent](https://developers.glean.com/agents/agents-api) run and wait for the response
+* [run](#run) - Create an agent run and wait for the response
 
 ## retrieve
 
@@ -173,7 +173,7 @@ with Glean(
 
 ## run
 
-Executes an agent run and returns the final response.
+Executes an [agent](https://developers.glean.com/agents/agents-api) run and returns the final response.
 
 ### Example Usage
 

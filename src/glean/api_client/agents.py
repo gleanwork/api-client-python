@@ -818,9 +818,9 @@ class Agents(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.AgentRunWaitResponse:
-        r"""Create an [agent](https://developers.glean.com/agents/agents-api) run and wait for the response
+        r"""Create an agent run and wait for the response
 
-        Executes an agent run and returns the final response.
+        Executes an [agent](https://developers.glean.com/agents/agents-api) run and returns the final response.
 
         :param agent_id: The ID of the agent to run.
         :param input: The input to the agent.
@@ -925,9 +925,9 @@ class Agents(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.AgentRunWaitResponse:
-        r"""Create an [agent](https://developers.glean.com/agents/agents-api) run and wait for the response
+        r"""Create an agent run and wait for the response
 
-        Executes an agent run and returns the final response.
+        Executes an [agent](https://developers.glean.com/agents/agents-api) run and returns the final response.
 
         :param agent_id: The ID of the agent to run.
         :param input: The input to the agent.

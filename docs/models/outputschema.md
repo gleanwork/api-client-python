@@ -1,6 +1,6 @@
 # OutputSchema
 
-The schema for the agent output. In JSON schema format.
+The schema for the agent output. In JSON Schema format.
 
 
 ## Fields
