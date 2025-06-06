@@ -3,9 +3,9 @@
 from .basesdk import BaseSDK
 from glean.api_client import errors, models, utils
 from glean.api_client._hooks import HookContext
-from glean.api_client.types import BaseModel, OptionalNullable, UNSET
+from glean.api_client.types import OptionalNullable, UNSET
 from glean.api_client.utils import get_security_from_env
-from typing import List, Mapping, Optional, Union, cast
+from typing import List, Mapping, Optional, Union
 
 
 class Answers(BaseSDK):
@@ -756,9 +756,8 @@ class Answers(BaseSDK):
     def retrieve(
         self,
         *,
-        request: Union[
-            models.GetAnswerRequest, models.GetAnswerRequestTypedDict
-        ] = models.GetAnswerRequest(),
+        id: Optional[int] = None,
+        doc_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -768,7 +767,8 @@ class Answers(BaseSDK):
 
         Read the details of a particular Answer given its ID.
 
-        :param request: The request object to send.
+        :param id: The opaque ID of the Answer.
+        :param doc_id: Glean Document ID of the Answer. The Glean Document ID is supported for cases where the Answer ID isn't available. If both are available, using the Answer ID is preferred.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -784,9 +784,10 @@ class Answers(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.GetAnswerRequest)
-        request = cast(models.GetAnswerRequest, request)
+        request = models.GetAnswerRequest(
+            id=id,
+            doc_id=doc_id,
+        )
 
         req = self._build_request(
             method="POST",
@@ -802,7 +803,7 @@ class Answers(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.GetAnswerRequest]
+                request, False, False, "json", models.GetAnswerRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -855,9 +856,8 @@ class Answers(BaseSDK):
     async def retrieve_async(
         self,
         *,
-        request: Union[
-            models.GetAnswerRequest, models.GetAnswerRequestTypedDict
-        ] = models.GetAnswerRequest(),
+        id: Optional[int] = None,
+        doc_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -867,7 +867,8 @@ class Answers(BaseSDK):
 
         Read the details of a particular Answer given its ID.
 
-        :param request: The request object to send.
+        :param id: The opaque ID of the Answer.
+        :param doc_id: Glean Document ID of the Answer. The Glean Document ID is supported for cases where the Answer ID isn't available. If both are available, using the Answer ID is preferred.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -883,9 +884,10 @@ class Answers(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.GetAnswerRequest)
-        request = cast(models.GetAnswerRequest, request)
+        request = models.GetAnswerRequest(
+            id=id,
+            doc_id=doc_id,
+        )
 
         req = self._build_request_async(
             method="POST",
@@ -901,7 +903,7 @@ class Answers(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.GetAnswerRequest]
+                request, False, False, "json", models.GetAnswerRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -954,9 +956,7 @@ class Answers(BaseSDK):
     def list(
         self,
         *,
-        request: Union[
-            models.ListAnswersRequest, models.ListAnswersRequestTypedDict
-        ] = models.ListAnswersRequest(),
+        board_id: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -966,7 +966,7 @@ class Answers(BaseSDK):
 
         List Answers created by the current user.
 
-        :param request: The request object to send.
+        :param board_id: The Answer Board Id to list answers on.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -982,9 +982,9 @@ class Answers(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.ListAnswersRequest)
-        request = cast(models.ListAnswersRequest, request)
+        request = models.ListAnswersRequest(
+            board_id=board_id,
+        )
 
         req = self._build_request(
             method="POST",
@@ -1000,7 +1000,7 @@ class Answers(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.ListAnswersRequest]
+                request, False, False, "json", models.ListAnswersRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -1053,9 +1053,7 @@ class Answers(BaseSDK):
     async def list_async(
         self,
         *,
-        request: Union[
-            models.ListAnswersRequest, models.ListAnswersRequestTypedDict
-        ] = models.ListAnswersRequest(),
+        board_id: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1065,7 +1063,7 @@ class Answers(BaseSDK):
 
         List Answers created by the current user.
 
-        :param request: The request object to send.
+        :param board_id: The Answer Board Id to list answers on.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1081,9 +1079,9 @@ class Answers(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.ListAnswersRequest)
-        request = cast(models.ListAnswersRequest, request)
+        request = models.ListAnswersRequest(
+            board_id=board_id,
+        )
 
         req = self._build_request_async(
             method="POST",
@@ -1099,7 +1097,7 @@ class Answers(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.ListAnswersRequest]
+                request, False, False, "json", models.ListAnswersRequest
             ),
             timeout_ms=timeout_ms,
         )

@@ -3,18 +3,30 @@
 from .basesdk import BaseSDK
 from glean.api_client import errors, models, utils
 from glean.api_client._hooks import HookContext
-from glean.api_client.types import BaseModel, OptionalNullable, UNSET
+from glean.api_client.types import OptionalNullable, UNSET
 from glean.api_client.utils import get_security_from_env
-from typing import Mapping, Optional, Union, cast
+from typing import List, Mapping, Optional, Union
 
 
 class Entities(BaseSDK):
     def list(
         self,
         *,
-        request: Union[
-            models.ListEntitiesRequest, models.ListEntitiesRequestTypedDict
-        ] = models.ListEntitiesRequest(),
+        filter_: Optional[
+            Union[List[models.FacetFilter], List[models.FacetFilterTypedDict]]
+        ] = None,
+        sort: Optional[
+            Union[List[models.SortOptions], List[models.SortOptionsTypedDict]]
+        ] = None,
+        entity_type: Optional[
+            models.ListEntitiesRequestEntityType
+        ] = models.ListEntitiesRequestEntityType.PEOPLE,
+        datasource: Optional[str] = None,
+        query: Optional[str] = None,
+        include_fields: Optional[List[models.ListEntitiesRequestIncludeField]] = None,
+        page_size: Optional[int] = None,
+        cursor: Optional[str] = None,
+        source: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -24,7 +36,15 @@ class Entities(BaseSDK):
 
         List some set of details for all entities that fit the given criteria and return in the requested order. Does not support negation in filters, assumes relation type EQUALS. There is a limit of 10000 entities that can be retrieved via this endpoint.
 
-        :param request: The request object to send.
+        :param filter_:
+        :param sort: Use EntitiesSortOrder enum for SortOptions.sortBy
+        :param entity_type:
+        :param datasource: The datasource associated with the entity type, most commonly used with CUSTOM_ENTITIES
+        :param query: A query string to search for entities that each entity in the response must conform to. An empty query does not filter any entities.
+        :param include_fields: List of entity fields to return (that aren't returned by default)
+        :param page_size: Hint to the server about how many results to send back. Server may return less.
+        :param cursor: Pagination cursor. A previously received opaque token representing the position in the overall results at which to start.
+        :param source: A string denoting the search surface from which the endpoint is called.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -40,9 +60,19 @@ class Entities(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.ListEntitiesRequest)
-        request = cast(models.ListEntitiesRequest, request)
+        request = models.ListEntitiesRequest(
+            filter_=utils.get_pydantic_model(
+                filter_, Optional[List[models.FacetFilter]]
+            ),
+            sort=utils.get_pydantic_model(sort, Optional[List[models.SortOptions]]),
+            entity_type=entity_type,
+            datasource=datasource,
+            query=query,
+            include_fields=include_fields,
+            page_size=page_size,
+            cursor=cursor,
+            source=source,
+        )
 
         req = self._build_request(
             method="POST",
@@ -58,7 +88,7 @@ class Entities(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.ListEntitiesRequest]
+                request, False, False, "json", models.ListEntitiesRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -111,9 +141,21 @@ class Entities(BaseSDK):
     async def list_async(
         self,
         *,
-        request: Union[
-            models.ListEntitiesRequest, models.ListEntitiesRequestTypedDict
-        ] = models.ListEntitiesRequest(),
+        filter_: Optional[
+            Union[List[models.FacetFilter], List[models.FacetFilterTypedDict]]
+        ] = None,
+        sort: Optional[
+            Union[List[models.SortOptions], List[models.SortOptionsTypedDict]]
+        ] = None,
+        entity_type: Optional[
+            models.ListEntitiesRequestEntityType
+        ] = models.ListEntitiesRequestEntityType.PEOPLE,
+        datasource: Optional[str] = None,
+        query: Optional[str] = None,
+        include_fields: Optional[List[models.ListEntitiesRequestIncludeField]] = None,
+        page_size: Optional[int] = None,
+        cursor: Optional[str] = None,
+        source: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -123,7 +165,15 @@ class Entities(BaseSDK):
 
         List some set of details for all entities that fit the given criteria and return in the requested order. Does not support negation in filters, assumes relation type EQUALS. There is a limit of 10000 entities that can be retrieved via this endpoint.
 
-        :param request: The request object to send.
+        :param filter_:
+        :param sort: Use EntitiesSortOrder enum for SortOptions.sortBy
+        :param entity_type:
+        :param datasource: The datasource associated with the entity type, most commonly used with CUSTOM_ENTITIES
+        :param query: A query string to search for entities that each entity in the response must conform to. An empty query does not filter any entities.
+        :param include_fields: List of entity fields to return (that aren't returned by default)
+        :param page_size: Hint to the server about how many results to send back. Server may return less.
+        :param cursor: Pagination cursor. A previously received opaque token representing the position in the overall results at which to start.
+        :param source: A string denoting the search surface from which the endpoint is called.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -139,9 +189,19 @@ class Entities(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.ListEntitiesRequest)
-        request = cast(models.ListEntitiesRequest, request)
+        request = models.ListEntitiesRequest(
+            filter_=utils.get_pydantic_model(
+                filter_, Optional[List[models.FacetFilter]]
+            ),
+            sort=utils.get_pydantic_model(sort, Optional[List[models.SortOptions]]),
+            entity_type=entity_type,
+            datasource=datasource,
+            query=query,
+            include_fields=include_fields,
+            page_size=page_size,
+            cursor=cursor,
+            source=source,
+        )
 
         req = self._build_request_async(
             method="POST",
@@ -157,7 +217,7 @@ class Entities(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.ListEntitiesRequest]
+                request, False, False, "json", models.ListEntitiesRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -210,9 +270,12 @@ class Entities(BaseSDK):
     def read_people(
         self,
         *,
-        request: Union[
-            models.PeopleRequest, models.PeopleRequestTypedDict
-        ] = models.PeopleRequest(),
+        timezone_offset: Optional[int] = None,
+        obfuscated_ids: Optional[List[str]] = None,
+        email_ids: Optional[List[str]] = None,
+        include_fields: Optional[List[models.PeopleRequestIncludeField]] = None,
+        include_types: Optional[List[models.IncludeType]] = None,
+        source: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -222,7 +285,12 @@ class Entities(BaseSDK):
 
         Read people details for the given IDs.
 
-        :param request: The request object to send.
+        :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
+        :param obfuscated_ids: The Person IDs to retrieve. If no IDs are requested, the current user's details are returned.
+        :param email_ids: The email IDs to retrieve. The result is the deduplicated union of emailIds and obfuscatedIds.
+        :param include_fields: List of PersonMetadata fields to return (that aren't returned by default)
+        :param include_types: The types of people entities to include in the response in addition to those returned by default.
+        :param source: A string denoting the search surface from which the endpoint is called.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -238,9 +306,14 @@ class Entities(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.PeopleRequest)
-        request = cast(models.PeopleRequest, request)
+        request = models.PeopleRequest(
+            timezone_offset=timezone_offset,
+            obfuscated_ids=obfuscated_ids,
+            email_ids=email_ids,
+            include_fields=include_fields,
+            include_types=include_types,
+            source=source,
+        )
 
         req = self._build_request(
             method="POST",
@@ -256,7 +329,7 @@ class Entities(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.PeopleRequest]
+                request, False, False, "json", models.PeopleRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -309,9 +382,12 @@ class Entities(BaseSDK):
     async def read_people_async(
         self,
         *,
-        request: Union[
-            models.PeopleRequest, models.PeopleRequestTypedDict
-        ] = models.PeopleRequest(),
+        timezone_offset: Optional[int] = None,
+        obfuscated_ids: Optional[List[str]] = None,
+        email_ids: Optional[List[str]] = None,
+        include_fields: Optional[List[models.PeopleRequestIncludeField]] = None,
+        include_types: Optional[List[models.IncludeType]] = None,
+        source: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -321,7 +397,12 @@ class Entities(BaseSDK):
 
         Read people details for the given IDs.
 
-        :param request: The request object to send.
+        :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
+        :param obfuscated_ids: The Person IDs to retrieve. If no IDs are requested, the current user's details are returned.
+        :param email_ids: The email IDs to retrieve. The result is the deduplicated union of emailIds and obfuscatedIds.
+        :param include_fields: List of PersonMetadata fields to return (that aren't returned by default)
+        :param include_types: The types of people entities to include in the response in addition to those returned by default.
+        :param source: A string denoting the search surface from which the endpoint is called.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -337,9 +418,14 @@ class Entities(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.PeopleRequest)
-        request = cast(models.PeopleRequest, request)
+        request = models.PeopleRequest(
+            timezone_offset=timezone_offset,
+            obfuscated_ids=obfuscated_ids,
+            email_ids=email_ids,
+            include_fields=include_fields,
+            include_types=include_types,
+            source=source,
+        )
 
         req = self._build_request_async(
             method="POST",
@@ -355,7 +441,7 @@ class Entities(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.PeopleRequest]
+                request, False, False, "json", models.PeopleRequest
             ),
             timeout_ms=timeout_ms,
         )

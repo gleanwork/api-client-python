@@ -16,7 +16,7 @@ def test_client_documents_getdocpermissions():
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.client.documents.retrieve_permissions(request={})
+        res = g_client.client.documents.retrieve_permissions()
         assert res is not None
 
 

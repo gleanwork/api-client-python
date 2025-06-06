@@ -17,6 +17,7 @@ def test_datasources_post_api_index_v1_adddatasource():
 
         g_client.indexing.datasources.add(
             name="<value>",
+            datasource_category=models.DatasourceCategory.UNCATEGORIZED,
             url_regex="https://example-company.datasource.com/.*",
             quicklinks=[
                 {
@@ -36,6 +37,10 @@ def test_datasources_post_api_index_v1_adddatasource():
                     },
                 },
             ],
+            trust_url_regex_for_view_activity=True,
+            strip_fragment_in_canonical_url=True,
+            is_entity_datasource=False,
+            is_test_datasource=False,
         )
 
 

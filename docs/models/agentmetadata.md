@@ -1,6 +1,6 @@
 # AgentMetadata
 
-The agent metadata.
+The agent metadata. Currently not implemented.
 
 
 ## Fields

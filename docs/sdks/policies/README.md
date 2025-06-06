@@ -159,10 +159,13 @@ with Glean(
 
 ### Parameters
 
-| Parameter                                                               | Type                                                                    | Required                                                                | Description                                                             |
-| ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| `request`                                                               | [models.CreateDlpReportRequest](../../models/createdlpreportrequest.md) | :heavy_check_mark:                                                      | The request object to use for the request.                              |
-| `retries`                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)        | :heavy_minus_sign:                                                      | Configuration to override the default retry behavior of the client.     |
+| Parameter                                                                       | Type                                                                            | Required                                                                        | Description                                                                     |
+| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `name`                                                                          | *Optional[str]*                                                                 | :heavy_minus_sign:                                                              | Name of the policy being created.                                               |
+| `config`                                                                        | [Optional[models.DlpConfig]](../../models/dlpconfig.md)                         | :heavy_minus_sign:                                                              | Detailed configuration of what documents and sensitive content will be scanned. |
+| `frequency`                                                                     | [Optional[models.DlpFrequency]](../../models/dlpfrequency.md)                   | :heavy_minus_sign:                                                              | Interval between scans. DAILY is deprecated.                                    |
+| `auto_hide_docs`                                                                | *Optional[bool]*                                                                | :heavy_minus_sign:                                                              | Controls whether the policy should hide documents with violations.              |
+| `retries`                                                                       | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                | :heavy_minus_sign:                                                              | Configuration to override the default retry behavior of the client.             |
 
 ### Response
 

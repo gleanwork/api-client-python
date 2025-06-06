@@ -29,30 +29,74 @@ with Glean(
 
     res = g_client.client.search.query_as_admin(query="vacation policy", tracking_token="trackingToken", source_document=models.Document(
         container_document=models.Document(
-            parent_document=models.Document(
-                metadata=models.DocumentMetadata(
-                    datasource="datasource",
-                    object_type="Feature Request",
-                    container="container",
-                    parent_id="JIRA_EN-1337",
-                    mime_type="mimeType",
-                    document_id="documentId",
-                    create_time=parse_datetime("2000-01-23T04:56:07.000Z"),
-                    update_time=parse_datetime("2000-01-23T04:56:07.000Z"),
-                    author=models.Person(
-                        name="name",
-                        obfuscated_id="<id>",
-                    ),
-                    components=[
-                        "Backend",
-                        "Networking",
-                    ],
-                    status="[\"Done\"]",
-                    custom_data={
-                        "someCustomField": models.CustomDataValue(),
-                    },
+            metadata=models.DocumentMetadata(
+                datasource="datasource",
+                object_type="Feature Request",
+                container="container",
+                parent_id="JIRA_EN-1337",
+                mime_type="mimeType",
+                document_id="documentId",
+                create_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+                update_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+                author=models.Person(
+                    name="name",
+                    obfuscated_id="<id>",
                 ),
+                components=[
+                    "Backend",
+                    "Networking",
+                ],
+                status="[\"Done\"]",
+                custom_data={
+                    "someCustomField": models.CustomDataValue(),
+                },
             ),
+        ),
+        parent_document=models.Document(
+            metadata=models.DocumentMetadata(
+                datasource="datasource",
+                object_type="Feature Request",
+                container="container",
+                parent_id="JIRA_EN-1337",
+                mime_type="mimeType",
+                document_id="documentId",
+                create_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+                update_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+                author=models.Person(
+                    name="name",
+                    obfuscated_id="<id>",
+                ),
+                components=[
+                    "Backend",
+                    "Networking",
+                ],
+                status="[\"Done\"]",
+                custom_data={
+                    "someCustomField": models.CustomDataValue(),
+                },
+            ),
+        ),
+        metadata=models.DocumentMetadata(
+            datasource="datasource",
+            object_type="Feature Request",
+            container="container",
+            parent_id="JIRA_EN-1337",
+            mime_type="mimeType",
+            document_id="documentId",
+            create_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+            update_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+            author=models.Person(
+                name="name",
+                obfuscated_id="<id>",
+            ),
+            components=[
+                "Backend",
+                "Networking",
+            ],
+            status="[\"Done\"]",
+            custom_data={
+                "someCustomField": models.CustomDataValue(),
+            },
         ),
     ), page_size=10, max_snippet_size=400, input_details={
         "has_copy_paste": True,
@@ -140,12 +184,15 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
-    res = g_client.client.search.autocomplete(request={
-        "tracking_token": "trackingToken",
-        "query": "what is a que",
-        "datasource": "GDRIVE",
-        "result_size": 10,
-    })
+    res = g_client.client.search.autocomplete(tracking_token="trackingToken", query="what is a que", datasource="GDRIVE", result_size=10, auth_tokens=[
+        {
+            "access_token": "123abc",
+            "datasource": "gmail",
+            "scope": "email profile https://www.googleapis.com/auth/gmail.readonly",
+            "token_type": "Bearer",
+            "auth_user": "1",
+        },
+    ])
 
     # Handle response
     print(res)
@@ -154,10 +201,17 @@ with Glean(
 
 ### Parameters
 
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `request`                                                           | [models.AutocompleteRequest](../../models/autocompleterequest.md)   | :heavy_check_mark:                                                  | The request object to use for the request.                          |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+| Parameter                                                                                                                | Type                                                                                                                     | Required                                                                                                                 | Description                                                                                                              | Example                                                                                                                  |
+| ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
+| `tracking_token`                                                                                                         | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | N/A                                                                                                                      |                                                                                                                          |
+| `session_info`                                                                                                           | [Optional[models.SessionInfo]](../../models/sessioninfo.md)                                                              | :heavy_minus_sign:                                                                                                       | N/A                                                                                                                      |                                                                                                                          |
+| `query`                                                                                                                  | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | Partially typed query.                                                                                                   | San Fra                                                                                                                  |
+| `datasources_filter`                                                                                                     | List[*str*]                                                                                                              | :heavy_minus_sign:                                                                                                       | Filter results to only those relevant to one or more datasources (e.g. jira, gdrive). Results are unfiltered if missing. |                                                                                                                          |
+| `datasource`                                                                                                             | *Optional[str]*                                                                                                          | :heavy_minus_sign:                                                                                                       | Filter to only return results relevant to the given datasource.                                                          |                                                                                                                          |
+| `result_types`                                                                                                           | List[[models.AutocompleteRequestResultType](../../models/autocompleterequestresulttype.md)]                              | :heavy_minus_sign:                                                                                                       | Filter to only return results of the given type(s). All types may be returned if omitted.                                |                                                                                                                          |
+| `result_size`                                                                                                            | *Optional[int]*                                                                                                          | :heavy_minus_sign:                                                                                                       | Maximum number of results to be returned. If no value is provided, the backend will cap at 200.<br/>                     | 10                                                                                                                       |
+| `auth_tokens`                                                                                                            | List[[models.AuthToken](../../models/authtoken.md)]                                                                      | :heavy_minus_sign:                                                                                                       | Auth tokens which may be used for federated results.                                                                     |                                                                                                                          |
+| `retries`                                                                                                                | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                         | :heavy_minus_sign:                                                                                                       | Configuration to override the default retry behavior of the client.                                                      |                                                                                                                          |
 
 ### Response
 
@@ -184,9 +238,7 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
-    res = g_client.client.search.retrieve_feed(request={
-        "timeout_millis": 5000,
-    })
+    res = g_client.client.search.retrieve_feed(timeout_millis=5000)
 
     # Handle response
     print(res)
@@ -195,10 +247,13 @@ with Glean(
 
 ### Parameters
 
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `request`                                                           | [models.FeedRequest](../../models/feedrequest.md)                   | :heavy_check_mark:                                                  | The request object to use for the request.                          |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+| Parameter                                                                                                     | Type                                                                                                          | Required                                                                                                      | Description                                                                                                   | Example                                                                                                       |
+| ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `categories`                                                                                                  | List[[models.FeedRequestCategory](../../models/feedrequestcategory.md)]                                       | :heavy_minus_sign:                                                                                            | Categories of content requested. An allowlist gives flexibility to request content separately or together.    |                                                                                                               |
+| `request_options`                                                                                             | [Optional[models.FeedRequestOptions]](../../models/feedrequestoptions.md)                                     | :heavy_minus_sign:                                                                                            | N/A                                                                                                           |                                                                                                               |
+| `timeout_millis`                                                                                              | *Optional[int]*                                                                                               | :heavy_minus_sign:                                                                                            | Timeout in milliseconds for the request. A `408` error will be returned if handling the request takes longer. | 5000                                                                                                          |
+| `session_info`                                                                                                | [Optional[models.SessionInfo]](../../models/sessioninfo.md)                                                   | :heavy_minus_sign:                                                                                            | N/A                                                                                                           |                                                                                                               |
+| `retries`                                                                                                     | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                              | :heavy_minus_sign:                                                                                            | Configuration to override the default retry behavior of the client.                                           |                                                                                                               |
 
 ### Response
 
@@ -226,8 +281,180 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
-    res = g_client.client.search.recommendations(request=models.RecommendationsRequest(
-        source_document=models.Document(
+    res = g_client.client.search.recommendations(source_document=models.Document(
+        container_document=models.Document(
+            metadata=models.DocumentMetadata(
+                datasource="datasource",
+                object_type="Feature Request",
+                container="container",
+                parent_id="JIRA_EN-1337",
+                mime_type="mimeType",
+                document_id="documentId",
+                create_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+                update_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+                author=models.Person(
+                    name="name",
+                    obfuscated_id="<id>",
+                ),
+                components=[
+                    "Backend",
+                    "Networking",
+                ],
+                status="[\"Done\"]",
+                custom_data={
+                    "someCustomField": models.CustomDataValue(),
+                },
+            ),
+        ),
+        parent_document=models.Document(
+            metadata=models.DocumentMetadata(
+                datasource="datasource",
+                object_type="Feature Request",
+                container="container",
+                parent_id="JIRA_EN-1337",
+                mime_type="mimeType",
+                document_id="documentId",
+                create_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+                update_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+                author=models.Person(
+                    name="name",
+                    obfuscated_id="<id>",
+                ),
+                components=[
+                    "Backend",
+                    "Networking",
+                ],
+                status="[\"Done\"]",
+                custom_data={
+                    "someCustomField": models.CustomDataValue(),
+                },
+            ),
+        ),
+        metadata=models.DocumentMetadata(
+            datasource="datasource",
+            object_type="Feature Request",
+            container="container",
+            parent_id="JIRA_EN-1337",
+            mime_type="mimeType",
+            document_id="documentId",
+            create_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+            update_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+            author=models.Person(
+                name="name",
+                obfuscated_id="abc123",
+            ),
+            components=[
+                "Backend",
+                "Networking",
+            ],
+            status="[\"Done\"]",
+            custom_data={
+                "someCustomField": models.CustomDataValue(),
+            },
+        ),
+    ), page_size=100, max_snippet_size=400, request_options=models.RecommendationsRequestOptions(
+        facet_filter_sets=[
+            models.FacetFilterSet(
+                filters=[
+                    models.FacetFilter(
+                        field_name="type",
+                        values=[
+                            models.FacetFilterValue(
+                                value="Spreadsheet",
+                                relation_type=models.RelationType.EQUALS,
+                            ),
+                            models.FacetFilterValue(
+                                value="Presentation",
+                                relation_type=models.RelationType.EQUALS,
+                            ),
+                        ],
+                    ),
+                ],
+            ),
+            models.FacetFilterSet(
+                filters=[
+                    models.FacetFilter(
+                        field_name="type",
+                        values=[
+                            models.FacetFilterValue(
+                                value="Spreadsheet",
+                                relation_type=models.RelationType.EQUALS,
+                            ),
+                            models.FacetFilterValue(
+                                value="Presentation",
+                                relation_type=models.RelationType.EQUALS,
+                            ),
+                        ],
+                    ),
+                ],
+            ),
+            models.FacetFilterSet(
+                filters=[
+                    models.FacetFilter(
+                        field_name="type",
+                        values=[
+                            models.FacetFilterValue(
+                                value="Spreadsheet",
+                                relation_type=models.RelationType.EQUALS,
+                            ),
+                            models.FacetFilterValue(
+                                value="Presentation",
+                                relation_type=models.RelationType.EQUALS,
+                            ),
+                        ],
+                    ),
+                ],
+            ),
+        ],
+        context=models.Document(
+            container_document=models.Document(
+                metadata=models.DocumentMetadata(
+                    datasource="datasource",
+                    object_type="Feature Request",
+                    container="container",
+                    parent_id="JIRA_EN-1337",
+                    mime_type="mimeType",
+                    document_id="documentId",
+                    create_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+                    update_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+                    author=models.Person(
+                        name="name",
+                        obfuscated_id="<id>",
+                    ),
+                    components=[
+                        "Backend",
+                        "Networking",
+                    ],
+                    status="[\"Done\"]",
+                    custom_data={
+                        "someCustomField": models.CustomDataValue(),
+                    },
+                ),
+            ),
+            parent_document=models.Document(
+                metadata=models.DocumentMetadata(
+                    datasource="datasource",
+                    object_type="Feature Request",
+                    container="container",
+                    parent_id="JIRA_EN-1337",
+                    mime_type="mimeType",
+                    document_id="documentId",
+                    create_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+                    update_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+                    author=models.Person(
+                        name="name",
+                        obfuscated_id="<id>",
+                    ),
+                    components=[
+                        "Backend",
+                        "Networking",
+                    ],
+                    status="[\"Done\"]",
+                    custom_data={
+                        "someCustomField": models.CustomDataValue(),
+                    },
+                ),
+            ),
             metadata=models.DocumentMetadata(
                 datasource="datasource",
                 object_type="Feature Request",
@@ -251,87 +478,6 @@ with Glean(
                 },
             ),
         ),
-        page_size=100,
-        max_snippet_size=400,
-        request_options=models.RecommendationsRequestOptions(
-            facet_filter_sets=[
-                models.FacetFilterSet(
-                    filters=[
-                        models.FacetFilter(
-                            field_name="type",
-                            values=[
-                                models.FacetFilterValue(
-                                    value="Spreadsheet",
-                                    relation_type=models.RelationType.EQUALS,
-                                ),
-                                models.FacetFilterValue(
-                                    value="Presentation",
-                                    relation_type=models.RelationType.EQUALS,
-                                ),
-                            ],
-                        ),
-                    ],
-                ),
-                models.FacetFilterSet(
-                    filters=[
-                        models.FacetFilter(
-                            field_name="type",
-                            values=[
-                                models.FacetFilterValue(
-                                    value="Spreadsheet",
-                                    relation_type=models.RelationType.EQUALS,
-                                ),
-                                models.FacetFilterValue(
-                                    value="Presentation",
-                                    relation_type=models.RelationType.EQUALS,
-                                ),
-                            ],
-                        ),
-                    ],
-                ),
-                models.FacetFilterSet(
-                    filters=[
-                        models.FacetFilter(
-                            field_name="type",
-                            values=[
-                                models.FacetFilterValue(
-                                    value="Spreadsheet",
-                                    relation_type=models.RelationType.EQUALS,
-                                ),
-                                models.FacetFilterValue(
-                                    value="Presentation",
-                                    relation_type=models.RelationType.EQUALS,
-                                ),
-                            ],
-                        ),
-                    ],
-                ),
-            ],
-            context=models.Document(
-                metadata=models.DocumentMetadata(
-                    datasource="datasource",
-                    object_type="Feature Request",
-                    container="container",
-                    parent_id="JIRA_EN-1337",
-                    mime_type="mimeType",
-                    document_id="documentId",
-                    create_time=parse_datetime("2000-01-23T04:56:07.000Z"),
-                    update_time=parse_datetime("2000-01-23T04:56:07.000Z"),
-                    author=models.Person(
-                        name="name",
-                        obfuscated_id="abc123",
-                    ),
-                    components=[
-                        "Backend",
-                        "Networking",
-                    ],
-                    status="[\"Done\"]",
-                    custom_data={
-                        "someCustomField": models.CustomDataValue(),
-                    },
-                ),
-            ),
-        ),
     ))
 
     assert res is not None
@@ -343,10 +489,17 @@ with Glean(
 
 ### Parameters
 
-| Parameter                                                               | Type                                                                    | Required                                                                | Description                                                             |
-| ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| `request`                                                               | [models.RecommendationsRequest](../../models/recommendationsrequest.md) | :heavy_check_mark:                                                      | The request object to use for the request.                              |
-| `retries`                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)        | :heavy_minus_sign:                                                      | Configuration to override the default retry behavior of the client.     |
+| Parameter                                                                                                                                                      | Type                                                                                                                                                           | Required                                                                                                                                                       | Description                                                                                                                                                    | Example                                                                                                                                                        |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `timestamp`                                                                                                                                                    | [date](https://docs.python.org/3/library/datetime.html#date-objects)                                                                                           | :heavy_minus_sign:                                                                                                                                             | The ISO 8601 timestamp associated with the client request.                                                                                                     |                                                                                                                                                                |
+| `tracking_token`                                                                                                                                               | *Optional[str]*                                                                                                                                                | :heavy_minus_sign:                                                                                                                                             | A previously received trackingToken for a search associated with the same query. Useful for more requests and requests for other tabs.                         |                                                                                                                                                                |
+| `session_info`                                                                                                                                                 | [Optional[models.SessionInfo]](../../models/sessioninfo.md)                                                                                                    | :heavy_minus_sign:                                                                                                                                             | N/A                                                                                                                                                            |                                                                                                                                                                |
+| `source_document`                                                                                                                                              | [Optional[models.Document]](../../models/document.md)                                                                                                          | :heavy_minus_sign:                                                                                                                                             | N/A                                                                                                                                                            |                                                                                                                                                                |
+| `page_size`                                                                                                                                                    | *Optional[int]*                                                                                                                                                | :heavy_minus_sign:                                                                                                                                             | Hint to the server about how many results to send back. Server may return less or more. Structured results and clustered results don't count towards pageSize. | 100                                                                                                                                                            |
+| `max_snippet_size`                                                                                                                                             | *Optional[int]*                                                                                                                                                | :heavy_minus_sign:                                                                                                                                             | Hint to the server about how many characters long a snippet may be. Server may return less or more.                                                            | 400                                                                                                                                                            |
+| `recommendation_document_spec`                                                                                                                                 | [Optional[models.DocumentSpecUnion]](../../models/documentspecunion.md)                                                                                        | :heavy_minus_sign:                                                                                                                                             | N/A                                                                                                                                                            |                                                                                                                                                                |
+| `request_options`                                                                                                                                              | [Optional[models.RecommendationsRequestOptions]](../../models/recommendationsrequestoptions.md)                                                                | :heavy_minus_sign:                                                                                                                                             | N/A                                                                                                                                                            |                                                                                                                                                                |
+| `retries`                                                                                                                                                      | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                               | :heavy_minus_sign:                                                                                                                                             | Configuration to override the default retry behavior of the client.                                                                                            |                                                                                                                                                                |
 
 ### Response
 
@@ -376,30 +529,74 @@ with Glean(
 
     res = g_client.client.search.query(query="vacation policy", tracking_token="trackingToken", source_document=models.Document(
         container_document=models.Document(
-            parent_document=models.Document(
-                metadata=models.DocumentMetadata(
-                    datasource="datasource",
-                    object_type="Feature Request",
-                    container="container",
-                    parent_id="JIRA_EN-1337",
-                    mime_type="mimeType",
-                    document_id="documentId",
-                    create_time=parse_datetime("2000-01-23T04:56:07.000Z"),
-                    update_time=parse_datetime("2000-01-23T04:56:07.000Z"),
-                    author=models.Person(
-                        name="name",
-                        obfuscated_id="<id>",
-                    ),
-                    components=[
-                        "Backend",
-                        "Networking",
-                    ],
-                    status="[\"Done\"]",
-                    custom_data={
-                        "someCustomField": models.CustomDataValue(),
-                    },
+            metadata=models.DocumentMetadata(
+                datasource="datasource",
+                object_type="Feature Request",
+                container="container",
+                parent_id="JIRA_EN-1337",
+                mime_type="mimeType",
+                document_id="documentId",
+                create_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+                update_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+                author=models.Person(
+                    name="name",
+                    obfuscated_id="<id>",
                 ),
+                components=[
+                    "Backend",
+                    "Networking",
+                ],
+                status="[\"Done\"]",
+                custom_data={
+                    "someCustomField": models.CustomDataValue(),
+                },
             ),
+        ),
+        parent_document=models.Document(
+            metadata=models.DocumentMetadata(
+                datasource="datasource",
+                object_type="Feature Request",
+                container="container",
+                parent_id="JIRA_EN-1337",
+                mime_type="mimeType",
+                document_id="documentId",
+                create_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+                update_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+                author=models.Person(
+                    name="name",
+                    obfuscated_id="<id>",
+                ),
+                components=[
+                    "Backend",
+                    "Networking",
+                ],
+                status="[\"Done\"]",
+                custom_data={
+                    "someCustomField": models.CustomDataValue(),
+                },
+            ),
+        ),
+        metadata=models.DocumentMetadata(
+            datasource="datasource",
+            object_type="Feature Request",
+            container="container",
+            parent_id="JIRA_EN-1337",
+            mime_type="mimeType",
+            document_id="documentId",
+            create_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+            update_time=parse_datetime("2000-01-23T04:56:07.000Z"),
+            author=models.Person(
+                name="name",
+                obfuscated_id="<id>",
+            ),
+            components=[
+                "Backend",
+                "Networking",
+            ],
+            status="[\"Done\"]",
+            custom_data={
+                "someCustomField": models.CustomDataValue(),
+            },
         ),
     ), page_size=10, max_snippet_size=400, input_details={
         "has_copy_paste": True,

@@ -5,15 +5,15 @@
 
 ### Available Operations
 
-* [retrieve](#retrieve) - Get Agent
-* [retrieve_schemas](#retrieve_schemas) - Get Agent Schemas
-* [list](#list) - Search Agents
-* [run_stream](#run_stream) - Create Run, Stream Output
-* [run](#run) - Create Run, Wait for Output
+* [retrieve](#retrieve) - Retrieve an agent
+* [retrieve_schemas](#retrieve_schemas) - List an agent's schemas
+* [list](#list) - Search agents
+* [run_stream](#run_stream) - Create an agent run and stream the response
+* [run](#run) - Create an [agent](https://developers.glean.com/agents/agents-api) run and wait for the response
 
 ## retrieve
 
-Get an agent by ID. This endpoint implements the LangChain Agent Protocol, specifically part of the Agents stage (https://langchain-ai.github.io/agent-protocol/api.html#tag/agents/GET/agents/{agent_id}). It adheres to the standard contract defined for agent interoperability and can be used by agent runtimes that support the Agent Protocol.
+Returns details of an [agent](https://developers.glean.com/agents/agents-api) created in the Agent Builder.
 
 ### Example Usage
 
@@ -53,7 +53,7 @@ with Glean(
 
 ## retrieve_schemas
 
-Get an agent's schemas by ID. This endpoint implements the LangChain Agent Protocol, specifically part of the Agents stage (https://langchain-ai.github.io/agent-protocol/api.html#tag/agents/GET/agents/{agent_id}/schemas). It adheres to the standard contract defined for agent interoperability and can be used by agent runtimes that support the Agent Protocol.
+Return [agent](https://developers.glean.com/agents/agents-api)'s input and output schemas. You can use these schemas to detect changes to an agent's input or output structure.
 
 ### Example Usage
 
@@ -93,7 +93,7 @@ with Glean(
 
 ## list
 
-List Agents available in this service. This endpoint implements the LangChain Agent Protocol, specifically part of the Agents stage (https://langchain-ai.github.io/agent-protocol/api.html#tag/agents/POST/agents/search). It adheres to the standard contract defined for agent interoperability and can be used by agent runtimes that support the Agent Protocol.
+Search for [agents](https://developers.glean.com/agents/agents-api) by agent name. 
 
 ### Example Usage
 
@@ -106,7 +106,7 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as g_client:
 
-    res = g_client.client.agents.list()
+    res = g_client.client.agents.list(name="HR Policy Agent")
 
     # Handle response
     print(res)
@@ -115,10 +115,10 @@ with Glean(
 
 ### Parameters
 
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `request`                                                           | [models.SearchAgentsRequest](../../models/searchagentsrequest.md)   | :heavy_check_mark:                                                  | The request object to use for the request.                          |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+| Parameter                                                                                                                          | Type                                                                                                                               | Required                                                                                                                           | Description                                                                                                                        | Example                                                                                                                            |
+| ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `name`                                                                                                                             | *Optional[str]*                                                                                                                    | :heavy_minus_sign:                                                                                                                 | Filters on the name of the agent. The keyword search is case-insensitive. If search string is ommited or empty, acts as no filter. | HR Policy Agent                                                                                                                    |
+| `retries`                                                                                                                          | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                   | :heavy_minus_sign:                                                                                                                 | Configuration to override the default retry behavior of the client.                                                                |                                                                                                                                    |
 
 ### Response
 
@@ -132,7 +132,7 @@ with Glean(
 
 ## run_stream
 
-Creates and triggers a run of an agent. Streams the output in SSE format. This endpoint implements the LangChain Agent Protocol, specifically part of the Runs stage (https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/POST/runs/stream). It adheres to the standard contract defined for agent interoperability and can be used by agent runtimes that support the Agent Protocol. Note that running agents that reference third party platform write actions is unsupported as it requires user confirmation.
+Executes an [agent](https://developers.glean.com/agents/agents-api) run and returns the result as a stream of server-sent events (SSE).
 
 ### Example Usage
 
@@ -173,7 +173,7 @@ with Glean(
 
 ## run
 
-Creates and triggers a run of an agent. Waits for final output and then returns it. This endpoint implements the LangChain Agent Protocol, specifically part of the Runs stage (https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/POST/runs/wait). It adheres to the standard contract defined for agent interoperability and can be used by agent runtimes that support the Agent Protocol. Note that running agents that reference third party platform write actions is unsupported as it requires user confirmation.
+Executes an agent run and returns the final response.
 
 ### Example Usage
 

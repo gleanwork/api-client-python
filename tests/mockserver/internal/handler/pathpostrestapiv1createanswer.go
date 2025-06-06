@@ -262,18 +262,10 @@ func testCreateanswerCreateanswer0(w http.ResponseWriter, req *http.Request) {
 													Metadata: &components.VerificationMetadata{
 														Reminders: []components.Reminder{
 															components.Reminder{
-																Assignee: components.Person{
-																	Name:         "George Clooney",
-																	ObfuscatedID: "abc123",
-																},
 																RemindAt: 749299,
 															},
 														},
 														LastReminder: &components.Reminder{
-															Assignee: components.Person{
-																Name:         "George Clooney",
-																ObfuscatedID: "abc123",
-															},
 															RemindAt: 150565,
 														},
 													},
@@ -306,10 +298,6 @@ func testCreateanswerCreateanswer0(w http.ResponseWriter, req *http.Request) {
 													State: components.StateDeprecated,
 													Metadata: &components.VerificationMetadata{
 														LastReminder: &components.Reminder{
-															Assignee: components.Person{
-																Name:         "George Clooney",
-																ObfuscatedID: "abc123",
-															},
 															RemindAt: 185076,
 														},
 													},
@@ -342,10 +330,6 @@ func testCreateanswerCreateanswer0(w http.ResponseWriter, req *http.Request) {
 													State: components.StateDeprecated,
 													Metadata: &components.VerificationMetadata{
 														LastReminder: &components.Reminder{
-															Assignee: components.Person{
-																Name:         "George Clooney",
-																ObfuscatedID: "abc123",
-															},
 															RemindAt: 190973,
 														},
 													},

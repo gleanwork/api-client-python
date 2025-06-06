@@ -3,9 +3,9 @@
 from .basesdk import BaseSDK
 from glean.api_client import errors, models, utils
 from glean.api_client._hooks import HookContext
-from glean.api_client.types import BaseModel, OptionalNullable, UNSET
+from glean.api_client.types import OptionalNullable, UNSET
 from glean.api_client.utils import get_security_from_env
-from typing import List, Mapping, Optional, Union, cast
+from typing import List, Mapping, Optional, Union
 
 
 class Visibilityoverrides(BaseSDK):
@@ -204,10 +204,12 @@ class Visibilityoverrides(BaseSDK):
     def create(
         self,
         *,
-        request: Union[
-            models.UpdateDocumentVisibilityOverridesRequest,
-            models.UpdateDocumentVisibilityOverridesRequestTypedDict,
-        ] = models.UpdateDocumentVisibilityOverridesRequest(),
+        visibility_overrides: Optional[
+            Union[
+                List[models.DocumentVisibilityOverride],
+                List[models.DocumentVisibilityOverrideTypedDict],
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -217,7 +219,7 @@ class Visibilityoverrides(BaseSDK):
 
         Sets the visibility-override state of the documents specified, effectively hiding or un-hiding documents.
 
-        :param request: The request object to send.
+        :param visibility_overrides:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -233,11 +235,11 @@ class Visibilityoverrides(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(
-                request, models.UpdateDocumentVisibilityOverridesRequest
-            )
-        request = cast(models.UpdateDocumentVisibilityOverridesRequest, request)
+        request = models.UpdateDocumentVisibilityOverridesRequest(
+            visibility_overrides=utils.get_pydantic_model(
+                visibility_overrides, Optional[List[models.DocumentVisibilityOverride]]
+            ),
+        )
 
         req = self._build_request(
             method="POST",
@@ -255,9 +257,9 @@ class Visibilityoverrides(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request,
                 False,
-                True,
+                False,
                 "json",
-                Optional[models.UpdateDocumentVisibilityOverridesRequest],
+                models.UpdateDocumentVisibilityOverridesRequest,
             ),
             timeout_ms=timeout_ms,
         )
@@ -312,10 +314,12 @@ class Visibilityoverrides(BaseSDK):
     async def create_async(
         self,
         *,
-        request: Union[
-            models.UpdateDocumentVisibilityOverridesRequest,
-            models.UpdateDocumentVisibilityOverridesRequestTypedDict,
-        ] = models.UpdateDocumentVisibilityOverridesRequest(),
+        visibility_overrides: Optional[
+            Union[
+                List[models.DocumentVisibilityOverride],
+                List[models.DocumentVisibilityOverrideTypedDict],
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -325,7 +329,7 @@ class Visibilityoverrides(BaseSDK):
 
         Sets the visibility-override state of the documents specified, effectively hiding or un-hiding documents.
 
-        :param request: The request object to send.
+        :param visibility_overrides:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -341,11 +345,11 @@ class Visibilityoverrides(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(
-                request, models.UpdateDocumentVisibilityOverridesRequest
-            )
-        request = cast(models.UpdateDocumentVisibilityOverridesRequest, request)
+        request = models.UpdateDocumentVisibilityOverridesRequest(
+            visibility_overrides=utils.get_pydantic_model(
+                visibility_overrides, Optional[List[models.DocumentVisibilityOverride]]
+            ),
+        )
 
         req = self._build_request_async(
             method="POST",
@@ -363,9 +367,9 @@ class Visibilityoverrides(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request,
                 False,
-                True,
+                False,
                 "json",
-                Optional[models.UpdateDocumentVisibilityOverridesRequest],
+                models.UpdateDocumentVisibilityOverridesRequest,
             ),
             timeout_ms=timeout_ms,
         )

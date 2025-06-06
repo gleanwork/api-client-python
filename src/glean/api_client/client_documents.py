@@ -13,9 +13,7 @@ class ClientDocuments(BaseSDK):
     def retrieve_permissions(
         self,
         *,
-        request: Union[
-            models.GetDocPermissionsRequest, models.GetDocPermissionsRequestTypedDict
-        ] = models.GetDocPermissionsRequest(),
+        document_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -25,7 +23,7 @@ class ClientDocuments(BaseSDK):
 
         Read the emails of all users who have access to the given document.
 
-        :param request: The request object to send.
+        :param document_id: The Glean Document ID to retrieve permissions for.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -41,9 +39,9 @@ class ClientDocuments(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.GetDocPermissionsRequest)
-        request = cast(models.GetDocPermissionsRequest, request)
+        request = models.GetDocPermissionsRequest(
+            document_id=document_id,
+        )
 
         req = self._build_request(
             method="POST",
@@ -59,7 +57,7 @@ class ClientDocuments(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.GetDocPermissionsRequest]
+                request, False, False, "json", models.GetDocPermissionsRequest
             ),
             timeout_ms=timeout_ms,
         )
@@ -112,9 +110,7 @@ class ClientDocuments(BaseSDK):
     async def retrieve_permissions_async(
         self,
         *,
-        request: Union[
-            models.GetDocPermissionsRequest, models.GetDocPermissionsRequestTypedDict
-        ] = models.GetDocPermissionsRequest(),
+        document_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -124,7 +120,7 @@ class ClientDocuments(BaseSDK):
 
         Read the emails of all users who have access to the given document.
 
-        :param request: The request object to send.
+        :param document_id: The Glean Document ID to retrieve permissions for.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -140,9 +136,9 @@ class ClientDocuments(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.GetDocPermissionsRequest)
-        request = cast(models.GetDocPermissionsRequest, request)
+        request = models.GetDocPermissionsRequest(
+            document_id=document_id,
+        )
 
         req = self._build_request_async(
             method="POST",
@@ -158,7 +154,7 @@ class ClientDocuments(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.GetDocPermissionsRequest]
+                request, False, False, "json", models.GetDocPermissionsRequest
             ),
             timeout_ms=timeout_ms,
         )

@@ -756,8 +756,8 @@ paths:
         get:
             tags:
                 - Agents
-            summary: Get Agent
-            description: Get an agent by ID. This endpoint implements the LangChain Agent Protocol, specifically part of the Agents stage (https://langchain-ai.github.io/agent-protocol/api.html#tag/agents/GET/agents/{agent_id}). It adheres to the standard contract defined for agent interoperability and can be used by agent runtimes that support the Agent Protocol.
+            summary: Retrieve an agent
+            description: Returns details of an [agent](https://developers.glean.com/agents/agents-api) created in the Agent Builder.
             operationId: getAgent
             x-visibility: Preview
             parameters:
@@ -795,8 +795,8 @@ paths:
         get:
             tags:
                 - Agents
-            summary: Get Agent Schemas
-            description: Get an agent's schemas by ID. This endpoint implements the LangChain Agent Protocol, specifically part of the Agents stage (https://langchain-ai.github.io/agent-protocol/api.html#tag/agents/GET/agents/{agent_id}/schemas). It adheres to the standard contract defined for agent interoperability and can be used by agent runtimes that support the Agent Protocol.
+            summary: List an agent's schemas
+            description: Return [agent](https://developers.glean.com/agents/agents-api)'s input and output schemas. You can use these schemas to detect changes to an agent's input or output structure.
             operationId: getAgentSchemas
             x-visibility: Preview
             parameters:
@@ -840,8 +840,8 @@ paths:
         post:
             tags:
                 - Agents
-            summary: Search Agents
-            description: List Agents available in this service. This endpoint implements the LangChain Agent Protocol, specifically part of the Agents stage (https://langchain-ai.github.io/agent-protocol/api.html#tag/agents/POST/agents/search). It adheres to the standard contract defined for agent interoperability and can be used by agent runtimes that support the Agent Protocol.
+            summary: Search agents
+            description: "Search for [agents](https://developers.glean.com/agents/agents-api) by agent name. "
             operationId: searchAgents
             x-visibility: Preview
             requestBody:
@@ -881,8 +881,8 @@ paths:
         post:
             tags:
                 - Agents
-            summary: Create Run, Stream Output
-            description: Creates and triggers a run of an agent. Streams the output in SSE format. This endpoint implements the LangChain Agent Protocol, specifically part of the Runs stage (https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/POST/runs/stream). It adheres to the standard contract defined for agent interoperability and can be used by agent runtimes that support the Agent Protocol. Note that running agents that reference third party platform write actions is unsupported as it requires user confirmation.
+            summary: Create an agent run and stream the response
+            description: Executes an [agent](https://developers.glean.com/agents/agents-api) run and returns the result as a stream of server-sent events (SSE).
             operationId: createAndStreamRun
             x-visibility: Preview
             requestBody:
@@ -898,12 +898,23 @@ paths:
                         text/event-stream:
                             schema:
                                 type: string
-                                description: |-
-                                    The server will send a stream of events in SSE format.
-                                    **Example event**:
+                                description: The server will send a stream of events in server-sent events (SSE) format.
+                                example: |
                                     id: 1
                                     event: message
-                                    data: {}
+                                    data: {"messages":[{"role":"GLEAN_AI","content":[{"text":"Hello","type":"text"}]}]}
+
+                                    id: 2
+                                    event: message
+                                    data: {"messages":[{"role":"GLEAN_AI","content":[{"text":",","type":"text"}]}]}
+
+                                    id: 3
+                                    event: message
+                                    data: {"messages":[{"role":"GLEAN_AI","content":[{"text":" I'm","type":"text"}]}]}
+
+                                    id: 4
+                                    event: message
+                                    data: {"messages":[{"role":"GLEAN_AI","content":[{"text":" your","type":"text"}]}]}
                 "400":
                     description: Bad request
                 "403":
@@ -934,8 +945,8 @@ paths:
         post:
             tags:
                 - Agents
-            summary: Create Run, Wait for Output
-            description: Creates and triggers a run of an agent. Waits for final output and then returns it. This endpoint implements the LangChain Agent Protocol, specifically part of the Runs stage (https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/POST/runs/wait). It adheres to the standard contract defined for agent interoperability and can be used by agent runtimes that support the Agent Protocol. Note that running agents that reference third party platform write actions is unsupported as it requires user confirmation.
+            summary: Create an [agent](https://developers.glean.com/agents/agents-api) run and wait for the response
+            description: Executes an agent run and returns the final response.
             operationId: createAndWaitRun
             x-visibility: Preview
             requestBody:
@@ -7417,31 +7428,38 @@ components:
                     type: string
                     title: Agent Id
                     description: The ID of the agent.
+                    example: mho4lwzylcozgoc2
                 name:
                     type: string
                     title: Agent Name
                     description: The name of the agent
+                    example: HR Policy Agent
                 description:
                     type: string
                     title: Description
                     description: The description of the agent.
+                    example: This agent answers questions about the current company HR policies.
                 metadata:
                     type: object
                     title: Metadata
-                    description: The agent metadata.
+                    description: The agent metadata. Currently not implemented.
                 capabilities:
                     type: object
                     title: Agent Capabilities
-                    description: Describes which protocol features the agent supports. In addition to the standard capabilities (prefixed with ap.), implementations can declare custom capabilities, named in reverse domain notation (eg. com.example.some.capability).
+                    description: |-
+                        Describes features that the agent supports. example: {
+                          "ap.io.messages": true,
+                          "ap.io.streaming": true
+                        }
                     properties:
                         ap.io.messages:
                             type: boolean
                             title: Messages
-                            description: Whether the agent supports Messages as input/output/state. If true, the agent uses the `messages` key in threads/runs endpoints.
+                            description: Whether the agent supports messages as an input. If true, you'll pass `messages` as an input when running the agent.
                         ap.io.streaming:
                             type: boolean
                             title: Streaming
-                            description: Whether the agent supports streaming output.
+                            description: Whether the agent supports streaming output. If true, you you can stream agent ouput. All agents currently support streaming.
                     additionalProperties: true
         ErrorResponse:
             type: string
@@ -7453,14 +7471,15 @@ components:
                     type: string
                     title: Agent Id
                     description: The ID of the agent.
+                    example: mho4lwzylcozgoc2
                 input_schema:
                     type: object
                     title: Input Schema
-                    description: The schema for the agent input. In JSON Schema format.
+                    description: The schema for the agent input. In JSON schema format.
                 output_schema:
                     type: object
                     title: Output Schema
-                    description: The schema for the agent output. In JSON Schema format.
+                    description: The schema for the agent output. In JSON schema format.
             type: object
             required:
                 - agent_id
@@ -7473,7 +7492,8 @@ components:
             properties:
                 name:
                     type: string
-                    description: Filters on the name of the agent. If empty, acts as no filter.
+                    description: Filters on the name of the agent. The keyword search is case-insensitive. If search string is ommited or empty, acts as no filter.
+                    example: HR Policy Agent
         SearchAgentsResponse:
             type: object
             title: Response Search Agents

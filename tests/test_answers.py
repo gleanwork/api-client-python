@@ -249,18 +249,10 @@ def test_answers_createanswer():
                                                             metadata=models.VerificationMetadata(
                                                                 reminders=[
                                                                     models.Reminder(
-                                                                        assignee=models.Person(
-                                                                            name="George Clooney",
-                                                                            obfuscated_id="abc123",
-                                                                        ),
                                                                         remind_at=491427,
                                                                     ),
                                                                 ],
                                                                 last_reminder=models.Reminder(
-                                                                    assignee=models.Person(
-                                                                        name="George Clooney",
-                                                                        obfuscated_id="abc123",
-                                                                    ),
                                                                     remind_at=490420,
                                                                 ),
                                                             ),
@@ -1043,18 +1035,10 @@ def test_answers_editanswer():
                                                         metadata=models.VerificationMetadata(
                                                             reminders=[
                                                                 models.Reminder(
-                                                                    assignee=models.Person(
-                                                                        name="George Clooney",
-                                                                        obfuscated_id="abc123",
-                                                                    ),
                                                                     remind_at=843043,
                                                                 ),
                                                             ],
                                                             last_reminder=models.Reminder(
-                                                                assignee=models.Person(
-                                                                    name="George Clooney",
-                                                                    obfuscated_id="abc123",
-                                                                ),
                                                                 remind_at=630893,
                                                             ),
                                                         ),
@@ -1385,12 +1369,7 @@ def test_answers_getanswer():
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.client.answers.retrieve(
-            request={
-                "id": 3,
-                "doc_id": "ANSWERS_answer_3",
-            }
-        )
+        res = g_client.client.answers.retrieve(id=3, doc_id="ANSWERS_answer_3")
         assert res is not None
 
 
@@ -1404,7 +1383,7 @@ def test_answers_listanswers():
     ) as g_client:
         assert g_client is not None
 
-        res = g_client.client.answers.list(request={})
+        res = g_client.client.answers.list()
         assert res is not None
 
 
