@@ -23,7 +23,7 @@ Have a conversation with Glean AI.
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean.api_client import Glean, models
 import os
 
 
@@ -81,7 +81,7 @@ Deletes all saved Chats a user has had and all their contained conversational co
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean.api_client import Glean
 import os
 
 
@@ -115,7 +115,7 @@ Deletes saved Chats and all their contained conversational content.
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean.api_client import Glean
 import os
 
 
@@ -150,7 +150,7 @@ Retrieves the chat history between Glean Assistant and the user for a given Chat
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean.api_client import Glean
 import os
 
 
@@ -190,7 +190,7 @@ Retrieves all the saved Chats between Glean Assistant and the user. The returned
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean.api_client import Glean
 import os
 
 
@@ -229,7 +229,7 @@ Gets the Chat application details for the specified application ID.
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean.api_client import Glean
 import os
 
 
@@ -269,7 +269,7 @@ Upload files for Chat.
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean.api_client import Glean
 import os
 
 
@@ -314,7 +314,7 @@ Get files uploaded by a user for Chat.
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean.api_client import Glean
 import os
 
 
@@ -356,7 +356,7 @@ Delete files uploaded by a user for Chat.
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean.api_client import Glean
 import os
 
 
@@ -395,7 +395,7 @@ Have a conversation with Glean AI.
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean.api_client import Glean, models
 import os
 
 

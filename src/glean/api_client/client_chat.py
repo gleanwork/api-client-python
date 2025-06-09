@@ -30,6 +30,7 @@ class ClientChat(BaseSDK):
             Union[models.SessionInfo, models.SessionInfoTypedDict]
         ] = None,
         application_id: Optional[str] = None,
+        agent_id: Optional[str] = None,
         stream: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -50,6 +51,7 @@ class ClientChat(BaseSDK):
         :param timeout_millis: Timeout in milliseconds for the request. A `408` error will be returned if handling the request takes longer.
         :param session_info:
         :param application_id: The ID of the application this request originates from, used to determine the configuration of underlying chat processes. This should correspond to the ID set during admin setup. If not specified, the default chat experience will be used.
+        :param agent_id: The ID of the Agent that should process this chat request. Only Agents with trigger set to 'User chat message' are invokable through this API. If not specified, the default chat experience will be used.
         :param stream: If set, response lines will be streamed one-by-one as they become available. Each will be a ChatResponse, formatted as JSON, and separated by a new line. If false, the entire response will be returned at once. Note that if this is set and the model being used does not support streaming, the model's response will not be streamed, but other messages from the endpoint still will be.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -86,6 +88,7 @@ class ClientChat(BaseSDK):
                     session_info, Optional[models.SessionInfo]
                 ),
                 application_id=application_id,
+                agent_id=agent_id,
                 stream=stream,
             ),
         )
@@ -175,6 +178,7 @@ class ClientChat(BaseSDK):
             Union[models.SessionInfo, models.SessionInfoTypedDict]
         ] = None,
         application_id: Optional[str] = None,
+        agent_id: Optional[str] = None,
         stream: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -195,6 +199,7 @@ class ClientChat(BaseSDK):
         :param timeout_millis: Timeout in milliseconds for the request. A `408` error will be returned if handling the request takes longer.
         :param session_info:
         :param application_id: The ID of the application this request originates from, used to determine the configuration of underlying chat processes. This should correspond to the ID set during admin setup. If not specified, the default chat experience will be used.
+        :param agent_id: The ID of the Agent that should process this chat request. Only Agents with trigger set to 'User chat message' are invokable through this API. If not specified, the default chat experience will be used.
         :param stream: If set, response lines will be streamed one-by-one as they become available. Each will be a ChatResponse, formatted as JSON, and separated by a new line. If false, the entire response will be returned at once. Note that if this is set and the model being used does not support streaming, the model's response will not be streamed, but other messages from the endpoint still will be.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -231,6 +236,7 @@ class ClientChat(BaseSDK):
                     session_info, Optional[models.SessionInfo]
                 ),
                 application_id=application_id,
+                agent_id=agent_id,
                 stream=stream,
             ),
         )
@@ -1964,6 +1970,7 @@ class ClientChat(BaseSDK):
             Union[models.SessionInfo, models.SessionInfoTypedDict]
         ] = None,
         application_id: Optional[str] = None,
+        agent_id: Optional[str] = None,
         stream: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1984,6 +1991,7 @@ class ClientChat(BaseSDK):
         :param timeout_millis: Timeout in milliseconds for the request. A `408` error will be returned if handling the request takes longer.
         :param session_info:
         :param application_id: The ID of the application this request originates from, used to determine the configuration of underlying chat processes. This should correspond to the ID set during admin setup. If not specified, the default chat experience will be used.
+        :param agent_id: The ID of the Agent that should process this chat request. Only Agents with trigger set to 'User chat message' are invokable through this API. If not specified, the default chat experience will be used.
         :param stream: If set, response lines will be streamed one-by-one as they become available. Each will be a ChatResponse, formatted as JSON, and separated by a new line. If false, the entire response will be returned at once. Note that if this is set and the model being used does not support streaming, the model's response will not be streamed, but other messages from the endpoint still will be.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -2020,6 +2028,7 @@ class ClientChat(BaseSDK):
                     session_info, Optional[models.SessionInfo]
                 ),
                 application_id=application_id,
+                agent_id=agent_id,
                 stream=stream,
             ),
         )
@@ -2109,6 +2118,7 @@ class ClientChat(BaseSDK):
             Union[models.SessionInfo, models.SessionInfoTypedDict]
         ] = None,
         application_id: Optional[str] = None,
+        agent_id: Optional[str] = None,
         stream: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -2129,6 +2139,7 @@ class ClientChat(BaseSDK):
         :param timeout_millis: Timeout in milliseconds for the request. A `408` error will be returned if handling the request takes longer.
         :param session_info:
         :param application_id: The ID of the application this request originates from, used to determine the configuration of underlying chat processes. This should correspond to the ID set during admin setup. If not specified, the default chat experience will be used.
+        :param agent_id: The ID of the Agent that should process this chat request. Only Agents with trigger set to 'User chat message' are invokable through this API. If not specified, the default chat experience will be used.
         :param stream: If set, response lines will be streamed one-by-one as they become available. Each will be a ChatResponse, formatted as JSON, and separated by a new line. If false, the entire response will be returned at once. Note that if this is set and the model being used does not support streaming, the model's response will not be streamed, but other messages from the endpoint still will be.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -2165,6 +2176,7 @@ class ClientChat(BaseSDK):
                     session_info, Optional[models.SessionInfo]
                 ),
                 application_id=application_id,
+                agent_id=agent_id,
                 stream=stream,
             ),
         )
