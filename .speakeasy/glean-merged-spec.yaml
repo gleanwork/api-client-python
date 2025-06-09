@@ -6826,9 +6826,11 @@ components:
                     x-enumDescriptions:
                         DEFAULT: Integrates with your company's knowledge.
                         GPT: Communicates directly with the LLM.
+                        UNIVERSAL: Uses both company and web knowledge.
                     enum:
                         - DEFAULT
                         - GPT
+                        - UNIVERSAL
                 mode:
                     type: string
                     description: Top level modes to run GleanChat in.
