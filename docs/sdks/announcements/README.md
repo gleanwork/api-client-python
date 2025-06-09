@@ -17,8 +17,8 @@ Create a textual announcement visible to some set of users based on department a
 
 ```python
 from datetime import date
-from glean.api_client import Glean, models
-from glean.api_client.utils import parse_datetime
+from glean import Glean, models
+from glean.utils import parse_datetime
 import os
 
 
@@ -22092,7 +22092,7 @@ Delete an existing user-generated announcement.
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 
@@ -22127,8 +22127,8 @@ Update a textual announcement visible to some set of users based on department a
 
 ```python
 from datetime import date
-from glean.api_client import Glean, models
-from glean.api_client.utils import parse_datetime
+from glean import Glean, models
+from glean.utils import parse_datetime
 import os
 
 

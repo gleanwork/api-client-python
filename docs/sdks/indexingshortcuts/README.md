@@ -15,7 +15,7 @@ Replaces all the currently indexed shortcuts using paginated batch API calls. No
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 
@@ -66,7 +66,7 @@ Creates glean shortcuts for uploaded shortcuts info. Glean would host the shortc
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 

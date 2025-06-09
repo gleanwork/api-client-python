@@ -135,7 +135,7 @@ Generally, the SDK will work well with most IDEs out of the box. However, when u
 
 ```python
 # Synchronous Example
-from glean.api_client import Glean, models
+from glean import Glean, models
 import os
 
 
@@ -163,7 +163,7 @@ The same SDK client can also be used to make asychronous requests by importing a
 ```python
 # Asynchronous Example
 import asyncio
-from glean.api_client import Glean, models
+from glean import Glean, models
 import os
 
 async def main():
@@ -192,7 +192,7 @@ asyncio.run(main())
 
 ```python
 # Synchronous Example
-from glean.api_client import Glean, models
+from glean import Glean, models
 import os
 
 
@@ -220,7 +220,7 @@ The same SDK client can also be used to make asychronous requests by importing a
 ```python
 # Asynchronous Example
 import asyncio
-from glean.api_client import Glean, models
+from glean import Glean, models
 import os
 
 async def main():
@@ -259,8 +259,8 @@ This SDK supports the following security scheme globally:
 
 To authenticate with the API the `api_token` parameter must be set when initializing the SDK client instance. For example:
 ```python
-from glean.api_client import Glean, models
-from glean.api_client.utils import parse_datetime
+from glean import Glean, models
+from glean.utils import parse_datetime
 import os
 
 
@@ -541,8 +541,8 @@ Some of the endpoints in this SDK support retries. If you use the SDK without an
 
 To change the default retry strategy for a single API call, simply provide a `RetryConfig` object to the call:
 ```python
-from glean.api_client import Glean, models
-from glean.api_client.utils import BackoffStrategy, RetryConfig, parse_datetime
+from glean import Glean, models
+from glean.utils import BackoffStrategy, RetryConfig, parse_datetime
 import os
 
 
@@ -582,8 +582,8 @@ with Glean(
 
 If you'd like to override the default retry strategy for all operations that support retries, you can use the `retry_config` optional parameter when initializing the SDK:
 ```python
-from glean.api_client import Glean, models
-from glean.api_client.utils import BackoffStrategy, RetryConfig, parse_datetime
+from glean import Glean, models
+from glean.utils import BackoffStrategy, RetryConfig, parse_datetime
 import os
 
 
@@ -720,8 +720,8 @@ The default server `https://{instance}-be.glean.com` contains variables and is s
 #### Example
 
 ```python
-from glean.api_client import Glean, models
-from glean.api_client.utils import parse_datetime
+from glean import Glean, models
+from glean.utils import parse_datetime
 import os
 
 
@@ -763,8 +763,8 @@ with Glean(
 
 The default server can be overridden globally by passing a URL to the `server_url: str` optional parameter when initializing the SDK client instance. For example:
 ```python
-from glean.api_client import Glean, models
-from glean.api_client.utils import parse_datetime
+from glean import Glean, models
+from glean.utils import parse_datetime
 import os
 
 
@@ -812,7 +812,7 @@ This allows you to wrap the client with your own custom logic, such as adding cu
 
 For example, you could specify a header for every request that this sdk makes as follows:
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import httpx
 
 http_client = httpx.Client(headers={"x-custom-header": "someValue"})
@@ -821,8 +821,8 @@ s = Glean(client=http_client)
 
 or you could wrap the client with your own custom logic:
 ```python
-from glean.api_client import Glean
-from glean.api_client.httpclient import AsyncHttpClient
+from glean import Glean
+from glean.httpclient import AsyncHttpClient
 import httpx
 
 class CustomClient(AsyncHttpClient):
@@ -892,7 +892,7 @@ The `Glean` class implements the context manager protocol and registers a finali
 [context-manager]: https://docs.python.org/3/reference/datamodel.html#context-managers
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 def main():
 
@@ -919,7 +919,7 @@ You can setup your SDK to emit debug logs for SDK requests and responses.
 
 You can pass your own logger class directly into your SDK.
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import logging
 
 logging.basicConfig(level=logging.DEBUG)

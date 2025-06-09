@@ -18,7 +18,7 @@ Returns details of an [agent](https://developers.glean.com/agents/agents-api) cr
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 
@@ -58,7 +58,7 @@ Return [agent](https://developers.glean.com/agents/agents-api)'s input and outpu
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 
@@ -98,7 +98,7 @@ Search for [agents](https://developers.glean.com/agents/agents-api) by agent nam
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 
@@ -137,7 +137,7 @@ Executes an [agent](https://developers.glean.com/agents/agents-api) run and retu
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 
@@ -178,7 +178,7 @@ Executes an [agent](https://developers.glean.com/agents/agents-api) run and retu
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 

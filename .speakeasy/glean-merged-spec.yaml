@@ -7259,6 +7259,9 @@ components:
                 applicationId:
                     type: string
                     description: The ID of the application this request originates from, used to determine the configuration of underlying chat processes. This should correspond to the ID set during admin setup. If not specified, the default chat experience will be used.
+                agentId:
+                    type: string
+                    description: The ID of the Agent that should process this chat request. Only Agents with trigger set to 'User chat message' are invokable through this API. If not specified, the default chat experience will be used.
                 stream:
                     type: boolean
                     description: If set, response lines will be streamed one-by-one as they become available. Each will be a ChatResponse, formatted as JSON, and separated by a new line. If false, the entire response will be returned at once. Note that if this is set and the model being used does not support streaming, the model's response will not be streamed, but other messages from the endpoint still will be.

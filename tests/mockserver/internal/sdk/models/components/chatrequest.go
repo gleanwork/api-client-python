@@ -18,6 +18,8 @@ type ChatRequest struct {
 	SessionInfo   *SessionInfo `json:"sessionInfo,omitempty"`
 	// The ID of the application this request originates from, used to determine the configuration of underlying chat processes. This should correspond to the ID set during admin setup. If not specified, the default chat experience will be used.
 	ApplicationID *string `json:"applicationId,omitempty"`
+	// The ID of the Agent that should process this chat request. Only Agents with trigger set to 'User chat message' are invokable through this API. If not specified, the default chat experience will be used.
+	AgentID *string `json:"agentId,omitempty"`
 	// If set, response lines will be streamed one-by-one as they become available. Each will be a ChatResponse, formatted as JSON, and separated by a new line. If false, the entire response will be returned at once. Note that if this is set and the model being used does not support streaming, the model's response will not be streamed, but other messages from the endpoint still will be.
 	Stream *bool `json:"stream,omitempty"`
 }
@@ -83,6 +85,13 @@ func (o *ChatRequest) GetApplicationID() *string {
 		return nil
 	}
 	return o.ApplicationID
+}
+
+func (o *ChatRequest) GetAgentID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AgentID
 }
 
 func (o *ChatRequest) GetStream() *bool {
