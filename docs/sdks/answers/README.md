@@ -19,8 +19,8 @@ Create a user-generated Answer that contains a question and answer.
 
 ```python
 from datetime import date
-from glean import Glean, models
-from glean.utils import parse_datetime
+from glean.api_client import Glean, models
+from glean.api_client.utils import parse_datetime
 import os
 
 
@@ -1390,7 +1390,7 @@ Delete an existing user-generated Answer.
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean.api_client import Glean
 import os
 
 
@@ -1426,8 +1426,8 @@ Update an existing user-generated Answer.
 
 ```python
 from datetime import date
-from glean import Glean, models
-from glean.utils import parse_datetime
+from glean.api_client import Glean, models
+from glean.api_client.utils import parse_datetime
 import os
 
 
@@ -2391,7 +2391,7 @@ Read the details of a particular Answer given its ID.
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean.api_client import Glean
 import os
 
 
@@ -2431,7 +2431,7 @@ List Answers created by the current user.
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean.api_client import Glean
 import os
 
 

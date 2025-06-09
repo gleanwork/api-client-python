@@ -16,7 +16,7 @@ Creates a verification reminder for the document. Users can create verification 
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean.api_client import Glean
 import os
 
 
@@ -58,7 +58,7 @@ Returns the information to be rendered in verification dashboard. Includes infor
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean.api_client import Glean
 import os
 
 
@@ -97,7 +97,7 @@ Verify documents to keep the knowledge up to date within customer corpus.
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean.api_client import Glean
 import os
 
 

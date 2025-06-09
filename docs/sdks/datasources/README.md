@@ -15,7 +15,7 @@ Add or update a custom datasource and its schema.
 ### Example Usage
 
 ```python
-from glean import Glean, models
+from glean.api_client import Glean, models
 import os
 
 
@@ -84,7 +84,7 @@ Fetches the datasource config for the specified custom datasource.
 ### Example Usage
 
 ```python
-from glean import Glean
+from glean.api_client import Glean
 import os
 
 

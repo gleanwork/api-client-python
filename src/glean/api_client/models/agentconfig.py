@@ -12,6 +12,7 @@ class AgentEnum(str, Enum):
 
     DEFAULT = "DEFAULT"
     GPT = "GPT"
+    UNIVERSAL = "UNIVERSAL"
 
 
 class Mode(str, Enum):
