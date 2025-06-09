@@ -14,7 +14,7 @@ Rotates the secret value inside the Indexing API token and returns the new raw s
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 

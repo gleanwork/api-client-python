@@ -18,7 +18,7 @@ Fetches the specified policy version, or the latest if no version is provided.
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 
@@ -58,7 +58,7 @@ Updates an existing policy.
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 
@@ -102,7 +102,7 @@ Lists policies with filtering.
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 
@@ -142,7 +142,7 @@ Creates a new policy with specified specifications and returns its id.
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 
@@ -184,7 +184,7 @@ Downloads CSV violations report for a specific policy id. This does not support 
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 

@@ -15,7 +15,7 @@ Fetches the visibility override status of the documents passed.
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 
@@ -54,7 +54,7 @@ Sets the visibility-override state of the documents specified, effectively hidin
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 

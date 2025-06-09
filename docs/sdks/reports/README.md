@@ -16,7 +16,7 @@ Creates a new one-time report and executes its batch job.
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 
@@ -56,7 +56,7 @@ Downloads CSV violations report for a specific report id.
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 
@@ -95,7 +95,7 @@ Fetches the status of the run corresponding to the report-id.
 ### Example Usage
 
 ```python
-from glean.api_client import Glean
+from glean import Glean
 import os
 
 
