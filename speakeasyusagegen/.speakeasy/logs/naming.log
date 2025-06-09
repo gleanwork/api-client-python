@@ -308,38 +308,38 @@ DEBUG
 
 --- Renaming 2 types with name "authentication" ---
 DEBUG	discriminated: Renamed to "client_authentication" 
-	 labels: "original_name:authentication group:client data_type:SDK mainSDK:Glean" 
-	 registrationID: "scope:sdk mainSDK:Glean group:client originalName:authentication"
+	 labels: "original_name:authentication group:client data_type:SDK" 
+	 registrationID: "scope:sdk mainSDK:SDK group:client originalName:authentication"
 DEBUG	discriminated: Renamed to "indexing_authentication" 
-	 labels: "original_name:authentication group:indexing data_type:SDK mainSDK:Glean" 
-	 registrationID: "scope:sdk mainSDK:Glean group:indexing originalName:authentication"
+	 labels: "original_name:authentication group:indexing data_type:SDK" 
+	 registrationID: "scope:sdk mainSDK:SDK group:indexing originalName:authentication"
 DEBUG	
 
 --- Renaming 3 types with name "documents" ---
 DEBUG	discriminated: Renamed to "client_documents" 
-	 labels: "original_name:documents group:client data_type:SDK mainSDK:Glean" 
-	 registrationID: "scope:sdk mainSDK:Glean group:client originalName:documents"
+	 labels: "original_name:documents group:client data_type:SDK" 
+	 registrationID: "scope:sdk mainSDK:SDK group:client originalName:documents"
 DEBUG	discriminated: Renamed to "indexing_documents" 
-	 labels: "original_name:documents group:indexing data_type:SDK mainSDK:Glean" 
-	 registrationID: "scope:sdk mainSDK:Glean group:indexing originalName:documents"
+	 labels: "original_name:documents group:indexing data_type:SDK" 
+	 registrationID: "scope:sdk mainSDK:SDK group:indexing originalName:documents"
 DEBUG	discriminated: Renamed to "governance_documents" 
-	 labels: "original_name:documents group:governance group:client data_type:SDK mainSDK:Glean" 
-	 registrationID: "scope:sdk mainSDK:Glean group:client group:governance originalName:documents"
+	 labels: "original_name:documents group:governance group:client data_type:SDK" 
+	 registrationID: "scope:sdk mainSDK:SDK group:client group:governance originalName:documents"
 DEBUG	
 
 --- Renaming 2 types with name "shortcuts" ---
 DEBUG	discriminated: Renamed to "client_shortcuts" 
-	 labels: "original_name:shortcuts group:client data_type:SDK mainSDK:Glean" 
-	 registrationID: "scope:sdk mainSDK:Glean group:client originalName:shortcuts"
+	 labels: "original_name:shortcuts group:client data_type:SDK" 
+	 registrationID: "scope:sdk mainSDK:SDK group:client originalName:shortcuts"
 DEBUG	discriminated: Renamed to "indexing_shortcuts" 
-	 labels: "original_name:shortcuts group:indexing data_type:SDK mainSDK:Glean" 
-	 registrationID: "scope:sdk mainSDK:Glean group:indexing originalName:shortcuts"
+	 labels: "original_name:shortcuts group:indexing data_type:SDK" 
+	 registrationID: "scope:sdk mainSDK:SDK group:indexing originalName:shortcuts"
 DEBUG	prepend_op_id: N/A rename "listpins_request" 
 	 labels: "original_name:request operation:listpins operationTag:client.pins" 
 	 registrationID: "scope:operations operationTag:client.pins operation:listpins requestResponse:request originalName:RequestBody"
 DEBUG	
 
-Glean (SDK empty)
+Sdk (SDK empty)
 Client (SDK empty)
 Activity (SDK empty)
 Activity (events: array)
