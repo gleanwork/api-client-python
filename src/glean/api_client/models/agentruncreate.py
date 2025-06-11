@@ -16,6 +16,8 @@ class AgentRunCreateTypedDict(TypedDict):
     r"""The input to the agent."""
     messages: NotRequired[List[MessageTypedDict]]
     r"""The messages to pass an input to the agent."""
+    metadata: NotRequired[Dict[str, Any]]
+    r"""The metadata to pass to the agent."""
 
 
 class AgentRunCreate(BaseModel):
@@ -29,3 +31,6 @@ class AgentRunCreate(BaseModel):
 
     messages: Optional[List[Message]] = None
     r"""The messages to pass an input to the agent."""
+
+    metadata: Optional[Dict[str, Any]] = None
+    r"""The metadata to pass to the agent."""

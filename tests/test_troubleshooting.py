@@ -20,10 +20,10 @@ def test_troubleshooting_post_api_index_v1_checkdocumentaccess():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.indexing.documents.check_access(
+        res = glean.indexing.documents.check_access(
             datasource="<value>",
             object_type="<value>",
             doc_id="<id>",
@@ -39,10 +39,10 @@ def test_troubleshooting_post_api_index_v1_getdocumentstatus():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.indexing.documents.status(
+        res = glean.indexing.documents.status(
             datasource="<value>", object_type="<value>", doc_id="<id>"
         )
         assert res is not None
@@ -55,10 +55,10 @@ def test_troubleshooting_post_api_index_v1_getdocumentcount():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.indexing.documents.count(datasource="<value>")
+        res = glean.indexing.documents.count(datasource="<value>")
         assert res is not None
 
 
@@ -69,8 +69,8 @@ def test_troubleshooting_post_api_index_v1_getusercount():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.indexing.people.count(datasource="<value>")
+        res = glean.indexing.people.count(datasource="<value>")
         assert res is not None

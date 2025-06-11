@@ -50,7 +50,7 @@ func testSummarizeSummarize0(w http.ResponseWriter, req *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.SummarizeResponse{}
+	var respBody *components.SummarizeResponse = &components.SummarizeResponse{}
 	respBodyBytes, err := utils.MarshalJSON(respBody, "", true)
 
 	if err != nil {

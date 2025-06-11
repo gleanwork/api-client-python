@@ -15,10 +15,10 @@ def test_client_shortcuts_createshortcut():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.client.shortcuts.create(
+        res = glean.client.shortcuts.create(
             data={
                 "added_roles": [
                     models.UserRoleSpecification(
@@ -594,10 +594,10 @@ def test_client_shortcuts_deleteshortcut():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        g_client.client.shortcuts.delete(id=545907)
+        glean.client.shortcuts.delete(id=545907)
 
 
 def test_client_shortcuts_getshortcut():
@@ -607,10 +607,10 @@ def test_client_shortcuts_getshortcut():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.client.shortcuts.retrieve(
+        res = glean.client.shortcuts.retrieve(
             request={
                 "alias": "<value>",
             }
@@ -632,10 +632,10 @@ def test_client_shortcuts_listshortcuts():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.client.shortcuts.list(
+        res = glean.client.shortcuts.list(
             page_size=10,
             filters=[
                 {
@@ -670,10 +670,10 @@ def test_client_shortcuts_updateshortcut():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.client.shortcuts.update(
+        res = glean.client.shortcuts.update(
             id=857478,
             added_roles=[
                 models.UserRoleSpecification(

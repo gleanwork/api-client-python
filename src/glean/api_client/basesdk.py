@@ -2,7 +2,11 @@
 
 from .sdkconfiguration import SDKConfiguration
 from glean.api_client import errors, models, utils
-from glean.api_client._hooks import AfterErrorContext, AfterSuccessContext, BeforeRequestContext
+from glean.api_client._hooks import (
+    AfterErrorContext,
+    AfterSuccessContext,
+    BeforeRequestContext,
+)
 from glean.api_client.utils import RetryConfig, SerializedRequestBody, get_body_content
 import httpx
 from typing import Callable, List, Mapping, Optional, Tuple

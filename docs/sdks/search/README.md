@@ -25,9 +25,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.search.query_as_admin(query="vacation policy", tracking_token="trackingToken", source_document=models.Document(
+    res = glean.client.search.query_as_admin(query="vacation policy", tracking_token="trackingToken", source_document=models.Document(
         container_document=models.Document(
             metadata=models.DocumentMetadata(
                 datasource="datasource",
@@ -182,9 +182,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.search.autocomplete(tracking_token="trackingToken", query="what is a que", datasource="GDRIVE", result_size=10, auth_tokens=[
+    res = glean.client.search.autocomplete(tracking_token="trackingToken", query="what is a que", datasource="GDRIVE", result_size=10, auth_tokens=[
         {
             "access_token": "123abc",
             "datasource": "gmail",
@@ -236,9 +236,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.search.retrieve_feed(timeout_millis=5000)
+    res = glean.client.search.retrieve_feed(timeout_millis=5000)
 
     # Handle response
     print(res)
@@ -279,9 +279,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.search.recommendations(source_document=models.Document(
+    res = glean.client.search.recommendations(source_document=models.Document(
         container_document=models.Document(
             metadata=models.DocumentMetadata(
                 datasource="datasource",
@@ -525,9 +525,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.search.query(query="vacation policy", tracking_token="trackingToken", source_document=models.Document(
+    res = glean.client.search.query(query="vacation policy", tracking_token="trackingToken", source_document=models.Document(
         container_document=models.Document(
             metadata=models.DocumentMetadata(
                 datasource="datasource",

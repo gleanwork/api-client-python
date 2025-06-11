@@ -51,7 +51,7 @@ func testAddcollectionitemsAddcollectionitems0(w http.ResponseWriter, req *http.
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.AddCollectionItemsResponse{
+	var respBody *components.AddCollectionItemsResponse = &components.AddCollectionItemsResponse{
 		Collection: &components.Collection{
 			Name:        "<value>",
 			Description: "greedily indeed marten whereas rebel expansion",

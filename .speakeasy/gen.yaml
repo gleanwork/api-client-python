@@ -54,7 +54,7 @@ python:
   inputModelSuffix: input
   maxMethodParams: 999
   methodArguments: infer-optional-args
-  moduleName: ""
+  moduleName: glean.api_client
   outputModelSuffix: output
   packageName: glean
   pytestFilterWarnings: []

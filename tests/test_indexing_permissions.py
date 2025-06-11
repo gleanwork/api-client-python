@@ -12,10 +12,10 @@ def test_indexing_permissions_post_api_index_v1_updatepermissions():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        g_client.indexing.permissions.update_permissions(
+        glean.indexing.permissions.update_permissions(
             datasource="<value>", permissions={}
         )
 
@@ -27,10 +27,10 @@ def test_indexing_permissions_post_api_index_v1_indexuser():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        g_client.indexing.permissions.index_user(
+        glean.indexing.permissions.index_user(
             datasource="<value>",
             user={
                 "email": "Elroy38@gmail.com",
@@ -46,10 +46,10 @@ def test_indexing_permissions_post_api_index_v1_bulkindexusers():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        g_client.indexing.permissions.bulk_index_users(
+        glean.indexing.permissions.bulk_index_users(
             upload_id="<id>",
             datasource="<value>",
             users=[
@@ -76,10 +76,10 @@ def test_indexing_permissions_post_api_index_v1_indexgroup():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        g_client.indexing.permissions.index_group(
+        glean.indexing.permissions.index_group(
             datasource="<value>",
             group={
                 "name": "<value>",
@@ -94,10 +94,10 @@ def test_indexing_permissions_post_api_index_v1_bulkindexgroups():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        g_client.indexing.permissions.bulk_index_groups(
+        glean.indexing.permissions.bulk_index_groups(
             upload_id="<id>",
             datasource="<value>",
             groups=[
@@ -118,10 +118,10 @@ def test_indexing_permissions_post_api_index_v1_indexmembership():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        g_client.indexing.permissions.index_membership(
+        glean.indexing.permissions.index_membership(
             datasource="<value>",
             membership={
                 "group_name": "<value>",
@@ -138,10 +138,10 @@ def test_indexing_permissions_post_api_index_v1_bulkindexmemberships():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        g_client.indexing.permissions.bulk_index_memberships(
+        glean.indexing.permissions.bulk_index_memberships(
             upload_id="<id>",
             datasource="<value>",
             memberships=[
@@ -161,10 +161,10 @@ def test_indexing_permissions_post_api_index_v1_processallmemberships():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        g_client.indexing.permissions.process_memberships()
+        glean.indexing.permissions.process_memberships()
 
 
 def test_indexing_permissions_post_api_index_v1_deleteuser():
@@ -174,10 +174,10 @@ def test_indexing_permissions_post_api_index_v1_deleteuser():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        g_client.indexing.permissions.delete_user(
+        glean.indexing.permissions.delete_user(
             datasource="<value>", email="Estrella.Robel56@gmail.com"
         )
 
@@ -189,10 +189,10 @@ def test_indexing_permissions_post_api_index_v1_deletegroup():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        g_client.indexing.permissions.delete_group(
+        glean.indexing.permissions.delete_group(
             datasource="<value>", group_name="<value>"
         )
 
@@ -204,10 +204,10 @@ def test_indexing_permissions_post_api_index_v1_deletemembership():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        g_client.indexing.permissions.delete_membership(
+        glean.indexing.permissions.delete_membership(
             datasource="<value>",
             membership={
                 "group_name": "<value>",
@@ -222,10 +222,10 @@ def test_indexing_permissions_post_api_index_v1_betausers():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        g_client.indexing.permissions.authorize_beta_users(
+        glean.indexing.permissions.authorize_beta_users(
             datasource="<value>",
             emails=[
                 "Margaret94@gmail.com",

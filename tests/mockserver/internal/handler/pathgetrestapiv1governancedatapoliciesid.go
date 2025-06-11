@@ -45,7 +45,7 @@ func testGetpolicyGetpolicy0(w http.ResponseWriter, req *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.GetDlpReportResponse{}
+	var respBody *components.GetDlpReportResponse = &components.GetDlpReportResponse{}
 	respBodyBytes, err := utils.MarshalJSON(respBody, "", true)
 
 	if err != nil {

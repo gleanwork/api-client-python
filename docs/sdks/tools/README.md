@@ -21,9 +21,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.tools.list()
+    res = glean.client.tools.list()
 
     # Handle response
     print(res)
@@ -60,9 +60,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.tools.run(name="<value>", parameters={
+    res = glean.client.tools.run(name="<value>", parameters={
         "key": {
             "name": "<value>",
             "value": "<value>",

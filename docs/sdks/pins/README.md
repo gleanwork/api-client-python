@@ -24,9 +24,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.pins.update(audience_filters=[
+    res = glean.client.pins.update(audience_filters=[
         {
             "field_name": "type",
             "values": [
@@ -79,9 +79,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.pins.retrieve()
+    res = glean.client.pins.retrieve()
 
     # Handle response
     print(res)
@@ -118,9 +118,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.pins.list(request={})
+    res = glean.client.pins.list(request={})
 
     # Handle response
     print(res)
@@ -157,9 +157,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.pins.create(audience_filters=[
+    res = glean.client.pins.create(audience_filters=[
         {
             "field_name": "type",
             "values": [
@@ -212,9 +212,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    g_client.client.pins.remove()
+    glean.client.pins.remove()
 
     # Use the SDK ...
 

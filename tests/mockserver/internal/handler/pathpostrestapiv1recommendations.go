@@ -51,7 +51,7 @@ func testRecommendationsRecommendations0(w http.ResponseWriter, req *http.Reques
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.ResultsResponse{
+	var respBody *components.ResultsResponse = &components.ResultsResponse{
 		Results: []components.SearchResult{
 			components.SearchResult{
 				Title:        types.String("title"),

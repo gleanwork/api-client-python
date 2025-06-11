@@ -34,10 +34,10 @@ def test_agents_get_agent():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.client.agents.retrieve(agent_id="<id>")
+        res = glean.client.agents.retrieve(agent_id="<id>")
         assert res is not None
 
 
@@ -48,10 +48,10 @@ def test_agents_get_agent_schemas():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.client.agents.retrieve_schemas(agent_id="<id>")
+        res = glean.client.agents.retrieve_schemas(agent_id="<id>")
         assert res is not None
 
 

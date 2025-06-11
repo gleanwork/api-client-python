@@ -51,7 +51,7 @@ func testUpdateannouncementUpdateannouncement0(w http.ResponseWriter, req *http.
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.Announcement{
+	var respBody *components.Announcement = &components.Announcement{
 		Body: &components.StructuredText{
 			Text: "From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
 			StructuredList: []components.StructuredTextItem{

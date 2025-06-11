@@ -23,9 +23,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.documents.retrieve_permissions()
+    res = glean.client.documents.retrieve_permissions()
 
     # Handle response
     print(res)
@@ -62,9 +62,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.documents.retrieve()
+    res = glean.client.documents.retrieve()
 
     # Handle response
     print(res)
@@ -101,9 +101,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.documents.retrieve_by_facets(request={
+    res = glean.client.documents.retrieve_by_facets(request={
         "filter_sets": [
             {
                 "filters": [
@@ -177,9 +177,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.documents.summarize(document_specs=[
+    res = glean.client.documents.summarize(document_specs=[
         {},
         {},
         {},

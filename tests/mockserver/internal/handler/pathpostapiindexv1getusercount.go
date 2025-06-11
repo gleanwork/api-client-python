@@ -50,7 +50,7 @@ func testPostAPIIndexV1GetusercountPostAPIIndexV1Getusercount0(w http.ResponseWr
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.GetUserCountResponse{}
+	var respBody *components.GetUserCountResponse = &components.GetUserCountResponse{}
 	respBodyBytes, err := utils.MarshalJSON(respBody, "", true)
 
 	if err != nil {

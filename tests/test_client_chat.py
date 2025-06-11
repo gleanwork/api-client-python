@@ -56,10 +56,10 @@ def test_client_chat_deleteallchats():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        g_client.client.chat.delete_all()
+        glean.client.chat.delete_all()
 
 
 def test_client_chat_deletechats():
@@ -69,10 +69,10 @@ def test_client_chat_deletechats():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        g_client.client.chat.delete(
+        glean.client.chat.delete(
             ids=[
                 "<value>",
                 "<value>",
@@ -87,10 +87,10 @@ def test_client_chat_getchat():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.client.chat.retrieve(id="<id>")
+        res = glean.client.chat.retrieve(id="<id>")
         assert res is not None
 
 
@@ -101,10 +101,10 @@ def test_client_chat_listchats():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.client.chat.list()
+        res = glean.client.chat.list()
         assert res is not None
 
 
@@ -115,10 +115,10 @@ def test_client_chat_getchatapplication():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.client.chat.retrieve_application(id="<id>")
+        res = glean.client.chat.retrieve_application(id="<id>")
         assert res is not None
 
 
@@ -129,10 +129,10 @@ def test_client_chat_getchatfiles():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.client.chat.retrieve_files(
+        res = glean.client.chat.retrieve_files(
             file_ids=[
                 "<value>",
                 "<value>",
@@ -148,10 +148,10 @@ def test_client_chat_deletechatfiles():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        g_client.client.chat.delete_files(
+        glean.client.chat.delete_files(
             file_ids=[
                 "<value>",
             ]
@@ -165,10 +165,10 @@ def test_client_chat_chat_stream_default_example():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.client.chat.create_stream(
+        res = glean.client.chat.create_stream(
             messages=[
                 {
                     "fragments": [
@@ -190,10 +190,10 @@ def test_client_chat_chat_stream_gpt_agent_example():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.client.chat.create_stream(
+        res = glean.client.chat.create_stream(
             messages=[
                 {
                     "fragments": [
@@ -218,10 +218,10 @@ def test_client_chat_chat_stream_streaming_example():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.client.chat.create_stream(messages=[], timeout_millis=30000)
+        res = glean.client.chat.create_stream(messages=[], timeout_millis=30000)
         assert res is not None
 
 
@@ -232,10 +232,10 @@ def test_client_chat_chat_stream_update_response():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.client.chat.create_stream(
+        res = glean.client.chat.create_stream(
             messages=[
                 {
                     "citations": [
@@ -4844,10 +4844,10 @@ def test_client_chat_chat_stream_citation_response():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.client.chat.create_stream(
+        res = glean.client.chat.create_stream(
             messages=[
                 {
                     "citations": [

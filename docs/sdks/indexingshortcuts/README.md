@@ -21,9 +21,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    g_client.indexing.shortcuts.bulk_index(upload_id="<id>", shortcuts=[
+    glean.indexing.shortcuts.bulk_index(upload_id="<id>", shortcuts=[
         {
             "input_alias": "<value>",
             "destination_url": "https://plump-tune-up.biz/",
@@ -72,9 +72,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    g_client.indexing.shortcuts.upload(upload_id="<id>", shortcuts=[
+    glean.indexing.shortcuts.upload(upload_id="<id>", shortcuts=[
         {
             "input_alias": "<value>",
             "destination_url": "https://majestic-pharmacopoeia.info/",

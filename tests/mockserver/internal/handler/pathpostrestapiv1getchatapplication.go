@@ -50,7 +50,7 @@ func testGetchatapplicationGetchatapplication0(w http.ResponseWriter, req *http.
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.GetChatApplicationResponse{}
+	var respBody *components.GetChatApplicationResponse = &components.GetChatApplicationResponse{}
 	respBodyBytes, err := utils.MarshalJSON(respBody, "", true)
 
 	if err != nil {

@@ -12,10 +12,10 @@ def test_indexing_documents_post_api_index_v1_indexdocument():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        g_client.indexing.documents.add_or_update(
+        glean.indexing.documents.add_or_update(
             document=models.DocumentDefinition(
                 datasource="<value>",
             )
@@ -29,10 +29,10 @@ def test_indexing_documents_post_api_index_v1_indexdocuments():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        g_client.indexing.documents.index(
+        glean.indexing.documents.index(
             datasource="<value>",
             documents=[
                 models.DocumentDefinition(
@@ -49,10 +49,10 @@ def test_indexing_documents_post_api_index_v1_bulkindexdocuments():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        g_client.indexing.documents.bulk_index(
+        glean.indexing.documents.bulk_index(
             upload_id="<id>",
             datasource="<value>",
             documents=[
@@ -70,10 +70,10 @@ def test_indexing_documents_post_api_index_v1_processalldocuments():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        g_client.indexing.documents.process_all()
+        glean.indexing.documents.process_all()
 
 
 def test_indexing_documents_post_api_index_v1_deletedocument():
@@ -83,9 +83,9 @@ def test_indexing_documents_post_api_index_v1_deletedocument():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        g_client.indexing.documents.delete(
+        glean.indexing.documents.delete(
             datasource="<value>", object_type="<value>", id="<id>"
         )

@@ -51,7 +51,7 @@ func testListshortcutsListshortcuts0(w http.ResponseWriter, req *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.ListShortcutsPaginatedResponse{
+	var respBody *components.ListShortcutsPaginatedResponse = &components.ListShortcutsPaginatedResponse{
 		Shortcuts: []components.Shortcut{
 			components.Shortcut{
 				InputAlias:     "<value>",

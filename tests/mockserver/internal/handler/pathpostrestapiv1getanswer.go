@@ -51,7 +51,7 @@ func testGetanswerGetanswer0(w http.ResponseWriter, req *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.GetAnswerResponse{
+	var respBody *components.GetAnswerResponse = &components.GetAnswerResponse{
 		AnswerResult: &components.AnswerResult{
 			Answer: components.Answer{
 				ID:       3,

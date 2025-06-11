@@ -51,7 +51,7 @@ func testListentitiesListentities0(w http.ResponseWriter, req *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.ListEntitiesResponse{
+	var respBody *components.ListEntitiesResponse = &components.ListEntitiesResponse{
 		Results: []components.Person{
 			components.Person{
 				Name:         "George Clooney",

@@ -51,7 +51,7 @@ func testMessagesMessages0(w http.ResponseWriter, req *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.MessagesResponse{
+	var respBody *components.MessagesResponse = &components.MessagesResponse{
 		HasMore: false,
 		SearchResponse: &components.SearchResponse{
 			TrackingToken: types.String("trackingToken"),

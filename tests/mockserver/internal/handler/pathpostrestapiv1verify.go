@@ -51,7 +51,7 @@ func testVerifyVerify0(w http.ResponseWriter, req *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.Verification{
+	var respBody *components.Verification = &components.Verification{
 		State: components.StateDeprecated,
 		Metadata: &components.VerificationMetadata{
 			LastVerifier: &components.Person{

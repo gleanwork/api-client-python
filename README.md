@@ -49,6 +49,7 @@ Remember that each namespace requires its own authentication token type as descr
   * [SDK Example Usage](#sdk-example-usage)
   * [Authentication](#authentication)
   * [Available Resources and Operations](#available-resources-and-operations)
+  * [File uploads](#file-uploads)
   * [Retries](#retries)
   * [Error Handling](#error-handling)
   * [Server Selection](#server-selection)
@@ -141,9 +142,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.chat.create(messages=[
+    res = glean.client.chat.create(messages=[
         {
             "fragments": [
                 models.ChatMessageFragment(
@@ -170,9 +171,9 @@ async def main():
 
     async with Glean(
         api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ) as g_client:
+    ) as glean:
 
-        res = await g_client.client.chat.create_async(messages=[
+        res = await glean.client.chat.create_async(messages=[
             {
                 "fragments": [
                     models.ChatMessageFragment(
@@ -198,9 +199,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.chat.create_stream(messages=[
+    res = glean.client.chat.create_stream(messages=[
         {
             "fragments": [
                 models.ChatMessageFragment(
@@ -227,9 +228,9 @@ async def main():
 
     async with Glean(
         api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ) as g_client:
+    ) as glean:
 
-        res = await g_client.client.chat.create_stream_async(messages=[
+        res = await glean.client.chat.create_stream_async(messages=[
             {
                 "fragments": [
                     models.ChatMessageFragment(
@@ -266,9 +267,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    g_client.client.activity.report(events=[
+    glean.client.activity.report(events=[
         {
             "action": models.ActivityEventAction.HISTORICAL_VIEW,
             "timestamp": parse_datetime("2000-01-23T04:56:07.000Z"),
@@ -534,6 +535,38 @@ For more information on obtaining the appropriate token type, please contact you
 </details>
 <!-- End Available Resources and Operations [operations] -->
 
+<!-- Start File uploads [file-upload] -->
+## File uploads
+
+Certain SDK methods accept file objects as part of a request body or multi-part request. It is possible and typically recommended to upload files as a stream rather than reading the entire contents into memory. This avoids excessive memory consumption and potentially crashing with out-of-memory errors when working with very large files. The following example demonstrates how to attach a file stream to a request.
+
+> [!TIP]
+>
+> For endpoints that handle file uploads bytes arrays can also be used. However, using streams is recommended for large files.
+>
+
+```python
+from glean.api_client import Glean
+import os
+
+
+with Glean(
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+) as glean:
+
+    res = glean.client.chat.upload_files(files=[
+        {
+            "file_name": "example.file",
+            "content": open("example.file", "rb"),
+        },
+    ])
+
+    # Handle response
+    print(res)
+
+```
+<!-- End File uploads [file-upload] -->
+
 <!-- Start Retries [retries] -->
 ## Retries
 
@@ -548,9 +581,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    g_client.client.activity.report(events=[
+    glean.client.activity.report(events=[
         {
             "action": models.ActivityEventAction.HISTORICAL_VIEW,
             "timestamp": parse_datetime("2000-01-23T04:56:07.000Z"),
@@ -590,9 +623,9 @@ import os
 with Glean(
     retry_config=RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False),
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    g_client.client.activity.report(events=[
+    glean.client.activity.report(events=[
         {
             "action": models.ActivityEventAction.HISTORICAL_VIEW,
             "timestamp": parse_datetime("2000-01-23T04:56:07.000Z"),
@@ -728,9 +761,9 @@ import os
 with Glean(
     instance="<value>"
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    g_client.client.activity.report(events=[
+    glean.client.activity.report(events=[
         {
             "action": models.ActivityEventAction.HISTORICAL_VIEW,
             "timestamp": parse_datetime("2000-01-23T04:56:07.000Z"),
@@ -771,9 +804,9 @@ import os
 with Glean(
     server_url="https://instance-name-be.glean.com",
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    g_client.client.activity.report(events=[
+    glean.client.activity.report(events=[
         {
             "action": models.ActivityEventAction.HISTORICAL_VIEW,
             "timestamp": parse_datetime("2000-01-23T04:56:07.000Z"),
@@ -898,7 +931,7 @@ def main():
 
     with Glean(
         api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ) as g_client:
+    ) as glean:
         # Rest of application here...
 
 
@@ -907,7 +940,7 @@ async def amain():
 
     async with Glean(
         api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ) as g_client:
+    ) as glean:
         # Rest of application here...
 ```
 <!-- End Resource Management [resource-management] -->
@@ -923,7 +956,7 @@ from glean.api_client import Glean
 import logging
 
 logging.basicConfig(level=logging.DEBUG)
-s = Glean(debug_logger=logging.getLogger("glean"))
+s = Glean(debug_logger=logging.getLogger("glean.api_client"))
 ```
 
 You can also enable a default debug logger by setting an environment variable `GLEAN_DEBUG` to true.

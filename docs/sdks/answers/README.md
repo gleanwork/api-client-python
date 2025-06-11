@@ -26,9 +26,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.answers.create(data={
+    res = glean.client.answers.create(data={
         "question": "Why is the sky blue?",
         "body_text": "From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
         "audience_filters": [
@@ -1396,9 +1396,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    g_client.client.answers.delete(id=3, doc_id="ANSWERS_answer_3")
+    glean.client.answers.delete(id=3, doc_id="ANSWERS_answer_3")
 
     # Use the SDK ...
 
@@ -1433,9 +1433,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.answers.update(id=3, doc_id="ANSWERS_answer_3", question="Why is the sky blue?", body_text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.", audience_filters=[
+    res = glean.client.answers.update(id=3, doc_id="ANSWERS_answer_3", question="Why is the sky blue?", body_text="From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.", audience_filters=[
         {
             "field_name": "type",
             "values": [
@@ -2397,9 +2397,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.answers.retrieve(id=3, doc_id="ANSWERS_answer_3")
+    res = glean.client.answers.retrieve(id=3, doc_id="ANSWERS_answer_3")
 
     # Handle response
     print(res)
@@ -2437,9 +2437,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.answers.list()
+    res = glean.client.answers.list()
 
     # Handle response
     print(res)

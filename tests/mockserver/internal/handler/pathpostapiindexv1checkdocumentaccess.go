@@ -50,7 +50,7 @@ func testPostAPIIndexV1CheckdocumentaccessPostAPIIndexV1Checkdocumentaccess0(w h
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.CheckDocumentAccessResponse{}
+	var respBody *components.CheckDocumentAccessResponse = &components.CheckDocumentAccessResponse{}
 	respBodyBytes, err := utils.MarshalJSON(respBody, "", true)
 
 	if err != nil {

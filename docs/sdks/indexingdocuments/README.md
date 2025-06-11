@@ -31,9 +31,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    g_client.indexing.documents.add_or_update(document=models.DocumentDefinition(
+    glean.indexing.documents.add_or_update(document=models.DocumentDefinition(
         datasource="<value>",
     ))
 
@@ -68,9 +68,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    g_client.indexing.documents.index(datasource="<value>", documents=[])
+    glean.indexing.documents.index(datasource="<value>", documents=[])
 
     # Use the SDK ...
 
@@ -104,9 +104,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    g_client.indexing.documents.bulk_index(upload_id="<id>", datasource="<value>", documents=[])
+    glean.indexing.documents.bulk_index(upload_id="<id>", datasource="<value>", documents=[])
 
     # Use the SDK ...
 
@@ -155,9 +155,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    g_client.indexing.documents.process_all()
+    glean.indexing.documents.process_all()
 
     # Use the SDK ...
 
@@ -189,9 +189,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    g_client.indexing.documents.delete(datasource="<value>", object_type="<value>", id="<id>")
+    glean.indexing.documents.delete(datasource="<value>", object_type="<value>", id="<id>")
 
     # Use the SDK ...
 
@@ -229,9 +229,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.indexing.documents.debug(datasource="<value>", object_type="Article", doc_id="art123")
+    res = glean.indexing.documents.debug(datasource="<value>", object_type="Article", doc_id="art123")
 
     # Handle response
     print(res)
@@ -273,9 +273,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.indexing.documents.debug_many(datasource="<value>", debug_documents=[
+    res = glean.indexing.documents.debug_many(datasource="<value>", debug_documents=[
         {
             "object_type": "Article",
             "doc_id": "art123",
@@ -321,9 +321,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.indexing.documents.check_access(datasource="<value>", object_type="<value>", doc_id="<id>", user_email="<value>")
+    res = glean.indexing.documents.check_access(datasource="<value>", object_type="<value>", doc_id="<id>", user_email="<value>")
 
     # Handle response
     print(res)
@@ -368,9 +368,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.indexing.documents.status(datasource="<value>", object_type="<value>", doc_id="<id>")
+    res = glean.indexing.documents.status(datasource="<value>", object_type="<value>", doc_id="<id>")
 
     # Handle response
     print(res)
@@ -414,9 +414,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.indexing.documents.count(datasource="<value>")
+    res = glean.indexing.documents.count(datasource="<value>")
 
     # Handle response
     print(res)

@@ -22,9 +22,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.governance.data.reports.create()
+    res = glean.client.governance.data.reports.create()
 
     # Handle response
     print(res)
@@ -62,9 +62,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.governance.data.reports.download(id="<id>")
+    res = glean.client.governance.data.reports.download(id="<id>")
 
     # Handle response
     print(res)
@@ -101,9 +101,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.governance.data.reports.status(id="<id>")
+    res = glean.client.governance.data.reports.status(id="<id>")
 
     # Handle response
     print(res)

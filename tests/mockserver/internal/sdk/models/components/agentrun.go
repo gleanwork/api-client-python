@@ -10,6 +10,8 @@ type AgentRun struct {
 	Input map[string]any `json:"input,omitempty"`
 	// The messages to pass an input to the agent.
 	Messages []Message `json:"messages,omitempty"`
+	// The metadata to pass to the agent.
+	Metadata map[string]any `json:"metadata,omitempty"`
 	// The status of the run. One of 'error', 'success'.
 	Status *AgentExecutionStatus `json:"status,omitempty"`
 }
@@ -33,6 +35,13 @@ func (o *AgentRun) GetMessages() []Message {
 		return nil
 	}
 	return o.Messages
+}
+
+func (o *AgentRun) GetMetadata() map[string]any {
+	if o == nil {
+		return nil
+	}
+	return o.Metadata
 }
 
 func (o *AgentRun) GetStatus() *AgentExecutionStatus {

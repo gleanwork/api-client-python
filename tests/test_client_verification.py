@@ -12,10 +12,10 @@ def test_client_verification_addverificationreminder():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.client.verification.add_reminder(document_id="<id>")
+        res = glean.client.verification.add_reminder(document_id="<id>")
         assert res is not None
 
 
@@ -26,10 +26,10 @@ def test_client_verification_listverifications():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.client.verification.list()
+        res = glean.client.verification.list()
         assert res is not None
 
 
@@ -40,8 +40,8 @@ def test_client_verification_verify():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.client.verification.verify(document_id="<id>")
+        res = glean.client.verification.verify(document_id="<id>")
         assert res is not None

@@ -45,7 +45,7 @@ func testGetAgentGetAgent0(w http.ResponseWriter, req *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.Agent{
+	var respBody *components.Agent = &components.Agent{
 		AgentID:      "<id>",
 		Name:         "<value>",
 		Capabilities: components.AgentCapabilities{},

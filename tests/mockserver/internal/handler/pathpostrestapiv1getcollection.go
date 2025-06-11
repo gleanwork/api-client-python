@@ -51,7 +51,7 @@ func testGetcollectionGetcollection0(w http.ResponseWriter, req *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.GetCollectionResponse{
+	var respBody *components.GetCollectionResponse = &components.GetCollectionResponse{
 		Collection: &components.Collection{
 			Name:        "<value>",
 			Description: "for carefully glorious scrabble ignite aw showboat",

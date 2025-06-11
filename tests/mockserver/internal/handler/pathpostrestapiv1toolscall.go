@@ -50,7 +50,7 @@ func testPostRestAPIV1ToolsCallPostRestAPIV1ToolsCall0(w http.ResponseWriter, re
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.ToolsCallResponse{}
+	var respBody *components.ToolsCallResponse = &components.ToolsCallResponse{}
 	respBodyBytes, err := utils.MarshalJSON(respBody, "", true)
 
 	if err != nil {

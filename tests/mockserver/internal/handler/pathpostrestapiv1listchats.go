@@ -46,7 +46,7 @@ func testListchatsListchats0(w http.ResponseWriter, req *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.ListChatsResponse{
+	var respBody *components.ListChatsResponse = &components.ListChatsResponse{
 		ChatResults: []components.ChatMetadataResult{
 			components.ChatMetadataResult{
 				Chat: &components.ChatMetadata{

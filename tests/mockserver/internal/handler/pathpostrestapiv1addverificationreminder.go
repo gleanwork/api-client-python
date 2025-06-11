@@ -51,7 +51,7 @@ func testAddverificationreminderAddverificationreminder0(w http.ResponseWriter, 
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.Verification{
+	var respBody *components.Verification = &components.Verification{
 		State: components.StateVerified,
 		Metadata: &components.VerificationMetadata{
 			LastVerifier: &components.Person{

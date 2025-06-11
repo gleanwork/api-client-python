@@ -15,10 +15,10 @@ def test_collections_addcollectionitems():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.client.collections.add_items(collection_id=6460.15)
+        res = glean.client.collections.add_items(collection_id=6460.15)
         assert res is not None
 
 
@@ -29,10 +29,10 @@ def test_collections_createcollection():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.client.collections.create(
+        res = glean.client.collections.create(
             name="<value>",
             added_roles=[
                 models.UserRoleSpecification(
@@ -622,10 +622,10 @@ def test_collections_deletecollection():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        g_client.client.collections.delete(
+        glean.client.collections.delete(
             ids=[
                 698486,
                 386564,
@@ -640,10 +640,10 @@ def test_collections_deletecollectionitem():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.client.collections.delete_item(
+        res = glean.client.collections.delete_item(
             collection_id=1357.59, item_id="<id>"
         )
         assert res is not None
@@ -656,10 +656,10 @@ def test_collections_editcollection():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.client.collections.update(
+        res = glean.client.collections.update(
             name="<value>",
             id=720396,
             added_roles=[
@@ -1215,12 +1215,10 @@ def test_collections_editcollectionitem():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.client.collections.update_item(
-            collection_id=795203, item_id="<id>"
-        )
+        res = glean.client.collections.update_item(collection_id=795203, item_id="<id>")
         assert res is not None
 
 
@@ -1238,10 +1236,10 @@ def test_collections_getcollection():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.client.collections.retrieve(id=700347)
+        res = glean.client.collections.retrieve(id=700347)
         assert res is not None
 
 
@@ -1252,10 +1250,10 @@ def test_collections_listcollections():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.client.collections.list()
+        res = glean.client.collections.list()
         assert res is not None
 
 

@@ -51,7 +51,7 @@ func testEditcollectionitemEditcollectionitem0(w http.ResponseWriter, req *http.
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.EditCollectionItemResponse{
+	var respBody *components.EditCollectionItemResponse = &components.EditCollectionItemResponse{
 		Collection: &components.Collection{
 			Name:        "<value>",
 			Description: "where nasalise emphasize jealously appliance",

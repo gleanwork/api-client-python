@@ -21,9 +21,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    g_client.indexing.datasources.add(name="<value>", datasource_category=models.DatasourceCategory.UNCATEGORIZED, url_regex="https://example-company.datasource.com/.*", quicklinks=[
+    glean.indexing.datasources.add(name="<value>", datasource_category=models.DatasourceCategory.UNCATEGORIZED, url_regex="https://example-company.datasource.com/.*", quicklinks=[
         {
             "icon_config": {
                 "color": "#343CED",
@@ -90,9 +90,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.indexing.datasources.retrieve_config(datasource="<value>")
+    res = glean.indexing.datasources.retrieve_config(datasource="<value>")
 
     # Handle response
     print(res)

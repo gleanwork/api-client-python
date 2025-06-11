@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  add-extend-path:
+  patch:
     if: github.event_name == 'workflow_dispatch' || (github.event_name == 'pull_request' && contains(github.event.pull_request.title, 'Update SDK - Generate'))
     runs-on: ubuntu-latest
     permissions:
@@ -19,9 +19,7 @@ jobs:
           ref: ${{ github.head_ref || github.ref_name }}
           fetch-depth: 0
 
-      - name: Restructure glean package to namespace structure
-        run: |
-          python .github/scripts/restructure_to_namespace.py
+      - run: echo "Nothing to do! 🎉"
 
       - name: Commit and push if files changed
         run: |

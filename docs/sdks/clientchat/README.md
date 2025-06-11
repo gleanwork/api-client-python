@@ -29,9 +29,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.chat.create(messages=[
+    res = glean.client.chat.create(messages=[
         {
             "fragments": [
                 models.ChatMessageFragment(
@@ -87,9 +87,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    g_client.client.chat.delete_all()
+    glean.client.chat.delete_all()
 
     # Use the SDK ...
 
@@ -121,9 +121,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    g_client.client.chat.delete(ids=[])
+    glean.client.chat.delete(ids=[])
 
     # Use the SDK ...
 
@@ -156,9 +156,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.chat.retrieve(id="<id>")
+    res = glean.client.chat.retrieve(id="<id>")
 
     # Handle response
     print(res)
@@ -196,9 +196,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.chat.list()
+    res = glean.client.chat.list()
 
     # Handle response
     print(res)
@@ -235,9 +235,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.chat.retrieve_application(id="<id>")
+    res = glean.client.chat.retrieve_application(id="<id>")
 
     # Handle response
     print(res)
@@ -275,9 +275,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.chat.upload_files(files=[
+    res = glean.client.chat.upload_files(files=[
         {
             "file_name": "example.file",
             "content": open("example.file", "rb"),
@@ -320,9 +320,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.chat.retrieve_files(file_ids=[
+    res = glean.client.chat.retrieve_files(file_ids=[
         "<value 1>",
     ])
 
@@ -362,9 +362,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    g_client.client.chat.delete_files(file_ids=[
+    glean.client.chat.delete_files(file_ids=[
         "<value 1>",
         "<value 2>",
         "<value 3>",
@@ -401,9 +401,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.chat.create_stream(messages=[
+    res = glean.client.chat.create_stream(messages=[
         {
             "fragments": [
                 models.ChatMessageFragment(

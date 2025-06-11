@@ -24,9 +24,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.indexing.datasource.status(datasource="<value>")
+    res = glean.indexing.datasource.status(datasource="<value>")
 
     # Handle response
     print(res)

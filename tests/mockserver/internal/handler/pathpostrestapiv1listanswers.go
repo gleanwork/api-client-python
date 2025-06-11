@@ -51,7 +51,7 @@ func testListanswersListanswers0(w http.ResponseWriter, req *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.ListAnswersResponse{
+	var respBody *components.ListAnswersResponse = &components.ListAnswersResponse{
 		AnswerResults: []components.AnswerResult{
 			components.AnswerResult{
 				Answer: components.Answer{

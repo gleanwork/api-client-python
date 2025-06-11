@@ -51,7 +51,7 @@ func testGetpinGetpin0(w http.ResponseWriter, req *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.GetPinResponse{
+	var respBody *components.GetPinResponse = &components.GetPinResponse{
 		Pin: &components.PinDocument{
 			AudienceFilters: []components.FacetFilter{
 				components.FacetFilter{

@@ -26,9 +26,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.shortcuts.create(data={
+    res = glean.client.shortcuts.create(data={
         "added_roles": [
             models.UserRoleSpecification(
                 person=models.Person(
@@ -1648,9 +1648,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    g_client.client.shortcuts.delete(id=975862)
+    glean.client.shortcuts.delete(id=975862)
 
     # Use the SDK ...
 
@@ -1682,9 +1682,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.shortcuts.retrieve(request={
+    res = glean.client.shortcuts.retrieve(request={
         "alias": "<value>",
     })
 
@@ -1723,9 +1723,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.shortcuts.list(page_size=10, filters=[
+    res = glean.client.shortcuts.list(page_size=10, filters=[
         {
             "field_name": "type",
             "values": [
@@ -1783,9 +1783,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.shortcuts.update(id=268238, added_roles=[
+    res = glean.client.shortcuts.update(id=268238, added_roles=[
         models.UserRoleSpecification(
             person=models.Person(
                 name="George Clooney",

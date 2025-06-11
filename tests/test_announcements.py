@@ -15,10 +15,10 @@ def test_announcements_createannouncement():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.client.announcements.create(
+        res = glean.client.announcements.create(
             start_time=parse_datetime("2024-06-17T07:14:55.338Z"),
             end_time=parse_datetime("2024-11-30T17:06:07.804Z"),
             title="<value>",
@@ -1418,10 +1418,10 @@ def test_announcements_deleteannouncement():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        g_client.client.announcements.delete(id=545907)
+        glean.client.announcements.delete(id=545907)
 
 
 @pytest.mark.skip(
@@ -1487,10 +1487,10 @@ def test_announcements_updateannouncement():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.client.announcements.update(
+        res = glean.client.announcements.update(
             start_time=parse_datetime("2025-07-28T19:04:48.565Z"),
             end_time=parse_datetime("2024-10-16T10:52:42.015Z"),
             title="<value>",

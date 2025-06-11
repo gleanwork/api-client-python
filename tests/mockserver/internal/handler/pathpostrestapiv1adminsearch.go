@@ -51,7 +51,7 @@ func testAdminsearchAdminsearch0(w http.ResponseWriter, req *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.SearchResponse{
+	var respBody *components.SearchResponse = &components.SearchResponse{
 		TrackingToken: types.String("trackingToken"),
 		Results: []components.SearchResult{
 			components.SearchResult{

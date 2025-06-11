@@ -51,7 +51,7 @@ func testDeletecollectionitemDeletecollectionitem0(w http.ResponseWriter, req *h
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.DeleteCollectionItemResponse{
+	var respBody *components.DeleteCollectionItemResponse = &components.DeleteCollectionItemResponse{
 		Collection: &components.Collection{
 			Name:        "<value>",
 			Description: "up nice seafood",

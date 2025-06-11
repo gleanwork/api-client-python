@@ -13,10 +13,10 @@ def test_policies_getpolicy():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.client.governance.data.policies.retrieve(id="<id>")
+        res = glean.client.governance.data.policies.retrieve(id="<id>")
         assert res is not None
 
 
@@ -48,8 +48,8 @@ def test_policies_listpolicies():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.client.governance.data.policies.list()
+        res = glean.client.governance.data.policies.list()
         assert res is not None

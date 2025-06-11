@@ -50,7 +50,7 @@ func testPostAPIIndexV1GetdocumentcountPostAPIIndexV1Getdocumentcount0(w http.Re
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.GetDocumentCountResponse{}
+	var respBody *components.GetDocumentCountResponse = &components.GetDocumentCountResponse{}
 	respBodyBytes, err := utils.MarshalJSON(respBody, "", true)
 
 	if err != nil {

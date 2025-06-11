@@ -50,7 +50,7 @@ func testGetdocumentsGetdocuments0(w http.ResponseWriter, req *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.GetDocumentsResponse{
+	var respBody *components.GetDocumentsResponse = &components.GetDocumentsResponse{
 		Documents: map[string]components.DocumentOrErrorUnion{
 			"key": components.CreateDocumentOrErrorUnionDocument(
 				components.Document{},
