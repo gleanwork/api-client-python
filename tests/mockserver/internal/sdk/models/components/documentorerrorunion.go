@@ -28,8 +28,8 @@ const (
 )
 
 type DocumentOrErrorUnion struct {
-	Document        *Document
-	DocumentOrError *DocumentOrError
+	Document        *Document        `queryParam:"inline"`
+	DocumentOrError *DocumentOrError `queryParam:"inline"`
 
 	Type DocumentOrErrorUnionType
 }

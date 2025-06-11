@@ -28,8 +28,8 @@ const (
 )
 
 type GetShortcutRequestUnion struct {
-	UserGeneratedContentID *UserGeneratedContentID
-	GetShortcutRequest     *GetShortcutRequest
+	UserGeneratedContentID *UserGeneratedContentID `queryParam:"inline"`
+	GetShortcutRequest     *GetShortcutRequest     `queryParam:"inline"`
 
 	Type GetShortcutRequestUnionType
 }

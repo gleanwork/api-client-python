@@ -22,9 +22,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.verification.add_reminder(document_id="<id>")
+    res = glean.client.verification.add_reminder(document_id="<id>")
 
     # Handle response
     print(res)
@@ -64,9 +64,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.verification.list()
+    res = glean.client.verification.list()
 
     # Handle response
     print(res)
@@ -103,9 +103,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.verification.verify(document_id="<id>")
+    res = glean.client.verification.verify(document_id="<id>")
 
     # Handle response
     print(res)

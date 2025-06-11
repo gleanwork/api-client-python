@@ -10,6 +10,8 @@ type AgentRunCreate struct {
 	Input map[string]any `json:"input,omitempty"`
 	// The messages to pass an input to the agent.
 	Messages []Message `json:"messages,omitempty"`
+	// The metadata to pass to the agent.
+	Metadata map[string]any `json:"metadata,omitempty"`
 }
 
 func (o *AgentRunCreate) GetAgentID() string {
@@ -31,4 +33,11 @@ func (o *AgentRunCreate) GetMessages() []Message {
 		return nil
 	}
 	return o.Messages
+}
+
+func (o *AgentRunCreate) GetMetadata() map[string]any {
+	if o == nil {
+		return nil
+	}
+	return o.Metadata
 }

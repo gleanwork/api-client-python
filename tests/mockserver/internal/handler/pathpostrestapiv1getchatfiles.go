@@ -51,7 +51,7 @@ func testGetchatfilesGetchatfiles0(w http.ResponseWriter, req *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.GetChatFilesResponse{
+	var respBody *components.GetChatFilesResponse = &components.GetChatFilesResponse{
 		Files: map[string]components.ChatFile{
 			"key": components.ChatFile{
 				ID:   types.String("FILE_1234"),

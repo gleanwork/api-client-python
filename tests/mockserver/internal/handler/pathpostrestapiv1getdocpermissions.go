@@ -50,7 +50,7 @@ func testGetdocpermissionsGetdocpermissions0(w http.ResponseWriter, req *http.Re
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.GetDocPermissionsResponse{}
+	var respBody *components.GetDocPermissionsResponse = &components.GetDocPermissionsResponse{}
 	respBodyBytes, err := utils.MarshalJSON(respBody, "", true)
 
 	if err != nil {

@@ -12,10 +12,10 @@ def test_tools_get_rest_api_v1_tools_list():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.client.tools.list()
+        res = glean.client.tools.list()
         assert res is not None
 
 
@@ -26,10 +26,10 @@ def test_tools_post_rest_api_v1_tools_call():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.client.tools.run(
+        res = glean.client.tools.run(
             name="<value>",
             parameters={
                 "key": {

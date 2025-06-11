@@ -51,7 +51,7 @@ func testPeoplePeople0(w http.ResponseWriter, req *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.PeopleResponse{
+	var respBody *components.PeopleResponse = &components.PeopleResponse{
 		Results: []components.Person{
 			components.Person{
 				Name:         "George Clooney",

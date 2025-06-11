@@ -45,7 +45,7 @@ func testCreateauthtokenCreateauthtoken0(w http.ResponseWriter, req *http.Reques
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.CreateAuthTokenResponse{
+	var respBody *components.CreateAuthTokenResponse = &components.CreateAuthTokenResponse{
 		Token:          "<value>",
 		ExpirationTime: 207213,
 	}

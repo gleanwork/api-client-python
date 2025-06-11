@@ -51,7 +51,7 @@ func testCreatecollectionCreatecollection0(w http.ResponseWriter, req *http.Requ
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.CreateCollectionResponse{
+	var respBody *components.CreateCollectionResponse = &components.CreateCollectionResponse{
 		Name:        "<value>",
 		Description: "mentor early miserly stealthily without trick yahoo until planula",
 		AddedRoles: []components.UserRoleSpecification{

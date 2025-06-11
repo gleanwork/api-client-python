@@ -27,7 +27,7 @@ func (o *File) GetContent() io.Reader {
 
 type UploadChatFilesRequest struct {
 	// Raw files to be uploaded for chat in binary format.
-	Files []File `multipartForm:"name=files"`
+	Files []File `multipartForm:"file"`
 }
 
 func (o *UploadChatFilesRequest) GetFiles() []File {

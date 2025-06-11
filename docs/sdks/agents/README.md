@@ -24,9 +24,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.agents.retrieve(agent_id="<id>")
+    res = glean.client.agents.retrieve(agent_id="<id>")
 
     # Handle response
     print(res)
@@ -64,9 +64,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.agents.retrieve_schemas(agent_id="<id>")
+    res = glean.client.agents.retrieve_schemas(agent_id="<id>")
 
     # Handle response
     print(res)
@@ -93,7 +93,7 @@ with Glean(
 
 ## list
 
-Search for [agents](https://developers.glean.com/agents/agents-api) by agent name. 
+Search for [agents](https://developers.glean.com/agents/agents-api) by agent name.
 
 ### Example Usage
 
@@ -104,9 +104,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.agents.list(name="HR Policy Agent")
+    res = glean.client.agents.list(name="HR Policy Agent")
 
     # Handle response
     print(res)
@@ -143,9 +143,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.agents.run_stream(agent_id="<id>")
+    res = glean.client.agents.run_stream(agent_id="<id>")
 
     # Handle response
     print(res)
@@ -159,6 +159,7 @@ with Glean(
 | `agent_id`                                                          | *str*                                                               | :heavy_check_mark:                                                  | The ID of the agent to run.                                         |
 | `input`                                                             | Dict[str, *Any*]                                                    | :heavy_minus_sign:                                                  | The input to the agent.                                             |
 | `messages`                                                          | List[[models.Message](../../models/message.md)]                     | :heavy_minus_sign:                                                  | The messages to pass an input to the agent.                         |
+| `metadata`                                                          | Dict[str, *Any*]                                                    | :heavy_minus_sign:                                                  | The metadata to pass to the agent.                                  |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
@@ -184,9 +185,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.agents.run(agent_id="<id>")
+    res = glean.client.agents.run(agent_id="<id>")
 
     # Handle response
     print(res)
@@ -200,6 +201,7 @@ with Glean(
 | `agent_id`                                                          | *str*                                                               | :heavy_check_mark:                                                  | The ID of the agent to run.                                         |
 | `input`                                                             | Dict[str, *Any*]                                                    | :heavy_minus_sign:                                                  | The input to the agent.                                             |
 | `messages`                                                          | List[[models.Message](../../models/message.md)]                     | :heavy_minus_sign:                                                  | The messages to pass an input to the agent.                         |
+| `metadata`                                                          | Dict[str, *Any*]                                                    | :heavy_minus_sign:                                                  | The metadata to pass to the agent.                                  |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response

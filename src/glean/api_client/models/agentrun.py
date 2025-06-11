@@ -17,6 +17,8 @@ class AgentRunTypedDict(TypedDict):
     r"""The input to the agent."""
     messages: NotRequired[List[MessageTypedDict]]
     r"""The messages to pass an input to the agent."""
+    metadata: NotRequired[Dict[str, Any]]
+    r"""The metadata to pass to the agent."""
     status: NotRequired[AgentExecutionStatus]
     r"""The status of the run. One of 'error', 'success'."""
 
@@ -32,6 +34,9 @@ class AgentRun(BaseModel):
 
     messages: Optional[List[Message]] = None
     r"""The messages to pass an input to the agent."""
+
+    metadata: Optional[Dict[str, Any]] = None
+    r"""The metadata to pass to the agent."""
 
     status: Optional[AgentExecutionStatus] = None
     r"""The status of the run. One of 'error', 'success'."""

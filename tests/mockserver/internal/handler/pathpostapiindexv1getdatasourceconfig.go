@@ -51,7 +51,7 @@ func testPostAPIIndexV1GetdatasourceconfigPostAPIIndexV1Getdatasourceconfig0(w h
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.CustomDatasourceConfig{
+	var respBody *components.CustomDatasourceConfig = &components.CustomDatasourceConfig{
 		Name:               "<value>",
 		DatasourceCategory: components.DatasourceCategoryUncategorized.ToPointer(),
 		URLRegex:           types.String("https://example-company.datasource.com/.*"),

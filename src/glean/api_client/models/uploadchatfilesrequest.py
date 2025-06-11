@@ -39,5 +39,7 @@ class UploadChatFilesRequestTypedDict(TypedDict):
 
 
 class UploadChatFilesRequest(BaseModel):
-    files: Annotated[List[File], FieldMetadata(multipart=True)]
+    files: Annotated[
+        List[File], FieldMetadata(multipart=MultipartFormMetadata(file=True))
+    ]
     r"""Raw files to be uploaded for chat in binary format."""

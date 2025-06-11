@@ -46,7 +46,7 @@ func testListverificationsListverifications0(w http.ResponseWriter, req *http.Re
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.VerificationFeed{
+	var respBody *components.VerificationFeed = &components.VerificationFeed{
 		Documents: []components.Verification{
 			components.Verification{
 				State: components.StateVerified,

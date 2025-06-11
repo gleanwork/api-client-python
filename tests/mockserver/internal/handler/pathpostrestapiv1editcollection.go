@@ -51,7 +51,7 @@ func testEditcollectionEditcollection0(w http.ResponseWriter, req *http.Request)
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.EditCollectionResponse{
+	var respBody *components.EditCollectionResponse = &components.EditCollectionResponse{
 		Name:        "<value>",
 		Description: "urgently voluntarily scale gut",
 		AddedRoles: []components.UserRoleSpecification{

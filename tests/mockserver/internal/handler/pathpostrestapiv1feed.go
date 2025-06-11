@@ -51,7 +51,7 @@ func testFeedFeed0(w http.ResponseWriter, req *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.FeedResponse{
+	var respBody *components.FeedResponse = &components.FeedResponse{
 		ServerTimestamp: 152670,
 		Results: []components.FeedResult{
 			components.FeedResult{

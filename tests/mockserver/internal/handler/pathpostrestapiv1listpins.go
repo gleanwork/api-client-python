@@ -51,7 +51,7 @@ func testListpinsListpins0(w http.ResponseWriter, req *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.ListPinsResponse{
+	var respBody *components.ListPinsResponse = &components.ListPinsResponse{
 		Pins: []components.PinDocument{
 			components.PinDocument{
 				AudienceFilters: []components.FacetFilter{

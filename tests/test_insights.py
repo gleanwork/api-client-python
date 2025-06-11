@@ -12,10 +12,10 @@ def test_insights_insights():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.client.insights.retrieve(
+        res = glean.client.insights.retrieve(
             categories=[
                 models.InsightsRequestCategory.CONTENT,
                 models.InsightsRequestCategory.CONTENT,

@@ -12,10 +12,10 @@ def test_datasources_post_api_index_v1_adddatasource():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        g_client.indexing.datasources.add(
+        glean.indexing.datasources.add(
             name="<value>",
             datasource_category=models.DatasourceCategory.UNCATEGORIZED,
             url_regex="https://example-company.datasource.com/.*",
@@ -51,8 +51,8 @@ def test_datasources_post_api_index_v1_getdatasourceconfig():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.indexing.datasources.retrieve_config(datasource="<value>")
+        res = glean.indexing.datasources.retrieve_config(datasource="<value>")
         assert res is not None

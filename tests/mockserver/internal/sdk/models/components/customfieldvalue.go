@@ -17,9 +17,9 @@ const (
 )
 
 type CustomFieldValue struct {
-	CustomFieldValueStr       *CustomFieldValueStr
-	CustomFieldValueHyperlink *CustomFieldValueHyperlink
-	CustomFieldValuePerson    *CustomFieldValuePerson
+	CustomFieldValueStr       *CustomFieldValueStr       `queryParam:"inline"`
+	CustomFieldValueHyperlink *CustomFieldValueHyperlink `queryParam:"inline"`
+	CustomFieldValuePerson    *CustomFieldValuePerson    `queryParam:"inline"`
 
 	Type CustomFieldValueType
 }

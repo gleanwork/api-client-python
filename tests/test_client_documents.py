@@ -13,10 +13,10 @@ def test_client_documents_getdocpermissions():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.client.documents.retrieve_permissions()
+        res = glean.client.documents.retrieve_permissions()
         assert res is not None
 
 
@@ -27,10 +27,10 @@ def test_client_documents_getdocuments():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.client.documents.retrieve()
+        res = glean.client.documents.retrieve()
         assert res is not None
 
 
@@ -41,10 +41,10 @@ def test_client_documents_getdocumentsbyfacets():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.client.documents.retrieve_by_facets(
+        res = glean.client.documents.retrieve_by_facets(
             request={
                 "filter_sets": [
                     {

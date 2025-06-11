@@ -20,9 +20,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.indexing.authentication.rotate_token()
+    res = glean.indexing.authentication.rotate_token()
 
     # Handle response
     print(res)

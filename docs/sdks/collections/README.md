@@ -27,9 +27,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.collections.add_items(collection_id=7742.68)
+    res = glean.client.collections.add_items(collection_id=7742.68)
 
     # Handle response
     print(res)
@@ -69,9 +69,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.collections.create(name="<value>", added_roles=[
+    res = glean.client.collections.create(name="<value>", added_roles=[
         models.UserRoleSpecification(
             person=models.Person(
                 name="George Clooney",
@@ -765,9 +765,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    g_client.client.collections.delete(ids=[
+    glean.client.collections.delete(ids=[
         930352,
         156719,
         25102,
@@ -805,9 +805,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.collections.delete_item(collection_id=6980.49, item_id="<id>")
+    res = glean.client.collections.delete_item(collection_id=6980.49, item_id="<id>")
 
     # Handle response
     print(res)
@@ -848,9 +848,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.collections.update(name="<value>", id=671264, added_roles=[
+    res = glean.client.collections.update(name="<value>", id=671264, added_roles=[
         models.UserRoleSpecification(
             person=models.Person(
                 name="George Clooney",
@@ -1944,9 +1944,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.collections.update_item(collection_id=142375, item_id="<id>")
+    res = glean.client.collections.update_item(collection_id=142375, item_id="<id>")
 
     # Handle response
     print(res)
@@ -1987,9 +1987,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.collections.retrieve(id=425335)
+    res = glean.client.collections.retrieve(id=425335)
 
     # Handle response
     print(res)
@@ -2029,9 +2029,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.collections.list()
+    res = glean.client.collections.list()
 
     # Handle response
     print(res)

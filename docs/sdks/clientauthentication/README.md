@@ -20,9 +20,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.authentication.create_token()
+    res = glean.client.authentication.create_token()
 
     # Handle response
     print(res)

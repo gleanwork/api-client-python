@@ -12,8 +12,8 @@ def test_indexing_authentication_post_api_index_v1_rotatetoken():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.indexing.authentication.rotate_token()
+        res = glean.indexing.authentication.rotate_token()
         assert res is not None

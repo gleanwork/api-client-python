@@ -31,9 +31,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    g_client.indexing.permissions.update_permissions(datasource="<value>", permissions={})
+    glean.indexing.permissions.update_permissions(datasource="<value>", permissions={})
 
     # Use the SDK ...
 
@@ -69,9 +69,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    g_client.indexing.permissions.index_user(datasource="<value>", user={
+    glean.indexing.permissions.index_user(datasource="<value>", user={
         "email": "Art.Schaden@hotmail.com",
         "name": "<value>",
     })
@@ -108,9 +108,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    g_client.indexing.permissions.bulk_index_users(upload_id="<id>", datasource="<value>", users=[
+    glean.indexing.permissions.bulk_index_users(upload_id="<id>", datasource="<value>", users=[
         {
             "email": "Ivory_Cummerata@hotmail.com",
             "name": "<value>",
@@ -161,9 +161,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    g_client.indexing.permissions.index_group(datasource="<value>", group={
+    glean.indexing.permissions.index_group(datasource="<value>", group={
         "name": "<value>",
     })
 
@@ -199,9 +199,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    g_client.indexing.permissions.bulk_index_groups(upload_id="<id>", datasource="<value>", groups=[
+    glean.indexing.permissions.bulk_index_groups(upload_id="<id>", datasource="<value>", groups=[
         {
             "name": "<value>",
         },
@@ -246,9 +246,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    g_client.indexing.permissions.index_membership(datasource="<value>", membership={
+    glean.indexing.permissions.index_membership(datasource="<value>", membership={
         "group_name": "<value>",
     })
 
@@ -284,9 +284,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    g_client.indexing.permissions.bulk_index_memberships(upload_id="<id>", datasource="<value>", memberships=[
+    glean.indexing.permissions.bulk_index_memberships(upload_id="<id>", datasource="<value>", memberships=[
         {},
         {},
         {},
@@ -329,9 +329,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    g_client.indexing.permissions.process_memberships()
+    glean.indexing.permissions.process_memberships()
 
     # Use the SDK ...
 
@@ -363,9 +363,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    g_client.indexing.permissions.delete_user(datasource="<value>", email="Ed.Johnston@gmail.com")
+    glean.indexing.permissions.delete_user(datasource="<value>", email="Ed.Johnston@gmail.com")
 
     # Use the SDK ...
 
@@ -399,9 +399,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    g_client.indexing.permissions.delete_group(datasource="<value>", group_name="<value>")
+    glean.indexing.permissions.delete_group(datasource="<value>", group_name="<value>")
 
     # Use the SDK ...
 
@@ -435,9 +435,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    g_client.indexing.permissions.delete_membership(datasource="<value>", membership={
+    glean.indexing.permissions.delete_membership(datasource="<value>", membership={
         "group_name": "<value>",
     })
 
@@ -473,9 +473,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    g_client.indexing.permissions.authorize_beta_users(datasource="<value>", emails=[
+    glean.indexing.permissions.authorize_beta_users(datasource="<value>", emails=[
         "Neil92@gmail.com",
         "Alejandrin_Boyer4@hotmail.com",
         "Shyanne_McLaughlin95@hotmail.com",

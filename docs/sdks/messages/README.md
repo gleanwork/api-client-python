@@ -20,9 +20,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.messages.retrieve(id_type=models.IDType.CONVERSATION_ID, id="<id>")
+    res = glean.client.messages.retrieve(id_type=models.IDType.CONVERSATION_ID, id="<id>")
 
     # Handle response
     print(res)

@@ -12,10 +12,10 @@ def test_pins_editpin():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.client.pins.update(
+        res = glean.client.pins.update(
             audience_filters=[
                 {
                     "field_name": "type",
@@ -42,10 +42,10 @@ def test_pins_getpin():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.client.pins.retrieve()
+        res = glean.client.pins.retrieve()
         assert res is not None
 
 
@@ -56,10 +56,10 @@ def test_pins_listpins():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.client.pins.list(request={})
+        res = glean.client.pins.list(request={})
         assert res is not None
 
 
@@ -70,10 +70,10 @@ def test_pins_pin():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.client.pins.create(
+        res = glean.client.pins.create(
             audience_filters=[
                 {
                     "field_name": "type",
@@ -100,7 +100,7 @@ def test_pins_unpin():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        g_client.client.pins.remove()
+        glean.client.pins.remove()

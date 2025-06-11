@@ -21,9 +21,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.governance.documents.visibilityoverrides.list()
+    res = glean.client.governance.documents.visibilityoverrides.list()
 
     # Handle response
     print(res)
@@ -60,9 +60,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.governance.documents.visibilityoverrides.create()
+    res = glean.client.governance.documents.visibilityoverrides.create()
 
     # Handle response
     print(res)

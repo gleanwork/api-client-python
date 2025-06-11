@@ -21,9 +21,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.entities.list(filter_=[
+    res = glean.client.entities.list(filter_=[
         {
             "field_name": "type",
             "values": [
@@ -82,9 +82,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.entities.read_people(obfuscated_ids=[
+    res = glean.client.entities.read_people(obfuscated_ids=[
         "abc123",
         "abc456",
     ])

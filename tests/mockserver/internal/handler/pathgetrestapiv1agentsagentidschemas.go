@@ -45,7 +45,7 @@ func testGetAgentSchemasGetAgentSchemas0(w http.ResponseWriter, req *http.Reques
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.AgentSchemas{
+	var respBody *components.AgentSchemas = &components.AgentSchemas{
 		AgentID:      "<id>",
 		InputSchema:  components.InputSchema{},
 		OutputSchema: components.OutputSchema{},

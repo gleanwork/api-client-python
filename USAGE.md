@@ -7,9 +7,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.chat.create(messages=[
+    res = glean.client.chat.create(messages=[
         {
             "fragments": [
                 models.ChatMessageFragment(
@@ -36,9 +36,9 @@ async def main():
 
     async with Glean(
         api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ) as g_client:
+    ) as glean:
 
-        res = await g_client.client.chat.create_async(messages=[
+        res = await glean.client.chat.create_async(messages=[
             {
                 "fragments": [
                     models.ChatMessageFragment(
@@ -62,9 +62,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.client.chat.create_stream(messages=[
+    res = glean.client.chat.create_stream(messages=[
         {
             "fragments": [
                 models.ChatMessageFragment(
@@ -91,9 +91,9 @@ async def main():
 
     async with Glean(
         api_token=os.getenv("GLEAN_API_TOKEN", ""),
-    ) as g_client:
+    ) as glean:
 
-        res = await g_client.client.chat.create_stream_async(messages=[
+        res = await glean.client.chat.create_stream_async(messages=[
             {
                 "fragments": [
                     models.ChatMessageFragment(

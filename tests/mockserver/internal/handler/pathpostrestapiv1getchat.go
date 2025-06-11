@@ -51,7 +51,7 @@ func testGetchatGetchat0(w http.ResponseWriter, req *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.GetChatResponse{
+	var respBody *components.GetChatResponse = &components.GetChatResponse{
 		ChatResult: &components.ChatResult{
 			Chat: &components.Chat{
 				ID:         types.String("string"),

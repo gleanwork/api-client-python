@@ -22,9 +22,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    g_client.client.activity.report(events=[
+    glean.client.activity.report(events=[
         {
             "action": models.ActivityEventAction.HISTORICAL_VIEW,
             "timestamp": parse_datetime("2000-01-23T04:56:07.000Z"),
@@ -79,9 +79,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    g_client.client.activity.feedback(feedback1={
+    glean.client.activity.feedback(feedback1={
         "tracking_tokens": [
             "trackingTokens",
         ],

@@ -51,7 +51,7 @@ func testAutocompleteAutocomplete0(w http.ResponseWriter, req *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.AutocompleteResponse{
+	var respBody *components.AutocompleteResponse = &components.AutocompleteResponse{
 		TrackingToken: types.String("trackingToken"),
 		Results: []components.AutocompleteResult{
 			components.AutocompleteResult{

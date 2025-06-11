@@ -51,7 +51,7 @@ func testInsightsInsights0(w http.ResponseWriter, req *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.InsightsResponse{
+	var respBody *components.InsightsResponse = &components.InsightsResponse{
 		Users: &components.UserInsightsResponse{
 			ActivityInsights: []components.UserActivityInsight{
 				components.UserActivityInsight{

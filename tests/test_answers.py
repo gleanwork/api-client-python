@@ -15,10 +15,10 @@ def test_answers_createanswer():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.client.answers.create(
+        res = glean.client.answers.create(
             data={
                 "question": "Why is the sky blue?",
                 "body_text": "From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
@@ -747,10 +747,10 @@ def test_answers_deleteanswer():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        g_client.client.answers.delete(id=3, doc_id="ANSWERS_answer_3")
+        glean.client.answers.delete(id=3, doc_id="ANSWERS_answer_3")
 
 
 def test_answers_editanswer():
@@ -760,10 +760,10 @@ def test_answers_editanswer():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.client.answers.update(
+        res = glean.client.answers.update(
             id=3,
             doc_id="ANSWERS_answer_3",
             question="Why is the sky blue?",
@@ -1366,10 +1366,10 @@ def test_answers_getanswer():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.client.answers.retrieve(id=3, doc_id="ANSWERS_answer_3")
+        res = glean.client.answers.retrieve(id=3, doc_id="ANSWERS_answer_3")
         assert res is not None
 
 
@@ -1380,10 +1380,10 @@ def test_answers_listanswers():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.client.answers.list()
+        res = glean.client.answers.list()
         assert res is not None
 
 

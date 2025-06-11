@@ -51,7 +51,7 @@ func testGetdocumentsbyfacetsGetdocumentsbyfacets0(w http.ResponseWriter, req *h
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.GetDocumentsByFacetsResponse{
+	var respBody *components.GetDocumentsByFacetsResponse = &components.GetDocumentsByFacetsResponse{
 		Documents: []components.Document{
 			components.Document{
 				Metadata: &components.DocumentMetadata{

@@ -51,7 +51,7 @@ func testEditpinEditpin0(w http.ResponseWriter, req *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.PinDocument{
+	var respBody *components.PinDocument = &components.PinDocument{
 		AudienceFilters: []components.FacetFilter{
 			components.FacetFilter{
 				FieldName: types.String("type"),

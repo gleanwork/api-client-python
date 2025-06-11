@@ -15,10 +15,10 @@ def test_search_adminsearch():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.client.search.query_as_admin(
+        res = glean.client.search.query_as_admin(
             query="vacation policy",
             tracking_token="trackingToken",
             source_document=models.Document(
@@ -143,10 +143,10 @@ def test_search_autocomplete():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.client.search.autocomplete(
+        res = glean.client.search.autocomplete(
             tracking_token="trackingToken",
             query="San Fra",
             datasource="GDRIVE",
@@ -171,10 +171,10 @@ def test_search_feed():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.client.search.retrieve_feed(timeout_millis=5000)
+        res = glean.client.search.retrieve_feed(timeout_millis=5000)
         assert res is not None
 
 
@@ -199,10 +199,10 @@ def test_search_recommendations():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.client.search.recommendations(
+        res = glean.client.search.recommendations(
             source_document=models.Document(
                 metadata=models.DocumentMetadata(
                     datasource="datasource",
@@ -2097,10 +2097,10 @@ def test_search_search():
         server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
         client=test_http_client,
         api_token=os.getenv("GLEAN_API_TOKEN", "value"),
-    ) as g_client:
-        assert g_client is not None
+    ) as glean:
+        assert glean is not None
 
-        res = g_client.client.search.query(
+        res = glean.client.search.query(
             query="vacation policy",
             tracking_token="trackingToken",
             source_document=models.Document(

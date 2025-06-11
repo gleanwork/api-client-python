@@ -45,7 +45,7 @@ func testGetRestAPIV1ToolsListGetRestAPIV1ToolsList0(w http.ResponseWriter, req 
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.ToolsListResponse{}
+	var respBody *components.ToolsListResponse = &components.ToolsListResponse{}
 	respBodyBytes, err := utils.MarshalJSON(respBody, "", true)
 
 	if err != nil {

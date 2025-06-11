@@ -105,9 +105,9 @@ const (
 )
 
 type DocumentSpecUnion struct {
-	DocumentSpec1 *DocumentSpec1
-	DocumentSpec2 *DocumentSpec2
-	DocumentSpec3 *DocumentSpec3
+	DocumentSpec1 *DocumentSpec1 `queryParam:"inline"`
+	DocumentSpec2 *DocumentSpec2 `queryParam:"inline"`
+	DocumentSpec3 *DocumentSpec3 `queryParam:"inline"`
 
 	Type DocumentSpecUnionType
 }

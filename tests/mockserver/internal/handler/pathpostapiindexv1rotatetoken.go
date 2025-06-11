@@ -45,7 +45,7 @@ func testPostAPIIndexV1RotatetokenPostAPIIndexV1Rotatetoken0(w http.ResponseWrit
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.RotateTokenResponse{}
+	var respBody *components.RotateTokenResponse = &components.RotateTokenResponse{}
 	respBodyBytes, err := utils.MarshalJSON(respBody, "", true)
 
 	if err != nil {

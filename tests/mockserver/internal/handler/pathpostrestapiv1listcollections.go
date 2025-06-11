@@ -51,7 +51,7 @@ func testListcollectionsListcollections0(w http.ResponseWriter, req *http.Reques
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.ListCollectionsResponse{
+	var respBody *components.ListCollectionsResponse = &components.ListCollectionsResponse{
 		Collections: []components.Collection{
 			components.Collection{
 				Name:        "<value>",

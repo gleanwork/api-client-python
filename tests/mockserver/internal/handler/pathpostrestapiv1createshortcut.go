@@ -50,7 +50,7 @@ func testCreateshortcutCreateshortcut0(w http.ResponseWriter, req *http.Request)
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	respBody := &components.CreateShortcutResponse{}
+	var respBody *components.CreateShortcutResponse = &components.CreateShortcutResponse{}
 	respBodyBytes, err := utils.MarshalJSON(respBody, "", true)
 
 	if err != nil {

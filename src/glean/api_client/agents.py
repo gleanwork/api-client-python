@@ -599,6 +599,7 @@ class Agents(BaseSDK):
         messages: Optional[
             Union[List[models.Message], List[models.MessageTypedDict]]
         ] = None,
+        metadata: Optional[Dict[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -611,6 +612,7 @@ class Agents(BaseSDK):
         :param agent_id: The ID of the agent to run.
         :param input: The input to the agent.
         :param messages: The messages to pass an input to the agent.
+        :param metadata: The metadata to pass to the agent.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -630,6 +632,7 @@ class Agents(BaseSDK):
             agent_id=agent_id,
             input=input_,
             messages=utils.get_pydantic_model(messages, Optional[List[models.Message]]),
+            metadata=metadata,
         )
 
         req = self._build_request(
@@ -706,6 +709,7 @@ class Agents(BaseSDK):
         messages: Optional[
             Union[List[models.Message], List[models.MessageTypedDict]]
         ] = None,
+        metadata: Optional[Dict[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -718,6 +722,7 @@ class Agents(BaseSDK):
         :param agent_id: The ID of the agent to run.
         :param input: The input to the agent.
         :param messages: The messages to pass an input to the agent.
+        :param metadata: The metadata to pass to the agent.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -737,6 +742,7 @@ class Agents(BaseSDK):
             agent_id=agent_id,
             input=input_,
             messages=utils.get_pydantic_model(messages, Optional[List[models.Message]]),
+            metadata=metadata,
         )
 
         req = self._build_request_async(
@@ -813,6 +819,7 @@ class Agents(BaseSDK):
         messages: Optional[
             Union[List[models.Message], List[models.MessageTypedDict]]
         ] = None,
+        metadata: Optional[Dict[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -825,6 +832,7 @@ class Agents(BaseSDK):
         :param agent_id: The ID of the agent to run.
         :param input: The input to the agent.
         :param messages: The messages to pass an input to the agent.
+        :param metadata: The metadata to pass to the agent.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -844,6 +852,7 @@ class Agents(BaseSDK):
             agent_id=agent_id,
             input=input_,
             messages=utils.get_pydantic_model(messages, Optional[List[models.Message]]),
+            metadata=metadata,
         )
 
         req = self._build_request(
@@ -920,6 +929,7 @@ class Agents(BaseSDK):
         messages: Optional[
             Union[List[models.Message], List[models.MessageTypedDict]]
         ] = None,
+        metadata: Optional[Dict[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -932,6 +942,7 @@ class Agents(BaseSDK):
         :param agent_id: The ID of the agent to run.
         :param input: The input to the agent.
         :param messages: The messages to pass an input to the agent.
+        :param metadata: The metadata to pass to the agent.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -951,6 +962,7 @@ class Agents(BaseSDK):
             agent_id=agent_id,
             input=input_,
             messages=utils.get_pydantic_model(messages, Optional[List[models.Message]]),
+            metadata=metadata,
         )
 
         req = self._build_request_async(

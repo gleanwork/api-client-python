@@ -32,9 +32,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.indexing.people.debug(datasource="<value>", email="u1@foo.com")
+    res = glean.indexing.people.debug(datasource="<value>", email="u1@foo.com")
 
     # Handle response
     print(res)
@@ -77,9 +77,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    res = g_client.indexing.people.count(datasource="<value>")
+    res = glean.indexing.people.count(datasource="<value>")
 
     # Handle response
     print(res)
@@ -116,9 +116,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    g_client.indexing.people.index(employee={
+    glean.indexing.people.index(employee={
         "email": "Jerrold_Hermann@hotmail.com",
         "department": "<value>",
         "datasource_profiles": [
@@ -160,9 +160,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    g_client.indexing.people.bulk_index(upload_id="<id>", employees=[
+    glean.indexing.people.bulk_index(upload_id="<id>", employees=[
         {
             "email": "Robin.Stoltenberg@yahoo.com",
             "department": "<value>",
@@ -231,9 +231,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    g_client.indexing.people.process_all_employees_and_teams()
+    glean.indexing.people.process_all_employees_and_teams()
 
     # Use the SDK ...
 
@@ -264,9 +264,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    g_client.indexing.people.delete(employee_email="<value>")
+    glean.indexing.people.delete(employee_email="<value>")
 
     # Use the SDK ...
 
@@ -299,9 +299,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    g_client.indexing.people.index_team(team={
+    glean.indexing.people.index_team(team={
         "id": "<id>",
         "name": "<value>",
         "datasource_profiles": [
@@ -356,9 +356,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    g_client.indexing.people.delete_team(id="<id>")
+    glean.indexing.people.delete_team(id="<id>")
 
     # Use the SDK ...
 
@@ -390,9 +390,9 @@ import os
 
 with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as g_client:
+) as glean:
 
-    g_client.indexing.people.bulk_index_teams(upload_id="<id>", teams=[
+    glean.indexing.people.bulk_index_teams(upload_id="<id>", teams=[
         {
             "id": "<id>",
             "name": "<value>",
