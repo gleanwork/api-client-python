@@ -63,10 +63,7 @@ with Glean(
 ) as glean:
 
     res = glean.client.tools.run(name="<value>", parameters={
-        "key": {
-            "name": "<value>",
-            "value": "<value>",
-        },
+
     })
 
     # Handle response

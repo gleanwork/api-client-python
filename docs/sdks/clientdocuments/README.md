@@ -122,23 +122,6 @@ with Glean(
                     },
                 ],
             },
-            {
-                "filters": [
-                    {
-                        "field_name": "type",
-                        "values": [
-                            {
-                                "value": "Spreadsheet",
-                                "relation_type": models.RelationType.EQUALS,
-                            },
-                            {
-                                "value": "Presentation",
-                                "relation_type": models.RelationType.EQUALS,
-                            },
-                        ],
-                    },
-                ],
-            },
         ],
     })
 
@@ -180,8 +163,6 @@ with Glean(
 ) as glean:
 
     res = glean.client.documents.summarize(document_specs=[
-        {},
-        {},
         {},
     ])
 

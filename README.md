@@ -554,12 +554,7 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as glean:
 
-    res = glean.client.chat.upload_files(files=[
-        {
-            "file_name": "example.file",
-            "content": open("example.file", "rb"),
-        },
-    ])
+    res = glean.client.chat.upload_files(files=[])
 
     # Handle response
     print(res)

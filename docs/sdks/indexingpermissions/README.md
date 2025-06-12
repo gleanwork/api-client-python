@@ -115,14 +115,6 @@ with Glean(
             "email": "Ivory_Cummerata@hotmail.com",
             "name": "<value>",
         },
-        {
-            "email": "Ivory_Cummerata@hotmail.com",
-            "name": "<value>",
-        },
-        {
-            "email": "Ivory_Cummerata@hotmail.com",
-            "name": "<value>",
-        },
     ])
 
     # Use the SDK ...
@@ -205,9 +197,6 @@ with Glean(
         {
             "name": "<value>",
         },
-        {
-            "name": "<value>",
-        },
     ])
 
     # Use the SDK ...
@@ -287,8 +276,6 @@ with Glean(
 ) as glean:
 
     glean.indexing.permissions.bulk_index_memberships(upload_id="<id>", datasource="<value>", memberships=[
-        {},
-        {},
         {},
     ])
 

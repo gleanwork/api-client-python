@@ -8,6 +8,7 @@ import (
 	"mockserver/internal/handler/assert"
 	"mockserver/internal/logging"
 	"mockserver/internal/sdk/models/components"
+	"mockserver/internal/sdk/types"
 	"mockserver/internal/sdk/utils"
 	"mockserver/internal/tracking"
 	"net/http"
@@ -50,7 +51,118 @@ func testCreateshortcutCreateshortcut0(w http.ResponseWriter, req *http.Request)
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	var respBody *components.CreateShortcutResponse = &components.CreateShortcutResponse{}
+	var respBody *components.CreateShortcutResponse = &components.CreateShortcutResponse{
+		Shortcut: &components.Shortcut{
+			InputAlias: "<value>",
+			AddedRoles: []components.UserRoleSpecification{
+				components.UserRoleSpecification{
+					Person: &components.Person{
+						Name:         "George Clooney",
+						ObfuscatedID: "abc123",
+					},
+					Role: components.UserRoleVerifier,
+				},
+			},
+			RemovedRoles: []components.UserRoleSpecification{
+				components.UserRoleSpecification{
+					Person: &components.Person{
+						Name:         "George Clooney",
+						ObfuscatedID: "abc123",
+					},
+					Role: components.UserRoleViewer,
+				},
+			},
+			CreatedBy: &components.Person{
+				Name:         "George Clooney",
+				ObfuscatedID: "abc123",
+			},
+			UpdatedBy: &components.Person{
+				Name:         "George Clooney",
+				ObfuscatedID: "abc123",
+			},
+			DestinationDocument: &components.Document{
+				ContainerDocument: &components.Document{
+					Metadata: &components.DocumentMetadata{
+						Datasource: types.String("datasource"),
+						ObjectType: types.String("Feature Request"),
+						Container:  types.String("container"),
+						ParentID:   types.String("JIRA_EN-1337"),
+						MimeType:   types.String("mimeType"),
+						DocumentID: types.String("documentId"),
+						CreateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+						UpdateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+						Author: &components.Person{
+							Name:         "name",
+							ObfuscatedID: "<id>",
+						},
+						Components: []string{
+							"Backend",
+							"Networking",
+						},
+						Status: types.String("[\"Done\"]"),
+						CustomData: map[string]components.CustomDataValue{
+							"someCustomField": components.CustomDataValue{},
+						},
+					},
+				},
+				ParentDocument: &components.Document{
+					Metadata: &components.DocumentMetadata{
+						Datasource: types.String("datasource"),
+						ObjectType: types.String("Feature Request"),
+						Container:  types.String("container"),
+						ParentID:   types.String("JIRA_EN-1337"),
+						MimeType:   types.String("mimeType"),
+						DocumentID: types.String("documentId"),
+						CreateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+						UpdateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+						Author: &components.Person{
+							Name:         "name",
+							ObfuscatedID: "<id>",
+						},
+						Components: []string{
+							"Backend",
+							"Networking",
+						},
+						Status: types.String("[\"Done\"]"),
+						CustomData: map[string]components.CustomDataValue{
+							"someCustomField": components.CustomDataValue{},
+						},
+					},
+				},
+				Metadata: &components.DocumentMetadata{
+					Datasource: types.String("datasource"),
+					ObjectType: types.String("Feature Request"),
+					Container:  types.String("container"),
+					ParentID:   types.String("JIRA_EN-1337"),
+					MimeType:   types.String("mimeType"),
+					DocumentID: types.String("documentId"),
+					CreateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+					UpdateTime: types.MustNewTimeFromString("2000-01-23T04:56:07.000Z"),
+					Author: &components.Person{
+						Name:         "name",
+						ObfuscatedID: "<id>",
+					},
+					Components: []string{
+						"Backend",
+						"Networking",
+					},
+					Status: types.String("[\"Done\"]"),
+					CustomData: map[string]components.CustomDataValue{
+						"someCustomField": components.CustomDataValue{},
+					},
+				},
+			},
+			Roles: []components.UserRoleSpecification{
+				components.UserRoleSpecification{
+					Person: &components.Person{
+						Name:         "George Clooney",
+						ObfuscatedID: "abc123",
+					},
+					Role: components.UserRoleVerifier,
+				},
+			},
+		},
+	}
 	respBodyBytes, err := utils.MarshalJSON(respBody, "", true)
 
 	if err != nil {

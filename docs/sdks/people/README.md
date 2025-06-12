@@ -173,26 +173,6 @@ with Glean(
                 },
             ],
         },
-        {
-            "email": "Robin.Stoltenberg@yahoo.com",
-            "department": "<value>",
-            "datasource_profiles": [
-                {
-                    "datasource": "github",
-                    "handle": "<value>",
-                },
-            ],
-        },
-        {
-            "email": "Robin.Stoltenberg@yahoo.com",
-            "department": "<value>",
-            "datasource_profiles": [
-                {
-                    "datasource": "github",
-                    "handle": "<value>",
-                },
-            ],
-        },
     ])
 
     # Use the SDK ...
@@ -309,18 +289,10 @@ with Glean(
                 "datasource": "github",
                 "handle": "<value>",
             },
-            {
-                "datasource": "github",
-                "handle": "<value>",
-            },
-            {
-                "datasource": "github",
-                "handle": "<value>",
-            },
         ],
         "members": [
             {
-                "email": "Nasir.Hilll73@hotmail.com",
+                "email": "Valerie9@gmail.com",
             },
         ],
     })
@@ -401,42 +373,12 @@ with Glean(
                     "datasource": "github",
                     "handle": "<value>",
                 },
+            ],
+            "members": [
                 {
-                    "datasource": "github",
-                    "handle": "<value>",
+                    "email": "Nina_Erdman16@gmail.com",
                 },
             ],
-            "members": [],
-        },
-        {
-            "id": "<id>",
-            "name": "<value>",
-            "datasource_profiles": [
-                {
-                    "datasource": "github",
-                    "handle": "<value>",
-                },
-                {
-                    "datasource": "github",
-                    "handle": "<value>",
-                },
-            ],
-            "members": [],
-        },
-        {
-            "id": "<id>",
-            "name": "<value>",
-            "datasource_profiles": [
-                {
-                    "datasource": "github",
-                    "handle": "<value>",
-                },
-                {
-                    "datasource": "github",
-                    "handle": "<value>",
-                },
-            ],
-            "members": [],
         },
     ])
 
