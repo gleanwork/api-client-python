@@ -30,12 +30,6 @@ with Glean(
             "created_by": "<value>",
             "intermediate_url": "https://lean-sightseeing.net",
         },
-        {
-            "input_alias": "<value>",
-            "destination_url": "https://plump-tune-up.biz/",
-            "created_by": "<value>",
-            "intermediate_url": "https://lean-sightseeing.net",
-        },
     ])
 
     # Use the SDK ...
@@ -75,16 +69,6 @@ with Glean(
 ) as glean:
 
     glean.indexing.shortcuts.upload(upload_id="<id>", shortcuts=[
-        {
-            "input_alias": "<value>",
-            "destination_url": "https://majestic-pharmacopoeia.info/",
-            "created_by": "<value>",
-        },
-        {
-            "input_alias": "<value>",
-            "destination_url": "https://majestic-pharmacopoeia.info/",
-            "created_by": "<value>",
-        },
         {
             "input_alias": "<value>",
             "destination_url": "https://majestic-pharmacopoeia.info/",

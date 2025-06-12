@@ -24,8 +24,6 @@ with Glean(
 
     res = glean.client.insights.retrieve(categories=[
         models.InsightsRequestCategory.COLLECTIONS,
-        models.InsightsRequestCategory.SHORTCUTS,
-        models.InsightsRequestCategory.ANNOUNCEMENTS,
     ])
 
     # Handle response

@@ -275,12 +275,7 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as glean:
 
-    res = glean.indexing.documents.debug_many(datasource="<value>", debug_documents=[
-        {
-            "object_type": "Article",
-            "doc_id": "art123",
-        },
-    ])
+    res = glean.indexing.documents.debug_many(datasource="<value>", debug_documents=[])
 
     # Handle response
     print(res)

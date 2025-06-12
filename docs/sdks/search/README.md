@@ -125,7 +125,7 @@ with Glean(
                 ],
             ),
         ],
-        facet_bucket_size=421489,
+        facet_bucket_size=723824,
     ), timeout_millis=5000, people=[
         models.Person(
             name="George Clooney",
@@ -341,7 +341,7 @@ with Glean(
             update_time=parse_datetime("2000-01-23T04:56:07.000Z"),
             author=models.Person(
                 name="name",
-                obfuscated_id="abc123",
+                obfuscated_id="<id>",
             ),
             components=[
                 "Backend",
@@ -354,40 +354,6 @@ with Glean(
         ),
     ), page_size=100, max_snippet_size=400, request_options=models.RecommendationsRequestOptions(
         facet_filter_sets=[
-            models.FacetFilterSet(
-                filters=[
-                    models.FacetFilter(
-                        field_name="type",
-                        values=[
-                            models.FacetFilterValue(
-                                value="Spreadsheet",
-                                relation_type=models.RelationType.EQUALS,
-                            ),
-                            models.FacetFilterValue(
-                                value="Presentation",
-                                relation_type=models.RelationType.EQUALS,
-                            ),
-                        ],
-                    ),
-                ],
-            ),
-            models.FacetFilterSet(
-                filters=[
-                    models.FacetFilter(
-                        field_name="type",
-                        values=[
-                            models.FacetFilterValue(
-                                value="Spreadsheet",
-                                relation_type=models.RelationType.EQUALS,
-                            ),
-                            models.FacetFilterValue(
-                                value="Presentation",
-                                relation_type=models.RelationType.EQUALS,
-                            ),
-                        ],
-                    ),
-                ],
-            ),
             models.FacetFilterSet(
                 filters=[
                     models.FacetFilter(
@@ -466,7 +432,7 @@ with Glean(
                 update_time=parse_datetime("2000-01-23T04:56:07.000Z"),
                 author=models.Person(
                     name="name",
-                    obfuscated_id="abc123",
+                    obfuscated_id="<id>",
                 ),
                 components=[
                     "Backend",
@@ -625,7 +591,7 @@ with Glean(
                 ],
             ),
         ],
-        facet_bucket_size=400611,
+        facet_bucket_size=939520,
     ), timeout_millis=5000, people=[
         models.Person(
             name="George Clooney",

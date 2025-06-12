@@ -154572,3 +154572,3837 @@ workflows:
               type: simple
       workflowId: listpolicies
       x-speakeasy-test-group: policies
+    - workflowId: createanswer
+      steps:
+        - stepId: test
+          operationId: createanswer
+          requestBody:
+            contentType: application/json
+            payload:
+                data:
+                    addedRoles:
+                        - person:
+                            name: George Clooney
+                            obfuscatedId: abc123
+                          role: VIEWER
+                    audienceFilters:
+                        - fieldName: type
+                          values:
+                            - relationType: EQUALS
+                              value: Spreadsheet
+                            - relationType: EQUALS
+                              value: Presentation
+                    bodyText: From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.
+                    combinedAnswerText:
+                        text: From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.
+                    question: Why is the sky blue?
+                    removedRoles:
+                        - person:
+                            name: George Clooney
+                            obfuscatedId: abc123
+                          role: ANSWER_MODERATOR
+                    roles:
+                        - person:
+                            name: George Clooney
+                            obfuscatedId: abc123
+                          role: OWNER
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {
+                  "id": 3,
+                  "docId": "ANSWERS_answer_3",
+                  "question": "Why is the sky blue?",
+                  "bodyText": "From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                  "audienceFilters": [
+                    {
+                      "fieldName": "type",
+                      "values": [
+                        {
+                          "value": "Spreadsheet",
+                          "relationType": "EQUALS"
+                        },
+                        {
+                          "value": "Presentation",
+                          "relationType": "EQUALS"
+                        }
+                      ]
+                    }
+                  ],
+                  "addedRoles": [
+                    {
+                      "person": {
+                        "name": "George Clooney",
+                        "obfuscatedId": "abc123"
+                      },
+                      "role": "VIEWER"
+                    }
+                  ],
+                  "removedRoles": [
+                    {
+                      "person": {
+                        "name": "George Clooney",
+                        "obfuscatedId": "abc123"
+                      },
+                      "role": "ANSWER_MODERATOR"
+                    }
+                  ],
+                  "roles": [
+                    {
+                      "person": {
+                        "name": "George Clooney",
+                        "obfuscatedId": "abc123"
+                      },
+                      "role": "OWNER"
+                    }
+                  ],
+                  "combinedAnswerText": {
+                    "text": "From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                    "structuredList": [
+                      {
+                        "link": "https://en.wikipedia.org/wiki/Diffuse_sky_radiation",
+                        "document": {
+                          "containerDocument": {
+                            "metadata": {
+                              "datasource": "datasource",
+                              "objectType": "Feature Request",
+                              "container": "container",
+                              "parentId": "JIRA_EN-1337",
+                              "mimeType": "mimeType",
+                              "documentId": "documentId",
+                              "createTime": "2000-01-23T04:56:07.000Z",
+                              "updateTime": "2000-01-23T04:56:07.000Z",
+                              "author": {
+                                "name": "name",
+                                "obfuscatedId": "\u003cid\u003e"
+                              },
+                              "components": [
+                                "Backend",
+                                "Networking"
+                              ],
+                              "status": "[\"Done\"]",
+                              "customData": {
+                                "someCustomField": {}
+                              }
+                            }
+                          },
+                          "parentDocument": {
+                            "metadata": {
+                              "datasource": "datasource",
+                              "objectType": "Feature Request",
+                              "container": "container",
+                              "parentId": "JIRA_EN-1337",
+                              "mimeType": "mimeType",
+                              "documentId": "documentId",
+                              "createTime": "2000-01-23T04:56:07.000Z",
+                              "updateTime": "2000-01-23T04:56:07.000Z",
+                              "author": {
+                                "name": "name",
+                                "obfuscatedId": "\u003cid\u003e"
+                              },
+                              "components": [
+                                "Backend",
+                                "Networking"
+                              ],
+                              "status": "[\"Done\"]",
+                              "customData": {
+                                "someCustomField": {}
+                              }
+                            }
+                          },
+                          "metadata": {
+                            "datasource": "datasource",
+                            "objectType": "Feature Request",
+                            "container": "container",
+                            "parentId": "JIRA_EN-1337",
+                            "mimeType": "mimeType",
+                            "documentId": "documentId",
+                            "createTime": "2000-01-23T04:56:07.000Z",
+                            "updateTime": "2000-01-23T04:56:07.000Z",
+                            "author": {
+                              "name": "name",
+                              "obfuscatedId": "\u003cid\u003e"
+                            },
+                            "components": [
+                              "Backend",
+                              "Networking"
+                            ],
+                            "status": "[\"Done\"]",
+                            "customData": {
+                              "someCustomField": {}
+                            }
+                          }
+                        },
+                        "text": "Because its wavelengths are shorter, blue light is more strongly scattered than the longer-wavelength lights, red or green. Hence the result that when looking at the sky away from the direct incident sunlight, the human eye perceives the sky to be blue.",
+                        "structuredResult": {
+                          "document": {
+                            "containerDocument": {
+                              "metadata": {
+                                "datasource": "datasource",
+                                "objectType": "Feature Request",
+                                "container": "container",
+                                "parentId": "JIRA_EN-1337",
+                                "mimeType": "mimeType",
+                                "documentId": "documentId",
+                                "createTime": "2000-01-23T04:56:07.000Z",
+                                "updateTime": "2000-01-23T04:56:07.000Z",
+                                "author": {
+                                  "name": "name",
+                                  "obfuscatedId": "\u003cid\u003e"
+                                },
+                                "components": [
+                                  "Backend",
+                                  "Networking"
+                                ],
+                                "status": "[\"Done\"]",
+                                "customData": {
+                                  "someCustomField": {}
+                                }
+                              }
+                            },
+                            "parentDocument": {
+                              "metadata": {
+                                "datasource": "datasource",
+                                "objectType": "Feature Request",
+                                "container": "container",
+                                "parentId": "JIRA_EN-1337",
+                                "mimeType": "mimeType",
+                                "documentId": "documentId",
+                                "createTime": "2000-01-23T04:56:07.000Z",
+                                "updateTime": "2000-01-23T04:56:07.000Z",
+                                "author": {
+                                  "name": "name",
+                                  "obfuscatedId": "\u003cid\u003e"
+                                },
+                                "components": [
+                                  "Backend",
+                                  "Networking"
+                                ],
+                                "status": "[\"Done\"]",
+                                "customData": {
+                                  "someCustomField": {}
+                                }
+                              }
+                            },
+                            "metadata": {
+                              "datasource": "datasource",
+                              "objectType": "Feature Request",
+                              "container": "container",
+                              "parentId": "JIRA_EN-1337",
+                              "mimeType": "mimeType",
+                              "documentId": "documentId",
+                              "createTime": "2000-01-23T04:56:07.000Z",
+                              "updateTime": "2000-01-23T04:56:07.000Z",
+                              "author": {
+                                "name": "name",
+                                "obfuscatedId": "\u003cid\u003e"
+                              },
+                              "components": [
+                                "Backend",
+                                "Networking"
+                              ],
+                              "status": "[\"Done\"]",
+                              "customData": {
+                                "someCustomField": {}
+                              }
+                            }
+                          },
+                          "person": {
+                            "name": "George Clooney",
+                            "obfuscatedId": "abc123"
+                          },
+                          "customer": {
+                            "id": "\u003cid\u003e",
+                            "company": {
+                              "name": "\u003cvalue\u003e",
+                              "location": "New York City",
+                              "industry": "Finances",
+                              "about": "Financial, software, data, and media company headquartered in Midtown Manhattan, New York City"
+                            },
+                            "poc": [
+                              {
+                                "name": "George Clooney",
+                                "obfuscatedId": "abc123"
+                              }
+                            ],
+                            "mergedCustomers": [
+                              {
+                                "id": "\u003cid\u003e",
+                                "company": {
+                                  "name": "\u003cvalue\u003e",
+                                  "location": "New York City",
+                                  "industry": "Finances",
+                                  "about": "Financial, software, data, and media company headquartered in Midtown Manhattan, New York City"
+                                },
+                                "notes": "CIO is interested in trying out the product."
+                              }
+                            ],
+                            "notes": "CIO is interested in trying out the product."
+                          },
+                          "team": {
+                            "id": "\u003cid\u003e",
+                            "name": "\u003cvalue\u003e",
+                            "members": [
+                              {
+                                "person": {
+                                  "name": "George Clooney",
+                                  "obfuscatedId": "abc123"
+                                },
+                                "relationship": "MEMBER"
+                              }
+                            ],
+                            "customFields": [
+                              {
+                                "label": "\u003cvalue\u003e",
+                                "values": [
+                                  {}
+                                ],
+                                "displayable": true
+                              }
+                            ],
+                            "datasourceProfiles": [
+                              {
+                                "datasource": "github",
+                                "handle": "\u003cvalue\u003e"
+                              }
+                            ],
+                            "status": "PROCESSED",
+                            "canBeDeleted": true
+                          },
+                          "customEntity": {},
+                          "answer": {
+                            "id": 3,
+                            "docId": "ANSWERS_answer_3",
+                            "question": "Why is the sky blue?",
+                            "bodyText": "From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                            "audienceFilters": [
+                              {
+                                "fieldName": "type",
+                                "values": [
+                                  {
+                                    "value": "Spreadsheet",
+                                    "relationType": "EQUALS"
+                                  },
+                                  {
+                                    "value": "Presentation",
+                                    "relationType": "EQUALS"
+                                  }
+                                ]
+                              }
+                            ],
+                            "combinedAnswerText": {
+                              "text": "From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light."
+                            },
+                            "likes": {
+                              "likedBy": [
+                                {
+                                  "user": {
+                                    "name": "George Clooney",
+                                    "obfuscatedId": "abc123"
+                                  }
+                                }
+                              ],
+                              "likedByUser": false,
+                              "numLikes": 431057
+                            },
+                            "author": {
+                              "name": "George Clooney",
+                              "obfuscatedId": "abc123"
+                            },
+                            "updatedBy": {
+                              "name": "George Clooney",
+                              "obfuscatedId": "abc123"
+                            },
+                            "verification": {
+                              "state": "UNVERIFIED",
+                              "metadata": {
+                                "lastVerifier": {
+                                  "name": "George Clooney",
+                                  "obfuscatedId": "abc123"
+                                },
+                                "document": {
+                                  "containerDocument": {
+                                    "metadata": {
+                                      "datasource": "datasource",
+                                      "objectType": "Feature Request",
+                                      "container": "container",
+                                      "parentId": "JIRA_EN-1337",
+                                      "mimeType": "mimeType",
+                                      "documentId": "documentId",
+                                      "createTime": "2000-01-23T04:56:07.000Z",
+                                      "updateTime": "2000-01-23T04:56:07.000Z",
+                                      "author": {
+                                        "name": "name",
+                                        "obfuscatedId": "\u003cid\u003e"
+                                      },
+                                      "components": [
+                                        "Backend",
+                                        "Networking"
+                                      ],
+                                      "status": "[\"Done\"]",
+                                      "customData": {
+                                        "someCustomField": {}
+                                      }
+                                    }
+                                  },
+                                  "parentDocument": {
+                                    "metadata": {
+                                      "datasource": "datasource",
+                                      "objectType": "Feature Request",
+                                      "container": "container",
+                                      "parentId": "JIRA_EN-1337",
+                                      "mimeType": "mimeType",
+                                      "documentId": "documentId",
+                                      "createTime": "2000-01-23T04:56:07.000Z",
+                                      "updateTime": "2000-01-23T04:56:07.000Z",
+                                      "author": {
+                                        "name": "name",
+                                        "obfuscatedId": "\u003cid\u003e"
+                                      },
+                                      "components": [
+                                        "Backend",
+                                        "Networking"
+                                      ],
+                                      "status": "[\"Done\"]",
+                                      "customData": {
+                                        "someCustomField": {}
+                                      }
+                                    }
+                                  },
+                                  "metadata": {
+                                    "datasource": "datasource",
+                                    "objectType": "Feature Request",
+                                    "container": "container",
+                                    "parentId": "JIRA_EN-1337",
+                                    "mimeType": "mimeType",
+                                    "documentId": "documentId",
+                                    "createTime": "2000-01-23T04:56:07.000Z",
+                                    "updateTime": "2000-01-23T04:56:07.000Z",
+                                    "author": {
+                                      "name": "name",
+                                      "obfuscatedId": "\u003cid\u003e"
+                                    },
+                                    "components": [
+                                      "Backend",
+                                      "Networking"
+                                    ],
+                                    "status": "[\"Done\"]",
+                                    "customData": {
+                                      "someCustomField": {}
+                                    }
+                                  }
+                                },
+                                "reminders": [
+                                  {
+                                    "assignee": {
+                                      "name": "George Clooney",
+                                      "obfuscatedId": "abc123"
+                                    },
+                                    "requestor": {
+                                      "name": "George Clooney",
+                                      "obfuscatedId": "abc123"
+                                    },
+                                    "remindAt": 109303
+                                  }
+                                ],
+                                "lastReminder": {
+                                  "assignee": {
+                                    "name": "George Clooney",
+                                    "obfuscatedId": "abc123"
+                                  },
+                                  "requestor": {
+                                    "name": "George Clooney",
+                                    "obfuscatedId": "abc123"
+                                  },
+                                  "remindAt": 299633
+                                },
+                                "candidateVerifiers": [
+                                  {
+                                    "name": "George Clooney",
+                                    "obfuscatedId": "abc123"
+                                  }
+                                ]
+                              }
+                            },
+                            "board": {
+                              "name": "\u003cvalue\u003e",
+                              "description": "up shrill except hmph blowgun mechanically seldom beyond",
+                              "audienceFilters": [
+                                {
+                                  "fieldName": "type",
+                                  "values": [
+                                    {
+                                      "value": "Spreadsheet",
+                                      "relationType": "EQUALS"
+                                    },
+                                    {
+                                      "value": "Presentation",
+                                      "relationType": "EQUALS"
+                                    }
+                                  ]
+                                }
+                              ],
+                              "id": 198996,
+                              "creator": {
+                                "name": "George Clooney",
+                                "obfuscatedId": "abc123"
+                              },
+                              "updatedBy": {
+                                "name": "George Clooney",
+                                "obfuscatedId": "abc123"
+                              }
+                            },
+                            "collections": [
+                              {
+                                "name": "\u003cvalue\u003e",
+                                "description": "drat what longingly um recklessly fill",
+                                "audienceFilters": [
+                                  {
+                                    "fieldName": "type",
+                                    "values": [
+                                      {
+                                        "value": "Spreadsheet",
+                                        "relationType": "EQUALS"
+                                      },
+                                      {
+                                        "value": "Presentation",
+                                        "relationType": "EQUALS"
+                                      }
+                                    ]
+                                  }
+                                ],
+                                "id": 523810,
+                                "creator": {
+                                  "name": "George Clooney",
+                                  "obfuscatedId": "abc123"
+                                },
+                                "updatedBy": {
+                                  "name": "George Clooney",
+                                  "obfuscatedId": "abc123"
+                                },
+                                "items": [
+                                  {
+                                    "collectionId": 460997,
+                                    "createdBy": {
+                                      "name": "George Clooney",
+                                      "obfuscatedId": "abc123"
+                                    },
+                                    "document": {
+                                      "containerDocument": {
+                                        "metadata": {
+                                          "datasource": "datasource",
+                                          "objectType": "Feature Request",
+                                          "container": "container",
+                                          "parentId": "JIRA_EN-1337",
+                                          "mimeType": "mimeType",
+                                          "documentId": "documentId",
+                                          "createTime": "2000-01-23T04:56:07.000Z",
+                                          "updateTime": "2000-01-23T04:56:07.000Z",
+                                          "author": {
+                                            "name": "name",
+                                            "obfuscatedId": "\u003cid\u003e"
+                                          },
+                                          "components": [
+                                            "Backend",
+                                            "Networking"
+                                          ],
+                                          "status": "[\"Done\"]",
+                                          "customData": {
+                                            "someCustomField": {}
+                                          }
+                                        }
+                                      },
+                                      "parentDocument": {
+                                        "metadata": {
+                                          "datasource": "datasource",
+                                          "objectType": "Feature Request",
+                                          "container": "container",
+                                          "parentId": "JIRA_EN-1337",
+                                          "mimeType": "mimeType",
+                                          "documentId": "documentId",
+                                          "createTime": "2000-01-23T04:56:07.000Z",
+                                          "updateTime": "2000-01-23T04:56:07.000Z",
+                                          "author": {
+                                            "name": "name",
+                                            "obfuscatedId": "\u003cid\u003e"
+                                          },
+                                          "components": [
+                                            "Backend",
+                                            "Networking"
+                                          ],
+                                          "status": "[\"Done\"]",
+                                          "customData": {
+                                            "someCustomField": {}
+                                          }
+                                        }
+                                      },
+                                      "metadata": {
+                                        "datasource": "datasource",
+                                        "objectType": "Feature Request",
+                                        "container": "container",
+                                        "parentId": "JIRA_EN-1337",
+                                        "mimeType": "mimeType",
+                                        "documentId": "documentId",
+                                        "createTime": "2000-01-23T04:56:07.000Z",
+                                        "updateTime": "2000-01-23T04:56:07.000Z",
+                                        "author": {
+                                          "name": "name",
+                                          "obfuscatedId": "\u003cid\u003e"
+                                        },
+                                        "components": [
+                                          "Backend",
+                                          "Networking"
+                                        ],
+                                        "status": "[\"Done\"]",
+                                        "customData": {
+                                          "someCustomField": {}
+                                        }
+                                      }
+                                    },
+                                    "shortcut": {
+                                      "inputAlias": "\u003cvalue\u003e",
+                                      "createdBy": {
+                                        "name": "George Clooney",
+                                        "obfuscatedId": "abc123"
+                                      },
+                                      "updatedBy": {
+                                        "name": "George Clooney",
+                                        "obfuscatedId": "abc123"
+                                      },
+                                      "destinationDocument": {
+                                        "containerDocument": {
+                                          "metadata": {
+                                            "datasource": "datasource",
+                                            "objectType": "Feature Request",
+                                            "container": "container",
+                                            "parentId": "JIRA_EN-1337",
+                                            "mimeType": "mimeType",
+                                            "documentId": "documentId",
+                                            "createTime": "2000-01-23T04:56:07.000Z",
+                                            "updateTime": "2000-01-23T04:56:07.000Z",
+                                            "author": {
+                                              "name": "name",
+                                              "obfuscatedId": "\u003cid\u003e"
+                                            },
+                                            "components": [
+                                              "Backend",
+                                              "Networking"
+                                            ],
+                                            "status": "[\"Done\"]",
+                                            "customData": {
+                                              "someCustomField": {}
+                                            }
+                                          }
+                                        },
+                                        "parentDocument": {
+                                          "metadata": {
+                                            "datasource": "datasource",
+                                            "objectType": "Feature Request",
+                                            "container": "container",
+                                            "parentId": "JIRA_EN-1337",
+                                            "mimeType": "mimeType",
+                                            "documentId": "documentId",
+                                            "createTime": "2000-01-23T04:56:07.000Z",
+                                            "updateTime": "2000-01-23T04:56:07.000Z",
+                                            "author": {
+                                              "name": "name",
+                                              "obfuscatedId": "\u003cid\u003e"
+                                            },
+                                            "components": [
+                                              "Backend",
+                                              "Networking"
+                                            ],
+                                            "status": "[\"Done\"]",
+                                            "customData": {
+                                              "someCustomField": {}
+                                            }
+                                          }
+                                        },
+                                        "metadata": {
+                                          "datasource": "datasource",
+                                          "objectType": "Feature Request",
+                                          "container": "container",
+                                          "parentId": "JIRA_EN-1337",
+                                          "mimeType": "mimeType",
+                                          "documentId": "documentId",
+                                          "createTime": "2000-01-23T04:56:07.000Z",
+                                          "updateTime": "2000-01-23T04:56:07.000Z",
+                                          "author": {
+                                            "name": "name",
+                                            "obfuscatedId": "\u003cid\u003e"
+                                          },
+                                          "components": [
+                                            "Backend",
+                                            "Networking"
+                                          ],
+                                          "status": "[\"Done\"]",
+                                          "customData": {
+                                            "someCustomField": {}
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "collection": {
+                                      "name": "\u003cvalue\u003e",
+                                      "description": "gah peppery well tenement charm reword ha oof reassemble",
+                                      "audienceFilters": [
+                                        {
+                                          "fieldName": "type",
+                                          "values": [
+                                            {
+                                              "value": "Spreadsheet",
+                                              "relationType": "EQUALS"
+                                            },
+                                            {
+                                              "value": "Presentation",
+                                              "relationType": "EQUALS"
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "id": 957555,
+                                      "creator": {
+                                        "name": "George Clooney",
+                                        "obfuscatedId": "abc123"
+                                      },
+                                      "updatedBy": {
+                                        "name": "George Clooney",
+                                        "obfuscatedId": "abc123"
+                                      },
+                                      "children": [
+                                        {
+                                          "name": "\u003cvalue\u003e",
+                                          "description": "outside toward information as smoothly smoggy feminize solemnly round duh",
+                                          "audienceFilters": [
+                                            {
+                                              "fieldName": "type",
+                                              "values": [
+                                                {
+                                                  "value": "Spreadsheet",
+                                                  "relationType": "EQUALS"
+                                                },
+                                                {
+                                                  "value": "Presentation",
+                                                  "relationType": "EQUALS"
+                                                }
+                                              ]
+                                            }
+                                          ],
+                                          "id": 459472,
+                                          "creator": {
+                                            "name": "George Clooney",
+                                            "obfuscatedId": "abc123"
+                                          },
+                                          "updatedBy": {
+                                            "name": "George Clooney",
+                                            "obfuscatedId": "abc123"
+                                          }
+                                        }
+                                      ]
+                                    },
+                                    "itemType": "DOCUMENT"
+                                  }
+                                ]
+                              }
+                            ],
+                            "sourceDocument": {
+                              "containerDocument": {
+                                "metadata": {
+                                  "datasource": "datasource",
+                                  "objectType": "Feature Request",
+                                  "container": "container",
+                                  "parentId": "JIRA_EN-1337",
+                                  "mimeType": "mimeType",
+                                  "documentId": "documentId",
+                                  "createTime": "2000-01-23T04:56:07.000Z",
+                                  "updateTime": "2000-01-23T04:56:07.000Z",
+                                  "author": {
+                                    "name": "name",
+                                    "obfuscatedId": "\u003cid\u003e"
+                                  },
+                                  "components": [
+                                    "Backend",
+                                    "Networking"
+                                  ],
+                                  "status": "[\"Done\"]",
+                                  "customData": {
+                                    "someCustomField": {}
+                                  }
+                                }
+                              },
+                              "parentDocument": {
+                                "metadata": {
+                                  "datasource": "datasource",
+                                  "objectType": "Feature Request",
+                                  "container": "container",
+                                  "parentId": "JIRA_EN-1337",
+                                  "mimeType": "mimeType",
+                                  "documentId": "documentId",
+                                  "createTime": "2000-01-23T04:56:07.000Z",
+                                  "updateTime": "2000-01-23T04:56:07.000Z",
+                                  "author": {
+                                    "name": "name",
+                                    "obfuscatedId": "\u003cid\u003e"
+                                  },
+                                  "components": [
+                                    "Backend",
+                                    "Networking"
+                                  ],
+                                  "status": "[\"Done\"]",
+                                  "customData": {
+                                    "someCustomField": {}
+                                  }
+                                }
+                              },
+                              "metadata": {
+                                "datasource": "datasource",
+                                "objectType": "Feature Request",
+                                "container": "container",
+                                "parentId": "JIRA_EN-1337",
+                                "mimeType": "mimeType",
+                                "documentId": "documentId",
+                                "createTime": "2000-01-23T04:56:07.000Z",
+                                "updateTime": "2000-01-23T04:56:07.000Z",
+                                "author": {
+                                  "name": "name",
+                                  "obfuscatedId": "\u003cid\u003e"
+                                },
+                                "components": [
+                                  "Backend",
+                                  "Networking"
+                                ],
+                                "status": "[\"Done\"]",
+                                "customData": {
+                                  "someCustomField": {}
+                                }
+                              }
+                            }
+                          },
+                          "extractedQnA": {
+                            "questionResult": {
+                              "title": "title",
+                              "url": "https://example.com/foo/bar",
+                              "nativeAppUrl": "slack://foo/bar",
+                              "snippets": [
+                                {
+                                  "snippet": "snippet",
+                                  "mimeType": "mimeType"
+                                }
+                              ],
+                              "mustIncludeSuggestions": {
+                                "suggestions": [
+                                  {
+                                    "query": "app:github type:pull author:mortimer",
+                                    "label": "Mortimer's PRs",
+                                    "datasource": "github"
+                                  }
+                                ],
+                                "person": {
+                                  "name": "George Clooney",
+                                  "obfuscatedId": "abc123"
+                                }
+                              }
+                            }
+                          },
+                          "meeting": {
+                            "attendees": {
+                              "people": [
+                                {
+                                  "person": {
+                                    "name": "George Clooney",
+                                    "obfuscatedId": "abc123"
+                                  },
+                                  "groupAttendees": [
+                                    {
+                                      "person": {
+                                        "name": "George Clooney",
+                                        "obfuscatedId": "abc123"
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          },
+                          "collection": {
+                            "name": "\u003cvalue\u003e",
+                            "description": "gah peppery well tenement charm reword ha oof reassemble",
+                            "audienceFilters": [
+                              {
+                                "fieldName": "type",
+                                "values": [
+                                  {
+                                    "value": "Spreadsheet",
+                                    "relationType": "EQUALS"
+                                  },
+                                  {
+                                    "value": "Presentation",
+                                    "relationType": "EQUALS"
+                                  }
+                                ]
+                              }
+                            ],
+                            "id": 957555,
+                            "creator": {
+                              "name": "George Clooney",
+                              "obfuscatedId": "abc123"
+                            },
+                            "updatedBy": {
+                              "name": "George Clooney",
+                              "obfuscatedId": "abc123"
+                            },
+                            "children": [
+                              {
+                                "name": "\u003cvalue\u003e",
+                                "description": "outside toward information as smoothly smoggy feminize solemnly round duh",
+                                "audienceFilters": [
+                                  {
+                                    "fieldName": "type",
+                                    "values": [
+                                      {
+                                        "value": "Spreadsheet",
+                                        "relationType": "EQUALS"
+                                      },
+                                      {
+                                        "value": "Presentation",
+                                        "relationType": "EQUALS"
+                                      }
+                                    ]
+                                  }
+                                ],
+                                "id": 459472,
+                                "creator": {
+                                  "name": "George Clooney",
+                                  "obfuscatedId": "abc123"
+                                },
+                                "updatedBy": {
+                                  "name": "George Clooney",
+                                  "obfuscatedId": "abc123"
+                                }
+                              }
+                            ]
+                          },
+                          "answerBoard": {
+                            "name": "\u003cvalue\u003e",
+                            "description": "wordy coincide near where husky at meh terrible",
+                            "audienceFilters": [
+                              {
+                                "fieldName": "type",
+                                "values": [
+                                  {
+                                    "value": "Spreadsheet",
+                                    "relationType": "EQUALS"
+                                  },
+                                  {
+                                    "value": "Presentation",
+                                    "relationType": "EQUALS"
+                                  }
+                                ]
+                              }
+                            ],
+                            "id": 994124,
+                            "creator": {
+                              "name": "George Clooney",
+                              "obfuscatedId": "abc123"
+                            },
+                            "updatedBy": {
+                              "name": "George Clooney",
+                              "obfuscatedId": "abc123"
+                            }
+                          },
+                          "code": {
+                            "repoName": "scio",
+                            "fileName": "README.md"
+                          },
+                          "shortcut": {
+                            "inputAlias": "\u003cvalue\u003e",
+                            "createdBy": {
+                              "name": "George Clooney",
+                              "obfuscatedId": "abc123"
+                            },
+                            "updatedBy": {
+                              "name": "George Clooney",
+                              "obfuscatedId": "abc123"
+                            },
+                            "destinationDocument": {
+                              "containerDocument": {
+                                "metadata": {
+                                  "datasource": "datasource",
+                                  "objectType": "Feature Request",
+                                  "container": "container",
+                                  "parentId": "JIRA_EN-1337",
+                                  "mimeType": "mimeType",
+                                  "documentId": "documentId",
+                                  "createTime": "2000-01-23T04:56:07.000Z",
+                                  "updateTime": "2000-01-23T04:56:07.000Z",
+                                  "author": {
+                                    "name": "name",
+                                    "obfuscatedId": "\u003cid\u003e"
+                                  },
+                                  "components": [
+                                    "Backend",
+                                    "Networking"
+                                  ],
+                                  "status": "[\"Done\"]",
+                                  "customData": {
+                                    "someCustomField": {}
+                                  }
+                                }
+                              },
+                              "parentDocument": {
+                                "metadata": {
+                                  "datasource": "datasource",
+                                  "objectType": "Feature Request",
+                                  "container": "container",
+                                  "parentId": "JIRA_EN-1337",
+                                  "mimeType": "mimeType",
+                                  "documentId": "documentId",
+                                  "createTime": "2000-01-23T04:56:07.000Z",
+                                  "updateTime": "2000-01-23T04:56:07.000Z",
+                                  "author": {
+                                    "name": "name",
+                                    "obfuscatedId": "\u003cid\u003e"
+                                  },
+                                  "components": [
+                                    "Backend",
+                                    "Networking"
+                                  ],
+                                  "status": "[\"Done\"]",
+                                  "customData": {
+                                    "someCustomField": {}
+                                  }
+                                }
+                              },
+                              "metadata": {
+                                "datasource": "datasource",
+                                "objectType": "Feature Request",
+                                "container": "container",
+                                "parentId": "JIRA_EN-1337",
+                                "mimeType": "mimeType",
+                                "documentId": "documentId",
+                                "createTime": "2000-01-23T04:56:07.000Z",
+                                "updateTime": "2000-01-23T04:56:07.000Z",
+                                "author": {
+                                  "name": "name",
+                                  "obfuscatedId": "\u003cid\u003e"
+                                },
+                                "components": [
+                                  "Backend",
+                                  "Networking"
+                                ],
+                                "status": "[\"Done\"]",
+                                "customData": {
+                                  "someCustomField": {}
+                                }
+                              }
+                            }
+                          },
+                          "querySuggestions": {
+                            "person": {
+                              "name": "George Clooney",
+                              "obfuscatedId": "abc123"
+                            }
+                          },
+                          "relatedDocuments": [
+                            {
+                              "querySuggestion": {
+                                "query": "app:github type:pull author:mortimer",
+                                "label": "Mortimer's PRs",
+                                "datasource": "github"
+                              },
+                              "results": [
+                                {
+                                  "title": "title",
+                                  "url": "https://example.com/foo/bar",
+                                  "nativeAppUrl": "slack://foo/bar",
+                                  "snippets": [
+                                    {
+                                      "snippet": "snippet",
+                                      "mimeType": "mimeType"
+                                    }
+                                  ],
+                                  "mustIncludeSuggestions": {
+                                    "person": {
+                                      "name": "George Clooney",
+                                      "obfuscatedId": "abc123"
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          ],
+                          "relatedQuestion": {
+                            "ranges": [
+                              {
+                                "startIndex": 485611,
+                                "document": {
+                                  "containerDocument": {
+                                    "metadata": {
+                                      "datasource": "datasource",
+                                      "objectType": "Feature Request",
+                                      "container": "container",
+                                      "parentId": "JIRA_EN-1337",
+                                      "mimeType": "mimeType",
+                                      "documentId": "documentId",
+                                      "createTime": "2000-01-23T04:56:07.000Z",
+                                      "updateTime": "2000-01-23T04:56:07.000Z",
+                                      "author": {
+                                        "name": "name",
+                                        "obfuscatedId": "\u003cid\u003e"
+                                      },
+                                      "components": [
+                                        "Backend",
+                                        "Networking"
+                                      ],
+                                      "status": "[\"Done\"]",
+                                      "customData": {
+                                        "someCustomField": {}
+                                      }
+                                    }
+                                  },
+                                  "parentDocument": {
+                                    "metadata": {
+                                      "datasource": "datasource",
+                                      "objectType": "Feature Request",
+                                      "container": "container",
+                                      "parentId": "JIRA_EN-1337",
+                                      "mimeType": "mimeType",
+                                      "documentId": "documentId",
+                                      "createTime": "2000-01-23T04:56:07.000Z",
+                                      "updateTime": "2000-01-23T04:56:07.000Z",
+                                      "author": {
+                                        "name": "name",
+                                        "obfuscatedId": "\u003cid\u003e"
+                                      },
+                                      "components": [
+                                        "Backend",
+                                        "Networking"
+                                      ],
+                                      "status": "[\"Done\"]",
+                                      "customData": {
+                                        "someCustomField": {}
+                                      }
+                                    }
+                                  },
+                                  "metadata": {
+                                    "datasource": "datasource",
+                                    "objectType": "Feature Request",
+                                    "container": "container",
+                                    "parentId": "JIRA_EN-1337",
+                                    "mimeType": "mimeType",
+                                    "documentId": "documentId",
+                                    "createTime": "2000-01-23T04:56:07.000Z",
+                                    "updateTime": "2000-01-23T04:56:07.000Z",
+                                    "author": {
+                                      "name": "name",
+                                      "obfuscatedId": "\u003cid\u003e"
+                                    },
+                                    "components": [
+                                      "Backend",
+                                      "Networking"
+                                    ],
+                                    "status": "[\"Done\"]",
+                                    "customData": {
+                                      "someCustomField": {}
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "likes": {
+                    "likedBy": [
+                      {
+                        "user": {
+                          "name": "George Clooney",
+                          "obfuscatedId": "abc123"
+                        }
+                      }
+                    ],
+                    "likedByUser": false,
+                    "numLikes": 431057
+                  },
+                  "author": {
+                    "name": "George Clooney",
+                    "obfuscatedId": "abc123"
+                  },
+                  "updatedBy": {
+                    "name": "George Clooney",
+                    "obfuscatedId": "abc123"
+                  },
+                  "verification": {
+                    "state": "UNVERIFIED",
+                    "metadata": {
+                      "lastVerifier": {
+                        "name": "George Clooney",
+                        "obfuscatedId": "abc123"
+                      },
+                      "document": {
+                        "containerDocument": {
+                          "metadata": {
+                            "datasource": "datasource",
+                            "objectType": "Feature Request",
+                            "container": "container",
+                            "parentId": "JIRA_EN-1337",
+                            "mimeType": "mimeType",
+                            "documentId": "documentId",
+                            "createTime": "2000-01-23T04:56:07.000Z",
+                            "updateTime": "2000-01-23T04:56:07.000Z",
+                            "author": {
+                              "name": "name",
+                              "obfuscatedId": "\u003cid\u003e"
+                            },
+                            "components": [
+                              "Backend",
+                              "Networking"
+                            ],
+                            "status": "[\"Done\"]",
+                            "customData": {
+                              "someCustomField": {}
+                            }
+                          }
+                        },
+                        "parentDocument": {
+                          "metadata": {
+                            "datasource": "datasource",
+                            "objectType": "Feature Request",
+                            "container": "container",
+                            "parentId": "JIRA_EN-1337",
+                            "mimeType": "mimeType",
+                            "documentId": "documentId",
+                            "createTime": "2000-01-23T04:56:07.000Z",
+                            "updateTime": "2000-01-23T04:56:07.000Z",
+                            "author": {
+                              "name": "name",
+                              "obfuscatedId": "\u003cid\u003e"
+                            },
+                            "components": [
+                              "Backend",
+                              "Networking"
+                            ],
+                            "status": "[\"Done\"]",
+                            "customData": {
+                              "someCustomField": {}
+                            }
+                          }
+                        },
+                        "metadata": {
+                          "datasource": "datasource",
+                          "objectType": "Feature Request",
+                          "container": "container",
+                          "parentId": "JIRA_EN-1337",
+                          "mimeType": "mimeType",
+                          "documentId": "documentId",
+                          "createTime": "2000-01-23T04:56:07.000Z",
+                          "updateTime": "2000-01-23T04:56:07.000Z",
+                          "author": {
+                            "name": "name",
+                            "obfuscatedId": "\u003cid\u003e"
+                          },
+                          "components": [
+                            "Backend",
+                            "Networking"
+                          ],
+                          "status": "[\"Done\"]",
+                          "customData": {
+                            "someCustomField": {}
+                          }
+                        }
+                      },
+                      "reminders": [
+                        {
+                          "assignee": {
+                            "name": "George Clooney",
+                            "obfuscatedId": "abc123"
+                          },
+                          "requestor": {
+                            "name": "George Clooney",
+                            "obfuscatedId": "abc123"
+                          },
+                          "remindAt": 109303
+                        }
+                      ],
+                      "lastReminder": {
+                        "assignee": {
+                          "name": "George Clooney",
+                          "obfuscatedId": "abc123"
+                        },
+                        "requestor": {
+                          "name": "George Clooney",
+                          "obfuscatedId": "abc123"
+                        },
+                        "remindAt": 299633
+                      },
+                      "candidateVerifiers": [
+                        {
+                          "name": "George Clooney",
+                          "obfuscatedId": "abc123"
+                        }
+                      ]
+                    }
+                  },
+                  "board": {
+                    "name": "\u003cvalue\u003e",
+                    "description": "up shrill except hmph blowgun mechanically seldom beyond",
+                    "audienceFilters": [
+                      {
+                        "fieldName": "type",
+                        "values": [
+                          {
+                            "value": "Spreadsheet",
+                            "relationType": "EQUALS"
+                          },
+                          {
+                            "value": "Presentation",
+                            "relationType": "EQUALS"
+                          }
+                        ]
+                      }
+                    ],
+                    "id": 198996,
+                    "creator": {
+                      "name": "George Clooney",
+                      "obfuscatedId": "abc123"
+                    },
+                    "updatedBy": {
+                      "name": "George Clooney",
+                      "obfuscatedId": "abc123"
+                    }
+                  },
+                  "sourceDocument": {
+                    "containerDocument": {
+                      "metadata": {
+                        "datasource": "datasource",
+                        "objectType": "Feature Request",
+                        "container": "container",
+                        "parentId": "JIRA_EN-1337",
+                        "mimeType": "mimeType",
+                        "documentId": "documentId",
+                        "createTime": "2000-01-23T04:56:07.000Z",
+                        "updateTime": "2000-01-23T04:56:07.000Z",
+                        "author": {
+                          "name": "name",
+                          "obfuscatedId": "\u003cid\u003e"
+                        },
+                        "components": [
+                          "Backend",
+                          "Networking"
+                        ],
+                        "status": "[\"Done\"]",
+                        "customData": {
+                          "someCustomField": {}
+                        }
+                      }
+                    },
+                    "parentDocument": {
+                      "metadata": {
+                        "datasource": "datasource",
+                        "objectType": "Feature Request",
+                        "container": "container",
+                        "parentId": "JIRA_EN-1337",
+                        "mimeType": "mimeType",
+                        "documentId": "documentId",
+                        "createTime": "2000-01-23T04:56:07.000Z",
+                        "updateTime": "2000-01-23T04:56:07.000Z",
+                        "author": {
+                          "name": "name",
+                          "obfuscatedId": "\u003cid\u003e"
+                        },
+                        "components": [
+                          "Backend",
+                          "Networking"
+                        ],
+                        "status": "[\"Done\"]",
+                        "customData": {
+                          "someCustomField": {}
+                        }
+                      }
+                    },
+                    "metadata": {
+                      "datasource": "datasource",
+                      "objectType": "Feature Request",
+                      "container": "container",
+                      "parentId": "JIRA_EN-1337",
+                      "mimeType": "mimeType",
+                      "documentId": "documentId",
+                      "createTime": "2000-01-23T04:56:07.000Z",
+                      "updateTime": "2000-01-23T04:56:07.000Z",
+                      "author": {
+                        "name": "name",
+                        "obfuscatedId": "\u003cid\u003e"
+                      },
+                      "components": [
+                        "Backend",
+                        "Networking"
+                      ],
+                      "status": "[\"Done\"]",
+                      "customData": {
+                        "someCustomField": {}
+                      }
+                    }
+                  }
+                }
+              type: simple
+      x-speakeasy-test-group: answers
+    - workflowId: editanswer
+      steps:
+        - stepId: test
+          operationId: editanswer
+          requestBody:
+            contentType: application/json
+            payload:
+                addedRoles:
+                    - person:
+                        name: George Clooney
+                        obfuscatedId: abc123
+                      role: EDITOR
+                audienceFilters:
+                    - fieldName: type
+                      values:
+                        - relationType: EQUALS
+                          value: Spreadsheet
+                        - relationType: EQUALS
+                          value: Presentation
+                bodyText: From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.
+                combinedAnswerText:
+                    text: From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.
+                docId: ANSWERS_answer_3
+                id: 3
+                question: Why is the sky blue?
+                removedRoles:
+                    - person:
+                        name: George Clooney
+                        obfuscatedId: abc123
+                      role: OWNER
+                roles:
+                    - person:
+                        name: George Clooney
+                        obfuscatedId: abc123
+                      role: EDITOR
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {
+                  "id": 3,
+                  "docId": "ANSWERS_answer_3",
+                  "question": "Why is the sky blue?",
+                  "bodyText": "From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                  "audienceFilters": [
+                    {
+                      "fieldName": "type",
+                      "values": [
+                        {
+                          "value": "Spreadsheet",
+                          "relationType": "EQUALS"
+                        },
+                        {
+                          "value": "Presentation",
+                          "relationType": "EQUALS"
+                        }
+                      ]
+                    }
+                  ],
+                  "addedRoles": [
+                    {
+                      "person": {
+                        "name": "George Clooney",
+                        "obfuscatedId": "abc123"
+                      },
+                      "role": "EDITOR"
+                    }
+                  ],
+                  "removedRoles": [
+                    {
+                      "person": {
+                        "name": "George Clooney",
+                        "obfuscatedId": "abc123"
+                      },
+                      "role": "OWNER"
+                    }
+                  ],
+                  "roles": [
+                    {
+                      "person": {
+                        "name": "George Clooney",
+                        "obfuscatedId": "abc123"
+                      },
+                      "role": "EDITOR"
+                    }
+                  ],
+                  "combinedAnswerText": {
+                    "text": "From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                    "structuredList": [
+                      {
+                        "link": "https://en.wikipedia.org/wiki/Diffuse_sky_radiation",
+                        "document": {
+                          "containerDocument": {
+                            "metadata": {
+                              "datasource": "datasource",
+                              "objectType": "Feature Request",
+                              "container": "container",
+                              "parentId": "JIRA_EN-1337",
+                              "mimeType": "mimeType",
+                              "documentId": "documentId",
+                              "createTime": "2000-01-23T04:56:07.000Z",
+                              "updateTime": "2000-01-23T04:56:07.000Z",
+                              "author": {
+                                "name": "name",
+                                "obfuscatedId": "\u003cid\u003e"
+                              },
+                              "components": [
+                                "Backend",
+                                "Networking"
+                              ],
+                              "status": "[\"Done\"]",
+                              "customData": {
+                                "someCustomField": {}
+                              }
+                            }
+                          },
+                          "parentDocument": {
+                            "metadata": {
+                              "datasource": "datasource",
+                              "objectType": "Feature Request",
+                              "container": "container",
+                              "parentId": "JIRA_EN-1337",
+                              "mimeType": "mimeType",
+                              "documentId": "documentId",
+                              "createTime": "2000-01-23T04:56:07.000Z",
+                              "updateTime": "2000-01-23T04:56:07.000Z",
+                              "author": {
+                                "name": "name",
+                                "obfuscatedId": "\u003cid\u003e"
+                              },
+                              "components": [
+                                "Backend",
+                                "Networking"
+                              ],
+                              "status": "[\"Done\"]",
+                              "customData": {
+                                "someCustomField": {}
+                              }
+                            }
+                          },
+                          "metadata": {
+                            "datasource": "datasource",
+                            "objectType": "Feature Request",
+                            "container": "container",
+                            "parentId": "JIRA_EN-1337",
+                            "mimeType": "mimeType",
+                            "documentId": "documentId",
+                            "createTime": "2000-01-23T04:56:07.000Z",
+                            "updateTime": "2000-01-23T04:56:07.000Z",
+                            "author": {
+                              "name": "name",
+                              "obfuscatedId": "\u003cid\u003e"
+                            },
+                            "components": [
+                              "Backend",
+                              "Networking"
+                            ],
+                            "status": "[\"Done\"]",
+                            "customData": {
+                              "someCustomField": {}
+                            }
+                          }
+                        },
+                        "text": "Because its wavelengths are shorter, blue light is more strongly scattered than the longer-wavelength lights, red or green. Hence the result that when looking at the sky away from the direct incident sunlight, the human eye perceives the sky to be blue.",
+                        "structuredResult": {
+                          "document": {
+                            "containerDocument": {
+                              "metadata": {
+                                "datasource": "datasource",
+                                "objectType": "Feature Request",
+                                "container": "container",
+                                "parentId": "JIRA_EN-1337",
+                                "mimeType": "mimeType",
+                                "documentId": "documentId",
+                                "createTime": "2000-01-23T04:56:07.000Z",
+                                "updateTime": "2000-01-23T04:56:07.000Z",
+                                "author": {
+                                  "name": "name",
+                                  "obfuscatedId": "\u003cid\u003e"
+                                },
+                                "components": [
+                                  "Backend",
+                                  "Networking"
+                                ],
+                                "status": "[\"Done\"]",
+                                "customData": {
+                                  "someCustomField": {}
+                                }
+                              }
+                            },
+                            "parentDocument": {
+                              "metadata": {
+                                "datasource": "datasource",
+                                "objectType": "Feature Request",
+                                "container": "container",
+                                "parentId": "JIRA_EN-1337",
+                                "mimeType": "mimeType",
+                                "documentId": "documentId",
+                                "createTime": "2000-01-23T04:56:07.000Z",
+                                "updateTime": "2000-01-23T04:56:07.000Z",
+                                "author": {
+                                  "name": "name",
+                                  "obfuscatedId": "\u003cid\u003e"
+                                },
+                                "components": [
+                                  "Backend",
+                                  "Networking"
+                                ],
+                                "status": "[\"Done\"]",
+                                "customData": {
+                                  "someCustomField": {}
+                                }
+                              }
+                            },
+                            "metadata": {
+                              "datasource": "datasource",
+                              "objectType": "Feature Request",
+                              "container": "container",
+                              "parentId": "JIRA_EN-1337",
+                              "mimeType": "mimeType",
+                              "documentId": "documentId",
+                              "createTime": "2000-01-23T04:56:07.000Z",
+                              "updateTime": "2000-01-23T04:56:07.000Z",
+                              "author": {
+                                "name": "name",
+                                "obfuscatedId": "\u003cid\u003e"
+                              },
+                              "components": [
+                                "Backend",
+                                "Networking"
+                              ],
+                              "status": "[\"Done\"]",
+                              "customData": {
+                                "someCustomField": {}
+                              }
+                            }
+                          },
+                          "person": {
+                            "name": "George Clooney",
+                            "obfuscatedId": "abc123"
+                          },
+                          "customer": {
+                            "id": "\u003cid\u003e",
+                            "company": {
+                              "name": "\u003cvalue\u003e",
+                              "location": "New York City",
+                              "industry": "Finances",
+                              "about": "Financial, software, data, and media company headquartered in Midtown Manhattan, New York City"
+                            },
+                            "poc": [
+                              {
+                                "name": "George Clooney",
+                                "obfuscatedId": "abc123"
+                              }
+                            ],
+                            "mergedCustomers": [
+                              {
+                                "id": "\u003cid\u003e",
+                                "company": {
+                                  "name": "\u003cvalue\u003e",
+                                  "location": "New York City",
+                                  "industry": "Finances",
+                                  "about": "Financial, software, data, and media company headquartered in Midtown Manhattan, New York City"
+                                },
+                                "notes": "CIO is interested in trying out the product."
+                              }
+                            ],
+                            "notes": "CIO is interested in trying out the product."
+                          },
+                          "team": {
+                            "id": "\u003cid\u003e",
+                            "name": "\u003cvalue\u003e",
+                            "members": [
+                              {
+                                "person": {
+                                  "name": "George Clooney",
+                                  "obfuscatedId": "abc123"
+                                },
+                                "relationship": "MEMBER"
+                              }
+                            ],
+                            "customFields": [
+                              {
+                                "label": "\u003cvalue\u003e",
+                                "values": [
+                                  {}
+                                ],
+                                "displayable": true
+                              }
+                            ],
+                            "datasourceProfiles": [
+                              {
+                                "datasource": "github",
+                                "handle": "\u003cvalue\u003e"
+                              }
+                            ],
+                            "status": "PROCESSED",
+                            "canBeDeleted": true
+                          },
+                          "customEntity": {},
+                          "answer": {
+                            "id": 3,
+                            "docId": "ANSWERS_answer_3",
+                            "question": "Why is the sky blue?",
+                            "bodyText": "From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.",
+                            "audienceFilters": [
+                              {
+                                "fieldName": "type",
+                                "values": [
+                                  {
+                                    "value": "Spreadsheet",
+                                    "relationType": "EQUALS"
+                                  },
+                                  {
+                                    "value": "Presentation",
+                                    "relationType": "EQUALS"
+                                  }
+                                ]
+                              }
+                            ],
+                            "combinedAnswerText": {
+                              "text": "From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light."
+                            },
+                            "likes": {
+                              "likedBy": [],
+                              "likedByUser": false,
+                              "numLikes": 275292
+                            },
+                            "author": {
+                              "name": "George Clooney",
+                              "obfuscatedId": "abc123"
+                            },
+                            "updatedBy": {
+                              "name": "George Clooney",
+                              "obfuscatedId": "abc123"
+                            },
+                            "verification": {
+                              "state": "DEPRECATED",
+                              "metadata": {
+                                "lastVerifier": {
+                                  "name": "George Clooney",
+                                  "obfuscatedId": "abc123"
+                                },
+                                "document": {
+                                  "containerDocument": {
+                                    "metadata": {
+                                      "datasource": "datasource",
+                                      "objectType": "Feature Request",
+                                      "container": "container",
+                                      "parentId": "JIRA_EN-1337",
+                                      "mimeType": "mimeType",
+                                      "documentId": "documentId",
+                                      "createTime": "2000-01-23T04:56:07.000Z",
+                                      "updateTime": "2000-01-23T04:56:07.000Z",
+                                      "author": {
+                                        "name": "name",
+                                        "obfuscatedId": "\u003cid\u003e"
+                                      },
+                                      "components": [
+                                        "Backend",
+                                        "Networking"
+                                      ],
+                                      "status": "[\"Done\"]",
+                                      "customData": {
+                                        "someCustomField": {}
+                                      }
+                                    }
+                                  },
+                                  "parentDocument": {
+                                    "metadata": {
+                                      "datasource": "datasource",
+                                      "objectType": "Feature Request",
+                                      "container": "container",
+                                      "parentId": "JIRA_EN-1337",
+                                      "mimeType": "mimeType",
+                                      "documentId": "documentId",
+                                      "createTime": "2000-01-23T04:56:07.000Z",
+                                      "updateTime": "2000-01-23T04:56:07.000Z",
+                                      "author": {
+                                        "name": "name",
+                                        "obfuscatedId": "\u003cid\u003e"
+                                      },
+                                      "components": [
+                                        "Backend",
+                                        "Networking"
+                                      ],
+                                      "status": "[\"Done\"]",
+                                      "customData": {
+                                        "someCustomField": {}
+                                      }
+                                    }
+                                  },
+                                  "metadata": {
+                                    "datasource": "datasource",
+                                    "objectType": "Feature Request",
+                                    "container": "container",
+                                    "parentId": "JIRA_EN-1337",
+                                    "mimeType": "mimeType",
+                                    "documentId": "documentId",
+                                    "createTime": "2000-01-23T04:56:07.000Z",
+                                    "updateTime": "2000-01-23T04:56:07.000Z",
+                                    "author": {
+                                      "name": "name",
+                                      "obfuscatedId": "\u003cid\u003e"
+                                    },
+                                    "components": [
+                                      "Backend",
+                                      "Networking"
+                                    ],
+                                    "status": "[\"Done\"]",
+                                    "customData": {
+                                      "someCustomField": {}
+                                    }
+                                  }
+                                },
+                                "reminders": [
+                                  {
+                                    "assignee": {
+                                      "name": "George Clooney",
+                                      "obfuscatedId": "abc123"
+                                    },
+                                    "requestor": {
+                                      "name": "George Clooney",
+                                      "obfuscatedId": "abc123"
+                                    },
+                                    "remindAt": 705883
+                                  }
+                                ],
+                                "lastReminder": {
+                                  "assignee": {
+                                    "name": "George Clooney",
+                                    "obfuscatedId": "abc123"
+                                  },
+                                  "requestor": {
+                                    "name": "George Clooney",
+                                    "obfuscatedId": "abc123"
+                                  },
+                                  "remindAt": 764761
+                                },
+                                "candidateVerifiers": [
+                                  {
+                                    "name": "George Clooney",
+                                    "obfuscatedId": "abc123"
+                                  }
+                                ]
+                              }
+                            },
+                            "board": {
+                              "name": "\u003cvalue\u003e",
+                              "description": "around eek frenetically unfortunately via pretty",
+                              "audienceFilters": [
+                                {
+                                  "fieldName": "type",
+                                  "values": [
+                                    {
+                                      "value": "Spreadsheet",
+                                      "relationType": "EQUALS"
+                                    },
+                                    {
+                                      "value": "Presentation",
+                                      "relationType": "EQUALS"
+                                    }
+                                  ]
+                                }
+                              ],
+                              "id": 835038,
+                              "creator": {
+                                "name": "George Clooney",
+                                "obfuscatedId": "abc123"
+                              },
+                              "updatedBy": {
+                                "name": "George Clooney",
+                                "obfuscatedId": "abc123"
+                              }
+                            },
+                            "collections": [
+                              {
+                                "name": "\u003cvalue\u003e",
+                                "description": "subtle fess aw if whether",
+                                "audienceFilters": [
+                                  {
+                                    "fieldName": "type",
+                                    "values": [
+                                      {
+                                        "value": "Spreadsheet",
+                                        "relationType": "EQUALS"
+                                      },
+                                      {
+                                        "value": "Presentation",
+                                        "relationType": "EQUALS"
+                                      }
+                                    ]
+                                  }
+                                ],
+                                "id": 701136,
+                                "creator": {
+                                  "name": "George Clooney",
+                                  "obfuscatedId": "abc123"
+                                },
+                                "updatedBy": {
+                                  "name": "George Clooney",
+                                  "obfuscatedId": "abc123"
+                                },
+                                "items": [
+                                  {
+                                    "collectionId": 794773,
+                                    "createdBy": {
+                                      "name": "George Clooney",
+                                      "obfuscatedId": "abc123"
+                                    },
+                                    "document": {
+                                      "containerDocument": {
+                                        "metadata": {
+                                          "datasource": "datasource",
+                                          "objectType": "Feature Request",
+                                          "container": "container",
+                                          "parentId": "JIRA_EN-1337",
+                                          "mimeType": "mimeType",
+                                          "documentId": "documentId",
+                                          "createTime": "2000-01-23T04:56:07.000Z",
+                                          "updateTime": "2000-01-23T04:56:07.000Z",
+                                          "author": {
+                                            "name": "name",
+                                            "obfuscatedId": "\u003cid\u003e"
+                                          },
+                                          "components": [
+                                            "Backend",
+                                            "Networking"
+                                          ],
+                                          "status": "[\"Done\"]",
+                                          "customData": {
+                                            "someCustomField": {}
+                                          }
+                                        }
+                                      },
+                                      "parentDocument": {
+                                        "metadata": {
+                                          "datasource": "datasource",
+                                          "objectType": "Feature Request",
+                                          "container": "container",
+                                          "parentId": "JIRA_EN-1337",
+                                          "mimeType": "mimeType",
+                                          "documentId": "documentId",
+                                          "createTime": "2000-01-23T04:56:07.000Z",
+                                          "updateTime": "2000-01-23T04:56:07.000Z",
+                                          "author": {
+                                            "name": "name",
+                                            "obfuscatedId": "\u003cid\u003e"
+                                          },
+                                          "components": [
+                                            "Backend",
+                                            "Networking"
+                                          ],
+                                          "status": "[\"Done\"]",
+                                          "customData": {
+                                            "someCustomField": {}
+                                          }
+                                        }
+                                      },
+                                      "metadata": {
+                                        "datasource": "datasource",
+                                        "objectType": "Feature Request",
+                                        "container": "container",
+                                        "parentId": "JIRA_EN-1337",
+                                        "mimeType": "mimeType",
+                                        "documentId": "documentId",
+                                        "createTime": "2000-01-23T04:56:07.000Z",
+                                        "updateTime": "2000-01-23T04:56:07.000Z",
+                                        "author": {
+                                          "name": "name",
+                                          "obfuscatedId": "\u003cid\u003e"
+                                        },
+                                        "components": [
+                                          "Backend",
+                                          "Networking"
+                                        ],
+                                        "status": "[\"Done\"]",
+                                        "customData": {
+                                          "someCustomField": {}
+                                        }
+                                      }
+                                    },
+                                    "shortcut": {
+                                      "inputAlias": "\u003cvalue\u003e",
+                                      "createdBy": {
+                                        "name": "George Clooney",
+                                        "obfuscatedId": "abc123"
+                                      },
+                                      "updatedBy": {
+                                        "name": "George Clooney",
+                                        "obfuscatedId": "abc123"
+                                      },
+                                      "destinationDocument": {
+                                        "containerDocument": {
+                                          "metadata": {
+                                            "datasource": "datasource",
+                                            "objectType": "Feature Request",
+                                            "container": "container",
+                                            "parentId": "JIRA_EN-1337",
+                                            "mimeType": "mimeType",
+                                            "documentId": "documentId",
+                                            "createTime": "2000-01-23T04:56:07.000Z",
+                                            "updateTime": "2000-01-23T04:56:07.000Z",
+                                            "author": {
+                                              "name": "name",
+                                              "obfuscatedId": "\u003cid\u003e"
+                                            },
+                                            "components": [
+                                              "Backend",
+                                              "Networking"
+                                            ],
+                                            "status": "[\"Done\"]",
+                                            "customData": {
+                                              "someCustomField": {}
+                                            }
+                                          }
+                                        },
+                                        "parentDocument": {
+                                          "metadata": {
+                                            "datasource": "datasource",
+                                            "objectType": "Feature Request",
+                                            "container": "container",
+                                            "parentId": "JIRA_EN-1337",
+                                            "mimeType": "mimeType",
+                                            "documentId": "documentId",
+                                            "createTime": "2000-01-23T04:56:07.000Z",
+                                            "updateTime": "2000-01-23T04:56:07.000Z",
+                                            "author": {
+                                              "name": "name",
+                                              "obfuscatedId": "\u003cid\u003e"
+                                            },
+                                            "components": [
+                                              "Backend",
+                                              "Networking"
+                                            ],
+                                            "status": "[\"Done\"]",
+                                            "customData": {
+                                              "someCustomField": {}
+                                            }
+                                          }
+                                        },
+                                        "metadata": {
+                                          "datasource": "datasource",
+                                          "objectType": "Feature Request",
+                                          "container": "container",
+                                          "parentId": "JIRA_EN-1337",
+                                          "mimeType": "mimeType",
+                                          "documentId": "documentId",
+                                          "createTime": "2000-01-23T04:56:07.000Z",
+                                          "updateTime": "2000-01-23T04:56:07.000Z",
+                                          "author": {
+                                            "name": "name",
+                                            "obfuscatedId": "\u003cid\u003e"
+                                          },
+                                          "components": [
+                                            "Backend",
+                                            "Networking"
+                                          ],
+                                          "status": "[\"Done\"]",
+                                          "customData": {
+                                            "someCustomField": {}
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "collection": {
+                                      "name": "\u003cvalue\u003e",
+                                      "description": "hairy with authentic newsstand supposing howl short axe",
+                                      "audienceFilters": [
+                                        {
+                                          "fieldName": "type",
+                                          "values": [
+                                            {
+                                              "value": "Spreadsheet",
+                                              "relationType": "EQUALS"
+                                            },
+                                            {
+                                              "value": "Presentation",
+                                              "relationType": "EQUALS"
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "id": 296704,
+                                      "creator": {
+                                        "name": "George Clooney",
+                                        "obfuscatedId": "abc123"
+                                      },
+                                      "updatedBy": {
+                                        "name": "George Clooney",
+                                        "obfuscatedId": "abc123"
+                                      },
+                                      "children": [
+                                        {
+                                          "name": "\u003cvalue\u003e",
+                                          "description": "minus save since chasuble per blah",
+                                          "audienceFilters": [
+                                            {
+                                              "fieldName": "type",
+                                              "values": [
+                                                {
+                                                  "value": "Spreadsheet",
+                                                  "relationType": "EQUALS"
+                                                },
+                                                {
+                                                  "value": "Presentation",
+                                                  "relationType": "EQUALS"
+                                                }
+                                              ]
+                                            }
+                                          ],
+                                          "id": 925420,
+                                          "creator": {
+                                            "name": "George Clooney",
+                                            "obfuscatedId": "abc123"
+                                          },
+                                          "updatedBy": {
+                                            "name": "George Clooney",
+                                            "obfuscatedId": "abc123"
+                                          }
+                                        }
+                                      ]
+                                    },
+                                    "itemType": "DOCUMENT"
+                                  }
+                                ]
+                              }
+                            ],
+                            "sourceDocument": {
+                              "containerDocument": {
+                                "metadata": {
+                                  "datasource": "datasource",
+                                  "objectType": "Feature Request",
+                                  "container": "container",
+                                  "parentId": "JIRA_EN-1337",
+                                  "mimeType": "mimeType",
+                                  "documentId": "documentId",
+                                  "createTime": "2000-01-23T04:56:07.000Z",
+                                  "updateTime": "2000-01-23T04:56:07.000Z",
+                                  "author": {
+                                    "name": "name",
+                                    "obfuscatedId": "\u003cid\u003e"
+                                  },
+                                  "components": [
+                                    "Backend",
+                                    "Networking"
+                                  ],
+                                  "status": "[\"Done\"]",
+                                  "customData": {
+                                    "someCustomField": {}
+                                  }
+                                }
+                              },
+                              "parentDocument": {
+                                "metadata": {
+                                  "datasource": "datasource",
+                                  "objectType": "Feature Request",
+                                  "container": "container",
+                                  "parentId": "JIRA_EN-1337",
+                                  "mimeType": "mimeType",
+                                  "documentId": "documentId",
+                                  "createTime": "2000-01-23T04:56:07.000Z",
+                                  "updateTime": "2000-01-23T04:56:07.000Z",
+                                  "author": {
+                                    "name": "name",
+                                    "obfuscatedId": "\u003cid\u003e"
+                                  },
+                                  "components": [
+                                    "Backend",
+                                    "Networking"
+                                  ],
+                                  "status": "[\"Done\"]",
+                                  "customData": {
+                                    "someCustomField": {}
+                                  }
+                                }
+                              },
+                              "metadata": {
+                                "datasource": "datasource",
+                                "objectType": "Feature Request",
+                                "container": "container",
+                                "parentId": "JIRA_EN-1337",
+                                "mimeType": "mimeType",
+                                "documentId": "documentId",
+                                "createTime": "2000-01-23T04:56:07.000Z",
+                                "updateTime": "2000-01-23T04:56:07.000Z",
+                                "author": {
+                                  "name": "name",
+                                  "obfuscatedId": "\u003cid\u003e"
+                                },
+                                "components": [
+                                  "Backend",
+                                  "Networking"
+                                ],
+                                "status": "[\"Done\"]",
+                                "customData": {
+                                  "someCustomField": {}
+                                }
+                              }
+                            }
+                          },
+                          "extractedQnA": {
+                            "questionResult": {
+                              "title": "title",
+                              "url": "https://example.com/foo/bar",
+                              "nativeAppUrl": "slack://foo/bar",
+                              "snippets": [
+                                {
+                                  "snippet": "snippet",
+                                  "mimeType": "mimeType"
+                                }
+                              ],
+                              "mustIncludeSuggestions": {
+                                "suggestions": [
+                                  {
+                                    "query": "app:github type:pull author:mortimer",
+                                    "label": "Mortimer's PRs",
+                                    "datasource": "github"
+                                  }
+                                ],
+                                "person": {
+                                  "name": "George Clooney",
+                                  "obfuscatedId": "abc123"
+                                }
+                              }
+                            }
+                          },
+                          "meeting": {
+                            "attendees": {
+                              "people": [
+                                {
+                                  "person": {
+                                    "name": "George Clooney",
+                                    "obfuscatedId": "abc123"
+                                  },
+                                  "groupAttendees": [
+                                    {
+                                      "person": {
+                                        "name": "George Clooney",
+                                        "obfuscatedId": "abc123"
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          },
+                          "collection": {
+                            "name": "\u003cvalue\u003e",
+                            "description": "hairy with authentic newsstand supposing howl short axe",
+                            "audienceFilters": [
+                              {
+                                "fieldName": "type",
+                                "values": [
+                                  {
+                                    "value": "Spreadsheet",
+                                    "relationType": "EQUALS"
+                                  },
+                                  {
+                                    "value": "Presentation",
+                                    "relationType": "EQUALS"
+                                  }
+                                ]
+                              }
+                            ],
+                            "id": 296704,
+                            "creator": {
+                              "name": "George Clooney",
+                              "obfuscatedId": "abc123"
+                            },
+                            "updatedBy": {
+                              "name": "George Clooney",
+                              "obfuscatedId": "abc123"
+                            },
+                            "children": [
+                              {
+                                "name": "\u003cvalue\u003e",
+                                "description": "minus save since chasuble per blah",
+                                "audienceFilters": [
+                                  {
+                                    "fieldName": "type",
+                                    "values": [
+                                      {
+                                        "value": "Spreadsheet",
+                                        "relationType": "EQUALS"
+                                      },
+                                      {
+                                        "value": "Presentation",
+                                        "relationType": "EQUALS"
+                                      }
+                                    ]
+                                  }
+                                ],
+                                "id": 925420,
+                                "creator": {
+                                  "name": "George Clooney",
+                                  "obfuscatedId": "abc123"
+                                },
+                                "updatedBy": {
+                                  "name": "George Clooney",
+                                  "obfuscatedId": "abc123"
+                                }
+                              }
+                            ]
+                          },
+                          "answerBoard": {
+                            "name": "\u003cvalue\u003e",
+                            "description": "deform swanling atop uh-huh hmph against meanwhile untimely allocation",
+                            "audienceFilters": [
+                              {
+                                "fieldName": "type",
+                                "values": [
+                                  {
+                                    "value": "Spreadsheet",
+                                    "relationType": "EQUALS"
+                                  },
+                                  {
+                                    "value": "Presentation",
+                                    "relationType": "EQUALS"
+                                  }
+                                ]
+                              }
+                            ],
+                            "id": 79789,
+                            "creator": {
+                              "name": "George Clooney",
+                              "obfuscatedId": "abc123"
+                            },
+                            "updatedBy": {
+                              "name": "George Clooney",
+                              "obfuscatedId": "abc123"
+                            }
+                          },
+                          "code": {
+                            "repoName": "scio",
+                            "fileName": "README.md"
+                          },
+                          "shortcut": {
+                            "inputAlias": "\u003cvalue\u003e",
+                            "createdBy": {
+                              "name": "George Clooney",
+                              "obfuscatedId": "abc123"
+                            },
+                            "updatedBy": {
+                              "name": "George Clooney",
+                              "obfuscatedId": "abc123"
+                            },
+                            "destinationDocument": {
+                              "containerDocument": {
+                                "metadata": {
+                                  "datasource": "datasource",
+                                  "objectType": "Feature Request",
+                                  "container": "container",
+                                  "parentId": "JIRA_EN-1337",
+                                  "mimeType": "mimeType",
+                                  "documentId": "documentId",
+                                  "createTime": "2000-01-23T04:56:07.000Z",
+                                  "updateTime": "2000-01-23T04:56:07.000Z",
+                                  "author": {
+                                    "name": "name",
+                                    "obfuscatedId": "\u003cid\u003e"
+                                  },
+                                  "components": [
+                                    "Backend",
+                                    "Networking"
+                                  ],
+                                  "status": "[\"Done\"]",
+                                  "customData": {
+                                    "someCustomField": {}
+                                  }
+                                }
+                              },
+                              "parentDocument": {
+                                "metadata": {
+                                  "datasource": "datasource",
+                                  "objectType": "Feature Request",
+                                  "container": "container",
+                                  "parentId": "JIRA_EN-1337",
+                                  "mimeType": "mimeType",
+                                  "documentId": "documentId",
+                                  "createTime": "2000-01-23T04:56:07.000Z",
+                                  "updateTime": "2000-01-23T04:56:07.000Z",
+                                  "author": {
+                                    "name": "name",
+                                    "obfuscatedId": "\u003cid\u003e"
+                                  },
+                                  "components": [
+                                    "Backend",
+                                    "Networking"
+                                  ],
+                                  "status": "[\"Done\"]",
+                                  "customData": {
+                                    "someCustomField": {}
+                                  }
+                                }
+                              },
+                              "metadata": {
+                                "datasource": "datasource",
+                                "objectType": "Feature Request",
+                                "container": "container",
+                                "parentId": "JIRA_EN-1337",
+                                "mimeType": "mimeType",
+                                "documentId": "documentId",
+                                "createTime": "2000-01-23T04:56:07.000Z",
+                                "updateTime": "2000-01-23T04:56:07.000Z",
+                                "author": {
+                                  "name": "name",
+                                  "obfuscatedId": "\u003cid\u003e"
+                                },
+                                "components": [
+                                  "Backend",
+                                  "Networking"
+                                ],
+                                "status": "[\"Done\"]",
+                                "customData": {
+                                  "someCustomField": {}
+                                }
+                              }
+                            }
+                          },
+                          "querySuggestions": {
+                            "person": {
+                              "name": "George Clooney",
+                              "obfuscatedId": "abc123"
+                            }
+                          },
+                          "relatedDocuments": [
+                            {
+                              "querySuggestion": {
+                                "query": "app:github type:pull author:mortimer",
+                                "label": "Mortimer's PRs",
+                                "datasource": "github"
+                              },
+                              "results": [
+                                {
+                                  "title": "title",
+                                  "url": "https://example.com/foo/bar",
+                                  "nativeAppUrl": "slack://foo/bar",
+                                  "snippets": [
+                                    {
+                                      "snippet": "snippet",
+                                      "mimeType": "mimeType"
+                                    }
+                                  ],
+                                  "mustIncludeSuggestions": {
+                                    "person": {
+                                      "name": "George Clooney",
+                                      "obfuscatedId": "abc123"
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          ],
+                          "relatedQuestion": {
+                            "ranges": [
+                              {
+                                "startIndex": 978665,
+                                "document": {
+                                  "containerDocument": {
+                                    "metadata": {
+                                      "datasource": "datasource",
+                                      "objectType": "Feature Request",
+                                      "container": "container",
+                                      "parentId": "JIRA_EN-1337",
+                                      "mimeType": "mimeType",
+                                      "documentId": "documentId",
+                                      "createTime": "2000-01-23T04:56:07.000Z",
+                                      "updateTime": "2000-01-23T04:56:07.000Z",
+                                      "author": {
+                                        "name": "name",
+                                        "obfuscatedId": "\u003cid\u003e"
+                                      },
+                                      "components": [
+                                        "Backend",
+                                        "Networking"
+                                      ],
+                                      "status": "[\"Done\"]",
+                                      "customData": {
+                                        "someCustomField": {}
+                                      }
+                                    }
+                                  },
+                                  "parentDocument": {
+                                    "metadata": {
+                                      "datasource": "datasource",
+                                      "objectType": "Feature Request",
+                                      "container": "container",
+                                      "parentId": "JIRA_EN-1337",
+                                      "mimeType": "mimeType",
+                                      "documentId": "documentId",
+                                      "createTime": "2000-01-23T04:56:07.000Z",
+                                      "updateTime": "2000-01-23T04:56:07.000Z",
+                                      "author": {
+                                        "name": "name",
+                                        "obfuscatedId": "\u003cid\u003e"
+                                      },
+                                      "components": [
+                                        "Backend",
+                                        "Networking"
+                                      ],
+                                      "status": "[\"Done\"]",
+                                      "customData": {
+                                        "someCustomField": {}
+                                      }
+                                    }
+                                  },
+                                  "metadata": {
+                                    "datasource": "datasource",
+                                    "objectType": "Feature Request",
+                                    "container": "container",
+                                    "parentId": "JIRA_EN-1337",
+                                    "mimeType": "mimeType",
+                                    "documentId": "documentId",
+                                    "createTime": "2000-01-23T04:56:07.000Z",
+                                    "updateTime": "2000-01-23T04:56:07.000Z",
+                                    "author": {
+                                      "name": "name",
+                                      "obfuscatedId": "\u003cid\u003e"
+                                    },
+                                    "components": [
+                                      "Backend",
+                                      "Networking"
+                                    ],
+                                    "status": "[\"Done\"]",
+                                    "customData": {
+                                      "someCustomField": {}
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "likes": {
+                    "likedBy": [],
+                    "likedByUser": false,
+                    "numLikes": 275292
+                  },
+                  "author": {
+                    "name": "George Clooney",
+                    "obfuscatedId": "abc123"
+                  },
+                  "updatedBy": {
+                    "name": "George Clooney",
+                    "obfuscatedId": "abc123"
+                  },
+                  "verification": {
+                    "state": "DEPRECATED",
+                    "metadata": {
+                      "lastVerifier": {
+                        "name": "George Clooney",
+                        "obfuscatedId": "abc123"
+                      },
+                      "document": {
+                        "containerDocument": {
+                          "metadata": {
+                            "datasource": "datasource",
+                            "objectType": "Feature Request",
+                            "container": "container",
+                            "parentId": "JIRA_EN-1337",
+                            "mimeType": "mimeType",
+                            "documentId": "documentId",
+                            "createTime": "2000-01-23T04:56:07.000Z",
+                            "updateTime": "2000-01-23T04:56:07.000Z",
+                            "author": {
+                              "name": "name",
+                              "obfuscatedId": "\u003cid\u003e"
+                            },
+                            "components": [
+                              "Backend",
+                              "Networking"
+                            ],
+                            "status": "[\"Done\"]",
+                            "customData": {
+                              "someCustomField": {}
+                            }
+                          }
+                        },
+                        "parentDocument": {
+                          "metadata": {
+                            "datasource": "datasource",
+                            "objectType": "Feature Request",
+                            "container": "container",
+                            "parentId": "JIRA_EN-1337",
+                            "mimeType": "mimeType",
+                            "documentId": "documentId",
+                            "createTime": "2000-01-23T04:56:07.000Z",
+                            "updateTime": "2000-01-23T04:56:07.000Z",
+                            "author": {
+                              "name": "name",
+                              "obfuscatedId": "\u003cid\u003e"
+                            },
+                            "components": [
+                              "Backend",
+                              "Networking"
+                            ],
+                            "status": "[\"Done\"]",
+                            "customData": {
+                              "someCustomField": {}
+                            }
+                          }
+                        },
+                        "metadata": {
+                          "datasource": "datasource",
+                          "objectType": "Feature Request",
+                          "container": "container",
+                          "parentId": "JIRA_EN-1337",
+                          "mimeType": "mimeType",
+                          "documentId": "documentId",
+                          "createTime": "2000-01-23T04:56:07.000Z",
+                          "updateTime": "2000-01-23T04:56:07.000Z",
+                          "author": {
+                            "name": "name",
+                            "obfuscatedId": "\u003cid\u003e"
+                          },
+                          "components": [
+                            "Backend",
+                            "Networking"
+                          ],
+                          "status": "[\"Done\"]",
+                          "customData": {
+                            "someCustomField": {}
+                          }
+                        }
+                      },
+                      "reminders": [
+                        {
+                          "assignee": {
+                            "name": "George Clooney",
+                            "obfuscatedId": "abc123"
+                          },
+                          "requestor": {
+                            "name": "George Clooney",
+                            "obfuscatedId": "abc123"
+                          },
+                          "remindAt": 705883
+                        }
+                      ],
+                      "lastReminder": {
+                        "assignee": {
+                          "name": "George Clooney",
+                          "obfuscatedId": "abc123"
+                        },
+                        "requestor": {
+                          "name": "George Clooney",
+                          "obfuscatedId": "abc123"
+                        },
+                        "remindAt": 764761
+                      },
+                      "candidateVerifiers": [
+                        {
+                          "name": "George Clooney",
+                          "obfuscatedId": "abc123"
+                        }
+                      ]
+                    }
+                  },
+                  "board": {
+                    "name": "\u003cvalue\u003e",
+                    "description": "around eek frenetically unfortunately via pretty",
+                    "audienceFilters": [
+                      {
+                        "fieldName": "type",
+                        "values": [
+                          {
+                            "value": "Spreadsheet",
+                            "relationType": "EQUALS"
+                          },
+                          {
+                            "value": "Presentation",
+                            "relationType": "EQUALS"
+                          }
+                        ]
+                      }
+                    ],
+                    "id": 835038,
+                    "creator": {
+                      "name": "George Clooney",
+                      "obfuscatedId": "abc123"
+                    },
+                    "updatedBy": {
+                      "name": "George Clooney",
+                      "obfuscatedId": "abc123"
+                    }
+                  },
+                  "sourceDocument": {
+                    "containerDocument": {
+                      "metadata": {
+                        "datasource": "datasource",
+                        "objectType": "Feature Request",
+                        "container": "container",
+                        "parentId": "JIRA_EN-1337",
+                        "mimeType": "mimeType",
+                        "documentId": "documentId",
+                        "createTime": "2000-01-23T04:56:07.000Z",
+                        "updateTime": "2000-01-23T04:56:07.000Z",
+                        "author": {
+                          "name": "name",
+                          "obfuscatedId": "\u003cid\u003e"
+                        },
+                        "components": [
+                          "Backend",
+                          "Networking"
+                        ],
+                        "status": "[\"Done\"]",
+                        "customData": {
+                          "someCustomField": {}
+                        }
+                      }
+                    },
+                    "parentDocument": {
+                      "metadata": {
+                        "datasource": "datasource",
+                        "objectType": "Feature Request",
+                        "container": "container",
+                        "parentId": "JIRA_EN-1337",
+                        "mimeType": "mimeType",
+                        "documentId": "documentId",
+                        "createTime": "2000-01-23T04:56:07.000Z",
+                        "updateTime": "2000-01-23T04:56:07.000Z",
+                        "author": {
+                          "name": "name",
+                          "obfuscatedId": "\u003cid\u003e"
+                        },
+                        "components": [
+                          "Backend",
+                          "Networking"
+                        ],
+                        "status": "[\"Done\"]",
+                        "customData": {
+                          "someCustomField": {}
+                        }
+                      }
+                    },
+                    "metadata": {
+                      "datasource": "datasource",
+                      "objectType": "Feature Request",
+                      "container": "container",
+                      "parentId": "JIRA_EN-1337",
+                      "mimeType": "mimeType",
+                      "documentId": "documentId",
+                      "createTime": "2000-01-23T04:56:07.000Z",
+                      "updateTime": "2000-01-23T04:56:07.000Z",
+                      "author": {
+                        "name": "name",
+                        "obfuscatedId": "\u003cid\u003e"
+                      },
+                      "components": [
+                        "Backend",
+                        "Networking"
+                      ],
+                      "status": "[\"Done\"]",
+                      "customData": {
+                        "someCustomField": {}
+                      }
+                    }
+                  }
+                }
+              type: simple
+      x-speakeasy-test-group: answers
+    - workflowId: createcollection
+      steps:
+        - stepId: test
+          operationId: createcollection
+          requestBody:
+            contentType: application/json
+            payload:
+                addedRoles:
+                    - person:
+                        name: George Clooney
+                        obfuscatedId: abc123
+                      role: OWNER
+                audienceFilters:
+                    - fieldName: type
+                      values:
+                        - relationType: EQUALS
+                          value: Spreadsheet
+                        - relationType: EQUALS
+                          value: Presentation
+                name: <value>
+                removedRoles:
+                    - person:
+                        name: George Clooney
+                        obfuscatedId: abc123
+                      role: ANSWER_MODERATOR
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {
+                  "name": "\u003cvalue\u003e",
+                  "description": "aw frozen solemnly physically appreciate fluffy that roughly frizzy",
+                  "addedRoles": [
+                    {
+                      "person": {
+                        "name": "George Clooney",
+                        "obfuscatedId": "abc123"
+                      },
+                      "role": "OWNER"
+                    }
+                  ],
+                  "removedRoles": [
+                    {
+                      "person": {
+                        "name": "George Clooney",
+                        "obfuscatedId": "abc123"
+                      },
+                      "role": "ANSWER_MODERATOR"
+                    }
+                  ],
+                  "audienceFilters": [
+                    {
+                      "fieldName": "type",
+                      "values": [
+                        {
+                          "value": "Spreadsheet",
+                          "relationType": "EQUALS"
+                        },
+                        {
+                          "value": "Presentation",
+                          "relationType": "EQUALS"
+                        }
+                      ]
+                    }
+                  ],
+                  "id": 299869,
+                  "creator": {
+                    "name": "George Clooney",
+                    "obfuscatedId": "abc123"
+                  },
+                  "updatedBy": {
+                    "name": "George Clooney",
+                    "obfuscatedId": "abc123"
+                  },
+                  "items": [
+                    {
+                      "collectionId": 981434,
+                      "createdBy": {
+                        "name": "George Clooney",
+                        "obfuscatedId": "abc123"
+                      },
+                      "document": {
+                        "containerDocument": {
+                          "metadata": {
+                            "datasource": "datasource",
+                            "objectType": "Feature Request",
+                            "container": "container",
+                            "parentId": "JIRA_EN-1337",
+                            "mimeType": "mimeType",
+                            "documentId": "documentId",
+                            "createTime": "2000-01-23T04:56:07.000Z",
+                            "updateTime": "2000-01-23T04:56:07.000Z",
+                            "author": {
+                              "name": "name",
+                              "obfuscatedId": "\u003cid\u003e"
+                            },
+                            "components": [
+                              "Backend",
+                              "Networking"
+                            ],
+                            "status": "[\"Done\"]",
+                            "customData": {
+                              "someCustomField": {}
+                            }
+                          }
+                        },
+                        "parentDocument": {
+                          "metadata": {
+                            "datasource": "datasource",
+                            "objectType": "Feature Request",
+                            "container": "container",
+                            "parentId": "JIRA_EN-1337",
+                            "mimeType": "mimeType",
+                            "documentId": "documentId",
+                            "createTime": "2000-01-23T04:56:07.000Z",
+                            "updateTime": "2000-01-23T04:56:07.000Z",
+                            "author": {
+                              "name": "name",
+                              "obfuscatedId": "\u003cid\u003e"
+                            },
+                            "components": [
+                              "Backend",
+                              "Networking"
+                            ],
+                            "status": "[\"Done\"]",
+                            "customData": {
+                              "someCustomField": {}
+                            }
+                          }
+                        },
+                        "metadata": {
+                          "datasource": "datasource",
+                          "objectType": "Feature Request",
+                          "container": "container",
+                          "parentId": "JIRA_EN-1337",
+                          "mimeType": "mimeType",
+                          "documentId": "documentId",
+                          "createTime": "2000-01-23T04:56:07.000Z",
+                          "updateTime": "2000-01-23T04:56:07.000Z",
+                          "author": {
+                            "name": "name",
+                            "obfuscatedId": "\u003cid\u003e"
+                          },
+                          "components": [
+                            "Backend",
+                            "Networking"
+                          ],
+                          "status": "[\"Done\"]",
+                          "customData": {
+                            "someCustomField": {}
+                          }
+                        }
+                      },
+                      "shortcut": {
+                        "inputAlias": "\u003cvalue\u003e",
+                        "createdBy": {
+                          "name": "George Clooney",
+                          "obfuscatedId": "abc123"
+                        },
+                        "updatedBy": {
+                          "name": "George Clooney",
+                          "obfuscatedId": "abc123"
+                        },
+                        "destinationDocument": {
+                          "containerDocument": {
+                            "metadata": {
+                              "datasource": "datasource",
+                              "objectType": "Feature Request",
+                              "container": "container",
+                              "parentId": "JIRA_EN-1337",
+                              "mimeType": "mimeType",
+                              "documentId": "documentId",
+                              "createTime": "2000-01-23T04:56:07.000Z",
+                              "updateTime": "2000-01-23T04:56:07.000Z",
+                              "author": {
+                                "name": "name",
+                                "obfuscatedId": "\u003cid\u003e"
+                              },
+                              "components": [
+                                "Backend",
+                                "Networking"
+                              ],
+                              "status": "[\"Done\"]",
+                              "customData": {
+                                "someCustomField": {}
+                              }
+                            }
+                          },
+                          "parentDocument": {
+                            "metadata": {
+                              "datasource": "datasource",
+                              "objectType": "Feature Request",
+                              "container": "container",
+                              "parentId": "JIRA_EN-1337",
+                              "mimeType": "mimeType",
+                              "documentId": "documentId",
+                              "createTime": "2000-01-23T04:56:07.000Z",
+                              "updateTime": "2000-01-23T04:56:07.000Z",
+                              "author": {
+                                "name": "name",
+                                "obfuscatedId": "\u003cid\u003e"
+                              },
+                              "components": [
+                                "Backend",
+                                "Networking"
+                              ],
+                              "status": "[\"Done\"]",
+                              "customData": {
+                                "someCustomField": {}
+                              }
+                            }
+                          },
+                          "metadata": {
+                            "datasource": "datasource",
+                            "objectType": "Feature Request",
+                            "container": "container",
+                            "parentId": "JIRA_EN-1337",
+                            "mimeType": "mimeType",
+                            "documentId": "documentId",
+                            "createTime": "2000-01-23T04:56:07.000Z",
+                            "updateTime": "2000-01-23T04:56:07.000Z",
+                            "author": {
+                              "name": "name",
+                              "obfuscatedId": "\u003cid\u003e"
+                            },
+                            "components": [
+                              "Backend",
+                              "Networking"
+                            ],
+                            "status": "[\"Done\"]",
+                            "customData": {
+                              "someCustomField": {}
+                            }
+                          }
+                        },
+                        "roles": [
+                          {
+                            "person": {
+                              "name": "George Clooney",
+                              "obfuscatedId": "abc123"
+                            },
+                            "role": "VIEWER"
+                          }
+                        ]
+                      },
+                      "collection": {
+                        "name": "\u003cvalue\u003e",
+                        "description": "synthesise transcend seriously frail happy",
+                        "audienceFilters": [
+                          {
+                            "fieldName": "type",
+                            "values": [
+                              {
+                                "value": "Spreadsheet",
+                                "relationType": "EQUALS"
+                              },
+                              {
+                                "value": "Presentation",
+                                "relationType": "EQUALS"
+                              }
+                            ]
+                          }
+                        ],
+                        "id": 400845,
+                        "creator": {
+                          "name": "George Clooney",
+                          "obfuscatedId": "abc123"
+                        },
+                        "updatedBy": {
+                          "name": "George Clooney",
+                          "obfuscatedId": "abc123"
+                        },
+                        "children": [
+                          {
+                            "name": "\u003cvalue\u003e",
+                            "description": "adjudge lest grandiose out athwart",
+                            "audienceFilters": [
+                              {
+                                "fieldName": "type",
+                                "values": [
+                                  {
+                                    "value": "Spreadsheet",
+                                    "relationType": "EQUALS"
+                                  },
+                                  {
+                                    "value": "Presentation",
+                                    "relationType": "EQUALS"
+                                  }
+                                ]
+                              }
+                            ],
+                            "id": 597565,
+                            "creator": {
+                              "name": "George Clooney",
+                              "obfuscatedId": "abc123"
+                            },
+                            "updatedBy": {
+                              "name": "George Clooney",
+                              "obfuscatedId": "abc123"
+                            }
+                          }
+                        ]
+                      },
+                      "itemType": "DOCUMENT"
+                    }
+                  ],
+                  "children": [
+                    {
+                      "name": "\u003cvalue\u003e",
+                      "description": "adjudge lest grandiose out athwart",
+                      "audienceFilters": [
+                        {
+                          "fieldName": "type",
+                          "values": [
+                            {
+                              "value": "Spreadsheet",
+                              "relationType": "EQUALS"
+                            },
+                            {
+                              "value": "Presentation",
+                              "relationType": "EQUALS"
+                            }
+                          ]
+                        }
+                      ],
+                      "id": 597565,
+                      "creator": {
+                        "name": "George Clooney",
+                        "obfuscatedId": "abc123"
+                      },
+                      "updatedBy": {
+                        "name": "George Clooney",
+                        "obfuscatedId": "abc123"
+                      }
+                    }
+                  ],
+                  "roles": [
+                    {
+                      "person": {
+                        "name": "George Clooney",
+                        "obfuscatedId": "abc123"
+                      },
+                      "role": "VIEWER"
+                    }
+                  ],
+                  "errorCode": "COLLECTION_PINNED",
+                  "collection": {
+                    "name": "\u003cvalue\u003e",
+                    "description": "synthesise transcend seriously frail happy",
+                    "audienceFilters": [
+                      {
+                        "fieldName": "type",
+                        "values": [
+                          {
+                            "value": "Spreadsheet",
+                            "relationType": "EQUALS"
+                          },
+                          {
+                            "value": "Presentation",
+                            "relationType": "EQUALS"
+                          }
+                        ]
+                      }
+                    ],
+                    "id": 400845,
+                    "creator": {
+                      "name": "George Clooney",
+                      "obfuscatedId": "abc123"
+                    },
+                    "updatedBy": {
+                      "name": "George Clooney",
+                      "obfuscatedId": "abc123"
+                    },
+                    "children": [
+                      {
+                        "name": "\u003cvalue\u003e",
+                        "description": "adjudge lest grandiose out athwart",
+                        "audienceFilters": [
+                          {
+                            "fieldName": "type",
+                            "values": [
+                              {
+                                "value": "Spreadsheet",
+                                "relationType": "EQUALS"
+                              },
+                              {
+                                "value": "Presentation",
+                                "relationType": "EQUALS"
+                              }
+                            ]
+                          }
+                        ],
+                        "id": 597565,
+                        "creator": {
+                          "name": "George Clooney",
+                          "obfuscatedId": "abc123"
+                        },
+                        "updatedBy": {
+                          "name": "George Clooney",
+                          "obfuscatedId": "abc123"
+                        }
+                      }
+                    ]
+                  }
+                }
+              type: simple
+      x-speakeasy-test-group: collections
+    - workflowId: editcollection
+      steps:
+        - stepId: test
+          operationId: editcollection
+          requestBody:
+            contentType: application/json
+            payload:
+                addedRoles:
+                    - person:
+                        name: George Clooney
+                        obfuscatedId: abc123
+                      role: VIEWER
+                audienceFilters:
+                    - fieldName: type
+                      values:
+                        - relationType: EQUALS
+                          value: Spreadsheet
+                        - relationType: EQUALS
+                          value: Presentation
+                id: 347152
+                name: <value>
+                removedRoles:
+                    - person:
+                        name: George Clooney
+                        obfuscatedId: abc123
+                      role: VERIFIER
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {
+                  "name": "\u003cvalue\u003e",
+                  "description": "any loyally beneath team focalise competent guilty huff slushy",
+                  "addedRoles": [
+                    {
+                      "person": {
+                        "name": "George Clooney",
+                        "obfuscatedId": "abc123"
+                      },
+                      "role": "VIEWER"
+                    }
+                  ],
+                  "removedRoles": [
+                    {
+                      "person": {
+                        "name": "George Clooney",
+                        "obfuscatedId": "abc123"
+                      },
+                      "role": "VERIFIER"
+                    }
+                  ],
+                  "audienceFilters": [
+                    {
+                      "fieldName": "type",
+                      "values": [
+                        {
+                          "value": "Spreadsheet",
+                          "relationType": "EQUALS"
+                        },
+                        {
+                          "value": "Presentation",
+                          "relationType": "EQUALS"
+                        }
+                      ]
+                    }
+                  ],
+                  "id": 927933,
+                  "creator": {
+                    "name": "George Clooney",
+                    "obfuscatedId": "abc123"
+                  },
+                  "updatedBy": {
+                    "name": "George Clooney",
+                    "obfuscatedId": "abc123"
+                  },
+                  "items": [
+                    {
+                      "collectionId": 67398,
+                      "createdBy": {
+                        "name": "George Clooney",
+                        "obfuscatedId": "abc123"
+                      },
+                      "document": {
+                        "containerDocument": {
+                          "metadata": {
+                            "datasource": "datasource",
+                            "objectType": "Feature Request",
+                            "container": "container",
+                            "parentId": "JIRA_EN-1337",
+                            "mimeType": "mimeType",
+                            "documentId": "documentId",
+                            "createTime": "2000-01-23T04:56:07.000Z",
+                            "updateTime": "2000-01-23T04:56:07.000Z",
+                            "author": {
+                              "name": "name",
+                              "obfuscatedId": "\u003cid\u003e"
+                            },
+                            "components": [
+                              "Backend",
+                              "Networking"
+                            ],
+                            "status": "[\"Done\"]",
+                            "customData": {
+                              "someCustomField": {}
+                            }
+                          }
+                        },
+                        "parentDocument": {
+                          "metadata": {
+                            "datasource": "datasource",
+                            "objectType": "Feature Request",
+                            "container": "container",
+                            "parentId": "JIRA_EN-1337",
+                            "mimeType": "mimeType",
+                            "documentId": "documentId",
+                            "createTime": "2000-01-23T04:56:07.000Z",
+                            "updateTime": "2000-01-23T04:56:07.000Z",
+                            "author": {
+                              "name": "name",
+                              "obfuscatedId": "\u003cid\u003e"
+                            },
+                            "components": [
+                              "Backend",
+                              "Networking"
+                            ],
+                            "status": "[\"Done\"]",
+                            "customData": {
+                              "someCustomField": {}
+                            }
+                          }
+                        },
+                        "metadata": {
+                          "datasource": "datasource",
+                          "objectType": "Feature Request",
+                          "container": "container",
+                          "parentId": "JIRA_EN-1337",
+                          "mimeType": "mimeType",
+                          "documentId": "documentId",
+                          "createTime": "2000-01-23T04:56:07.000Z",
+                          "updateTime": "2000-01-23T04:56:07.000Z",
+                          "author": {
+                            "name": "name",
+                            "obfuscatedId": "\u003cid\u003e"
+                          },
+                          "components": [
+                            "Backend",
+                            "Networking"
+                          ],
+                          "status": "[\"Done\"]",
+                          "customData": {
+                            "someCustomField": {}
+                          }
+                        }
+                      },
+                      "shortcut": {
+                        "inputAlias": "\u003cvalue\u003e",
+                        "createdBy": {
+                          "name": "George Clooney",
+                          "obfuscatedId": "abc123"
+                        },
+                        "updatedBy": {
+                          "name": "George Clooney",
+                          "obfuscatedId": "abc123"
+                        },
+                        "destinationDocument": {
+                          "containerDocument": {
+                            "metadata": {
+                              "datasource": "datasource",
+                              "objectType": "Feature Request",
+                              "container": "container",
+                              "parentId": "JIRA_EN-1337",
+                              "mimeType": "mimeType",
+                              "documentId": "documentId",
+                              "createTime": "2000-01-23T04:56:07.000Z",
+                              "updateTime": "2000-01-23T04:56:07.000Z",
+                              "author": {
+                                "name": "name",
+                                "obfuscatedId": "\u003cid\u003e"
+                              },
+                              "components": [
+                                "Backend",
+                                "Networking"
+                              ],
+                              "status": "[\"Done\"]",
+                              "customData": {
+                                "someCustomField": {}
+                              }
+                            }
+                          },
+                          "parentDocument": {
+                            "metadata": {
+                              "datasource": "datasource",
+                              "objectType": "Feature Request",
+                              "container": "container",
+                              "parentId": "JIRA_EN-1337",
+                              "mimeType": "mimeType",
+                              "documentId": "documentId",
+                              "createTime": "2000-01-23T04:56:07.000Z",
+                              "updateTime": "2000-01-23T04:56:07.000Z",
+                              "author": {
+                                "name": "name",
+                                "obfuscatedId": "\u003cid\u003e"
+                              },
+                              "components": [
+                                "Backend",
+                                "Networking"
+                              ],
+                              "status": "[\"Done\"]",
+                              "customData": {
+                                "someCustomField": {}
+                              }
+                            }
+                          },
+                          "metadata": {
+                            "datasource": "datasource",
+                            "objectType": "Feature Request",
+                            "container": "container",
+                            "parentId": "JIRA_EN-1337",
+                            "mimeType": "mimeType",
+                            "documentId": "documentId",
+                            "createTime": "2000-01-23T04:56:07.000Z",
+                            "updateTime": "2000-01-23T04:56:07.000Z",
+                            "author": {
+                              "name": "name",
+                              "obfuscatedId": "\u003cid\u003e"
+                            },
+                            "components": [
+                              "Backend",
+                              "Networking"
+                            ],
+                            "status": "[\"Done\"]",
+                            "customData": {
+                              "someCustomField": {}
+                            }
+                          }
+                        },
+                        "roles": [
+                          {
+                            "person": {
+                              "name": "George Clooney",
+                              "obfuscatedId": "abc123"
+                            },
+                            "role": "ANSWER_MODERATOR"
+                          }
+                        ]
+                      },
+                      "collection": {
+                        "name": "\u003cvalue\u003e",
+                        "description": "sweetly own exalted what technologist",
+                        "audienceFilters": [
+                          {
+                            "fieldName": "type",
+                            "values": [
+                              {
+                                "value": "Spreadsheet",
+                                "relationType": "EQUALS"
+                              },
+                              {
+                                "value": "Presentation",
+                                "relationType": "EQUALS"
+                              }
+                            ]
+                          }
+                        ],
+                        "id": 172869,
+                        "creator": {
+                          "name": "George Clooney",
+                          "obfuscatedId": "abc123"
+                        },
+                        "updatedBy": {
+                          "name": "George Clooney",
+                          "obfuscatedId": "abc123"
+                        },
+                        "children": [
+                          {
+                            "name": "\u003cvalue\u003e",
+                            "description": "handful rightfully drat so whoever",
+                            "audienceFilters": [
+                              {
+                                "fieldName": "type",
+                                "values": [
+                                  {
+                                    "value": "Spreadsheet",
+                                    "relationType": "EQUALS"
+                                  },
+                                  {
+                                    "value": "Presentation",
+                                    "relationType": "EQUALS"
+                                  }
+                                ]
+                              }
+                            ],
+                            "id": 971998,
+                            "creator": {
+                              "name": "George Clooney",
+                              "obfuscatedId": "abc123"
+                            },
+                            "updatedBy": {
+                              "name": "George Clooney",
+                              "obfuscatedId": "abc123"
+                            }
+                          }
+                        ]
+                      },
+                      "itemType": "TEXT"
+                    }
+                  ],
+                  "children": [
+                    {
+                      "name": "\u003cvalue\u003e",
+                      "description": "handful rightfully drat so whoever",
+                      "audienceFilters": [
+                        {
+                          "fieldName": "type",
+                          "values": [
+                            {
+                              "value": "Spreadsheet",
+                              "relationType": "EQUALS"
+                            },
+                            {
+                              "value": "Presentation",
+                              "relationType": "EQUALS"
+                            }
+                          ]
+                        }
+                      ],
+                      "id": 971998,
+                      "creator": {
+                        "name": "George Clooney",
+                        "obfuscatedId": "abc123"
+                      },
+                      "updatedBy": {
+                        "name": "George Clooney",
+                        "obfuscatedId": "abc123"
+                      }
+                    }
+                  ],
+                  "roles": [
+                    {
+                      "person": {
+                        "name": "George Clooney",
+                        "obfuscatedId": "abc123"
+                      },
+                      "role": "ANSWER_MODERATOR"
+                    }
+                  ],
+                  "errorCode": "HEIGHT_VIOLATION",
+                  "collection": {
+                    "name": "\u003cvalue\u003e",
+                    "description": "sweetly own exalted what technologist",
+                    "audienceFilters": [
+                      {
+                        "fieldName": "type",
+                        "values": [
+                          {
+                            "value": "Spreadsheet",
+                            "relationType": "EQUALS"
+                          },
+                          {
+                            "value": "Presentation",
+                            "relationType": "EQUALS"
+                          }
+                        ]
+                      }
+                    ],
+                    "id": 172869,
+                    "creator": {
+                      "name": "George Clooney",
+                      "obfuscatedId": "abc123"
+                    },
+                    "updatedBy": {
+                      "name": "George Clooney",
+                      "obfuscatedId": "abc123"
+                    },
+                    "children": [
+                      {
+                        "name": "\u003cvalue\u003e",
+                        "description": "handful rightfully drat so whoever",
+                        "audienceFilters": [
+                          {
+                            "fieldName": "type",
+                            "values": [
+                              {
+                                "value": "Spreadsheet",
+                                "relationType": "EQUALS"
+                              },
+                              {
+                                "value": "Presentation",
+                                "relationType": "EQUALS"
+                              }
+                            ]
+                          }
+                        ],
+                        "id": 971998,
+                        "creator": {
+                          "name": "George Clooney",
+                          "obfuscatedId": "abc123"
+                        },
+                        "updatedBy": {
+                          "name": "George Clooney",
+                          "obfuscatedId": "abc123"
+                        }
+                      }
+                    ]
+                  }
+                }
+              type: simple
+      x-speakeasy-test-group: collections
+    - workflowId: createshortcut
+      steps:
+        - stepId: test
+          operationId: createshortcut
+          requestBody:
+            contentType: application/json
+            payload:
+                data:
+                    addedRoles:
+                        - person:
+                            name: George Clooney
+                            obfuscatedId: abc123
+                          role: VERIFIER
+                    removedRoles:
+                        - person:
+                            name: George Clooney
+                            obfuscatedId: abc123
+                          role: VIEWER
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {
+                  "shortcut": {
+                    "inputAlias": "\u003cvalue\u003e",
+                    "addedRoles": [
+                      {
+                        "person": {
+                          "name": "George Clooney",
+                          "obfuscatedId": "abc123"
+                        },
+                        "role": "VERIFIER"
+                      }
+                    ],
+                    "removedRoles": [
+                      {
+                        "person": {
+                          "name": "George Clooney",
+                          "obfuscatedId": "abc123"
+                        },
+                        "role": "VIEWER"
+                      }
+                    ],
+                    "createdBy": {
+                      "name": "George Clooney",
+                      "obfuscatedId": "abc123"
+                    },
+                    "updatedBy": {
+                      "name": "George Clooney",
+                      "obfuscatedId": "abc123"
+                    },
+                    "destinationDocument": {
+                      "containerDocument": {
+                        "metadata": {
+                          "datasource": "datasource",
+                          "objectType": "Feature Request",
+                          "container": "container",
+                          "parentId": "JIRA_EN-1337",
+                          "mimeType": "mimeType",
+                          "documentId": "documentId",
+                          "createTime": "2000-01-23T04:56:07.000Z",
+                          "updateTime": "2000-01-23T04:56:07.000Z",
+                          "author": {
+                            "name": "name",
+                            "obfuscatedId": "\u003cid\u003e"
+                          },
+                          "components": [
+                            "Backend",
+                            "Networking"
+                          ],
+                          "status": "[\"Done\"]",
+                          "customData": {
+                            "someCustomField": {}
+                          }
+                        }
+                      },
+                      "parentDocument": {
+                        "metadata": {
+                          "datasource": "datasource",
+                          "objectType": "Feature Request",
+                          "container": "container",
+                          "parentId": "JIRA_EN-1337",
+                          "mimeType": "mimeType",
+                          "documentId": "documentId",
+                          "createTime": "2000-01-23T04:56:07.000Z",
+                          "updateTime": "2000-01-23T04:56:07.000Z",
+                          "author": {
+                            "name": "name",
+                            "obfuscatedId": "\u003cid\u003e"
+                          },
+                          "components": [
+                            "Backend",
+                            "Networking"
+                          ],
+                          "status": "[\"Done\"]",
+                          "customData": {
+                            "someCustomField": {}
+                          }
+                        }
+                      },
+                      "metadata": {
+                        "datasource": "datasource",
+                        "objectType": "Feature Request",
+                        "container": "container",
+                        "parentId": "JIRA_EN-1337",
+                        "mimeType": "mimeType",
+                        "documentId": "documentId",
+                        "createTime": "2000-01-23T04:56:07.000Z",
+                        "updateTime": "2000-01-23T04:56:07.000Z",
+                        "author": {
+                          "name": "name",
+                          "obfuscatedId": "\u003cid\u003e"
+                        },
+                        "components": [
+                          "Backend",
+                          "Networking"
+                        ],
+                        "status": "[\"Done\"]",
+                        "customData": {
+                          "someCustomField": {}
+                        }
+                      }
+                    },
+                    "roles": [
+                      {
+                        "person": {
+                          "name": "George Clooney",
+                          "obfuscatedId": "abc123"
+                        },
+                        "role": "VERIFIER"
+                      }
+                    ]
+                  }
+                }
+              type: simple
+      x-speakeasy-test-group: client_shortcuts
+    - workflowId: updateshortcut
+      steps:
+        - stepId: test
+          operationId: updateshortcut
+          requestBody:
+            contentType: application/json
+            payload:
+                addedRoles:
+                    - person:
+                        name: George Clooney
+                        obfuscatedId: abc123
+                      role: ANSWER_MODERATOR
+                id: 268238
+                removedRoles:
+                    - person:
+                        name: George Clooney
+                        obfuscatedId: abc123
+                      role: ANSWER_MODERATOR
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {
+                  "shortcut": {
+                    "inputAlias": "\u003cvalue\u003e",
+                    "addedRoles": [
+                      {
+                        "person": {
+                          "name": "George Clooney",
+                          "obfuscatedId": "abc123"
+                        },
+                        "role": "ANSWER_MODERATOR"
+                      }
+                    ],
+                    "removedRoles": [
+                      {
+                        "person": {
+                          "name": "George Clooney",
+                          "obfuscatedId": "abc123"
+                        },
+                        "role": "ANSWER_MODERATOR"
+                      }
+                    ],
+                    "createdBy": {
+                      "name": "George Clooney",
+                      "obfuscatedId": "abc123"
+                    },
+                    "updatedBy": {
+                      "name": "George Clooney",
+                      "obfuscatedId": "abc123"
+                    },
+                    "destinationDocument": {
+                      "containerDocument": {
+                        "metadata": {
+                          "datasource": "datasource",
+                          "objectType": "Feature Request",
+                          "container": "container",
+                          "parentId": "JIRA_EN-1337",
+                          "mimeType": "mimeType",
+                          "documentId": "documentId",
+                          "createTime": "2000-01-23T04:56:07.000Z",
+                          "updateTime": "2000-01-23T04:56:07.000Z",
+                          "author": {
+                            "name": "name",
+                            "obfuscatedId": "\u003cid\u003e"
+                          },
+                          "components": [
+                            "Backend",
+                            "Networking"
+                          ],
+                          "status": "[\"Done\"]",
+                          "customData": {
+                            "someCustomField": {}
+                          }
+                        }
+                      },
+                      "parentDocument": {
+                        "metadata": {
+                          "datasource": "datasource",
+                          "objectType": "Feature Request",
+                          "container": "container",
+                          "parentId": "JIRA_EN-1337",
+                          "mimeType": "mimeType",
+                          "documentId": "documentId",
+                          "createTime": "2000-01-23T04:56:07.000Z",
+                          "updateTime": "2000-01-23T04:56:07.000Z",
+                          "author": {
+                            "name": "name",
+                            "obfuscatedId": "\u003cid\u003e"
+                          },
+                          "components": [
+                            "Backend",
+                            "Networking"
+                          ],
+                          "status": "[\"Done\"]",
+                          "customData": {
+                            "someCustomField": {}
+                          }
+                        }
+                      },
+                      "metadata": {
+                        "datasource": "datasource",
+                        "objectType": "Feature Request",
+                        "container": "container",
+                        "parentId": "JIRA_EN-1337",
+                        "mimeType": "mimeType",
+                        "documentId": "documentId",
+                        "createTime": "2000-01-23T04:56:07.000Z",
+                        "updateTime": "2000-01-23T04:56:07.000Z",
+                        "author": {
+                          "name": "name",
+                          "obfuscatedId": "\u003cid\u003e"
+                        },
+                        "components": [
+                          "Backend",
+                          "Networking"
+                        ],
+                        "status": "[\"Done\"]",
+                        "customData": {
+                          "someCustomField": {}
+                        }
+                      }
+                    },
+                    "roles": [
+                      {
+                        "person": {
+                          "name": "George Clooney",
+                          "obfuscatedId": "abc123"
+                        },
+                        "role": "ANSWER_MODERATOR"
+                      }
+                    ]
+                  }
+                }
+              type: simple
+      x-speakeasy-test-group: client_shortcuts
