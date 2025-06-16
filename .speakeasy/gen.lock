@@ -1,12 +1,14 @@
 lockVersion: 2.0.0
 id: 3e3290ca-0ee8-4981-b1bc-14536048fa63
 management:
-  docChecksum: adc860b8099788fe237e893e2a1ce2a4
+  docChecksum: 6cb4c4786bf30fecfc20b38750d745eb
   docVersion: 0.9.0
-  speakeasyVersion: 1.561.0
-  generationVersion: 2.628.0
-  releaseVersion: 0.6.5
-  configChecksum: 6378ddf91bd99402a13555fcfc9817af
+  speakeasyVersion: 1.563.1
+  generationVersion: 2.629.1
+  releaseVersion: 0.6.6
+  configChecksum: deb305dde9c116c694b15d39c5ae7854
+  repoURL: https://github.com/gleanwork/api-client-python.git
+  installationURL: https://github.com/gleanwork/api-client-python.git
   published: true
 features:
   python:
@@ -637,6 +639,7 @@ generatedFiles:
   - poetry.toml
   - py.typed
   - pylintrc
+  - scripts/prepare_readme.py
   - scripts/publish.sh
   - src/glean/api_client/__init__.py
   - src/glean/api_client/_hooks/__init__.py
