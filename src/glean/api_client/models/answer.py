@@ -41,7 +41,7 @@ class AnswerTypedDict(TypedDict):
     body_text: NotRequired[str]
     r"""The plain text answer to the question."""
     board_id: NotRequired[int]
-    r"""The parent board ID of this Answer, or 0 if it's a floating Answer."""
+    r"""The parent board ID of this Answer, or 0 if it's a floating Answer. Adding Answers to Answer Boards is no longer permitted."""
     audience_filters: NotRequired[List[FacetFilterTypedDict]]
     r"""Filters which restrict who should see the answer. Values are taken from the corresponding filters in people search."""
     added_roles: NotRequired[List["UserRoleSpecificationTypedDict"]]
@@ -87,8 +87,14 @@ class Answer(BaseModel):
     body_text: Annotated[Optional[str], pydantic.Field(alias="bodyText")] = None
     r"""The plain text answer to the question."""
 
-    board_id: Annotated[Optional[int], pydantic.Field(alias="boardId")] = None
-    r"""The parent board ID of this Answer, or 0 if it's a floating Answer."""
+    board_id: Annotated[
+        Optional[int],
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible.",
+            alias="boardId",
+        ),
+    ] = None
+    r"""The parent board ID of this Answer, or 0 if it's a floating Answer. Adding Answers to Answer Boards is no longer permitted."""
 
     audience_filters: Annotated[
         Optional[List[FacetFilter]], pydantic.Field(alias="audienceFilters")

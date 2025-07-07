@@ -14,12 +14,14 @@ const (
 	RelationAttachment           Relation = "ATTACHMENT"
 	RelationCanonical            Relation = "CANONICAL"
 	RelationCase                 Relation = "CASE"
-	RelationContact              Relation = "CONTACT"
+	RelationContactLower         Relation = "contact"
+	RelationContactUpper         Relation = "CONTACT"
 	RelationConversationMessages Relation = "CONVERSATION_MESSAGES"
 	RelationExpert               Relation = "EXPERT"
 	RelationFrom                 Relation = "FROM"
 	RelationHighlight            Relation = "HIGHLIGHT"
-	RelationOpportunity          Relation = "OPPORTUNITY"
+	RelationOpportunityLower     Relation = "opportunity"
+	RelationOpportunityUpper     Relation = "OPPORTUNITY"
 	RelationRecent               Relation = "RECENT"
 	RelationSource               Relation = "SOURCE"
 	RelationTicket               Relation = "TICKET"
@@ -42,6 +44,8 @@ func (e *Relation) UnmarshalJSON(data []byte) error {
 		fallthrough
 	case "CASE":
 		fallthrough
+	case "contact":
+		fallthrough
 	case "CONTACT":
 		fallthrough
 	case "CONVERSATION_MESSAGES":
@@ -51,6 +55,8 @@ func (e *Relation) UnmarshalJSON(data []byte) error {
 	case "FROM":
 		fallthrough
 	case "HIGHLIGHT":
+		fallthrough
+	case "opportunity":
 		fallthrough
 	case "OPPORTUNITY":
 		fallthrough

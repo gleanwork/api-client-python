@@ -13,6 +13,7 @@ class RelationType(str, Enum):
     ID_EQUALS = "ID_EQUALS"
     LT = "LT"
     GT = "GT"
+    NOT_EQUALS = "NOT_EQUALS"
 
 
 class FacetFilterValueTypedDict(TypedDict):

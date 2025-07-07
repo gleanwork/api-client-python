@@ -12,6 +12,8 @@ type TimeRange struct {
 	StartTime *time.Time `json:"startTime,omitempty"`
 	// end time of the time range, applicable for the CUSTOM type.
 	EndTime *time.Time `json:"endTime,omitempty"`
+	// The number of days to look back from the current time, applicable for the LAST_N_DAYS type.
+	LastNDaysValue *int64 `json:"lastNDaysValue,omitempty"`
 }
 
 func (t TimeRange) MarshalJSON() ([]byte, error) {
@@ -37,4 +39,11 @@ func (o *TimeRange) GetEndTime() *time.Time {
 		return nil
 	}
 	return o.EndTime
+}
+
+func (o *TimeRange) GetLastNDaysValue() *int64 {
+	if o == nil {
+		return nil
+	}
+	return o.LastNDaysValue
 }

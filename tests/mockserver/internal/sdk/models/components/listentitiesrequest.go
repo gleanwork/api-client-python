@@ -84,6 +84,33 @@ func (e *ListEntitiesRequestIncludeField) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// RequestType - The type of request being made.
+type RequestType string
+
+const (
+	RequestTypeStandard      RequestType = "STANDARD"
+	RequestTypeFullDirectory RequestType = "FULL_DIRECTORY"
+)
+
+func (e RequestType) ToPointer() *RequestType {
+	return &e
+}
+func (e *RequestType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "STANDARD":
+		fallthrough
+	case "FULL_DIRECTORY":
+		*e = RequestType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for RequestType: %v", v)
+	}
+}
+
 type ListEntitiesRequest struct {
 	Filter []FacetFilter `json:"filter,omitempty"`
 	// Use EntitiesSortOrder enum for SortOptions.sortBy
@@ -101,6 +128,8 @@ type ListEntitiesRequest struct {
 	Cursor *string `json:"cursor,omitempty"`
 	// A string denoting the search surface from which the endpoint is called.
 	Source *string `json:"source,omitempty"`
+	// The type of request being made.
+	RequestType *RequestType `default:"STANDARD" json:"requestType"`
 }
 
 func (l ListEntitiesRequest) MarshalJSON() ([]byte, error) {
@@ -175,4 +204,11 @@ func (o *ListEntitiesRequest) GetSource() *string {
 		return nil
 	}
 	return o.Source
+}
+
+func (o *ListEntitiesRequest) GetRequestType() *RequestType {
+	if o == nil {
+		return nil
+	}
+	return o.RequestType
 }

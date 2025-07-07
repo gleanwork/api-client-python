@@ -28,6 +28,13 @@ class ListEntitiesRequestIncludeField(str, Enum):
     UNPROCESSED_TEAMS = "UNPROCESSED_TEAMS"
 
 
+class RequestType(str, Enum):
+    r"""The type of request being made."""
+
+    STANDARD = "STANDARD"
+    FULL_DIRECTORY = "FULL_DIRECTORY"
+
+
 class ListEntitiesRequestTypedDict(TypedDict):
     filter_: NotRequired[List[FacetFilterTypedDict]]
     sort: NotRequired[List[SortOptionsTypedDict]]
@@ -45,6 +52,8 @@ class ListEntitiesRequestTypedDict(TypedDict):
     r"""Pagination cursor. A previously received opaque token representing the position in the overall results at which to start."""
     source: NotRequired[str]
     r"""A string denoting the search surface from which the endpoint is called."""
+    request_type: NotRequired[RequestType]
+    r"""The type of request being made."""
 
 
 class ListEntitiesRequest(BaseModel):
@@ -79,3 +88,8 @@ class ListEntitiesRequest(BaseModel):
 
     source: Optional[str] = None
     r"""A string denoting the search surface from which the endpoint is called."""
+
+    request_type: Annotated[
+        Optional[RequestType], pydantic.Field(alias="requestType")
+    ] = RequestType.STANDARD
+    r"""The type of request being made."""
