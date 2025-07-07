@@ -85,28 +85,17 @@ class IndexingDatasource(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json; charset=UTF-8"):
-            return utils.unmarshal_json(
-                http_res.text, models.DebugDatasourceStatusResponse
+            return utils.unmarshal_json_response(
+                models.DebugDatasourceStatusResponse, http_res
             )
         if utils.match_response(http_res, ["400", "401", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.GleanError("Unexpected response received", http_res)
 
     async def status_async(
         self,
@@ -184,25 +173,14 @@ class IndexingDatasource(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json; charset=UTF-8"):
-            return utils.unmarshal_json(
-                http_res.text, models.DebugDatasourceStatusResponse
+            return utils.unmarshal_json_response(
+                models.DebugDatasourceStatusResponse, http_res
             )
         if utils.match_response(http_res, ["400", "401", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.GleanError("Unexpected response received", http_res)

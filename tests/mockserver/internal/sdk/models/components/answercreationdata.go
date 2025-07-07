@@ -39,7 +39,9 @@ type AnswerCreationData struct {
 	QuestionVariations []string `json:"questionVariations,omitempty"`
 	// The plain text answer to the question.
 	BodyText *string `json:"bodyText,omitempty"`
-	// The parent board ID of this Answer, or 0 if it's a floating Answer.
+	// The parent board ID of this Answer, or 0 if it's a floating Answer. Adding Answers to Answer Boards is no longer permitted.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	BoardID *int64 `json:"boardId,omitempty"`
 	// Filters which restrict who should see the answer. Values are taken from the corresponding filters in people search.
 	AudienceFilters []FacetFilter `json:"audienceFilters,omitempty"`

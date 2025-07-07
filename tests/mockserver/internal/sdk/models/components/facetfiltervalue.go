@@ -10,10 +10,11 @@ import (
 type RelationType string
 
 const (
-	RelationTypeEquals   RelationType = "EQUALS"
-	RelationTypeIDEquals RelationType = "ID_EQUALS"
-	RelationTypeLt       RelationType = "LT"
-	RelationTypeGt       RelationType = "GT"
+	RelationTypeEquals    RelationType = "EQUALS"
+	RelationTypeIDEquals  RelationType = "ID_EQUALS"
+	RelationTypeLt        RelationType = "LT"
+	RelationTypeGt        RelationType = "GT"
+	RelationTypeNotEquals RelationType = "NOT_EQUALS"
 )
 
 func (e RelationType) ToPointer() *RelationType {
@@ -32,6 +33,8 @@ func (e *RelationType) UnmarshalJSON(data []byte) error {
 	case "LT":
 		fallthrough
 	case "GT":
+		fallthrough
+	case "NOT_EQUALS":
 		*e = RelationType(v)
 		return nil
 	default:

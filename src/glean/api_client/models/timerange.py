@@ -13,6 +13,8 @@ class TimeRangeTypedDict(TypedDict):
     r"""start time of the time range, applicable for the CUSTOM type."""
     end_time: NotRequired[datetime]
     r"""end time of the time range, applicable for the CUSTOM type."""
+    last_n_days_value: NotRequired[int]
+    r"""The number of days to look back from the current time, applicable for the LAST_N_DAYS type."""
 
 
 class TimeRange(BaseModel):
@@ -21,3 +23,8 @@ class TimeRange(BaseModel):
 
     end_time: Annotated[Optional[datetime], pydantic.Field(alias="endTime")] = None
     r"""end time of the time range, applicable for the CUSTOM type."""
+
+    last_n_days_value: Annotated[
+        Optional[int], pydantic.Field(alias="lastNDaysValue")
+    ] = None
+    r"""The number of days to look back from the current time, applicable for the LAST_N_DAYS type."""

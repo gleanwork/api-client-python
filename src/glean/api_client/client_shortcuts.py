@@ -87,26 +87,17 @@ class ClientShortcuts(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(http_res.text, models.CreateShortcutResponse)
+            return utils.unmarshal_json_response(
+                models.CreateShortcutResponse, http_res
+            )
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.GleanError("Unexpected response received", http_res)
 
     async def create_async(
         self,
@@ -186,26 +177,17 @@ class ClientShortcuts(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(http_res.text, models.CreateShortcutResponse)
+            return utils.unmarshal_json_response(
+                models.CreateShortcutResponse, http_res
+            )
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.GleanError("Unexpected response received", http_res)
 
     def delete(
         self,
@@ -286,23 +268,12 @@ class ClientShortcuts(BaseSDK):
             return
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.GleanError("Unexpected response received", http_res)
 
     async def delete_async(
         self,
@@ -383,23 +354,12 @@ class ClientShortcuts(BaseSDK):
             return
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.GleanError("Unexpected response received", http_res)
 
     def retrieve(
         self,
@@ -479,26 +439,15 @@ class ClientShortcuts(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(http_res.text, models.GetShortcutResponse)
+            return utils.unmarshal_json_response(models.GetShortcutResponse, http_res)
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.GleanError("Unexpected response received", http_res)
 
     async def retrieve_async(
         self,
@@ -578,26 +527,15 @@ class ClientShortcuts(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(http_res.text, models.GetShortcutResponse)
+            return utils.unmarshal_json_response(models.GetShortcutResponse, http_res)
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.GleanError("Unexpected response received", http_res)
 
     def list(
         self,
@@ -696,28 +634,17 @@ class ClientShortcuts(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(
-                http_res.text, models.ListShortcutsPaginatedResponse
+            return utils.unmarshal_json_response(
+                models.ListShortcutsPaginatedResponse, http_res
             )
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.GleanError("Unexpected response received", http_res)
 
     async def list_async(
         self,
@@ -816,28 +743,17 @@ class ClientShortcuts(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(
-                http_res.text, models.ListShortcutsPaginatedResponse
+            return utils.unmarshal_json_response(
+                models.ListShortcutsPaginatedResponse, http_res
             )
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.GleanError("Unexpected response received", http_res)
 
     def update(
         self,
@@ -953,26 +869,17 @@ class ClientShortcuts(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(http_res.text, models.UpdateShortcutResponse)
+            return utils.unmarshal_json_response(
+                models.UpdateShortcutResponse, http_res
+            )
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.GleanError("Unexpected response received", http_res)
 
     async def update_async(
         self,
@@ -1088,23 +995,14 @@ class ClientShortcuts(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(http_res.text, models.UpdateShortcutResponse)
+            return utils.unmarshal_json_response(
+                models.UpdateShortcutResponse, http_res
+            )
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.GleanError("Unexpected response received", http_res)

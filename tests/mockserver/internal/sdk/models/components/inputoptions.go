@@ -38,10 +38,11 @@ func (e *DatasourcesType) UnmarshalJSON(data []byte) error {
 type TimePeriodType string
 
 const (
-	TimePeriodTypeAllTime  TimePeriodType = "ALL_TIME"
-	TimePeriodTypePastYear TimePeriodType = "PAST_YEAR"
-	TimePeriodTypePastDay  TimePeriodType = "PAST_DAY"
-	TimePeriodTypeCustom   TimePeriodType = "CUSTOM"
+	TimePeriodTypeAllTime   TimePeriodType = "ALL_TIME"
+	TimePeriodTypePastYear  TimePeriodType = "PAST_YEAR"
+	TimePeriodTypePastDay   TimePeriodType = "PAST_DAY"
+	TimePeriodTypeCustom    TimePeriodType = "CUSTOM"
+	TimePeriodTypeLastNDays TimePeriodType = "LAST_N_DAYS"
 )
 
 func (e TimePeriodType) ToPointer() *TimePeriodType {
@@ -60,6 +61,8 @@ func (e *TimePeriodType) UnmarshalJSON(data []byte) error {
 	case "PAST_DAY":
 		fallthrough
 	case "CUSTOM":
+		fallthrough
+	case "LAST_N_DAYS":
 		*e = TimePeriodType(v)
 		return nil
 	default:

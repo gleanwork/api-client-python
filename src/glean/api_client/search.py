@@ -147,31 +147,20 @@ class Search(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(http_res.text, models.SearchResponse)
+            return utils.unmarshal_json_response(models.SearchResponse, http_res)
         if utils.match_response(http_res, ["403", "422"], "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GleanDataErrorData
+            response_data = utils.unmarshal_json_response(
+                errors.GleanDataErrorData, http_res
             )
-            raise errors.GleanDataError(data=response_data)
+            raise errors.GleanDataError(response_data, http_res)
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.GleanError("Unexpected response received", http_res)
 
     async def query_as_admin_async(
         self,
@@ -310,31 +299,20 @@ class Search(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(http_res.text, models.SearchResponse)
+            return utils.unmarshal_json_response(models.SearchResponse, http_res)
         if utils.match_response(http_res, ["403", "422"], "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GleanDataErrorData
+            response_data = utils.unmarshal_json_response(
+                errors.GleanDataErrorData, http_res
             )
-            raise errors.GleanDataError(data=response_data)
+            raise errors.GleanDataError(response_data, http_res)
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.GleanError("Unexpected response received", http_res)
 
     def autocomplete(
         self,
@@ -441,26 +419,15 @@ class Search(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(http_res.text, models.AutocompleteResponse)
+            return utils.unmarshal_json_response(models.AutocompleteResponse, http_res)
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.GleanError("Unexpected response received", http_res)
 
     async def autocomplete_async(
         self,
@@ -567,26 +534,15 @@ class Search(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(http_res.text, models.AutocompleteResponse)
+            return utils.unmarshal_json_response(models.AutocompleteResponse, http_res)
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.GleanError("Unexpected response received", http_res)
 
     def retrieve_feed(
         self,
@@ -681,26 +637,15 @@ class Search(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(http_res.text, models.FeedResponse)
+            return utils.unmarshal_json_response(models.FeedResponse, http_res)
         if utils.match_response(http_res, ["400", "401", "408", "429", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.GleanError("Unexpected response received", http_res)
 
     async def retrieve_feed_async(
         self,
@@ -795,26 +740,15 @@ class Search(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(http_res.text, models.FeedResponse)
+            return utils.unmarshal_json_response(models.FeedResponse, http_res)
         if utils.match_response(http_res, ["400", "401", "408", "429", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.GleanError("Unexpected response received", http_res)
 
     def recommendations(
         self,
@@ -932,28 +866,17 @@ class Search(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(http_res.text, models.ResultsResponse)
+            return utils.unmarshal_json_response(models.ResultsResponse, http_res)
         if utils.match_response(http_res, ["202", "204"], "*"):
             return None
         if utils.match_response(http_res, ["400", "401", "403", "429", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.GleanError("Unexpected response received", http_res)
 
     async def recommendations_async(
         self,
@@ -1071,28 +994,17 @@ class Search(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(http_res.text, models.ResultsResponse)
+            return utils.unmarshal_json_response(models.ResultsResponse, http_res)
         if utils.match_response(http_res, ["202", "204"], "*"):
             return None
         if utils.match_response(http_res, ["400", "401", "403", "429", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.GleanError("Unexpected response received", http_res)
 
     def query(
         self,
@@ -1231,31 +1143,20 @@ class Search(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(http_res.text, models.SearchResponse)
+            return utils.unmarshal_json_response(models.SearchResponse, http_res)
         if utils.match_response(http_res, ["403", "422"], "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GleanDataErrorData
+            response_data = utils.unmarshal_json_response(
+                errors.GleanDataErrorData, http_res
             )
-            raise errors.GleanDataError(data=response_data)
+            raise errors.GleanDataError(response_data, http_res)
         if utils.match_response(http_res, ["400", "401", "408", "429", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.GleanError("Unexpected response received", http_res)
 
     async def query_async(
         self,
@@ -1394,28 +1295,17 @@ class Search(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(http_res.text, models.SearchResponse)
+            return utils.unmarshal_json_response(models.SearchResponse, http_res)
         if utils.match_response(http_res, ["403", "422"], "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GleanDataErrorData
+            response_data = utils.unmarshal_json_response(
+                errors.GleanDataErrorData, http_res
             )
-            raise errors.GleanDataError(data=response_data)
+            raise errors.GleanDataError(response_data, http_res)
         if utils.match_response(http_res, ["400", "401", "408", "429", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.GleanError("Unexpected response received", http_res)

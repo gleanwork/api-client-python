@@ -96,28 +96,17 @@ class Collections(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(
-                http_res.text, models.AddCollectionItemsResponse
+            return utils.unmarshal_json_response(
+                models.AddCollectionItemsResponse, http_res
             )
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.GleanError("Unexpected response received", http_res)
 
     async def add_items_async(
         self,
@@ -206,28 +195,17 @@ class Collections(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(
-                http_res.text, models.AddCollectionItemsResponse
+            return utils.unmarshal_json_response(
+                models.AddCollectionItemsResponse, http_res
             )
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.GleanError("Unexpected response received", http_res)
 
     def create(
         self,
@@ -354,31 +332,22 @@ class Collections(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(http_res.text, models.CreateCollectionResponse)
-        if utils.match_response(http_res, "422", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.CollectionErrorData
+            return utils.unmarshal_json_response(
+                models.CreateCollectionResponse, http_res
             )
-            raise errors.CollectionError(data=response_data)
+        if utils.match_response(http_res, "422", "application/json"):
+            response_data = utils.unmarshal_json_response(
+                errors.CollectionErrorData, http_res
+            )
+            raise errors.CollectionError(response_data, http_res)
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.GleanError("Unexpected response received", http_res)
 
     async def create_async(
         self,
@@ -505,31 +474,22 @@ class Collections(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(http_res.text, models.CreateCollectionResponse)
-        if utils.match_response(http_res, "422", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.CollectionErrorData
+            return utils.unmarshal_json_response(
+                models.CreateCollectionResponse, http_res
             )
-            raise errors.CollectionError(data=response_data)
+        if utils.match_response(http_res, "422", "application/json"):
+            response_data = utils.unmarshal_json_response(
+                errors.CollectionErrorData, http_res
+            )
+            raise errors.CollectionError(response_data, http_res)
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.GleanError("Unexpected response received", http_res)
 
     def delete(
         self,
@@ -613,29 +573,18 @@ class Collections(BaseSDK):
         if utils.match_response(http_res, "200", "*"):
             return
         if utils.match_response(http_res, "422", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.CollectionErrorData
+            response_data = utils.unmarshal_json_response(
+                errors.CollectionErrorData, http_res
             )
-            raise errors.CollectionError(data=response_data)
+            raise errors.CollectionError(response_data, http_res)
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.GleanError("Unexpected response received", http_res)
 
     async def delete_async(
         self,
@@ -719,29 +668,18 @@ class Collections(BaseSDK):
         if utils.match_response(http_res, "200", "*"):
             return
         if utils.match_response(http_res, "422", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.CollectionErrorData
+            response_data = utils.unmarshal_json_response(
+                errors.CollectionErrorData, http_res
             )
-            raise errors.CollectionError(data=response_data)
+            raise errors.CollectionError(response_data, http_res)
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.GleanError("Unexpected response received", http_res)
 
     def delete_item(
         self,
@@ -825,28 +763,17 @@ class Collections(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(
-                http_res.text, models.DeleteCollectionItemResponse
+            return utils.unmarshal_json_response(
+                models.DeleteCollectionItemResponse, http_res
             )
         if utils.match_response(http_res, ["400", "401", "422", "429", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.GleanError("Unexpected response received", http_res)
 
     async def delete_item_async(
         self,
@@ -930,28 +857,17 @@ class Collections(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(
-                http_res.text, models.DeleteCollectionItemResponse
+            return utils.unmarshal_json_response(
+                models.DeleteCollectionItemResponse, http_res
             )
         if utils.match_response(http_res, ["400", "401", "422", "429", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.GleanError("Unexpected response received", http_res)
 
     def update(
         self,
@@ -1078,31 +994,22 @@ class Collections(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(http_res.text, models.EditCollectionResponse)
-        if utils.match_response(http_res, "422", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.CollectionErrorData
+            return utils.unmarshal_json_response(
+                models.EditCollectionResponse, http_res
             )
-            raise errors.CollectionError(data=response_data)
+        if utils.match_response(http_res, "422", "application/json"):
+            response_data = utils.unmarshal_json_response(
+                errors.CollectionErrorData, http_res
+            )
+            raise errors.CollectionError(response_data, http_res)
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.GleanError("Unexpected response received", http_res)
 
     async def update_async(
         self,
@@ -1229,31 +1136,22 @@ class Collections(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(http_res.text, models.EditCollectionResponse)
-        if utils.match_response(http_res, "422", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.CollectionErrorData
+            return utils.unmarshal_json_response(
+                models.EditCollectionResponse, http_res
             )
-            raise errors.CollectionError(data=response_data)
+        if utils.match_response(http_res, "422", "application/json"):
+            response_data = utils.unmarshal_json_response(
+                errors.CollectionErrorData, http_res
+            )
+            raise errors.CollectionError(response_data, http_res)
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.GleanError("Unexpected response received", http_res)
 
     def update_item(
         self,
@@ -1343,28 +1241,17 @@ class Collections(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(
-                http_res.text, models.EditCollectionItemResponse
+            return utils.unmarshal_json_response(
+                models.EditCollectionItemResponse, http_res
             )
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.GleanError("Unexpected response received", http_res)
 
     async def update_item_async(
         self,
@@ -1454,28 +1341,17 @@ class Collections(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(
-                http_res.text, models.EditCollectionItemResponse
+            return utils.unmarshal_json_response(
+                models.EditCollectionItemResponse, http_res
             )
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.GleanError("Unexpected response received", http_res)
 
     def retrieve(
         self,
@@ -1562,26 +1438,15 @@ class Collections(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(http_res.text, models.GetCollectionResponse)
+            return utils.unmarshal_json_response(models.GetCollectionResponse, http_res)
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.GleanError("Unexpected response received", http_res)
 
     async def retrieve_async(
         self,
@@ -1668,26 +1533,15 @@ class Collections(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(http_res.text, models.GetCollectionResponse)
+            return utils.unmarshal_json_response(models.GetCollectionResponse, http_res)
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.GleanError("Unexpected response received", http_res)
 
     def list(
         self,
@@ -1771,26 +1625,17 @@ class Collections(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(http_res.text, models.ListCollectionsResponse)
+            return utils.unmarshal_json_response(
+                models.ListCollectionsResponse, http_res
+            )
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.GleanError("Unexpected response received", http_res)
 
     async def list_async(
         self,
@@ -1874,23 +1719,14 @@ class Collections(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(http_res.text, models.ListCollectionsResponse)
+            return utils.unmarshal_json_response(
+                models.ListCollectionsResponse, http_res
+            )
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.GleanError("Unexpected response received", http_res)

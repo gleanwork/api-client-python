@@ -5,23 +5,32 @@ from importlib import import_module
 
 if TYPE_CHECKING:
     from .collectionerror import CollectionError, CollectionErrorData
+    from .gleanbaseerror import GleanBaseError
     from .gleandataerror import GleanDataError, GleanDataErrorData
     from .gleanerror import GleanError
+    from .no_response_error import NoResponseError
+    from .responsevalidationerror import ResponseValidationError
 
 __all__ = [
     "CollectionError",
     "CollectionErrorData",
+    "GleanBaseError",
     "GleanDataError",
     "GleanDataErrorData",
     "GleanError",
+    "NoResponseError",
+    "ResponseValidationError",
 ]
 
 _dynamic_imports: dict[str, str] = {
     "CollectionError": ".collectionerror",
     "CollectionErrorData": ".collectionerror",
+    "GleanBaseError": ".gleanbaseerror",
     "GleanDataError": ".gleandataerror",
     "GleanDataErrorData": ".gleandataerror",
     "GleanError": ".gleanerror",
+    "NoResponseError": ".no_response_error",
+    "ResponseValidationError": ".responsevalidationerror",
 }
 
 

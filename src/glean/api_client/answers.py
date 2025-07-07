@@ -85,26 +85,15 @@ class Answers(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(http_res.text, models.Answer)
+            return utils.unmarshal_json_response(models.Answer, http_res)
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.GleanError("Unexpected response received", http_res)
 
     async def create_async(
         self,
@@ -182,26 +171,15 @@ class Answers(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(http_res.text, models.Answer)
+            return utils.unmarshal_json_response(models.Answer, http_res)
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.GleanError("Unexpected response received", http_res)
 
     def delete(
         self,
@@ -285,23 +263,12 @@ class Answers(BaseSDK):
             return
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.GleanError("Unexpected response received", http_res)
 
     async def delete_async(
         self,
@@ -385,23 +352,12 @@ class Answers(BaseSDK):
             return
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.GleanError("Unexpected response received", http_res)
 
     def update(
         self,
@@ -459,7 +415,7 @@ class Answers(BaseSDK):
         :param question:
         :param question_variations: Additional ways of phrasing this question.
         :param body_text: The plain text answer to the question.
-        :param board_id: The parent board ID of this Answer, or 0 if it's a floating Answer.
+        :param board_id: The parent board ID of this Answer, or 0 if it's a floating Answer. Adding Answers to Answer Boards is no longer permitted.
         :param audience_filters: Filters which restrict who should see the answer. Values are taken from the corresponding filters in people search.
         :param added_roles: A list of user roles for the answer added by the owner.
         :param removed_roles: A list of user roles for the answer removed by the owner.
@@ -557,26 +513,15 @@ class Answers(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(http_res.text, models.Answer)
+            return utils.unmarshal_json_response(models.Answer, http_res)
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.GleanError("Unexpected response received", http_res)
 
     async def update_async(
         self,
@@ -634,7 +579,7 @@ class Answers(BaseSDK):
         :param question:
         :param question_variations: Additional ways of phrasing this question.
         :param body_text: The plain text answer to the question.
-        :param board_id: The parent board ID of this Answer, or 0 if it's a floating Answer.
+        :param board_id: The parent board ID of this Answer, or 0 if it's a floating Answer. Adding Answers to Answer Boards is no longer permitted.
         :param audience_filters: Filters which restrict who should see the answer. Values are taken from the corresponding filters in people search.
         :param added_roles: A list of user roles for the answer added by the owner.
         :param removed_roles: A list of user roles for the answer removed by the owner.
@@ -732,26 +677,15 @@ class Answers(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(http_res.text, models.Answer)
+            return utils.unmarshal_json_response(models.Answer, http_res)
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.GleanError("Unexpected response received", http_res)
 
     def retrieve(
         self,
@@ -832,26 +766,15 @@ class Answers(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(http_res.text, models.GetAnswerResponse)
+            return utils.unmarshal_json_response(models.GetAnswerResponse, http_res)
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.GleanError("Unexpected response received", http_res)
 
     async def retrieve_async(
         self,
@@ -932,26 +855,15 @@ class Answers(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(http_res.text, models.GetAnswerResponse)
+            return utils.unmarshal_json_response(models.GetAnswerResponse, http_res)
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.GleanError("Unexpected response received", http_res)
 
     def list(
         self,
@@ -1029,26 +941,15 @@ class Answers(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(http_res.text, models.ListAnswersResponse)
+            return utils.unmarshal_json_response(models.ListAnswersResponse, http_res)
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.GleanError("Unexpected response received", http_res)
 
     async def list_async(
         self,
@@ -1126,23 +1027,12 @@ class Answers(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json(http_res.text, models.ListAnswersResponse)
+            return utils.unmarshal_json_response(models.ListAnswersResponse, http_res)
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.GleanError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.GleanError("Unexpected response received", http_res)

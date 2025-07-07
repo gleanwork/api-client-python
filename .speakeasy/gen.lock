@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 3e3290ca-0ee8-4981-b1bc-14536048fa63
 management:
-  docChecksum: 6cb4c4786bf30fecfc20b38750d745eb
+  docChecksum: bb65a174a6b697994f7bde3845843d9d
   docVersion: 0.9.0
-  speakeasyVersion: 1.563.1
-  generationVersion: 2.629.1
-  releaseVersion: 0.6.6
-  configChecksum: deb305dde9c116c694b15d39c5ae7854
+  speakeasyVersion: 1.576.1
+  generationVersion: 2.651.2
+  releaseVersion: 0.7.0
+  configChecksum: 1fdd57721d8451c79856369d08e3d61d
   repoURL: https://github.com/gleanwork/api-client-python.git
   installationURL: https://github.com/gleanwork/api-client-python.git
   published: true
@@ -16,7 +16,7 @@ features:
     additionalProperties: 1.0.1
     configurableModuleName: 0.2.0
     constsAndDefaults: 1.0.5
-    core: 5.19.3
+    core: 5.19.4
     defaultEnabledRetries: 0.2.0
     deprecations: 3.0.2
     devContainers: 3.0.0
@@ -31,13 +31,13 @@ features:
     globalServerURLs: 3.1.1
     groups: 3.0.0
     methodArguments: 1.0.2
-    mockServer: 0.1.0
+    mockServer: 0.1.1
     multipartFileContentType: 1.0.0
     nameOverrides: 3.0.1
     responseFormat: 1.0.1
     retries: 3.0.2
     sdkHooks: 1.1.0
-    tests: 1.17.0
+    tests: 1.19.1
     unions: 3.0.4
     uploadStreams: 1.0.0
 generatedFiles:
@@ -481,6 +481,7 @@ generatedFiles:
   - docs/models/reminderrequest.md
   - docs/models/reportstatusresponse.md
   - docs/models/reportstatusresponsestatus.md
+  - docs/models/requesttype.md
   - docs/models/responsehint.md
   - docs/models/responsestatus.md
   - docs/models/restrictionfilters.md
@@ -663,8 +664,11 @@ generatedFiles:
   - src/glean/api_client/entities.py
   - src/glean/api_client/errors/__init__.py
   - src/glean/api_client/errors/collectionerror.py
+  - src/glean/api_client/errors/gleanbaseerror.py
   - src/glean/api_client/errors/gleandataerror.py
   - src/glean/api_client/errors/gleanerror.py
+  - src/glean/api_client/errors/no_response_error.py
+  - src/glean/api_client/errors/responsevalidationerror.py
   - src/glean/api_client/governance.py
   - src/glean/api_client/governance_documents.py
   - src/glean/api_client/httpclient.py
@@ -2012,17 +2016,17 @@ examples:
   createAndStreamRun:
     speakeasy-default-create-and-stream-run:
       requestBody:
-        application/json: {"agent_id": "<id>"}
+        application/json: {"agent_id": "<id>", "messages": [{"role": "USER"}]}
       responses:
         "200":
           text/event-stream: "<value>"
   createAndWaitRun:
     speakeasy-default-create-and-wait-run:
       requestBody:
-        application/json: {"agent_id": "<id>"}
+        application/json: {"agent_id": "<id>", "messages": [{"role": "USER"}]}
       responses:
         "200":
-          application/json: {}
+          application/json: {"run": {"agent_id": "<id>", "messages": [{"role": "USER"}]}, "messages": [{"role": "USER"}]}
   addcollectionitems:
     speakeasy-default-addcollectionitems:
       requestBody:
@@ -2197,7 +2201,7 @@ examples:
   listentities:
     speakeasy-default-listentities:
       requestBody:
-        application/json: {"filter": [{"fieldName": "type", "values": [{"value": "Spreadsheet", "relationType": "EQUALS"}, {"value": "Presentation", "relationType": "EQUALS"}]}], "entityType": "PEOPLE", "pageSize": 100}
+        application/json: {"filter": [{"fieldName": "type", "values": [{"value": "Spreadsheet", "relationType": "EQUALS"}, {"value": "Presentation", "relationType": "EQUALS"}]}], "entityType": "PEOPLE", "pageSize": 100, "requestType": "STANDARD"}
       responses:
         "200":
           application/json: {"results": [{"name": "George Clooney", "obfuscatedId": "abc123"}], "teamResults": [{"id": "<id>", "name": "<value>", "members": [{"person": {"name": "George Clooney", "obfuscatedId": "abc123"}, "relationship": "MEMBER"}], "customFields": [{"label": "<value>", "values": [], "displayable": true}], "datasourceProfiles": [{"datasource": "github", "handle": "<value>"}], "status": "PROCESSED", "canBeDeleted": true}], "customEntityResults": [{"roles": [{"person": {"name": "George Clooney", "obfuscatedId": "abc123"}, "role": "OWNER"}]}], "facetResults": [{"sourceName": "container_name", "operatorName": "SelectMultiple", "buckets": [{"count": 1, "datasource": "jira", "percentage": 5, "value": {"stringValue": "engineering", "integerValue": 5, "displayLabel": "engineering", "iconConfig": {"color": "#343CED", "key": "person_icon", "iconType": "GLYPH", "name": "user"}}}], "hasMoreBuckets": false, "groupName": "Service Cloud"}]}

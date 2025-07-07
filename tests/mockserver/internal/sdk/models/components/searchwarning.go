@@ -11,12 +11,13 @@ import (
 type WarningType string
 
 const (
-	WarningTypeLongQuery              WarningType = "LONG_QUERY"
-	WarningTypeQuotedPunctuation      WarningType = "QUOTED_PUNCTUATION"
-	WarningTypePunctuationOnly        WarningType = "PUNCTUATION_ONLY"
-	WarningTypeCopypastedQuotes       WarningType = "COPYPASTED_QUOTES"
-	WarningTypeInvalidOperator        WarningType = "INVALID_OPERATOR"
-	WarningTypeMaybeInvalidFacetQuery WarningType = "MAYBE_INVALID_FACET_QUERY"
+	WarningTypeLongQuery               WarningType = "LONG_QUERY"
+	WarningTypeQuotedPunctuation       WarningType = "QUOTED_PUNCTUATION"
+	WarningTypePunctuationOnly         WarningType = "PUNCTUATION_ONLY"
+	WarningTypeCopypastedQuotes        WarningType = "COPYPASTED_QUOTES"
+	WarningTypeInvalidOperator         WarningType = "INVALID_OPERATOR"
+	WarningTypeMaybeInvalidFacetQuery  WarningType = "MAYBE_INVALID_FACET_QUERY"
+	WarningTypeTooManyDatasourceGroups WarningType = "TOO_MANY_DATASOURCE_GROUPS"
 )
 
 func (e WarningType) ToPointer() *WarningType {
@@ -39,6 +40,8 @@ func (e *WarningType) UnmarshalJSON(data []byte) error {
 	case "INVALID_OPERATOR":
 		fallthrough
 	case "MAYBE_INVALID_FACET_QUERY":
+		fallthrough
+	case "TOO_MANY_DATASOURCE_GROUPS":
 		*e = WarningType(v)
 		return nil
 	default:

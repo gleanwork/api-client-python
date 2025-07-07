@@ -812,6 +812,7 @@ if TYPE_CHECKING:
         ListEntitiesRequestEntityType,
         ListEntitiesRequestIncludeField,
         ListEntitiesRequestTypedDict,
+        RequestType,
     )
     from .listentitiesresponse import (
         ListEntitiesResponse,
@@ -1980,6 +1981,7 @@ __all__ = [
     "ReportStatusResponse",
     "ReportStatusResponseStatus",
     "ReportStatusResponseTypedDict",
+    "RequestType",
     "ResponseHint",
     "ResponseStatus",
     "RestrictionFilters",
@@ -2788,6 +2790,7 @@ _dynamic_imports: dict[str, str] = {
     "ListEntitiesRequestEntityType": ".listentitiesrequest",
     "ListEntitiesRequestIncludeField": ".listentitiesrequest",
     "ListEntitiesRequestTypedDict": ".listentitiesrequest",
+    "RequestType": ".listentitiesrequest",
     "ListEntitiesResponse": ".listentitiesresponse",
     "ListEntitiesResponseTypedDict": ".listentitiesresponse",
     "ListpinsRequest": ".listpinsop",

@@ -10,7 +10,7 @@
 
 ## list
 
-List some set of details for all entities that fit the given criteria and return in the requested order. Does not support negation in filters, assumes relation type EQUALS. There is a limit of 10000 entities that can be retrieved via this endpoint.
+List some set of details for all entities that fit the given criteria and return in the requested order. Does not support negation in filters, assumes relation type EQUALS. There is a limit of 10000 entities that can be retrieved via this endpoint, except when using FULL_DIRECTORY request type for people entities.
 
 ### Example Usage
 
@@ -37,7 +37,7 @@ with Glean(
                 },
             ],
         },
-    ], entity_type=models.ListEntitiesRequestEntityType.PEOPLE, page_size=100)
+    ], entity_type=models.ListEntitiesRequestEntityType.PEOPLE, page_size=100, request_type=models.RequestType.STANDARD)
 
     # Handle response
     print(res)
@@ -57,6 +57,7 @@ with Glean(
 | `page_size`                                                                                                                          | *Optional[int]*                                                                                                                      | :heavy_minus_sign:                                                                                                                   | Hint to the server about how many results to send back. Server may return less.                                                      | 100                                                                                                                                  |
 | `cursor`                                                                                                                             | *Optional[str]*                                                                                                                      | :heavy_minus_sign:                                                                                                                   | Pagination cursor. A previously received opaque token representing the position in the overall results at which to start.            |                                                                                                                                      |
 | `source`                                                                                                                             | *Optional[str]*                                                                                                                      | :heavy_minus_sign:                                                                                                                   | A string denoting the search surface from which the endpoint is called.                                                              |                                                                                                                                      |
+| `request_type`                                                                                                                       | [Optional[models.RequestType]](../../models/requesttype.md)                                                                          | :heavy_minus_sign:                                                                                                                   | The type of request being made.                                                                                                      |                                                                                                                                      |
 | `retries`                                                                                                                            | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                     | :heavy_minus_sign:                                                                                                                   | Configuration to override the default retry behavior of the client.                                                                  |                                                                                                                                      |
 
 ### Response

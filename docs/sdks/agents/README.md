@@ -145,7 +145,11 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as glean:
 
-    res = glean.client.agents.run_stream(agent_id="<id>")
+    res = glean.client.agents.run_stream(agent_id="<id>", messages=[
+        {
+            "role": "USER",
+        },
+    ])
 
     # Handle response
     print(res)
@@ -187,7 +191,11 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as glean:
 
-    res = glean.client.agents.run(agent_id="<id>")
+    res = glean.client.agents.run(agent_id="<id>", messages=[
+        {
+            "role": "USER",
+        },
+    ])
 
     # Handle response
     print(res)

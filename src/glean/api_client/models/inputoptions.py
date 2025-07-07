@@ -23,6 +23,7 @@ class TimePeriodType(str, Enum):
     PAST_YEAR = "PAST_YEAR"
     PAST_DAY = "PAST_DAY"
     CUSTOM = "CUSTOM"
+    LAST_N_DAYS = "LAST_N_DAYS"
 
 
 class InputOptionsTypedDict(TypedDict):
