@@ -5,6 +5,7 @@ from glean.api_client import errors, models, utils
 from glean.api_client._hooks import HookContext
 from glean.api_client.types import OptionalNullable, UNSET
 from glean.api_client.utils import get_security_from_env
+from glean.api_client.utils.unmarshal_json_response import unmarshal_json_response
 from typing import Mapping, Optional, Union
 
 
@@ -85,7 +86,7 @@ class Policies(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(models.GetDlpReportResponse, http_res)
+            return unmarshal_json_response(models.GetDlpReportResponse, http_res)
         if utils.match_response(http_res, ["403", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.GleanError("API error occurred", http_res, http_res_text)
@@ -171,7 +172,7 @@ class Policies(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(models.GetDlpReportResponse, http_res)
+            return unmarshal_json_response(models.GetDlpReportResponse, http_res)
         if utils.match_response(http_res, ["403", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.GleanError("API error occurred", http_res, http_res_text)
@@ -278,9 +279,7 @@ class Policies(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json; charset=UTF-8"):
-            return utils.unmarshal_json_response(
-                models.UpdateDlpReportResponse, http_res
-            )
+            return unmarshal_json_response(models.UpdateDlpReportResponse, http_res)
         if utils.match_response(http_res, ["403", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.GleanError("API error occurred", http_res, http_res_text)
@@ -387,9 +386,7 @@ class Policies(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json; charset=UTF-8"):
-            return utils.unmarshal_json_response(
-                models.UpdateDlpReportResponse, http_res
-            )
+            return unmarshal_json_response(models.UpdateDlpReportResponse, http_res)
         if utils.match_response(http_res, ["403", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.GleanError("API error occurred", http_res, http_res_text)
@@ -475,9 +472,7 @@ class Policies(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
-                models.ListDlpReportsResponse, http_res
-            )
+            return unmarshal_json_response(models.ListDlpReportsResponse, http_res)
         if utils.match_response(http_res, ["403", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.GleanError("API error occurred", http_res, http_res_text)
@@ -563,9 +558,7 @@ class Policies(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(
-                models.ListDlpReportsResponse, http_res
-            )
+            return unmarshal_json_response(models.ListDlpReportsResponse, http_res)
         if utils.match_response(http_res, ["403", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.GleanError("API error occurred", http_res, http_res_text)
@@ -660,9 +653,7 @@ class Policies(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json; charset=UTF-8"):
-            return utils.unmarshal_json_response(
-                models.CreateDlpReportResponse, http_res
-            )
+            return unmarshal_json_response(models.CreateDlpReportResponse, http_res)
         if utils.match_response(http_res, ["403", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.GleanError("API error occurred", http_res, http_res_text)
@@ -757,9 +748,7 @@ class Policies(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json; charset=UTF-8"):
-            return utils.unmarshal_json_response(
-                models.CreateDlpReportResponse, http_res
-            )
+            return unmarshal_json_response(models.CreateDlpReportResponse, http_res)
         if utils.match_response(http_res, ["403", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.GleanError("API error occurred", http_res, http_res_text)

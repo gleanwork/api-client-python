@@ -3,10 +3,10 @@ id: 3e3290ca-0ee8-4981-b1bc-14536048fa63
 management:
   docChecksum: bb65a174a6b697994f7bde3845843d9d
   docVersion: 0.9.0
-  speakeasyVersion: 1.576.1
-  generationVersion: 2.651.2
-  releaseVersion: 0.7.0
-  configChecksum: 1fdd57721d8451c79856369d08e3d61d
+  speakeasyVersion: 1.580.2
+  generationVersion: 2.656.5
+  releaseVersion: 0.7.1
+  configChecksum: f7304ede6fe6f15382ffd279d0680654
   repoURL: https://github.com/gleanwork/api-client-python.git
   installationURL: https://github.com/gleanwork/api-client-python.git
   published: true
@@ -22,7 +22,7 @@ features:
     devContainers: 3.0.0
     enumUnions: 0.1.0
     envVarSecurityUsage: 0.3.2
-    examples: 3.0.1
+    examples: 3.0.2
     flatRequests: 1.0.1
     flattening: 3.1.1
     globalSecurity: 3.0.3
@@ -45,7 +45,6 @@ generatedFiles:
   - .devcontainer/devcontainer.json
   - .devcontainer/setup.sh
   - .gitattributes
-  - .python-version
   - .vscode/settings.json
   - USAGE.md
   - docs/errors/collectionerror.md
@@ -1141,6 +1140,7 @@ generatedFiles:
   - src/glean/api_client/utils/retries.py
   - src/glean/api_client/utils/security.py
   - src/glean/api_client/utils/serializers.py
+  - src/glean/api_client/utils/unmarshal_json_response.py
   - src/glean/api_client/utils/url.py
   - src/glean/api_client/utils/values.py
   - src/glean/api_client/visibilityoverrides.py

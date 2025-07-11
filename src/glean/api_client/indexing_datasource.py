@@ -5,6 +5,7 @@ from glean.api_client import errors, models, utils
 from glean.api_client._hooks import HookContext
 from glean.api_client.types import OptionalNullable, UNSET
 from glean.api_client.utils import get_security_from_env
+from glean.api_client.utils.unmarshal_json_response import unmarshal_json_response
 from typing import Mapping, Optional
 
 
@@ -85,7 +86,7 @@ class IndexingDatasource(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json; charset=UTF-8"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 models.DebugDatasourceStatusResponse, http_res
             )
         if utils.match_response(http_res, ["400", "401", "4XX"], "*"):
@@ -173,7 +174,7 @@ class IndexingDatasource(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json; charset=UTF-8"):
-            return utils.unmarshal_json_response(
+            return unmarshal_json_response(
                 models.DebugDatasourceStatusResponse, http_res
             )
         if utils.match_response(http_res, ["400", "401", "4XX"], "*"):

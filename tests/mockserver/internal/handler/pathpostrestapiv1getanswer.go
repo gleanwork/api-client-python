@@ -264,9 +264,17 @@ func testGetanswerGetanswer0(w http.ResponseWriter, req *http.Request) {
 															Metadata: &components.VerificationMetadata{
 																Reminders: []components.Reminder{
 																	components.Reminder{
+																		Assignee: components.Person{
+																			Name:         "George Clooney",
+																			ObfuscatedID: "abc123",
+																		},
 																		RemindAt: 656841,
 																	},
 																	components.Reminder{
+																		Assignee: components.Person{
+																			Name:         "George Clooney",
+																			ObfuscatedID: "abc123",
+																		},
 																		RemindAt: 570980,
 																	},
 																},

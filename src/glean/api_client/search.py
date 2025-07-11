@@ -6,6 +6,7 @@ from glean.api_client import errors, models, utils
 from glean.api_client._hooks import HookContext
 from glean.api_client.types import OptionalNullable, UNSET
 from glean.api_client.utils import get_security_from_env
+from glean.api_client.utils.unmarshal_json_response import unmarshal_json_response
 from typing import Any, List, Mapping, Optional, Union
 
 
@@ -147,11 +148,9 @@ class Search(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(models.SearchResponse, http_res)
+            return unmarshal_json_response(models.SearchResponse, http_res)
         if utils.match_response(http_res, ["403", "422"], "application/json"):
-            response_data = utils.unmarshal_json_response(
-                errors.GleanDataErrorData, http_res
-            )
+            response_data = unmarshal_json_response(errors.GleanDataErrorData, http_res)
             raise errors.GleanDataError(response_data, http_res)
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
@@ -299,11 +298,9 @@ class Search(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(models.SearchResponse, http_res)
+            return unmarshal_json_response(models.SearchResponse, http_res)
         if utils.match_response(http_res, ["403", "422"], "application/json"):
-            response_data = utils.unmarshal_json_response(
-                errors.GleanDataErrorData, http_res
-            )
+            response_data = unmarshal_json_response(errors.GleanDataErrorData, http_res)
             raise errors.GleanDataError(response_data, http_res)
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
@@ -419,7 +416,7 @@ class Search(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(models.AutocompleteResponse, http_res)
+            return unmarshal_json_response(models.AutocompleteResponse, http_res)
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.GleanError("API error occurred", http_res, http_res_text)
@@ -534,7 +531,7 @@ class Search(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(models.AutocompleteResponse, http_res)
+            return unmarshal_json_response(models.AutocompleteResponse, http_res)
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.GleanError("API error occurred", http_res, http_res_text)
@@ -637,7 +634,7 @@ class Search(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(models.FeedResponse, http_res)
+            return unmarshal_json_response(models.FeedResponse, http_res)
         if utils.match_response(http_res, ["400", "401", "408", "429", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.GleanError("API error occurred", http_res, http_res_text)
@@ -740,7 +737,7 @@ class Search(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(models.FeedResponse, http_res)
+            return unmarshal_json_response(models.FeedResponse, http_res)
         if utils.match_response(http_res, ["400", "401", "408", "429", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.GleanError("API error occurred", http_res, http_res_text)
@@ -866,7 +863,7 @@ class Search(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(models.ResultsResponse, http_res)
+            return unmarshal_json_response(models.ResultsResponse, http_res)
         if utils.match_response(http_res, ["202", "204"], "*"):
             return None
         if utils.match_response(http_res, ["400", "401", "403", "429", "4XX"], "*"):
@@ -994,7 +991,7 @@ class Search(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(models.ResultsResponse, http_res)
+            return unmarshal_json_response(models.ResultsResponse, http_res)
         if utils.match_response(http_res, ["202", "204"], "*"):
             return None
         if utils.match_response(http_res, ["400", "401", "403", "429", "4XX"], "*"):
@@ -1143,11 +1140,9 @@ class Search(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(models.SearchResponse, http_res)
+            return unmarshal_json_response(models.SearchResponse, http_res)
         if utils.match_response(http_res, ["403", "422"], "application/json"):
-            response_data = utils.unmarshal_json_response(
-                errors.GleanDataErrorData, http_res
-            )
+            response_data = unmarshal_json_response(errors.GleanDataErrorData, http_res)
             raise errors.GleanDataError(response_data, http_res)
         if utils.match_response(http_res, ["400", "401", "408", "429", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
@@ -1295,11 +1290,9 @@ class Search(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(models.SearchResponse, http_res)
+            return unmarshal_json_response(models.SearchResponse, http_res)
         if utils.match_response(http_res, ["403", "422"], "application/json"):
-            response_data = utils.unmarshal_json_response(
-                errors.GleanDataErrorData, http_res
-            )
+            response_data = unmarshal_json_response(errors.GleanDataErrorData, http_res)
             raise errors.GleanDataError(response_data, http_res)
         if utils.match_response(http_res, ["400", "401", "408", "429", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)

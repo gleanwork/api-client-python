@@ -5,6 +5,7 @@ from glean.api_client import errors, models, utils
 from glean.api_client._hooks import HookContext
 from glean.api_client.types import BaseModel, OptionalNullable, UNSET
 from glean.api_client.utils import get_security_from_env
+from glean.api_client.utils.unmarshal_json_response import unmarshal_json_response
 from typing import List, Mapping, Optional, Union, cast
 
 
@@ -95,7 +96,7 @@ class Pins(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(models.PinDocument, http_res)
+            return unmarshal_json_response(models.PinDocument, http_res)
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.GleanError("API error occurred", http_res, http_res_text)
@@ -191,7 +192,7 @@ class Pins(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(models.PinDocument, http_res)
+            return unmarshal_json_response(models.PinDocument, http_res)
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.GleanError("API error occurred", http_res, http_res_text)
@@ -277,7 +278,7 @@ class Pins(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(models.GetPinResponse, http_res)
+            return unmarshal_json_response(models.GetPinResponse, http_res)
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.GleanError("API error occurred", http_res, http_res_text)
@@ -363,7 +364,7 @@ class Pins(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(models.GetPinResponse, http_res)
+            return unmarshal_json_response(models.GetPinResponse, http_res)
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.GleanError("API error occurred", http_res, http_res_text)
@@ -449,7 +450,7 @@ class Pins(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(models.ListPinsResponse, http_res)
+            return unmarshal_json_response(models.ListPinsResponse, http_res)
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.GleanError("API error occurred", http_res, http_res_text)
@@ -535,7 +536,7 @@ class Pins(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(models.ListPinsResponse, http_res)
+            return unmarshal_json_response(models.ListPinsResponse, http_res)
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.GleanError("API error occurred", http_res, http_res_text)
@@ -631,7 +632,7 @@ class Pins(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(models.PinDocument, http_res)
+            return unmarshal_json_response(models.PinDocument, http_res)
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.GleanError("API error occurred", http_res, http_res_text)
@@ -727,7 +728,7 @@ class Pins(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return utils.unmarshal_json_response(models.PinDocument, http_res)
+            return unmarshal_json_response(models.PinDocument, http_res)
         if utils.match_response(http_res, ["400", "401", "429", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.GleanError("API error occurred", http_res, http_res_text)
