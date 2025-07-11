@@ -303,9 +303,17 @@ func testListchatsListchats0(w http.ResponseWriter, req *http.Request) {
 														Metadata: &components.VerificationMetadata{
 															Reminders: []components.Reminder{
 																components.Reminder{
+																	Assignee: components.Person{
+																		Name:         "George Clooney",
+																		ObfuscatedID: "abc123",
+																	},
 																	RemindAt: 505778,
 																},
 																components.Reminder{
+																	Assignee: components.Person{
+																		Name:         "George Clooney",
+																		ObfuscatedID: "abc123",
+																	},
 																	RemindAt: 948614,
 																},
 																components.Reminder{

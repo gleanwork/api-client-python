@@ -213,9 +213,17 @@ func testListcollectionsListcollections0(w http.ResponseWriter, req *http.Reques
 															Metadata: &components.VerificationMetadata{
 																Reminders: []components.Reminder{
 																	components.Reminder{
+																		Assignee: components.Person{
+																			Name:         "George Clooney",
+																			ObfuscatedID: "abc123",
+																		},
 																		RemindAt: 777245,
 																	},
 																	components.Reminder{
+																		Assignee: components.Person{
+																			Name:         "George Clooney",
+																			ObfuscatedID: "abc123",
+																		},
 																		RemindAt: 141764,
 																	},
 																	components.Reminder{
