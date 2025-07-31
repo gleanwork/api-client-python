@@ -149,9 +149,9 @@ def serialize_multipart_form(
                     file_name, content, content_type = _extract_file_properties(file_obj)
 
                     if content_type is not None:
-                        files.append((f_name + "[]", (file_name, content, content_type)))
+                        files.append((f_name, (file_name, content, content_type)))
                     else:
-                        files.append((f_name + "[]", (file_name, content)))
+                        files.append((f_name, (file_name, content)))
             else:
                 # Handle single file
                 file_name, content, content_type = _extract_file_properties(val)
