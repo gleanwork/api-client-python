@@ -14,6 +14,7 @@ Returns a filtered set of available tools based on optional tool name parameters
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="get_/rest/api/v1/tools/list" method="get" path="/rest/api/v1/tools/list" -->
 ```python
 from glean.api_client import Glean
 import os
@@ -53,6 +54,7 @@ Execute the specified tool with provided parameters
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="post_/rest/api/v1/tools/call" method="post" path="/rest/api/v1/tools/call" -->
 ```python
 from glean.api_client import Glean
 import os

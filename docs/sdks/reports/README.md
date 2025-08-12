@@ -15,6 +15,7 @@ Creates a new one-time report and executes its batch job.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="createreport" method="post" path="/rest/api/v1/governance/data/reports" -->
 ```python
 from glean.api_client import Glean
 import os
@@ -55,6 +56,7 @@ Downloads CSV violations report for a specific report id.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="downloadreportcsv" method="get" path="/rest/api/v1/governance/data/reports/{id}/download" -->
 ```python
 from glean.api_client import Glean
 import os
@@ -94,6 +96,7 @@ Fetches the status of the run corresponding to the report-id.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="getreportstatus" method="get" path="/rest/api/v1/governance/data/reports/{id}/status" -->
 ```python
 from glean.api_client import Glean
 import os

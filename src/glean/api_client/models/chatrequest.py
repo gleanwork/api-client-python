@@ -16,7 +16,7 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 class ChatRequestTypedDict(TypedDict):
     messages: List[ChatMessageTypedDict]
-    r"""A list of chat messages, from most recent to least recent. It can be assumed that the first chat message in the list is the user's most recent query."""
+    r"""A list of chat messages, from most recent to least recent. At least one message must specify a USER author."""
     save_chat: NotRequired[bool]
     r"""Save the current interaction as a Chat for the user to access and potentially continue later."""
     chat_id: NotRequired[str]
@@ -38,7 +38,7 @@ class ChatRequestTypedDict(TypedDict):
 
 class ChatRequest(BaseModel):
     messages: List[ChatMessage]
-    r"""A list of chat messages, from most recent to least recent. It can be assumed that the first chat message in the list is the user's most recent query."""
+    r"""A list of chat messages, from most recent to least recent. At least one message must specify a USER author."""
 
     save_chat: Annotated[Optional[bool], pydantic.Field(alias="saveChat")] = None
     r"""Save the current interaction as a Chat for the user to access and potentially continue later."""

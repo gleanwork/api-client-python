@@ -7,6 +7,8 @@ type SearchResponseMetadata struct {
 	RewrittenQuery *string `json:"rewrittenQuery,omitempty"`
 	// The actual query used to perform search and return results.
 	SearchedQuery *string `json:"searchedQuery,omitempty"`
+	// The query used to perform search and return results, with negated terms and facets removed.
+	SearchedQueryWithoutNegation *string `json:"searchedQueryWithoutNegation,omitempty"`
 	// The bolded ranges within the searched query.
 	SearchedQueryRanges []TextRange `json:"searchedQueryRanges,omitempty"`
 	// The query text sent by the client in the request.
@@ -38,6 +40,13 @@ func (o *SearchResponseMetadata) GetSearchedQuery() *string {
 		return nil
 	}
 	return o.SearchedQuery
+}
+
+func (o *SearchResponseMetadata) GetSearchedQueryWithoutNegation() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SearchedQueryWithoutNegation
 }
 
 func (o *SearchResponseMetadata) GetSearchedQueryRanges() []TextRange {

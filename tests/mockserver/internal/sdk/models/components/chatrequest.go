@@ -7,7 +7,7 @@ type ChatRequest struct {
 	SaveChat *bool `json:"saveChat,omitempty"`
 	// The id of the Chat that context should be retrieved from and messages added to. An empty id starts a new Chat, and the Chat is saved if saveChat is true.
 	ChatID *string `json:"chatId,omitempty"`
-	// A list of chat messages, from most recent to least recent. It can be assumed that the first chat message in the list is the user's most recent query.
+	// A list of chat messages, from most recent to least recent. At least one message must specify a USER author.
 	Messages []ChatMessage `json:"messages"`
 	// Describes the agent that executes the request.
 	AgentConfig *AgentConfig            `json:"agentConfig,omitempty"`

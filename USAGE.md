@@ -11,6 +11,7 @@ with Glean(
 
     res = glean.client.chat.create(messages=[
         {
+            "author": models.Author.USER,
             "fragments": [
                 models.ChatMessageFragment(
                     text="What are the company holidays this year?",
@@ -25,7 +26,7 @@ with Glean(
 
 </br>
 
-The same SDK client can also be used to make asychronous requests by importing asyncio.
+The same SDK client can also be used to make asynchronous requests by importing asyncio.
 ```python
 # Asynchronous Example
 import asyncio
@@ -40,6 +41,7 @@ async def main():
 
         res = await glean.client.chat.create_async(messages=[
             {
+                "author": models.Author.USER,
                 "fragments": [
                     models.ChatMessageFragment(
                         text="What are the company holidays this year?",
@@ -66,6 +68,7 @@ with Glean(
 
     res = glean.client.chat.create_stream(messages=[
         {
+            "author": models.Author.USER,
             "fragments": [
                 models.ChatMessageFragment(
                     text="What are the company holidays this year?",
@@ -80,7 +83,7 @@ with Glean(
 
 </br>
 
-The same SDK client can also be used to make asychronous requests by importing asyncio.
+The same SDK client can also be used to make asynchronous requests by importing asyncio.
 ```python
 # Asynchronous Example
 import asyncio
@@ -95,6 +98,7 @@ async def main():
 
         res = await glean.client.chat.create_stream_async(messages=[
             {
+                "author": models.Author.USER,
                 "fragments": [
                     models.ChatMessageFragment(
                         text="What are the company holidays this year?",

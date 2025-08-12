@@ -24,6 +24,7 @@ Adds a document to the index or updates an existing document.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="post_/api/index/v1/indexdocument" method="post" path="/api/index/v1/indexdocument" -->
 ```python
 from glean.api_client import Glean, models
 import os
@@ -57,10 +58,11 @@ with Glean(
 
 ## index
 
-Adds or updates multiple documents in the index. Please refer to the [bulk indexing](https://developers.glean.com/docs/indexing_api_bulk_indexing/#choosing-indexdocuments-vs-bulkindexdocuments) documentation for an explanation of when to use this endpoint.
+Adds or updates multiple documents in the index. Please refer to the [bulk indexing](https://developers.glean.com/indexing/documents/bulk-indexing/choosing-indexdocuments-vs-bulkindexdocuments) documentation for an explanation of when to use this endpoint.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="post_/api/index/v1/indexdocuments" method="post" path="/api/index/v1/indexdocuments" -->
 ```python
 from glean.api_client import Glean
 import os
@@ -93,10 +95,11 @@ with Glean(
 
 ## bulk_index
 
-Replaces the documents in a datasource using paginated batch API calls. Please refer to the [bulk indexing](https://developers.glean.com/docs/indexing_api_bulk_indexing/#bulk-upload-model) documentation for an explanation of how to use bulk endpoints.
+Replaces the documents in a datasource using paginated batch API calls. Please refer to the [bulk indexing](https://developers.glean.com/indexing/documents/bulk-upload-model) documentation for an explanation of how to use bulk endpoints.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="post_/api/index/v1/bulkindexdocuments" method="post" path="/api/index/v1/bulkindexdocuments" -->
 ```python
 from glean.api_client import Glean
 import os
@@ -148,6 +151,7 @@ For more frequent document processing, contact Glean support.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="post_/api/index/v1/processalldocuments" method="post" path="/api/index/v1/processalldocuments" -->
 ```python
 from glean.api_client import Glean
 import os
@@ -182,6 +186,7 @@ Deletes the specified document from the index. Succeeds if document is not prese
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="post_/api/index/v1/deletedocument" method="post" path="/api/index/v1/deletedocument" -->
 ```python
 from glean.api_client import Glean
 import os
@@ -217,11 +222,12 @@ with Glean(
 
 Gives various information that would help in debugging related to a particular document. Currently in beta, might undergo breaking changes without prior notice.
 
-Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/docs/indexing_api/indexing_api_troubleshooting/) for more information.
+Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/indexing/debugging/datasource-config) for more information.
 
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="post_/api/index/v1/debug/{datasource}/document" method="post" path="/api/index/v1/debug/{datasource}/document" -->
 ```python
 from glean.api_client import Glean
 import os
@@ -261,11 +267,12 @@ with Glean(
 
 Gives various information that would help in debugging related to a batch of documents. Currently in beta, might undergo breaking changes without prior notice.
 
-Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/docs/indexing_api/indexing_api_troubleshooting/) for more information.
+Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/indexing/debugging/datasource-config) for more information.
 
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="post_/api/index/v1/debug/{datasource}/documents" method="post" path="/api/index/v1/debug/{datasource}/documents" -->
 ```python
 from glean.api_client import Glean
 import os
@@ -304,11 +311,12 @@ with Glean(
 
 Check if a given user has access to access a document in a custom datasource
 
-Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/docs/indexing_api/indexing_api_troubleshooting/) for more information.
+Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/indexing/debugging/datasource-config) for more information.
 
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="post_/api/index/v1/checkdocumentaccess" method="post" path="/api/index/v1/checkdocumentaccess" -->
 ```python
 from glean.api_client import Glean
 import os
@@ -349,13 +357,14 @@ with Glean(
 
 Intended for debugging/validation. Fetches the current upload and indexing status of documents.
 
-Tip: Use [/debug/{datasource}/document](https://developers.glean.com/docs/indexing_api/indexing_api_troubleshooting/#debug-datasource-document) for richer information.
+Tip: Use [/debug/{datasource}/document](https://developers.glean.com/indexing/debugging/datasource-document) for richer information.
 
 
 > :warning: **DEPRECATED**: This will be removed in a future release, please migrate away from it as soon as possible.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="post_/api/index/v1/getdocumentstatus" method="post" path="/api/index/v1/getdocumentstatus" -->
 ```python
 from glean.api_client import Glean
 import os
@@ -395,13 +404,14 @@ with Glean(
 
 Fetches document count for the specified custom datasource.
 
-Tip: Use [/debug/{datasource}/status](https://developers.glean.com/docs/indexing_api/indexing_api_troubleshooting/#debug-datasource-status) for richer information.
+Tip: Use [/debug/{datasource}/status](https://developers.glean.com/indexing/debugging/datasource-status) for richer information.
 
 
 > :warning: **DEPRECATED**: This will be removed in a future release, please migrate away from it as soon as possible.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="post_/api/index/v1/getdocumentcount" method="post" path="/api/index/v1/getdocumentcount" -->
 ```python
 from glean.api_client import Glean
 import os

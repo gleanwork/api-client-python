@@ -14,6 +14,7 @@ Report user activity that occurs on indexed documents such as viewing or editing
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="activity" method="post" path="/rest/api/v1/activity" -->
 ```python
 from glean.api_client import Glean, models
 from glean.api_client.utils import parse_datetime
@@ -72,6 +73,7 @@ Report events that happen to results within a Glean client UI, such as search re
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="feedback" method="post" path="/rest/api/v1/feedback" -->
 ```python
 from glean.api_client import Glean, models
 import os

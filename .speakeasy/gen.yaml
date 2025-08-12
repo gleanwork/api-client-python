@@ -26,7 +26,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: true
 python:
-  version: 0.7.1
+  version: 0.7.2
   additionalDependencies:
     dev: {}
     main: {}
@@ -57,6 +57,7 @@ python:
   methodArguments: infer-optional-args
   moduleName: glean.api_client
   outputModelSuffix: output
+  packageManager: poetry
   packageName: glean
   pytestFilterWarnings: []
   pytestTimeout: 0

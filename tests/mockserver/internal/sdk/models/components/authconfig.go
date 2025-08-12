@@ -85,6 +85,7 @@ type AuthConfigStatus string
 const (
 	AuthConfigStatusAwaitingAuth AuthConfigStatus = "AWAITING_AUTH"
 	AuthConfigStatusAuthorized   AuthConfigStatus = "AUTHORIZED"
+	AuthConfigStatusAuthDisabled AuthConfigStatus = "AUTH_DISABLED"
 )
 
 func (e AuthConfigStatus) ToPointer() *AuthConfigStatus {
@@ -99,6 +100,8 @@ func (e *AuthConfigStatus) UnmarshalJSON(data []byte) error {
 	case "AWAITING_AUTH":
 		fallthrough
 	case "AUTHORIZED":
+		fallthrough
+	case "AUTH_DISABLED":
 		*e = AuthConfigStatus(v)
 		return nil
 	default:

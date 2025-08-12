@@ -13,6 +13,8 @@ type ChatMessageFragment struct {
 	// Structure for file uploaded by a user for Chat.
 	File   *ChatFile `json:"file,omitempty"`
 	Action *ToolInfo `json:"action,omitempty"`
+	// Information about the source for a ChatMessage.
+	Citation *ChatMessageCitation `json:"citation,omitempty"`
 }
 
 func (o *ChatMessageFragment) GetStructuredResults() []StructuredResult {
@@ -55,4 +57,11 @@ func (o *ChatMessageFragment) GetAction() *ToolInfo {
 		return nil
 	}
 	return o.Action
+}
+
+func (o *ChatMessageFragment) GetCitation() *ChatMessageCitation {
+	if o == nil {
+		return nil
+	}
+	return o.Citation
 }

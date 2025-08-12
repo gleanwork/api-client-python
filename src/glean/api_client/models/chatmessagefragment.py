@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 from .chatfile import ChatFile, ChatFileTypedDict
+from .chatmessagecitation import ChatMessageCitation, ChatMessageCitationTypedDict
 from .querysuggestion import QuerySuggestion, QuerySuggestionTypedDict
 from .structuredresult import StructuredResult, StructuredResultTypedDict
 from .toolinfo import ToolInfo, ToolInfoTypedDict
@@ -23,6 +24,8 @@ class ChatMessageFragmentTypedDict(TypedDict):
     file: NotRequired[ChatFileTypedDict]
     r"""Structure for file uploaded by a user for Chat."""
     action: NotRequired[ToolInfoTypedDict]
+    citation: NotRequired[ChatMessageCitationTypedDict]
+    r"""Information about the source for a ChatMessage."""
 
 
 class ChatMessageFragment(BaseModel):
@@ -48,3 +51,6 @@ class ChatMessageFragment(BaseModel):
     r"""Structure for file uploaded by a user for Chat."""
 
     action: Optional[ToolInfo] = None
+
+    citation: Optional[ChatMessageCitation] = None
+    r"""Information about the source for a ChatMessage."""

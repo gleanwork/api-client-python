@@ -14,6 +14,7 @@ Replaces all the currently indexed shortcuts using paginated batch API calls. No
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="post_/api/index/v1/bulkindexshortcuts" method="post" path="/api/index/v1/bulkindexshortcuts" -->
 ```python
 from glean.api_client import Glean
 import os
@@ -59,6 +60,7 @@ Creates glean shortcuts for uploaded shortcuts info. Glean would host the shortc
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="post_/api/index/v1/uploadshortcuts" method="post" path="/api/index/v1/uploadshortcuts" -->
 ```python
 from glean.api_client import Glean
 import os

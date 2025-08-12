@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 3e3290ca-0ee8-4981-b1bc-14536048fa63
 management:
-  docChecksum: bb65a174a6b697994f7bde3845843d9d
+  docChecksum: b0738d0775f5848e1288d7ca6b0400e4
   docVersion: 0.9.0
-  speakeasyVersion: 1.580.2
-  generationVersion: 2.656.5
-  releaseVersion: 0.7.1
-  configChecksum: f7304ede6fe6f15382ffd279d0680654
+  speakeasyVersion: 1.603.0
+  generationVersion: 2.681.1
+  releaseVersion: 0.7.2
+  configChecksum: bc34eadc14a450be0874b1974696c11c
   repoURL: https://github.com/gleanwork/api-client-python.git
   installationURL: https://github.com/gleanwork/api-client-python.git
   published: true
@@ -16,7 +16,7 @@ features:
     additionalProperties: 1.0.1
     configurableModuleName: 0.2.0
     constsAndDefaults: 1.0.5
-    core: 5.19.4
+    core: 5.19.8
     defaultEnabledRetries: 0.2.0
     deprecations: 3.0.2
     devContainers: 3.0.0
@@ -37,7 +37,7 @@ features:
     responseFormat: 1.0.1
     retries: 3.0.2
     sdkHooks: 1.1.0
-    tests: 1.19.1
+    tests: 1.19.2
     unions: 3.0.4
     uploadStreams: 1.0.0
 generatedFiles:
@@ -412,6 +412,10 @@ generatedFiles:
   - docs/models/listverificationsrequest.md
   - docs/models/manualfeedbackinfo.md
   - docs/models/manualfeedbackinfosource.md
+  - docs/models/manualfeedbackinfovote.md
+  - docs/models/manualfeedbacksidebysideinfo.md
+  - docs/models/manualfeedbacksidebysideinfosource.md
+  - docs/models/manualfeedbacksidebysideinfovote.md
   - docs/models/meeting.md
   - docs/models/message.md
   - docs/models/messagesrequest.md
@@ -482,6 +486,7 @@ generatedFiles:
   - docs/models/reportstatusresponsestatus.md
   - docs/models/requesttype.md
   - docs/models/responsehint.md
+  - docs/models/responsemetadata.md
   - docs/models/responsestatus.md
   - docs/models/restrictionfilters.md
   - docs/models/resultdocument.md
@@ -519,6 +524,7 @@ generatedFiles:
   - docs/models/shortcutinsightsresponse.md
   - docs/models/shortcutmutableproperties.md
   - docs/models/shortcutspaginationmetadata.md
+  - docs/models/sidebysideimplementation.md
   - docs/models/socialnetwork.md
   - docs/models/socialnetworkdefinition.md
   - docs/models/sortoptions.md
@@ -597,7 +603,6 @@ generatedFiles:
   - docs/models/verifyrequest.md
   - docs/models/verifyrequestaction.md
   - docs/models/viewerinfo.md
-  - docs/models/vote.md
   - docs/models/warningtype.md
   - docs/models/workflow.md
   - docs/models/workflowfeedbackinfo.md
@@ -966,6 +971,7 @@ generatedFiles:
   - src/glean/api_client/models/listshortcutspaginatedresponse.py
   - src/glean/api_client/models/listverificationsop.py
   - src/glean/api_client/models/manualfeedbackinfo.py
+  - src/glean/api_client/models/manualfeedbacksidebysideinfo.py
   - src/glean/api_client/models/meeting.py
   - src/glean/api_client/models/message.py
   - src/glean/api_client/models/messagesrequest.py
@@ -1048,6 +1054,7 @@ generatedFiles:
   - src/glean/api_client/models/shortcutinsightsresponse.py
   - src/glean/api_client/models/shortcutmutableproperties.py
   - src/glean/api_client/models/shortcutspaginationmetadata.py
+  - src/glean/api_client/models/sidebysideimplementation.py
   - src/glean/api_client/models/socialnetwork.py
   - src/glean/api_client/models/socialnetworkdefinition.py
   - src/glean/api_client/models/sortoptions.py
@@ -1518,6 +1525,7 @@ generatedFiles:
   - tests/mockserver/internal/sdk/models/components/listshortcutspaginatedrequest.go
   - tests/mockserver/internal/sdk/models/components/listshortcutspaginatedresponse.go
   - tests/mockserver/internal/sdk/models/components/manualfeedbackinfo.go
+  - tests/mockserver/internal/sdk/models/components/manualfeedbacksidebysideinfo.go
   - tests/mockserver/internal/sdk/models/components/meeting.go
   - tests/mockserver/internal/sdk/models/components/message.go
   - tests/mockserver/internal/sdk/models/components/messagesrequest.go
@@ -1596,6 +1604,7 @@ generatedFiles:
   - tests/mockserver/internal/sdk/models/components/shortcutinsightsresponse.go
   - tests/mockserver/internal/sdk/models/components/shortcutmutableproperties.go
   - tests/mockserver/internal/sdk/models/components/shortcutspaginationmetadata.go
+  - tests/mockserver/internal/sdk/models/components/sidebysideimplementation.go
   - tests/mockserver/internal/sdk/models/components/socialnetwork.go
   - tests/mockserver/internal/sdk/models/components/socialnetworkdefinition.go
   - tests/mockserver/internal/sdk/models/components/sortoptions.go

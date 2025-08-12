@@ -138,18 +138,18 @@ func (e *Issue) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// Vote - The vote associated with the Feedback.event.MANUAL_FEEDBACK event.
-type Vote string
+// ManualFeedbackInfoVote - The vote associated with the Feedback.event.MANUAL_FEEDBACK event.
+type ManualFeedbackInfoVote string
 
 const (
-	VoteUpvote   Vote = "UPVOTE"
-	VoteDownvote Vote = "DOWNVOTE"
+	ManualFeedbackInfoVoteUpvote   ManualFeedbackInfoVote = "UPVOTE"
+	ManualFeedbackInfoVoteDownvote ManualFeedbackInfoVote = "DOWNVOTE"
 )
 
-func (e Vote) ToPointer() *Vote {
+func (e ManualFeedbackInfoVote) ToPointer() *ManualFeedbackInfoVote {
 	return &e
 }
-func (e *Vote) UnmarshalJSON(data []byte) error {
+func (e *ManualFeedbackInfoVote) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -158,10 +158,10 @@ func (e *Vote) UnmarshalJSON(data []byte) error {
 	case "UPVOTE":
 		fallthrough
 	case "DOWNVOTE":
-		*e = Vote(v)
+		*e = ManualFeedbackInfoVote(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for Vote: %v", v)
+		return fmt.Errorf("invalid value for ManualFeedbackInfoVote: %v", v)
 	}
 }
 
@@ -195,7 +195,7 @@ type ManualFeedbackInfo struct {
 	// How many times this query has been run in the past.
 	NumQueriesFromFirstRun *int64 `json:"numQueriesFromFirstRun,omitempty"`
 	// The vote associated with the Feedback.event.MANUAL_FEEDBACK event.
-	Vote *Vote `json:"vote,omitempty"`
+	Vote *ManualFeedbackInfoVote `json:"vote,omitempty"`
 	// A rating associated with the user feedback. The value will be between one and the maximum given by ratingScale, inclusive.
 	Rating *int64 `json:"rating,omitempty"`
 	// A description of the rating that contextualizes how it appeared to the user, e.g. "satisfied".
@@ -295,7 +295,7 @@ func (o *ManualFeedbackInfo) GetNumQueriesFromFirstRun() *int64 {
 	return o.NumQueriesFromFirstRun
 }
 
-func (o *ManualFeedbackInfo) GetVote() *Vote {
+func (o *ManualFeedbackInfo) GetVote() *ManualFeedbackInfoVote {
 	if o == nil {
 		return nil
 	}

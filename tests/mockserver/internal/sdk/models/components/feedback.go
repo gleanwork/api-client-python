@@ -67,35 +67,36 @@ func (e *FeedbackCategory) UnmarshalJSON(data []byte) error {
 type Event string
 
 const (
-	EventClick          Event = "CLICK"
-	EventContainerClick Event = "CONTAINER_CLICK"
-	EventCopyLink       Event = "COPY_LINK"
-	EventCreate         Event = "CREATE"
-	EventDismiss        Event = "DISMISS"
-	EventDownvote       Event = "DOWNVOTE"
-	EventEmail          Event = "EMAIL"
-	EventExecute        Event = "EXECUTE"
-	EventFilter         Event = "FILTER"
-	EventFirstToken     Event = "FIRST_TOKEN"
-	EventFocusIn        Event = "FOCUS_IN"
-	EventLastToken      Event = "LAST_TOKEN"
-	EventManualFeedback Event = "MANUAL_FEEDBACK"
-	EventMarkAsRead     Event = "MARK_AS_READ"
-	EventMessage        Event = "MESSAGE"
-	EventMiddleClick    Event = "MIDDLE_CLICK"
-	EventPageBlur       Event = "PAGE_BLUR"
-	EventPageFocus      Event = "PAGE_FOCUS"
-	EventPageLeave      Event = "PAGE_LEAVE"
-	EventPreview        Event = "PREVIEW"
-	EventRelatedClick   Event = "RELATED_CLICK"
-	EventRightClick     Event = "RIGHT_CLICK"
-	EventSectionClick   Event = "SECTION_CLICK"
-	EventSeen           Event = "SEEN"
-	EventShare          Event = "SHARE"
-	EventShowMore       Event = "SHOW_MORE"
-	EventUpvote         Event = "UPVOTE"
-	EventView           Event = "VIEW"
-	EventVisible        Event = "VISIBLE"
+	EventClick                    Event = "CLICK"
+	EventContainerClick           Event = "CONTAINER_CLICK"
+	EventCopyLink                 Event = "COPY_LINK"
+	EventCreate                   Event = "CREATE"
+	EventDismiss                  Event = "DISMISS"
+	EventDownvote                 Event = "DOWNVOTE"
+	EventEmail                    Event = "EMAIL"
+	EventExecute                  Event = "EXECUTE"
+	EventFilter                   Event = "FILTER"
+	EventFirstToken               Event = "FIRST_TOKEN"
+	EventFocusIn                  Event = "FOCUS_IN"
+	EventLastToken                Event = "LAST_TOKEN"
+	EventManualFeedback           Event = "MANUAL_FEEDBACK"
+	EventManualFeedbackSideBySide Event = "MANUAL_FEEDBACK_SIDE_BY_SIDE"
+	EventMarkAsRead               Event = "MARK_AS_READ"
+	EventMessage                  Event = "MESSAGE"
+	EventMiddleClick              Event = "MIDDLE_CLICK"
+	EventPageBlur                 Event = "PAGE_BLUR"
+	EventPageFocus                Event = "PAGE_FOCUS"
+	EventPageLeave                Event = "PAGE_LEAVE"
+	EventPreview                  Event = "PREVIEW"
+	EventRelatedClick             Event = "RELATED_CLICK"
+	EventRightClick               Event = "RIGHT_CLICK"
+	EventSectionClick             Event = "SECTION_CLICK"
+	EventSeen                     Event = "SEEN"
+	EventShare                    Event = "SHARE"
+	EventShowMore                 Event = "SHOW_MORE"
+	EventUpvote                   Event = "UPVOTE"
+	EventView                     Event = "VIEW"
+	EventVisible                  Event = "VISIBLE"
 )
 
 func (e Event) ToPointer() *Event {
@@ -132,6 +133,8 @@ func (e *Event) UnmarshalJSON(data []byte) error {
 	case "LAST_TOKEN":
 		fallthrough
 	case "MANUAL_FEEDBACK":
+		fallthrough
+	case "MANUAL_FEEDBACK_SIDE_BY_SIDE":
 		fallthrough
 	case "MARK_AS_READ":
 		fallthrough
@@ -223,11 +226,12 @@ type Feedback struct {
 	// The UI element tree associated with the event, if any.
 	UITree []string `json:"uiTree,omitempty"`
 	// The UI element associated with the event, if any.
-	UIElement            *string               `json:"uiElement,omitempty"`
-	ManualFeedbackInfo   *ManualFeedbackInfo   `json:"manualFeedbackInfo,omitempty"`
-	SeenFeedbackInfo     *SeenFeedbackInfo     `json:"seenFeedbackInfo,omitempty"`
-	UserViewInfo         *UserViewInfo         `json:"userViewInfo,omitempty"`
-	WorkflowFeedbackInfo *WorkflowFeedbackInfo `json:"workflowFeedbackInfo,omitempty"`
+	UIElement                    *string                       `json:"uiElement,omitempty"`
+	ManualFeedbackInfo           *ManualFeedbackInfo           `json:"manualFeedbackInfo,omitempty"`
+	ManualFeedbackSideBySideInfo *ManualFeedbackSideBySideInfo `json:"manualFeedbackSideBySideInfo,omitempty"`
+	SeenFeedbackInfo             *SeenFeedbackInfo             `json:"seenFeedbackInfo,omitempty"`
+	UserViewInfo                 *UserViewInfo                 `json:"userViewInfo,omitempty"`
+	WorkflowFeedbackInfo         *WorkflowFeedbackInfo         `json:"workflowFeedbackInfo,omitempty"`
 	// The application ID of the client that sent the feedback event.
 	ApplicationID *string `json:"applicationId,omitempty"`
 	// The agent ID of the client that sent the feedback event.
@@ -348,6 +352,13 @@ func (o *Feedback) GetManualFeedbackInfo() *ManualFeedbackInfo {
 		return nil
 	}
 	return o.ManualFeedbackInfo
+}
+
+func (o *Feedback) GetManualFeedbackSideBySideInfo() *ManualFeedbackSideBySideInfo {
+	if o == nil {
+		return nil
+	}
+	return o.ManualFeedbackSideBySideInfo
 }
 
 func (o *Feedback) GetSeenFeedbackInfo() *SeenFeedbackInfo {

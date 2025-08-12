@@ -17,6 +17,7 @@ Fetches the specified policy version, or the latest if no version is provided.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="getpolicy" method="get" path="/rest/api/v1/governance/data/policies/{id}" -->
 ```python
 from glean.api_client import Glean
 import os
@@ -57,6 +58,7 @@ Updates an existing policy.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="updatepolicy" method="post" path="/rest/api/v1/governance/data/policies/{id}" -->
 ```python
 from glean.api_client import Glean
 import os
@@ -101,6 +103,7 @@ Lists policies with filtering.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="listpolicies" method="get" path="/rest/api/v1/governance/data/policies" -->
 ```python
 from glean.api_client import Glean
 import os
@@ -141,6 +144,7 @@ Creates a new policy with specified specifications and returns its id.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="createpolicy" method="post" path="/rest/api/v1/governance/data/policies" -->
 ```python
 from glean.api_client import Glean
 import os
@@ -183,6 +187,7 @@ Downloads CSV violations report for a specific policy id. This does not support 
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="downloadpolicycsv" method="get" path="/rest/api/v1/governance/data/policies/{id}/download" -->
 ```python
 from glean.api_client import Glean
 import os

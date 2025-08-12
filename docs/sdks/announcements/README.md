@@ -15,6 +15,7 @@ Create a textual announcement visible to some set of users based on department a
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="createannouncement" method="post" path="/rest/api/v1/createannouncement" -->
 ```python
 from glean.api_client import Glean, models
 from glean.api_client.utils import parse_datetime
@@ -1168,6 +1169,7 @@ Delete an existing user-generated announcement.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="deleteannouncement" method="post" path="/rest/api/v1/deleteannouncement" -->
 ```python
 from glean.api_client import Glean
 import os
@@ -1202,6 +1204,7 @@ Update a textual announcement visible to some set of users based on department a
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="updateannouncement" method="post" path="/rest/api/v1/updateannouncement" -->
 ```python
 from glean.api_client import Glean, models
 from glean.api_client.utils import parse_datetime

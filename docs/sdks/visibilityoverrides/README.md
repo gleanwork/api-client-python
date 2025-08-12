@@ -14,6 +14,7 @@ Fetches the visibility override status of the documents passed.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="getdocvisibility" method="get" path="/rest/api/v1/governance/documents/visibilityoverrides" -->
 ```python
 from glean.api_client import Glean
 import os
@@ -53,6 +54,7 @@ Sets the visibility-override state of the documents specified, effectively hidin
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="setdocvisibility" method="post" path="/rest/api/v1/governance/documents/visibilityoverrides" -->
 ```python
 from glean.api_client import Glean
 import os

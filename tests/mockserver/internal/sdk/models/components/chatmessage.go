@@ -83,7 +83,7 @@ func (e *MessageType) UnmarshalJSON(data []byte) error {
 type ChatMessage struct {
 	// Describes the agent that executes the request.
 	AgentConfig *AgentConfig `json:"agentConfig,omitempty"`
-	Author      *Author      `default:"USER" json:"author"`
+	Author      *Author      `default:"GLEAN_AI" json:"author"`
 	// A list of Citations that were used to generate the response.
 	Citations []ChatMessageCitation `json:"citations,omitempty"`
 	// IDs of files uploaded in the message that are referenced to generate the answer.

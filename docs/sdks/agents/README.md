@@ -17,6 +17,7 @@ Returns details of an [agent](https://developers.glean.com/agents/agents-api) cr
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="getAgent" method="get" path="/rest/api/v1/agents/{agent_id}" -->
 ```python
 from glean.api_client import Glean
 import os
@@ -57,6 +58,7 @@ Return [agent](https://developers.glean.com/agents/agents-api)'s input and outpu
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="getAgentSchemas" method="get" path="/rest/api/v1/agents/{agent_id}/schemas" -->
 ```python
 from glean.api_client import Glean
 import os
@@ -97,6 +99,7 @@ Search for [agents](https://developers.glean.com/agents/agents-api) by agent nam
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="searchAgents" method="post" path="/rest/api/v1/agents/search" -->
 ```python
 from glean.api_client import Glean
 import os
@@ -136,6 +139,7 @@ Executes an [agent](https://developers.glean.com/agents/agents-api) run and retu
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="createAndStreamRun" method="post" path="/rest/api/v1/agents/runs/stream" -->
 ```python
 from glean.api_client import Glean
 import os
@@ -182,6 +186,7 @@ Executes an [agent](https://developers.glean.com/agents/agents-api) run and retu
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="createAndWaitRun" method="post" path="/rest/api/v1/agents/runs/wait" -->
 ```python
 from glean.api_client import Glean
 import os

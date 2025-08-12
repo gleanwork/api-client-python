@@ -20,6 +20,7 @@ Add items to a Collection.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="addcollectionitems" method="post" path="/rest/api/v1/addcollectionitems" -->
 ```python
 from glean.api_client import Glean
 import os
@@ -60,6 +61,7 @@ Create a publicly visible (empty) Collection of documents.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="createcollection" method="post" path="/rest/api/v1/createcollection" -->
 ```python
 from glean.api_client import Glean, models
 import os
@@ -140,6 +142,7 @@ Delete a Collection given the Collection's ID.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="deletecollection" method="post" path="/rest/api/v1/deletecollection" -->
 ```python
 from glean.api_client import Glean
 import os
@@ -180,6 +183,7 @@ Delete a single item from a Collection.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="deletecollectionitem" method="post" path="/rest/api/v1/deletecollectionitem" -->
 ```python
 from glean.api_client import Glean
 import os
@@ -221,6 +225,7 @@ Update the properties of an existing Collection.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="editcollection" method="post" path="/rest/api/v1/editcollection" -->
 ```python
 from glean.api_client import Glean, models
 import os
@@ -301,6 +306,7 @@ Update the URL, Glean Document ID, description of an item within a Collection gi
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="editcollectionitem" method="post" path="/rest/api/v1/editcollectionitem" -->
 ```python
 from glean.api_client import Glean
 import os
@@ -344,6 +350,7 @@ Read the details of a Collection given its ID. Does not fetch items in this Coll
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="getcollection" method="post" path="/rest/api/v1/getcollection" -->
 ```python
 from glean.api_client import Glean
 import os
@@ -386,6 +393,7 @@ List all existing Collections.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="listcollections" method="post" path="/rest/api/v1/listcollections" -->
 ```python
 from glean.api_client import Glean
 import os

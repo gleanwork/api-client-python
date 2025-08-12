@@ -15,6 +15,7 @@ Creates a verification reminder for the document. Users can create verification 
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="addverificationreminder" method="post" path="/rest/api/v1/addverificationreminder" -->
 ```python
 from glean.api_client import Glean
 import os
@@ -57,6 +58,7 @@ Returns the information to be rendered in verification dashboard. Includes infor
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="listverifications" method="post" path="/rest/api/v1/listverifications" -->
 ```python
 from glean.api_client import Glean
 import os
@@ -96,6 +98,7 @@ Verify documents to keep the knowledge up to date within customer corpus.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="verify" method="post" path="/rest/api/v1/verify" -->
 ```python
 from glean.api_client import Glean
 import os

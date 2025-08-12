@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 from .document import Document, DocumentTypedDict
-from .person import Person, PersonTypedDict
 from .searchrequestinputdetails import (
     SearchRequestInputDetails,
     SearchRequestInputDetailsTypedDict,
@@ -37,8 +36,6 @@ class SearchRequestTypedDict(TypedDict):
     request_options: NotRequired[SearchRequestOptionsTypedDict]
     timeout_millis: NotRequired[int]
     r"""Timeout in milliseconds for the request. A `408` error will be returned if handling the request takes longer."""
-    people: NotRequired[List[PersonTypedDict]]
-    r"""People associated with the search request. Hints to the server to fetch additional information for these people. Note that in this request, an email may be used as a person's obfuscatedId value."""
     disable_spellcheck: NotRequired[bool]
     r"""Whether or not to disable spellcheck."""
 
@@ -91,9 +88,6 @@ class SearchRequest(BaseModel):
         None
     )
     r"""Timeout in milliseconds for the request. A `408` error will be returned if handling the request takes longer."""
-
-    people: Optional[List[Person]] = None
-    r"""People associated with the search request. Hints to the server to fetch additional information for these people. Note that in this request, an email may be used as a person's obfuscatedId value."""
 
     disable_spellcheck: Annotated[
         Optional[bool], pydantic.Field(alias="disableSpellcheck")

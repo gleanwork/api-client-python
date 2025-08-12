@@ -25,7 +25,7 @@ class People(BaseSDK):
 
         Gives various information that would help in debugging related to a particular user. Currently in beta, might undergo breaking changes without prior notice.
 
-        Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/docs/indexing_api/indexing_api_troubleshooting/) for more information.
+        Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/indexing/debugging/datasource-config) for more information.
 
 
         :param datasource: The datasource to which the user belongs
@@ -123,7 +123,7 @@ class People(BaseSDK):
 
         Gives various information that would help in debugging related to a particular user. Currently in beta, might undergo breaking changes without prior notice.
 
-        Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/docs/indexing_api/indexing_api_troubleshooting/) for more information.
+        Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/indexing/debugging/datasource-config) for more information.
 
 
         :param datasource: The datasource to which the user belongs
@@ -223,7 +223,7 @@ class People(BaseSDK):
 
         Fetches user count for the specified custom datasource.
 
-        Tip: Use [/debug/{datasource}/status](https://developers.glean.com/docs/indexing_api/indexing_api_troubleshooting/#debug-datasource-status) for richer information.
+        Tip: Use [/debug/{datasource}/status](https://developers.glean.com/indexing/debugging/datasource-status) for richer information.
 
 
         :param datasource: Datasource name for which user count is needed.
@@ -315,7 +315,7 @@ class People(BaseSDK):
 
         Fetches user count for the specified custom datasource.
 
-        Tip: Use [/debug/{datasource}/status](https://developers.glean.com/docs/indexing_api/indexing_api_troubleshooting/#debug-datasource-status) for richer information.
+        Tip: Use [/debug/{datasource}/status](https://developers.glean.com/indexing/debugging/datasource-status) for richer information.
 
 
         :param datasource: Datasource name for which user count is needed.
@@ -592,7 +592,7 @@ class People(BaseSDK):
     ):
         r"""Bulk index employees
 
-        Replaces all the currently indexed employees using paginated batch API calls. Please refer to the [bulk indexing](https://developers.glean.com/docs/indexing_api_bulk_indexing/#bulk-upload-model) documentation for an explanation of how to use bulk endpoints.
+        Replaces all the currently indexed employees using paginated batch API calls. Please refer to the [bulk indexing](https://developers.glean.com/indexing/documents/bulk-upload-model) documentation for an explanation of how to use bulk endpoints.
 
         :param upload_id: Unique id that must be used for this bulk upload instance
         :param employees: Batch of employee information
@@ -698,7 +698,7 @@ class People(BaseSDK):
     ):
         r"""Bulk index employees
 
-        Replaces all the currently indexed employees using paginated batch API calls. Please refer to the [bulk indexing](https://developers.glean.com/docs/indexing_api_bulk_indexing/#bulk-upload-model) documentation for an explanation of how to use bulk endpoints.
+        Replaces all the currently indexed employees using paginated batch API calls. Please refer to the [bulk indexing](https://developers.glean.com/indexing/documents/bulk-upload-model) documentation for an explanation of how to use bulk endpoints.
 
         :param upload_id: Unique id that must be used for this bulk upload instance
         :param employees: Batch of employee information
@@ -1484,7 +1484,7 @@ class People(BaseSDK):
     ):
         r"""Bulk index teams
 
-        Replaces all the currently indexed teams using paginated batch API calls. Please refer to the [bulk indexing](https://developers.glean.com/docs/indexing_api_bulk_indexing/#bulk-upload-model) documentation for an explanation of how to use bulk endpoints.
+        Replaces all the currently indexed teams using paginated batch API calls. Please refer to the [bulk indexing](https://developers.glean.com/indexing/documents/bulk-upload-model) documentation for an explanation of how to use bulk endpoints.
 
         :param upload_id: Unique id that must be used for this bulk upload instance
         :param teams: Batch of team information
@@ -1584,7 +1584,7 @@ class People(BaseSDK):
     ):
         r"""Bulk index teams
 
-        Replaces all the currently indexed teams using paginated batch API calls. Please refer to the [bulk indexing](https://developers.glean.com/docs/indexing_api_bulk_indexing/#bulk-upload-model) documentation for an explanation of how to use bulk endpoints.
+        Replaces all the currently indexed teams using paginated batch API calls. Please refer to the [bulk indexing](https://developers.glean.com/indexing/documents/bulk-upload-model) documentation for an explanation of how to use bulk endpoints.
 
         :param upload_id: Unique id that must be used for this bulk upload instance
         :param teams: Batch of team information

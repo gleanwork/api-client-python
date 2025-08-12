@@ -18,6 +18,7 @@ if TYPE_CHECKING:
     from .customer import Customer, CustomerTypedDict
     from .document import Document, DocumentTypedDict
     from .extractedqna import ExtractedQnA, ExtractedQnATypedDict
+    from .generatedqna import GeneratedQna, GeneratedQnaTypedDict
     from .meeting import Meeting, MeetingTypedDict
     from .person import Person, PersonTypedDict
     from .querysuggestionlist import QuerySuggestionList, QuerySuggestionListTypedDict
@@ -52,6 +53,7 @@ class StructuredResultTypedDict(TypedDict):
     team: NotRequired["TeamTypedDict"]
     custom_entity: NotRequired["CustomEntityTypedDict"]
     answer: NotRequired["AnswerTypedDict"]
+    generated_qna: NotRequired["GeneratedQnaTypedDict"]
     extracted_qn_a: NotRequired["ExtractedQnATypedDict"]
     meeting: NotRequired["MeetingTypedDict"]
     app: NotRequired[AppResultTypedDict]
@@ -91,6 +93,10 @@ class StructuredResult(BaseModel):
     ] = None
 
     answer: Optional["Answer"] = None
+
+    generated_qna: Annotated[
+        Optional["GeneratedQna"], pydantic.Field(alias="generatedQna")
+    ] = None
 
     extracted_qn_a: Annotated[
         Optional["ExtractedQnA"], pydantic.Field(alias="extractedQnA")

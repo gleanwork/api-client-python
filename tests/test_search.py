@@ -126,12 +126,6 @@ def test_search_adminsearch():
                 facet_bucket_size=254944,
             ),
             timeout_millis=5000,
-            people=[
-                models.Person(
-                    name="George Clooney",
-                    obfuscated_id="abc123",
-                ),
-            ],
         )
         assert res is not None
 
@@ -2208,11 +2202,5 @@ def test_search_search():
                 facet_bucket_size=246815,
             ),
             timeout_millis=5000,
-            people=[
-                models.Person(
-                    name="George Clooney",
-                    obfuscated_id="abc123",
-                ),
-            ],
         )
         assert res is not None

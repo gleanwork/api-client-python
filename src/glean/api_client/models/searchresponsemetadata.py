@@ -16,6 +16,8 @@ class SearchResponseMetadataTypedDict(TypedDict):
     r"""A cleaned up or updated version of the query to be displayed in the query box. Useful for mapping visual facets to search operators."""
     searched_query: NotRequired[str]
     r"""The actual query used to perform search and return results."""
+    searched_query_without_negation: NotRequired[str]
+    r"""The query used to perform search and return results, with negated terms and facets removed."""
     searched_query_ranges: NotRequired[List[TextRangeTypedDict]]
     r"""The bolded ranges within the searched query."""
     original_query: NotRequired[str]
@@ -45,6 +47,11 @@ class SearchResponseMetadata(BaseModel):
         None
     )
     r"""The actual query used to perform search and return results."""
+
+    searched_query_without_negation: Annotated[
+        Optional[str], pydantic.Field(alias="searchedQueryWithoutNegation")
+    ] = None
+    r"""The query used to perform search and return results, with negated terms and facets removed."""
 
     searched_query_ranges: Annotated[
         Optional[List[TextRange]], pydantic.Field(alias="searchedQueryRanges")
