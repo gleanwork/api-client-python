@@ -37,9 +37,6 @@ class Search(BaseSDK):
             Union[models.SearchRequestOptions, models.SearchRequestOptionsTypedDict]
         ] = None,
         timeout_millis: Optional[int] = None,
-        people: Optional[
-            Union[List[models.Person], List[models.PersonTypedDict]]
-        ] = None,
         disable_spellcheck: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -62,7 +59,6 @@ class Search(BaseSDK):
         :param input_details:
         :param request_options:
         :param timeout_millis: Timeout in milliseconds for the request. A `408` error will be returned if handling the request takes longer.
-        :param people: People associated with the search request. Hints to the server to fetch additional information for these people. Note that in this request, an email may be used as a person's obfuscatedId value.
         :param disable_spellcheck: Whether or not to disable spellcheck.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -100,7 +96,6 @@ class Search(BaseSDK):
                 request_options, Optional[models.SearchRequestOptions]
             ),
             timeout_millis=timeout_millis,
-            people=utils.get_pydantic_model(people, Optional[List[models.Person]]),
             disable_spellcheck=disable_spellcheck,
         )
 
@@ -187,9 +182,6 @@ class Search(BaseSDK):
             Union[models.SearchRequestOptions, models.SearchRequestOptionsTypedDict]
         ] = None,
         timeout_millis: Optional[int] = None,
-        people: Optional[
-            Union[List[models.Person], List[models.PersonTypedDict]]
-        ] = None,
         disable_spellcheck: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -212,7 +204,6 @@ class Search(BaseSDK):
         :param input_details:
         :param request_options:
         :param timeout_millis: Timeout in milliseconds for the request. A `408` error will be returned if handling the request takes longer.
-        :param people: People associated with the search request. Hints to the server to fetch additional information for these people. Note that in this request, an email may be used as a person's obfuscatedId value.
         :param disable_spellcheck: Whether or not to disable spellcheck.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -250,7 +241,6 @@ class Search(BaseSDK):
                 request_options, Optional[models.SearchRequestOptions]
             ),
             timeout_millis=timeout_millis,
-            people=utils.get_pydantic_model(people, Optional[List[models.Person]]),
             disable_spellcheck=disable_spellcheck,
         )
 
@@ -1029,9 +1019,6 @@ class Search(BaseSDK):
             Union[models.SearchRequestOptions, models.SearchRequestOptionsTypedDict]
         ] = None,
         timeout_millis: Optional[int] = None,
-        people: Optional[
-            Union[List[models.Person], List[models.PersonTypedDict]]
-        ] = None,
         disable_spellcheck: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1054,7 +1041,6 @@ class Search(BaseSDK):
         :param input_details:
         :param request_options:
         :param timeout_millis: Timeout in milliseconds for the request. A `408` error will be returned if handling the request takes longer.
-        :param people: People associated with the search request. Hints to the server to fetch additional information for these people. Note that in this request, an email may be used as a person's obfuscatedId value.
         :param disable_spellcheck: Whether or not to disable spellcheck.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -1092,7 +1078,6 @@ class Search(BaseSDK):
                 request_options, Optional[models.SearchRequestOptions]
             ),
             timeout_millis=timeout_millis,
-            people=utils.get_pydantic_model(people, Optional[List[models.Person]]),
             disable_spellcheck=disable_spellcheck,
         )
 
@@ -1179,9 +1164,6 @@ class Search(BaseSDK):
             Union[models.SearchRequestOptions, models.SearchRequestOptionsTypedDict]
         ] = None,
         timeout_millis: Optional[int] = None,
-        people: Optional[
-            Union[List[models.Person], List[models.PersonTypedDict]]
-        ] = None,
         disable_spellcheck: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1204,7 +1186,6 @@ class Search(BaseSDK):
         :param input_details:
         :param request_options:
         :param timeout_millis: Timeout in milliseconds for the request. A `408` error will be returned if handling the request takes longer.
-        :param people: People associated with the search request. Hints to the server to fetch additional information for these people. Note that in this request, an email may be used as a person's obfuscatedId value.
         :param disable_spellcheck: Whether or not to disable spellcheck.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -1242,7 +1223,6 @@ class Search(BaseSDK):
                 request_options, Optional[models.SearchRequestOptions]
             ),
             timeout_millis=timeout_millis,
-            people=utils.get_pydantic_model(people, Optional[List[models.Person]]),
             disable_spellcheck=disable_spellcheck,
         )
 

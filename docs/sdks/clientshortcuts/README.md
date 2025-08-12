@@ -17,6 +17,7 @@ Create a user-generated shortcut that contains an alias and destination URL.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="createshortcut" method="post" path="/rest/api/v1/createshortcut" -->
 ```python
 from glean.api_client import Glean, models
 import os
@@ -75,6 +76,7 @@ Delete an existing user-generated shortcut.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="deleteshortcut" method="post" path="/rest/api/v1/deleteshortcut" -->
 ```python
 from glean.api_client import Glean
 import os
@@ -109,6 +111,7 @@ Read a particular shortcut's details given its ID.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="getshortcut" method="post" path="/rest/api/v1/getshortcut" -->
 ```python
 from glean.api_client import Glean
 import os
@@ -150,6 +153,7 @@ List shortcuts editable/owned by the currently authenticated user.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="listshortcuts" method="post" path="/rest/api/v1/listshortcuts" -->
 ```python
 from glean.api_client import Glean, models
 import os
@@ -208,6 +212,7 @@ Updates the shortcut with the given ID.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="updateshortcut" method="post" path="/rest/api/v1/updateshortcut" -->
 ```python
 from glean.api_client import Glean, models
 import os

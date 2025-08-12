@@ -18,6 +18,7 @@ for use with the Client API (e.g. `/rest/api/v1/*`).
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="createauthtoken" method="post" path="/rest/api/v1/createauthtoken" -->
 ```python
 from glean.api_client import Glean
 import os

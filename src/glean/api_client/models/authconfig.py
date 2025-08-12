@@ -38,6 +38,7 @@ class AuthConfigStatus(str, Enum):
 
     AWAITING_AUTH = "AWAITING_AUTH"
     AUTHORIZED = "AUTHORIZED"
+    AUTH_DISABLED = "AUTH_DISABLED"
 
 
 class AuthConfigTypedDict(TypedDict):

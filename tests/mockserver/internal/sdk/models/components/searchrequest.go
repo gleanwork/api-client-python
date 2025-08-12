@@ -28,8 +28,6 @@ type SearchRequest struct {
 	RequestOptions *SearchRequestOptions      `json:"requestOptions,omitempty"`
 	// Timeout in milliseconds for the request. A `408` error will be returned if handling the request takes longer.
 	TimeoutMillis *int64 `json:"timeoutMillis,omitempty"`
-	// People associated with the search request. Hints to the server to fetch additional information for these people. Note that in this request, an email may be used as a person's obfuscatedId value.
-	People []Person `json:"people,omitempty"`
 	// Whether or not to disable spellcheck.
 	DisableSpellcheck *bool `json:"disableSpellcheck,omitempty"`
 }
@@ -127,13 +125,6 @@ func (o *SearchRequest) GetTimeoutMillis() *int64 {
 		return nil
 	}
 	return o.TimeoutMillis
-}
-
-func (o *SearchRequest) GetPeople() []Person {
-	if o == nil {
-		return nil
-	}
-	return o.People
 }
 
 func (o *SearchRequest) GetDisableSpellcheck() *bool {

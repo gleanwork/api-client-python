@@ -16,6 +16,7 @@ Read the emails of all users who have access to the given document.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="getdocpermissions" method="post" path="/rest/api/v1/getdocpermissions" -->
 ```python
 from glean.api_client import Glean
 import os
@@ -55,6 +56,7 @@ Read the documents including metadata (does not include enhanced metadata via `/
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="getdocuments" method="post" path="/rest/api/v1/getdocuments" -->
 ```python
 from glean.api_client import Glean
 import os
@@ -94,6 +96,7 @@ Read the documents including metadata (does not include enhanced metadata via `/
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="getdocumentsbyfacets" method="post" path="/rest/api/v1/getdocumentsbyfacets" -->
 ```python
 from glean.api_client import Glean, models
 import os
@@ -153,6 +156,7 @@ Generate an AI summary of the requested documents.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="summarize" method="post" path="/rest/api/v1/summarize" -->
 ```python
 from glean.api_client import Glean
 import os

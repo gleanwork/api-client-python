@@ -13,6 +13,7 @@ Reads the aggregate information for each user, query, and content.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="insights" method="post" path="/rest/api/v1/insights" -->
 ```python
 from glean.api_client import Glean, models
 import os

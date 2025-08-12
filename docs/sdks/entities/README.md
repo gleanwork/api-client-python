@@ -14,6 +14,7 @@ List some set of details for all entities that fit the given criteria and return
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="listentities" method="post" path="/rest/api/v1/listentities" -->
 ```python
 from glean.api_client import Glean, models
 import os
@@ -76,6 +77,7 @@ Read people details for the given IDs.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="people" method="post" path="/rest/api/v1/people" -->
 ```python
 from glean.api_client import Glean
 import os

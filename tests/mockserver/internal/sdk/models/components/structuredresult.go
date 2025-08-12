@@ -72,6 +72,7 @@ type StructuredResult struct {
 	Team             *Team                `json:"team,omitempty"`
 	CustomEntity     *CustomEntity        `json:"customEntity,omitempty"`
 	Answer           *Answer              `json:"answer,omitempty"`
+	GeneratedQna     *GeneratedQna        `json:"generatedQna,omitempty"`
 	ExtractedQnA     *ExtractedQnA        `json:"extractedQnA,omitempty"`
 	Meeting          *Meeting             `json:"meeting,omitempty"`
 	App              *AppResult           `json:"app,omitempty"`
@@ -135,6 +136,13 @@ func (o *StructuredResult) GetAnswer() *Answer {
 		return nil
 	}
 	return o.Answer
+}
+
+func (o *StructuredResult) GetGeneratedQna() *GeneratedQna {
+	if o == nil {
+		return nil
+	}
+	return o.GeneratedQna
 }
 
 func (o *StructuredResult) GetExtractedQnA() *ExtractedQnA {

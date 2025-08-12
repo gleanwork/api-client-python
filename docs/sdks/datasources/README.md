@@ -14,6 +14,7 @@ Add or update a custom datasource and its schema.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="post_/api/index/v1/adddatasource" method="post" path="/api/index/v1/adddatasource" -->
 ```python
 from glean.api_client import Glean, models
 import os
@@ -83,6 +84,7 @@ Fetches the datasource config for the specified custom datasource.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="post_/api/index/v1/getdatasourceconfig" method="post" path="/api/index/v1/getdatasourceconfig" -->
 ```python
 from glean.api_client import Glean
 import os

@@ -2,12 +2,14 @@
 
 from __future__ import annotations
 from .followupaction import FollowupAction, FollowupActionTypedDict
-from .textrange import TextRange, TextRangeTypedDict
 from enum import Enum
 from glean.api_client.types import BaseModel
 import pydantic
-from typing import List, Optional
+from typing import List, Optional, TYPE_CHECKING
 from typing_extensions import Annotated, NotRequired, TypedDict
+
+if TYPE_CHECKING:
+    from .textrange import TextRange, TextRangeTypedDict
 
 
 class GeneratedQnaStatus(str, Enum):
@@ -32,7 +34,7 @@ class GeneratedQnaTypedDict(TypedDict):
     r"""List of all follow-up prompts generated for the given query or the generated question."""
     followup_actions: NotRequired[List[FollowupActionTypedDict]]
     r"""List of follow-up actions generated for the given query or the generated question."""
-    ranges: NotRequired[List[TextRangeTypedDict]]
+    ranges: NotRequired[List["TextRangeTypedDict"]]
     r"""Answer subsections to mark with special formatting (citations, bolding etc)"""
     status: NotRequired[GeneratedQnaStatus]
     r"""Status of backend generating the answer"""
@@ -59,7 +61,7 @@ class GeneratedQna(BaseModel):
     ] = None
     r"""List of follow-up actions generated for the given query or the generated question."""
 
-    ranges: Optional[List[TextRange]] = None
+    ranges: Optional[List["TextRange"]] = None
     r"""Answer subsections to mark with special formatting (citations, bolding etc)"""
 
     status: Optional[GeneratedQnaStatus] = None

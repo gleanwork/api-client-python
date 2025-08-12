@@ -66,10 +66,13 @@ DEBUG	discriminated: Renamed to "UpdateAnnouncementRequest_channel"
 	 registrationID: "scope:shared refType:Schemas refName:UpdateAnnouncementRequest originalName:channel"
 DEBUG	
 
---- Renaming 4 types with name "source" ---
+--- Renaming 5 types with name "source" ---
 DEBUG	discriminated: Renamed to "ManualFeedbackInfo_source" 
 	 labels: "original_name:source scope:shared data_type:enum refName:ManualFeedbackInfo" 
 	 registrationID: "scope:shared refType:Schemas refName:ManualFeedbackInfo originalName:source"
+DEBUG	discriminated: Renamed to "ManualFeedbackSideBySideInfo_source" 
+	 labels: "original_name:source scope:shared data_type:enum refName:ManualFeedbackSideBySideInfo" 
+	 registrationID: "scope:shared refType:Schemas refName:ManualFeedbackSideBySideInfo originalName:source"
 DEBUG	discriminated: Renamed to "WorkflowFeedbackInfo_source" 
 	 labels: "original_name:source scope:shared data_type:enum refName:WorkflowFeedbackInfo" 
 	 registrationID: "scope:shared refType:Schemas refName:WorkflowFeedbackInfo originalName:source"
@@ -79,6 +82,15 @@ DEBUG	discriminated: Renamed to "StructuredResult_source"
 DEBUG	discriminated: Renamed to "ConferenceData_source" 
 	 labels: "original_name:source scope:shared data_type:enum refName:ConferenceData" 
 	 registrationID: "scope:shared refType:Schemas refName:ConferenceData originalName:source"
+DEBUG	
+
+--- Renaming 2 types with name "vote" ---
+DEBUG	discriminated: Renamed to "ManualFeedbackInfo_vote" 
+	 labels: "original_name:vote scope:shared data_type:enum refName:ManualFeedbackInfo" 
+	 registrationID: "scope:shared refType:Schemas refName:ManualFeedbackInfo originalName:vote"
+DEBUG	discriminated: Renamed to "ManualFeedbackSideBySideInfo_vote" 
+	 labels: "original_name:vote scope:shared data_type:enum refName:ManualFeedbackSideBySideInfo" 
+	 registrationID: "scope:shared refType:Schemas refName:ManualFeedbackSideBySideInfo originalName:vote"
 DEBUG	
 
 --- Renaming 2 types with name "ConnectorType" ---
@@ -154,12 +166,12 @@ DEBUG
 DEBUG	discriminated: Renamed to "Team_status" 
 	 labels: "original_name:status scope:shared data_type:enum refName:Team" 
 	 registrationID: "scope:shared refType:Schemas refName:Team originalName:status"
-DEBUG	discriminated: Renamed to "AuthConfig_status" 
-	 labels: "original_name:status scope:shared data_type:enum refName:AuthConfig" 
-	 registrationID: "scope:shared refType:Schemas refName:AuthConfig originalName:status"
 DEBUG	discriminated: Renamed to "GeneratedQna_status" 
 	 labels: "original_name:status scope:shared data_type:enum refName:GeneratedQna" 
 	 registrationID: "scope:shared refType:Schemas refName:GeneratedQna originalName:status"
+DEBUG	discriminated: Renamed to "AuthConfig_status" 
+	 labels: "original_name:status scope:shared data_type:enum refName:AuthConfig" 
+	 registrationID: "scope:shared refType:Schemas refName:AuthConfig originalName:status"
 DEBUG	discriminated: Renamed to "BulkUploadHistoryEvent_status" 
 	 labels: "original_name:status scope:shared data_type:enum refName:BulkUploadHistoryEvent" 
 	 registrationID: "scope:shared refType:Schemas refName:BulkUploadHistoryEvent originalName:status"
@@ -360,7 +372,12 @@ FeedbackRequest (feedbackQueryParameter: string, Feedback1: Feedback)
     Issue (enum: INACCURATE_RESPONSE, INCOMPLETE_OR_NO_ANSWER, INCORRECT_CITATION ...)
     FeedbackChatExchange (timestamp: integer, agent: string, userQuery: string ...)
       ResultDocument (title: string, url: string)
-   Vote (enum: UPVOTE, DOWNVOTE)
+   ManualFeedbackInfoVote (enum: UPVOTE, DOWNVOTE)
+  ManualFeedbackSideBySideInfo (email: string, source: enum, query: string ...)
+   ManualFeedbackSideBySideInfoSource (enum: LIVE_EVAL, CHAT, SEARCH)
+    SideBySideImplementation (implementationId: string, implementationName: string, searchParams: map ...)
+     ResponseMetadata (latencyMs: integer, tokenCount: integer, modelUsed: string)
+   ManualFeedbackSideBySideInfoVote (enum: UPVOTE, DOWNVOTE, NEUTRAL)
   SeenFeedbackInfo (isExplicit: boolean)
   UserViewInfo (docId: string, docTitle: string, docUrl: string)
   WorkflowFeedbackInfo (source: enum)
@@ -468,6 +485,9 @@ CreateAnnouncementRequest (startTime: date-time, endTime: date-time, title: stri
                         CollectionPinnableTargets (enum: RESOURCE_CARD, TEAM_PROFILE_PAGE)
                        CollectionPinMetadata (id: integer, target: CollectionPinTarget)
                     CollectionItemItemType (enum: DOCUMENT, TEXT, URL ...)
+               GeneratedQna (question: string, answer: string, followUpPrompts: array ...)
+                 FollowupAction (actionRunId: string, actionInstanceId: string, actionId: string ...)
+                GeneratedQnaStatus (enum: COMPUTING, DISABLED, FAILED ...)
                ExtractedQnA (heading: string, question: string, questionResult: SearchResult)
                   SearchResultSnippet (snippet: string, mimeType: string, text: string ...)
                     ClusterGroup (clusteredResults: array, clusterType: ClusterTypeEnum, visibleCountHint: integer)
@@ -554,7 +574,7 @@ ChatRequest (timezoneOffset: integer, ChatRequest: ChatRequest)
         AuthConfig (isOnPrem: boolean, usesCentralAuth: boolean, type: enum ...)
          AuthConfigType (enum: NONE, OAUTH_USER, OAUTH_ADMIN ...)
          GrantType (enum: AUTH_CODE, CLIENT_CREDENTIALS)
-         AuthConfigStatus (enum: AWAITING_AUTH, AUTHORIZED)
+         AuthConfigStatus (enum: AWAITING_AUTH, AUTHORIZED, AUTH_DISABLED)
         WriteActionParameter (type: enum, displayName: string, value: string ...)
          WriteActionParameterType (enum: UNKNOWN, INTEGER, STRING ...)
           PossibleValue (value: string, label: string)
@@ -700,13 +720,10 @@ MessagesRequest (idType: enum, id: string, workspaceId: string ...)
 MessagesResponse (HttpMeta: HTTPMetadata, MessagesResponse: MessagesResponse)
  MessagesResponse (hasMore: boolean, searchResponse: SearchResponse, rootMessage: SearchResult)
   SearchResponse (trackingToken: string, sessionInfo: SessionInfo, results: array ...)
-   GeneratedQna (question: string, answer: string, followUpPrompts: array ...)
-     FollowupAction (actionRunId: string, actionInstanceId: string, actionId: string ...)
-    GeneratedQnaStatus (enum: COMPUTING, DISABLED, FAILED ...)
    GleanDataError (badGmailToken: boolean, badOutlookToken: boolean, invalidOperators: array ...)
      InvalidOperatorValueError (key: string, value: string)
      ErrorMessage (source: string, errorMessage: string)
-   SearchResponseMetadata (rewrittenQuery: string, searchedQuery: string, searchedQueryRanges: array ...)
+   SearchResponseMetadata (rewrittenQuery: string, searchedQuery: string, searchedQueryWithoutNegation: string ...)
     SearchWarning (warningType: enum, lastUsedTerm: string, quotesIgnoredQuery: string ...)
      WarningType (enum: LONG_QUERY, QUOTED_PUNCTUATION, PUNCTUATION_ONLY ...)
     FacetResult (sourceName: string, operatorName: string, buckets: array ...)

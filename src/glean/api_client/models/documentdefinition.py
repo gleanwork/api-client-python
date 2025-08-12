@@ -70,7 +70,7 @@ class DocumentDefinitionTypedDict(TypedDict):
     comments: NotRequired[List[CommentDefinitionTypedDict]]
     r"""Comments associated with the document."""
     custom_properties: NotRequired[List[CustomPropertyTypedDict]]
-    r"""Additional metadata properties of the document. These can surface as [facets and operators](https://developers.glean.com/docs/facets_and_operators_for_custom_datasources/)."""
+    r"""Additional metadata properties of the document. These can surface as [facets and operators](https://developers.glean.com/indexing/datasource/custom-properties/operators_and_facets)."""
 
 
 class DocumentDefinition(BaseModel):
@@ -153,4 +153,4 @@ class DocumentDefinition(BaseModel):
     custom_properties: Annotated[
         Optional[List[CustomProperty]], pydantic.Field(alias="customProperties")
     ] = None
-    r"""Additional metadata properties of the document. These can surface as [facets and operators](https://developers.glean.com/docs/facets_and_operators_for_custom_datasources/)."""
+    r"""Additional metadata properties of the document. These can surface as [facets and operators](https://developers.glean.com/indexing/datasource/custom-properties/operators_and_facets)."""

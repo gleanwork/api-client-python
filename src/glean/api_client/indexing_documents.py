@@ -204,7 +204,7 @@ class IndexingDocuments(BaseSDK):
     ):
         r"""Index documents
 
-        Adds or updates multiple documents in the index. Please refer to the [bulk indexing](https://developers.glean.com/docs/indexing_api_bulk_indexing/#choosing-indexdocuments-vs-bulkindexdocuments) documentation for an explanation of when to use this endpoint.
+        Adds or updates multiple documents in the index. Please refer to the [bulk indexing](https://developers.glean.com/indexing/documents/bulk-indexing/choosing-indexdocuments-vs-bulkindexdocuments) documentation for an explanation of when to use this endpoint.
 
         :param datasource: Datasource of the documents
         :param documents: Batch of documents being added/updated
@@ -300,7 +300,7 @@ class IndexingDocuments(BaseSDK):
     ):
         r"""Index documents
 
-        Adds or updates multiple documents in the index. Please refer to the [bulk indexing](https://developers.glean.com/docs/indexing_api_bulk_indexing/#choosing-indexdocuments-vs-bulkindexdocuments) documentation for an explanation of when to use this endpoint.
+        Adds or updates multiple documents in the index. Please refer to the [bulk indexing](https://developers.glean.com/indexing/documents/bulk-indexing/choosing-indexdocuments-vs-bulkindexdocuments) documentation for an explanation of when to use this endpoint.
 
         :param datasource: Datasource of the documents
         :param documents: Batch of documents being added/updated
@@ -400,7 +400,7 @@ class IndexingDocuments(BaseSDK):
     ):
         r"""Bulk index documents
 
-        Replaces the documents in a datasource using paginated batch API calls. Please refer to the [bulk indexing](https://developers.glean.com/docs/indexing_api_bulk_indexing/#bulk-upload-model) documentation for an explanation of how to use bulk endpoints.
+        Replaces the documents in a datasource using paginated batch API calls. Please refer to the [bulk indexing](https://developers.glean.com/indexing/documents/bulk-upload-model) documentation for an explanation of how to use bulk endpoints.
 
         :param upload_id: Unique id that must be used for this bulk upload instance
         :param datasource: Datasource of the documents
@@ -508,7 +508,7 @@ class IndexingDocuments(BaseSDK):
     ):
         r"""Bulk index documents
 
-        Replaces the documents in a datasource using paginated batch API calls. Please refer to the [bulk indexing](https://developers.glean.com/docs/indexing_api_bulk_indexing/#bulk-upload-model) documentation for an explanation of how to use bulk endpoints.
+        Replaces the documents in a datasource using paginated batch API calls. Please refer to the [bulk indexing](https://developers.glean.com/indexing/documents/bulk-upload-model) documentation for an explanation of how to use bulk endpoints.
 
         :param upload_id: Unique id that must be used for this bulk upload instance
         :param datasource: Datasource of the documents
@@ -1018,7 +1018,7 @@ class IndexingDocuments(BaseSDK):
 
         Gives various information that would help in debugging related to a particular document. Currently in beta, might undergo breaking changes without prior notice.
 
-        Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/docs/indexing_api/indexing_api_troubleshooting/) for more information.
+        Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/indexing/debugging/datasource-config) for more information.
 
 
         :param datasource: The datasource to which the document belongs
@@ -1119,7 +1119,7 @@ class IndexingDocuments(BaseSDK):
 
         Gives various information that would help in debugging related to a particular document. Currently in beta, might undergo breaking changes without prior notice.
 
-        Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/docs/indexing_api/indexing_api_troubleshooting/) for more information.
+        Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/indexing/debugging/datasource-config) for more information.
 
 
         :param datasource: The datasource to which the document belongs
@@ -1222,7 +1222,7 @@ class IndexingDocuments(BaseSDK):
 
         Gives various information that would help in debugging related to a batch of documents. Currently in beta, might undergo breaking changes without prior notice.
 
-        Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/docs/indexing_api/indexing_api_troubleshooting/) for more information.
+        Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/indexing/debugging/datasource-config) for more information.
 
 
         :param datasource: The datasource to which the document belongs
@@ -1325,7 +1325,7 @@ class IndexingDocuments(BaseSDK):
 
         Gives various information that would help in debugging related to a batch of documents. Currently in beta, might undergo breaking changes without prior notice.
 
-        Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/docs/indexing_api/indexing_api_troubleshooting/) for more information.
+        Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/indexing/debugging/datasource-config) for more information.
 
 
         :param datasource: The datasource to which the document belongs
@@ -1427,7 +1427,7 @@ class IndexingDocuments(BaseSDK):
 
         Check if a given user has access to access a document in a custom datasource
 
-        Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/docs/indexing_api/indexing_api_troubleshooting/) for more information.
+        Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/indexing/debugging/datasource-config) for more information.
 
 
         :param datasource: Datasource of document to check access for.
@@ -1525,7 +1525,7 @@ class IndexingDocuments(BaseSDK):
 
         Check if a given user has access to access a document in a custom datasource
 
-        Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/docs/indexing_api/indexing_api_troubleshooting/) for more information.
+        Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/indexing/debugging/datasource-config) for more information.
 
 
         :param datasource: Datasource of document to check access for.
@@ -1625,7 +1625,7 @@ class IndexingDocuments(BaseSDK):
 
         Intended for debugging/validation. Fetches the current upload and indexing status of documents.
 
-        Tip: Use [/debug/{datasource}/document](https://developers.glean.com/docs/indexing_api/indexing_api_troubleshooting/#debug-datasource-document) for richer information.
+        Tip: Use [/debug/{datasource}/document](https://developers.glean.com/indexing/debugging/datasource-document) for richer information.
 
 
         :param datasource: Datasource to get fetch document status for
@@ -1723,7 +1723,7 @@ class IndexingDocuments(BaseSDK):
 
         Intended for debugging/validation. Fetches the current upload and indexing status of documents.
 
-        Tip: Use [/debug/{datasource}/document](https://developers.glean.com/docs/indexing_api/indexing_api_troubleshooting/#debug-datasource-document) for richer information.
+        Tip: Use [/debug/{datasource}/document](https://developers.glean.com/indexing/debugging/datasource-document) for richer information.
 
 
         :param datasource: Datasource to get fetch document status for
@@ -1819,7 +1819,7 @@ class IndexingDocuments(BaseSDK):
 
         Fetches document count for the specified custom datasource.
 
-        Tip: Use [/debug/{datasource}/status](https://developers.glean.com/docs/indexing_api/indexing_api_troubleshooting/#debug-datasource-status) for richer information.
+        Tip: Use [/debug/{datasource}/status](https://developers.glean.com/indexing/debugging/datasource-status) for richer information.
 
 
         :param datasource: Datasource name for which document count is needed.
@@ -1911,7 +1911,7 @@ class IndexingDocuments(BaseSDK):
 
         Fetches document count for the specified custom datasource.
 
-        Tip: Use [/debug/{datasource}/status](https://developers.glean.com/docs/indexing_api/indexing_api_troubleshooting/#debug-datasource-status) for richer information.
+        Tip: Use [/debug/{datasource}/status](https://developers.glean.com/indexing/debugging/datasource-status) for richer information.
 
 
         :param datasource: Datasource name for which document count is needed.

@@ -9,3 +9,4 @@ Auth status of the tool.
 | --------------- | --------------- |
 | `AWAITING_AUTH` | AWAITING_AUTH   |
 | `AUTHORIZED`    | AUTHORIZED      |
+| `AUTH_DISABLED` | AUTH_DISABLED   |

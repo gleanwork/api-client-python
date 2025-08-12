@@ -12,11 +12,12 @@
 
 Gather information about the datasource's overall status. Currently in beta, might undergo breaking changes without prior notice.
 
-Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/docs/indexing_api/indexing_api_troubleshooting/) for more information.
+Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/indexing/debugging/datasource-config) for more information.
 
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="post_/api/index/v1/debug/{datasource}/status" method="post" path="/api/index/v1/debug/{datasource}/status" -->
 ```python
 from glean.api_client import Glean
 import os

@@ -2245,7 +2245,7 @@ paths:
     /api/index/v1/indexdocuments:
         post:
             summary: Index documents
-            description: Adds or updates multiple documents in the index. Please refer to the [bulk indexing](https://developers.glean.com/docs/indexing_api_bulk_indexing/#choosing-indexdocuments-vs-bulkindexdocuments) documentation for an explanation of when to use this endpoint.
+            description: Adds or updates multiple documents in the index. Please refer to the [bulk indexing](https://developers.glean.com/indexing/documents/bulk-indexing/choosing-indexdocuments-vs-bulkindexdocuments) documentation for an explanation of when to use this endpoint.
             tags:
                 - Documents
             requestBody:
@@ -2271,7 +2271,7 @@ paths:
     /api/index/v1/bulkindexdocuments:
         post:
             summary: Bulk index documents
-            description: Replaces the documents in a datasource using paginated batch API calls. Please refer to the [bulk indexing](https://developers.glean.com/docs/indexing_api_bulk_indexing/#bulk-upload-model) documentation for an explanation of how to use bulk endpoints.
+            description: Replaces the documents in a datasource using paginated batch API calls. Please refer to the [bulk indexing](https://developers.glean.com/indexing/documents/bulk-upload-model) documentation for an explanation of how to use bulk endpoints.
             tags:
                 - Documents
             requestBody:
@@ -2403,7 +2403,7 @@ paths:
     /api/index/v1/bulkindexusers:
         post:
             summary: Bulk index users
-            description: Replaces the users in a datasource using paginated batch API calls. Please refer to the [bulk indexing](https://developers.glean.com/docs/indexing_api_bulk_indexing/#bulk-upload-model) documentation for an explanation of how to use bulk endpoints.
+            description: Replaces the users in a datasource using paginated batch API calls. Please refer to the [bulk indexing](https://developers.glean.com/indexing/documents/bulk-upload-model) documentation for an explanation of how to use bulk endpoints.
             tags:
                 - Permissions
             requestBody:
@@ -2451,7 +2451,7 @@ paths:
     /api/index/v1/bulkindexgroups:
         post:
             summary: Bulk index groups
-            description: Replaces the groups in a datasource using paginated batch API calls. Please refer to the [bulk indexing](https://developers.glean.com/docs/indexing_api_bulk_indexing/#bulk-upload-model) documentation for an explanation of how to use bulk endpoints.
+            description: Replaces the groups in a datasource using paginated batch API calls. Please refer to the [bulk indexing](https://developers.glean.com/indexing/documents/bulk-upload-model) documentation for an explanation of how to use bulk endpoints.
             tags:
                 - Permissions
             requestBody:
@@ -2499,7 +2499,7 @@ paths:
     /api/index/v1/bulkindexmemberships:
         post:
             summary: Bulk index memberships for a group
-            description: Replaces the memberships for a group in a datasource using paginated batch API calls. Please refer to the [bulk indexing](https://developers.glean.com/docs/indexing_api_bulk_indexing/#bulk-upload-model) documentation for an explanation of how to use bulk endpoints.
+            description: Replaces the memberships for a group in a datasource using paginated batch API calls. Please refer to the [bulk indexing](https://developers.glean.com/indexing/documents/bulk-upload-model) documentation for an explanation of how to use bulk endpoints.
             tags:
                 - Permissions
             requestBody:
@@ -2622,7 +2622,7 @@ paths:
             description: |
                 Gather information about the datasource's overall status. Currently in beta, might undergo breaking changes without prior notice.
 
-                Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/docs/indexing_api/indexing_api_troubleshooting/) for more information.
+                Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/indexing/debugging/datasource-config) for more information.
             tags:
                 - Troubleshooting
             parameters:
@@ -2653,7 +2653,7 @@ paths:
             description: |
                 Gives various information that would help in debugging related to a particular document. Currently in beta, might undergo breaking changes without prior notice.
 
-                Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/docs/indexing_api/indexing_api_troubleshooting/) for more information.
+                Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/indexing/debugging/datasource-config) for more information.
             tags:
                 - Troubleshooting
             parameters:
@@ -2691,7 +2691,7 @@ paths:
             description: |
                 Gives various information that would help in debugging related to a batch of documents. Currently in beta, might undergo breaking changes without prior notice.
 
-                Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/docs/indexing_api/indexing_api_troubleshooting/) for more information.
+                Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/indexing/debugging/datasource-config) for more information.
             tags:
                 - Troubleshooting
             parameters:
@@ -2729,7 +2729,7 @@ paths:
             description: |
                 Gives various information that would help in debugging related to a particular user. Currently in beta, might undergo breaking changes without prior notice.
 
-                Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/docs/indexing_api/indexing_api_troubleshooting/) for more information.
+                Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/indexing/debugging/datasource-config) for more information.
             tags:
                 - Troubleshooting
             parameters:
@@ -2765,7 +2765,7 @@ paths:
             description: |
                 Check if a given user has access to access a document in a custom datasource
 
-                Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/docs/indexing_api/indexing_api_troubleshooting/) for more information.
+                Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/indexing/debugging/datasource-config) for more information.
             tags:
                 - Troubleshooting
             requestBody:
@@ -2797,7 +2797,7 @@ paths:
             description: |
                 Intended for debugging/validation. Fetches the current upload and indexing status of documents.
 
-                Tip: Use [/debug/{datasource}/document](https://developers.glean.com/docs/indexing_api/indexing_api_troubleshooting/#debug-datasource-document) for richer information.
+                Tip: Use [/debug/{datasource}/document](https://developers.glean.com/indexing/debugging/datasource-document) for richer information.
             tags:
                 - Troubleshooting
             requestBody:
@@ -2829,7 +2829,7 @@ paths:
             description: |
                 Fetches document count for the specified custom datasource.
 
-                Tip: Use [/debug/{datasource}/status](https://developers.glean.com/docs/indexing_api/indexing_api_troubleshooting/#debug-datasource-status) for richer information.
+                Tip: Use [/debug/{datasource}/status](https://developers.glean.com/indexing/debugging/datasource-status) for richer information.
             tags:
                 - Troubleshooting
             requestBody:
@@ -2861,7 +2861,7 @@ paths:
             description: |
                 Fetches user count for the specified custom datasource.
 
-                Tip: Use [/debug/{datasource}/status](https://developers.glean.com/docs/indexing_api/indexing_api_troubleshooting/#debug-datasource-status) for richer information.
+                Tip: Use [/debug/{datasource}/status](https://developers.glean.com/indexing/debugging/datasource-status) for richer information.
             tags:
                 - Troubleshooting
             requestBody:
@@ -2963,7 +2963,7 @@ paths:
     /api/index/v1/rotatetoken:
         post:
             summary: Rotate token
-            description: Rotates the secret value inside the Indexing API token and returns the new raw secret. All other properties of the token are unchanged. In order to rotate the secret value, include the token as the bearer token in the `/rotatetoken` request. Please refer to [Token rotation](https://developers.glean.com/docs/indexing_api_token_rotation/) documentation for more information.
+            description: Rotates the secret value inside the Indexing API token and returns the new raw secret. All other properties of the token are unchanged. In order to rotate the secret value, include the token as the bearer token in the `/rotatetoken` request. Please refer to [Token rotation](https://developers.glean.com/indexing/authentication/token-rotation) documentation for more information.
             tags:
                 - Authentication
             responses:
@@ -3006,7 +3006,7 @@ paths:
     /api/index/v1/bulkindexemployees:
         post:
             summary: Bulk index employees
-            description: Replaces all the currently indexed employees using paginated batch API calls. Please refer to the [bulk indexing](https://developers.glean.com/docs/indexing_api_bulk_indexing/#bulk-upload-model) documentation for an explanation of how to use bulk endpoints.
+            description: Replaces all the currently indexed employees using paginated batch API calls. Please refer to the [bulk indexing](https://developers.glean.com/indexing/documents/bulk-upload-model) documentation for an explanation of how to use bulk endpoints.
             tags:
                 - People
             requestBody:
@@ -3121,7 +3121,7 @@ paths:
     /api/index/v1/bulkindexteams:
         post:
             summary: Bulk index teams
-            description: Replaces all the currently indexed teams using paginated batch API calls. Please refer to the [bulk indexing](https://developers.glean.com/docs/indexing_api_bulk_indexing/#bulk-upload-model) documentation for an explanation of how to use bulk endpoints.
+            description: Replaces all the currently indexed teams using paginated batch API calls. Please refer to the [bulk indexing](https://developers.glean.com/indexing/documents/bulk-upload-model) documentation for an explanation of how to use bulk endpoints.
             tags:
                 - People
             requestBody:
@@ -3868,6 +3868,71 @@ components:
                 ratingScale:
                     type: integer
                     description: The scale of comparison for a rating associated with the feedback. Rating values start from one and go up to the maximum specified by ratingScale. For example, a five-option satisfaction rating will have a ratingScale of 5 and a thumbs-up/thumbs-down rating will have a ratingScale of 2.
+        SideBySideImplementation:
+            properties:
+                implementationId:
+                    type: string
+                    description: Unique identifier for this implementation variant.
+                implementationName:
+                    type: string
+                    description: Human-readable name for this implementation (e.g., "Variant A", "GPT-4", "Claude").
+                searchParams:
+                    type: object
+                    description: The search/chat parameters used for this implementation.
+                    additionalProperties:
+                        type: string
+                response:
+                    type: string
+                    description: The full response generated by this implementation.
+                responseMetadata:
+                    type: object
+                    description: Metadata about the response (e.g., latency, token count).
+                    properties:
+                        latencyMs:
+                            type: integer
+                            description: Time taken to generate the response in milliseconds.
+                        tokenCount:
+                            type: integer
+                            description: Number of tokens in the response.
+                        modelUsed:
+                            type: string
+                            description: The specific model version used.
+        ManualFeedbackSideBySideInfo:
+            properties:
+                email:
+                    type: string
+                    description: The email address of the user who submitted the side-by-side feedback.
+                source:
+                    type: string
+                    description: The source associated with the side-by-side feedback event.
+                    enum:
+                        - LIVE_EVAL
+                        - CHAT
+                        - SEARCH
+                query:
+                    type: string
+                    description: The query or prompt that was evaluated across multiple implementations.
+                implementations:
+                    type: array
+                    description: Array of implementations that were compared side-by-side.
+                    items:
+                        $ref: "#/components/schemas/SideBySideImplementation"
+                evaluationSessionId:
+                    type: string
+                    description: Unique identifier for this evaluation session to group related feedback events.
+                implementationId:
+                    type: string
+                    description: The ID of the implementation this specific feedback event is for.
+                vote:
+                    type: string
+                    description: The vote for this specific implementation.
+                    enum:
+                        - UPVOTE
+                        - DOWNVOTE
+                        - NEUTRAL
+                comments:
+                    type: string
+                    description: Specific feedback comments for this implementation.
         SeenFeedbackInfo:
             properties:
                 isExplicit:
@@ -3938,6 +4003,7 @@ components:
                         FOCUS_IN: The user clicked into an interactive element, e.g. the search box.
                         LAST_TOKEN: The final token of a streaming response is received.
                         MANUAL_FEEDBACK: The user submitted textual manual feedback regarding the object.
+                        MANUAL_FEEDBACK_SIDE_BY_SIDE: The user submitted comparative feedback for multiple side-by-side implementations.
                         MARK_AS_READ: The user explicitly marked the content as read.
                         MESSAGE: The user attempted to send a message using their default messaing app.
                         MIDDLE_CLICK: The user middle clicked the object's primary link with the intent to open its full representation in a new tab.
@@ -3967,6 +4033,7 @@ components:
                         - FOCUS_IN
                         - LAST_TOKEN
                         - MANUAL_FEEDBACK
+                        - MANUAL_FEEDBACK_SIDE_BY_SIDE
                         - MARK_AS_READ
                         - MESSAGE
                         - MIDDLE_CLICK
@@ -4021,6 +4088,8 @@ components:
                     description: The UI element associated with the event, if any.
                 manualFeedbackInfo:
                     $ref: "#/components/schemas/ManualFeedbackInfo"
+                manualFeedbackSideBySideInfo:
+                    $ref: "#/components/schemas/ManualFeedbackSideBySideInfo"
                 seenFeedbackInfo:
                     $ref: "#/components/schemas/SeenFeedbackInfo"
                 userViewInfo:
@@ -5395,6 +5464,68 @@ components:
                         description: The document's document_category(.proto).
                     sourceDocument:
                         $ref: "#/components/schemas/Document"
+        FollowupAction:
+            description: A follow-up action that can be invoked by the user after a response. The action parameters are not included and need to be predicted/filled separately.
+            properties:
+                actionRunId:
+                    type: string
+                    description: Unique identifier for this actionRun recommendation event.
+                actionInstanceId:
+                    type: string
+                    description: The ID of the action instance that will be invoked.
+                actionId:
+                    type: string
+                    description: The ID of the associated action.
+                recommendationText:
+                    type: string
+                    description: Text to be displayed to the user when recommending the action instance.
+                actionLabel:
+                    type: string
+                    description: The label to be used when displaying a button to execute this action instance.
+                userConfirmationRequired:
+                    type: boolean
+                    description: Whether user confirmation is needed before executing this action instance.
+        GeneratedQna:
+            properties:
+                question:
+                    type: string
+                    description: Search query rephrased into a question.
+                answer:
+                    type: string
+                    description: Answer generated for the given query or the generated question.
+                followUpPrompts:
+                    type: array
+                    items:
+                        type: string
+                    description: List of all follow-up prompts generated for the given query or the generated question.
+                followupActions:
+                    description: List of follow-up actions generated for the given query or the generated question.
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/FollowupAction"
+                ranges:
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/TextRange"
+                    description: Answer subsections to mark with special formatting (citations, bolding etc)
+                status:
+                    type: string
+                    enum:
+                        - COMPUTING
+                        - DISABLED
+                        - FAILED
+                        - NO_ANSWER
+                        - SKIPPED
+                        - STREAMING
+                        - SUCCEEDED
+                        - TIMEOUT
+                    description: Status of backend generating the answer
+                cursor:
+                    type: string
+                    description: An opaque cursor representing the search request
+                trackingToken:
+                    type: string
+                    description: An opaque token that represents this particular result in this particular query. To be used for /feedback reporting.
         SearchResult:
             required:
                 - url
@@ -5748,6 +5879,8 @@ components:
                     $ref: "#/components/schemas/CustomEntity"
                 answer:
                     $ref: "#/components/schemas/Answer"
+                generatedQna:
+                    $ref: "#/components/schemas/GeneratedQna"
                 extractedQnA:
                     $ref: "#/components/schemas/ExtractedQnA"
                 meeting:
@@ -6994,6 +7127,7 @@ components:
                     enum:
                         - AWAITING_AUTH
                         - AUTHORIZED
+                        - AUTH_DISABLED
                 client_url:
                     type: string
                     format: url
@@ -7162,6 +7296,9 @@ components:
                     action:
                         description: Basic information about an action. This can be used to construct rich-text messages with action references.
                         $ref: "#/components/schemas/ToolInfo"
+                    citation:
+                        description: Inline citation.
+                        $ref: "#/components/schemas/ChatMessageCitation"
         ChatMessage:
             description: A message that is rendered as one coherent unit with one given sender.
             properties:
@@ -7169,7 +7306,7 @@ components:
                     $ref: "#/components/schemas/AgentConfig"
                     description: Describes the agent config that generated this message. Populated on responses and not required on requests.
                 author:
-                    default: USER
+                    default: GLEAN_AI
                     enum:
                         - USER
                         - GLEAN_AI
@@ -7248,7 +7385,7 @@ components:
                     description: The id of the Chat that context should be retrieved from and messages added to. An empty id starts a new Chat, and the Chat is saved if saveChat is true.
                 messages:
                     type: array
-                    description: A list of chat messages, from most recent to least recent. It can be assumed that the first chat message in the list is the user's most recent query.
+                    description: A list of chat messages, from most recent to least recent. At least one message must specify a USER author.
                     items:
                         $ref: "#/components/schemas/ChatMessage"
                 agentConfig:
@@ -8277,68 +8414,6 @@ components:
                 datasourceInstanceDisplayName:
                     type: string
                     description: The datasource instance display name from which the document was extracted. This is used for appinstance facet filter for datasources that support multiple instances.
-        FollowupAction:
-            description: A follow-up action that can be invoked by the user after a response. The action parameters are not included and need to be predicted/filled separately.
-            properties:
-                actionRunId:
-                    type: string
-                    description: Unique identifier for this actionRun recommendation event.
-                actionInstanceId:
-                    type: string
-                    description: The ID of the action instance that will be invoked.
-                actionId:
-                    type: string
-                    description: The ID of the associated action.
-                recommendationText:
-                    type: string
-                    description: Text to be displayed to the user when recommending the action instance.
-                actionLabel:
-                    type: string
-                    description: The label to be used when displaying a button to execute this action instance.
-                userConfirmationRequired:
-                    type: boolean
-                    description: Whether user confirmation is needed before executing this action instance.
-        GeneratedQna:
-            properties:
-                question:
-                    type: string
-                    description: Search query rephrased into a question.
-                answer:
-                    type: string
-                    description: Answer generated for the given query or the generated question.
-                followUpPrompts:
-                    type: array
-                    items:
-                        type: string
-                    description: List of all follow-up prompts generated for the given query or the generated question.
-                followupActions:
-                    description: List of follow-up actions generated for the given query or the generated question.
-                    type: array
-                    items:
-                        $ref: "#/components/schemas/FollowupAction"
-                ranges:
-                    type: array
-                    items:
-                        $ref: "#/components/schemas/TextRange"
-                    description: Answer subsections to mark with special formatting (citations, bolding etc)
-                status:
-                    type: string
-                    enum:
-                        - COMPUTING
-                        - DISABLED
-                        - FAILED
-                        - NO_ANSWER
-                        - SKIPPED
-                        - STREAMING
-                        - SUCCEEDED
-                        - TIMEOUT
-                    description: Status of backend generating the answer
-                cursor:
-                    type: string
-                    description: An opaque cursor representing the search request
-                trackingToken:
-                    type: string
-                    description: An opaque token that represents this particular result in this particular query. To be used for /feedback reporting.
         InvalidOperatorValueError:
             properties:
                 key:
@@ -8441,6 +8516,10 @@ components:
                 searchedQuery:
                     type: string
                     description: The actual query used to perform search and return results.
+                searchedQueryWithoutNegation:
+                    type: string
+                    description: The query used to perform search and return results, with negated terms and facets removed.
+                    x-includeEmpty: true
                 searchedQueryRanges:
                     type: array
                     items:
@@ -8765,11 +8844,6 @@ components:
                         type: integer
                         description: Timeout in milliseconds for the request. A `408` error will be returned if handling the request takes longer.
                         example: 5000
-                    people:
-                        type: array
-                        description: People associated with the search request. Hints to the server to fetch additional information for these people. Note that in this request, an email may be used as a person's obfuscatedId value.
-                        items:
-                            $ref: "#/components/schemas/Person"
                     disableSpellcheck:
                         type: boolean
                         description: Whether or not to disable spellcheck.
@@ -10118,7 +10192,7 @@ components:
                         The permalink for viewing the document. **Note: viewURL is a required field if id was not set when uploading the document.**'
                 permissions:
                     $ref: "#/components/schemas/DocumentPermissionsDefinition"
-                    description: The permissions that define who can view this document in the search results. Please refer to [this](https://developers.glean.com/docs/indexing_api_permissions/) for more details.
+                    description: The permissions that define who can view this document in the search results. Please refer to [this](https://developers.glean.com/indexing/documents/permissions) for more details.
             required:
                 - permissions
                 - datasource
@@ -10620,7 +10694,7 @@ components:
                     description: The current owner of the document, if not the author.
                 permissions:
                     $ref: "#/components/schemas/DocumentPermissionsDefinition"
-                    description: The permissions that define who can view this document in the search results. Please refer to [this](https://developers.glean.com/docs/indexing_api_permissions/) for more details.
+                    description: The permissions that define who can view this document in the search results. Please refer to [this](https://developers.glean.com/indexing/documents/permissions) for more details.
                 createdAt:
                     type: integer
                     format: int64
@@ -10654,7 +10728,7 @@ components:
                     type: array
                     items:
                         $ref: "#/components/schemas/CustomProperty"
-                    description: Additional metadata properties of the document. These can surface as [facets and operators](https://developers.glean.com/docs/facets_and_operators_for_custom_datasources/).
+                    description: Additional metadata properties of the document. These can surface as [facets and operators](https://developers.glean.com/indexing/datasource/custom-properties/operators_and_facets).
             required:
                 - datasource
         CommentDefinition:

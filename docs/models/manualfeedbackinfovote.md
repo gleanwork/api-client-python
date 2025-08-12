@@ -1,4 +1,4 @@
-# Vote
+# ManualFeedbackInfoVote
 
 The vote associated with the Feedback.event.MANUAL_FEEDBACK event.
 

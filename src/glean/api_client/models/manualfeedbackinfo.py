@@ -47,7 +47,7 @@ class Issue(str, Enum):
     TOO_MUCH_ONE_KIND = "TOO_MUCH_ONE_KIND"
 
 
-class Vote(str, Enum):
+class ManualFeedbackInfoVote(str, Enum):
     r"""The vote associated with the Feedback.event.MANUAL_FEEDBACK event."""
 
     UPVOTE = "UPVOTE"
@@ -81,7 +81,7 @@ class ManualFeedbackInfoTypedDict(TypedDict):
     r"""Array of previous request/response exchanges, ordered by oldest to newest."""
     num_queries_from_first_run: NotRequired[int]
     r"""How many times this query has been run in the past."""
-    vote: NotRequired[Vote]
+    vote: NotRequired[ManualFeedbackInfoVote]
     r"""The vote associated with the Feedback.event.MANUAL_FEEDBACK event."""
     rating: NotRequired[int]
     r"""A rating associated with the user feedback. The value will be between one and the maximum given by ratingScale, inclusive."""
@@ -146,7 +146,7 @@ class ManualFeedbackInfo(BaseModel):
     ] = None
     r"""How many times this query has been run in the past."""
 
-    vote: Optional[Vote] = None
+    vote: Optional[ManualFeedbackInfoVote] = None
     r"""The vote associated with the Feedback.event.MANUAL_FEEDBACK event."""
 
     rating: Optional[int] = None

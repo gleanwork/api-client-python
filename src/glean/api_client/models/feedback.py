@@ -2,6 +2,10 @@
 
 from __future__ import annotations
 from .manualfeedbackinfo import ManualFeedbackInfo, ManualFeedbackInfoTypedDict
+from .manualfeedbacksidebysideinfo import (
+    ManualFeedbackSideBySideInfo,
+    ManualFeedbackSideBySideInfoTypedDict,
+)
 from .seenfeedbackinfo import SeenFeedbackInfo, SeenFeedbackInfoTypedDict
 from .sessioninfo import SessionInfo, SessionInfoTypedDict
 from .user import User, UserTypedDict
@@ -47,6 +51,7 @@ class Event(str, Enum):
     FOCUS_IN = "FOCUS_IN"
     LAST_TOKEN = "LAST_TOKEN"
     MANUAL_FEEDBACK = "MANUAL_FEEDBACK"
+    MANUAL_FEEDBACK_SIDE_BY_SIDE = "MANUAL_FEEDBACK_SIDE_BY_SIDE"
     MARK_AS_READ = "MARK_AS_READ"
     MESSAGE = "MESSAGE"
     MIDDLE_CLICK = "MIDDLE_CLICK"
@@ -98,6 +103,9 @@ class FeedbackTypedDict(TypedDict):
     ui_element: NotRequired[str]
     r"""The UI element associated with the event, if any."""
     manual_feedback_info: NotRequired[ManualFeedbackInfoTypedDict]
+    manual_feedback_side_by_side_info: NotRequired[
+        ManualFeedbackSideBySideInfoTypedDict
+    ]
     seen_feedback_info: NotRequired[SeenFeedbackInfoTypedDict]
     user_view_info: NotRequired[UserViewInfoTypedDict]
     workflow_feedback_info: NotRequired[WorkflowFeedbackInfoTypedDict]
@@ -152,6 +160,11 @@ class Feedback(BaseModel):
 
     manual_feedback_info: Annotated[
         Optional[ManualFeedbackInfo], pydantic.Field(alias="manualFeedbackInfo")
+    ] = None
+
+    manual_feedback_side_by_side_info: Annotated[
+        Optional[ManualFeedbackSideBySideInfo],
+        pydantic.Field(alias="manualFeedbackSideBySideInfo"),
     ] = None
 
     seen_feedback_info: Annotated[

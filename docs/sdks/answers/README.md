@@ -17,6 +17,7 @@ Create a user-generated Answer that contains a question and answer.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="createanswer" method="post" path="/rest/api/v1/createanswer" -->
 ```python
 from glean.api_client import Glean, models
 import os
@@ -104,6 +105,7 @@ Delete an existing user-generated Answer.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="deleteanswer" method="post" path="/rest/api/v1/deleteanswer" -->
 ```python
 from glean.api_client import Glean
 import os
@@ -139,6 +141,7 @@ Update an existing user-generated Answer.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="editanswer" method="post" path="/rest/api/v1/editanswer" -->
 ```python
 from glean.api_client import Glean, models
 import os
@@ -232,6 +235,7 @@ Read the details of a particular Answer given its ID.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="getanswer" method="post" path="/rest/api/v1/getanswer" -->
 ```python
 from glean.api_client import Glean
 import os
@@ -272,6 +276,7 @@ List Answers created by the current user.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="listanswers" method="post" path="/rest/api/v1/listanswers" -->
 ```python
 from glean.api_client import Glean
 import os

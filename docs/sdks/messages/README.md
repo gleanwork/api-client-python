@@ -13,6 +13,7 @@ Retrieves list of messages from messaging/chat datasources (e.g. Slack, Teams).
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="messages" method="post" path="/rest/api/v1/messages" -->
 ```python
 from glean.api_client import Glean, models
 import os

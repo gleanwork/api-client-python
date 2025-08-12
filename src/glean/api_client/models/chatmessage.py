@@ -61,7 +61,7 @@ class ChatMessage(BaseModel):
     ] = None
     r"""Describes the agent that executes the request."""
 
-    author: Optional[Author] = Author.USER
+    author: Optional[Author] = Author.GLEAN_AI
 
     citations: Optional[List[ChatMessageCitation]] = None
     r"""A list of Citations that were used to generate the response."""

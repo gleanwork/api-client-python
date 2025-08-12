@@ -42,7 +42,7 @@ class ClientChat(BaseSDK):
 
         Have a conversation with Glean AI.
 
-        :param messages: A list of chat messages, from most recent to least recent. It can be assumed that the first chat message in the list is the user's most recent query.
+        :param messages: A list of chat messages, from most recent to least recent. At least one message must specify a USER author.
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param save_chat: Save the current interaction as a Chat for the user to access and potentially continue later.
         :param chat_id: The id of the Chat that context should be retrieved from and messages added to. An empty id starts a new Chat, and the Chat is saved if saveChat is true.
@@ -179,7 +179,7 @@ class ClientChat(BaseSDK):
 
         Have a conversation with Glean AI.
 
-        :param messages: A list of chat messages, from most recent to least recent. It can be assumed that the first chat message in the list is the user's most recent query.
+        :param messages: A list of chat messages, from most recent to least recent. At least one message must specify a USER author.
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param save_chat: Save the current interaction as a Chat for the user to access and potentially continue later.
         :param chat_id: The id of the Chat that context should be retrieved from and messages added to. An empty id starts a new Chat, and the Chat is saved if saveChat is true.
@@ -1780,7 +1780,7 @@ class ClientChat(BaseSDK):
 
         Have a conversation with Glean AI.
 
-        :param messages: A list of chat messages, from most recent to least recent. It can be assumed that the first chat message in the list is the user's most recent query.
+        :param messages: A list of chat messages, from most recent to least recent. At least one message must specify a USER author.
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param save_chat: Save the current interaction as a Chat for the user to access and potentially continue later.
         :param chat_id: The id of the Chat that context should be retrieved from and messages added to. An empty id starts a new Chat, and the Chat is saved if saveChat is true.
@@ -1917,7 +1917,7 @@ class ClientChat(BaseSDK):
 
         Have a conversation with Glean AI.
 
-        :param messages: A list of chat messages, from most recent to least recent. It can be assumed that the first chat message in the list is the user's most recent query.
+        :param messages: A list of chat messages, from most recent to least recent. At least one message must specify a USER author.
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param save_chat: Save the current interaction as a Chat for the user to access and potentially continue later.
         :param chat_id: The id of the Chat that context should be retrieved from and messages added to. An empty id starts a new Chat, and the Chat is saved if saveChat is true.

@@ -32,6 +32,7 @@ from .document import Document, DocumentTypedDict
 from .documentinteractions import DocumentInteractions, DocumentInteractionsTypedDict
 from .documentmetadata import DocumentMetadata, DocumentMetadataTypedDict
 from .extractedqna import ExtractedQnA, ExtractedQnATypedDict
+from .generatedqna import GeneratedQna, GeneratedQnaStatus, GeneratedQnaTypedDict
 from .inviteinfo import InviteInfo, InviteInfoTypedDict
 from .meeting import Meeting, MeetingTypedDict
 from .person import Person, PersonTypedDict
@@ -67,6 +68,7 @@ from .verification import State, Verification, VerificationTypedDict
 from .verificationmetadata import VerificationMetadata, VerificationMetadataTypedDict
 from typing import TYPE_CHECKING
 from importlib import import_module
+import builtins
 
 if TYPE_CHECKING:
     from .activity import Activity, ActivityTypedDict
@@ -604,7 +606,6 @@ if TYPE_CHECKING:
         GeneratedAttachmentContent,
         GeneratedAttachmentContentTypedDict,
     )
-    from .generatedqna import GeneratedQna, GeneratedQnaStatus, GeneratedQnaTypedDict
     from .get_rest_api_v1_tools_listop import (
         GetRestAPIV1ToolsListRequest,
         GetRestAPIV1ToolsListRequestTypedDict,
@@ -839,7 +840,13 @@ if TYPE_CHECKING:
         ManualFeedbackInfo,
         ManualFeedbackInfoSource,
         ManualFeedbackInfoTypedDict,
-        Vote,
+        ManualFeedbackInfoVote,
+    )
+    from .manualfeedbacksidebysideinfo import (
+        ManualFeedbackSideBySideInfo,
+        ManualFeedbackSideBySideInfoSource,
+        ManualFeedbackSideBySideInfoTypedDict,
+        ManualFeedbackSideBySideInfoVote,
     )
     from .message import (
         Message,
@@ -1014,6 +1021,12 @@ if TYPE_CHECKING:
     from .shortcutspaginationmetadata import (
         ShortcutsPaginationMetadata,
         ShortcutsPaginationMetadataTypedDict,
+    )
+    from .sidebysideimplementation import (
+        ResponseMetadata,
+        ResponseMetadataTypedDict,
+        SideBySideImplementation,
+        SideBySideImplementationTypedDict,
     )
     from .socialnetwork import SocialNetwork, SocialNetworkTypedDict
     from .socialnetworkdefinition import (
@@ -1195,6 +1208,7 @@ Meeting.model_rebuild()
 CalendarAttendees.model_rebuild()
 CalendarAttendee.model_rebuild()
 ExtractedQnA.model_rebuild()
+GeneratedQna.model_rebuild()
 Answer.model_rebuild()
 Verification.model_rebuild()
 VerificationMetadata.model_rebuild()
@@ -1860,6 +1874,11 @@ __all__ = [
     "ManualFeedbackInfo",
     "ManualFeedbackInfoSource",
     "ManualFeedbackInfoTypedDict",
+    "ManualFeedbackInfoVote",
+    "ManualFeedbackSideBySideInfo",
+    "ManualFeedbackSideBySideInfoSource",
+    "ManualFeedbackSideBySideInfoTypedDict",
+    "ManualFeedbackSideBySideInfoVote",
     "Meeting",
     "MeetingTypedDict",
     "Message",
@@ -1983,6 +2002,8 @@ __all__ = [
     "ReportStatusResponseTypedDict",
     "RequestType",
     "ResponseHint",
+    "ResponseMetadata",
+    "ResponseMetadataTypedDict",
     "ResponseStatus",
     "RestrictionFilters",
     "RestrictionFiltersTypedDict",
@@ -2051,6 +2072,8 @@ __all__ = [
     "ShortcutTypedDict",
     "ShortcutsPaginationMetadata",
     "ShortcutsPaginationMetadataTypedDict",
+    "SideBySideImplementation",
+    "SideBySideImplementationTypedDict",
     "SocialNetwork",
     "SocialNetworkDefinition",
     "SocialNetworkDefinitionTypedDict",
@@ -2189,7 +2212,6 @@ __all__ = [
     "VerifyRequestTypedDict",
     "ViewerInfo",
     "ViewerInfoTypedDict",
-    "Vote",
     "WarningType",
     "Workflow",
     "WorkflowFeedbackInfo",
@@ -2633,9 +2655,6 @@ _dynamic_imports: dict[str, str] = {
     "GeneratedAttachmentTypedDict": ".generatedattachment",
     "GeneratedAttachmentContent": ".generatedattachmentcontent",
     "GeneratedAttachmentContentTypedDict": ".generatedattachmentcontent",
-    "GeneratedQna": ".generatedqna",
-    "GeneratedQnaStatus": ".generatedqna",
-    "GeneratedQnaTypedDict": ".generatedqna",
     "GetRestAPIV1ToolsListRequest": ".get_rest_api_v1_tools_listop",
     "GetRestAPIV1ToolsListRequestTypedDict": ".get_rest_api_v1_tools_listop",
     "GetAgentRequest": ".getagentop",
@@ -2810,7 +2829,11 @@ _dynamic_imports: dict[str, str] = {
     "ManualFeedbackInfo": ".manualfeedbackinfo",
     "ManualFeedbackInfoSource": ".manualfeedbackinfo",
     "ManualFeedbackInfoTypedDict": ".manualfeedbackinfo",
-    "Vote": ".manualfeedbackinfo",
+    "ManualFeedbackInfoVote": ".manualfeedbackinfo",
+    "ManualFeedbackSideBySideInfo": ".manualfeedbacksidebysideinfo",
+    "ManualFeedbackSideBySideInfoSource": ".manualfeedbacksidebysideinfo",
+    "ManualFeedbackSideBySideInfoTypedDict": ".manualfeedbacksidebysideinfo",
+    "ManualFeedbackSideBySideInfoVote": ".manualfeedbacksidebysideinfo",
     "Message": ".message",
     "MessageTextBlock": ".message",
     "MessageTextBlockTypedDict": ".message",
@@ -2963,6 +2986,10 @@ _dynamic_imports: dict[str, str] = {
     "ShortcutMutablePropertiesTypedDict": ".shortcutmutableproperties",
     "ShortcutsPaginationMetadata": ".shortcutspaginationmetadata",
     "ShortcutsPaginationMetadataTypedDict": ".shortcutspaginationmetadata",
+    "ResponseMetadata": ".sidebysideimplementation",
+    "ResponseMetadataTypedDict": ".sidebysideimplementation",
+    "SideBySideImplementation": ".sidebysideimplementation",
+    "SideBySideImplementationTypedDict": ".sidebysideimplementation",
     "SocialNetwork": ".socialnetwork",
     "SocialNetworkTypedDict": ".socialnetwork",
     "SocialNetworkDefinition": ".socialnetworkdefinition",
@@ -3122,5 +3149,5 @@ def __getattr__(attr_name: str) -> object:
 
 
 def __dir__():
-    lazy_attrs = list(_dynamic_imports.keys())
-    return sorted(lazy_attrs)
+    lazy_attrs = builtins.list(_dynamic_imports.keys())
+    return builtins.sorted(lazy_attrs)

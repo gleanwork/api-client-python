@@ -20,11 +20,12 @@
 
 Gives various information that would help in debugging related to a particular user. Currently in beta, might undergo breaking changes without prior notice.
 
-Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/docs/indexing_api/indexing_api_troubleshooting/) for more information.
+Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/indexing/debugging/datasource-config) for more information.
 
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="post_/api/index/v1/debug/{datasource}/user" method="post" path="/api/index/v1/debug/{datasource}/user" -->
 ```python
 from glean.api_client import Glean
 import os
@@ -63,13 +64,14 @@ with Glean(
 
 Fetches user count for the specified custom datasource.
 
-Tip: Use [/debug/{datasource}/status](https://developers.glean.com/docs/indexing_api/indexing_api_troubleshooting/#debug-datasource-status) for richer information.
+Tip: Use [/debug/{datasource}/status](https://developers.glean.com/indexing/debugging/datasource-status) for richer information.
 
 
 > :warning: **DEPRECATED**: This will be removed in a future release, please migrate away from it as soon as possible.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="post_/api/index/v1/getusercount" method="post" path="/api/index/v1/getusercount" -->
 ```python
 from glean.api_client import Glean
 import os
@@ -109,6 +111,7 @@ Adds an employee or updates information about an employee
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="post_/api/index/v1/indexemployee" method="post" path="/api/index/v1/indexemployee" -->
 ```python
 from glean.api_client import Glean
 import os
@@ -149,10 +152,11 @@ with Glean(
 
 ## bulk_index
 
-Replaces all the currently indexed employees using paginated batch API calls. Please refer to the [bulk indexing](https://developers.glean.com/docs/indexing_api_bulk_indexing/#bulk-upload-model) documentation for an explanation of how to use bulk endpoints.
+Replaces all the currently indexed employees using paginated batch API calls. Please refer to the [bulk indexing](https://developers.glean.com/indexing/documents/bulk-upload-model) documentation for an explanation of how to use bulk endpoints.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="post_/api/index/v1/bulkindexemployees" method="post" path="/api/index/v1/bulkindexemployees" -->
 ```python
 from glean.api_client import Glean
 import os
@@ -204,6 +208,7 @@ Schedules the immediate processing of employees and teams uploaded through the i
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="post_/api/index/v1/processallemployeesandteams" method="post" path="/api/index/v1/processallemployeesandteams" -->
 ```python
 from glean.api_client import Glean
 import os
@@ -237,6 +242,7 @@ Delete an employee. Silently succeeds if employee is not present.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="post_/api/index/v1/deleteemployee" method="post" path="/api/index/v1/deleteemployee" -->
 ```python
 from glean.api_client import Glean
 import os
@@ -272,6 +278,7 @@ Adds a team or updates information about a team
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="post_/api/index/v1/indexteam" method="post" path="/api/index/v1/indexteam" -->
 ```python
 from glean.api_client import Glean
 import os
@@ -321,6 +328,7 @@ Delete a team based on provided id.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="post_/api/index/v1/deleteteam" method="post" path="/api/index/v1/deleteteam" -->
 ```python
 from glean.api_client import Glean
 import os
@@ -351,10 +359,11 @@ with Glean(
 
 ## bulk_index_teams
 
-Replaces all the currently indexed teams using paginated batch API calls. Please refer to the [bulk indexing](https://developers.glean.com/docs/indexing_api_bulk_indexing/#bulk-upload-model) documentation for an explanation of how to use bulk endpoints.
+Replaces all the currently indexed teams using paginated batch API calls. Please refer to the [bulk indexing](https://developers.glean.com/indexing/documents/bulk-upload-model) documentation for an explanation of how to use bulk endpoints.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="post_/api/index/v1/bulkindexteams" method="post" path="/api/index/v1/bulkindexteams" -->
 ```python
 from glean.api_client import Glean
 import os
