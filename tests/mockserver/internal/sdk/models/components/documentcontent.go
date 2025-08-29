@@ -2,9 +2,24 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type DocumentContent struct {
 	// The plaintext content of the document.
 	FullTextList []string `json:"fullTextList,omitempty"`
+}
+
+func (d DocumentContent) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DocumentContent) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *DocumentContent) GetFullTextList() []string {

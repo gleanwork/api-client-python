@@ -54,23 +54,23 @@ func CreateCustomFieldValueCustomFieldValuePerson(customFieldValuePerson CustomF
 func (u *CustomFieldValue) UnmarshalJSON(data []byte) error {
 
 	var customFieldValueStr CustomFieldValueStr = CustomFieldValueStr{}
-	if err := utils.UnmarshalJSON(data, &customFieldValueStr, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &customFieldValueStr, "", true, nil); err == nil {
 		u.CustomFieldValueStr = &customFieldValueStr
 		u.Type = CustomFieldValueTypeCustomFieldValueStr
 		return nil
 	}
 
-	var customFieldValuePerson CustomFieldValuePerson = CustomFieldValuePerson{}
-	if err := utils.UnmarshalJSON(data, &customFieldValuePerson, "", true, true); err == nil {
-		u.CustomFieldValuePerson = &customFieldValuePerson
-		u.Type = CustomFieldValueTypeCustomFieldValuePerson
+	var customFieldValueHyperlink CustomFieldValueHyperlink = CustomFieldValueHyperlink{}
+	if err := utils.UnmarshalJSON(data, &customFieldValueHyperlink, "", true, nil); err == nil {
+		u.CustomFieldValueHyperlink = &customFieldValueHyperlink
+		u.Type = CustomFieldValueTypeCustomFieldValueHyperlink
 		return nil
 	}
 
-	var customFieldValueHyperlink CustomFieldValueHyperlink = CustomFieldValueHyperlink{}
-	if err := utils.UnmarshalJSON(data, &customFieldValueHyperlink, "", true, true); err == nil {
-		u.CustomFieldValueHyperlink = &customFieldValueHyperlink
-		u.Type = CustomFieldValueTypeCustomFieldValueHyperlink
+	var customFieldValuePerson CustomFieldValuePerson = CustomFieldValuePerson{}
+	if err := utils.UnmarshalJSON(data, &customFieldValuePerson, "", true, nil); err == nil {
+		u.CustomFieldValuePerson = &customFieldValuePerson
+		u.Type = CustomFieldValueTypeCustomFieldValuePerson
 		return nil
 	}
 

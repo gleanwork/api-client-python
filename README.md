@@ -146,7 +146,6 @@ with Glean(
 
     res = glean.client.chat.create(messages=[
         {
-            "author": models.Author.USER,
             "fragments": [
                 models.ChatMessageFragment(
                     text="What are the company holidays this year?",
@@ -176,7 +175,6 @@ async def main():
 
         res = await glean.client.chat.create_async(messages=[
             {
-                "author": models.Author.USER,
                 "fragments": [
                     models.ChatMessageFragment(
                         text="What are the company holidays this year?",
@@ -205,7 +203,6 @@ with Glean(
 
     res = glean.client.chat.create_stream(messages=[
         {
-            "author": models.Author.USER,
             "fragments": [
                 models.ChatMessageFragment(
                     text="What are the company holidays this year?",
@@ -235,7 +232,6 @@ async def main():
 
         res = await glean.client.chat.create_stream_async(messages=[
             {
-                "author": models.Author.USER,
                 "fragments": [
                     models.ChatMessageFragment(
                         text="What are the company holidays this year?",

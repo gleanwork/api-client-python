@@ -5,6 +5,7 @@ package components
 import (
 	"encoding/json"
 	"fmt"
+	"mockserver/internal/sdk/utils"
 )
 
 // Relation - How this document relates to the including entity.
@@ -88,6 +89,17 @@ type RelatedDocuments struct {
 	Documents []Document `json:"documents,omitempty"`
 	// A truncated list of documents associated with this relation. To be used in favor of `documents` because it contains a trackingToken.
 	Results []SearchResult `json:"results,omitempty"`
+}
+
+func (r RelatedDocuments) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RelatedDocuments) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *RelatedDocuments) GetRelation() *Relation {

@@ -301,8 +301,8 @@ func testEditpinEditpin0(w http.ResponseWriter, req *http.Request) {
 							NativeAppURL: types.String("slack://foo/bar"),
 							Snippets: []components.SearchResultSnippet{
 								components.SearchResultSnippet{
-									Snippet:  "snippet",
 									MimeType: types.String("mimeType"),
+									Snippet:  "snippet",
 								},
 							},
 						},

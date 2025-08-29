@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type ClusterGroup struct {
 	// A list of results that should be displayed as associated with this result.
 	ClusteredResults []SearchResult `json:"clusteredResults,omitempty"`
@@ -9,6 +13,17 @@ type ClusterGroup struct {
 	ClusterType *ClusterTypeEnum `json:"clusterType,omitempty"`
 	// The default number of results to display before truncating and showing a "see more" link
 	VisibleCountHint int64 `json:"visibleCountHint"`
+}
+
+func (c ClusterGroup) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *ClusterGroup) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"visibleCountHint"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *ClusterGroup) GetClusteredResults() []SearchResult {

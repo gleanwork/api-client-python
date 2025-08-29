@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type RelatedQuestion struct {
 	// The text of the related question
 	Question *string `json:"question,omitempty"`
@@ -9,6 +13,17 @@ type RelatedQuestion struct {
 	Answer *string `json:"answer,omitempty"`
 	// Subsections of the answer string to which some special formatting should be applied (eg. bold)
 	Ranges []TextRange `json:"ranges,omitempty"`
+}
+
+func (r RelatedQuestion) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RelatedQuestion) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *RelatedQuestion) GetQuestion() *string {

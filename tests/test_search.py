@@ -293,8 +293,8 @@ def test_search_recommendations():
                                         native_app_url="slack://foo/bar",
                                         snippets=[
                                             models.SearchResultSnippet(
-                                                snippet="snippet",
                                                 mime_type="mimeType",
+                                                snippet="snippet",
                                             ),
                                         ],
                                     ),

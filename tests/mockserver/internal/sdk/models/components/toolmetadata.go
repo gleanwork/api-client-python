@@ -183,7 +183,7 @@ func (t ToolMetadata) MarshalJSON() ([]byte, error) {
 }
 
 func (t *ToolMetadata) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &t, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &t, "", false, []string{"type", "name", "displayName", "displayDescription"}); err != nil {
 		return err
 	}
 	return nil

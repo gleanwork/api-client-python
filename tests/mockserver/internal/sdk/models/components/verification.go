@@ -5,6 +5,7 @@ package components
 import (
 	"encoding/json"
 	"fmt"
+	"mockserver/internal/sdk/utils"
 )
 
 // State - The verification state for the document.
@@ -41,6 +42,17 @@ type Verification struct {
 	// The verification state for the document.
 	State    State                 `json:"state"`
 	Metadata *VerificationMetadata `json:"metadata,omitempty"`
+}
+
+func (v Verification) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(v, "", false)
+}
+
+func (v *Verification) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &v, "", false, []string{"state"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *Verification) GetState() State {

@@ -5,6 +5,7 @@ package components
 import (
 	"encoding/json"
 	"fmt"
+	"mockserver/internal/sdk/utils"
 )
 
 // Prominence - The level of visual distinction that should be given to a result.
@@ -94,6 +95,17 @@ type StructuredResult struct {
 	Prominence *Prominence `json:"prominence,omitempty"`
 	// Source context for this result. Possible values depend on the result type.
 	Source *StructuredResultSource `json:"source,omitempty"`
+}
+
+func (s StructuredResult) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *StructuredResult) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *StructuredResult) GetDocument() *Document {

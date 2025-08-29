@@ -2,11 +2,26 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type CodeLine struct {
 	LineNumber *int64  `json:"lineNumber,omitempty"`
 	Content    *string `json:"content,omitempty"`
 	// Index ranges depicting matched sections of the line
 	Ranges []TextRange `json:"ranges,omitempty"`
+}
+
+func (c CodeLine) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CodeLine) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *CodeLine) GetLineNumber() *int64 {

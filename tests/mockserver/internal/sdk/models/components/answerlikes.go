@@ -2,12 +2,27 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type AnswerLikes struct {
 	LikedBy []AnswerLike `json:"likedBy"`
 	// Whether the user in context liked the answer.
 	LikedByUser bool `json:"likedByUser"`
 	// The total number of likes for the answer.
 	NumLikes int64 `json:"numLikes"`
+}
+
+func (a AnswerLikes) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(a, "", false)
+}
+
+func (a *AnswerLikes) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"likedBy", "likedByUser", "numLikes"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *AnswerLikes) GetLikedBy() []AnswerLike {

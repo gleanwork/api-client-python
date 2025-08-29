@@ -171,7 +171,6 @@ def test_client_chat_chat_stream_default_example():
         res = glean.client.chat.create_stream(
             messages=[
                 {
-                    "author": models.Author.USER,
                     "fragments": [
                         models.ChatMessageFragment(
                             text="What are the company holidays this year?",
@@ -197,7 +196,6 @@ def test_client_chat_chat_stream_gpt_agent_example():
         res = glean.client.chat.create_stream(
             messages=[
                 {
-                    "author": models.Author.USER,
                     "fragments": [
                         models.ChatMessageFragment(
                             text="Who was the first person to land on the moon?",
@@ -240,7 +238,6 @@ def test_client_chat_chat_stream_update_response():
         res = glean.client.chat.create_stream(
             messages=[
                 {
-                    "author": models.Author.USER,
                     "citations": [
                         models.ChatMessageCitation(
                             source_document=models.Document(
@@ -315,8 +312,8 @@ def test_client_chat_chat_stream_update_response():
                                     ),
                                     snippets=[
                                         models.SearchResultSnippet(
-                                            snippet="snippet",
                                             mime_type="mimeType",
+                                            snippet="snippet",
                                         ),
                                     ],
                                 ),
@@ -354,8 +351,8 @@ def test_client_chat_chat_stream_update_response():
                                     ),
                                     snippets=[
                                         models.SearchResultSnippet(
-                                            snippet="snippet",
                                             mime_type="mimeType",
+                                            snippet="snippet",
                                         ),
                                     ],
                                 ),
@@ -393,8 +390,8 @@ def test_client_chat_chat_stream_update_response():
                                     ),
                                     snippets=[
                                         models.SearchResultSnippet(
-                                            snippet="snippet",
                                             mime_type="mimeType",
+                                            snippet="snippet",
                                         ),
                                     ],
                                 ),
@@ -2522,7 +2519,6 @@ def test_client_chat_chat_stream_update_response():
                     ],
                 },
                 {
-                    "author": models.Author.USER,
                     "citations": [
                         models.ChatMessageCitation(
                             source_document=models.Document(
@@ -2597,8 +2593,8 @@ def test_client_chat_chat_stream_update_response():
                                     ),
                                     snippets=[
                                         models.SearchResultSnippet(
-                                            snippet="snippet",
                                             mime_type="mimeType",
+                                            snippet="snippet",
                                         ),
                                     ],
                                 ),
@@ -2636,8 +2632,8 @@ def test_client_chat_chat_stream_update_response():
                                     ),
                                     snippets=[
                                         models.SearchResultSnippet(
-                                            snippet="snippet",
                                             mime_type="mimeType",
+                                            snippet="snippet",
                                         ),
                                     ],
                                 ),
@@ -2716,8 +2712,8 @@ def test_client_chat_chat_stream_update_response():
                                     ),
                                     snippets=[
                                         models.SearchResultSnippet(
-                                            snippet="snippet",
                                             mime_type="mimeType",
+                                            snippet="snippet",
                                         ),
                                     ],
                                 ),
@@ -2796,8 +2792,8 @@ def test_client_chat_chat_stream_update_response():
                                     ),
                                     snippets=[
                                         models.SearchResultSnippet(
-                                            snippet="snippet",
                                             mime_type="mimeType",
+                                            snippet="snippet",
                                         ),
                                     ],
                                 ),
@@ -2835,8 +2831,8 @@ def test_client_chat_chat_stream_update_response():
                                     ),
                                     snippets=[
                                         models.SearchResultSnippet(
-                                            snippet="snippet",
                                             mime_type="mimeType",
+                                            snippet="snippet",
                                         ),
                                     ],
                                 ),
@@ -2874,8 +2870,8 @@ def test_client_chat_chat_stream_update_response():
                                     ),
                                     snippets=[
                                         models.SearchResultSnippet(
-                                            snippet="snippet",
                                             mime_type="mimeType",
+                                            snippet="snippet",
                                         ),
                                     ],
                                 ),
@@ -4854,7 +4850,6 @@ def test_client_chat_chat_stream_citation_response():
         res = glean.client.chat.create_stream(
             messages=[
                 {
-                    "author": models.Author.USER,
                     "citations": [
                         models.ChatMessageCitation(
                             source_document=models.Document(
@@ -4929,8 +4924,8 @@ def test_client_chat_chat_stream_citation_response():
                                     ),
                                     snippets=[
                                         models.SearchResultSnippet(
-                                            snippet="snippet",
                                             mime_type="mimeType",
+                                            snippet="snippet",
                                         ),
                                     ],
                                 ),
@@ -4968,8 +4963,8 @@ def test_client_chat_chat_stream_citation_response():
                                     ),
                                     snippets=[
                                         models.SearchResultSnippet(
-                                            snippet="snippet",
                                             mime_type="mimeType",
+                                            snippet="snippet",
                                         ),
                                     ],
                                 ),
@@ -5048,8 +5043,8 @@ def test_client_chat_chat_stream_citation_response():
                                     ),
                                     snippets=[
                                         models.SearchResultSnippet(
-                                            snippet="snippet",
                                             mime_type="mimeType",
+                                            snippet="snippet",
                                         ),
                                     ],
                                 ),
@@ -5087,8 +5082,8 @@ def test_client_chat_chat_stream_citation_response():
                                     ),
                                     snippets=[
                                         models.SearchResultSnippet(
-                                            snippet="snippet",
                                             mime_type="mimeType",
+                                            snippet="snippet",
                                         ),
                                     ],
                                 ),
@@ -5126,8 +5121,8 @@ def test_client_chat_chat_stream_citation_response():
                                     ),
                                     snippets=[
                                         models.SearchResultSnippet(
-                                            snippet="snippet",
                                             mime_type="mimeType",
+                                            snippet="snippet",
                                         ),
                                     ],
                                 ),
@@ -6979,7 +6974,6 @@ def test_client_chat_chat_stream_citation_response():
                     ],
                 },
                 {
-                    "author": models.Author.USER,
                     "citations": [
                         models.ChatMessageCitation(
                             source_document=models.Document(
@@ -7054,8 +7048,8 @@ def test_client_chat_chat_stream_citation_response():
                                     ),
                                     snippets=[
                                         models.SearchResultSnippet(
-                                            snippet="snippet",
                                             mime_type="mimeType",
+                                            snippet="snippet",
                                         ),
                                     ],
                                 ),
@@ -7093,8 +7087,8 @@ def test_client_chat_chat_stream_citation_response():
                                     ),
                                     snippets=[
                                         models.SearchResultSnippet(
-                                            snippet="snippet",
                                             mime_type="mimeType",
+                                            snippet="snippet",
                                         ),
                                     ],
                                 ),
@@ -7132,8 +7126,8 @@ def test_client_chat_chat_stream_citation_response():
                                     ),
                                     snippets=[
                                         models.SearchResultSnippet(
-                                            snippet="snippet",
                                             mime_type="mimeType",
+                                            snippet="snippet",
                                         ),
                                     ],
                                 ),
@@ -8119,7 +8113,6 @@ def test_client_chat_chat_stream_citation_response():
                     ],
                 },
                 {
-                    "author": models.Author.USER,
                     "citations": [
                         models.ChatMessageCitation(
                             source_document=models.Document(
@@ -8194,8 +8187,8 @@ def test_client_chat_chat_stream_citation_response():
                                     ),
                                     snippets=[
                                         models.SearchResultSnippet(
-                                            snippet="snippet",
                                             mime_type="mimeType",
+                                            snippet="snippet",
                                         ),
                                     ],
                                 ),
@@ -8233,8 +8226,8 @@ def test_client_chat_chat_stream_citation_response():
                                     ),
                                     snippets=[
                                         models.SearchResultSnippet(
-                                            snippet="snippet",
                                             mime_type="mimeType",
+                                            snippet="snippet",
                                         ),
                                     ],
                                 ),
@@ -8313,8 +8306,8 @@ def test_client_chat_chat_stream_citation_response():
                                     ),
                                     snippets=[
                                         models.SearchResultSnippet(
-                                            snippet="snippet",
                                             mime_type="mimeType",
+                                            snippet="snippet",
                                         ),
                                     ],
                                 ),
@@ -8352,8 +8345,8 @@ def test_client_chat_chat_stream_citation_response():
                                     ),
                                     snippets=[
                                         models.SearchResultSnippet(
-                                            snippet="snippet",
                                             mime_type="mimeType",
+                                            snippet="snippet",
                                         ),
                                     ],
                                 ),
@@ -8391,8 +8384,8 @@ def test_client_chat_chat_stream_citation_response():
                                     ),
                                     snippets=[
                                         models.SearchResultSnippet(
-                                            snippet="snippet",
                                             mime_type="mimeType",
+                                            snippet="snippet",
                                         ),
                                     ],
                                 ),
@@ -8471,8 +8464,8 @@ def test_client_chat_chat_stream_citation_response():
                                     ),
                                     snippets=[
                                         models.SearchResultSnippet(
-                                            snippet="snippet",
                                             mime_type="mimeType",
+                                            snippet="snippet",
                                         ),
                                     ],
                                 ),
@@ -8510,8 +8503,8 @@ def test_client_chat_chat_stream_citation_response():
                                     ),
                                     snippets=[
                                         models.SearchResultSnippet(
-                                            snippet="snippet",
                                             mime_type="mimeType",
+                                            snippet="snippet",
                                         ),
                                     ],
                                 ),

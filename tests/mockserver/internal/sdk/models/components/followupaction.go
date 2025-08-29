@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 // FollowupAction - A follow-up action that can be invoked by the user after a response. The action parameters are not included and need to be predicted/filled separately.
 type FollowupAction struct {
 	// Unique identifier for this actionRun recommendation event.
@@ -16,6 +20,17 @@ type FollowupAction struct {
 	ActionLabel *string `json:"actionLabel,omitempty"`
 	// Whether user confirmation is needed before executing this action instance.
 	UserConfirmationRequired *bool `json:"userConfirmationRequired,omitempty"`
+}
+
+func (f FollowupAction) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(f, "", false)
+}
+
+func (f *FollowupAction) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *FollowupAction) GetActionRunID() *string {

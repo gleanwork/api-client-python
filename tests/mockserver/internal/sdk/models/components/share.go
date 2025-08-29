@@ -2,12 +2,27 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 // Share - Search endpoint will only fill out numDays ago since that's all we need to display shared badge; docmetadata endpoint will fill out all the fields so that we can display shared badge tooltip
 type Share struct {
 	// The number of days that has passed since the share happened
 	NumDaysAgo      int64     `json:"numDaysAgo"`
 	Sharer          *Person   `json:"sharer,omitempty"`
 	SharingDocument *Document `json:"sharingDocument,omitempty"`
+}
+
+func (s Share) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *Share) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"numDaysAgo"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *Share) GetNumDaysAgo() int64 {

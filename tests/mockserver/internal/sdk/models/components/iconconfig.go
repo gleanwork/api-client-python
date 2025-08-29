@@ -5,6 +5,7 @@ package components
 import (
 	"encoding/json"
 	"fmt"
+	"mockserver/internal/sdk/utils"
 )
 
 type IconType string
@@ -79,6 +80,17 @@ type IconConfig struct {
 	Name *string `json:"name,omitempty"`
 	// The URL to an image to be displayed if applicable, e.g. the URL for `iconType.URL` icons.
 	URL *string `json:"url,omitempty"`
+}
+
+func (i IconConfig) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *IconConfig) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *IconConfig) GetGeneratedBackgroundColorKey() *string {

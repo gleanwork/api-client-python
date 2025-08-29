@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type Period struct {
 	// DEPRECATED - The number of days from now in the past to define upper boundary of time period.
 	//
@@ -13,6 +17,17 @@ type Period struct {
 	MaxDaysFromNow *int64     `json:"maxDaysFromNow,omitempty"`
 	Start          *TimePoint `json:"start,omitempty"`
 	End            *TimePoint `json:"end,omitempty"`
+}
+
+func (p Period) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *Period) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *Period) GetMinDaysFromNow() *int64 {

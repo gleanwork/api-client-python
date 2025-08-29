@@ -784,8 +784,8 @@ with Glean(
                             native_app_url="slack://foo/bar",
                             snippets=[
                                 models.SearchResultSnippet(
-                                    snippet="snippet",
                                     mime_type="mimeType",
+                                    snippet="snippet",
                                 ),
                             ],
                             must_include_suggestions=models.QuerySuggestionList(
@@ -1016,8 +1016,8 @@ with Glean(
                                     native_app_url="slack://foo/bar",
                                     snippets=[
                                         models.SearchResultSnippet(
-                                            snippet="snippet",
                                             mime_type="mimeType",
+                                            snippet="snippet",
                                         ),
                                     ],
                                     must_include_suggestions=models.QuerySuggestionList(
@@ -1973,8 +1973,8 @@ with Glean(
                             native_app_url="slack://foo/bar",
                             snippets=[
                                 models.SearchResultSnippet(
-                                    snippet="snippet",
                                     mime_type="mimeType",
+                                    snippet="snippet",
                                 ),
                             ],
                             must_include_suggestions=models.QuerySuggestionList(
@@ -2205,8 +2205,8 @@ with Glean(
                                     native_app_url="slack://foo/bar",
                                     snippets=[
                                         models.SearchResultSnippet(
-                                            snippet="snippet",
                                             mime_type="mimeType",
+                                            snippet="snippet",
                                         ),
                                     ],
                                     must_include_suggestions=models.QuerySuggestionList(

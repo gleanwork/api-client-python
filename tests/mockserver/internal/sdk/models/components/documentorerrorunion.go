@@ -13,6 +13,17 @@ type DocumentOrError struct {
 	Error *string `json:"error,omitempty"`
 }
 
+func (d DocumentOrError) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DocumentOrError) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *DocumentOrError) GetError() *string {
 	if o == nil {
 		return nil
@@ -54,17 +65,17 @@ func CreateDocumentOrErrorUnionDocumentOrError(documentOrError DocumentOrError) 
 
 func (u *DocumentOrErrorUnion) UnmarshalJSON(data []byte) error {
 
-	var documentOrError DocumentOrError = DocumentOrError{}
-	if err := utils.UnmarshalJSON(data, &documentOrError, "", true, true); err == nil {
-		u.DocumentOrError = &documentOrError
-		u.Type = DocumentOrErrorUnionTypeDocumentOrError
+	var document Document = Document{}
+	if err := utils.UnmarshalJSON(data, &document, "", true, nil); err == nil {
+		u.Document = &document
+		u.Type = DocumentOrErrorUnionTypeDocument
 		return nil
 	}
 
-	var document Document = Document{}
-	if err := utils.UnmarshalJSON(data, &document, "", true, true); err == nil {
-		u.Document = &document
-		u.Type = DocumentOrErrorUnionTypeDocument
+	var documentOrError DocumentOrError = DocumentOrError{}
+	if err := utils.UnmarshalJSON(data, &documentOrError, "", true, nil); err == nil {
+		u.DocumentOrError = &documentOrError
+		u.Type = DocumentOrErrorUnionTypeDocumentOrError
 		return nil
 	}
 

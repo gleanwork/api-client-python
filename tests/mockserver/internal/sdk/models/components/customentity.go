@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type CustomEntity struct {
 	Permissions *ObjectPermissions `json:"permissions,omitempty"`
 	// Unique identifier.
@@ -15,6 +19,17 @@ type CustomEntity struct {
 	Metadata   *CustomEntityMetadata `json:"metadata,omitempty"`
 	// A list of user roles for the custom entity explicitly granted by the owner.
 	Roles []UserRoleSpecification `json:"roles,omitempty"`
+}
+
+func (c CustomEntity) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CustomEntity) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *CustomEntity) GetPermissions() *ObjectPermissions {

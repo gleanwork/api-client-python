@@ -5,6 +5,7 @@ package components
 import (
 	"encoding/json"
 	"fmt"
+	"mockserver/internal/sdk/utils"
 )
 
 type ResponseStatus string
@@ -48,6 +49,17 @@ type CalendarAttendee struct {
 	// If this attendee is a group, represents the list of individual attendees in the group.
 	GroupAttendees []CalendarAttendee `json:"groupAttendees,omitempty"`
 	ResponseStatus *ResponseStatus    `json:"responseStatus,omitempty"`
+}
+
+func (c CalendarAttendee) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CalendarAttendee) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"person"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *CalendarAttendee) GetIsOrganizer() *bool {

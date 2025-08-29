@@ -171,7 +171,6 @@ func testGetchatGetchat0(w http.ResponseWriter, req *http.Request) {
 										},
 										Snippets: []components.SearchResultSnippet{
 											components.SearchResultSnippet{
-												Snippet: "<value>",
 												Ranges: []components.TextRange{
 													components.TextRange{
 														StartIndex: 78888,
@@ -255,6 +254,7 @@ func testGetchatGetchat0(w http.ResponseWriter, req *http.Request) {
 														},
 													},
 												},
+												Snippet: "<value>",
 											},
 										},
 									},

@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type Person struct {
 	// The display name.
 	Name string `json:"name"`
@@ -10,6 +14,17 @@ type Person struct {
 	// A list of documents related to this person.
 	RelatedDocuments []RelatedDocuments `json:"relatedDocuments,omitempty"`
 	Metadata         *PersonMetadata    `json:"metadata,omitempty"`
+}
+
+func (p Person) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *Person) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"name", "obfuscatedId"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *Person) GetName() string {

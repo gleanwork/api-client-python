@@ -2,9 +2,24 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type QuerySuggestionList struct {
 	Suggestions []QuerySuggestion `json:"suggestions,omitempty"`
 	Person      *Person           `json:"person,omitempty"`
+}
+
+func (q QuerySuggestionList) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(q, "", false)
+}
+
+func (q *QuerySuggestionList) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &q, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *QuerySuggestionList) GetSuggestions() []QuerySuggestion {

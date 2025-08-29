@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type QuerySuggestion struct {
 	// A query term missing from the original query on which this suggestion is based.
 	MissingTerm *string `json:"missingTerm,omitempty"`
@@ -16,6 +20,17 @@ type QuerySuggestion struct {
 	// The bolded ranges within the query of the QuerySuggestion.
 	Ranges       []TextRange                `json:"ranges,omitempty"`
 	InputDetails *SearchRequestInputDetails `json:"inputDetails,omitempty"`
+}
+
+func (q QuerySuggestion) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(q, "", false)
+}
+
+func (q *QuerySuggestion) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &q, "", false, []string{"query"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *QuerySuggestion) GetMissingTerm() *string {

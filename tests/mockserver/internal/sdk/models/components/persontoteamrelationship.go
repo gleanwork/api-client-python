@@ -61,7 +61,7 @@ func (p PersonToTeamRelationship) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PersonToTeamRelationship) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"person"}); err != nil {
 		return err
 	}
 	return nil

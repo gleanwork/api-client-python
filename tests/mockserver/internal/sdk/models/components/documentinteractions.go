@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type DocumentInteractions struct {
 	// The count of comments (thread replies in the case of slack).
 	NumComments *int64 `json:"numComments,omitempty"`
@@ -15,6 +19,17 @@ type DocumentInteractions struct {
 	// Describes instances of someone posting a link to this document in one of our indexed datasources.
 	Shares       []Share    `json:"shares,omitempty"`
 	VisitorCount *CountInfo `json:"visitorCount,omitempty"`
+}
+
+func (d DocumentInteractions) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DocumentInteractions) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *DocumentInteractions) GetNumComments() *int64 {

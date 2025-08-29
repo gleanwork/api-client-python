@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type CustomDataValue struct {
 	DisplayLabel *string `json:"displayLabel,omitempty"`
 	StringValue  *string `json:"stringValue,omitempty"`
@@ -9,6 +13,17 @@ type CustomDataValue struct {
 	StringListValue []string `json:"stringListValue,omitempty"`
 	NumberValue     *float64 `json:"numberValue,omitempty"`
 	BooleanValue    *bool    `json:"booleanValue,omitempty"`
+}
+
+func (c CustomDataValue) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CustomDataValue) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *CustomDataValue) GetDisplayLabel() *string {

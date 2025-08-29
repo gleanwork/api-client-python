@@ -5,6 +5,7 @@ package components
 import (
 	"encoding/json"
 	"fmt"
+	"mockserver/internal/sdk/utils"
 )
 
 // GeneratedQnaStatus - Status of backend generating the answer
@@ -69,6 +70,17 @@ type GeneratedQna struct {
 	Cursor *string `json:"cursor,omitempty"`
 	// An opaque token that represents this particular result in this particular query. To be used for /feedback reporting.
 	TrackingToken *string `json:"trackingToken,omitempty"`
+}
+
+func (g GeneratedQna) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(g, "", false)
+}
+
+func (g *GeneratedQna) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *GeneratedQna) GetQuestion() *string {

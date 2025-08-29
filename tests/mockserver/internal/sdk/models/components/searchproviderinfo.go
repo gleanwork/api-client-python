@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type SearchProviderInfo struct {
 	// Name of the search provider.
 	Name *string `json:"name,omitempty"`
@@ -9,6 +13,17 @@ type SearchProviderInfo struct {
 	LogoURL *string `json:"logoUrl,omitempty"`
 	// URL template that can be used to perform the suggested search by replacing the {query} placeholder with the query suggestion.
 	SearchLinkURLTemplate *string `json:"searchLinkUrlTemplate,omitempty"`
+}
+
+func (s SearchProviderInfo) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *SearchProviderInfo) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *SearchProviderInfo) GetName() *string {

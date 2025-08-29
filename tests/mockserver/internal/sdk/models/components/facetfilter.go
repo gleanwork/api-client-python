@@ -2,12 +2,27 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type FacetFilter struct {
 	FieldName *string `json:"fieldName,omitempty"`
 	// Within a single FacetFilter, the values are to be treated like an OR. For example, fieldName type with values [EQUALS Presentation, EQUALS Spreadsheet] means we want to show a document if it's a Presentation OR a Spreadsheet.
 	Values []FacetFilterValue `json:"values,omitempty"`
 	// Indicates the value of a facet, if any, that the given facet is grouped under. This is only used for nested facets, for example, fieldName could be owner and groupName would be Spreadsheet if showing all owners for spreadsheets as a nested facet.
 	GroupName *string `json:"groupName,omitempty"`
+}
+
+func (f FacetFilter) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(f, "", false)
+}
+
+func (f *FacetFilter) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *FacetFilter) GetFieldName() *string {

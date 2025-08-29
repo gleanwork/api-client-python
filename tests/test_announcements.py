@@ -123,8 +123,8 @@ def test_announcements_createannouncement():
                                                     native_app_url="slack://foo/bar",
                                                     snippets=[
                                                         models.SearchResultSnippet(
-                                                            snippet="snippet",
                                                             mime_type="mimeType",
+                                                            snippet="snippet",
                                                         ),
                                                     ],
                                                 ),
@@ -1613,8 +1613,8 @@ def test_announcements_updateannouncement():
                                                     native_app_url="slack://foo/bar",
                                                     snippets=[
                                                         models.SearchResultSnippet(
-                                                            snippet="snippet",
                                                             mime_type="mimeType",
+                                                            snippet="snippet",
                                                         ),
                                                     ],
                                                 ),

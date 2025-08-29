@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 // WritePermission - Describes the write permissions levels that a user has for a specific feature
 type WritePermission struct {
 	// Describes the scope for a ReadPermission, WritePermission, or GrantPermission object
@@ -12,6 +16,17 @@ type WritePermission struct {
 	Update *bool `json:"update,omitempty"`
 	// True if user has delete permission for this feature and scope
 	Delete *bool `json:"delete,omitempty"`
+}
+
+func (w WritePermission) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(w, "", false)
+}
+
+func (w *WritePermission) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &w, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *WritePermission) GetScopeType() *ScopeType {

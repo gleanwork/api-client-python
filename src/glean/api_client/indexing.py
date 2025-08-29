@@ -9,6 +9,7 @@ from glean.api_client.indexing_documents import IndexingDocuments
 from glean.api_client.indexing_permissions import IndexingPermissions
 from glean.api_client.indexing_shortcuts import IndexingShortcuts
 from glean.api_client.people import People
+from typing import Optional
 
 
 class Indexing(BaseSDK):
@@ -20,16 +21,30 @@ class Indexing(BaseSDK):
     authentication: IndexingAuthentication
     shortcuts: IndexingShortcuts
 
-    def __init__(self, sdk_config: SDKConfiguration) -> None:
-        BaseSDK.__init__(self, sdk_config)
+    def __init__(
+        self, sdk_config: SDKConfiguration, parent_ref: Optional[object] = None
+    ) -> None:
+        BaseSDK.__init__(self, sdk_config, parent_ref=parent_ref)
         self.sdk_configuration = sdk_config
         self._init_sdks()
 
     def _init_sdks(self):
-        self.documents = IndexingDocuments(self.sdk_configuration)
-        self.permissions = IndexingPermissions(self.sdk_configuration)
-        self.datasource = IndexingDatasource(self.sdk_configuration)
-        self.people = People(self.sdk_configuration)
-        self.datasources = Datasources(self.sdk_configuration)
-        self.authentication = IndexingAuthentication(self.sdk_configuration)
-        self.shortcuts = IndexingShortcuts(self.sdk_configuration)
+        self.documents = IndexingDocuments(
+            self.sdk_configuration, parent_ref=self.parent_ref
+        )
+        self.permissions = IndexingPermissions(
+            self.sdk_configuration, parent_ref=self.parent_ref
+        )
+        self.datasource = IndexingDatasource(
+            self.sdk_configuration, parent_ref=self.parent_ref
+        )
+        self.people = People(self.sdk_configuration, parent_ref=self.parent_ref)
+        self.datasources = Datasources(
+            self.sdk_configuration, parent_ref=self.parent_ref
+        )
+        self.authentication = IndexingAuthentication(
+            self.sdk_configuration, parent_ref=self.parent_ref
+        )
+        self.shortcuts = IndexingShortcuts(
+            self.sdk_configuration, parent_ref=self.parent_ref
+        )

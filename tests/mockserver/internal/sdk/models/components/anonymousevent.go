@@ -5,6 +5,7 @@ package components
 import (
 	"encoding/json"
 	"fmt"
+	"mockserver/internal/sdk/utils"
 )
 
 // AnonymousEventEventType - The nature of the event, for example "out of office".
@@ -39,6 +40,17 @@ type AnonymousEvent struct {
 	Time *TimeInterval `json:"time,omitempty"`
 	// The nature of the event, for example "out of office".
 	EventType *AnonymousEventEventType `json:"eventType,omitempty"`
+}
+
+func (a AnonymousEvent) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(a, "", false)
+}
+
+func (a *AnonymousEvent) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *AnonymousEvent) GetTime() *TimeInterval {

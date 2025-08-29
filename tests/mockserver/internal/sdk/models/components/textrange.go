@@ -5,6 +5,7 @@ package components
 import (
 	"encoding/json"
 	"fmt"
+	"mockserver/internal/sdk/utils"
 )
 
 type TextRangeType string
@@ -49,6 +50,17 @@ type TextRange struct {
 	// The URL associated with the range, if applicable. For example, the linked URL for a LINK range.
 	URL      *string   `json:"url,omitempty"`
 	Document *Document `json:"document,omitempty"`
+}
+
+func (t TextRange) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(t, "", false)
+}
+
+func (t *TextRange) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &t, "", false, []string{"startIndex"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *TextRange) GetStartIndex() int64 {

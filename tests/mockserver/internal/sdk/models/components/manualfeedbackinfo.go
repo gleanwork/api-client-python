@@ -167,6 +167,8 @@ func (e *ManualFeedbackInfoVote) UnmarshalJSON(data []byte) error {
 
 type ManualFeedbackInfo struct {
 	// The email address of the user who submitted the Feedback.event.MANUAL_FEEDBACK event.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	Email *string `json:"email,omitempty"`
 	// The source associated with the Feedback.event.MANUAL_FEEDBACK event.
 	Source *ManualFeedbackInfoSource `json:"source,omitempty"`

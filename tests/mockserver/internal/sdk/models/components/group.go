@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type Group struct {
 	// The type of user group
 	Type GroupType `json:"type"`
@@ -9,6 +13,19 @@ type Group struct {
 	ID string `json:"id"`
 	// Name of the group.
 	Name *string `json:"name,omitempty"`
+	// Datasource instance if the group belongs to one e.g. external groups.
+	DatasourceInstance *string `json:"datasourceInstance,omitempty"`
+}
+
+func (g Group) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(g, "", false)
+}
+
+func (g *Group) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &g, "", false, []string{"type", "id"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *Group) GetType() GroupType {
@@ -30,4 +47,11 @@ func (o *Group) GetName() *string {
 		return nil
 	}
 	return o.Name
+}
+
+func (o *Group) GetDatasourceInstance() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DatasourceInstance
 }

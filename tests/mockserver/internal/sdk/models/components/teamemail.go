@@ -19,7 +19,7 @@ func (t TeamEmail) MarshalJSON() ([]byte, error) {
 }
 
 func (t *TeamEmail) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &t, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &t, "", false, []string{"email"}); err != nil {
 		return err
 	}
 	return nil

@@ -2,9 +2,24 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type UserGeneratedContentID struct {
 	// The opaque id of the user generated content.
 	ID *int64 `json:"id,omitempty"`
+}
+
+func (u UserGeneratedContentID) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
+}
+
+func (u *UserGeneratedContentID) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *UserGeneratedContentID) GetID() *int64 {

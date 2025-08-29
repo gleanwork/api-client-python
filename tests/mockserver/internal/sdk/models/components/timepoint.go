@@ -2,11 +2,26 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type TimePoint struct {
 	// Epoch seconds. Has precedence over daysFromNow.
 	EpochSeconds *int64 `json:"epochSeconds,omitempty"`
 	// The number of days from now. Specification relative to current time. Can be negative.
 	DaysFromNow *int64 `json:"daysFromNow,omitempty"`
+}
+
+func (t TimePoint) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(t, "", false)
+}
+
+func (t *TimePoint) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &t, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *TimePoint) GetEpochSeconds() *int64 {

@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type Document struct {
 	// The Glean Document ID.
 	ID *string `json:"id,omitempty"`
@@ -21,6 +25,17 @@ type Document struct {
 	Metadata *DocumentMetadata `json:"metadata,omitempty"`
 	// A list of content sub-sections in the document, e.g. text blocks with different headings in a Drive doc or Confluence page.
 	Sections []DocumentSection `json:"sections,omitempty"`
+}
+
+func (d Document) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *Document) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *Document) GetID() *string {

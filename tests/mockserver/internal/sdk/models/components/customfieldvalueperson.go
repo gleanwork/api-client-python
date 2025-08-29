@@ -2,8 +2,23 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type CustomFieldValuePerson struct {
 	Person *Person `json:"person,omitempty"`
+}
+
+func (c CustomFieldValuePerson) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CustomFieldValuePerson) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *CustomFieldValuePerson) GetPerson() *Person {

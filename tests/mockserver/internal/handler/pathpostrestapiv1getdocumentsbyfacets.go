@@ -163,8 +163,8 @@ func testGetdocumentsbyfacetsGetdocumentsbyfacets0(w http.ResponseWriter, req *h
 										NativeAppURL: types.String("slack://foo/bar"),
 										Snippets: []components.SearchResultSnippet{
 											components.SearchResultSnippet{
-												Snippet:  "snippet",
 												MimeType: types.String("mimeType"),
+												Snippet:  "snippet",
 											},
 										},
 									},

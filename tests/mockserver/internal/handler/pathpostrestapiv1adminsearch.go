@@ -59,8 +59,8 @@ func testAdminsearchAdminsearch0(w http.ResponseWriter, req *http.Request) {
 				URL:   "https://www.example.com/",
 				Snippets: []components.SearchResultSnippet{
 					components.SearchResultSnippet{
-						Snippet:  "snippet",
 						MimeType: types.String("mimeType"),
+						Snippet:  "snippet",
 					},
 				},
 			},

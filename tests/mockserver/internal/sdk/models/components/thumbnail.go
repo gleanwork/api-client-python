@@ -2,11 +2,26 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type Thumbnail struct {
 	// Photo id if the thumbnail is from splash.
 	PhotoID *string `json:"photoId,omitempty"`
 	// Thumbnail URL. This can be user provided image and/or from downloaded images hosted by Glean.
 	URL *string `json:"url,omitempty"`
+}
+
+func (t Thumbnail) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(t, "", false)
+}
+
+func (t *Thumbnail) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &t, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *Thumbnail) GetPhotoID() *string {
