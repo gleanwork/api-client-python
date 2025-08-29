@@ -3774,6 +3774,7 @@ components:
                 email:
                     type: string
                     description: The email address of the user who submitted the Feedback.event.MANUAL_FEEDBACK event.
+                    deprecated: true
                 source:
                     type: string
                     description: The source associated with the Feedback.event.MANUAL_FEEDBACK event.
@@ -4366,7 +4367,7 @@ components:
                     description: Disables automatic adjustment of the input query for spelling corrections or other reasons.
                 returnLlmContentOverSnippets:
                     type: boolean
-                    description: "[beta] Enables expanded content to be returned for LLM usage. The size of content per result returned should be modified using maxSnippetSize. Server may return less or more than what is specified in maxSnippetSize. For more details, https://docs.google.com/document/d/1CTOLSxWWT9WDEnHVLoCUaxbGYyXYP8kctPRF-RluSQY/edit. Requires sufficient permissions."
+                    description: Enables expanded content to be returned for LLM usage. The size of content per result returned should be modified using maxSnippetSize. Server may return less or more than what is specified in maxSnippetSize. For more details, see https://developers.glean.com/guides/search/llm-content.
                 inclusions:
                     $ref: "#/components/schemas/RestrictionFilters"
                     description: A list of filters which restrict the search results to only the specified content.
@@ -4864,6 +4865,9 @@ components:
                 name:
                     type: string
                     description: Name of the group.
+                datasourceInstance:
+                    type: string
+                    description: Datasource instance if the group belongs to one e.g. external groups.
         UserRole:
             type: string
             description: A user's role with respect to a specific document.
@@ -5841,9 +5845,6 @@ components:
             required:
                 - snippet
             properties:
-                snippet:
-                    type: string
-                    description: A matching snippet from the document. Query term matches are marked by the unicode characters uE006 and uE007.
                 mimeType:
                     type: string
                     description: The mime type of the snippets, currently either text/plain or text/html.
@@ -5861,6 +5862,10 @@ components:
                 url:
                     type: string
                     description: A URL, generated based on availability, that links to the position of the snippet text or to the nearest header above the snippet text.
+                snippet:
+                    type: string
+                    deprecated: true
+                    description: A matching snippet from the document. Query term matches are marked by the unicode characters uE006 and uE007. Use 'text' field instead.
             example:
                 snippet: snippet
                 mimeType: mimeType
@@ -5954,6 +5959,8 @@ components:
                 - THREAD_ROOT
                 - PREFIX
                 - SUFFIX
+                - AUTHOR_PREFIX
+                - AUTHOR_SUFFIX
         ClusterGroup:
             required:
                 - visibleCountHint
@@ -7306,7 +7313,7 @@ components:
                     $ref: "#/components/schemas/AgentConfig"
                     description: Describes the agent config that generated this message. Populated on responses and not required on requests.
                 author:
-                    default: GLEAN_AI
+                    default: USER
                     enum:
                         - USER
                         - GLEAN_AI
@@ -9145,6 +9152,7 @@ components:
                             - ZERO_STATE_WORKFLOW_FAVORITES
                             - ZERO_STATE_WORKFLOW_POPULAR
                             - ZERO_STATE_WORKFLOW_SUGGESTION
+                            - PERSONALIZED_CHAT_SUGGESTION
                     description: Categories of content requested. An allowlist gives flexibility to request content separately or together.
                 requestOptions:
                     $ref: "#/components/schemas/FeedRequestOptions"
@@ -9300,6 +9308,14 @@ components:
                         type: array
                         items:
                             $ref: "#/components/schemas/GeneratedAttachment"
+        ChatSuggestion:
+            properties:
+                query:
+                    type: string
+                    description: The actionable chat query to run when the user selects this suggestion.
+                feature:
+                    type: string
+                    description: Targeted Glean Chat feature for the suggestion.
         PromptTemplateMutableProperties:
             required:
                 - template
@@ -9513,6 +9529,7 @@ components:
                         - ZERO_STATE_PROMPT_TEMPLATE_SUGGESTION
                         - ZERO_STATE_STATIC_WORKFLOW_SUGGESTION
                         - ZERO_STATE_AGENT_SUGGESTION
+                        - PERSONALIZED_CHAT_SUGGESTION
                     description: Type of the justification.
                 justification:
                     type: string
@@ -9537,6 +9554,8 @@ components:
                     $ref: "#/components/schemas/Person"
                 app:
                     $ref: "#/components/schemas/AppResult"
+                chatSuggestion:
+                    $ref: "#/components/schemas/ChatSuggestion"
                 promptTemplate:
                     $ref: "#/components/schemas/PromptTemplateResult"
                 workflow:
@@ -9578,6 +9597,7 @@ components:
                         - ZERO_STATE_WORKFLOW_FAVORITES
                         - ZERO_STATE_WORKFLOW_POPULAR
                         - ZERO_STATE_WORKFLOW_SUGGESTION
+                        - PERSONALIZED_CHAT_SUGGESTION
                     description: Category of the result, one of the requested categories in incoming request.
                 primaryEntry:
                     $ref: "#/components/schemas/FeedEntry"

@@ -54,7 +54,7 @@ func (c Collection) MarshalJSON() ([]byte, error) {
 }
 
 func (c *Collection) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"name", "description", "id"}); err != nil {
 		return err
 	}
 	return nil

@@ -4,17 +4,22 @@ from .basesdk import BaseSDK
 from .sdkconfiguration import SDKConfiguration
 from glean.api_client.data import Data
 from glean.api_client.governance_documents import GovernanceDocuments
+from typing import Optional
 
 
 class Governance(BaseSDK):
     data: Data
     documents: GovernanceDocuments
 
-    def __init__(self, sdk_config: SDKConfiguration) -> None:
-        BaseSDK.__init__(self, sdk_config)
+    def __init__(
+        self, sdk_config: SDKConfiguration, parent_ref: Optional[object] = None
+    ) -> None:
+        BaseSDK.__init__(self, sdk_config, parent_ref=parent_ref)
         self.sdk_configuration = sdk_config
         self._init_sdks()
 
     def _init_sdks(self):
-        self.data = Data(self.sdk_configuration)
-        self.documents = GovernanceDocuments(self.sdk_configuration)
+        self.data = Data(self.sdk_configuration, parent_ref=self.parent_ref)
+        self.documents = GovernanceDocuments(
+            self.sdk_configuration, parent_ref=self.parent_ref
+        )

@@ -2,11 +2,26 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type DocumentSection struct {
 	// The title of the document section (e.g. the section header).
 	Title *string `json:"title,omitempty"`
 	// The permalink of the document section.
 	URL *string `json:"url,omitempty"`
+}
+
+func (d DocumentSection) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DocumentSection) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *DocumentSection) GetTitle() *string {

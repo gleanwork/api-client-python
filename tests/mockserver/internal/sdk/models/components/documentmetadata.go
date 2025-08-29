@@ -79,7 +79,7 @@ func (d DocumentMetadata) MarshalJSON() ([]byte, error) {
 }
 
 func (d *DocumentMetadata) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &d, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
 		return err
 	}
 	return nil

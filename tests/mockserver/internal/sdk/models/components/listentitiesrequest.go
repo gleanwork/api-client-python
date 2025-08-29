@@ -137,7 +137,7 @@ func (l ListEntitiesRequest) MarshalJSON() ([]byte, error) {
 }
 
 func (l *ListEntitiesRequest) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &l, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
 		return err
 	}
 	return nil

@@ -36,7 +36,7 @@ func (a AnswerBoard) MarshalJSON() ([]byte, error) {
 }
 
 func (a *AnswerBoard) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"name", "description", "id"}); err != nil {
 		return err
 	}
 	return nil

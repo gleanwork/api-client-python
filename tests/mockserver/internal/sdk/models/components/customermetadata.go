@@ -2,11 +2,26 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type CustomerMetadata struct {
 	// The user visible id of the salesforce customer account.
 	DatasourceID *string `json:"datasourceId,omitempty"`
 	// Custom fields specific to individual datasources
 	CustomData map[string]CustomDataValue `json:"customData,omitempty"`
+}
+
+func (c CustomerMetadata) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CustomerMetadata) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *CustomerMetadata) GetDatasourceID() *string {

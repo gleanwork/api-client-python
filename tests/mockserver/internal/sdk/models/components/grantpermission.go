@@ -2,10 +2,25 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 // GrantPermission - Describes the grant permission level that a user has for a specific feature
 type GrantPermission struct {
 	// Describes the scope for a ReadPermission, WritePermission, or GrantPermission object
 	ScopeType *ScopeType `json:"scopeType,omitempty"`
+}
+
+func (g GrantPermission) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(g, "", false)
+}
+
+func (g *GrantPermission) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *GrantPermission) GetScopeType() *ScopeType {

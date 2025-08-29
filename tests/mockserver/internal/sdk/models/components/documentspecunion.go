@@ -51,6 +51,17 @@ type DocumentSpec3 struct {
 	DocType *string `json:"docType,omitempty"`
 }
 
+func (d DocumentSpec3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DocumentSpec3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *DocumentSpec3) GetUgcType() *DocumentSpecUgcType {
 	if o == nil {
 		return nil
@@ -77,6 +88,17 @@ type DocumentSpec2 struct {
 	ID *string `json:"id,omitempty"`
 }
 
+func (d DocumentSpec2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DocumentSpec2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (o *DocumentSpec2) GetID() *string {
 	if o == nil {
 		return nil
@@ -87,6 +109,17 @@ func (o *DocumentSpec2) GetID() *string {
 type DocumentSpec1 struct {
 	// The URL of the document.
 	URL *string `json:"url,omitempty"`
+}
+
+func (d DocumentSpec1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DocumentSpec1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *DocumentSpec1) GetURL() *string {
@@ -142,21 +175,21 @@ func CreateDocumentSpecUnionDocumentSpec3(documentSpec3 DocumentSpec3) DocumentS
 func (u *DocumentSpecUnion) UnmarshalJSON(data []byte) error {
 
 	var documentSpec1 DocumentSpec1 = DocumentSpec1{}
-	if err := utils.UnmarshalJSON(data, &documentSpec1, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &documentSpec1, "", true, nil); err == nil {
 		u.DocumentSpec1 = &documentSpec1
 		u.Type = DocumentSpecUnionTypeDocumentSpec1
 		return nil
 	}
 
 	var documentSpec2 DocumentSpec2 = DocumentSpec2{}
-	if err := utils.UnmarshalJSON(data, &documentSpec2, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &documentSpec2, "", true, nil); err == nil {
 		u.DocumentSpec2 = &documentSpec2
 		u.Type = DocumentSpecUnionTypeDocumentSpec2
 		return nil
 	}
 
 	var documentSpec3 DocumentSpec3 = DocumentSpec3{}
-	if err := utils.UnmarshalJSON(data, &documentSpec3, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &documentSpec3, "", true, nil); err == nil {
 		u.DocumentSpec3 = &documentSpec3
 		u.Type = DocumentSpecUnionTypeDocumentSpec3
 		return nil

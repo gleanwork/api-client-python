@@ -26,7 +26,7 @@ func (s SummarizeRequest) MarshalJSON() ([]byte, error) {
 }
 
 func (s *SummarizeRequest) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"documentSpecs"}); err != nil {
 		return err
 	}
 	return nil

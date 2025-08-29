@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type SocialNetwork struct {
 	// Possible values are "twitter", "linkedin".
 	Name string `json:"name"`
@@ -9,6 +13,17 @@ type SocialNetwork struct {
 	ProfileName *string `json:"profileName,omitempty"`
 	// Link to profile.
 	ProfileURL string `json:"profileUrl"`
+}
+
+func (s SocialNetwork) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *SocialNetwork) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"name", "profileUrl"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *SocialNetwork) GetName() string {

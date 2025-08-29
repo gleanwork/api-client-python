@@ -4,6 +4,7 @@ from __future__ import annotations
 from .announcement import Announcement, AnnouncementTypedDict
 from .appresult import AppResult, AppResultTypedDict
 from .calendarevent import CalendarEvent, CalendarEventTypedDict
+from .chatsuggestion import ChatSuggestion, ChatSuggestionTypedDict
 from .collection import Collection, CollectionTypedDict
 from .collectionitem import CollectionItem, CollectionItemTypedDict
 from .countinfo import CountInfo, CountInfoTypedDict
@@ -82,6 +83,7 @@ class JustificationType(str, Enum):
     ZERO_STATE_PROMPT_TEMPLATE_SUGGESTION = "ZERO_STATE_PROMPT_TEMPLATE_SUGGESTION"
     ZERO_STATE_STATIC_WORKFLOW_SUGGESTION = "ZERO_STATE_STATIC_WORKFLOW_SUGGESTION"
     ZERO_STATE_AGENT_SUGGESTION = "ZERO_STATE_AGENT_SUGGESTION"
+    PERSONALIZED_CHAT_SUGGESTION = "PERSONALIZED_CHAT_SUGGESTION"
 
 
 class FeedEntryTypedDict(TypedDict):
@@ -107,6 +109,7 @@ class FeedEntryTypedDict(TypedDict):
     collection_item: NotRequired[CollectionItemTypedDict]
     person: NotRequired[PersonTypedDict]
     app: NotRequired[AppResultTypedDict]
+    chat_suggestion: NotRequired[ChatSuggestionTypedDict]
     prompt_template: NotRequired[PromptTemplateResultTypedDict]
     workflow: NotRequired[WorkflowResultTypedDict]
     activities: NotRequired[List[UserActivityTypedDict]]
@@ -158,6 +161,10 @@ class FeedEntry(BaseModel):
     person: Optional[Person] = None
 
     app: Optional[AppResult] = None
+
+    chat_suggestion: Annotated[
+        Optional[ChatSuggestion], pydantic.Field(alias="chatSuggestion")
+    ] = None
 
     prompt_template: Annotated[
         Optional[PromptTemplateResult], pydantic.Field(alias="promptTemplate")

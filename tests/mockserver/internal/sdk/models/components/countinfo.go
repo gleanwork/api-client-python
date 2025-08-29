@@ -2,12 +2,27 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type CountInfo struct {
 	// The counter value
 	Count  int64   `json:"count"`
 	Period *Period `json:"period,omitempty"`
 	// The unit of organization over which we did the count aggregation, e.g. org (department) or company
 	Org *string `json:"org,omitempty"`
+}
+
+func (c CountInfo) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CountInfo) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"count"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *CountInfo) GetCount() int64 {

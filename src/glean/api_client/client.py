@@ -19,6 +19,7 @@ from glean.api_client.messages import Messages
 from glean.api_client.pins import Pins
 from glean.api_client.search import Search
 from glean.api_client.tools import Tools
+from typing import Optional
 
 
 class Client(BaseSDK):
@@ -40,26 +41,42 @@ class Client(BaseSDK):
     tools: Tools
     governance: Governance
 
-    def __init__(self, sdk_config: SDKConfiguration) -> None:
-        BaseSDK.__init__(self, sdk_config)
+    def __init__(
+        self, sdk_config: SDKConfiguration, parent_ref: Optional[object] = None
+    ) -> None:
+        BaseSDK.__init__(self, sdk_config, parent_ref=parent_ref)
         self.sdk_configuration = sdk_config
         self._init_sdks()
 
     def _init_sdks(self):
-        self.activity = ClientActivity(self.sdk_configuration)
-        self.announcements = Announcements(self.sdk_configuration)
-        self.answers = Answers(self.sdk_configuration)
-        self.authentication = ClientAuthentication(self.sdk_configuration)
-        self.chat = ClientChat(self.sdk_configuration)
-        self.agents = Agents(self.sdk_configuration)
-        self.collections = Collections(self.sdk_configuration)
-        self.documents = ClientDocuments(self.sdk_configuration)
-        self.insights = Insights(self.sdk_configuration)
-        self.messages = Messages(self.sdk_configuration)
-        self.pins = Pins(self.sdk_configuration)
-        self.search = Search(self.sdk_configuration)
-        self.entities = Entities(self.sdk_configuration)
-        self.shortcuts = ClientShortcuts(self.sdk_configuration)
-        self.verification = ClientVerification(self.sdk_configuration)
-        self.tools = Tools(self.sdk_configuration)
-        self.governance = Governance(self.sdk_configuration)
+        self.activity = ClientActivity(
+            self.sdk_configuration, parent_ref=self.parent_ref
+        )
+        self.announcements = Announcements(
+            self.sdk_configuration, parent_ref=self.parent_ref
+        )
+        self.answers = Answers(self.sdk_configuration, parent_ref=self.parent_ref)
+        self.authentication = ClientAuthentication(
+            self.sdk_configuration, parent_ref=self.parent_ref
+        )
+        self.chat = ClientChat(self.sdk_configuration, parent_ref=self.parent_ref)
+        self.agents = Agents(self.sdk_configuration, parent_ref=self.parent_ref)
+        self.collections = Collections(
+            self.sdk_configuration, parent_ref=self.parent_ref
+        )
+        self.documents = ClientDocuments(
+            self.sdk_configuration, parent_ref=self.parent_ref
+        )
+        self.insights = Insights(self.sdk_configuration, parent_ref=self.parent_ref)
+        self.messages = Messages(self.sdk_configuration, parent_ref=self.parent_ref)
+        self.pins = Pins(self.sdk_configuration, parent_ref=self.parent_ref)
+        self.search = Search(self.sdk_configuration, parent_ref=self.parent_ref)
+        self.entities = Entities(self.sdk_configuration, parent_ref=self.parent_ref)
+        self.shortcuts = ClientShortcuts(
+            self.sdk_configuration, parent_ref=self.parent_ref
+        )
+        self.verification = ClientVerification(
+            self.sdk_configuration, parent_ref=self.parent_ref
+        )
+        self.tools = Tools(self.sdk_configuration, parent_ref=self.parent_ref)
+        self.governance = Governance(self.sdk_configuration, parent_ref=self.parent_ref)

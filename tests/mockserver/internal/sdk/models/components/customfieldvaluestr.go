@@ -2,9 +2,24 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type CustomFieldValueStr struct {
 	// Text field for string value.
 	StrText *string `json:"strText,omitempty"`
+}
+
+func (c CustomFieldValueStr) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CustomFieldValueStr) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *CustomFieldValueStr) GetStrText() *string {

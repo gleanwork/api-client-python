@@ -11,15 +11,17 @@ import (
 type ClusterTypeEnum string
 
 const (
-	ClusterTypeEnumSimilar     ClusterTypeEnum = "SIMILAR"
-	ClusterTypeEnumFreshness   ClusterTypeEnum = "FRESHNESS"
-	ClusterTypeEnumTitle       ClusterTypeEnum = "TITLE"
-	ClusterTypeEnumContent     ClusterTypeEnum = "CONTENT"
-	ClusterTypeEnumNone        ClusterTypeEnum = "NONE"
-	ClusterTypeEnumThreadReply ClusterTypeEnum = "THREAD_REPLY"
-	ClusterTypeEnumThreadRoot  ClusterTypeEnum = "THREAD_ROOT"
-	ClusterTypeEnumPrefix      ClusterTypeEnum = "PREFIX"
-	ClusterTypeEnumSuffix      ClusterTypeEnum = "SUFFIX"
+	ClusterTypeEnumSimilar      ClusterTypeEnum = "SIMILAR"
+	ClusterTypeEnumFreshness    ClusterTypeEnum = "FRESHNESS"
+	ClusterTypeEnumTitle        ClusterTypeEnum = "TITLE"
+	ClusterTypeEnumContent      ClusterTypeEnum = "CONTENT"
+	ClusterTypeEnumNone         ClusterTypeEnum = "NONE"
+	ClusterTypeEnumThreadReply  ClusterTypeEnum = "THREAD_REPLY"
+	ClusterTypeEnumThreadRoot   ClusterTypeEnum = "THREAD_ROOT"
+	ClusterTypeEnumPrefix       ClusterTypeEnum = "PREFIX"
+	ClusterTypeEnumSuffix       ClusterTypeEnum = "SUFFIX"
+	ClusterTypeEnumAuthorPrefix ClusterTypeEnum = "AUTHOR_PREFIX"
+	ClusterTypeEnumAuthorSuffix ClusterTypeEnum = "AUTHOR_SUFFIX"
 )
 
 func (e ClusterTypeEnum) ToPointer() *ClusterTypeEnum {
@@ -48,6 +50,10 @@ func (e *ClusterTypeEnum) UnmarshalJSON(data []byte) error {
 	case "PREFIX":
 		fallthrough
 	case "SUFFIX":
+		fallthrough
+	case "AUTHOR_PREFIX":
+		fallthrough
+	case "AUTHOR_SUFFIX":
 		*e = ClusterTypeEnum(v)
 		return nil
 	default:

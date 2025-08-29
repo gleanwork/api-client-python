@@ -5,6 +5,7 @@ package components
 import (
 	"encoding/json"
 	"fmt"
+	"mockserver/internal/sdk/utils"
 )
 
 // ResponseHint - Hints for the response content.
@@ -71,10 +72,21 @@ type SearchRequestOptions struct {
 	DisableSpellcheck *bool `json:"disableSpellcheck,omitempty"`
 	// Disables automatic adjustment of the input query for spelling corrections or other reasons.
 	DisableQueryAutocorrect *bool `json:"disableQueryAutocorrect,omitempty"`
-	// [beta] Enables expanded content to be returned for LLM usage. The size of content per result returned should be modified using maxSnippetSize. Server may return less or more than what is specified in maxSnippetSize. For more details, https://docs.google.com/document/d/1CTOLSxWWT9WDEnHVLoCUaxbGYyXYP8kctPRF-RluSQY/edit. Requires sufficient permissions.
+	// Enables expanded content to be returned for LLM usage. The size of content per result returned should be modified using maxSnippetSize. Server may return less or more than what is specified in maxSnippetSize. For more details, see https://developers.glean.com/guides/search/llm-content.
 	ReturnLlmContentOverSnippets *bool               `json:"returnLlmContentOverSnippets,omitempty"`
 	Inclusions                   *RestrictionFilters `json:"inclusions,omitempty"`
 	Exclusions                   *RestrictionFilters `json:"exclusions,omitempty"`
+}
+
+func (s SearchRequestOptions) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *SearchRequestOptions) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"facetBucketSize"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *SearchRequestOptions) GetDatasourceFilter() *string {

@@ -2,10 +2,25 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type CollectionPinMetadata struct {
 	// The ID of the Collection.
 	ID     int64               `json:"id"`
 	Target CollectionPinTarget `json:"target"`
+}
+
+func (c CollectionPinMetadata) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CollectionPinMetadata) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"id", "target"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *CollectionPinMetadata) GetID() int64 {

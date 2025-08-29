@@ -170,8 +170,8 @@ func testCreateannouncementCreateannouncement0(w http.ResponseWriter, req *http.
 												NativeAppURL: types.String("slack://foo/bar"),
 												Snippets: []components.SearchResultSnippet{
 													components.SearchResultSnippet{
-														Snippet:  "snippet",
 														MimeType: types.String("mimeType"),
+														Snippet:  "snippet",
 													},
 												},
 											},

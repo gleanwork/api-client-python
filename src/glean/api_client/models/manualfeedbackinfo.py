@@ -92,7 +92,12 @@ class ManualFeedbackInfoTypedDict(TypedDict):
 
 
 class ManualFeedbackInfo(BaseModel):
-    email: Optional[str] = None
+    email: Annotated[
+        Optional[str],
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+        ),
+    ] = None
     r"""The email address of the user who submitted the Feedback.event.MANUAL_FEEDBACK event."""
 
     source: Optional[ManualFeedbackInfoSource] = None

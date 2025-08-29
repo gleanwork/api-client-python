@@ -2,11 +2,26 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type TimeInterval struct {
 	// The RFC3339 timestamp formatted start time of this event.
 	Start string `json:"start"`
 	// The RFC3339 timestamp formatted end time of this event.
 	End string `json:"end"`
+}
+
+func (t TimeInterval) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(t, "", false)
+}
+
+func (t *TimeInterval) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &t, "", false, []string{"start", "end"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *TimeInterval) GetStart() string {

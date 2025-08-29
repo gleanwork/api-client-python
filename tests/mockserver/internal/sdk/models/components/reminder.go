@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type Reminder struct {
 	Assignee  Person  `json:"assignee"`
 	Requestor *Person `json:"requestor,omitempty"`
@@ -11,6 +15,17 @@ type Reminder struct {
 	CreatedAt *int64 `json:"createdAt,omitempty"`
 	// An optional free-text reason for the reminder. This is particularly useful when a reminder is used to ask for verification from another user (for example, "Duplicate", "Incomplete", "Incorrect").
 	Reason *string `json:"reason,omitempty"`
+}
+
+func (r Reminder) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *Reminder) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"assignee", "remindAt"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *Reminder) GetAssignee() Person {

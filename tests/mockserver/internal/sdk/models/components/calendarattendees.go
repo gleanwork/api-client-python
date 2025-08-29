@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type CalendarAttendees struct {
 	// Full details of some of the attendees of this event
 	People []CalendarAttendee `json:"people,omitempty"`
@@ -17,6 +21,17 @@ type CalendarAttendees struct {
 	NumNoResponse *int64 `json:"numNoResponse,omitempty"`
 	// Total number of attendees who have responded tentatively (i.e. responded maybe) to this event.
 	NumTentative *int64 `json:"numTentative,omitempty"`
+}
+
+func (c CalendarAttendees) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CalendarAttendees) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *CalendarAttendees) GetPeople() []CalendarAttendee {

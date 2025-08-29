@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type DatasourceProfile struct {
 	// The datasource the profile is of.
 	Datasource string `json:"datasource"`
@@ -13,6 +17,17 @@ type DatasourceProfile struct {
 	NativeAppURL *string `json:"nativeAppUrl,omitempty"`
 	// For internal use only. True iff the data source profile was manually added by a user from within Glean (aka not from the original data source)
 	IsUserGenerated *bool `json:"isUserGenerated,omitempty"`
+}
+
+func (d DatasourceProfile) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DatasourceProfile) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, []string{"datasource", "handle"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *DatasourceProfile) GetDatasource() string {

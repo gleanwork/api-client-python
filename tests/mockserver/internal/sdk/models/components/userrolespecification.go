@@ -2,12 +2,27 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type UserRoleSpecification struct {
 	SourceDocumentSpec *DocumentSpecUnion `json:"sourceDocumentSpec,omitempty"`
 	Person             *Person            `json:"person,omitempty"`
 	Group              *Group             `json:"group,omitempty"`
 	// A user's role with respect to a specific document.
 	Role UserRole `json:"role"`
+}
+
+func (u UserRoleSpecification) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
+}
+
+func (u *UserRoleSpecification) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, []string{"role"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *UserRoleSpecification) GetSourceDocumentSpec() *DocumentSpecUnion {

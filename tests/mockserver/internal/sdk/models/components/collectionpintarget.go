@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type CollectionPinTarget struct {
 	// Categories a Collection can be pinned to.
 	Category CollectionPinnableCategories `json:"category"`
@@ -9,6 +13,17 @@ type CollectionPinTarget struct {
 	Value *string `json:"value,omitempty"`
 	// What targets can a Collection be pinned to.
 	Target *CollectionPinnableTargets `json:"target,omitempty"`
+}
+
+func (c CollectionPinTarget) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CollectionPinTarget) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"category"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *CollectionPinTarget) GetCategory() CollectionPinnableCategories {

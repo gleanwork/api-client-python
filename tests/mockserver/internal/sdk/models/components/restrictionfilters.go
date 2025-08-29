@@ -2,9 +2,24 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type RestrictionFilters struct {
 	// Specifications for containers that should be used as part of the restriction (include/exclude). Memberships are recursively defined for a subset of datasources (currently: SharePoint, OneDrive, Google Drive, and Confluence). Please contact the Glean team to enable this for more datasources. Recursive memberships do not apply for Collections.
 	ContainerSpecs []DocumentSpecUnion `json:"containerSpecs,omitempty"`
+}
+
+func (r RestrictionFilters) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RestrictionFilters) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *RestrictionFilters) GetContainerSpecs() []DocumentSpecUnion {

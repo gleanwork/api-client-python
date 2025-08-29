@@ -3,8 +3,9 @@
 from __future__ import annotations
 from .grouptype import GroupType
 from glean.api_client.types import BaseModel
+import pydantic
 from typing import Optional
-from typing_extensions import NotRequired, TypedDict
+from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class GroupTypedDict(TypedDict):
@@ -14,6 +15,8 @@ class GroupTypedDict(TypedDict):
     r"""A unique identifier for the group. May be the same as name."""
     name: NotRequired[str]
     r"""Name of the group."""
+    datasource_instance: NotRequired[str]
+    r"""Datasource instance if the group belongs to one e.g. external groups."""
 
 
 class Group(BaseModel):
@@ -25,3 +28,8 @@ class Group(BaseModel):
 
     name: Optional[str] = None
     r"""Name of the group."""
+
+    datasource_instance: Annotated[
+        Optional[str], pydantic.Field(alias="datasourceInstance")
+    ] = None
+    r"""Datasource instance if the group belongs to one e.g. external groups."""

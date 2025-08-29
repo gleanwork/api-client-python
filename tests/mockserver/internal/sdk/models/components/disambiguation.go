@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 // Disambiguation - A disambiguation between multiple entities with the same name
 type Disambiguation struct {
 	// Name of the ambiguous entity
@@ -10,6 +14,17 @@ type Disambiguation struct {
 	ID *string `json:"id,omitempty"`
 	// The type of entity.
 	Type *EntityType `json:"type,omitempty"`
+}
+
+func (d Disambiguation) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *Disambiguation) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *Disambiguation) GetName() *string {

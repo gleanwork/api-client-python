@@ -19,7 +19,7 @@ func (c CustomFieldData) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CustomFieldData) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"label", "values"}); err != nil {
 		return err
 	}
 	return nil

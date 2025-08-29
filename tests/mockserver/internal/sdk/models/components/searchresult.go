@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type SearchResult struct {
 	// An array of entities in the work graph retrieved via a data request.
 	StructuredResults []StructuredResult `json:"structuredResults,omitempty"`
@@ -41,6 +45,17 @@ type SearchResult struct {
 	AttachmentContext *string `json:"attachmentContext,omitempty"`
 	// A list of pins associated with this search result.
 	Pins []PinDocument `json:"pins,omitempty"`
+}
+
+func (s SearchResult) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *SearchResult) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"url"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *SearchResult) GetStructuredResults() []StructuredResult {

@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type AppResult struct {
 	// The app or other repository type this represents
 	Datasource string `json:"datasource"`
@@ -11,6 +15,17 @@ type AppResult struct {
 	MimeType *string `json:"mimeType,omitempty"`
 	// If there is available icon URL.
 	IconURL *string `json:"iconUrl,omitempty"`
+}
+
+func (a AppResult) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(a, "", false)
+}
+
+func (a *AppResult) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"datasource"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *AppResult) GetDatasource() string {

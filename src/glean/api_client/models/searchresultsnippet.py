@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class SearchResultSnippetTypedDict(TypedDict):
     snippet: str
-    r"""A matching snippet from the document. Query term matches are marked by the unicode characters uE006 and uE007."""
+    r"""A matching snippet from the document. Query term matches are marked by the unicode characters uE006 and uE007. Use 'text' field instead."""
     mime_type: NotRequired[str]
     r"""The mime type of the snippets, currently either text/plain or text/html."""
     text: NotRequired[str]
@@ -26,8 +26,13 @@ class SearchResultSnippetTypedDict(TypedDict):
 
 
 class SearchResultSnippet(BaseModel):
-    snippet: str
-    r"""A matching snippet from the document. Query term matches are marked by the unicode characters uE006 and uE007."""
+    snippet: Annotated[
+        str,
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+        ),
+    ]
+    r"""A matching snippet from the document. Query term matches are marked by the unicode characters uE006 and uE007. Use 'text' field instead."""
 
     mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
     r"""The mime type of the snippets, currently either text/plain or text/html."""

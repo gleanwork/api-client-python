@@ -76,7 +76,7 @@ func (e EmployeeInfoDefinition) MarshalJSON() ([]byte, error) {
 }
 
 func (e *EmployeeInfoDefinition) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &e, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &e, "", false, []string{"email", "department"}); err != nil {
 		return err
 	}
 	return nil

@@ -2,10 +2,25 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 // ReadPermission - Describes the read permission level that a user has for a specific feature
 type ReadPermission struct {
 	// Describes the scope for a ReadPermission, WritePermission, or GrantPermission object
 	ScopeType *ScopeType `json:"scopeType,omitempty"`
+}
+
+func (r ReadPermission) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *ReadPermission) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *ReadPermission) GetScopeType() *ScopeType {

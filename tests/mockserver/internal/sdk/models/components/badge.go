@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 // Badge - Displays a user's accomplishment or milestone
 type Badge struct {
 	// An auto generated unique identifier.
@@ -12,6 +16,17 @@ type Badge struct {
 	IconConfig *IconConfig `json:"iconConfig,omitempty"`
 	// The badge should be shown on the PersonAttribution
 	Pinned *bool `json:"pinned,omitempty"`
+}
+
+func (b Badge) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(b, "", false)
+}
+
+func (b *Badge) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &b, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *Badge) GetKey() *string {

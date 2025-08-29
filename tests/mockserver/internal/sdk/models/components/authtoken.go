@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type AuthToken struct {
 	AccessToken string  `json:"accessToken"`
 	Datasource  string  `json:"datasource"`
@@ -11,6 +15,17 @@ type AuthToken struct {
 	AuthUser *string `json:"authUser,omitempty"`
 	// Unix timestamp when this token expires (in seconds since epoch UTC).
 	Expiration *int64 `json:"expiration,omitempty"`
+}
+
+func (a AuthToken) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(a, "", false)
+}
+
+func (a *AuthToken) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &a, "", false, []string{"accessToken", "datasource"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *AuthToken) GetAccessToken() string {

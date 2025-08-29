@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type VerificationMetadata struct {
 	LastVerifier *Person `json:"lastVerifier,omitempty"`
 	// The unix timestamp of the verification (in seconds since epoch UTC).
@@ -16,6 +20,17 @@ type VerificationMetadata struct {
 	VisitorCount []CountInfo `json:"visitorCount,omitempty"`
 	// List of potential verifiers for the document e.g. old verifiers and/or users with view/edit permissions.
 	CandidateVerifiers []Person `json:"candidateVerifiers,omitempty"`
+}
+
+func (v VerificationMetadata) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(v, "", false)
+}
+
+func (v *VerificationMetadata) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &v, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *VerificationMetadata) GetLastVerifier() *Person {

@@ -2,9 +2,24 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type SearchRequestInputDetails struct {
 	// Whether the associated query was at least partially copy-pasted.  If subsequent requests are issued after a copy-pasted query is constructed (e.g. with facet modifications), this bit should continue to be set for those requests.
 	HasCopyPaste *bool `json:"hasCopyPaste,omitempty"`
+}
+
+func (s SearchRequestInputDetails) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *SearchRequestInputDetails) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *SearchRequestInputDetails) GetHasCopyPaste() *bool {

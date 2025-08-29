@@ -16,3 +16,5 @@ class ClusterTypeEnum(str, Enum):
     THREAD_ROOT = "THREAD_ROOT"
     PREFIX = "PREFIX"
     SUFFIX = "SUFFIX"
+    AUTHOR_PREFIX = "AUTHOR_PREFIX"
+    AUTHOR_SUFFIX = "AUTHOR_SUFFIX"

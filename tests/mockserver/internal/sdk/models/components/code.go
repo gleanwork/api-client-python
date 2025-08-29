@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type Code struct {
 	RepoName *string    `json:"repoName,omitempty"`
 	FileName *string    `json:"fileName,omitempty"`
@@ -9,6 +13,17 @@ type Code struct {
 	Lines    []CodeLine `json:"lines,omitempty"`
 	// Last file match for a repo
 	IsLastMatch *bool `json:"isLastMatch,omitempty"`
+}
+
+func (c Code) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *Code) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *Code) GetRepoName() *string {

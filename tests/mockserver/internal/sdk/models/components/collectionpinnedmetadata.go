@@ -2,11 +2,26 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type CollectionPinnedMetadata struct {
 	// List of targets this Collection is pinned to.
 	ExistingPins []CollectionPinTarget `json:"existingPins,omitempty"`
 	// List of targets this Collection can be pinned to, excluding the targets this Collection is already pinned to. We also include Collection ID already is pinned to each eligible target, which will be 0 if the target has no pinned Collection.
 	EligiblePins []CollectionPinMetadata `json:"eligiblePins,omitempty"`
+}
+
+func (c CollectionPinnedMetadata) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CollectionPinnedMetadata) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *CollectionPinnedMetadata) GetExistingPins() []CollectionPinTarget {

@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type PersonDistance struct {
 	// The display name.
 	Name string `json:"name"`
@@ -9,6 +13,17 @@ type PersonDistance struct {
 	ObfuscatedID string `json:"obfuscatedId"`
 	// Distance to person, refer to PeopleDistance pipeline on interpretation of the value.
 	Distance float32 `json:"distance"`
+}
+
+func (p PersonDistance) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PersonDistance) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"name", "obfuscatedId", "distance"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *PersonDistance) GetName() string {

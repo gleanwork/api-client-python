@@ -2,10 +2,25 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 // RelatedObjectMetadata - Some metadata of the object which can be displayed, while not having the actual object.
 type RelatedObjectMetadata struct {
 	// Placeholder name of the object, not the relationship.
 	Name *string `json:"name,omitempty"`
+}
+
+func (r RelatedObjectMetadata) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RelatedObjectMetadata) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *RelatedObjectMetadata) GetName() *string {
@@ -20,6 +35,17 @@ type RelatedObject struct {
 	ID string `json:"id"`
 	// Some metadata of the object which can be displayed, while not having the actual object.
 	Metadata *RelatedObjectMetadata `json:"metadata,omitempty"`
+}
+
+func (r RelatedObject) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RelatedObject) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"id"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *RelatedObject) GetID() string {

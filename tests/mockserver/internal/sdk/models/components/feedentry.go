@@ -88,6 +88,7 @@ const (
 	JustificationTypeZeroStatePromptTemplateSuggestion JustificationType = "ZERO_STATE_PROMPT_TEMPLATE_SUGGESTION"
 	JustificationTypeZeroStateStaticWorkflowSuggestion JustificationType = "ZERO_STATE_STATIC_WORKFLOW_SUGGESTION"
 	JustificationTypeZeroStateAgentSuggestion          JustificationType = "ZERO_STATE_AGENT_SUGGESTION"
+	JustificationTypePersonalizedChatSuggestion        JustificationType = "PERSONALIZED_CHAT_SUGGESTION"
 )
 
 func (e JustificationType) ToPointer() *JustificationType {
@@ -162,6 +163,8 @@ func (e *JustificationType) UnmarshalJSON(data []byte) error {
 	case "ZERO_STATE_STATIC_WORKFLOW_SUGGESTION":
 		fallthrough
 	case "ZERO_STATE_AGENT_SUGGESTION":
+		fallthrough
+	case "PERSONALIZED_CHAT_SUGGESTION":
 		*e = JustificationType(v)
 		return nil
 	default:
@@ -192,6 +195,7 @@ type FeedEntry struct {
 	CollectionItem *CollectionItem       `json:"collectionItem,omitempty"`
 	Person         *Person               `json:"person,omitempty"`
 	App            *AppResult            `json:"app,omitempty"`
+	ChatSuggestion *ChatSuggestion       `json:"chatSuggestion,omitempty"`
 	PromptTemplate *PromptTemplateResult `json:"promptTemplate,omitempty"`
 	Workflow       *WorkflowResult       `json:"workflow,omitempty"`
 	// List of activity where each activity has user, action, timestamp.
@@ -309,6 +313,13 @@ func (o *FeedEntry) GetApp() *AppResult {
 		return nil
 	}
 	return o.App
+}
+
+func (o *FeedEntry) GetChatSuggestion() *ChatSuggestion {
+	if o == nil {
+		return nil
+	}
+	return o.ChatSuggestion
 }
 
 func (o *FeedEntry) GetPromptTemplate() *PromptTemplateResult {

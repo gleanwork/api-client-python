@@ -2,12 +2,27 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type StructuredTextItem struct {
 	Link     *string   `json:"link,omitempty"`
 	Document *Document `json:"document,omitempty"`
 	Text     *string   `json:"text,omitempty"`
 	// A single object that can support any object in the work graph. Only a single object will be populated.
 	StructuredResult *StructuredResult `json:"structuredResult,omitempty"`
+}
+
+func (s StructuredTextItem) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *StructuredTextItem) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *StructuredTextItem) GetLink() *string {

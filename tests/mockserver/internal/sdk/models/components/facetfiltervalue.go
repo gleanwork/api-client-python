@@ -5,6 +5,7 @@ package components
 import (
 	"encoding/json"
 	"fmt"
+	"mockserver/internal/sdk/utils"
 )
 
 type RelationType string
@@ -49,6 +50,17 @@ type FacetFilterValue struct {
 	//
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	IsNegated *bool `json:"isNegated,omitempty"`
+}
+
+func (f FacetFilterValue) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(f, "", false)
+}
+
+func (f *FacetFilterValue) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *FacetFilterValue) GetValue() *string {

@@ -2,11 +2,26 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type FacetBucketFilter struct {
 	// The facet whose buckets should be filtered.
 	Facet *string `json:"facet,omitempty"`
 	// The per-term prefix that facet buckets should be filtered on.
 	Prefix *string `json:"prefix,omitempty"`
+}
+
+func (f FacetBucketFilter) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(f, "", false)
+}
+
+func (f *FacetBucketFilter) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *FacetBucketFilter) GetFacet() *string {

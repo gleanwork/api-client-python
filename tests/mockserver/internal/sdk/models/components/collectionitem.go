@@ -70,7 +70,7 @@ func (c CollectionItem) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CollectionItem) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"collectionId", "itemType"}); err != nil {
 		return err
 	}
 	return nil

@@ -2,11 +2,26 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type CustomFieldValueHyperlink struct {
 	// Anchor text for hyperlink.
 	URLAnchor *string `json:"urlAnchor,omitempty"`
 	// Link for this URL.
 	URLLink *string `json:"urlLink,omitempty"`
+}
+
+func (c CustomFieldValueHyperlink) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CustomFieldValueHyperlink) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *CustomFieldValueHyperlink) GetURLAnchor() *string {

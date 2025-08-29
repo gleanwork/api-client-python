@@ -2,12 +2,27 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type ExtractedQnA struct {
 	// Heading text that was matched to produce this result.
 	Heading *string `json:"heading,omitempty"`
 	// Question text that was matched to produce this result.
 	Question       *string       `json:"question,omitempty"`
 	QuestionResult *SearchResult `json:"questionResult,omitempty"`
+}
+
+func (e ExtractedQnA) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(e, "", false)
+}
+
+func (e *ExtractedQnA) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *ExtractedQnA) GetHeading() *string {

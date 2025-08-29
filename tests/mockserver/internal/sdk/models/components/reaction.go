@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type Reaction struct {
 	Type *string `json:"type,omitempty"`
 	// The count of the reaction type on the document.
@@ -9,6 +13,17 @@ type Reaction struct {
 	Reactors []Person `json:"reactors,omitempty"`
 	// Whether the user in context reacted with this type to the document.
 	ReactedByViewer *bool `json:"reactedByViewer,omitempty"`
+}
+
+func (r Reaction) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *Reaction) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *Reaction) GetType() *string {

@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 // StructuredLocation - Detailed location with information about country, state, city etc.
 type StructuredLocation struct {
 	// Desk number.
@@ -22,6 +26,17 @@ type StructuredLocation struct {
 	Country *string `json:"country,omitempty"`
 	// Alpha-2 or Alpha-3 ISO 3166 country code, e.g. US or USA.
 	CountryCode *string `json:"countryCode,omitempty"`
+}
+
+func (s StructuredLocation) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *StructuredLocation) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *StructuredLocation) GetDeskLocation() *string {

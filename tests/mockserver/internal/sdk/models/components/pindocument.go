@@ -27,7 +27,7 @@ func (p PinDocument) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PinDocument) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"documentId"}); err != nil {
 		return err
 	}
 	return nil

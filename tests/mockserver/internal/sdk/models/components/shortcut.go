@@ -55,7 +55,7 @@ func (s Shortcut) MarshalJSON() ([]byte, error) {
 }
 
 func (s *Shortcut) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"inputAlias"}); err != nil {
 		return err
 	}
 	return nil

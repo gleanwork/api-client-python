@@ -2,8 +2,23 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type RelatedObjectEdge struct {
 	Objects []RelatedObject `json:"objects,omitempty"`
+}
+
+func (r RelatedObjectEdge) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RelatedObjectEdge) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *RelatedObjectEdge) GetObjects() []RelatedObject {

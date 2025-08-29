@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 // Permissions - Describes the permissions levels that a user has for permissioned features. When the client sends this, Permissions.read and Permissions.write are the additional permissions granted to a user on top of what they have via their roles.
 // When the server sends this, Permissions.read and Permissions.write are the complete (merged) set of permissions the user has, and Permissions.roles is just for display purposes.
 type Permissions struct {
@@ -21,6 +25,17 @@ type Permissions struct {
 	Role *string `json:"role,omitempty"`
 	// The roleIds of the roles a user has.
 	Roles []string `json:"roles,omitempty"`
+}
+
+func (p Permissions) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *Permissions) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *Permissions) GetCanAdminSearch() *bool {

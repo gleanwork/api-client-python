@@ -2,9 +2,24 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type ObjectPermissions struct {
 	// Describes the write permissions levels that a user has for a specific feature
 	Write *WritePermission `json:"write,omitempty"`
+}
+
+func (o ObjectPermissions) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *ObjectPermissions) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *ObjectPermissions) GetWrite() *WritePermission {

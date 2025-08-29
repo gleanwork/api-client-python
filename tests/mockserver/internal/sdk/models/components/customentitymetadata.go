@@ -2,9 +2,24 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type CustomEntityMetadata struct {
 	// Custom fields specific to individual datasources
 	CustomData map[string]CustomDataValue `json:"customData,omitempty"`
+}
+
+func (c CustomEntityMetadata) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CustomEntityMetadata) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *CustomEntityMetadata) GetCustomData() map[string]CustomDataValue {

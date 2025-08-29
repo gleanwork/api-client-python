@@ -2,9 +2,24 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 // FacetFilterSet - Within a single FacetFilterSet, the filters are treated as AND. For example, owner Sumeet and type Spreadsheet shows documents that are by Sumeet AND are Spreadsheets.
 type FacetFilterSet struct {
 	Filters []FacetFilter `json:"filters,omitempty"`
+}
+
+func (f FacetFilterSet) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(f, "", false)
+}
+
+func (f *FacetFilterSet) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *FacetFilterSet) GetFilters() []FacetFilter {
