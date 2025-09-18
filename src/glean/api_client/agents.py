@@ -545,7 +545,7 @@ class Agents(BaseSDK):
         Executes an [agent](https://developers.glean.com/agents/agents-api) run and returns the result as a stream of server-sent events (SSE).
 
         :param agent_id: The ID of the agent to run.
-        :param input: The input to the agent.
+        :param input_: The input to the agent.
         :param messages: The messages to pass an input to the agent.
         :param metadata: The metadata to pass to the agent.
         :param retries: Override the default retry configuration for this method
@@ -644,7 +644,7 @@ class Agents(BaseSDK):
         Executes an [agent](https://developers.glean.com/agents/agents-api) run and returns the result as a stream of server-sent events (SSE).
 
         :param agent_id: The ID of the agent to run.
-        :param input: The input to the agent.
+        :param input_: The input to the agent.
         :param messages: The messages to pass an input to the agent.
         :param metadata: The metadata to pass to the agent.
         :param retries: Override the default retry configuration for this method
@@ -743,7 +743,7 @@ class Agents(BaseSDK):
         Executes an [agent](https://developers.glean.com/agents/agents-api) run and returns the final response.
 
         :param agent_id: The ID of the agent to run.
-        :param input: The input to the agent.
+        :param input_: The input to the agent.
         :param messages: The messages to pass an input to the agent.
         :param metadata: The metadata to pass to the agent.
         :param retries: Override the default retry configuration for this method
@@ -842,7 +842,7 @@ class Agents(BaseSDK):
         Executes an [agent](https://developers.glean.com/agents/agents-api) run and returns the final response.
 
         :param agent_id: The ID of the agent to run.
-        :param input: The input to the agent.
+        :param input_: The input to the agent.
         :param messages: The messages to pass an input to the agent.
         :param metadata: The metadata to pass to the agent.
         :param retries: Override the default retry configuration for this method
