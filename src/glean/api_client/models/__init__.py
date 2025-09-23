@@ -301,14 +301,17 @@ if TYPE_CHECKING:
         CreateAuthTokenResponse,
         CreateAuthTokenResponseTypedDict,
     )
+    from .createcollectionop import (
+        CreatecollectionResponse,
+        CreatecollectionResponseTypedDict,
+        ResponseBody1,
+        ResponseBody1TypedDict,
+        ResponseBody2,
+        ResponseBody2TypedDict,
+    )
     from .createcollectionrequest import (
         CreateCollectionRequest,
         CreateCollectionRequestTypedDict,
-    )
-    from .createcollectionresponse import (
-        CreateCollectionResponse,
-        CreateCollectionResponseErrorCode,
-        CreateCollectionResponseTypedDict,
     )
     from .createdlpreportrequest import (
         CreateDlpReportRequest,
@@ -455,6 +458,9 @@ if TYPE_CHECKING:
     )
     from .deleteteamrequest import DeleteTeamRequest, DeleteTeamRequestTypedDict
     from .deleteuserrequest import DeleteUserRequest, DeleteUserRequestTypedDict
+    from .digest import Digest, DigestTypedDict
+    from .digestsection import DigestSection, DigestSectionTypedDict
+    from .digestupdate import DigestUpdate, DigestUpdateTypedDict
     from .disambiguation import Disambiguation, DisambiguationTypedDict
     from .displayablelistitemuiconfig import (
         DisplayableListItemUIConfig,
@@ -492,7 +498,10 @@ if TYPE_CHECKING:
         DocumentSpec2TypedDict,
         DocumentSpec3,
         DocumentSpec3TypedDict,
-        DocumentSpecUgcType,
+        DocumentSpec4,
+        DocumentSpec4TypedDict,
+        DocumentSpecUgcType1,
+        DocumentSpecUgcType2,
         DocumentSpecUnion,
         DocumentSpecUnionTypedDict,
     )
@@ -992,6 +1001,7 @@ if TYPE_CHECKING:
     )
     from .searchresultprominenceenum import SearchResultProminenceEnum
     from .searchwarning import SearchWarning, SearchWarningTypedDict, WarningType
+    from .sectiontype import SectionType
     from .security import Security, SecurityTypedDict
     from .seenfeedbackinfo import SeenFeedbackInfo, SeenFeedbackInfoTypedDict
     from .sensitivecontentoptions import (
@@ -1117,6 +1127,7 @@ if TYPE_CHECKING:
         UpdateShortcutResponse,
         UpdateShortcutResponseTypedDict,
     )
+    from .updatetype import UpdateType
     from .uploadchatfilesop import (
         UploadchatfilesRequestRequest,
         UploadchatfilesRequestRequestTypedDict,
@@ -1438,9 +1449,6 @@ __all__ = [
     "CreateAuthTokenResponseTypedDict",
     "CreateCollectionRequest",
     "CreateCollectionRequestTypedDict",
-    "CreateCollectionResponse",
-    "CreateCollectionResponseErrorCode",
-    "CreateCollectionResponseTypedDict",
     "CreateDlpReportRequest",
     "CreateDlpReportRequestTypedDict",
     "CreateDlpReportResponse",
@@ -1449,6 +1457,8 @@ __all__ = [
     "CreateShortcutRequestTypedDict",
     "CreateShortcutResponse",
     "CreateShortcutResponseTypedDict",
+    "CreatecollectionResponse",
+    "CreatecollectionResponseTypedDict",
     "CustomDataValue",
     "CustomDataValueTypedDict",
     "CustomDatasourceConfig",
@@ -1546,6 +1556,12 @@ __all__ = [
     "DeletechatfilesRequestRequestTypedDict",
     "DeletechatsRequestRequest",
     "DeletechatsRequestRequestTypedDict",
+    "Digest",
+    "DigestSection",
+    "DigestSectionTypedDict",
+    "DigestTypedDict",
+    "DigestUpdate",
+    "DigestUpdateTypedDict",
     "Direction",
     "Disambiguation",
     "DisambiguationTypedDict",
@@ -1590,7 +1606,10 @@ __all__ = [
     "DocumentSpec2TypedDict",
     "DocumentSpec3",
     "DocumentSpec3TypedDict",
-    "DocumentSpecUgcType",
+    "DocumentSpec4",
+    "DocumentSpec4TypedDict",
+    "DocumentSpecUgcType1",
+    "DocumentSpecUgcType2",
     "DocumentSpecUnion",
     "DocumentSpecUnionTypedDict",
     "DocumentStatusResponse",
@@ -2005,6 +2024,10 @@ __all__ = [
     "ReportStatusResponseStatus",
     "ReportStatusResponseTypedDict",
     "RequestType",
+    "ResponseBody1",
+    "ResponseBody1TypedDict",
+    "ResponseBody2",
+    "ResponseBody2TypedDict",
     "ResponseHint",
     "ResponseMetadata",
     "ResponseMetadataTypedDict",
@@ -2047,6 +2070,7 @@ __all__ = [
     "SearchResultTypedDict",
     "SearchWarning",
     "SearchWarningTypedDict",
+    "SectionType",
     "Security",
     "SecurityTypedDict",
     "SeenFeedbackInfo",
@@ -2172,6 +2196,7 @@ __all__ = [
     "UpdateShortcutRequestTypedDict",
     "UpdateShortcutResponse",
     "UpdateShortcutResponseTypedDict",
+    "UpdateType",
     "UpdatepolicyRequest",
     "UpdatepolicyRequestTypedDict",
     "UploadChatFilesRequest",
@@ -2420,11 +2445,14 @@ _dynamic_imports: dict[str, str] = {
     "CreateAnswerRequestTypedDict": ".createanswerrequest",
     "CreateAuthTokenResponse": ".createauthtokenresponse",
     "CreateAuthTokenResponseTypedDict": ".createauthtokenresponse",
+    "CreatecollectionResponse": ".createcollectionop",
+    "CreatecollectionResponseTypedDict": ".createcollectionop",
+    "ResponseBody1": ".createcollectionop",
+    "ResponseBody1TypedDict": ".createcollectionop",
+    "ResponseBody2": ".createcollectionop",
+    "ResponseBody2TypedDict": ".createcollectionop",
     "CreateCollectionRequest": ".createcollectionrequest",
     "CreateCollectionRequestTypedDict": ".createcollectionrequest",
-    "CreateCollectionResponse": ".createcollectionresponse",
-    "CreateCollectionResponseErrorCode": ".createcollectionresponse",
-    "CreateCollectionResponseTypedDict": ".createcollectionresponse",
     "CreateDlpReportRequest": ".createdlpreportrequest",
     "CreateDlpReportRequestTypedDict": ".createdlpreportrequest",
     "CreateDlpReportResponse": ".createdlpreportresponse",
@@ -2523,6 +2551,12 @@ _dynamic_imports: dict[str, str] = {
     "DeleteTeamRequestTypedDict": ".deleteteamrequest",
     "DeleteUserRequest": ".deleteuserrequest",
     "DeleteUserRequestTypedDict": ".deleteuserrequest",
+    "Digest": ".digest",
+    "DigestTypedDict": ".digest",
+    "DigestSection": ".digestsection",
+    "DigestSectionTypedDict": ".digestsection",
+    "DigestUpdate": ".digestupdate",
+    "DigestUpdateTypedDict": ".digestupdate",
     "Disambiguation": ".disambiguation",
     "DisambiguationTypedDict": ".disambiguation",
     "DisplayableListItemUIConfig": ".displayablelistitemuiconfig",
@@ -2561,7 +2595,10 @@ _dynamic_imports: dict[str, str] = {
     "DocumentSpec2TypedDict": ".documentspec_union",
     "DocumentSpec3": ".documentspec_union",
     "DocumentSpec3TypedDict": ".documentspec_union",
-    "DocumentSpecUgcType": ".documentspec_union",
+    "DocumentSpec4": ".documentspec_union",
+    "DocumentSpec4TypedDict": ".documentspec_union",
+    "DocumentSpecUgcType1": ".documentspec_union",
+    "DocumentSpecUgcType2": ".documentspec_union",
     "DocumentSpecUnion": ".documentspec_union",
     "DocumentSpecUnionTypedDict": ".documentspec_union",
     "DocumentStatusResponse": ".documentstatusresponse",
@@ -2966,6 +3003,7 @@ _dynamic_imports: dict[str, str] = {
     "SearchWarning": ".searchwarning",
     "SearchWarningTypedDict": ".searchwarning",
     "WarningType": ".searchwarning",
+    "SectionType": ".sectiontype",
     "Security": ".security",
     "SecurityTypedDict": ".security",
     "SeenFeedbackInfo": ".seenfeedbackinfo",
@@ -3080,6 +3118,7 @@ _dynamic_imports: dict[str, str] = {
     "UpdateShortcutRequestTypedDict": ".updateshortcutrequest",
     "UpdateShortcutResponse": ".updateshortcutresponse",
     "UpdateShortcutResponseTypedDict": ".updateshortcutresponse",
+    "UpdateType": ".updatetype",
     "UploadchatfilesRequestRequest": ".uploadchatfilesop",
     "UploadchatfilesRequestRequestTypedDict": ".uploadchatfilesop",
     "File": ".uploadchatfilesrequest",

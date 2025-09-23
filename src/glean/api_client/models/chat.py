@@ -3,7 +3,9 @@
 from __future__ import annotations
 from .chatmessage import ChatMessage, ChatMessageTypedDict
 from .iconconfig import IconConfig, IconConfigTypedDict
+from .objectpermissions import ObjectPermissions, ObjectPermissionsTypedDict
 from .person import Person, PersonTypedDict
+from .userrolespecification import UserRoleSpecification, UserRoleSpecificationTypedDict
 from glean.api_client.types import BaseModel
 import pydantic
 from typing import List, Optional
@@ -28,8 +30,11 @@ class ChatTypedDict(TypedDict):
     r"""The display name of the AI App that this Chat is associated to."""
     icon: NotRequired[IconConfigTypedDict]
     r"""Defines how to render an icon"""
+    permissions: NotRequired[ObjectPermissionsTypedDict]
     messages: NotRequired[List[ChatMessageTypedDict]]
     r"""The chat messages within a Chat."""
+    roles: NotRequired[List[UserRoleSpecificationTypedDict]]
+    r"""A list of roles for this Chat."""
 
 
 class Chat(BaseModel):
@@ -62,5 +67,10 @@ class Chat(BaseModel):
     icon: Optional[IconConfig] = None
     r"""Defines how to render an icon"""
 
+    permissions: Optional[ObjectPermissions] = None
+
     messages: Optional[List[ChatMessage]] = None
     r"""The chat messages within a Chat."""
+
+    roles: Optional[List[UserRoleSpecification]] = None
+    r"""A list of roles for this Chat."""

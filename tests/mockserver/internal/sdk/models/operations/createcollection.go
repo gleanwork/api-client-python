@@ -3,13 +3,140 @@
 package operations
 
 import (
+	"errors"
+	"fmt"
 	"mockserver/internal/sdk/models/components"
+	"mockserver/internal/sdk/utils"
 )
+
+type ResponseBody2 struct {
+	Collection *components.Collection     `json:"collection,omitempty"`
+	Error      components.CollectionError `json:"error"`
+}
+
+func (r ResponseBody2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *ResponseBody2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"error"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *ResponseBody2) GetCollection() *components.Collection {
+	if o == nil {
+		return nil
+	}
+	return o.Collection
+}
+
+func (o *ResponseBody2) GetError() components.CollectionError {
+	if o == nil {
+		return components.CollectionError{}
+	}
+	return o.Error
+}
+
+type ResponseBody1 struct {
+	Collection components.Collection       `json:"collection"`
+	Error      *components.CollectionError `json:"error,omitempty"`
+}
+
+func (r ResponseBody1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *ResponseBody1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"collection"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *ResponseBody1) GetCollection() components.Collection {
+	if o == nil {
+		return components.Collection{}
+	}
+	return o.Collection
+}
+
+func (o *ResponseBody1) GetError() *components.CollectionError {
+	if o == nil {
+		return nil
+	}
+	return o.Error
+}
+
+type CreatecollectionResponseBodyType string
+
+const (
+	CreatecollectionResponseBodyTypeResponseBody1 CreatecollectionResponseBodyType = "ResponseBody_1"
+	CreatecollectionResponseBodyTypeResponseBody2 CreatecollectionResponseBodyType = "ResponseBody_2"
+)
+
+// CreatecollectionResponseBody - OK
+type CreatecollectionResponseBody struct {
+	ResponseBody1 *ResponseBody1 `queryParam:"inline"`
+	ResponseBody2 *ResponseBody2 `queryParam:"inline"`
+
+	Type CreatecollectionResponseBodyType
+}
+
+func CreateCreatecollectionResponseBodyResponseBody1(responseBody1 ResponseBody1) CreatecollectionResponseBody {
+	typ := CreatecollectionResponseBodyTypeResponseBody1
+
+	return CreatecollectionResponseBody{
+		ResponseBody1: &responseBody1,
+		Type:          typ,
+	}
+}
+
+func CreateCreatecollectionResponseBodyResponseBody2(responseBody2 ResponseBody2) CreatecollectionResponseBody {
+	typ := CreatecollectionResponseBodyTypeResponseBody2
+
+	return CreatecollectionResponseBody{
+		ResponseBody2: &responseBody2,
+		Type:          typ,
+	}
+}
+
+func (u *CreatecollectionResponseBody) UnmarshalJSON(data []byte) error {
+
+	var responseBody1 ResponseBody1 = ResponseBody1{}
+	if err := utils.UnmarshalJSON(data, &responseBody1, "", true, nil); err == nil {
+		u.ResponseBody1 = &responseBody1
+		u.Type = CreatecollectionResponseBodyTypeResponseBody1
+		return nil
+	}
+
+	var responseBody2 ResponseBody2 = ResponseBody2{}
+	if err := utils.UnmarshalJSON(data, &responseBody2, "", true, nil); err == nil {
+		u.ResponseBody2 = &responseBody2
+		u.Type = CreatecollectionResponseBodyTypeResponseBody2
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreatecollectionResponseBody", string(data))
+}
+
+func (u CreatecollectionResponseBody) MarshalJSON() ([]byte, error) {
+	if u.ResponseBody1 != nil {
+		return utils.MarshalJSON(u.ResponseBody1, "", true)
+	}
+
+	if u.ResponseBody2 != nil {
+		return utils.MarshalJSON(u.ResponseBody2, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type CreatecollectionResponseBody: all fields are null")
+}
 
 type CreatecollectionResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// OK
-	CreateCollectionResponse *components.CreateCollectionResponse
+	OneOf *CreatecollectionResponseBody
 }
 
 func (o *CreatecollectionResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -19,9 +146,9 @@ func (o *CreatecollectionResponse) GetHTTPMeta() components.HTTPMetadata {
 	return o.HTTPMeta
 }
 
-func (o *CreatecollectionResponse) GetCreateCollectionResponse() *components.CreateCollectionResponse {
+func (o *CreatecollectionResponse) GetOneOf() *CreatecollectionResponseBody {
 	if o == nil {
 		return nil
 	}
-	return o.CreateCollectionResponse
+	return o.OneOf
 }

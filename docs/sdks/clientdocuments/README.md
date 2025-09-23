@@ -158,7 +158,7 @@ Generate an AI summary of the requested documents.
 
 <!-- UsageSnippet language="python" operationID="summarize" method="post" path="/rest/api/v1/summarize" -->
 ```python
-from glean.api_client import Glean
+from glean.api_client import Glean, models
 import os
 
 
@@ -167,7 +167,10 @@ with Glean(
 ) as glean:
 
     res = glean.client.documents.summarize(document_specs=[
-        {},
+        {
+            "ugc_type": models.DocumentSpecUgcType2.CHATS,
+            "ugc_id": "<id>",
+        },
     ])
 
     # Handle response

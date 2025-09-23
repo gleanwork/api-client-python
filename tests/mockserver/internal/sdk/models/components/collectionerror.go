@@ -5,6 +5,7 @@ package components
 import (
 	"encoding/json"
 	"fmt"
+	"mockserver/internal/sdk/utils"
 )
 
 type CollectionErrorErrorCode string
@@ -50,6 +51,17 @@ func (e *CollectionErrorErrorCode) UnmarshalJSON(data []byte) error {
 
 type CollectionError struct {
 	ErrorCode CollectionErrorErrorCode `json:"errorCode"`
+}
+
+func (c CollectionError) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CollectionError) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"errorCode"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *CollectionError) GetErrorCode() CollectionErrorErrorCode {
