@@ -4261,18 +4261,28 @@ components:
                 tokenType: Bearer
                 authUser: "1"
         DocumentSpec:
+            x-multiple-discriminators: true
             oneOf:
                 - type: object
+                  required:
+                    - url
                   properties:
                     url:
                         type: string
+                        x-discriminator: true
                         description: The URL of the document.
                 - type: object
+                  required:
+                    - id
                   properties:
                     id:
                         type: string
+                        x-discriminator: true
                         description: The ID of the document.
                 - type: object
+                  required:
+                    - contentId
+                    - ugcType
                   properties:
                     ugcType:
                         type: string
@@ -4281,10 +4291,33 @@ components:
                             - ANSWERS
                             - COLLECTIONS
                             - SHORTCUTS
+                            - CHATS
                         description: The type of the user generated content (UGC datasource).
                     contentId:
                         type: integer
-                        description: The id for user generated content.
+                        x-discriminator: true
+                        description: The numeric id for user generated content. Used for ANNOUNCEMENTS, ANSWERS, COLLECTIONS, SHORTCUTS.
+                    docType:
+                        type: string
+                        description: The specific type of the user generated content type.
+                - type: object
+                  required:
+                    - ugcType
+                    - ugcId
+                  properties:
+                    ugcType:
+                        type: string
+                        enum:
+                            - ANNOUNCEMENTS
+                            - ANSWERS
+                            - COLLECTIONS
+                            - SHORTCUTS
+                            - CHATS
+                        description: The type of the user generated content (UGC datasource).
+                    ugcId:
+                        type: string
+                        x-discriminator: true
+                        description: The string id for user generated content. Used for CHATS.
                     docType:
                         type: string
                         description: The specific type of the user generated content type.
@@ -4868,6 +4901,9 @@ components:
                 datasourceInstance:
                     type: string
                     description: Datasource instance if the group belongs to one e.g. external groups.
+                provisioningId:
+                    type: string
+                    description: identifier for greenlist provisioning, aka sciokey
         UserRole:
             type: string
             description: A user's role with respect to a specific document.
@@ -6966,6 +7002,16 @@ components:
                     description: Unix timestamp for when this token expires (in seconds since epoch UTC).
                     type: integer
                     format: int64
+        ToolSets:
+            type: object
+            description: The types of tools that the agent is allowed to use. Only works with FAST and ADVANCED `agent` values
+            properties:
+                enableWebSearch:
+                    type: boolean
+                    description: "Whether the agent is allowed to use web search (default: true)."
+                enableCompanyTools:
+                    type: boolean
+                    description: "Whether the agent is allowed to search internal company resources (default: true)."
         AgentConfig:
             description: Describes the agent that executes the request.
             properties:
@@ -6973,13 +7019,19 @@ components:
                     type: string
                     description: Name of the agent.
                     x-enumDescriptions:
-                        DEFAULT: Integrates with your company's knowledge.
-                        GPT: Communicates directly with the LLM.
-                        UNIVERSAL: Uses both company and web knowledge.
+                        DEFAULT: Integrates with your company's knowledge. This will soon be deprecated in favor of the FAST and ADVANCED `agent` values
+                        GPT: Communicates directly with the LLM. This will soon be deprecated in favor of the FAST and ADVANCED `agent` values
+                        UNIVERSAL: Uses both company and web knowledge. This will soon be deprecated in favor of the FAST and ADVANCED `agent` values
+                        FAST: Uses an agent powered by the agentic engine that responds faster but may have lower quality results. Requires the agentic engine to be enabled in the deployment.
+                        ADVANCED: Uses an agent powered by the agentic engine that thinks for longer and potentially makes more LLM calls to return higher quality results. Requires the agentic engine to be enabled in the deployment.
                     enum:
                         - DEFAULT
                         - GPT
                         - UNIVERSAL
+                        - FAST
+                        - ADVANCED
+                toolSets:
+                    $ref: "#/components/schemas/ToolSets"
                 mode:
                     type: string
                     description: Top level modes to run GleanChat in.
@@ -7287,7 +7339,7 @@ components:
                     additionalProperties:
                         $ref: "#/components/schemas/WriteActionParameter"
         ChatMessageFragment:
-            description: Represents a part of a ChatMessage that originates from a single action/tool. It is designed to support rich data formats beyond simple text, allowing for a more dynamic and interactive chat experience. Each fragment can include various types of content, such as text, search queries, action information, and more. Also, each ChatMessageFragment should only have one of structuredResults, querySuggestion, writeAction, followupAction, or file.
+            description: Represents a part of a ChatMessage that originates from a single action/tool. It is designed to support rich data formats beyond simple text, allowing for a more dynamic and interactive chat experience. Each fragment can include various types of content, such as text, search queries, action information, and more. Also, each ChatMessageFragment should only have one of structuredResults, querySuggestion, writeAction, followupAction, agentRecommendation or file.
             allOf:
                 - $ref: "#/components/schemas/Result"
                 - type: object
@@ -7354,6 +7406,7 @@ components:
                         ERROR: A message that describes an error while processing the request.
                         HEADING: A heading message used to distinguish different sections of the holistic response.
                         WARNING: A warning message to be shown to the user.
+                        SERVER_TOOL: A message used to for server-side tool auth/use, for request and response.
                     enum:
                         - UPDATE
                         - CONTENT
@@ -7363,6 +7416,7 @@ components:
                         - ERROR
                         - HEADING
                         - WARNING
+                        - SERVER_TOOL
                 hasMoreFragments:
                     deprecated: true
                     type: boolean
@@ -7489,12 +7543,18 @@ components:
             description: A historical representation of a series of chat messages a user had with Glean Assistant.
             allOf:
                 - $ref: "#/components/schemas/ChatMetadata"
+                - $ref: "#/components/schemas/PermissionedObject"
             properties:
                 messages:
                     type: array
                     items:
                         $ref: "#/components/schemas/ChatMessage"
                     description: The chat messages within a Chat.
+                roles:
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/UserRoleSpecification"
+                    description: A list of roles for this Chat.
         ChatResult:
             properties:
                 chat:
@@ -7558,6 +7618,9 @@ components:
                     items:
                         type: string
                     description: IDs of files to fetch.
+                chatId:
+                    type: string
+                    description: The ID of the chat that contains the chat file.
         GetChatFilesResponse:
             properties:
                 files:
@@ -7808,9 +7871,12 @@ components:
                         - NO_PERMISSIONS
         CreateCollectionResponse:
             allOf:
-                - $ref: "#/components/schemas/Collection"
-                - $ref: "#/components/schemas/CollectionError"
                 - type: object
+                  anyOf:
+                    - required:
+                        - collection
+                    - required:
+                        - error
                   properties:
                     collection:
                         $ref: "#/components/schemas/Collection"
@@ -9153,6 +9219,7 @@ components:
                             - ZERO_STATE_WORKFLOW_POPULAR
                             - ZERO_STATE_WORKFLOW_SUGGESTION
                             - PERSONALIZED_CHAT_SUGGESTION
+                            - DAILY_DIGEST
                     description: Categories of content requested. An allowlist gives flexibility to request content separately or together.
                 requestOptions:
                     $ref: "#/components/schemas/FeedRequestOptions"
@@ -9308,6 +9375,91 @@ components:
                         type: array
                         items:
                             $ref: "#/components/schemas/GeneratedAttachment"
+        SectionType:
+            type: string
+            description: Type of the section. This defines how the section should be interpreted and rendered in the digest.
+            x-enumDescriptions:
+                CHANNEL: A standard section for channel-based digests (e.g. from Slack, Teams).
+                MENTIONS: A dedicated section that surfaces user mentions (actionable, informative, or all).
+                TOPIC: A section driven by a generic topic, not tied to any specific channel or instance.
+            enum:
+                - CHANNEL
+                - MENTIONS
+                - TOPIC
+        UpdateType:
+            type: string
+            description: Optional type classification for the update.
+            x-enumDescriptions:
+                ACTIONABLE: Updates that require user attention or action
+                INFORMATIVE: Updates that are purely informational
+            enum:
+                - ACTIONABLE
+                - INFORMATIVE
+        DigestUpdate:
+            type: object
+            properties:
+                url:
+                    type: string
+                    description: URL link to the content or document.
+                title:
+                    type: string
+                    description: Title or headline of the update.
+                datasource:
+                    type: string
+                    description: Name or identifier of the data source (e.g., slack, confluence, etc.).
+                summary:
+                    type: string
+                    description: Brief summary or description of the update content.
+                type:
+                    $ref: "#/components/schemas/UpdateType"
+        DigestSection:
+            type: object
+            required:
+                - id
+                - type
+                - updates
+            properties:
+                id:
+                    type: string
+                    description: Unique identifier for the digest section.
+                type:
+                    $ref: "#/components/schemas/SectionType"
+                displayName:
+                    type: string
+                    description: Human-readable name for the digest section.
+                channelName:
+                    type: string
+                    description: Name of the channel (applicable for CHANNEL type sections). Used to display in the frontend.
+                instanceId:
+                    type: string
+                    description: Instance identifier for the channel or workspace. Used for constructing channel URLs to display in the frontend.
+                url:
+                    type: string
+                    description: Optional URL for the digest section. Should be populated only if the section is a CHANNEL type section.
+                updates:
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/DigestUpdate"
+                    description: List of updates within this digest section.
+        Digest:
+            type: object
+            properties:
+                podcastFileId:
+                    type: string
+                    description: Identifier for the podcast file generated from this digest content.
+                podcastDuration:
+                    type: number
+                    format: float
+                    description: Duration of the podcast file in seconds.
+                digestDate:
+                    type: string
+                    description: The date this digest covers, in YYYY-MM-DD format. Represents the specific day for which the digest content and updates were compiled. This can be empty if the digest is not yet available.
+                    example: "2025-09-03"
+                sections:
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/DigestSection"
+                    description: Array of digest sections from which the podcast was created.
         ChatSuggestion:
             properties:
                 query:
@@ -9530,6 +9682,7 @@ components:
                         - ZERO_STATE_STATIC_WORKFLOW_SUGGESTION
                         - ZERO_STATE_AGENT_SUGGESTION
                         - PERSONALIZED_CHAT_SUGGESTION
+                        - DAILY_DIGEST
                     description: Type of the justification.
                 justification:
                     type: string
@@ -9546,6 +9699,8 @@ components:
                     $ref: "#/components/schemas/CalendarEvent"
                 announcement:
                     $ref: "#/components/schemas/Announcement"
+                digest:
+                    $ref: "#/components/schemas/Digest"
                 collection:
                     $ref: "#/components/schemas/Collection"
                 collectionItem:
@@ -9598,6 +9753,7 @@ components:
                         - ZERO_STATE_WORKFLOW_POPULAR
                         - ZERO_STATE_WORKFLOW_SUGGESTION
                         - PERSONALIZED_CHAT_SUGGESTION
+                        - DAILY_DIGEST
                     description: Category of the result, one of the requested categories in incoming request.
                 primaryEntry:
                     $ref: "#/components/schemas/FeedEntry"
@@ -11595,6 +11751,7 @@ components:
                         - EXTERNAL_SHORTCUT
                         - ENTITY
                         - CALENDAR
+                        - AGENTS
                     description: The document category of this object type.
                 propertyDefinitions:
                     type: array
@@ -11649,6 +11806,7 @@ components:
                         - EXTERNAL_SHORTCUT
                         - ENTITY
                         - CALENDAR
+                        - AGENTS
                     default: UNCATEGORIZED
                     description: The type of this datasource. It is an important signal for relevance and must be specified and cannot be UNCATEGORIZED. Please refer to [this](https://developers.glean.com/docs/indexing_api_datasource_category/) for more details.
                 urlRegex:

@@ -40,3 +40,4 @@ Type of the justification.
 | `ZERO_STATE_STATIC_WORKFLOW_SUGGESTION` | ZERO_STATE_STATIC_WORKFLOW_SUGGESTION   |
 | `ZERO_STATE_AGENT_SUGGESTION`           | ZERO_STATE_AGENT_SUGGESTION             |
 | `PERSONALIZED_CHAT_SUGGESTION`          | PERSONALIZED_CHAT_SUGGESTION            |
+| `DAILY_DIGEST`                          | DAILY_DIGEST                            |

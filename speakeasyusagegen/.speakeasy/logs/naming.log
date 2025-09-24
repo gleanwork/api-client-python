@@ -7,6 +7,18 @@ DEBUG	add_name: Renamed to "DocumentSpec"
 DEBUG	add_name: Renamed to "DocumentSpec" 
 	 labels: "scope:shared refName:DocumentSpec" 
 	 registrationID: "scope:shared refType:Schemas refName:DocumentSpec component:true oneOfPosition:3 originalName:"
+DEBUG	add_name: Renamed to "DocumentSpec" 
+	 labels: "scope:shared refName:DocumentSpec" 
+	 registrationID: "scope:shared refType:Schemas refName:DocumentSpec component:true oneOfPosition:4 originalName:"
+DEBUG	add_name: Renamed to "ResponseBody" 
+	 labels: "operation:createcollection operationTag:client.collections requestResponse:response oneOf:ResponseBody" 
+	 registrationID: "scope:operations operationTag:client.collections operation:createcollection requestResponse:response responseStatusCode:200 responseMediaType:application/json oneOf:ResponseBody oneOfPosition:1 originalName:"
+DEBUG	add_name: Renamed to "ResponseBody" 
+	 labels: "operation:createcollection operationTag:client.collections requestResponse:response oneOf:ResponseBody" 
+	 registrationID: "scope:operations operationTag:client.collections operation:createcollection requestResponse:response responseStatusCode:200 responseMediaType:application/json oneOf:ResponseBody oneOfPosition:2 originalName:"
+DEBUG	prepend_op_id: Renamed to "createcollection_ResponseBody" 
+	 labels: "original_name:ResponseBody operation:createcollection operationTag:client.collections requestResponse:response data_type:union" 
+	 registrationID: "scope:operations operationTag:client.collections operation:createcollection requestResponse:response responseStatusCode:200 responseMediaType:application/json originalName:ResponseBody"
 DEBUG	add_name: Renamed to "DocumentOrError" 
 	 labels: "scope:shared refName:DocumentOrError" 
 	 registrationID: "scope:shared refType:Schemas refName:DocumentOrError component:true oneOfPosition:2 originalName:"
@@ -129,7 +141,7 @@ DEBUG	discriminated: Renamed to "CustomDatasourceConfig_connectorType"
 	 registrationID: "scope:shared refType:Schemas refName:CustomDatasourceConfig originalName:connectorType"
 DEBUG	
 
---- Renaming 4 types with name "DocumentSpec" ---
+--- Renaming 5 types with name "DocumentSpec" ---
 DEBUG	discriminated: Renamed component to "DocumentSpec_union" 
 	 labels: "original_name:DocumentSpec scope:shared data_type:union" 
 	 registrationID: "scope:shared refType:Schemas refName:DocumentSpec component:true originalName:DocumentSpec"
@@ -142,12 +154,24 @@ DEBUG	incremented: Renamed to "DocumentSpec_2"
 DEBUG	incremented: Renamed to "DocumentSpec_3" 
 	 labels: "scope:shared refName:DocumentSpec duplicate_count:3" 
 	 registrationID: "scope:shared refType:Schemas refName:DocumentSpec component:true oneOfPosition:3 originalName:"
+DEBUG	incremented: Renamed to "DocumentSpec_4" 
+	 labels: "scope:shared refName:DocumentSpec duplicate_count:4" 
+	 registrationID: "scope:shared refType:Schemas refName:DocumentSpec component:true oneOfPosition:4 originalName:"
 DEBUG	
 
---- Renaming 2 types with name "ugcType" ---
+--- Renaming 3 types with name "ugcType" ---
 DEBUG	discriminated: Renamed to "DocumentSpec_ugcType" 
 	 labels: "original_name:ugcType scope:shared data_type:enum refName:DocumentSpec" 
 	 registrationID: "scope:shared refType:Schemas refName:DocumentSpec component:true oneOfPosition:3 originalName:ugcType"
+DEBUG	discriminated: Renamed to "DocumentSpec_ugcType" 
+	 labels: "original_name:ugcType scope:shared data_type:enum refName:DocumentSpec" 
+	 registrationID: "scope:shared refType:Schemas refName:DocumentSpec component:true oneOfPosition:4 originalName:ugcType"
+DEBUG	incremented: Renamed to "DocumentSpec_ugcType_1" 
+	 labels: "original_name:ugcType scope:shared data_type:enum refName:DocumentSpec duplicate_count:1" 
+	 registrationID: "scope:shared refType:Schemas refName:DocumentSpec component:true oneOfPosition:3 originalName:ugcType"
+DEBUG	incremented: Renamed to "DocumentSpec_ugcType_2" 
+	 labels: "original_name:ugcType scope:shared data_type:enum refName:DocumentSpec duplicate_count:2" 
+	 registrationID: "scope:shared refType:Schemas refName:DocumentSpec component:true oneOfPosition:4 originalName:ugcType"
 DEBUG	
 
 --- Renaming 7 types with name "type" ---
@@ -282,10 +306,7 @@ DEBUG	discriminated: Renamed to "agent_enum"
 	 registrationID: "scope:shared refType:Schemas refName:AgentConfig originalName:agent"
 DEBUG	
 
---- Renaming 3 types with name "errorCode" ---
-DEBUG	discriminated: Renamed to "CreateCollectionResponse_errorCode" 
-	 labels: "original_name:errorCode scope:shared data_type:enum refName:CreateCollectionResponse" 
-	 registrationID: "scope:shared refType:Schemas refName:CreateCollectionResponse originalName:errorCode"
+--- Renaming 2 types with name "errorCode" ---
 DEBUG	discriminated: Renamed to "CollectionError_errorCode" 
 	 labels: "original_name:errorCode scope:shared data_type:enum refName:CollectionError" 
 	 registrationID: "scope:shared refType:Schemas refName:CollectionError originalName:errorCode"
@@ -346,6 +367,18 @@ DEBUG	discriminated: Renamed to "DocumentVisibilityOverride_override"
 DEBUG	discriminated: Renamed to "DocumentVisibilityUpdateResult_override" 
 	 labels: "original_name:override scope:shared data_type:enum refName:DocumentVisibilityUpdateResult" 
 	 registrationID: "scope:shared refType:Schemas refName:DocumentVisibilityUpdateResult originalName:override"
+DEBUG	
+
+--- Renaming 2 types with name "ResponseBody" ---
+DEBUG	incremented: Renamed to "ResponseBody_1" 
+	 labels: "operation:createcollection operationTag:client.collections requestResponse:response oneOf:ResponseBody duplicate_count:1" 
+	 registrationID: "scope:operations operationTag:client.collections operation:createcollection requestResponse:response responseStatusCode:200 responseMediaType:application/json oneOf:ResponseBody oneOfPosition:1 originalName:"
+DEBUG	incremented: Renamed to "ResponseBody_2" 
+	 labels: "operation:createcollection operationTag:client.collections requestResponse:response oneOf:ResponseBody duplicate_count:2" 
+	 registrationID: "scope:operations operationTag:client.collections operation:createcollection requestResponse:response responseStatusCode:200 responseMediaType:application/json oneOf:ResponseBody oneOfPosition:2 originalName:"
+DEBUG	prepend_op_id: N/A rename "createcollection_ResponseBody" 
+	 labels: "original_name:ResponseBody operation:createcollection operationTag:client.collections requestResponse:response data_type:union" 
+	 registrationID: "scope:operations operationTag:client.collections operation:createcollection requestResponse:response responseStatusCode:200 responseMediaType:application/json originalName:ResponseBody"
 DEBUG	prepend_op_id: N/A rename "listpins_request" 
 	 labels: "original_name:request operation:listpins operationTag:client.pins" 
 	 registrationID: "scope:operations operationTag:client.pins operation:listpins requestResponse:request originalName:RequestBody"
@@ -409,7 +442,9 @@ CreateAnnouncementRequest (startTime: date-time, endTime: date-time, title: stri
                 DocumentSpec1 (url: string)
                 DocumentSpec2 (id: string)
                 DocumentSpec3 (ugcType: enum, contentId: integer, docType: string)
-                 DocumentSpecUgcType (enum: ANNOUNCEMENTS, ANSWERS, COLLECTIONS ...)
+                 DocumentSpecUgcType1 (enum: ANNOUNCEMENTS, ANSWERS, COLLECTIONS ...)
+                DocumentSpec4 (ugcType: enum, ugcId: string, docType: string)
+                 DocumentSpecUgcType2 (enum: ANNOUNCEMENTS, ANSWERS, COLLECTIONS ...)
              TextRange (startIndex: integer, endIndex: integer, type: enum ...)
               TextRangeType (enum: BOLD, CITATION, HIGHLIGHT ...)
                 DocumentSection (title: string, url: string)
@@ -553,8 +588,9 @@ Chat (SDK empty)
 ChatRequest (timezoneOffset: integer, ChatRequest: ChatRequest)
  ChatRequest (saveChat: boolean, chatId: string, messages: array ...)
    ChatMessage (agentConfig: AgentConfig, author: enum, citations: array ...)
-    AgentConfig (agent: enum, mode: enum)
-     AgentEnum (enum: DEFAULT, GPT, UNIVERSAL)
+    AgentConfig (agent: enum, toolSets: ToolSets, mode: enum)
+     AgentEnum (enum: DEFAULT, GPT, UNIVERSAL ...)
+     ToolSets (enableWebSearch: boolean, enableCompanyTools: boolean)
      Mode (enum: DEFAULT, QUICK)
     Author (enum: USER, GLEAN_AI)
      ChatMessageCitation (trackingToken: string, sourceDocument: Document, sourceFile: ChatFile ...)
@@ -608,7 +644,7 @@ UploadchatfilesRequest (timezoneOffset: integer, UploadChatFilesRequest: UploadC
 UploadchatfilesResponse (HttpMeta: HTTPMetadata, UploadChatFilesResponse: UploadChatFilesResponse)
  UploadChatFilesResponse (files: array)
 GetchatfilesRequest (timezoneOffset: integer, GetChatFilesRequest: GetChatFilesRequest)
- GetChatFilesRequest (fileIds: array)
+ GetChatFilesRequest (fileIds: array, chatId: string)
 GetchatfilesResponse (HttpMeta: HTTPMetadata, GetChatFilesResponse: GetChatFilesResponse)
  GetChatFilesResponse (files: map)
 DeletechatfilesRequest (timezoneOffset: integer, DeleteChatFilesRequest: DeleteChatFilesRequest)
@@ -648,11 +684,12 @@ AddcollectionitemsResponse (HttpMeta: HTTPMetadata, AddCollectionItemsResponse: 
   AddCollectionItemsError (errorType: enum)
    AddCollectionItemsErrorErrorType (enum: EXISTING_ITEM)
 CreateCollectionRequest (name: string, description: string, addedRoles: array ...)
-CreatecollectionResponse (HttpMeta: HTTPMetadata, CreateCollectionResponse: CreateCollectionResponse)
- CreateCollectionResponse (name: string, description: string, addedRoles: array ...)
-  CreateCollectionResponseErrorCode (enum: NAME_EXISTS, NOT_FOUND, COLLECTION_PINNED ...)
-  CollectionError (errorCode: enum)
-   CollectionErrorErrorCode (enum: NAME_EXISTS, NOT_FOUND, COLLECTION_PINNED ...)
+CreatecollectionResponse (HttpMeta: HTTPMetadata, oneOf: union)
+ CreatecollectionResponseBody (union)
+  ResponseBody1 (collection: Collection, error: CollectionError)
+   CollectionError (errorCode: enum)
+    CollectionErrorErrorCode (enum: NAME_EXISTS, NOT_FOUND, COLLECTION_PINNED ...)
+  ResponseBody2 (collection: Collection, error: CollectionError)
 CollectionError (error)
 DeleteCollectionRequest (ids: array, allowedDatasource: string)
 DeletecollectionResponse (HttpMeta: HTTPMetadata)
@@ -785,6 +822,11 @@ FeedResponse (HttpMeta: HTTPMetadata, FeedResponse: FeedResponse)
        GeneratedAttachment (strategyName: EventStrategyName, documents: array, person: Person ...)
          StructuredLink (name: string, url: string, iconConfig: IconConfig)
          GeneratedAttachmentContent (displayHeader: string, text: string)
+     Digest (podcastFileId: string, podcastDuration: float32, digestDate: string ...)
+       DigestSection (id: string, type: SectionType, displayName: string ...)
+        SectionType (enum: CHANNEL, MENTIONS, TOPIC)
+         DigestUpdate (url: string, title: string, datasource: string ...)
+          UpdateType (enum: ACTIONABLE, INFORMATIVE)
      ChatSuggestion (query: string, feature: string)
      PromptTemplateResult (promptTemplate: PromptTemplate, trackingToken: string, favoriteInfo: FavoriteInfo ...)
       PromptTemplate (name: string, template: string, applicationId: string ...)

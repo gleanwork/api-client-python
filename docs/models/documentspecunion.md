@@ -21,3 +21,9 @@ value: models.DocumentSpec2 = /* values here */
 value: models.DocumentSpec3 = /* values here */
 ```
 
+### `models.DocumentSpec4`
+
+```python
+value: models.DocumentSpec4 = /* values here */
+```
+

@@ -2,10 +2,12 @@
 
 import httpx
 from typing import Optional
+from dataclasses import dataclass
 
 from glean.api_client.errors import GleanBaseError
 
 
+@dataclass(frozen=True)
 class ResponseValidationError(GleanBaseError):
     """Error raised when there is a type mismatch between the response data and the expected Pydantic model."""
 

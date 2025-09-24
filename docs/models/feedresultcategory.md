@@ -30,3 +30,4 @@ Category of the result, one of the requested categories in incoming request.
 | `ZERO_STATE_WORKFLOW_POPULAR`       | ZERO_STATE_WORKFLOW_POPULAR         |
 | `ZERO_STATE_WORKFLOW_SUGGESTION`    | ZERO_STATE_WORKFLOW_SUGGESTION      |
 | `PERSONALIZED_CHAT_SUGGESTION`      | PERSONALIZED_CHAT_SUGGESTION        |
+| `DAILY_DIGEST`                      | DAILY_DIGEST                        |

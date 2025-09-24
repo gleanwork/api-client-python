@@ -18,9 +18,12 @@ type Chat struct {
 	// The display name of the AI App that this Chat is associated to.
 	ApplicationName *string `json:"applicationName,omitempty"`
 	// Defines how to render an icon
-	Icon *IconConfig `json:"icon,omitempty"`
+	Icon        *IconConfig        `json:"icon,omitempty"`
+	Permissions *ObjectPermissions `json:"permissions,omitempty"`
 	// The chat messages within a Chat.
 	Messages []ChatMessage `json:"messages,omitempty"`
+	// A list of roles for this Chat.
+	Roles []UserRoleSpecification `json:"roles,omitempty"`
 }
 
 func (o *Chat) GetID() *string {
@@ -79,9 +82,23 @@ func (o *Chat) GetIcon() *IconConfig {
 	return o.Icon
 }
 
+func (o *Chat) GetPermissions() *ObjectPermissions {
+	if o == nil {
+		return nil
+	}
+	return o.Permissions
+}
+
 func (o *Chat) GetMessages() []ChatMessage {
 	if o == nil {
 		return nil
 	}
 	return o.Messages
+}
+
+func (o *Chat) GetRoles() []UserRoleSpecification {
+	if o == nil {
+		return nil
+	}
+	return o.Roles
 }

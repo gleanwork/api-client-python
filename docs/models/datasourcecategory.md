@@ -24,3 +24,4 @@ The type of this datasource. It is an important signal for relevance and must be
 | `EXTERNAL_SHORTCUT`     | EXTERNAL_SHORTCUT       |
 | `ENTITY`                | ENTITY                  |
 | `CALENDAR`              | CALENDAR                |
+| `AGENTS`                | AGENTS                  |

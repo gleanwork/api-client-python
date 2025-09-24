@@ -8,6 +8,7 @@ from .chatsuggestion import ChatSuggestion, ChatSuggestionTypedDict
 from .collection import Collection, CollectionTypedDict
 from .collectionitem import CollectionItem, CollectionItemTypedDict
 from .countinfo import CountInfo, CountInfoTypedDict
+from .digest import Digest, DigestTypedDict
 from .displayablelistitemuiconfig import (
     DisplayableListItemUIConfig,
     DisplayableListItemUIConfigTypedDict,
@@ -84,6 +85,7 @@ class JustificationType(str, Enum):
     ZERO_STATE_STATIC_WORKFLOW_SUGGESTION = "ZERO_STATE_STATIC_WORKFLOW_SUGGESTION"
     ZERO_STATE_AGENT_SUGGESTION = "ZERO_STATE_AGENT_SUGGESTION"
     PERSONALIZED_CHAT_SUGGESTION = "PERSONALIZED_CHAT_SUGGESTION"
+    DAILY_DIGEST = "DAILY_DIGEST"
 
 
 class FeedEntryTypedDict(TypedDict):
@@ -105,6 +107,7 @@ class FeedEntryTypedDict(TypedDict):
     document: NotRequired[DocumentTypedDict]
     event: NotRequired[CalendarEventTypedDict]
     announcement: NotRequired[AnnouncementTypedDict]
+    digest: NotRequired[DigestTypedDict]
     collection: NotRequired[CollectionTypedDict]
     collection_item: NotRequired[CollectionItemTypedDict]
     person: NotRequired[PersonTypedDict]
@@ -151,6 +154,8 @@ class FeedEntry(BaseModel):
     event: Optional[CalendarEvent] = None
 
     announcement: Optional[Announcement] = None
+
+    digest: Optional[Digest] = None
 
     collection: Optional[Collection] = None
 

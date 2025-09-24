@@ -1,4 +1,4 @@
-# DocumentSpecUgcType
+# DocumentSpecUgcType2
 
 The type of the user generated content (UGC datasource).
 
@@ -11,3 +11,4 @@ The type of the user generated content (UGC datasource).
 | `ANSWERS`       | ANSWERS         |
 | `COLLECTIONS`   | COLLECTIONS     |
 | `SHORTCUTS`     | SHORTCUTS       |
+| `CHATS`         | CHATS           |

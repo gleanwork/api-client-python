@@ -15,3 +15,4 @@ Semantically groups content of a certain type. It can be used for purposes such 
 | `ERROR`          | ERROR            |
 | `HEADING`        | HEADING          |
 | `WARNING`        | WARNING          |
+| `SERVER_TOOL`    | SERVER_TOOL      |
