@@ -89,6 +89,7 @@ const (
 	JustificationTypeZeroStateStaticWorkflowSuggestion JustificationType = "ZERO_STATE_STATIC_WORKFLOW_SUGGESTION"
 	JustificationTypeZeroStateAgentSuggestion          JustificationType = "ZERO_STATE_AGENT_SUGGESTION"
 	JustificationTypePersonalizedChatSuggestion        JustificationType = "PERSONALIZED_CHAT_SUGGESTION"
+	JustificationTypeDailyDigest                       JustificationType = "DAILY_DIGEST"
 )
 
 func (e JustificationType) ToPointer() *JustificationType {
@@ -165,6 +166,8 @@ func (e *JustificationType) UnmarshalJSON(data []byte) error {
 	case "ZERO_STATE_AGENT_SUGGESTION":
 		fallthrough
 	case "PERSONALIZED_CHAT_SUGGESTION":
+		fallthrough
+	case "DAILY_DIGEST":
 		*e = JustificationType(v)
 		return nil
 	default:
@@ -191,6 +194,7 @@ type FeedEntry struct {
 	Document       *Document             `json:"document,omitempty"`
 	Event          *CalendarEvent        `json:"event,omitempty"`
 	Announcement   *Announcement         `json:"announcement,omitempty"`
+	Digest         *Digest               `json:"digest,omitempty"`
 	Collection     *Collection           `json:"collection,omitempty"`
 	CollectionItem *CollectionItem       `json:"collectionItem,omitempty"`
 	Person         *Person               `json:"person,omitempty"`
@@ -285,6 +289,13 @@ func (o *FeedEntry) GetAnnouncement() *Announcement {
 		return nil
 	}
 	return o.Announcement
+}
+
+func (o *FeedEntry) GetDigest() *Digest {
+	if o == nil {
+		return nil
+	}
+	return o.Digest
 }
 
 func (o *FeedEntry) GetCollection() *Collection {

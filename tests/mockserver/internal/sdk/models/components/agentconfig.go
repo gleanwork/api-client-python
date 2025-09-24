@@ -14,6 +14,8 @@ const (
 	AgentEnumDefault   AgentEnum = "DEFAULT"
 	AgentEnumGpt       AgentEnum = "GPT"
 	AgentEnumUniversal AgentEnum = "UNIVERSAL"
+	AgentEnumFast      AgentEnum = "FAST"
+	AgentEnumAdvanced  AgentEnum = "ADVANCED"
 )
 
 func (e AgentEnum) ToPointer() *AgentEnum {
@@ -30,6 +32,10 @@ func (e *AgentEnum) UnmarshalJSON(data []byte) error {
 	case "GPT":
 		fallthrough
 	case "UNIVERSAL":
+		fallthrough
+	case "FAST":
+		fallthrough
+	case "ADVANCED":
 		*e = AgentEnum(v)
 		return nil
 	default:
@@ -68,6 +74,8 @@ func (e *Mode) UnmarshalJSON(data []byte) error {
 type AgentConfig struct {
 	// Name of the agent.
 	Agent *AgentEnum `json:"agent,omitempty"`
+	// The types of tools that the agent is allowed to use. Only works with FAST and ADVANCED `agent` values
+	ToolSets *ToolSets `json:"toolSets,omitempty"`
 	// Top level modes to run GleanChat in.
 	Mode *Mode `json:"mode,omitempty"`
 }
@@ -77,6 +85,13 @@ func (o *AgentConfig) GetAgent() *AgentEnum {
 		return nil
 	}
 	return o.Agent
+}
+
+func (o *AgentConfig) GetToolSets() *ToolSets {
+	if o == nil {
+		return nil
+	}
+	return o.ToolSets
 }
 
 func (o *AgentConfig) GetMode() *Mode {

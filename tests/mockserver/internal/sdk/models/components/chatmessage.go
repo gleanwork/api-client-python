@@ -46,6 +46,7 @@ const (
 	MessageTypeError         MessageType = "ERROR"
 	MessageTypeHeading       MessageType = "HEADING"
 	MessageTypeWarning       MessageType = "WARNING"
+	MessageTypeServerTool    MessageType = "SERVER_TOOL"
 )
 
 func (e MessageType) ToPointer() *MessageType {
@@ -72,6 +73,8 @@ func (e *MessageType) UnmarshalJSON(data []byte) error {
 	case "HEADING":
 		fallthrough
 	case "WARNING":
+		fallthrough
+	case "SERVER_TOOL":
 		*e = MessageType(v)
 		return nil
 	default:

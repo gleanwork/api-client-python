@@ -13,7 +13,7 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class ChatMessageFragmentTypedDict(TypedDict):
-    r"""Represents a part of a ChatMessage that originates from a single action/tool. It is designed to support rich data formats beyond simple text, allowing for a more dynamic and interactive chat experience. Each fragment can include various types of content, such as text, search queries, action information, and more. Also, each ChatMessageFragment should only have one of structuredResults, querySuggestion, writeAction, followupAction, or file."""
+    r"""Represents a part of a ChatMessage that originates from a single action/tool. It is designed to support rich data formats beyond simple text, allowing for a more dynamic and interactive chat experience. Each fragment can include various types of content, such as text, search queries, action information, and more. Also, each ChatMessageFragment should only have one of structuredResults, querySuggestion, writeAction, followupAction, agentRecommendation or file."""
 
     structured_results: NotRequired[List[StructuredResultTypedDict]]
     r"""An array of entities in the work graph retrieved via a data request."""
@@ -29,7 +29,7 @@ class ChatMessageFragmentTypedDict(TypedDict):
 
 
 class ChatMessageFragment(BaseModel):
-    r"""Represents a part of a ChatMessage that originates from a single action/tool. It is designed to support rich data formats beyond simple text, allowing for a more dynamic and interactive chat experience. Each fragment can include various types of content, such as text, search queries, action information, and more. Also, each ChatMessageFragment should only have one of structuredResults, querySuggestion, writeAction, followupAction, or file."""
+    r"""Represents a part of a ChatMessage that originates from a single action/tool. It is designed to support rich data formats beyond simple text, allowing for a more dynamic and interactive chat experience. Each fragment can include various types of content, such as text, search queries, action information, and more. Also, each ChatMessageFragment should only have one of structuredResults, querySuggestion, writeAction, followupAction, agentRecommendation or file."""
 
     structured_results: Annotated[
         Optional[List[StructuredResult]], pydantic.Field(alias="structuredResults")

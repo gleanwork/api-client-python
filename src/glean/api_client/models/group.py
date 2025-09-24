@@ -17,6 +17,8 @@ class GroupTypedDict(TypedDict):
     r"""Name of the group."""
     datasource_instance: NotRequired[str]
     r"""Datasource instance if the group belongs to one e.g. external groups."""
+    provisioning_id: NotRequired[str]
+    r"""identifier for greenlist provisioning, aka sciokey"""
 
 
 class Group(BaseModel):
@@ -33,3 +35,8 @@ class Group(BaseModel):
         Optional[str], pydantic.Field(alias="datasourceInstance")
     ] = None
     r"""Datasource instance if the group belongs to one e.g. external groups."""
+
+    provisioning_id: Annotated[
+        Optional[str], pydantic.Field(alias="provisioningId")
+    ] = None
+    r"""identifier for greenlist provisioning, aka sciokey"""

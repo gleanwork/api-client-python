@@ -10,3 +10,5 @@ Name of the agent.
 | `DEFAULT`   | DEFAULT     |
 | `GPT`       | GPT         |
 | `UNIVERSAL` | UNIVERSAL   |
+| `FAST`      | FAST        |
+| `ADVANCED`  | ADVANCED    |

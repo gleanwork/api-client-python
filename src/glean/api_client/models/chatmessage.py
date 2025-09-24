@@ -27,6 +27,7 @@ class MessageType(str, Enum):
     ERROR = "ERROR"
     HEADING = "HEADING"
     WARNING = "WARNING"
+    SERVER_TOOL = "SERVER_TOOL"
 
 
 class ChatMessageTypedDict(TypedDict):

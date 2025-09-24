@@ -34,6 +34,7 @@ class DatasourceCategory(str, Enum):
     EXTERNAL_SHORTCUT = "EXTERNAL_SHORTCUT"
     ENTITY = "ENTITY"
     CALENDAR = "CALENDAR"
+    AGENTS = "AGENTS"
 
 
 class HideBuiltInFacet(str, Enum):

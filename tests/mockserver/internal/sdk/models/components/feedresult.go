@@ -34,6 +34,7 @@ const (
 	FeedResultCategoryZeroStateWorkflowPopular     FeedResultCategory = "ZERO_STATE_WORKFLOW_POPULAR"
 	FeedResultCategoryZeroStateWorkflowSuggestion  FeedResultCategory = "ZERO_STATE_WORKFLOW_SUGGESTION"
 	FeedResultCategoryPersonalizedChatSuggestion   FeedResultCategory = "PERSONALIZED_CHAT_SUGGESTION"
+	FeedResultCategoryDailyDigest                  FeedResultCategory = "DAILY_DIGEST"
 )
 
 func (e FeedResultCategory) ToPointer() *FeedResultCategory {
@@ -90,6 +91,8 @@ func (e *FeedResultCategory) UnmarshalJSON(data []byte) error {
 	case "ZERO_STATE_WORKFLOW_SUGGESTION":
 		fallthrough
 	case "PERSONALIZED_CHAT_SUGGESTION":
+		fallthrough
+	case "DAILY_DIGEST":
 		*e = FeedResultCategory(v)
 		return nil
 	default:

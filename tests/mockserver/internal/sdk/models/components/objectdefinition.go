@@ -28,6 +28,7 @@ const (
 	DocCategoryExternalShortcut     DocCategory = "EXTERNAL_SHORTCUT"
 	DocCategoryEntity               DocCategory = "ENTITY"
 	DocCategoryCalendar             DocCategory = "CALENDAR"
+	DocCategoryAgents               DocCategory = "AGENTS"
 )
 
 func (e DocCategory) ToPointer() *DocCategory {
@@ -72,6 +73,8 @@ func (e *DocCategory) UnmarshalJSON(data []byte) error {
 	case "ENTITY":
 		fallthrough
 	case "CALENDAR":
+		fallthrough
+	case "AGENTS":
 		*e = DocCategory(v)
 		return nil
 	default:

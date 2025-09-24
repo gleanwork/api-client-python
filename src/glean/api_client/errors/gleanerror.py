@@ -2,12 +2,14 @@
 
 import httpx
 from typing import Optional
+from dataclasses import dataclass
 
 from glean.api_client.errors import GleanBaseError
 
 MAX_MESSAGE_LEN = 10_000
 
 
+@dataclass(frozen=True)
 class GleanError(GleanBaseError):
     """The fallback error class if no more specific error class is matched."""
 

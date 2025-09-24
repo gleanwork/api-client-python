@@ -8,63 +8,98 @@ from typing import Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-class DocumentSpecUgcType(str, Enum):
+class DocumentSpecUgcType2(str, Enum):
     r"""The type of the user generated content (UGC datasource)."""
 
     ANNOUNCEMENTS = "ANNOUNCEMENTS"
     ANSWERS = "ANSWERS"
     COLLECTIONS = "COLLECTIONS"
     SHORTCUTS = "SHORTCUTS"
+    CHATS = "CHATS"
+
+
+class DocumentSpec4TypedDict(TypedDict):
+    ugc_type: DocumentSpecUgcType2
+    r"""The type of the user generated content (UGC datasource)."""
+    ugc_id: str
+    r"""The string id for user generated content. Used for CHATS."""
+    doc_type: NotRequired[str]
+    r"""The specific type of the user generated content type."""
+
+
+class DocumentSpec4(BaseModel):
+    ugc_type: Annotated[DocumentSpecUgcType2, pydantic.Field(alias="ugcType")]
+    r"""The type of the user generated content (UGC datasource)."""
+
+    ugc_id: Annotated[str, pydantic.Field(alias="ugcId")]
+    r"""The string id for user generated content. Used for CHATS."""
+
+    doc_type: Annotated[Optional[str], pydantic.Field(alias="docType")] = None
+    r"""The specific type of the user generated content type."""
+
+
+class DocumentSpecUgcType1(str, Enum):
+    r"""The type of the user generated content (UGC datasource)."""
+
+    ANNOUNCEMENTS = "ANNOUNCEMENTS"
+    ANSWERS = "ANSWERS"
+    COLLECTIONS = "COLLECTIONS"
+    SHORTCUTS = "SHORTCUTS"
+    CHATS = "CHATS"
 
 
 class DocumentSpec3TypedDict(TypedDict):
-    ugc_type: NotRequired[DocumentSpecUgcType]
+    ugc_type: DocumentSpecUgcType1
     r"""The type of the user generated content (UGC datasource)."""
-    content_id: NotRequired[int]
-    r"""The id for user generated content."""
+    content_id: int
+    r"""The numeric id for user generated content. Used for ANNOUNCEMENTS, ANSWERS, COLLECTIONS, SHORTCUTS."""
     doc_type: NotRequired[str]
     r"""The specific type of the user generated content type."""
 
 
 class DocumentSpec3(BaseModel):
-    ugc_type: Annotated[
-        Optional[DocumentSpecUgcType], pydantic.Field(alias="ugcType")
-    ] = None
+    ugc_type: Annotated[DocumentSpecUgcType1, pydantic.Field(alias="ugcType")]
     r"""The type of the user generated content (UGC datasource)."""
 
-    content_id: Annotated[Optional[int], pydantic.Field(alias="contentId")] = None
-    r"""The id for user generated content."""
+    content_id: Annotated[int, pydantic.Field(alias="contentId")]
+    r"""The numeric id for user generated content. Used for ANNOUNCEMENTS, ANSWERS, COLLECTIONS, SHORTCUTS."""
 
     doc_type: Annotated[Optional[str], pydantic.Field(alias="docType")] = None
     r"""The specific type of the user generated content type."""
 
 
 class DocumentSpec2TypedDict(TypedDict):
-    id: NotRequired[str]
+    id: str
     r"""The ID of the document."""
 
 
 class DocumentSpec2(BaseModel):
-    id: Optional[str] = None
+    id: str
     r"""The ID of the document."""
 
 
 class DocumentSpec1TypedDict(TypedDict):
-    url: NotRequired[str]
+    url: str
     r"""The URL of the document."""
 
 
 class DocumentSpec1(BaseModel):
-    url: Optional[str] = None
+    url: str
     r"""The URL of the document."""
 
 
 DocumentSpecUnionTypedDict = TypeAliasType(
     "DocumentSpecUnionTypedDict",
-    Union[DocumentSpec1TypedDict, DocumentSpec2TypedDict, DocumentSpec3TypedDict],
+    Union[
+        DocumentSpec1TypedDict,
+        DocumentSpec2TypedDict,
+        DocumentSpec3TypedDict,
+        DocumentSpec4TypedDict,
+    ],
 )
 
 
 DocumentSpecUnion = TypeAliasType(
-    "DocumentSpecUnion", Union[DocumentSpec1, DocumentSpec2, DocumentSpec3]
+    "DocumentSpecUnion",
+    Union[DocumentSpec1, DocumentSpec2, DocumentSpec3, DocumentSpec4],
 )

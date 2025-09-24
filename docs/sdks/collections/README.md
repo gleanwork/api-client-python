@@ -127,7 +127,7 @@ with Glean(
 
 ### Response
 
-**[models.CreateCollectionResponse](../../models/createcollectionresponse.md)**
+**[models.CreatecollectionResponse](../../models/createcollectionresponse.md)**
 
 ### Errors
 

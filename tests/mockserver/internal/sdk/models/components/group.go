@@ -15,6 +15,8 @@ type Group struct {
 	Name *string `json:"name,omitempty"`
 	// Datasource instance if the group belongs to one e.g. external groups.
 	DatasourceInstance *string `json:"datasourceInstance,omitempty"`
+	// identifier for greenlist provisioning, aka sciokey
+	ProvisioningID *string `json:"provisioningId,omitempty"`
 }
 
 func (g Group) MarshalJSON() ([]byte, error) {
@@ -54,4 +56,11 @@ func (o *Group) GetDatasourceInstance() *string {
 		return nil
 	}
 	return o.DatasourceInstance
+}
+
+func (o *Group) GetProvisioningID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ProvisioningID
 }
