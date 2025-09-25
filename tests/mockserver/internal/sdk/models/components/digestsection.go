@@ -11,6 +11,10 @@ type DigestSection struct {
 	DisplayName *string `json:"displayName,omitempty"`
 	// Name of the channel (applicable for CHANNEL type sections). Used to display in the frontend.
 	ChannelName *string `json:"channelName,omitempty"`
+	// Channel visibility/type for CHANNEL sections. For Slack this is typically one of
+	// PublicChannel, PrivateChannel. Omit if not applicable or unknown.
+	//
+	ChannelType *string `json:"channelType,omitempty"`
 	// Instance identifier for the channel or workspace. Used for constructing channel URLs to display in the frontend.
 	InstanceID *string `json:"instanceId,omitempty"`
 	// Optional URL for the digest section. Should be populated only if the section is a CHANNEL type section.
@@ -45,6 +49,13 @@ func (o *DigestSection) GetChannelName() *string {
 		return nil
 	}
 	return o.ChannelName
+}
+
+func (o *DigestSection) GetChannelType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ChannelType
 }
 
 func (o *DigestSection) GetInstanceID() *string {

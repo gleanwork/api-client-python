@@ -63,7 +63,7 @@ def test_agents_search_agents():
 
 
 @pytest.mark.skip(
-    reason="incomplete test found please make sure to address the following errors: [`workflow step createAndStreamRun.test referencing operation createAndStreamRun is not currently supported`]"
+    reason="incomplete test found please make sure to address the following errors: [`workflow step createAndStreamRun.test referencing operation createAndStreamRun is missing required request body`]"
 )
 def test_agents_create_and_stream_run():
     pass

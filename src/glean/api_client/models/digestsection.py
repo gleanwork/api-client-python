@@ -20,6 +20,11 @@ class DigestSectionTypedDict(TypedDict):
     r"""Human-readable name for the digest section."""
     channel_name: NotRequired[str]
     r"""Name of the channel (applicable for CHANNEL type sections). Used to display in the frontend."""
+    channel_type: NotRequired[str]
+    r"""Channel visibility/type for CHANNEL sections. For Slack this is typically one of
+    PublicChannel, PrivateChannel. Omit if not applicable or unknown.
+
+    """
     instance_id: NotRequired[str]
     r"""Instance identifier for the channel or workspace. Used for constructing channel URLs to display in the frontend."""
     url: NotRequired[str]
@@ -41,6 +46,12 @@ class DigestSection(BaseModel):
 
     channel_name: Annotated[Optional[str], pydantic.Field(alias="channelName")] = None
     r"""Name of the channel (applicable for CHANNEL type sections). Used to display in the frontend."""
+
+    channel_type: Annotated[Optional[str], pydantic.Field(alias="channelType")] = None
+    r"""Channel visibility/type for CHANNEL sections. For Slack this is typically one of
+    PublicChannel, PrivateChannel. Omit if not applicable or unknown.
+
+    """
 
     instance_id: Annotated[Optional[str], pydantic.Field(alias="instanceId")] = None
     r"""Instance identifier for the channel or workspace. Used for constructing channel URLs to display in the frontend."""

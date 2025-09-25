@@ -9430,6 +9430,11 @@ components:
                 channelName:
                     type: string
                     description: Name of the channel (applicable for CHANNEL type sections). Used to display in the frontend.
+                channelType:
+                    type: string
+                    description: |
+                        Channel visibility/type for CHANNEL sections. For Slack this is typically one of
+                        PublicChannel, PrivateChannel. Omit if not applicable or unknown.
                 instanceId:
                     type: string
                     description: Instance identifier for the channel or workspace. Used for constructing channel URLs to display in the frontend.
