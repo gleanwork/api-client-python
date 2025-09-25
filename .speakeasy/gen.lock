@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 3e3290ca-0ee8-4981-b1bc-14536048fa63
 management:
-  docChecksum: ba76322a279d357942029f1599c8ad4d
+  docChecksum: 11234d282481d3710e009ee7857573b0
   docVersion: 0.9.0
-  speakeasyVersion: 1.625.0
-  generationVersion: 2.715.0
-  releaseVersion: 0.8.0
-  configChecksum: 161090a0932a0c96a5f416fa490eb541
+  speakeasyVersion: 1.628.2
+  generationVersion: 2.716.3
+  releaseVersion: 0.8.1
+  configChecksum: e18f0607a86d7edb15c7ab3679dee60e
   repoURL: https://github.com/gleanwork/api-client-python.git
   installationURL: https://github.com/gleanwork/api-client-python.git
   published: true
@@ -37,8 +37,8 @@ features:
     responseFormat: 1.0.1
     retries: 3.0.2
     sdkHooks: 1.1.0
-    tests: 1.19.4
-    unions: 3.0.4
+    tests: 1.19.5
+    unions: 3.0.5
     uploadStreams: 1.0.0
 generatedFiles:
   - .devcontainer/README.md
@@ -2702,4 +2702,6 @@ generatedTests:
   editcollection: "2025-06-12T19:13:52-04:00"
   createshortcut: "2025-06-12T19:13:52-04:00"
   updateshortcut: "2025-06-12T19:13:52-04:00"
-releaseNotes: "## Python SDK Changes Detected:\n* `glean.client.documents.summarize()`: \n  *  `request.document_specs.[].[class]` **Changed** **Breaking** :warning:\n* `glean.client.documents.retrieve()`: \n  *  `request.document_specs.[].[class]` **Changed** **Breaking** :warning:\n  *  `response.documents.{}.[document].metadata.author.related_documents.[]` **Changed**\n* `glean.client.answers.create()`: \n  *  `request.data.added_roles.[]` **Changed** **Breaking** :warning:\n  *  `response.added_roles.[]` **Changed**\n* `glean.client.answers.update()`: \n  *  `request.added_roles.[]` **Changed** **Breaking** :warning:\n  *  `response.added_roles.[]` **Changed**\n* `glean.client.shortcuts.update()`: \n  *  `request.added_roles.[]` **Changed** **Breaking** :warning:\n  *  `response.shortcut.added_roles.[]` **Changed**\n* `glean.client.shortcuts.create()`: \n  *  `request.data.added_roles.[]` **Changed** **Breaking** :warning:\n  *  `response.shortcut.added_roles.[]` **Changed**\n* `glean.client.chat.create()`: \n  *  `request.messages.[]` **Changed** **Breaking** :warning:\n  *  `response.messages.[]` **Changed**\n* `glean.client.search.query()`: \n  *  `request.source_document.metadata.author.related_documents.[]` **Changed** **Breaking** :warning:\n  *  `response.results.[].structured_results.[].document.metadata` **Changed**\n* `glean.client.search.recommendations()`: \n  *  `request.source_document.metadata.author.related_documents.[]` **Changed** **Breaking** :warning:\n  *  `response.results.[].structured_results.[].document.metadata` **Changed**\n* `glean.client.search.query_as_admin()`: \n  *  `request.source_document.metadata.author.related_documents.[]` **Changed** **Breaking** :warning:\n  *  `response.results.[].structured_results.[].document.metadata` **Changed**\n* `glean.client.chat.create_stream()`: \n  *  `request.messages.[]` **Changed** **Breaking** :warning:\n* `glean.client.announcements.create()`: \n  *  `request.body.structured_list.[].document.metadata.author.related_documents.[]` **Changed** **Breaking** :warning:\n  *  `response.body.structured_list.[].document.metadata.author.related_documents.[]` **Changed**\n* `glean.client.collections.create()`: \n  *  `request.added_roles.[]` **Changed** **Breaking** :warning:\n  *  `response` **Changed** **Breaking** :warning:\n* `glean.client.announcements.update()`: \n  *  `request.body.structured_list.[].document.metadata.author.related_documents.[]` **Changed** **Breaking** :warning:\n  *  `response.body.structured_list.[].document.metadata.author.related_documents.[]` **Changed**\n* `glean.client.collections.update()`: \n  *  `request.added_roles.[]` **Changed** **Breaking** :warning:\n  *  `response.added_roles.[]` **Changed**\n* `glean.client.collections.add_items()`:  `response.collection.added_roles.[]` **Changed**\n* `glean.client.search.autocomplete()`:  `response.results.[].document.metadata.author.related_documents.[]` **Changed**\n* `glean.client.collections.list()`:  `response.collections.[].added_roles.[]` **Changed**\n* `glean.client.collections.update_item()`:  `response.collection.added_roles.[]` **Changed**\n* `glean.client.documents.retrieve_by_facets()`:  `response.documents.[].metadata.author.related_documents.[]` **Changed**\n* `glean.client.collections.delete_item()`:  `response.collection.added_roles.[]` **Changed**\n* `glean.client.insights.retrieve()`:  `response.users.activity_insights.[].user.related_documents.[].query_suggestion` **Changed**\n* `glean.client.messages.retrieve()`:  `response.search_response.results.[].structured_results.[].document.metadata` **Changed**\n* `glean.client.pins.update()`:  `response.attribution.related_documents.[].query_suggestion` **Changed**\n* `glean.client.pins.retrieve()`:  `response.pin.attribution.related_documents.[].query_suggestion` **Changed**\n* `glean.client.pins.list()`:  `response.pins.[].attribution.related_documents.[].query_suggestion` **Changed**\n* `glean.client.pins.create()`:  `response.attribution.related_documents.[].query_suggestion` **Changed**\n* `glean.client.chat.retrieve_files()`:  `request.chat_id` **Added**\n* `glean.client.collections.retrieve()`:  `response.collection.added_roles.[]` **Changed**\n* `glean.client.search.retrieve_feed()`:  `response.results.[].primary_entry` **Changed**\n* `glean.client.chat.list()`:  `response.chat_results.[].chat.created_by.related_documents.[].query_suggestion` **Changed**\n* `glean.client.chat.retrieve()`:  `response.chat_result.chat` **Changed**\n* `glean.client.entities.list()`:  `response.results.[].related_documents.[].query_suggestion` **Changed**\n* `glean.client.entities.read_people()`:  `response.results.[].related_documents.[].query_suggestion` **Changed**\n* `glean.client.answers.list()`:  `response.answer_results.[].answer.added_roles.[]` **Changed**\n* `glean.client.shortcuts.retrieve()`:  `response.shortcut.added_roles.[]` **Changed**\n* `glean.client.shortcuts.list()`:  `response.shortcuts.[].added_roles.[]` **Changed**\n* `glean.client.answers.retrieve()`:  `response.answer_result.answer.added_roles.[]` **Changed**\n* `glean.client.verification.add_reminder()`:  `response.metadata.last_verifier.related_documents.[].query_suggestion` **Changed**\n* `glean.client.verification.list()`:  `response.documents.[].metadata.last_verifier.related_documents.[].query_suggestion` **Changed**\n* `glean.client.verification.verify()`:  `response.metadata.last_verifier.related_documents.[].query_suggestion` **Changed**\n"
+releaseNotes: |
+  ## Python SDK Changes Detected:
+  * `glean.client.search.retrieve_feed()`:  `response.results.[].primary_entry.digest.sections.[].channel_type` **Added**

@@ -27,7 +27,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: true
 python:
-  version: 0.8.0
+  version: 0.8.1
   additionalDependencies:
     dev: {}
     main: {}
@@ -58,6 +58,7 @@ python:
       shared: ""
       webhooks: ""
   inputModelSuffix: input
+  legacyPyright: true
   maxMethodParams: 999
   methodArguments: infer-optional-args
   moduleName: glean.api_client
