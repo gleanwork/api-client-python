@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 3e3290ca-0ee8-4981-b1bc-14536048fa63
 management:
-  docChecksum: 11234d282481d3710e009ee7857573b0
+  docChecksum: a1b9796a9df7b522bbca126ea657a92a
   docVersion: 0.9.0
-  speakeasyVersion: 1.628.2
-  generationVersion: 2.716.3
-  releaseVersion: 0.8.1
-  configChecksum: e18f0607a86d7edb15c7ab3679dee60e
+  speakeasyVersion: 1.631.4
+  generationVersion: 2.716.16
+  releaseVersion: 0.9.0
+  configChecksum: 885838e10bfb05e9086d385baf889124
   repoURL: https://github.com/gleanwork/api-client-python.git
   installationURL: https://github.com/gleanwork/api-client-python.git
   published: true
@@ -69,6 +69,7 @@ generatedFiles:
   - docs/models/agentruncreate.md
   - docs/models/agentrunwaitresponse.md
   - docs/models/agentschemas.md
+  - docs/models/agentsinsightsv2request.md
   - docs/models/aiappactioncounts.md
   - docs/models/aiappsinsightsresponse.md
   - docs/models/aiinsightsresponse.md
@@ -386,6 +387,8 @@ generatedFiles:
   - docs/models/inputschema.md
   - docs/models/insightsagentsrequestoptions.md
   - docs/models/insightsaiapprequestoptions.md
+  - docs/models/insightsassistantrequest.md
+  - docs/models/insightsoverviewrequest.md
   - docs/models/insightsrequest.md
   - docs/models/insightsrequestcategory.md
   - docs/models/insightsresponse.md
@@ -709,6 +712,7 @@ generatedFiles:
   - src/glean/api_client/models/agentruncreate.py
   - src/glean/api_client/models/agentrunwaitresponse.py
   - src/glean/api_client/models/agentschemas.py
+  - src/glean/api_client/models/agentsinsightsv2request.py
   - src/glean/api_client/models/aiappactioncounts.py
   - src/glean/api_client/models/aiappsinsightsresponse.py
   - src/glean/api_client/models/aiinsightsresponse.py
@@ -964,6 +968,8 @@ generatedFiles:
   - src/glean/api_client/models/inputoptions.py
   - src/glean/api_client/models/insightsagentsrequestoptions.py
   - src/glean/api_client/models/insightsaiapprequestoptions.py
+  - src/glean/api_client/models/insightsassistantrequest.py
+  - src/glean/api_client/models/insightsoverviewrequest.py
   - src/glean/api_client/models/insightsrequest.py
   - src/glean/api_client/models/insightsresponse.py
   - src/glean/api_client/models/invalidoperatorvalueerror.py
@@ -1290,6 +1296,7 @@ generatedFiles:
   - tests/mockserver/internal/sdk/models/components/agentruncreate.go
   - tests/mockserver/internal/sdk/models/components/agentrunwaitresponse.go
   - tests/mockserver/internal/sdk/models/components/agentschemas.go
+  - tests/mockserver/internal/sdk/models/components/agentsinsightsv2request.go
   - tests/mockserver/internal/sdk/models/components/aiappactioncounts.go
   - tests/mockserver/internal/sdk/models/components/aiappsinsightsresponse.go
   - tests/mockserver/internal/sdk/models/components/aiinsightsresponse.go
@@ -1528,6 +1535,8 @@ generatedFiles:
   - tests/mockserver/internal/sdk/models/components/inputoptions.go
   - tests/mockserver/internal/sdk/models/components/insightsagentsrequestoptions.go
   - tests/mockserver/internal/sdk/models/components/insightsaiapprequestoptions.go
+  - tests/mockserver/internal/sdk/models/components/insightsassistantrequest.go
+  - tests/mockserver/internal/sdk/models/components/insightsoverviewrequest.go
   - tests/mockserver/internal/sdk/models/components/insightsrequest.go
   - tests/mockserver/internal/sdk/models/components/insightsresponse.go
   - tests/mockserver/internal/sdk/models/components/invalidoperatorvalueerror.go
@@ -2148,7 +2157,7 @@ examples:
   insights:
     speakeasy-default-insights:
       requestBody:
-        application/json: {"categories": ["COLLECTIONS"]}
+        application/json: {}
       responses:
         "200":
           application/json: {"users": {"activityInsights": [{"user": {"name": "George Clooney", "obfuscatedId": "abc123"}, "activity": "SEARCH"}], "inactiveInsights": [{"user": {"name": "George Clooney", "obfuscatedId": "abc123"}, "activity": "ALL"}]}, "content": {"documentInsights": [{"document": {"containerDocument": {"metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "parentDocument": {"metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}}]}, "collections": {"documentInsights": [{"document": {"containerDocument": {"metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "parentDocument": {"metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}}]}, "collectionsV2": {"documentInsights": [{"document": {"containerDocument": {"metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "parentDocument": {"metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}}]}, "shortcuts": {"shortcutInsights": [{"shortcut": {"inputAlias": "<value>", "addedRoles": [{"person": {"name": "George Clooney", "obfuscatedId": "abc123"}, "role": "VIEWER"}], "removedRoles": [{"person": {"name": "George Clooney", "obfuscatedId": "abc123"}, "role": "ANSWER_MODERATOR"}], "createdBy": {"name": "George Clooney", "obfuscatedId": "abc123"}, "updatedBy": {"name": "George Clooney", "obfuscatedId": "abc123"}, "destinationDocument": {"containerDocument": {"metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "parentDocument": {"metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "roles": [{"person": {"name": "George Clooney", "obfuscatedId": "abc123"}, "role": "EDITOR"}]}}]}, "announcements": {"documentInsights": [{"document": {"containerDocument": {"metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "parentDocument": {"metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}}]}, "answers": {"documentInsights": [{"document": {"containerDocument": {"metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "parentDocument": {"metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}}]}, "ai": {"assistantInsights": [{"user": {"name": "George Clooney", "obfuscatedId": "abc123"}, "activity": "SEARCH"}]}, "aiApps": {"aiAppInsights": [{"user": {"name": "George Clooney", "obfuscatedId": "abc123"}, "activity": "ALL"}]}, "gleanAssist": {"activityInsights": [{"user": {"name": "George Clooney", "obfuscatedId": "abc123"}, "activity": "SEARCH"}]}}
@@ -2704,4 +2713,4 @@ generatedTests:
   updateshortcut: "2025-06-12T19:13:52-04:00"
 releaseNotes: |
   ## Python SDK Changes Detected:
-  * `glean.client.search.retrieve_feed()`:  `response.results.[].primary_entry.digest.sections.[].channel_type` **Added**
+  * `glean.client.insights.retrieve()`:  `request` **Changed**

@@ -427,7 +427,7 @@ For more information on obtaining the appropriate token type, please contact you
 
 #### [client.insights](docs/sdks/insights/README.md)
 
-* [retrieve](docs/sdks/insights/README.md#retrieve) - Read insights
+* [retrieve](docs/sdks/insights/README.md#retrieve) - Get insights
 
 #### [client.messages](docs/sdks/messages/README.md)
 

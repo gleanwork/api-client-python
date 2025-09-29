@@ -530,7 +530,7 @@ class Agents(BaseSDK):
         self,
         *,
         agent_id: str,
-        input_: Optional[Dict[str, Any]] = None,
+        input: Optional[Dict[str, Any]] = None,
         messages: Optional[
             Union[List[models.Message], List[models.MessageTypedDict]]
         ] = None,
@@ -565,7 +565,7 @@ class Agents(BaseSDK):
 
         request = models.AgentRunCreate(
             agent_id=agent_id,
-            input=input_,
+            input=input,
             messages=utils.get_pydantic_model(messages, Optional[List[models.Message]]),
             metadata=metadata,
         )
@@ -629,7 +629,7 @@ class Agents(BaseSDK):
         self,
         *,
         agent_id: str,
-        input_: Optional[Dict[str, Any]] = None,
+        input: Optional[Dict[str, Any]] = None,
         messages: Optional[
             Union[List[models.Message], List[models.MessageTypedDict]]
         ] = None,
@@ -664,7 +664,7 @@ class Agents(BaseSDK):
 
         request = models.AgentRunCreate(
             agent_id=agent_id,
-            input=input_,
+            input=input,
             messages=utils.get_pydantic_model(messages, Optional[List[models.Message]]),
             metadata=metadata,
         )
@@ -728,7 +728,7 @@ class Agents(BaseSDK):
         self,
         *,
         agent_id: str,
-        input_: Optional[Dict[str, Any]] = None,
+        input: Optional[Dict[str, Any]] = None,
         messages: Optional[
             Union[List[models.Message], List[models.MessageTypedDict]]
         ] = None,
@@ -763,7 +763,7 @@ class Agents(BaseSDK):
 
         request = models.AgentRunCreate(
             agent_id=agent_id,
-            input=input_,
+            input=input,
             messages=utils.get_pydantic_model(messages, Optional[List[models.Message]]),
             metadata=metadata,
         )
@@ -827,7 +827,7 @@ class Agents(BaseSDK):
         self,
         *,
         agent_id: str,
-        input_: Optional[Dict[str, Any]] = None,
+        input: Optional[Dict[str, Any]] = None,
         messages: Optional[
             Union[List[models.Message], List[models.MessageTypedDict]]
         ] = None,
@@ -862,7 +862,7 @@ class Agents(BaseSDK):
 
         request = models.AgentRunCreate(
             agent_id=agent_id,
-            input=input_,
+            input=input,
             messages=utils.get_pydantic_model(messages, Optional[List[models.Message]]),
             metadata=metadata,
         )
