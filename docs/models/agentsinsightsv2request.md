@@ -1,0 +1,10 @@
+# AgentsInsightsV2Request
+
+
+## Fields
+
+| Field                                                                                  | Type                                                                                   | Required                                                                               | Description                                                                            |
+| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `agent_ids`                                                                            | List[*str*]                                                                            | :heavy_minus_sign:                                                                     | IDs of the Agents for which Insights should be returned. An empty array signifies all. |
+| `departments`                                                                          | List[*str*]                                                                            | :heavy_minus_sign:                                                                     | Departments for which Insights are requested.                                          |
+| `day_range`                                                                            | [Optional[models.Period]](../models/period.md)                                         | :heavy_minus_sign:                                                                     | N/A                                                                                    |

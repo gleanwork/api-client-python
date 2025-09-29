@@ -13,7 +13,24 @@ class Insights(BaseSDK):
     def retrieve(
         self,
         *,
-        categories: List[models.InsightsRequestCategory],
+        overview_request: Optional[
+            Union[
+                models.InsightsOverviewRequest, models.InsightsOverviewRequestTypedDict
+            ]
+        ] = None,
+        assistant_request: Optional[
+            Union[
+                models.InsightsAssistantRequest,
+                models.InsightsAssistantRequestTypedDict,
+            ]
+        ] = None,
+        agents_request: Optional[
+            Union[
+                models.AgentsInsightsV2Request, models.AgentsInsightsV2RequestTypedDict
+            ]
+        ] = None,
+        disable_per_user_insights: Optional[bool] = None,
+        categories: Optional[List[models.InsightsRequestCategory]] = None,
         departments: Optional[List[str]] = None,
         day_range: Optional[Union[models.Period, models.PeriodTypedDict]] = None,
         ai_app_request_options: Optional[
@@ -29,23 +46,25 @@ class Insights(BaseSDK):
             ]
         ] = None,
         assistant_activity_types: Optional[List[models.AssistantActivityType]] = None,
-        disable_per_user_insights: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.InsightsResponse:
-        r"""Read insights
+        r"""Get insights
 
-        Reads the aggregate information for each user, query, and content.
+        Gets the aggregate usage insights data displayed in the Insights Dashboards.
 
+        :param overview_request:
+        :param assistant_request:
+        :param agents_request:
+        :param disable_per_user_insights: If true, suppresses the generation of per-user Insights in the response. Default is false.
         :param categories: Categories of data requested. Request can include single or multiple types.
         :param departments: Departments that the data is requested for. If this is empty, corresponds to whole company.
         :param day_range:
         :param ai_app_request_options:
         :param agents_request_options:
         :param assistant_activity_types: Types of activity that should count in the definition of an Assistant Active User. Affects only insights for AI category.
-        :param disable_per_user_insights: If true, suppresses the generation of per-user Insights in the response. Default is false.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -62,6 +81,16 @@ class Insights(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.InsightsRequest(
+            overview_request=utils.get_pydantic_model(
+                overview_request, Optional[models.InsightsOverviewRequest]
+            ),
+            assistant_request=utils.get_pydantic_model(
+                assistant_request, Optional[models.InsightsAssistantRequest]
+            ),
+            agents_request=utils.get_pydantic_model(
+                agents_request, Optional[models.AgentsInsightsV2Request]
+            ),
+            disable_per_user_insights=disable_per_user_insights,
             categories=categories,
             departments=departments,
             day_range=utils.get_pydantic_model(day_range, Optional[models.Period]),
@@ -72,7 +101,6 @@ class Insights(BaseSDK):
                 agents_request_options, Optional[models.InsightsAgentsRequestOptions]
             ),
             assistant_activity_types=assistant_activity_types,
-            disable_per_user_insights=disable_per_user_insights,
         )
 
         req = self._build_request(
@@ -131,7 +159,24 @@ class Insights(BaseSDK):
     async def retrieve_async(
         self,
         *,
-        categories: List[models.InsightsRequestCategory],
+        overview_request: Optional[
+            Union[
+                models.InsightsOverviewRequest, models.InsightsOverviewRequestTypedDict
+            ]
+        ] = None,
+        assistant_request: Optional[
+            Union[
+                models.InsightsAssistantRequest,
+                models.InsightsAssistantRequestTypedDict,
+            ]
+        ] = None,
+        agents_request: Optional[
+            Union[
+                models.AgentsInsightsV2Request, models.AgentsInsightsV2RequestTypedDict
+            ]
+        ] = None,
+        disable_per_user_insights: Optional[bool] = None,
+        categories: Optional[List[models.InsightsRequestCategory]] = None,
         departments: Optional[List[str]] = None,
         day_range: Optional[Union[models.Period, models.PeriodTypedDict]] = None,
         ai_app_request_options: Optional[
@@ -147,23 +192,25 @@ class Insights(BaseSDK):
             ]
         ] = None,
         assistant_activity_types: Optional[List[models.AssistantActivityType]] = None,
-        disable_per_user_insights: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.InsightsResponse:
-        r"""Read insights
+        r"""Get insights
 
-        Reads the aggregate information for each user, query, and content.
+        Gets the aggregate usage insights data displayed in the Insights Dashboards.
 
+        :param overview_request:
+        :param assistant_request:
+        :param agents_request:
+        :param disable_per_user_insights: If true, suppresses the generation of per-user Insights in the response. Default is false.
         :param categories: Categories of data requested. Request can include single or multiple types.
         :param departments: Departments that the data is requested for. If this is empty, corresponds to whole company.
         :param day_range:
         :param ai_app_request_options:
         :param agents_request_options:
         :param assistant_activity_types: Types of activity that should count in the definition of an Assistant Active User. Affects only insights for AI category.
-        :param disable_per_user_insights: If true, suppresses the generation of per-user Insights in the response. Default is false.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -180,6 +227,16 @@ class Insights(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.InsightsRequest(
+            overview_request=utils.get_pydantic_model(
+                overview_request, Optional[models.InsightsOverviewRequest]
+            ),
+            assistant_request=utils.get_pydantic_model(
+                assistant_request, Optional[models.InsightsAssistantRequest]
+            ),
+            agents_request=utils.get_pydantic_model(
+                agents_request, Optional[models.AgentsInsightsV2Request]
+            ),
+            disable_per_user_insights=disable_per_user_insights,
             categories=categories,
             departments=departments,
             day_range=utils.get_pydantic_model(day_range, Optional[models.Period]),
@@ -190,7 +247,6 @@ class Insights(BaseSDK):
                 agents_request_options, Optional[models.InsightsAgentsRequestOptions]
             ),
             assistant_activity_types=assistant_activity_types,
-            disable_per_user_insights=disable_per_user_insights,
         )
 
         req = self._build_request_async(

@@ -122,6 +122,10 @@ if TYPE_CHECKING:
         OutputSchema,
         OutputSchemaTypedDict,
     )
+    from .agentsinsightsv2request import (
+        AgentsInsightsV2Request,
+        AgentsInsightsV2RequestTypedDict,
+    )
     from .aiappactioncounts import AiAppActionCounts, AiAppActionCountsTypedDict
     from .aiappsinsightsresponse import (
         AiAppsInsightsResponse,
@@ -791,6 +795,14 @@ if TYPE_CHECKING:
         InsightsAiAppRequestOptions,
         InsightsAiAppRequestOptionsTypedDict,
     )
+    from .insightsassistantrequest import (
+        InsightsAssistantRequest,
+        InsightsAssistantRequestTypedDict,
+    )
+    from .insightsoverviewrequest import (
+        InsightsOverviewRequest,
+        InsightsOverviewRequestTypedDict,
+    )
     from .insightsrequest import (
         AssistantActivityType,
         InsightsRequest,
@@ -1276,6 +1288,8 @@ __all__ = [
     "AgentSchemas",
     "AgentSchemasTypedDict",
     "AgentTypedDict",
+    "AgentsInsightsV2Request",
+    "AgentsInsightsV2RequestTypedDict",
     "AiAppActionCounts",
     "AiAppActionCountsTypedDict",
     "AiAppsInsightsResponse",
@@ -1846,6 +1860,10 @@ __all__ = [
     "InsightsAgentsRequestOptionsTypedDict",
     "InsightsAiAppRequestOptions",
     "InsightsAiAppRequestOptionsTypedDict",
+    "InsightsAssistantRequest",
+    "InsightsAssistantRequestTypedDict",
+    "InsightsOverviewRequest",
+    "InsightsOverviewRequestTypedDict",
     "InsightsRequest",
     "InsightsRequestCategory",
     "InsightsRequestTypedDict",
@@ -2302,6 +2320,8 @@ _dynamic_imports: dict[str, str] = {
     "InputSchemaTypedDict": ".agentschemas",
     "OutputSchema": ".agentschemas",
     "OutputSchemaTypedDict": ".agentschemas",
+    "AgentsInsightsV2Request": ".agentsinsightsv2request",
+    "AgentsInsightsV2RequestTypedDict": ".agentsinsightsv2request",
     "AiAppActionCounts": ".aiappactioncounts",
     "AiAppActionCountsTypedDict": ".aiappactioncounts",
     "AiAppsInsightsResponse": ".aiappsinsightsresponse",
@@ -2827,6 +2847,10 @@ _dynamic_imports: dict[str, str] = {
     "InsightsAgentsRequestOptionsTypedDict": ".insightsagentsrequestoptions",
     "InsightsAiAppRequestOptions": ".insightsaiapprequestoptions",
     "InsightsAiAppRequestOptionsTypedDict": ".insightsaiapprequestoptions",
+    "InsightsAssistantRequest": ".insightsassistantrequest",
+    "InsightsAssistantRequestTypedDict": ".insightsassistantrequest",
+    "InsightsOverviewRequest": ".insightsoverviewrequest",
+    "InsightsOverviewRequestTypedDict": ".insightsoverviewrequest",
     "AssistantActivityType": ".insightsrequest",
     "InsightsRequest": ".insightsrequest",
     "InsightsRequestCategory": ".insightsrequest",

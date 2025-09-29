@@ -1366,8 +1366,8 @@ paths:
         post:
             tags:
                 - Insights
-            summary: Read insights
-            description: Reads the aggregate information for each user, query, and content.
+            summary: Get insights
+            description: Gets the aggregate usage insights data displayed in the Insights Dashboards.
             operationId: insights
             x-visibility: Public
             x-codegen-request-body-name: payload
@@ -1377,7 +1377,7 @@ paths:
                     application/json:
                         schema:
                             $ref: "#/components/schemas/InsightsRequest"
-                description: Includes request params for insights dashboard data.
+                description: Includes request parameters for insights requests.
                 required: true
                 x-exportParamName: InsightsRequest
             responses:
@@ -3190,6 +3190,7 @@ paths:
                     description: Conflict
             x-speakeasy-name-override: upload
             x-speakeasy-group: indexing.shortcuts
+    /api/index/v1/debug/{datasource}/document/events: {}
     /rest/api/v1/governance/data/policies/{id}:
         get:
             description: Fetches the specified policy version, or the latest if no version is provided.
@@ -8079,6 +8080,41 @@ components:
                 cursor:
                     type: string
                     description: Cursor that indicates the start of the next page of results. To be passed in "more" requests for this query.
+        InsightsOverviewRequest:
+            properties:
+                departments:
+                    type: array
+                    items:
+                        type: string
+                    description: Departments for which Insights are requested.
+                dayRange:
+                    $ref: "#/components/schemas/Period"
+                    description: Time period for which Insights are requested.
+        InsightsAssistantRequest:
+            properties:
+                departments:
+                    type: array
+                    items:
+                        type: string
+                    description: Departments for which Insights are requested.
+                dayRange:
+                    $ref: "#/components/schemas/Period"
+                    description: Time period for which Insights are requested.
+        AgentsInsightsV2Request:
+            properties:
+                agentIds:
+                    type: array
+                    items:
+                        type: string
+                    description: IDs of the Agents for which Insights should be returned. An empty array signifies all.
+                departments:
+                    type: array
+                    items:
+                        type: string
+                    description: Departments for which Insights are requested.
+                dayRange:
+                    $ref: "#/components/schemas/Period"
+                    description: Time period for which Insights are requested.
         InsightsAiAppRequestOptions:
             type: object
             properties:
@@ -8095,16 +8131,33 @@ components:
                     items:
                         type: string
                     description: IDs of the Agents for which Insights should be returned. An empty array signifies all.
-        DownloadInsightsRequest:
-            required:
-                - categories
+        InsightsRequest:
             properties:
+                overviewRequest:
+                    $ref: "#/components/schemas/InsightsOverviewRequest"
+                    x-visibility: Public
+                    description: If specified, will return data for the Overview section of the Insights Dashboard.
+                assistantRequest:
+                    $ref: "#/components/schemas/InsightsAssistantRequest"
+                    x-visibility: Public
+                    description: If specified, will return data for the Assistant section of the Insights Dashboard.
+                agentsRequest:
+                    $ref: "#/components/schemas/AgentsInsightsV2Request"
+                    x-visibility: Public
+                    description: If specified, will return data for the Agents section of the Insights Dashboard.
+                disablePerUserInsights:
+                    type: boolean
+                    description: If true, suppresses the generation of per-user Insights in the response. Default is false.
                 categories:
+                    deprecated: true
                     type: array
                     items:
                         type: string
                         enum:
                             - AGENTS
+                            - AGENT_USERS
+                            - TOP_AGENTS
+                            - AGENTS_USAGE_BY_DEPARTMENT
                             - AI
                             - AI_APPS
                             - ANNOUNCEMENTS
@@ -8117,34 +8170,31 @@ components:
                             - USERS
                     description: Categories of data requested. Request can include single or multiple types.
                 departments:
+                    deprecated: true
                     type: array
                     items:
                         type: string
                     description: Departments that the data is requested for. If this is empty, corresponds to whole company.
                 dayRange:
+                    deprecated: true
                     $ref: "#/components/schemas/Period"
                 aiAppRequestOptions:
+                    deprecated: true
                     $ref: "#/components/schemas/InsightsAiAppRequestOptions"
                 agentsRequestOptions:
+                    deprecated: true
                     $ref: "#/components/schemas/InsightsAgentsRequestOptions"
-        InsightsRequest:
-            allOf:
-                - $ref: "#/components/schemas/DownloadInsightsRequest"
-                - type: object
-                  properties:
-                    assistantActivityTypes:
-                        type: array
-                        items:
-                            type: string
-                            enum:
-                                - GLEAN_CHAT
-                                - AI_SUMMARY
-                                - AI_ANSWER
-                                - GLEANBOT_RESPONSE
-                        description: Types of activity that should count in the definition of an Assistant Active User. Affects only insights for AI category.
-                    disablePerUserInsights:
-                        type: boolean
-                        description: If true, suppresses the generation of per-user Insights in the response. Default is false.
+                assistantActivityTypes:
+                    deprecated: true
+                    type: array
+                    items:
+                        type: string
+                        enum:
+                            - GLEAN_CHAT
+                            - AI_SUMMARY
+                            - AI_ANSWER
+                            - GLEANBOT_RESPONSE
+                    description: Types of activity that should count in the definition of an Assistant Active User. Affects only insights for AI category.
         LabeledCountInfo:
             required:
                 - label
@@ -11678,6 +11728,38 @@ components:
                 - NOT_UPLOADED
                 - STATUS_UNKNOWN
             example: UPLOADED
+        DebugDocumentLifecycleRequest:
+            type: object
+            description: Describes the request body of the /debug/{datasource}/document/events API call.
+            properties:
+                objectType:
+                    type: string
+                    description: Object type of the document to get lifecycle events for.
+                    example: Article
+                docId:
+                    type: string
+                    description: Glean Document ID within the datasource to get lifecycle events for.
+                    example: art123
+                startDate:
+                    type: string
+                    description: The start date for events to be fetched. Cannot be more than 30 days (default 7 days) in the past.
+                    example: "2025-05-01"
+                maxEvents:
+                    type: integer
+                    description: Max number of events to be fetched. Cannot be more than 100 (default 20).
+                    example: 50
+            required:
+                - objectType
+                - docId
+        DebugDocumentLifecycleResponse:
+            type: object
+            description: Describes the response body of the /debug/{datasource}/document/events API call
+            properties:
+                lifeCycleEvents:
+                    type: array
+                    description: List of lifecycle events corresponding to the document
+                    items:
+                        $ref: "#/components/schemas/LifeCycleEvent"
         PropertyDefinition:
             properties:
                 name:
