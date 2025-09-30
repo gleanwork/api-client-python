@@ -30,6 +30,7 @@ const (
 	ManualFeedbackInfoSourceSearch             ManualFeedbackInfoSource = "SEARCH"
 	ManualFeedbackInfoSourceSidebar            ManualFeedbackInfoSource = "SIDEBAR"
 	ManualFeedbackInfoSourceSummary            ManualFeedbackInfoSource = "SUMMARY"
+	ManualFeedbackInfoSourceTasks              ManualFeedbackInfoSource = "TASKS"
 )
 
 func (e ManualFeedbackInfoSource) ToPointer() *ManualFeedbackInfoSource {
@@ -78,6 +79,8 @@ func (e *ManualFeedbackInfoSource) UnmarshalJSON(data []byte) error {
 	case "SIDEBAR":
 		fallthrough
 	case "SUMMARY":
+		fallthrough
+	case "TASKS":
 		*e = ManualFeedbackInfoSource(v)
 		return nil
 	default:

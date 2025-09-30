@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 3e3290ca-0ee8-4981-b1bc-14536048fa63
 management:
-  docChecksum: a1b9796a9df7b522bbca126ea657a92a
+  docChecksum: c2b965eefd21c27818280977b9c258d4
   docVersion: 0.9.0
-  speakeasyVersion: 1.631.4
+  speakeasyVersion: 1.631.5
   generationVersion: 2.716.16
-  releaseVersion: 0.9.0
-  configChecksum: 885838e10bfb05e9086d385baf889124
+  releaseVersion: 0.9.1
+  configChecksum: 8544fc44fd9b84d1e56d9ac87022ffc9
   repoURL: https://github.com/gleanwork/api-client-python.git
   installationURL: https://github.com/gleanwork/api-client-python.git
   published: true
@@ -2711,6 +2711,3 @@ generatedTests:
   editcollection: "2025-06-12T19:13:52-04:00"
   createshortcut: "2025-06-12T19:13:52-04:00"
   updateshortcut: "2025-06-12T19:13:52-04:00"
-releaseNotes: |
-  ## Python SDK Changes Detected:
-  * `glean.client.insights.retrieve()`:  `request` **Changed**

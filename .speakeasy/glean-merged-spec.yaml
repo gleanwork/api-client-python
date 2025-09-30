@@ -3799,6 +3799,7 @@ components:
                         - SEARCH
                         - SIDEBAR
                         - SUMMARY
+                        - TASKS
                 issue:
                     type: string
                     description: The issue the user indicated in the feedback.
