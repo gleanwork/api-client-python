@@ -31,6 +31,7 @@ class ManualFeedbackInfoSource(str, Enum):
     SEARCH = "SEARCH"
     SIDEBAR = "SIDEBAR"
     SUMMARY = "SUMMARY"
+    TASKS = "TASKS"
 
 
 class Issue(str, Enum):
