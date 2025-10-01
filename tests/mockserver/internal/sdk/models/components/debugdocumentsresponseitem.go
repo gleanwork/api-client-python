@@ -2,7 +2,6 @@
 
 package components
 
-// DebugDocumentsResponseItem - Describes the response body of a single document in the /debug/{datasource}/documents API call
 type DebugDocumentsResponseItem struct {
 	// Id of the document
 	DocID *string `json:"docId,omitempty"`

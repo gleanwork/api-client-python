@@ -3,7 +3,7 @@
 from __future__ import annotations
 from glean.api_client.types import BaseModel
 import pydantic
-from typing import Optional
+from typing import Dict, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
@@ -16,6 +16,8 @@ class FollowupActionTypedDict(TypedDict):
     r"""The ID of the action instance that will be invoked."""
     action_id: NotRequired[str]
     r"""The ID of the associated action."""
+    parameters: NotRequired[Dict[str, str]]
+    r"""Map of assistant predicted parameters and their corresponding values."""
     recommendation_text: NotRequired[str]
     r"""Text to be displayed to the user when recommending the action instance."""
     action_label: NotRequired[str]
@@ -37,6 +39,9 @@ class FollowupAction(BaseModel):
 
     action_id: Annotated[Optional[str], pydantic.Field(alias="actionId")] = None
     r"""The ID of the associated action."""
+
+    parameters: Optional[Dict[str, str]] = None
+    r"""Map of assistant predicted parameters and their corresponding values."""
 
     recommendation_text: Annotated[
         Optional[str], pydantic.Field(alias="recommendationText")
