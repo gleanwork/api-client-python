@@ -3190,7 +3190,6 @@ paths:
                     description: Conflict
             x-speakeasy-name-override: upload
             x-speakeasy-group: indexing.shortcuts
-    /api/index/v1/debug/{datasource}/document/events: {}
     /rest/api/v1/governance/data/policies/{id}:
         get:
             description: Fetches the specified policy version, or the latest if no version is provided.
