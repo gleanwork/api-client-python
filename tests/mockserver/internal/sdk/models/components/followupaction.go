@@ -14,6 +14,8 @@ type FollowupAction struct {
 	ActionInstanceID *string `json:"actionInstanceId,omitempty"`
 	// The ID of the associated action.
 	ActionID *string `json:"actionId,omitempty"`
+	// Map of assistant predicted parameters and their corresponding values.
+	Parameters map[string]string `json:"parameters,omitempty"`
 	// Text to be displayed to the user when recommending the action instance.
 	RecommendationText *string `json:"recommendationText,omitempty"`
 	// The label to be used when displaying a button to execute this action instance.
@@ -52,6 +54,13 @@ func (o *FollowupAction) GetActionID() *string {
 		return nil
 	}
 	return o.ActionID
+}
+
+func (o *FollowupAction) GetParameters() map[string]string {
+	if o == nil {
+		return nil
+	}
+	return o.Parameters
 }
 
 func (o *FollowupAction) GetRecommendationText() *string {
