@@ -126,6 +126,15 @@ if TYPE_CHECKING:
         AgentsInsightsV2Request,
         AgentsInsightsV2RequestTypedDict,
     )
+    from .agentsinsightsv2response import (
+        AgentsInsightsV2Response,
+        AgentsInsightsV2ResponseTypedDict,
+    )
+    from .agentsusagebydepartmentinsight import (
+        AgentsUsageByDepartmentInsight,
+        AgentsUsageByDepartmentInsightTypedDict,
+    )
+    from .agentusersinsight import AgentUsersInsight, AgentUsersInsightTypedDict
     from .aiappactioncounts import AiAppActionCounts, AiAppActionCountsTypedDict
     from .aiappsinsightsresponse import (
         AiAppsInsightsResponse,
@@ -153,6 +162,10 @@ if TYPE_CHECKING:
     )
     from .answerresult import AnswerResult, AnswerResultTypedDict
     from .appresult import AppResult, AppResultTypedDict
+    from .assistantinsightsresponse import (
+        AssistantInsightsResponse,
+        AssistantInsightsResponseTypedDict,
+    )
     from .authconfig import (
         AuthConfig,
         AuthConfigStatus,
@@ -333,6 +346,7 @@ if TYPE_CHECKING:
         CreateShortcutResponse,
         CreateShortcutResponseTypedDict,
     )
+    from .currentactiveusers import CurrentActiveUsers, CurrentActiveUsersTypedDict
     from .customdatasourceconfig import (
         CustomDatasourceConfig,
         CustomDatasourceConfigConnectorType,
@@ -799,9 +813,16 @@ if TYPE_CHECKING:
         InsightsAssistantRequest,
         InsightsAssistantRequestTypedDict,
     )
+    from .insightschatsummary import InsightsChatSummary, InsightsChatSummaryTypedDict
     from .insightsoverviewrequest import (
         InsightsOverviewRequest,
         InsightsOverviewRequestTypedDict,
+    )
+    from .insightsoverviewresponse import (
+        EngagementBreakdown,
+        EngagementBreakdownTypedDict,
+        InsightsOverviewResponse,
+        InsightsOverviewResponseTypedDict,
     )
     from .insightsrequest import (
         AssistantActivityType,
@@ -810,6 +831,10 @@ if TYPE_CHECKING:
         InsightsRequestTypedDict,
     )
     from .insightsresponse import InsightsResponse, InsightsResponseTypedDict
+    from .insightssearchsummary import (
+        InsightsSearchSummary,
+        InsightsSearchSummaryTypedDict,
+    )
     from .invalidoperatorvalueerror import (
         InvalidOperatorValueError,
         InvalidOperatorValueErrorTypedDict,
@@ -904,6 +929,7 @@ if TYPE_CHECKING:
         PeopleRequestTypedDict,
     )
     from .peopleresponse import PeopleResponse, PeopleResponseTypedDict
+    from .peragentinsight import PerAgentInsight, PerAgentInsightTypedDict
     from .period import Period, PeriodTypedDict
     from .permissions import Permissions, PermissionsTypedDict
     from .permissionsgroupintersectiondefinition import (
@@ -913,6 +939,11 @@ if TYPE_CHECKING:
     from .persondistance import PersonDistance, PersonDistanceTypedDict
     from .personobject import PersonObject, PersonObjectTypedDict
     from .personteam import PersonTeam, PersonTeamRelationship, PersonTeamTypedDict
+    from .peruserassistantinsight import (
+        PerUserAssistantInsight,
+        PerUserAssistantInsightTypedDict,
+    )
+    from .peruserinsight import PerUserInsight, PerUserInsightTypedDict
     from .pinrequest import PinRequest, PinRequestTypedDict
     from .possiblevalue import PossibleValue, PossibleValueTypedDict
     from .post_api_index_v1_debug_datasource_documentop import (
@@ -1288,8 +1319,14 @@ __all__ = [
     "AgentSchemas",
     "AgentSchemasTypedDict",
     "AgentTypedDict",
+    "AgentUsersInsight",
+    "AgentUsersInsightTypedDict",
     "AgentsInsightsV2Request",
     "AgentsInsightsV2RequestTypedDict",
+    "AgentsInsightsV2Response",
+    "AgentsInsightsV2ResponseTypedDict",
+    "AgentsUsageByDepartmentInsight",
+    "AgentsUsageByDepartmentInsightTypedDict",
     "AiAppActionCounts",
     "AiAppActionCountsTypedDict",
     "AiAppsInsightsResponse",
@@ -1324,6 +1361,8 @@ __all__ = [
     "AppResult",
     "AppResultTypedDict",
     "AssistantActivityType",
+    "AssistantInsightsResponse",
+    "AssistantInsightsResponseTypedDict",
     "AuthConfig",
     "AuthConfigStatus",
     "AuthConfigType",
@@ -1474,6 +1513,8 @@ __all__ = [
     "CreateShortcutResponseTypedDict",
     "CreatecollectionResponse",
     "CreatecollectionResponseTypedDict",
+    "CurrentActiveUsers",
+    "CurrentActiveUsersTypedDict",
     "CustomDataValue",
     "CustomDataValueTypedDict",
     "CustomDatasourceConfig",
@@ -1661,6 +1702,8 @@ __all__ = [
     "EmployeeInfoDefinitionTypedDict",
     "EmployeeTeamInfo",
     "EmployeeTeamInfoTypedDict",
+    "EngagementBreakdown",
+    "EngagementBreakdownTypedDict",
     "EntitiesSortOrder",
     "EntityRelationship",
     "EntityRelationshipTypedDict",
@@ -1862,13 +1905,19 @@ __all__ = [
     "InsightsAiAppRequestOptionsTypedDict",
     "InsightsAssistantRequest",
     "InsightsAssistantRequestTypedDict",
+    "InsightsChatSummary",
+    "InsightsChatSummaryTypedDict",
     "InsightsOverviewRequest",
     "InsightsOverviewRequestTypedDict",
+    "InsightsOverviewResponse",
+    "InsightsOverviewResponseTypedDict",
     "InsightsRequest",
     "InsightsRequestCategory",
     "InsightsRequestTypedDict",
     "InsightsResponse",
     "InsightsResponseTypedDict",
+    "InsightsSearchSummary",
+    "InsightsSearchSummaryTypedDict",
     "InvalidOperatorValueError",
     "InvalidOperatorValueErrorTypedDict",
     "InviteInfo",
@@ -1950,6 +1999,12 @@ __all__ = [
     "PeopleRequestTypedDict",
     "PeopleResponse",
     "PeopleResponseTypedDict",
+    "PerAgentInsight",
+    "PerAgentInsightTypedDict",
+    "PerUserAssistantInsight",
+    "PerUserAssistantInsightTypedDict",
+    "PerUserInsight",
+    "PerUserInsightTypedDict",
     "Period",
     "PeriodTypedDict",
     "Permissions",
@@ -2322,6 +2377,12 @@ _dynamic_imports: dict[str, str] = {
     "OutputSchemaTypedDict": ".agentschemas",
     "AgentsInsightsV2Request": ".agentsinsightsv2request",
     "AgentsInsightsV2RequestTypedDict": ".agentsinsightsv2request",
+    "AgentsInsightsV2Response": ".agentsinsightsv2response",
+    "AgentsInsightsV2ResponseTypedDict": ".agentsinsightsv2response",
+    "AgentsUsageByDepartmentInsight": ".agentsusagebydepartmentinsight",
+    "AgentsUsageByDepartmentInsightTypedDict": ".agentsusagebydepartmentinsight",
+    "AgentUsersInsight": ".agentusersinsight",
+    "AgentUsersInsightTypedDict": ".agentusersinsight",
     "AiAppActionCounts": ".aiappactioncounts",
     "AiAppActionCountsTypedDict": ".aiappactioncounts",
     "AiAppsInsightsResponse": ".aiappsinsightsresponse",
@@ -2346,6 +2407,8 @@ _dynamic_imports: dict[str, str] = {
     "AnswerResultTypedDict": ".answerresult",
     "AppResult": ".appresult",
     "AppResultTypedDict": ".appresult",
+    "AssistantInsightsResponse": ".assistantinsightsresponse",
+    "AssistantInsightsResponseTypedDict": ".assistantinsightsresponse",
     "AuthConfig": ".authconfig",
     "AuthConfigStatus": ".authconfig",
     "AuthConfigType": ".authconfig",
@@ -2484,6 +2547,8 @@ _dynamic_imports: dict[str, str] = {
     "CreateShortcutRequestTypedDict": ".createshortcutrequest",
     "CreateShortcutResponse": ".createshortcutresponse",
     "CreateShortcutResponseTypedDict": ".createshortcutresponse",
+    "CurrentActiveUsers": ".currentactiveusers",
+    "CurrentActiveUsersTypedDict": ".currentactiveusers",
     "CustomDatasourceConfig": ".customdatasourceconfig",
     "CustomDatasourceConfigConnectorType": ".customdatasourceconfig",
     "CustomDatasourceConfigTypedDict": ".customdatasourceconfig",
@@ -2849,14 +2914,22 @@ _dynamic_imports: dict[str, str] = {
     "InsightsAiAppRequestOptionsTypedDict": ".insightsaiapprequestoptions",
     "InsightsAssistantRequest": ".insightsassistantrequest",
     "InsightsAssistantRequestTypedDict": ".insightsassistantrequest",
+    "InsightsChatSummary": ".insightschatsummary",
+    "InsightsChatSummaryTypedDict": ".insightschatsummary",
     "InsightsOverviewRequest": ".insightsoverviewrequest",
     "InsightsOverviewRequestTypedDict": ".insightsoverviewrequest",
+    "EngagementBreakdown": ".insightsoverviewresponse",
+    "EngagementBreakdownTypedDict": ".insightsoverviewresponse",
+    "InsightsOverviewResponse": ".insightsoverviewresponse",
+    "InsightsOverviewResponseTypedDict": ".insightsoverviewresponse",
     "AssistantActivityType": ".insightsrequest",
     "InsightsRequest": ".insightsrequest",
     "InsightsRequestCategory": ".insightsrequest",
     "InsightsRequestTypedDict": ".insightsrequest",
     "InsightsResponse": ".insightsresponse",
     "InsightsResponseTypedDict": ".insightsresponse",
+    "InsightsSearchSummary": ".insightssearchsummary",
+    "InsightsSearchSummaryTypedDict": ".insightssearchsummary",
     "InvalidOperatorValueError": ".invalidoperatorvalueerror",
     "InvalidOperatorValueErrorTypedDict": ".invalidoperatorvalueerror",
     "LabeledCountInfo": ".labeledcountinfo",
@@ -2931,6 +3004,8 @@ _dynamic_imports: dict[str, str] = {
     "PeopleRequestTypedDict": ".peoplerequest",
     "PeopleResponse": ".peopleresponse",
     "PeopleResponseTypedDict": ".peopleresponse",
+    "PerAgentInsight": ".peragentinsight",
+    "PerAgentInsightTypedDict": ".peragentinsight",
     "Period": ".period",
     "PeriodTypedDict": ".period",
     "Permissions": ".permissions",
@@ -2944,6 +3019,10 @@ _dynamic_imports: dict[str, str] = {
     "PersonTeam": ".personteam",
     "PersonTeamRelationship": ".personteam",
     "PersonTeamTypedDict": ".personteam",
+    "PerUserAssistantInsight": ".peruserassistantinsight",
+    "PerUserAssistantInsightTypedDict": ".peruserassistantinsight",
+    "PerUserInsight": ".peruserinsight",
+    "PerUserInsightTypedDict": ".peruserinsight",
     "PinRequest": ".pinrequest",
     "PinRequestTypedDict": ".pinrequest",
     "PossibleValue": ".possiblevalue",

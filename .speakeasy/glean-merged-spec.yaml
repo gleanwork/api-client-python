@@ -8467,40 +8467,306 @@ components:
                     items:
                         type: string
                     description: List of departments applicable for users tab.
+        CurrentActiveUsers:
+            properties:
+                monthlyActiveUsers:
+                    type: integer
+                    description: Number of current Monthly Active Users, in the specified departments.
+                weeklyActiveUsers:
+                    type: integer
+                    description: Number of current Weekly Active Users, in the specified departments.
+        InsightsSearchSummary:
+            allOf:
+                - $ref: "#/components/schemas/CurrentActiveUsers"
+                - type: object
+                  properties:
+                    numSearches:
+                        type: integer
+                        description: Total number of searches by users over the specified time period.
+                    numSearchUsers:
+                        type: integer
+                        description: Total number of distinct users who searched over the specified time period.
+        InsightsChatSummary:
+            allOf:
+                - $ref: "#/components/schemas/CurrentActiveUsers"
+                - type: object
+                  properties:
+                    numChats:
+                        type: integer
+                        description: Total number of chats by users over the specified time period.
+                    numChatUsers:
+                        type: integer
+                        description: Total number of distinct users who used Chat over the specified time period.
+        InsightsDepartmentsSummary:
+            allOf:
+                - $ref: "#/components/schemas/CurrentActiveUsers"
+                - type: object
+                  properties:
+                    departments:
+                        type: array
+                        items:
+                            type: string
+                        description: Department name(s).
+                    employeeCount:
+                        type: integer
+                        description: Number of current employees in the specified departments, according to the Org Chart.
+                    totalSignups:
+                        type: integer
+                        description: Number of current signed up employees in the specified departments, according to the Org Chart.
+                    searchSummary:
+                        $ref: "#/components/schemas/InsightsSearchSummary"
+                    chatSummary:
+                        $ref: "#/components/schemas/InsightsChatSummary"
+                    extensionSummary:
+                        $ref: "#/components/schemas/CurrentActiveUsers"
+                    ugcSummary:
+                        $ref: "#/components/schemas/CurrentActiveUsers"
+        PerUserInsight:
+            properties:
+                person:
+                    $ref: "#/components/schemas/Person"
+                numSearches:
+                    type: integer
+                    description: Total number of searches by this user over the specified time period.
+                numChats:
+                    type: integer
+                    description: Total number of chats by this user over the specified time period.
+        InsightsOverviewResponse:
+            allOf:
+                - $ref: "#/components/schemas/InsightsDepartmentsSummary"
+                - type: object
+                  properties:
+                    lastUpdatedTs:
+                        type: integer
+                        description: Unix timestamp of the last update for the insights data in the response.
+                    searchSessionSatisfaction:
+                        type: number
+                        format: float
+                        description: Search session satisfaction rate, over the specified time period in the specified departments.
+                    monthlyActiveUserTimeseries:
+                        $ref: "#/components/schemas/LabeledCountInfo"
+                    weeklyActiveUserTimeseries:
+                        $ref: "#/components/schemas/LabeledCountInfo"
+                    dailyActiveUserTimeseries:
+                        $ref: "#/components/schemas/LabeledCountInfo"
+                    searchDatasourceCounts:
+                        type: object
+                        additionalProperties:
+                            type: integer
+                        description: Counts of search result clicks, by datasource, over the specified time period in the specified departments.
+                    chatDatasourceCounts:
+                        type: object
+                        additionalProperties:
+                            type: integer
+                        description: Counts of cited documents in chat, by datasource, over the specified time period in the specified departments.
+                    perUserInsights:
+                        type: array
+                        items:
+                            $ref: "#/components/schemas/PerUserInsight"
+                        description: Top power users, over the specified time period in the specified departments.
+                    engagementBreakdown:
+                        type: object
+                        properties:
+                            nonUsers:
+                                type: integer
+                                description: Number of non-user employees in the specified departments.
+                            dormantUsers:
+                                type: integer
+                                description: Number of currently dormant users in the specified departments.
+                            regularUsers:
+                                type: integer
+                                description: Number of currently regular users in the specified departments.
+                            powerUsers:
+                                type: integer
+                                description: Number of currently power users in the specified departments.
+        PerUserAssistantInsight:
+            properties:
+                person:
+                    $ref: "#/components/schemas/Person"
+                numChatMessages:
+                    type: integer
+                    description: Total number of chat messages sent by this user over the specified time period.
+                numSummarizations:
+                    type: integer
+                    description: Total number of summarized items by this user over the specified time period.
+                numAiAnswers:
+                    type: integer
+                    description: Total number of AI Answers interacted with by this user over the specified time period.
+                numGleanbotInteractions:
+                    type: integer
+                    description: Total number of Gleanbot interacted with by this user over the specified time period.
+                numDaysActive:
+                    type: integer
+                    description: Total number of days this user was active over the specified time period.
+        AssistantInsightsResponse:
+            allOf:
+                - $ref: "#/components/schemas/CurrentActiveUsers"
+                - type: object
+                  properties:
+                    lastUpdatedTs:
+                        type: integer
+                        description: Unix timestamp of the last update for the insights data in the response.
+                    monthlyActiveUserTimeseries:
+                        $ref: "#/components/schemas/LabeledCountInfo"
+                    weeklyActiveUserTimeseries:
+                        $ref: "#/components/schemas/LabeledCountInfo"
+                    dailyActiveUserTimeseries:
+                        $ref: "#/components/schemas/LabeledCountInfo"
+                    totalSignups:
+                        type: integer
+                        description: Number of current signed up employees in the specified departments, according to the Org Chart.
+                    chatMessagesTimeseries:
+                        $ref: "#/components/schemas/LabeledCountInfo"
+                    summarizationsTimeseries:
+                        $ref: "#/components/schemas/LabeledCountInfo"
+                    aiAnswersTimeseries:
+                        $ref: "#/components/schemas/LabeledCountInfo"
+                    gleanbotInteractionsTimeseries:
+                        $ref: "#/components/schemas/LabeledCountInfo"
+                    perUserInsights:
+                        type: array
+                        items:
+                            $ref: "#/components/schemas/PerUserAssistantInsight"
+                    upvotesTimeseries:
+                        $ref: "#/components/schemas/LabeledCountInfo"
+                    downvotesTimeseries:
+                        $ref: "#/components/schemas/LabeledCountInfo"
+        PerAgentInsight:
+            properties:
+                agentId:
+                    type: string
+                    description: Agent ID
+                agentName:
+                    type: string
+                    description: Agent name
+                userCount:
+                    type: integer
+                    description: Total number of users for this agent over the specified time period.
+                runCount:
+                    type: integer
+                    description: Total number of runs for this agent over the specified time period.
+        AgentsUsageByDepartmentInsight:
+            properties:
+                department:
+                    type: string
+                    description: Name of the department
+                agentAdoptionRate:
+                    type: number
+                    format: float
+                    description: Percentage of employees in the department who have used agents at least once over the specified time period.
+                userCount:
+                    type: integer
+                    description: Total number of users in this department who have used any agent over the specified time period.
+                runCount:
+                    type: integer
+                    description: Total number of runs in this department over the specified time period.
+                agentId:
+                    type: string
+                    description: ID of the agent to be shown in the agent column in this department over the specified time period.
+                agentName:
+                    type: string
+                    description: Name of the agent to be shown in the agent column in this department over the specified time period.
+        AgentUsersInsight:
+            properties:
+                person:
+                    $ref: "#/components/schemas/Person"
+                departmentName:
+                    type: string
+                    description: Department name
+                agentsUsedCount:
+                    type: integer
+                    description: Total number of agents used by this user over the specified time period.
+                averageRunsPerDayCount:
+                    type: number
+                    format: float
+                    description: Average number of runs per day for this user over the specified time period.
+                agentsCreatedCount:
+                    type: integer
+                    description: Total number of agents created by this user over the specified time period.
+                runCount:
+                    type: integer
+                    description: Total number of agent runs for this user over the specified time period.
+        AgentsInsightsV2Response:
+            allOf:
+                - $ref: "#/components/schemas/CurrentActiveUsers"
+                - type: object
+                  properties:
+                    monthlyActiveUserTimeseries:
+                        $ref: "#/components/schemas/LabeledCountInfo"
+                    weeklyActiveUserTimeseries:
+                        $ref: "#/components/schemas/LabeledCountInfo"
+                    dailyActiveUserTimeseries:
+                        $ref: "#/components/schemas/LabeledCountInfo"
+                    sharedAgentsCount:
+                        type: integer
+                        description: Total number of shared agents.
+                    topAgentsInsights:
+                        type: array
+                        items:
+                            $ref: "#/components/schemas/PerAgentInsight"
+                    agentsUsageByDepartmentInsights:
+                        type: array
+                        items:
+                            $ref: "#/components/schemas/AgentsUsageByDepartmentInsight"
+                    agentUsersInsights:
+                        type: array
+                        items:
+                            $ref: "#/components/schemas/AgentUsersInsight"
+                    dailyAgentRunsTimeseries:
+                        $ref: "#/components/schemas/LabeledCountInfo"
         InsightsResponse:
             properties:
                 timeseries:
+                    deprecated: true
                     type: array
                     items:
                         $ref: "#/components/schemas/LabeledCountInfo"
                     description: List of timeseries to make charts (if applicable).
                 users:
+                    deprecated: true
                     $ref: "#/components/schemas/UserInsightsResponse"
                 content:
+                    deprecated: true
                     $ref: "#/components/schemas/ContentInsightsResponse"
                 queries:
+                    deprecated: true
                     $ref: "#/components/schemas/QueryInsightsResponse"
                 collections:
+                    deprecated: true
                     $ref: "#/components/schemas/ContentInsightsResponse"
                 collectionsV2:
+                    deprecated: true
                     $ref: "#/components/schemas/ContentInsightsResponse"
                 shortcuts:
+                    deprecated: true
                     $ref: "#/components/schemas/ShortcutInsightsResponse"
                 announcements:
+                    deprecated: true
                     $ref: "#/components/schemas/ContentInsightsResponse"
                 answers:
+                    deprecated: true
                     $ref: "#/components/schemas/ContentInsightsResponse"
                 ai:
+                    deprecated: true
                     $ref: "#/components/schemas/AiInsightsResponse"
                 aiApps:
+                    deprecated: true
                     $ref: "#/components/schemas/AiAppsInsightsResponse"
                 gleanAssist:
+                    deprecated: true
                     $ref: "#/components/schemas/GleanAssistInsightsResponse"
                 departments:
+                    deprecated: true
                     type: array
                     items:
                         type: string
                     description: list of all departments.
+                overviewResponse:
+                    $ref: "#/components/schemas/InsightsOverviewResponse"
+                assistantResponse:
+                    $ref: "#/components/schemas/AssistantInsightsResponse"
+                agentsResponse:
+                    $ref: "#/components/schemas/AgentsInsightsV2Response"
         MessagesRequest:
             required:
                 - id
@@ -9272,6 +9538,7 @@ components:
                             - ZERO_STATE_WORKFLOW_CREATED_BY_ME
                             - ZERO_STATE_WORKFLOW_FAVORITES
                             - ZERO_STATE_WORKFLOW_POPULAR
+                            - ZERO_STATE_WORKFLOW_RECENT
                             - ZERO_STATE_WORKFLOW_SUGGESTION
                             - PERSONALIZED_CHAT_SUGGESTION
                             - DAILY_DIGEST
@@ -9811,6 +10078,7 @@ components:
                         - ZERO_STATE_WORKFLOW_CREATED_BY_ME
                         - ZERO_STATE_WORKFLOW_FAVORITES
                         - ZERO_STATE_WORKFLOW_POPULAR
+                        - ZERO_STATE_WORKFLOW_RECENT
                         - ZERO_STATE_WORKFLOW_SUGGESTION
                         - PERSONALIZED_CHAT_SUGGESTION
                         - DAILY_DIGEST

@@ -4,6 +4,8 @@ package components
 
 type InsightsResponse struct {
 	// List of timeseries to make charts (if applicable).
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	Timeseries    []LabeledCountInfo           `json:"timeseries,omitempty"`
 	Users         *UserInsightsResponse        `json:"users,omitempty"`
 	Content       *ContentInsightsResponse     `json:"content,omitempty"`
@@ -17,7 +19,12 @@ type InsightsResponse struct {
 	AiApps        *AiAppsInsightsResponse      `json:"aiApps,omitempty"`
 	GleanAssist   *GleanAssistInsightsResponse `json:"gleanAssist,omitempty"`
 	// list of all departments.
-	Departments []string `json:"departments,omitempty"`
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	Departments       []string                   `json:"departments,omitempty"`
+	OverviewResponse  *InsightsOverviewResponse  `json:"overviewResponse,omitempty"`
+	AssistantResponse *AssistantInsightsResponse `json:"assistantResponse,omitempty"`
+	AgentsResponse    *AgentsInsightsV2Response  `json:"agentsResponse,omitempty"`
 }
 
 func (o *InsightsResponse) GetTimeseries() []LabeledCountInfo {
@@ -109,4 +116,25 @@ func (o *InsightsResponse) GetDepartments() []string {
 		return nil
 	}
 	return o.Departments
+}
+
+func (o *InsightsResponse) GetOverviewResponse() *InsightsOverviewResponse {
+	if o == nil {
+		return nil
+	}
+	return o.OverviewResponse
+}
+
+func (o *InsightsResponse) GetAssistantResponse() *AssistantInsightsResponse {
+	if o == nil {
+		return nil
+	}
+	return o.AssistantResponse
+}
+
+func (o *InsightsResponse) GetAgentsResponse() *AgentsInsightsV2Response {
+	if o == nil {
+		return nil
+	}
+	return o.AgentsResponse
 }
