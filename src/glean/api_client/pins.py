@@ -85,7 +85,7 @@ class Pins(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="editpin",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -181,7 +181,7 @@ class Pins(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="editpin",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -267,7 +267,7 @@ class Pins(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getpin",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -353,7 +353,7 @@ class Pins(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getpin",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -439,7 +439,7 @@ class Pins(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="listpins",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -525,7 +525,7 @@ class Pins(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="listpins",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -621,7 +621,7 @@ class Pins(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="pin",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -717,7 +717,7 @@ class Pins(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="pin",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -803,7 +803,7 @@ class Pins(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="unpin",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -889,7 +889,7 @@ class Pins(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="unpin",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),

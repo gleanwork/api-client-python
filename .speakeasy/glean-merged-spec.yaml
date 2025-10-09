@@ -8639,6 +8639,9 @@ components:
                 agentName:
                     type: string
                     description: Agent name
+                icon:
+                    $ref: "#/components/schemas/IconConfig"
+                    description: Agent icon configuration
                 userCount:
                     type: integer
                     description: Total number of users for this agent over the specified time period.

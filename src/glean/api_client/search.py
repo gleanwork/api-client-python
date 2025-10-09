@@ -131,7 +131,7 @@ class Search(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="adminsearch",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -276,7 +276,7 @@ class Search(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="adminsearch",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -395,7 +395,7 @@ class Search(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="autocomplete",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -510,7 +510,7 @@ class Search(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="autocomplete",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -613,7 +613,7 @@ class Search(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="feed",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -716,7 +716,7 @@ class Search(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="feed",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -842,7 +842,7 @@ class Search(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="recommendations",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -970,7 +970,7 @@ class Search(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="recommendations",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1113,7 +1113,7 @@ class Search(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="search",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
@@ -1258,7 +1258,7 @@ class Search(BaseSDK):
                 config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="search",
-                oauth2_scopes=[],
+                oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
