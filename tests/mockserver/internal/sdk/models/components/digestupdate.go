@@ -3,6 +3,8 @@
 package components
 
 type DigestUpdate struct {
+	// List of URLs for similar updates that are grouped together and rendered as a single update.
+	Urls []string `json:"urls,omitempty"`
 	// URL link to the content or document.
 	URL *string `json:"url,omitempty"`
 	// Title or headline of the update.
@@ -13,6 +15,13 @@ type DigestUpdate struct {
 	Summary *string `json:"summary,omitempty"`
 	// Optional type classification for the update.
 	Type *UpdateType `json:"type,omitempty"`
+}
+
+func (o *DigestUpdate) GetUrls() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Urls
 }
 
 func (o *DigestUpdate) GetURL() *string {

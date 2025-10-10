@@ -18,7 +18,7 @@ class CollectionErrorData(BaseModel):
     ]
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class CollectionError(GleanBaseError):
     data: CollectionErrorData = field(hash=False)
 

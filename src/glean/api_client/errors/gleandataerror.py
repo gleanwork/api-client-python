@@ -37,7 +37,7 @@ class GleanDataErrorData(BaseModel):
     ] = None
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class GleanDataError(GleanBaseError):
     data: GleanDataErrorData = field(hash=False)
 
