@@ -9723,6 +9723,11 @@ components:
         DigestUpdate:
             type: object
             properties:
+                urls:
+                    type: array
+                    description: List of URLs for similar updates that are grouped together and rendered as a single update.
+                    items:
+                        type: string
                 url:
                     type: string
                     description: URL link to the content or document.

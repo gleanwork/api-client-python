@@ -9,7 +9,7 @@ from glean.api_client.errors import GleanBaseError
 MAX_MESSAGE_LEN = 10_000
 
 
-@dataclass(frozen=True)
+@dataclass(unsafe_hash=True)
 class GleanError(GleanBaseError):
     """The fallback error class if no more specific error class is matched."""
 

@@ -3,11 +3,13 @@
 from __future__ import annotations
 from .updatetype import UpdateType
 from glean.api_client.types import BaseModel
-from typing import Optional
+from typing import List, Optional
 from typing_extensions import NotRequired, TypedDict
 
 
 class DigestUpdateTypedDict(TypedDict):
+    urls: NotRequired[List[str]]
+    r"""List of URLs for similar updates that are grouped together and rendered as a single update."""
     url: NotRequired[str]
     r"""URL link to the content or document."""
     title: NotRequired[str]
@@ -21,6 +23,9 @@ class DigestUpdateTypedDict(TypedDict):
 
 
 class DigestUpdate(BaseModel):
+    urls: Optional[List[str]] = None
+    r"""List of URLs for similar updates that are grouped together and rendered as a single update."""
+
     url: Optional[str] = None
     r"""URL link to the content or document."""
 
