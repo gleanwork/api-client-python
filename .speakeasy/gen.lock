@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 3e3290ca-0ee8-4981-b1bc-14536048fa63
 management:
-  docChecksum: ef00a2f5125097d9f584f0bbb5436f00
+  docChecksum: 5a4cd8de1e6ca5f701ac27e244d09799
   docVersion: 0.9.0
   speakeasyVersion: 1.636.3
   generationVersion: 2.723.11
-  releaseVersion: 0.10.2
-  configChecksum: 0df6a87cbbcb2fcac2bba9f5d9a53017
+  releaseVersion: 0.10.3
+  configChecksum: e07c2e6f4cf5159e031335490e5f2f34
   repoURL: https://github.com/gleanwork/api-client-python.git
   installationURL: https://github.com/gleanwork/api-client-python.git
   published: true
@@ -2195,7 +2195,7 @@ examples:
   messages:
     speakeasy-default-messages:
       requestBody:
-        application/json: {"idType": "CONVERSATION_ID", "id": "<id>"}
+        application/json: {"idType": "CONVERSATION_ID", "id": "<id>", "datasource": "GCHAT"}
       responses:
         "200":
           application/json: {"hasMore": true, "searchResponse": {"trackingToken": "trackingToken", "results": [{"title": "title", "url": "https://www.example.com/", "snippets": [{"mimeType": "mimeType", "snippet": "snippet"}]}, {"title": "title", "url": "https://www.example.com/", "snippets": [{"mimeType": "mimeType", "snippet": "snippet"}]}], "errorInfo": {"errorMessages": [{"source": "gmail", "errorMessage": "invalid token"}, {"source": "slack", "errorMessage": "expired token"}]}, "requestID": "5e345ae500ff0befa2b9d1a3ba0001737e7363696f312d323535323137000171756572792d656e64706f696e743a323032303031333074313830343032000100", "facetResults": [{"sourceName": "sourceName", "operatorName": "operatorName", "buckets": [{"count": 1, "percentage": 5, "value": {"stringValue": "stringValue", "integerValue": 5}}, {"count": 1, "percentage": 5, "value": {"stringValue": "stringValue", "integerValue": 5}}]}, {"sourceName": "sourceName", "operatorName": "operatorName", "buckets": [{"count": 1, "percentage": 5, "value": {"stringValue": "stringValue", "integerValue": 5}}, {"count": 1, "percentage": 5, "value": {"stringValue": "stringValue", "integerValue": 5}}]}], "rewrittenFacetFilters": [{"fieldName": "fieldName", "values": [{"value": "Spreadsheet", "relationType": "EQUALS"}, {"value": "Spreadsheet", "relationType": "EQUALS"}]}, {"fieldName": "fieldName", "values": [{"value": "Spreadsheet", "relationType": "EQUALS"}, {"value": "Spreadsheet", "relationType": "EQUALS"}]}], "hasMoreResults": true}, "rootMessage": {"title": "title", "url": "https://example.com/foo/bar", "nativeAppUrl": "slack://foo/bar", "snippets": [{"mimeType": "mimeType", "snippet": "snippet"}], "mustIncludeSuggestions": {"suggestions": [{"query": "app:github type:pull author:mortimer", "label": "Mortimer's PRs", "datasource": "github"}], "person": {"name": "George Clooney", "obfuscatedId": "abc123"}}}}
@@ -2744,4 +2744,4 @@ generatedTests:
   updateshortcut: "2025-06-12T19:13:52-04:00"
 releaseNotes: |
   ## Python SDK Changes Detected:
-  * `glean.client.search.retrieve_feed()`:  `response.results.[].primary_entry.digest.sections.[].updates.[].urls` **Added**
+  * `glean.client.messages.retrieve()`:  `request.datasource` **Changed** **Breaking** :warning:
