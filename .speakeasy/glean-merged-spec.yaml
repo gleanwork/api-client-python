@@ -8774,6 +8774,7 @@ components:
             required:
                 - id
                 - idType
+                - datasource
             properties:
                 idType:
                     type: string
@@ -8805,9 +8806,11 @@ components:
                     type: string
                     enum:
                         - SLACK
+                        - SLACKENTGRID
                         - MICROSOFTTEAMS
+                        - GCHAT
                         - FACEBOOKWORKPLACE
-                    description: The type of the data source. Missing field defaults to SLACK.
+                    description: The type of the data source.
                 datasourceInstanceDisplayName:
                     type: string
                     description: The datasource instance display name from which the document was extracted. This is used for appinstance facet filter for datasources that support multiple instances.

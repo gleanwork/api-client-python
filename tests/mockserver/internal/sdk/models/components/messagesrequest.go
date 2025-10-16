@@ -64,12 +64,14 @@ func (e *Direction) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// Datasource - The type of the data source. Missing field defaults to SLACK.
+// Datasource - The type of the data source.
 type Datasource string
 
 const (
 	DatasourceSlack             Datasource = "SLACK"
+	DatasourceSlackentgrid      Datasource = "SLACKENTGRID"
 	DatasourceMicrosoftteams    Datasource = "MICROSOFTTEAMS"
+	DatasourceGchat             Datasource = "GCHAT"
 	DatasourceFacebookworkplace Datasource = "FACEBOOKWORKPLACE"
 )
 
@@ -84,7 +86,11 @@ func (e *Datasource) UnmarshalJSON(data []byte) error {
 	switch v {
 	case "SLACK":
 		fallthrough
+	case "SLACKENTGRID":
+		fallthrough
 	case "MICROSOFTTEAMS":
+		fallthrough
+	case "GCHAT":
 		fallthrough
 	case "FACEBOOKWORKPLACE":
 		*e = Datasource(v)
@@ -107,8 +113,8 @@ type MessagesRequest struct {
 	TimestampMillis *int64 `json:"timestampMillis,omitempty"`
 	// Whether to include root message in response.
 	IncludeRootMessage *bool `json:"includeRootMessage,omitempty"`
-	// The type of the data source. Missing field defaults to SLACK.
-	Datasource *Datasource `json:"datasource,omitempty"`
+	// The type of the data source.
+	Datasource Datasource `json:"datasource"`
 	// The datasource instance display name from which the document was extracted. This is used for appinstance facet filter for datasources that support multiple instances.
 	DatasourceInstanceDisplayName *string `json:"datasourceInstanceDisplayName,omitempty"`
 }
@@ -155,9 +161,9 @@ func (o *MessagesRequest) GetIncludeRootMessage() *bool {
 	return o.IncludeRootMessage
 }
 
-func (o *MessagesRequest) GetDatasource() *Datasource {
+func (o *MessagesRequest) GetDatasource() Datasource {
 	if o == nil {
-		return nil
+		return Datasource("")
 	}
 	return o.Datasource
 }

@@ -16,6 +16,9 @@ def test_messages_messages():
         assert glean is not None
 
         res = glean.client.messages.retrieve(
-            id_type=models.IDType.CONVERSATION_ID, id="<id>", timestamp_millis=558834
+            id_type=models.IDType.CONVERSATION_ID,
+            id="<id>",
+            datasource=models.Datasource.MICROSOFTTEAMS,
+            timestamp_millis=558834,
         )
         assert res is not None
