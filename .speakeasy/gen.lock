@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 3e3290ca-0ee8-4981-b1bc-14536048fa63
 management:
-  docChecksum: 5a4cd8de1e6ca5f701ac27e244d09799
+  docChecksum: 30752ad325475357749711c885ecb81f
   docVersion: 0.9.0
-  speakeasyVersion: 1.636.3
-  generationVersion: 2.723.11
-  releaseVersion: 0.10.3
-  configChecksum: e07c2e6f4cf5159e031335490e5f2f34
+  speakeasyVersion: 1.638.0
+  generationVersion: 2.728.0
+  releaseVersion: 0.11.0
+  configChecksum: 07f0a9ba148add2a46e7e1b2f680ddab
   repoURL: https://github.com/gleanwork/api-client-python.git
   installationURL: https://github.com/gleanwork/api-client-python.git
   published: true
@@ -16,7 +16,7 @@ features:
     additionalProperties: 1.0.1
     configurableModuleName: 0.2.0
     constsAndDefaults: 1.0.5
-    core: 5.22.1
+    core: 5.23.0
     defaultEnabledRetries: 0.2.0
     deprecations: 3.0.2
     devContainers: 3.0.0
@@ -2742,6 +2742,4 @@ generatedTests:
   editcollection: "2025-06-12T19:13:52-04:00"
   createshortcut: "2025-06-12T19:13:52-04:00"
   updateshortcut: "2025-06-12T19:13:52-04:00"
-releaseNotes: |
-  ## Python SDK Changes Detected:
-  * `glean.client.messages.retrieve()`:  `request.datasource` **Changed** **Breaking** :warning:
+releaseNotes: "## Python SDK Changes Detected:\n* `glean.client.chat.create()`: \n  *  `request.messages.[].agent_config.use_image_generation` **Added**\n  *  `response.messages.[].agent_config.use_image_generation` **Added**\n* `glean.client.chat.retrieve()`:  `response.chat_result.chat.messages.[].agent_config.use_image_generation` **Added**\n* `glean.client.chat.create_stream()`: \n  *  `request.messages.[].agent_config.use_image_generation` **Added**\n"

@@ -20,6 +20,8 @@ generation:
     oAuth2ClientCredentialsEnabled: false
     oAuth2PasswordEnabled: false
     hoistGlobalSecurity: true
+  schemas:
+    allOfMergeStrategy: shallowMerge
   mockServer:
     disabled: false
   tests:
@@ -27,7 +29,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: true
 python:
-  version: 0.10.3
+  version: 0.11.0
   additionalDependencies:
     dev: {}
     main: {}

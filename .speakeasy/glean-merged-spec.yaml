@@ -7047,6 +7047,9 @@ components:
                     enum:
                         - DEFAULT
                         - QUICK
+                useImageGeneration:
+                    type: boolean
+                    description: Whether the agent should create an image.
         ChatFileStatus:
             type: string
             description: Current status of the file.
@@ -7427,6 +7430,19 @@ components:
                     deprecated: true
                     type: boolean
                     description: Signals there are additional response fragments incoming.
+        ChatRequestBase:
+            required:
+                - messages
+            description: The minimal set of fields that form a chat request.
+            properties:
+                messages:
+                    type: array
+                    description: A list of chat messages, from most recent to least recent. At least one message must specify a USER author.
+                    items:
+                        $ref: "#/components/schemas/ChatMessage"
+                sessionInfo:
+                    description: Optional object for tracking the session used by the client and for debugging purposes.
+                    $ref: "#/components/schemas/SessionInfo"
         ChatRestrictionFilters:
             allOf:
                 - $ref: "#/components/schemas/RestrictionFilters"
@@ -7441,45 +7457,38 @@ components:
                         items:
                             type: string
         ChatRequest:
-            required:
-                - messages
-            properties:
-                saveChat:
-                    type: boolean
-                    description: Save the current interaction as a Chat for the user to access and potentially continue later.
-                chatId:
-                    type: string
-                    description: The id of the Chat that context should be retrieved from and messages added to. An empty id starts a new Chat, and the Chat is saved if saveChat is true.
-                messages:
-                    type: array
-                    description: A list of chat messages, from most recent to least recent. At least one message must specify a USER author.
-                    items:
-                        $ref: "#/components/schemas/ChatMessage"
-                agentConfig:
-                    $ref: "#/components/schemas/AgentConfig"
-                    description: Describes the agent that will execute the request.
-                inclusions:
-                    $ref: "#/components/schemas/ChatRestrictionFilters"
-                    description: A list of filters which only allows chat to access certain content.
-                exclusions:
-                    $ref: "#/components/schemas/ChatRestrictionFilters"
-                    description: A list of filters which disallows chat from accessing certain content. If content is in both inclusions and exclusions, it'll be excluded.
-                timeoutMillis:
-                    type: integer
-                    description: Timeout in milliseconds for the request. A `408` error will be returned if handling the request takes longer.
-                    example: 30000
-                sessionInfo:
-                    description: Optional object for tracking the session used by the client and for debugging purposes.
-                    $ref: "#/components/schemas/SessionInfo"
-                applicationId:
-                    type: string
-                    description: The ID of the application this request originates from, used to determine the configuration of underlying chat processes. This should correspond to the ID set during admin setup. If not specified, the default chat experience will be used.
-                agentId:
-                    type: string
-                    description: The ID of the Agent that should process this chat request. Only Agents with trigger set to 'User chat message' are invokable through this API. If not specified, the default chat experience will be used.
-                stream:
-                    type: boolean
-                    description: If set, response lines will be streamed one-by-one as they become available. Each will be a ChatResponse, formatted as JSON, and separated by a new line. If false, the entire response will be returned at once. Note that if this is set and the model being used does not support streaming, the model's response will not be streamed, but other messages from the endpoint still will be.
+            allOf:
+                - $ref: "#/components/schemas/ChatRequestBase"
+                - type: object
+                  properties:
+                    saveChat:
+                        type: boolean
+                        description: Save the current interaction as a Chat for the user to access and potentially continue later.
+                    chatId:
+                        type: string
+                        description: The id of the Chat that context should be retrieved from and messages added to. An empty id starts a new Chat, and the Chat is saved if saveChat is true.
+                    agentConfig:
+                        $ref: "#/components/schemas/AgentConfig"
+                        description: Describes the agent that will execute the request.
+                    inclusions:
+                        $ref: "#/components/schemas/ChatRestrictionFilters"
+                        description: A list of filters which only allows chat to access certain content.
+                    exclusions:
+                        $ref: "#/components/schemas/ChatRestrictionFilters"
+                        description: A list of filters which disallows chat from accessing certain content. If content is in both inclusions and exclusions, it'll be excluded.
+                    timeoutMillis:
+                        type: integer
+                        description: Timeout in milliseconds for the request. A `408` error will be returned if handling the request takes longer.
+                        example: 30000
+                    applicationId:
+                        type: string
+                        description: The ID of the application this request originates from, used to determine the configuration of underlying chat processes. This should correspond to the ID set during admin setup. If not specified, the default chat experience will be used.
+                    agentId:
+                        type: string
+                        description: The ID of the Agent that should process this chat request. Only Agents with trigger set to 'User chat message' are invokable through this API. If not specified, the default chat experience will be used.
+                    stream:
+                        type: boolean
+                        description: If set, response lines will be streamed one-by-one as they become available. Each will be a ChatResponse, formatted as JSON, and separated by a new line. If false, the entire response will be returned at once. Note that if this is set and the model being used does not support streaming, the model's response will not be streamed, but other messages from the endpoint still will be.
         ChatResponse:
             description: A single response from the /chat backend.
             properties:

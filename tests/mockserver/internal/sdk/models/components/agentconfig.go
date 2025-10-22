@@ -78,6 +78,8 @@ type AgentConfig struct {
 	ToolSets *ToolSets `json:"toolSets,omitempty"`
 	// Top level modes to run GleanChat in.
 	Mode *Mode `json:"mode,omitempty"`
+	// Whether the agent should create an image.
+	UseImageGeneration *bool `json:"useImageGeneration,omitempty"`
 }
 
 func (o *AgentConfig) GetAgent() *AgentEnum {
@@ -99,4 +101,11 @@ func (o *AgentConfig) GetMode() *Mode {
 		return nil
 	}
 	return o.Mode
+}
+
+func (o *AgentConfig) GetUseImageGeneration() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseImageGeneration
 }

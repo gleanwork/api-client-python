@@ -35,6 +35,8 @@ class AgentConfigTypedDict(TypedDict):
     r"""The types of tools that the agent is allowed to use. Only works with FAST and ADVANCED `agent` values"""
     mode: NotRequired[Mode]
     r"""Top level modes to run GleanChat in."""
+    use_image_generation: NotRequired[bool]
+    r"""Whether the agent should create an image."""
 
 
 class AgentConfig(BaseModel):
@@ -48,3 +50,8 @@ class AgentConfig(BaseModel):
 
     mode: Optional[Mode] = None
     r"""Top level modes to run GleanChat in."""
+
+    use_image_generation: Annotated[
+        Optional[bool], pydantic.Field(alias="useImageGeneration")
+    ] = None
+    r"""Whether the agent should create an image."""
