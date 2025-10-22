@@ -15,6 +15,9 @@ class ClientChat(BaseSDK):
         *,
         messages: Union[List[models.ChatMessage], List[models.ChatMessageTypedDict]],
         timezone_offset: Optional[int] = None,
+        session_info: Optional[
+            Union[models.SessionInfo, models.SessionInfoTypedDict]
+        ] = None,
         save_chat: Optional[bool] = None,
         chat_id: Optional[str] = None,
         agent_config: Optional[
@@ -27,9 +30,6 @@ class ClientChat(BaseSDK):
             Union[models.ChatRestrictionFilters, models.ChatRestrictionFiltersTypedDict]
         ] = None,
         timeout_millis: Optional[int] = None,
-        session_info: Optional[
-            Union[models.SessionInfo, models.SessionInfoTypedDict]
-        ] = None,
         application_id: Optional[str] = None,
         agent_id: Optional[str] = None,
         stream: Optional[bool] = None,
@@ -44,13 +44,13 @@ class ClientChat(BaseSDK):
 
         :param messages: A list of chat messages, from most recent to least recent. At least one message must specify a USER author.
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
+        :param session_info:
         :param save_chat: Save the current interaction as a Chat for the user to access and potentially continue later.
         :param chat_id: The id of the Chat that context should be retrieved from and messages added to. An empty id starts a new Chat, and the Chat is saved if saveChat is true.
         :param agent_config: Describes the agent that executes the request.
         :param inclusions:
         :param exclusions:
         :param timeout_millis: Timeout in milliseconds for the request. A `408` error will be returned if handling the request takes longer.
-        :param session_info:
         :param application_id: The ID of the application this request originates from, used to determine the configuration of underlying chat processes. This should correspond to the ID set during admin setup. If not specified, the default chat experience will be used.
         :param agent_id: The ID of the Agent that should process this chat request. Only Agents with trigger set to 'User chat message' are invokable through this API. If not specified, the default chat experience will be used.
         :param stream: If set, response lines will be streamed one-by-one as they become available. Each will be a ChatResponse, formatted as JSON, and separated by a new line. If false, the entire response will be returned at once. Note that if this is set and the model being used does not support streaming, the model's response will not be streamed, but other messages from the endpoint still will be.
@@ -72,9 +72,12 @@ class ClientChat(BaseSDK):
         request = models.ChatRequestRequest(
             timezone_offset=timezone_offset,
             chat_request=models.ChatRequest(
+                messages=utils.get_pydantic_model(messages, List[models.ChatMessage]),
+                session_info=utils.get_pydantic_model(
+                    session_info, Optional[models.SessionInfo]
+                ),
                 save_chat=save_chat,
                 chat_id=chat_id,
-                messages=utils.get_pydantic_model(messages, List[models.ChatMessage]),
                 agent_config=utils.get_pydantic_model(
                     agent_config, Optional[models.AgentConfig]
                 ),
@@ -85,9 +88,6 @@ class ClientChat(BaseSDK):
                     exclusions, Optional[models.ChatRestrictionFilters]
                 ),
                 timeout_millis=timeout_millis,
-                session_info=utils.get_pydantic_model(
-                    session_info, Optional[models.SessionInfo]
-                ),
                 application_id=application_id,
                 agent_id=agent_id,
                 stream=stream,
@@ -152,6 +152,9 @@ class ClientChat(BaseSDK):
         *,
         messages: Union[List[models.ChatMessage], List[models.ChatMessageTypedDict]],
         timezone_offset: Optional[int] = None,
+        session_info: Optional[
+            Union[models.SessionInfo, models.SessionInfoTypedDict]
+        ] = None,
         save_chat: Optional[bool] = None,
         chat_id: Optional[str] = None,
         agent_config: Optional[
@@ -164,9 +167,6 @@ class ClientChat(BaseSDK):
             Union[models.ChatRestrictionFilters, models.ChatRestrictionFiltersTypedDict]
         ] = None,
         timeout_millis: Optional[int] = None,
-        session_info: Optional[
-            Union[models.SessionInfo, models.SessionInfoTypedDict]
-        ] = None,
         application_id: Optional[str] = None,
         agent_id: Optional[str] = None,
         stream: Optional[bool] = None,
@@ -181,13 +181,13 @@ class ClientChat(BaseSDK):
 
         :param messages: A list of chat messages, from most recent to least recent. At least one message must specify a USER author.
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
+        :param session_info:
         :param save_chat: Save the current interaction as a Chat for the user to access and potentially continue later.
         :param chat_id: The id of the Chat that context should be retrieved from and messages added to. An empty id starts a new Chat, and the Chat is saved if saveChat is true.
         :param agent_config: Describes the agent that executes the request.
         :param inclusions:
         :param exclusions:
         :param timeout_millis: Timeout in milliseconds for the request. A `408` error will be returned if handling the request takes longer.
-        :param session_info:
         :param application_id: The ID of the application this request originates from, used to determine the configuration of underlying chat processes. This should correspond to the ID set during admin setup. If not specified, the default chat experience will be used.
         :param agent_id: The ID of the Agent that should process this chat request. Only Agents with trigger set to 'User chat message' are invokable through this API. If not specified, the default chat experience will be used.
         :param stream: If set, response lines will be streamed one-by-one as they become available. Each will be a ChatResponse, formatted as JSON, and separated by a new line. If false, the entire response will be returned at once. Note that if this is set and the model being used does not support streaming, the model's response will not be streamed, but other messages from the endpoint still will be.
@@ -209,9 +209,12 @@ class ClientChat(BaseSDK):
         request = models.ChatRequestRequest(
             timezone_offset=timezone_offset,
             chat_request=models.ChatRequest(
+                messages=utils.get_pydantic_model(messages, List[models.ChatMessage]),
+                session_info=utils.get_pydantic_model(
+                    session_info, Optional[models.SessionInfo]
+                ),
                 save_chat=save_chat,
                 chat_id=chat_id,
-                messages=utils.get_pydantic_model(messages, List[models.ChatMessage]),
                 agent_config=utils.get_pydantic_model(
                     agent_config, Optional[models.AgentConfig]
                 ),
@@ -222,9 +225,6 @@ class ClientChat(BaseSDK):
                     exclusions, Optional[models.ChatRestrictionFilters]
                 ),
                 timeout_millis=timeout_millis,
-                session_info=utils.get_pydantic_model(
-                    session_info, Optional[models.SessionInfo]
-                ),
                 application_id=application_id,
                 agent_id=agent_id,
                 stream=stream,
@@ -1759,6 +1759,9 @@ class ClientChat(BaseSDK):
         *,
         messages: Union[List[models.ChatMessage], List[models.ChatMessageTypedDict]],
         timezone_offset: Optional[int] = None,
+        session_info: Optional[
+            Union[models.SessionInfo, models.SessionInfoTypedDict]
+        ] = None,
         save_chat: Optional[bool] = None,
         chat_id: Optional[str] = None,
         agent_config: Optional[
@@ -1771,9 +1774,6 @@ class ClientChat(BaseSDK):
             Union[models.ChatRestrictionFilters, models.ChatRestrictionFiltersTypedDict]
         ] = None,
         timeout_millis: Optional[int] = None,
-        session_info: Optional[
-            Union[models.SessionInfo, models.SessionInfoTypedDict]
-        ] = None,
         application_id: Optional[str] = None,
         agent_id: Optional[str] = None,
         stream: Optional[bool] = None,
@@ -1788,13 +1788,13 @@ class ClientChat(BaseSDK):
 
         :param messages: A list of chat messages, from most recent to least recent. At least one message must specify a USER author.
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
+        :param session_info:
         :param save_chat: Save the current interaction as a Chat for the user to access and potentially continue later.
         :param chat_id: The id of the Chat that context should be retrieved from and messages added to. An empty id starts a new Chat, and the Chat is saved if saveChat is true.
         :param agent_config: Describes the agent that executes the request.
         :param inclusions:
         :param exclusions:
         :param timeout_millis: Timeout in milliseconds for the request. A `408` error will be returned if handling the request takes longer.
-        :param session_info:
         :param application_id: The ID of the application this request originates from, used to determine the configuration of underlying chat processes. This should correspond to the ID set during admin setup. If not specified, the default chat experience will be used.
         :param agent_id: The ID of the Agent that should process this chat request. Only Agents with trigger set to 'User chat message' are invokable through this API. If not specified, the default chat experience will be used.
         :param stream: If set, response lines will be streamed one-by-one as they become available. Each will be a ChatResponse, formatted as JSON, and separated by a new line. If false, the entire response will be returned at once. Note that if this is set and the model being used does not support streaming, the model's response will not be streamed, but other messages from the endpoint still will be.
@@ -1816,9 +1816,12 @@ class ClientChat(BaseSDK):
         request = models.ChatStreamRequest(
             timezone_offset=timezone_offset,
             chat_request=models.ChatRequest(
+                messages=utils.get_pydantic_model(messages, List[models.ChatMessage]),
+                session_info=utils.get_pydantic_model(
+                    session_info, Optional[models.SessionInfo]
+                ),
                 save_chat=save_chat,
                 chat_id=chat_id,
-                messages=utils.get_pydantic_model(messages, List[models.ChatMessage]),
                 agent_config=utils.get_pydantic_model(
                     agent_config, Optional[models.AgentConfig]
                 ),
@@ -1829,9 +1832,6 @@ class ClientChat(BaseSDK):
                     exclusions, Optional[models.ChatRestrictionFilters]
                 ),
                 timeout_millis=timeout_millis,
-                session_info=utils.get_pydantic_model(
-                    session_info, Optional[models.SessionInfo]
-                ),
                 application_id=application_id,
                 agent_id=agent_id,
                 stream=stream,
@@ -1896,6 +1896,9 @@ class ClientChat(BaseSDK):
         *,
         messages: Union[List[models.ChatMessage], List[models.ChatMessageTypedDict]],
         timezone_offset: Optional[int] = None,
+        session_info: Optional[
+            Union[models.SessionInfo, models.SessionInfoTypedDict]
+        ] = None,
         save_chat: Optional[bool] = None,
         chat_id: Optional[str] = None,
         agent_config: Optional[
@@ -1908,9 +1911,6 @@ class ClientChat(BaseSDK):
             Union[models.ChatRestrictionFilters, models.ChatRestrictionFiltersTypedDict]
         ] = None,
         timeout_millis: Optional[int] = None,
-        session_info: Optional[
-            Union[models.SessionInfo, models.SessionInfoTypedDict]
-        ] = None,
         application_id: Optional[str] = None,
         agent_id: Optional[str] = None,
         stream: Optional[bool] = None,
@@ -1925,13 +1925,13 @@ class ClientChat(BaseSDK):
 
         :param messages: A list of chat messages, from most recent to least recent. At least one message must specify a USER author.
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
+        :param session_info:
         :param save_chat: Save the current interaction as a Chat for the user to access and potentially continue later.
         :param chat_id: The id of the Chat that context should be retrieved from and messages added to. An empty id starts a new Chat, and the Chat is saved if saveChat is true.
         :param agent_config: Describes the agent that executes the request.
         :param inclusions:
         :param exclusions:
         :param timeout_millis: Timeout in milliseconds for the request. A `408` error will be returned if handling the request takes longer.
-        :param session_info:
         :param application_id: The ID of the application this request originates from, used to determine the configuration of underlying chat processes. This should correspond to the ID set during admin setup. If not specified, the default chat experience will be used.
         :param agent_id: The ID of the Agent that should process this chat request. Only Agents with trigger set to 'User chat message' are invokable through this API. If not specified, the default chat experience will be used.
         :param stream: If set, response lines will be streamed one-by-one as they become available. Each will be a ChatResponse, formatted as JSON, and separated by a new line. If false, the entire response will be returned at once. Note that if this is set and the model being used does not support streaming, the model's response will not be streamed, but other messages from the endpoint still will be.
@@ -1953,9 +1953,12 @@ class ClientChat(BaseSDK):
         request = models.ChatStreamRequest(
             timezone_offset=timezone_offset,
             chat_request=models.ChatRequest(
+                messages=utils.get_pydantic_model(messages, List[models.ChatMessage]),
+                session_info=utils.get_pydantic_model(
+                    session_info, Optional[models.SessionInfo]
+                ),
                 save_chat=save_chat,
                 chat_id=chat_id,
-                messages=utils.get_pydantic_model(messages, List[models.ChatMessage]),
                 agent_config=utils.get_pydantic_model(
                     agent_config, Optional[models.AgentConfig]
                 ),
@@ -1966,9 +1969,6 @@ class ClientChat(BaseSDK):
                     exclusions, Optional[models.ChatRestrictionFilters]
                 ),
                 timeout_millis=timeout_millis,
-                session_info=utils.get_pydantic_model(
-                    session_info, Optional[models.SessionInfo]
-                ),
                 application_id=application_id,
                 agent_id=agent_id,
                 stream=stream,

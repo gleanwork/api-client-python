@@ -2,26 +2,41 @@
 
 package components
 
+// ChatRequest - The minimal set of fields that form a chat request.
 type ChatRequest struct {
+	// A list of chat messages, from most recent to least recent. At least one message must specify a USER author.
+	Messages    []ChatMessage `json:"messages"`
+	SessionInfo *SessionInfo  `json:"sessionInfo,omitempty"`
 	// Save the current interaction as a Chat for the user to access and potentially continue later.
 	SaveChat *bool `json:"saveChat,omitempty"`
 	// The id of the Chat that context should be retrieved from and messages added to. An empty id starts a new Chat, and the Chat is saved if saveChat is true.
 	ChatID *string `json:"chatId,omitempty"`
-	// A list of chat messages, from most recent to least recent. At least one message must specify a USER author.
-	Messages []ChatMessage `json:"messages"`
 	// Describes the agent that executes the request.
 	AgentConfig *AgentConfig            `json:"agentConfig,omitempty"`
 	Inclusions  *ChatRestrictionFilters `json:"inclusions,omitempty"`
 	Exclusions  *ChatRestrictionFilters `json:"exclusions,omitempty"`
 	// Timeout in milliseconds for the request. A `408` error will be returned if handling the request takes longer.
-	TimeoutMillis *int64       `json:"timeoutMillis,omitempty"`
-	SessionInfo   *SessionInfo `json:"sessionInfo,omitempty"`
+	TimeoutMillis *int64 `json:"timeoutMillis,omitempty"`
 	// The ID of the application this request originates from, used to determine the configuration of underlying chat processes. This should correspond to the ID set during admin setup. If not specified, the default chat experience will be used.
 	ApplicationID *string `json:"applicationId,omitempty"`
 	// The ID of the Agent that should process this chat request. Only Agents with trigger set to 'User chat message' are invokable through this API. If not specified, the default chat experience will be used.
 	AgentID *string `json:"agentId,omitempty"`
 	// If set, response lines will be streamed one-by-one as they become available. Each will be a ChatResponse, formatted as JSON, and separated by a new line. If false, the entire response will be returned at once. Note that if this is set and the model being used does not support streaming, the model's response will not be streamed, but other messages from the endpoint still will be.
 	Stream *bool `json:"stream,omitempty"`
+}
+
+func (o *ChatRequest) GetMessages() []ChatMessage {
+	if o == nil {
+		return []ChatMessage{}
+	}
+	return o.Messages
+}
+
+func (o *ChatRequest) GetSessionInfo() *SessionInfo {
+	if o == nil {
+		return nil
+	}
+	return o.SessionInfo
 }
 
 func (o *ChatRequest) GetSaveChat() *bool {
@@ -36,13 +51,6 @@ func (o *ChatRequest) GetChatID() *string {
 		return nil
 	}
 	return o.ChatID
-}
-
-func (o *ChatRequest) GetMessages() []ChatMessage {
-	if o == nil {
-		return []ChatMessage{}
-	}
-	return o.Messages
 }
 
 func (o *ChatRequest) GetAgentConfig() *AgentConfig {
@@ -71,13 +79,6 @@ func (o *ChatRequest) GetTimeoutMillis() *int64 {
 		return nil
 	}
 	return o.TimeoutMillis
-}
-
-func (o *ChatRequest) GetSessionInfo() *SessionInfo {
-	if o == nil {
-		return nil
-	}
-	return o.SessionInfo
 }
 
 func (o *ChatRequest) GetApplicationID() *string {

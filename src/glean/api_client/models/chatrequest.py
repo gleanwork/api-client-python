@@ -15,8 +15,11 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class ChatRequestTypedDict(TypedDict):
+    r"""The minimal set of fields that form a chat request."""
+
     messages: List[ChatMessageTypedDict]
     r"""A list of chat messages, from most recent to least recent. At least one message must specify a USER author."""
+    session_info: NotRequired[SessionInfoTypedDict]
     save_chat: NotRequired[bool]
     r"""Save the current interaction as a Chat for the user to access and potentially continue later."""
     chat_id: NotRequired[str]
@@ -27,7 +30,6 @@ class ChatRequestTypedDict(TypedDict):
     exclusions: NotRequired[ChatRestrictionFiltersTypedDict]
     timeout_millis: NotRequired[int]
     r"""Timeout in milliseconds for the request. A `408` error will be returned if handling the request takes longer."""
-    session_info: NotRequired[SessionInfoTypedDict]
     application_id: NotRequired[str]
     r"""The ID of the application this request originates from, used to determine the configuration of underlying chat processes. This should correspond to the ID set during admin setup. If not specified, the default chat experience will be used."""
     agent_id: NotRequired[str]
@@ -37,8 +39,14 @@ class ChatRequestTypedDict(TypedDict):
 
 
 class ChatRequest(BaseModel):
+    r"""The minimal set of fields that form a chat request."""
+
     messages: List[ChatMessage]
     r"""A list of chat messages, from most recent to least recent. At least one message must specify a USER author."""
+
+    session_info: Annotated[
+        Optional[SessionInfo], pydantic.Field(alias="sessionInfo")
+    ] = None
 
     save_chat: Annotated[Optional[bool], pydantic.Field(alias="saveChat")] = None
     r"""Save the current interaction as a Chat for the user to access and potentially continue later."""
@@ -59,10 +67,6 @@ class ChatRequest(BaseModel):
         None
     )
     r"""Timeout in milliseconds for the request. A `408` error will be returned if handling the request takes longer."""
-
-    session_info: Annotated[
-        Optional[SessionInfo], pydantic.Field(alias="sessionInfo")
-    ] = None
 
     application_id: Annotated[Optional[str], pydantic.Field(alias="applicationId")] = (
         None
