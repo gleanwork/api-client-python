@@ -11,6 +11,7 @@ from .calendarattendee import (
 )
 from .calendarattendees import CalendarAttendees, CalendarAttendeesTypedDict
 from .channelinviteinfo import ChannelInviteInfo, ChannelInviteInfoTypedDict
+from .chatmetadata import ChatMetadata, ChatMetadataTypedDict
 from .clustergroup import ClusterGroup, ClusterGroupTypedDict
 from .code import Code, CodeTypedDict
 from .codeline import CodeLine, CodeLineTypedDict
@@ -244,7 +245,6 @@ if TYPE_CHECKING:
     from .chatmessage import Author, ChatMessage, ChatMessageTypedDict, MessageType
     from .chatmessagecitation import ChatMessageCitation, ChatMessageCitationTypedDict
     from .chatmessagefragment import ChatMessageFragment, ChatMessageFragmentTypedDict
-    from .chatmetadata import ChatMetadata, ChatMetadataTypedDict
     from .chatmetadataresult import ChatMetadataResult, ChatMetadataResultTypedDict
     from .chatop import ChatRequestRequest, ChatRequestRequestTypedDict
     from .chatrequest import ChatRequest, ChatRequestTypedDict
@@ -1254,6 +1254,7 @@ ClusterGroup.model_rebuild()
 SearchResultSnippet.model_rebuild()
 StructuredResult.model_rebuild()
 RelatedQuestion.model_rebuild()
+ChatMetadata.model_rebuild()
 Shortcut.model_rebuild()
 UserRoleSpecification.model_rebuild()
 Code.model_rebuild()
@@ -2467,8 +2468,6 @@ _dynamic_imports: dict[str, str] = {
     "ChatMessageCitationTypedDict": ".chatmessagecitation",
     "ChatMessageFragment": ".chatmessagefragment",
     "ChatMessageFragmentTypedDict": ".chatmessagefragment",
-    "ChatMetadata": ".chatmetadata",
-    "ChatMetadataTypedDict": ".chatmetadata",
     "ChatMetadataResult": ".chatmetadataresult",
     "ChatMetadataResultTypedDict": ".chatmetadataresult",
     "ChatRequestRequest": ".chatop",

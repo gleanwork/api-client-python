@@ -23,6 +23,7 @@ const (
 	FeedbackCategoryWorkflows    FeedbackCategory = "WORKFLOWS"
 	FeedbackCategorySummary      FeedbackCategory = "SUMMARY"
 	FeedbackCategoryGeneral      FeedbackCategory = "GENERAL"
+	FeedbackCategoryPrism        FeedbackCategory = "PRISM"
 	FeedbackCategoryPrompts      FeedbackCategory = "PROMPTS"
 )
 
@@ -54,6 +55,8 @@ func (e *FeedbackCategory) UnmarshalJSON(data []byte) error {
 	case "SUMMARY":
 		fallthrough
 	case "GENERAL":
+		fallthrough
+	case "PRISM":
 		fallthrough
 	case "PROMPTS":
 		*e = FeedbackCategory(v)

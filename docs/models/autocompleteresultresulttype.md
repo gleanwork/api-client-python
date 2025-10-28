@@ -13,6 +13,7 @@
 | `ENTITY`              | ENTITY                |
 | `GOLINK`              | GOLINK                |
 | `HISTORY`             | HISTORY               |
+| `CHAT_HISTORY`        | CHAT_HISTORY          |
 | `NEW_CHAT`            | NEW_CHAT              |
 | `OPERATOR`            | OPERATOR              |
 | `OPERATOR_VALUE`      | OPERATOR_VALUE        |

@@ -32,6 +32,7 @@ class FeedbackCategory(str, Enum):
     WORKFLOWS = "WORKFLOWS"
     SUMMARY = "SUMMARY"
     GENERAL = "GENERAL"
+    PRISM = "PRISM"
     PROMPTS = "PROMPTS"
 
 

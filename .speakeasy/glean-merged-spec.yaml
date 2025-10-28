@@ -3791,6 +3791,7 @@ components:
                         - GENERATED_Q_AND_A
                         - INLINE_MENU
                         - NATIVE_RESULT
+                        - PRISM
                         - Q_AND_A
                         - RELATED_QUESTIONS
                         - REPORT_ISSUE
@@ -3982,6 +3983,7 @@ components:
                         - WORKFLOWS
                         - SUMMARY
                         - GENERAL
+                        - PRISM
                         - PROMPTS
                 trackingTokens:
                     type: array
@@ -5810,6 +5812,72 @@ components:
                         $ref: "#/components/schemas/QuerySuggestion"
                 person:
                     $ref: "#/components/schemas/Person"
+        IconConfig:
+            description: Defines how to render an icon
+            properties:
+                generatedBackgroundColorKey:
+                    type: string
+                backgroundColor:
+                    type: string
+                color:
+                    type: string
+                key:
+                    type: string
+                iconType:
+                    enum:
+                        - COLLECTION
+                        - CUSTOM
+                        - DATASOURCE
+                        - DATASOURCE_INSTANCE
+                        - FAVICON
+                        - FILE_TYPE
+                        - GENERATED_BACKGROUND
+                        - GLYPH
+                        - MIME_TYPE
+                        - NO_ICON
+                        - PERSON
+                        - REACTIONS
+                        - URL
+                masked:
+                    type: boolean
+                    description: Whether the icon should be masked based on current theme.
+                name:
+                    type: string
+                    description: The name of the icon if applicable, e.g. the glyph name for `IconType.GLYPH` icons.
+                url:
+                    type: string
+                    description: The URL to an image to be displayed if applicable, e.g. the URL for `iconType.URL` icons.
+            example:
+                color: "#343CED"
+                key: person_icon
+                iconType: GLYPH
+                name: user
+        ChatMetadata:
+            description: Metadata of a Chat a user had with Glean Assistant. This contains no actual conversational content.
+            properties:
+                id:
+                    type: string
+                    description: The opaque id of the Chat.
+                createTime:
+                    type: integer
+                    description: Server Unix timestamp of the creation time (in seconds since epoch UTC).
+                createdBy:
+                    $ref: "#/components/schemas/Person"
+                    description: The user who created this Chat.
+                updateTime:
+                    type: integer
+                    description: Server Unix timestamp of the update time (in seconds since epoch UTC).
+                name:
+                    type: string
+                    description: The name of the Chat.
+                applicationId:
+                    type: string
+                    description: The ID of the AI App that this Chat is associated to.
+                applicationName:
+                    type: string
+                    description: The display name of the AI App that this Chat is associated to.
+                icon:
+                    $ref: "#/components/schemas/IconConfig"
         RelatedDocuments:
             properties:
                 relation:
@@ -5944,6 +6012,8 @@ components:
                     $ref: "#/components/schemas/Shortcut"
                 querySuggestions:
                     $ref: "#/components/schemas/QuerySuggestionList"
+                chat:
+                    $ref: "#/components/schemas/ChatMetadata"
                 relatedDocuments:
                     type: array
                     items:
@@ -6291,46 +6361,6 @@ components:
                     enum:
                         - DEFAULT
                         - OUT_OF_OFFICE
-        IconConfig:
-            description: Defines how to render an icon
-            properties:
-                generatedBackgroundColorKey:
-                    type: string
-                backgroundColor:
-                    type: string
-                color:
-                    type: string
-                key:
-                    type: string
-                iconType:
-                    enum:
-                        - COLLECTION
-                        - CUSTOM
-                        - DATASOURCE
-                        - DATASOURCE_INSTANCE
-                        - FAVICON
-                        - FILE_TYPE
-                        - GENERATED_BACKGROUND
-                        - GLYPH
-                        - MIME_TYPE
-                        - NO_ICON
-                        - PERSON
-                        - REACTIONS
-                        - URL
-                masked:
-                    type: boolean
-                    description: Whether the icon should be masked based on current theme.
-                name:
-                    type: string
-                    description: The name of the icon if applicable, e.g. the glyph name for `IconType.GLYPH` icons.
-                url:
-                    type: string
-                    description: The URL to an image to be displayed if applicable, e.g. the URL for `iconType.URL` icons.
-            example:
-                color: "#343CED"
-                key: person_icon
-                iconType: GLYPH
-                name: user
         Badge:
             type: object
             description: Displays a user's accomplishment or milestone
@@ -7528,32 +7558,6 @@ components:
                 id:
                     type: string
                     description: The id of the Chat to be retrieved.
-        ChatMetadata:
-            description: Metadata of a Chat a user had with Glean Assistant. This contains no actual conversational content.
-            properties:
-                id:
-                    type: string
-                    description: The opaque id of the Chat.
-                createTime:
-                    type: integer
-                    description: Server Unix timestamp of the creation time (in seconds since epoch UTC).
-                createdBy:
-                    $ref: "#/components/schemas/Person"
-                    description: The user who created this Chat.
-                updateTime:
-                    type: integer
-                    description: Server Unix timestamp of the update time (in seconds since epoch UTC).
-                name:
-                    type: string
-                    description: The name of the Chat.
-                applicationId:
-                    type: string
-                    description: The ID of the AI App that this Chat is associated to.
-                applicationName:
-                    type: string
-                    description: The display name of the AI App that this Chat is associated to.
-                icon:
-                    $ref: "#/components/schemas/IconConfig"
         Chat:
             description: A historical representation of a series of chat messages a user had with Glean Assistant.
             allOf:
@@ -8053,6 +8057,8 @@ components:
             oneOf:
                 - $ref: "#/components/schemas/Document"
                 - type: object
+                  required:
+                    - error
                   properties:
                     error:
                         type: string
@@ -9305,6 +9311,7 @@ components:
                             - ENTITY
                             - GOLINK
                             - HISTORY
+                            - CHAT_HISTORY
                             - NEW_CHAT
                             - OPERATOR
                             - OPERATOR_VALUE
@@ -9418,6 +9425,7 @@ components:
                         - ENTITY
                         - GOLINK
                         - HISTORY
+                        - CHAT_HISTORY
                         - NEW_CHAT
                         - OPERATOR
                         - OPERATOR_VALUE

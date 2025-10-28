@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 // ChatMetadata - Metadata of a Chat a user had with Glean Assistant. This contains no actual conversational content.
 type ChatMetadata struct {
 	// The opaque id of the Chat.
@@ -19,6 +23,17 @@ type ChatMetadata struct {
 	ApplicationName *string `json:"applicationName,omitempty"`
 	// Defines how to render an icon
 	Icon *IconConfig `json:"icon,omitempty"`
+}
+
+func (c ChatMetadata) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *ChatMetadata) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *ChatMetadata) GetID() *string {

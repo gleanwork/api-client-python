@@ -3,17 +3,17 @@
 from __future__ import annotations
 from .document import Document, DocumentTypedDict
 from glean.api_client.types import BaseModel
-from typing import Optional, Union
-from typing_extensions import NotRequired, TypeAliasType, TypedDict
+from typing import Union
+from typing_extensions import TypeAliasType, TypedDict
 
 
 class DocumentOrErrorTypedDict(TypedDict):
-    error: NotRequired[str]
+    error: str
     r"""The text for error, reason."""
 
 
 class DocumentOrError(BaseModel):
-    error: Optional[str] = None
+    error: str
     r"""The text for error, reason."""
 
 
