@@ -18,6 +18,7 @@ const (
 	AutocompleteResultResultTypeEntity             AutocompleteResultResultType = "ENTITY"
 	AutocompleteResultResultTypeGolink             AutocompleteResultResultType = "GOLINK"
 	AutocompleteResultResultTypeHistory            AutocompleteResultResultType = "HISTORY"
+	AutocompleteResultResultTypeChatHistory        AutocompleteResultResultType = "CHAT_HISTORY"
 	AutocompleteResultResultTypeNewChat            AutocompleteResultResultType = "NEW_CHAT"
 	AutocompleteResultResultTypeOperator           AutocompleteResultResultType = "OPERATOR"
 	AutocompleteResultResultTypeOperatorValue      AutocompleteResultResultType = "OPERATOR_VALUE"
@@ -49,6 +50,8 @@ func (e *AutocompleteResultResultType) UnmarshalJSON(data []byte) error {
 	case "GOLINK":
 		fallthrough
 	case "HISTORY":
+		fallthrough
+	case "CHAT_HISTORY":
 		fallthrough
 	case "NEW_CHAT":
 		fallthrough

@@ -23,6 +23,7 @@ const (
 	ManualFeedbackInfoSourceGeneratedQAndA     ManualFeedbackInfoSource = "GENERATED_Q_AND_A"
 	ManualFeedbackInfoSourceInlineMenu         ManualFeedbackInfoSource = "INLINE_MENU"
 	ManualFeedbackInfoSourceNativeResult       ManualFeedbackInfoSource = "NATIVE_RESULT"
+	ManualFeedbackInfoSourcePrism              ManualFeedbackInfoSource = "PRISM"
 	ManualFeedbackInfoSourceQAndA              ManualFeedbackInfoSource = "Q_AND_A"
 	ManualFeedbackInfoSourceRelatedQuestions   ManualFeedbackInfoSource = "RELATED_QUESTIONS"
 	ManualFeedbackInfoSourceReportIssue        ManualFeedbackInfoSource = "REPORT_ISSUE"
@@ -65,6 +66,8 @@ func (e *ManualFeedbackInfoSource) UnmarshalJSON(data []byte) error {
 	case "INLINE_MENU":
 		fallthrough
 	case "NATIVE_RESULT":
+		fallthrough
+	case "PRISM":
 		fallthrough
 	case "Q_AND_A":
 		fallthrough

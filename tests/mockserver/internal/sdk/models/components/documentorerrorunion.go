@@ -10,7 +10,7 @@ import (
 
 type DocumentOrError struct {
 	// The text for error, reason.
-	Error *string `json:"error,omitempty"`
+	Error string `json:"error"`
 }
 
 func (d DocumentOrError) MarshalJSON() ([]byte, error) {
@@ -18,15 +18,15 @@ func (d DocumentOrError) MarshalJSON() ([]byte, error) {
 }
 
 func (d *DocumentOrError) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+	if err := utils.UnmarshalJSON(data, &d, "", false, []string{"error"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *DocumentOrError) GetError() *string {
+func (o *DocumentOrError) GetError() string {
 	if o == nil {
-		return nil
+		return ""
 	}
 	return o.Error
 }
@@ -65,17 +65,17 @@ func CreateDocumentOrErrorUnionDocumentOrError(documentOrError DocumentOrError) 
 
 func (u *DocumentOrErrorUnion) UnmarshalJSON(data []byte) error {
 
-	var document Document = Document{}
-	if err := utils.UnmarshalJSON(data, &document, "", true, nil); err == nil {
-		u.Document = &document
-		u.Type = DocumentOrErrorUnionTypeDocument
-		return nil
-	}
-
 	var documentOrError DocumentOrError = DocumentOrError{}
 	if err := utils.UnmarshalJSON(data, &documentOrError, "", true, nil); err == nil {
 		u.DocumentOrError = &documentOrError
 		u.Type = DocumentOrErrorUnionTypeDocumentOrError
+		return nil
+	}
+
+	var document Document = Document{}
+	if err := utils.UnmarshalJSON(data, &document, "", true, nil); err == nil {
+		u.Document = &document
+		u.Type = DocumentOrErrorUnionTypeDocument
 		return nil
 	}
 

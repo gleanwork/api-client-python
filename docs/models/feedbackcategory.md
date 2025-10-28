@@ -17,4 +17,5 @@ The feature category to which the feedback applies. These should be broad produc
 | `WORKFLOWS`    | WORKFLOWS      |
 | `SUMMARY`      | SUMMARY        |
 | `GENERAL`      | GENERAL        |
+| `PRISM`        | PRISM          |
 | `PROMPTS`      | PROMPTS        |

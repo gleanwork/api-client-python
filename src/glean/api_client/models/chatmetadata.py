@@ -2,11 +2,13 @@
 
 from __future__ import annotations
 from .iconconfig import IconConfig, IconConfigTypedDict
-from .person import Person, PersonTypedDict
 from glean.api_client.types import BaseModel
 import pydantic
-from typing import Optional
+from typing import Optional, TYPE_CHECKING
 from typing_extensions import Annotated, NotRequired, TypedDict
+
+if TYPE_CHECKING:
+    from .person import Person, PersonTypedDict
 
 
 class ChatMetadataTypedDict(TypedDict):
@@ -16,7 +18,7 @@ class ChatMetadataTypedDict(TypedDict):
     r"""The opaque id of the Chat."""
     create_time: NotRequired[int]
     r"""Server Unix timestamp of the creation time (in seconds since epoch UTC)."""
-    created_by: NotRequired[PersonTypedDict]
+    created_by: NotRequired["PersonTypedDict"]
     update_time: NotRequired[int]
     r"""Server Unix timestamp of the update time (in seconds since epoch UTC)."""
     name: NotRequired[str]
@@ -38,7 +40,7 @@ class ChatMetadata(BaseModel):
     create_time: Annotated[Optional[int], pydantic.Field(alias="createTime")] = None
     r"""Server Unix timestamp of the creation time (in seconds since epoch UTC)."""
 
-    created_by: Annotated[Optional[Person], pydantic.Field(alias="createdBy")] = None
+    created_by: Annotated[Optional["Person"], pydantic.Field(alias="createdBy")] = None
 
     update_time: Annotated[Optional[int], pydantic.Field(alias="updateTime")] = None
     r"""Server Unix timestamp of the update time (in seconds since epoch UTC)."""

@@ -12,6 +12,7 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 if TYPE_CHECKING:
     from .answer import Answer, AnswerTypedDict
     from .answerboard import AnswerBoard, AnswerBoardTypedDict
+    from .chatmetadata import ChatMetadata, ChatMetadataTypedDict
     from .code import Code, CodeTypedDict
     from .collection import Collection, CollectionTypedDict
     from .customentity import CustomEntity, CustomEntityTypedDict
@@ -62,6 +63,8 @@ class StructuredResultTypedDict(TypedDict):
     code: NotRequired["CodeTypedDict"]
     shortcut: NotRequired["ShortcutTypedDict"]
     query_suggestions: NotRequired["QuerySuggestionListTypedDict"]
+    chat: NotRequired["ChatMetadataTypedDict"]
+    r"""Metadata of a Chat a user had with Glean Assistant. This contains no actual conversational content."""
     related_documents: NotRequired[List["RelatedDocumentsTypedDict"]]
     r"""A list of documents related to this structured result."""
     related_question: NotRequired["RelatedQuestionTypedDict"]
@@ -119,6 +122,9 @@ class StructuredResult(BaseModel):
     query_suggestions: Annotated[
         Optional["QuerySuggestionList"], pydantic.Field(alias="querySuggestions")
     ] = None
+
+    chat: Optional["ChatMetadata"] = None
+    r"""Metadata of a Chat a user had with Glean Assistant. This contains no actual conversational content."""
 
     related_documents: Annotated[
         Optional[List["RelatedDocuments"]], pydantic.Field(alias="relatedDocuments")
