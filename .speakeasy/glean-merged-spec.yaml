@@ -8663,6 +8663,12 @@ components:
                 runCount:
                     type: integer
                     description: Total number of runs for this agent over the specified time period.
+                upvoteCount:
+                    type: integer
+                    description: Total number of upvotes for this agent over the specified time period.
+                downvoteCount:
+                    type: integer
+                    description: Total number of downvotes for this agent over the specified time period.
         AgentsUsageByDepartmentInsight:
             properties:
                 department:
@@ -8731,6 +8737,10 @@ components:
                         items:
                             $ref: "#/components/schemas/AgentUsersInsight"
                     dailyAgentRunsTimeseries:
+                        $ref: "#/components/schemas/LabeledCountInfo"
+                    upvotesTimeseries:
+                        $ref: "#/components/schemas/LabeledCountInfo"
+                    downvotesTimeseries:
                         $ref: "#/components/schemas/LabeledCountInfo"
         InsightsResponse:
             properties:

@@ -30,6 +30,8 @@ class AgentsInsightsV2ResponseTypedDict(TypedDict):
     ]
     agent_users_insights: NotRequired[List[AgentUsersInsightTypedDict]]
     daily_agent_runs_timeseries: NotRequired[LabeledCountInfoTypedDict]
+    upvotes_timeseries: NotRequired[LabeledCountInfoTypedDict]
+    downvotes_timeseries: NotRequired[LabeledCountInfoTypedDict]
 
 
 class AgentsInsightsV2Response(BaseModel):
@@ -75,4 +77,12 @@ class AgentsInsightsV2Response(BaseModel):
 
     daily_agent_runs_timeseries: Annotated[
         Optional[LabeledCountInfo], pydantic.Field(alias="dailyAgentRunsTimeseries")
+    ] = None
+
+    upvotes_timeseries: Annotated[
+        Optional[LabeledCountInfo], pydantic.Field(alias="upvotesTimeseries")
+    ] = None
+
+    downvotes_timeseries: Annotated[
+        Optional[LabeledCountInfo], pydantic.Field(alias="downvotesTimeseries")
     ] = None

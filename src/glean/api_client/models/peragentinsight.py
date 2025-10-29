@@ -19,6 +19,10 @@ class PerAgentInsightTypedDict(TypedDict):
     r"""Total number of users for this agent over the specified time period."""
     run_count: NotRequired[int]
     r"""Total number of runs for this agent over the specified time period."""
+    upvote_count: NotRequired[int]
+    r"""Total number of upvotes for this agent over the specified time period."""
+    downvote_count: NotRequired[int]
+    r"""Total number of downvotes for this agent over the specified time period."""
 
 
 class PerAgentInsight(BaseModel):
@@ -36,3 +40,11 @@ class PerAgentInsight(BaseModel):
 
     run_count: Annotated[Optional[int], pydantic.Field(alias="runCount")] = None
     r"""Total number of runs for this agent over the specified time period."""
+
+    upvote_count: Annotated[Optional[int], pydantic.Field(alias="upvoteCount")] = None
+    r"""Total number of upvotes for this agent over the specified time period."""
+
+    downvote_count: Annotated[Optional[int], pydantic.Field(alias="downvoteCount")] = (
+        None
+    )
+    r"""Total number of downvotes for this agent over the specified time period."""

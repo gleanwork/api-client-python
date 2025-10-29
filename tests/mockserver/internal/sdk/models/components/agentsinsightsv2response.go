@@ -16,6 +16,8 @@ type AgentsInsightsV2Response struct {
 	AgentsUsageByDepartmentInsights []AgentsUsageByDepartmentInsight `json:"agentsUsageByDepartmentInsights,omitempty"`
 	AgentUsersInsights              []AgentUsersInsight              `json:"agentUsersInsights,omitempty"`
 	DailyAgentRunsTimeseries        *LabeledCountInfo                `json:"dailyAgentRunsTimeseries,omitempty"`
+	UpvotesTimeseries               *LabeledCountInfo                `json:"upvotesTimeseries,omitempty"`
+	DownvotesTimeseries             *LabeledCountInfo                `json:"downvotesTimeseries,omitempty"`
 }
 
 func (o *AgentsInsightsV2Response) GetMonthlyActiveUsers() *int64 {
@@ -86,4 +88,18 @@ func (o *AgentsInsightsV2Response) GetDailyAgentRunsTimeseries() *LabeledCountIn
 		return nil
 	}
 	return o.DailyAgentRunsTimeseries
+}
+
+func (o *AgentsInsightsV2Response) GetUpvotesTimeseries() *LabeledCountInfo {
+	if o == nil {
+		return nil
+	}
+	return o.UpvotesTimeseries
+}
+
+func (o *AgentsInsightsV2Response) GetDownvotesTimeseries() *LabeledCountInfo {
+	if o == nil {
+		return nil
+	}
+	return o.DownvotesTimeseries
 }
