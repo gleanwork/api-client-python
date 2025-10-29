@@ -13,6 +13,10 @@ type PerAgentInsight struct {
 	UserCount *int64 `json:"userCount,omitempty"`
 	// Total number of runs for this agent over the specified time period.
 	RunCount *int64 `json:"runCount,omitempty"`
+	// Total number of upvotes for this agent over the specified time period.
+	UpvoteCount *int64 `json:"upvoteCount,omitempty"`
+	// Total number of downvotes for this agent over the specified time period.
+	DownvoteCount *int64 `json:"downvoteCount,omitempty"`
 }
 
 func (o *PerAgentInsight) GetAgentID() *string {
@@ -48,4 +52,18 @@ func (o *PerAgentInsight) GetRunCount() *int64 {
 		return nil
 	}
 	return o.RunCount
+}
+
+func (o *PerAgentInsight) GetUpvoteCount() *int64 {
+	if o == nil {
+		return nil
+	}
+	return o.UpvoteCount
+}
+
+func (o *PerAgentInsight) GetDownvoteCount() *int64 {
+	if o == nil {
+		return nil
+	}
+	return o.DownvoteCount
 }
