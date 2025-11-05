@@ -749,7 +749,8 @@ import os
 
 
 with Glean(
-    instance="<value>"
+    server_idx=0,
+    instance="instance-name",
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as glean:
 

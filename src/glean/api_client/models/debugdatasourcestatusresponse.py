@@ -26,14 +26,18 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 class DebugDatasourceStatusResponseCountsTypedDict(TypedDict):
     uploaded: NotRequired[List[DatasourceObjectTypeDocumentCountEntryTypedDict]]
-    r"""A list of object types and corresponding upload counts"""
+    r"""A list of object types and corresponding upload counts. Note: This data may be cached and could be up to 3 hours stale.
+
+    """
     indexed: NotRequired[List[DatasourceObjectTypeDocumentCountEntryTypedDict]]
     r"""The number of documents indexed, grouped by objectType"""
 
 
 class DebugDatasourceStatusResponseCounts(BaseModel):
     uploaded: Optional[List[DatasourceObjectTypeDocumentCountEntry]] = None
-    r"""A list of object types and corresponding upload counts"""
+    r"""A list of object types and corresponding upload counts. Note: This data may be cached and could be up to 3 hours stale.
+
+    """
 
     indexed: Optional[List[DatasourceObjectTypeDocumentCountEntry]] = None
     r"""The number of documents indexed, grouped by objectType"""
