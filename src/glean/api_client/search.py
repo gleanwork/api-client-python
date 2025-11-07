@@ -332,6 +332,7 @@ class Search(BaseSDK):
         :param datasource: Filter to only return results relevant to the given datasource.
         :param result_types: Filter to only return results of the given type(s). All types may be returned if omitted.
         :param result_size: Maximum number of results to be returned. If no value is provided, the backend will cap at 200.
+
         :param auth_tokens: Auth tokens which may be used for federated results.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -447,6 +448,7 @@ class Search(BaseSDK):
         :param datasource: Filter to only return results relevant to the given datasource.
         :param result_types: Filter to only return results of the given type(s). All types may be returned if omitted.
         :param result_size: Maximum number of results to be returned. If no value is provided, the backend will cap at 200.
+
         :param auth_tokens: Auth tokens which may be used for federated results.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method

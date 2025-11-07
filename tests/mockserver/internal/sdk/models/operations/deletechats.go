@@ -8,8 +8,8 @@ import (
 
 type DeletechatsRequest struct {
 	// The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
-	TimezoneOffset     *int64                        `queryParam:"style=form,explode=true,name=timezoneOffset"`
-	DeleteChatsRequest components.DeleteChatsRequest `request:"mediaType=application/json"`
+	TimezoneOffset *int64                        `queryParam:"style=form,explode=true,name=timezoneOffset"`
+	Body           components.DeleteChatsRequest `request:"mediaType=application/json"`
 }
 
 func (o *DeletechatsRequest) GetTimezoneOffset() *int64 {
@@ -19,11 +19,11 @@ func (o *DeletechatsRequest) GetTimezoneOffset() *int64 {
 	return o.TimezoneOffset
 }
 
-func (o *DeletechatsRequest) GetDeleteChatsRequest() components.DeleteChatsRequest {
+func (o *DeletechatsRequest) GetBody() components.DeleteChatsRequest {
 	if o == nil {
 		return components.DeleteChatsRequest{}
 	}
-	return o.DeleteChatsRequest
+	return o.Body
 }
 
 type DeletechatsResponse struct {

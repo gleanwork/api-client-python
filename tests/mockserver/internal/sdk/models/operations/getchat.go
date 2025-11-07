@@ -9,7 +9,7 @@ import (
 type GetchatRequest struct {
 	// The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
 	TimezoneOffset *int64                    `queryParam:"style=form,explode=true,name=timezoneOffset"`
-	GetChatRequest components.GetChatRequest `request:"mediaType=application/json"`
+	Body           components.GetChatRequest `request:"mediaType=application/json"`
 }
 
 func (o *GetchatRequest) GetTimezoneOffset() *int64 {
@@ -19,11 +19,11 @@ func (o *GetchatRequest) GetTimezoneOffset() *int64 {
 	return o.TimezoneOffset
 }
 
-func (o *GetchatRequest) GetGetChatRequest() components.GetChatRequest {
+func (o *GetchatRequest) GetBody() components.GetChatRequest {
 	if o == nil {
 		return components.GetChatRequest{}
 	}
-	return o.GetChatRequest
+	return o.Body
 }
 
 type GetchatResponse struct {

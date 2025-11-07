@@ -87,7 +87,7 @@ class Datasources(BaseSDK):
         :param trust_url_regex_for_view_activity: True if browser activity is able to report the correct URL for VIEW events. Set this to true if the URLs reported by Chrome are constant throughout each page load. Set this to false if the page has Javascript that modifies the URL during or after the load.
         :param include_utm_source: If true, a utm_source query param will be added to outbound links to this datasource within Glean.
         :param strip_fragment_in_canonical_url: If true, the fragment part of the URL will be stripped when converting to a canonical url.
-        :param identity_datasource_name: If the datasource uses another datasource for identity info, then the name of the datasource. The identity datasource must exist already.
+        :param identity_datasource_name: If the datasource uses another datasource for identity info, then the name of the datasource. The identity datasource must exist already and the datasource with identity info should have its visibility enabled for search results.
         :param product_access_group: If the datasource uses a specific product access group, then the name of that group.
         :param is_user_referenced_by_email: whether email is used to reference users in document ACLs and in group memberships.
         :param is_entity_datasource: True if this datasource is used to push custom entities.
@@ -276,7 +276,7 @@ class Datasources(BaseSDK):
         :param trust_url_regex_for_view_activity: True if browser activity is able to report the correct URL for VIEW events. Set this to true if the URLs reported by Chrome are constant throughout each page load. Set this to false if the page has Javascript that modifies the URL during or after the load.
         :param include_utm_source: If true, a utm_source query param will be added to outbound links to this datasource within Glean.
         :param strip_fragment_in_canonical_url: If true, the fragment part of the URL will be stripped when converting to a canonical url.
-        :param identity_datasource_name: If the datasource uses another datasource for identity info, then the name of the datasource. The identity datasource must exist already.
+        :param identity_datasource_name: If the datasource uses another datasource for identity info, then the name of the datasource. The identity datasource must exist already and the datasource with identity info should have its visibility enabled for search results.
         :param product_access_group: If the datasource uses a specific product access group, then the name of that group.
         :param is_user_referenced_by_email: whether email is used to reference users in document ACLs and in group memberships.
         :param is_entity_datasource: True if this datasource is used to push custom entities.

@@ -34,6 +34,7 @@ class IndexingPermissions(BaseSDK):
         :param object_type: The type of the document (Case, KnowledgeArticle for Salesforce for example). It cannot have spaces or _
         :param id: The datasource specific id for the document. This field is case insensitive and should not be more than 200 characters in length.
         :param view_url: The permalink for viewing the document. **Note: viewURL is a required field if id was not set when uploading the document.**'
+
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -137,6 +138,7 @@ class IndexingPermissions(BaseSDK):
         :param object_type: The type of the document (Case, KnowledgeArticle for Salesforce for example). It cannot have spaces or _
         :param id: The datasource specific id for the document. This field is case insensitive and should not be more than 200 characters in length.
         :param view_url: The permalink for viewing the document. **Note: viewURL is a required field if id was not set when uploading the document.**'
+
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -424,6 +426,8 @@ class IndexingPermissions(BaseSDK):
         r"""Bulk index users
 
         Replaces the users in a datasource using paginated batch API calls. Please refer to the [bulk indexing](https://developers.glean.com/indexing/documents/bulk-upload-model) documentation for an explanation of how to use bulk endpoints.
+        Note: Any users deleted from the existing set will have their associated memberships deleted as well.
+
 
         :param upload_id: Unique id that must be used for this instance of datasource users upload
         :param datasource: datasource of the users
@@ -533,6 +537,8 @@ class IndexingPermissions(BaseSDK):
         r"""Bulk index users
 
         Replaces the users in a datasource using paginated batch API calls. Please refer to the [bulk indexing](https://developers.glean.com/indexing/documents/bulk-upload-model) documentation for an explanation of how to use bulk endpoints.
+        Note: Any users deleted from the existing set will have their associated memberships deleted as well.
+
 
         :param upload_id: Unique id that must be used for this instance of datasource users upload
         :param datasource: datasource of the users
@@ -830,6 +836,8 @@ class IndexingPermissions(BaseSDK):
         r"""Bulk index groups
 
         Replaces the groups in a datasource using paginated batch API calls. Please refer to the [bulk indexing](https://developers.glean.com/indexing/documents/bulk-upload-model) documentation for an explanation of how to use bulk endpoints.
+        Note: Any groups deleted from the existing set will have their associated memberships deleted as well.
+
 
         :param upload_id: Unique id that must be used for this instance of datasource groups upload
         :param datasource: datasource of the groups
@@ -939,6 +947,8 @@ class IndexingPermissions(BaseSDK):
         r"""Bulk index groups
 
         Replaces the groups in a datasource using paginated batch API calls. Please refer to the [bulk indexing](https://developers.glean.com/indexing/documents/bulk-upload-model) documentation for an explanation of how to use bulk endpoints.
+        Note: Any groups deleted from the existing set will have their associated memberships deleted as well.
+
 
         :param upload_id: Unique id that must be used for this instance of datasource groups upload
         :param datasource: datasource of the groups
@@ -1649,6 +1659,8 @@ class IndexingPermissions(BaseSDK):
         r"""Delete user
 
         Delete the user from the datasource. Silently succeeds if user is not present.
+        Note: All memberships associated with the deleted user will also be deleted.
+
 
         :param datasource: The datasource for which the user is removed
         :param email: The email of the user to be deleted
@@ -1741,6 +1753,8 @@ class IndexingPermissions(BaseSDK):
         r"""Delete user
 
         Delete the user from the datasource. Silently succeeds if user is not present.
+        Note: All memberships associated with the deleted user will also be deleted.
+
 
         :param datasource: The datasource for which the user is removed
         :param email: The email of the user to be deleted
@@ -1833,6 +1847,8 @@ class IndexingPermissions(BaseSDK):
         r"""Delete group
 
         Delete group from the datasource. Silently succeeds if group is not present.
+        Note: All memberships associated with the deleted group will also be deleted.
+
 
         :param datasource: The datasource for which the group is removed
         :param group_name: the name of the group to be deleted
@@ -1925,6 +1941,8 @@ class IndexingPermissions(BaseSDK):
         r"""Delete group
 
         Delete group from the datasource. Silently succeeds if group is not present.
+        Note: All memberships associated with the deleted group will also be deleted.
+
 
         :param datasource: The datasource for which the group is removed
         :param group_name: the name of the group to be deleted

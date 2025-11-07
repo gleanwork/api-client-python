@@ -10,7 +10,7 @@ type ChatRequest struct {
 	// The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
 	TimezoneOffset *int64 `queryParam:"style=form,explode=true,name=timezoneOffset"`
 	// Includes chat history for Glean AI to respond to.
-	ChatRequest components.ChatRequest `request:"mediaType=application/json"`
+	Body components.ChatRequest `request:"mediaType=application/json"`
 }
 
 func (o *ChatRequest) GetTimezoneOffset() *int64 {
@@ -20,11 +20,11 @@ func (o *ChatRequest) GetTimezoneOffset() *int64 {
 	return o.TimezoneOffset
 }
 
-func (o *ChatRequest) GetChatRequest() components.ChatRequest {
+func (o *ChatRequest) GetBody() components.ChatRequest {
 	if o == nil {
 		return components.ChatRequest{}
 	}
-	return o.ChatRequest
+	return o.Body
 }
 
 type ChatResponse struct {

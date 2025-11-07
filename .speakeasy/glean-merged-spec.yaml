@@ -2403,7 +2403,9 @@ paths:
     /api/index/v1/bulkindexusers:
         post:
             summary: Bulk index users
-            description: Replaces the users in a datasource using paginated batch API calls. Please refer to the [bulk indexing](https://developers.glean.com/indexing/documents/bulk-upload-model) documentation for an explanation of how to use bulk endpoints.
+            description: |
+                Replaces the users in a datasource using paginated batch API calls. Please refer to the [bulk indexing](https://developers.glean.com/indexing/documents/bulk-upload-model) documentation for an explanation of how to use bulk endpoints.
+                Note: Any users deleted from the existing set will have their associated memberships deleted as well.
             tags:
                 - Permissions
             requestBody:
@@ -2451,7 +2453,9 @@ paths:
     /api/index/v1/bulkindexgroups:
         post:
             summary: Bulk index groups
-            description: Replaces the groups in a datasource using paginated batch API calls. Please refer to the [bulk indexing](https://developers.glean.com/indexing/documents/bulk-upload-model) documentation for an explanation of how to use bulk endpoints.
+            description: |
+                Replaces the groups in a datasource using paginated batch API calls. Please refer to the [bulk indexing](https://developers.glean.com/indexing/documents/bulk-upload-model) documentation for an explanation of how to use bulk endpoints.
+                Note: Any groups deleted from the existing set will have their associated memberships deleted as well.
             tags:
                 - Permissions
             requestBody:
@@ -2545,7 +2549,9 @@ paths:
     /api/index/v1/deleteuser:
         post:
             summary: Delete user
-            description: Delete the user from the datasource. Silently succeeds if user is not present.
+            description: |
+                Delete the user from the datasource. Silently succeeds if user is not present.
+                Note: All memberships associated with the deleted user will also be deleted.
             tags:
                 - Permissions
             requestBody:
@@ -2569,7 +2575,9 @@ paths:
     /api/index/v1/deletegroup:
         post:
             summary: Delete group
-            description: Delete group from the datasource. Silently succeeds if group is not present.
+            description: |
+                Delete group from the datasource. Silently succeeds if group is not present.
+                Note: All memberships associated with the deleted group will also be deleted.
             tags:
                 - Permissions
             requestBody:
@@ -4018,6 +4026,7 @@ components:
                         RIGHT_CLICK: The user right clicked the object's primary link. This may indicate an intent to open it in a new tab or copy it.
                         SECTION_CLICK: The user clicked a link to a subsection of the primary object.
                         SEEN: The user has likely seen the object (e.g. took action to make the object visible within the user's viewport).
+                        SELECT: The user explicitly selected something, eg. a chat response variant they prefer.
                         SHARE: The user shared the object with another user.
                         SHOW_MORE: The user clicked the object's show more affordance.
                         UPVOTE: The user gave feedback that the object was useful.
@@ -4049,6 +4058,7 @@ components:
                         - RIGHT_CLICK
                         - SECTION_CLICK
                         - SEEN
+                        - SELECT
                         - SHARE
                         - SHOW_MORE
                         - UPVOTE
@@ -12296,7 +12306,7 @@ components:
                   properties:
                     identityDatasourceName:
                         type: string
-                        description: If the datasource uses another datasource for identity info, then the name of the datasource. The identity datasource must exist already.
+                        description: If the datasource uses another datasource for identity info, then the name of the datasource. The identity datasource must exist already and the datasource with identity info should have its visibility enabled for search results.
                     productAccessGroup:
                         type: string
                         description: If the datasource uses a specific product access group, then the name of that group.

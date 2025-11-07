@@ -95,6 +95,7 @@ const (
 	EventRightClick               Event = "RIGHT_CLICK"
 	EventSectionClick             Event = "SECTION_CLICK"
 	EventSeen                     Event = "SEEN"
+	EventSelect                   Event = "SELECT"
 	EventShare                    Event = "SHARE"
 	EventShowMore                 Event = "SHOW_MORE"
 	EventUpvote                   Event = "UPVOTE"
@@ -160,6 +161,8 @@ func (e *Event) UnmarshalJSON(data []byte) error {
 	case "SECTION_CLICK":
 		fallthrough
 	case "SEEN":
+		fallthrough
+	case "SELECT":
 		fallthrough
 	case "SHARE":
 		fallthrough

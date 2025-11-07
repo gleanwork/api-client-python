@@ -8,8 +8,8 @@ import (
 
 type UpdatepolicyRequest struct {
 	// The id of the policy to fetch.
-	ID                     string                            `pathParam:"style=simple,explode=false,name=id"`
-	UpdateDlpReportRequest components.UpdateDlpReportRequest `request:"mediaType=application/json"`
+	ID   string                            `pathParam:"style=simple,explode=false,name=id"`
+	Body components.UpdateDlpReportRequest `request:"mediaType=application/json"`
 }
 
 func (o *UpdatepolicyRequest) GetID() string {
@@ -19,11 +19,11 @@ func (o *UpdatepolicyRequest) GetID() string {
 	return o.ID
 }
 
-func (o *UpdatepolicyRequest) GetUpdateDlpReportRequest() components.UpdateDlpReportRequest {
+func (o *UpdatepolicyRequest) GetBody() components.UpdateDlpReportRequest {
 	if o == nil {
 		return components.UpdateDlpReportRequest{}
 	}
-	return o.UpdateDlpReportRequest
+	return o.Body
 }
 
 type UpdatepolicyResponse struct {

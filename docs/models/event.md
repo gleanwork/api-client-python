@@ -32,6 +32,7 @@ The action the user took within a Glean client with respect to the object referr
 | `RIGHT_CLICK`                  | RIGHT_CLICK                    |
 | `SECTION_CLICK`                | SECTION_CLICK                  |
 | `SEEN`                         | SEEN                           |
+| `SELECT`                       | SELECT                         |
 | `SHARE`                        | SHARE                          |
 | `SHOW_MORE`                    | SHOW_MORE                      |
 | `UPVOTE`                       | UPVOTE                         |

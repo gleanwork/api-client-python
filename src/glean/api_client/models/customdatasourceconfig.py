@@ -104,7 +104,7 @@ class CustomDatasourceConfigTypedDict(TypedDict):
     strip_fragment_in_canonical_url: NotRequired[bool]
     r"""If true, the fragment part of the URL will be stripped when converting to a canonical url."""
     identity_datasource_name: NotRequired[str]
-    r"""If the datasource uses another datasource for identity info, then the name of the datasource. The identity datasource must exist already."""
+    r"""If the datasource uses another datasource for identity info, then the name of the datasource. The identity datasource must exist already and the datasource with identity info should have its visibility enabled for search results."""
     product_access_group: NotRequired[str]
     r"""If the datasource uses a specific product access group, then the name of that group."""
     is_user_referenced_by_email: NotRequired[bool]
@@ -215,7 +215,7 @@ class CustomDatasourceConfig(BaseModel):
     identity_datasource_name: Annotated[
         Optional[str], pydantic.Field(alias="identityDatasourceName")
     ] = None
-    r"""If the datasource uses another datasource for identity info, then the name of the datasource. The identity datasource must exist already."""
+    r"""If the datasource uses another datasource for identity info, then the name of the datasource. The identity datasource must exist already and the datasource with identity info should have its visibility enabled for search results."""
 
     product_access_group: Annotated[
         Optional[str], pydantic.Field(alias="productAccessGroup")
