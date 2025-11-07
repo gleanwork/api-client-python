@@ -8,8 +8,8 @@ import (
 
 type UploadchatfilesRequest struct {
 	// The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
-	TimezoneOffset         *int64                            `queryParam:"style=form,explode=true,name=timezoneOffset"`
-	UploadChatFilesRequest components.UploadChatFilesRequest `request:"mediaType=multipart/form-data"`
+	TimezoneOffset *int64                            `queryParam:"style=form,explode=true,name=timezoneOffset"`
+	Body           components.UploadChatFilesRequest `request:"mediaType=multipart/form-data"`
 }
 
 func (o *UploadchatfilesRequest) GetTimezoneOffset() *int64 {
@@ -19,11 +19,11 @@ func (o *UploadchatfilesRequest) GetTimezoneOffset() *int64 {
 	return o.TimezoneOffset
 }
 
-func (o *UploadchatfilesRequest) GetUploadChatFilesRequest() components.UploadChatFilesRequest {
+func (o *UploadchatfilesRequest) GetBody() components.UploadChatFilesRequest {
 	if o == nil {
 		return components.UploadChatFilesRequest{}
 	}
-	return o.UploadChatFilesRequest
+	return o.Body
 }
 
 type UploadchatfilesResponse struct {

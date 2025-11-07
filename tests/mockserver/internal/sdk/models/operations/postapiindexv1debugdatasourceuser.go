@@ -8,8 +8,8 @@ import (
 
 type PostAPIIndexV1DebugDatasourceUserRequest struct {
 	// The datasource to which the user belongs
-	Datasource       string                      `pathParam:"style=simple,explode=false,name=datasource"`
-	DebugUserRequest components.DebugUserRequest `request:"mediaType=application/json"`
+	Datasource string                      `pathParam:"style=simple,explode=false,name=datasource"`
+	Body       components.DebugUserRequest `request:"mediaType=application/json"`
 }
 
 func (o *PostAPIIndexV1DebugDatasourceUserRequest) GetDatasource() string {
@@ -19,11 +19,11 @@ func (o *PostAPIIndexV1DebugDatasourceUserRequest) GetDatasource() string {
 	return o.Datasource
 }
 
-func (o *PostAPIIndexV1DebugDatasourceUserRequest) GetDebugUserRequest() components.DebugUserRequest {
+func (o *PostAPIIndexV1DebugDatasourceUserRequest) GetBody() components.DebugUserRequest {
 	if o == nil {
 		return components.DebugUserRequest{}
 	}
-	return o.DebugUserRequest
+	return o.Body
 }
 
 type PostAPIIndexV1DebugDatasourceUserResponse struct {

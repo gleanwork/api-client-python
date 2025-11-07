@@ -8,8 +8,8 @@ import (
 
 type PostAPIIndexV1DebugDatasourceDocumentsRequest struct {
 	// The datasource to which the document belongs
-	Datasource            string                           `pathParam:"style=simple,explode=false,name=datasource"`
-	DebugDocumentsRequest components.DebugDocumentsRequest `request:"mediaType=application/json"`
+	Datasource string                           `pathParam:"style=simple,explode=false,name=datasource"`
+	Body       components.DebugDocumentsRequest `request:"mediaType=application/json"`
 }
 
 func (o *PostAPIIndexV1DebugDatasourceDocumentsRequest) GetDatasource() string {
@@ -19,11 +19,11 @@ func (o *PostAPIIndexV1DebugDatasourceDocumentsRequest) GetDatasource() string {
 	return o.Datasource
 }
 
-func (o *PostAPIIndexV1DebugDatasourceDocumentsRequest) GetDebugDocumentsRequest() components.DebugDocumentsRequest {
+func (o *PostAPIIndexV1DebugDatasourceDocumentsRequest) GetBody() components.DebugDocumentsRequest {
 	if o == nil {
 		return components.DebugDocumentsRequest{}
 	}
-	return o.DebugDocumentsRequest
+	return o.Body
 }
 
 type PostAPIIndexV1DebugDatasourceDocumentsResponse struct {

@@ -8,22 +8,22 @@ import (
 
 type FeedbackRequest struct {
 	// A URL encoded versions of Feedback. This is useful for requests.
-	FeedbackQueryParameter *string              `queryParam:"style=form,explode=true,name=feedback"`
-	Feedback1              *components.Feedback `request:"mediaType=application/json"`
+	Feedback *string              `queryParam:"style=form,explode=true,name=feedback"`
+	Body     *components.Feedback `request:"mediaType=application/json"`
 }
 
-func (o *FeedbackRequest) GetFeedbackQueryParameter() *string {
+func (o *FeedbackRequest) GetFeedback() *string {
 	if o == nil {
 		return nil
 	}
-	return o.FeedbackQueryParameter
+	return o.Feedback
 }
 
-func (o *FeedbackRequest) GetFeedback1() *components.Feedback {
+func (o *FeedbackRequest) GetBody() *components.Feedback {
 	if o == nil {
 		return nil
 	}
-	return o.Feedback1
+	return o.Body
 }
 
 type FeedbackResponse struct {

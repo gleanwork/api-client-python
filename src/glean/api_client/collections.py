@@ -1545,7 +1545,8 @@ class Collections(BaseSDK):
 
         :param include_audience: Whether to include the audience filters with the listed Collections.
         :param include_roles: Whether to include the editor roles with the listed Collections.
-        :param allowed_datasource: The datasource type this Collection can hold. ANSWERS - for Collections representing answer boards
+        :param allowed_datasource: The datasource type this Collection can hold.
+            ANSWERS - for Collections representing answer boards
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1637,7 +1638,8 @@ class Collections(BaseSDK):
 
         :param include_audience: Whether to include the audience filters with the listed Collections.
         :param include_roles: Whether to include the editor roles with the listed Collections.
-        :param allowed_datasource: The datasource type this Collection can hold. ANSWERS - for Collections representing answer boards
+        :param allowed_datasource: The datasource type this Collection can hold.
+            ANSWERS - for Collections representing answer boards
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds

@@ -22,6 +22,7 @@ generation:
     hoistGlobalSecurity: true
   schemas:
     allOfMergeStrategy: shallowMerge
+  requestBodyFieldName: ""
   mockServer:
     disabled: false
   tests:
@@ -29,7 +30,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: true
 python:
-  version: 0.11.3
+  version: 0.11.4
   additionalDependencies:
     dev: {}
     main: {}
