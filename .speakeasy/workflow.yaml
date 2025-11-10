@@ -5,6 +5,11 @@ sources:
         inputs:
             - location: registry.speakeasyapi.dev/glean-el2/sdk/glean-api-specs
         output: .speakeasy/glean-merged-spec.yaml
+    local-debug:
+        inputs:
+            - location: .speakeasy/glean-merged-spec.yaml
+        registry:
+            location: registry.speakeasyapi.dev/glean-el2/sdk/local-debug
 targets:
     glean:
         target: python
@@ -15,6 +20,15 @@ targets:
         codeSamples:
             registry:
                 location: registry.speakeasyapi.dev/glean-el2/sdk/glean-api-specs-python-code-samples
+            labelOverride:
+                fixedValue: Python (API Client)
+            blocking: false
+        testing:
+            enabled: true
+    local-debug:
+        target: python
+        source: local-debug
+        codeSamples:
             labelOverride:
                 fixedValue: Python (API Client)
             blocking: false
