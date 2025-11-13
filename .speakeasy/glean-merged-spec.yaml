@@ -3679,14 +3679,6 @@ components:
                 action:
                     type: string
                     description: The type of activity this represents.
-                    x-enumDescriptions:
-                        VIEW: Represents a visit to the given `url`.
-                        EDIT: Represents an edit of the document represented by the `url`.
-                        SEARCH: Represents a search performed at the given `url`.
-                        COMMENT: Represents a comment on the document represented by the `url`.
-                        CRAWL: Represents an explicit request to index the given `url` along with associated attributes in this payload.
-                        HISTORICAL_SEARCH: Represents a search performed at the given `url` as indicated by the user's history.
-                        HISTORICAL_VIEW: Represents a visit to the given `url` as indicated by the user's history.
                     enum:
                         - VIEW
                         - EDIT
@@ -3695,6 +3687,14 @@ components:
                         - CRAWL
                         - HISTORICAL_SEARCH
                         - HISTORICAL_VIEW
+                    x-speakeasy-enum-descriptions:
+                        VIEW: Represents a visit to the given `url`.
+                        EDIT: Represents an edit of the document represented by the `url`.
+                        SEARCH: Represents a search performed at the given `url`.
+                        COMMENT: Represents a comment on the document represented by the `url`.
+                        CRAWL: Represents an explicit request to index the given `url` along with associated attributes in this payload.
+                        HISTORICAL_SEARCH: Represents a search performed at the given `url` as indicated by the user's history.
+                        HISTORICAL_VIEW: Represents a visit to the given `url` as indicated by the user's history.
                 params:
                     $ref: "#/components/schemas/ActivityEventParams"
                 timestamp:
@@ -4001,37 +4001,6 @@ components:
                 event:
                     type: string
                     description: The action the user took within a Glean client with respect to the object referred to by the given `trackingToken`.
-                    x-enumDescriptions:
-                        CLICK: The object's primary link was clicked with the intent to view its full representation. Depending on the object type, this may imply an external navigation or navigating to a new page or view within the Glean app.
-                        CONTAINER_CLICK: A link to the object's parent container (e.g. the folder in which it's located) was clicked.
-                        COPY_LINK: The user copied a link to the primary link.
-                        CREATE: The user creates a document.
-                        DISMISS: The user dismissed the object such that it was hidden from view.
-                        DOWNVOTE: The user gave feedback that the object was not useful.
-                        EMAIL: The user attempted to send an email.
-                        EXECUTE: The user executed the object (e.g. ran a workflow).
-                        FILTER: The user applied a filter.
-                        FIRST_TOKEN: The first token of a streaming response is received.
-                        FOCUS_IN: The user clicked into an interactive element, e.g. the search box.
-                        LAST_TOKEN: The final token of a streaming response is received.
-                        MANUAL_FEEDBACK: The user submitted textual manual feedback regarding the object.
-                        MANUAL_FEEDBACK_SIDE_BY_SIDE: The user submitted comparative feedback for multiple side-by-side implementations.
-                        MARK_AS_READ: The user explicitly marked the content as read.
-                        MESSAGE: The user attempted to send a message using their default messaing app.
-                        MIDDLE_CLICK: The user middle clicked the object's primary link with the intent to open its full representation in a new tab.
-                        PAGE_BLUR: The user puts a page out of focus but keeps it in the background.
-                        PAGE_FOCUS: The user puts a page in focus, meaning it is the first to receive keyboard events.
-                        PAGE_LEAVE: The user leaves a page and it is unloaded (by clicking a link, closing the tab/window, etc).
-                        PREVIEW: The user clicked the object's inline preview affordance.
-                        RIGHT_CLICK: The user right clicked the object's primary link. This may indicate an intent to open it in a new tab or copy it.
-                        SECTION_CLICK: The user clicked a link to a subsection of the primary object.
-                        SEEN: The user has likely seen the object (e.g. took action to make the object visible within the user's viewport).
-                        SELECT: The user explicitly selected something, eg. a chat response variant they prefer.
-                        SHARE: The user shared the object with another user.
-                        SHOW_MORE: The user clicked the object's show more affordance.
-                        UPVOTE: The user gave feedback that the object was useful.
-                        VIEW: The object was visible within the user's viewport.
-                        VISIBLE: The object was visible within the user's viewport.
                     enum:
                         - CLICK
                         - CONTAINER_CLICK
@@ -4064,6 +4033,37 @@ components:
                         - UPVOTE
                         - VIEW
                         - VISIBLE
+                    x-speakeasy-enum-descriptions:
+                        CLICK: The object's primary link was clicked with the intent to view its full representation. Depending on the object type, this may imply an external navigation or navigating to a new page or view within the Glean app.
+                        CONTAINER_CLICK: A link to the object's parent container (e.g. the folder in which it's located) was clicked.
+                        COPY_LINK: The user copied a link to the primary link.
+                        CREATE: The user creates a document.
+                        DISMISS: The user dismissed the object such that it was hidden from view.
+                        DOWNVOTE: The user gave feedback that the object was not useful.
+                        EMAIL: The user attempted to send an email.
+                        EXECUTE: The user executed the object (e.g. ran a workflow).
+                        FILTER: The user applied a filter.
+                        FIRST_TOKEN: The first token of a streaming response is received.
+                        FOCUS_IN: The user clicked into an interactive element, e.g. the search box.
+                        LAST_TOKEN: The final token of a streaming response is received.
+                        MANUAL_FEEDBACK: The user submitted textual manual feedback regarding the object.
+                        MANUAL_FEEDBACK_SIDE_BY_SIDE: The user submitted comparative feedback for multiple side-by-side implementations.
+                        MARK_AS_READ: The user explicitly marked the content as read.
+                        MESSAGE: The user attempted to send a message using their default messaing app.
+                        MIDDLE_CLICK: The user middle clicked the object's primary link with the intent to open its full representation in a new tab.
+                        PAGE_BLUR: The user puts a page out of focus but keeps it in the background.
+                        PAGE_FOCUS: The user puts a page in focus, meaning it is the first to receive keyboard events.
+                        PAGE_LEAVE: The user leaves a page and it is unloaded (by clicking a link, closing the tab/window, etc).
+                        PREVIEW: The user clicked the object's inline preview affordance.
+                        RIGHT_CLICK: The user right clicked the object's primary link. This may indicate an intent to open it in a new tab or copy it.
+                        SECTION_CLICK: The user clicked a link to a subsection of the primary object.
+                        SEEN: The user has likely seen the object (e.g. took action to make the object visible within the user's viewport).
+                        SELECT: The user explicitly selected something, eg. a chat response variant they prefer.
+                        SHARE: The user shared the object with another user.
+                        SHOW_MORE: The user clicked the object's show more affordance.
+                        UPVOTE: The user gave feedback that the object was useful.
+                        VIEW: The object was visible within the user's viewport.
+                        VISIBLE: The object was visible within the user's viewport.
                 position:
                     type: integer
                     description: Position of the element in the case that the client controls order (such as feed and autocomplete).
@@ -4207,6 +4207,12 @@ components:
                         - GT
                         - NOT_EQUALS
                     example: EQUALS
+                    x-speakeasy-enum-descriptions:
+                        EQUALS: The value is equal to the specified value.
+                        ID_EQUALS: The value is equal to the specified ID.
+                        LT: The value is less than the specified value.
+                        GT: The value is greater than the specified value.
+                        NOT_EQUALS: The value is not equal to the specified value.
                 isNegated:
                     type: boolean
                     deprecated: true
@@ -4390,18 +4396,18 @@ components:
                     items:
                         type: string
                         description: Hints for the response content.
-                        x-enumDescriptions:
-                            ALL_RESULT_COUNTS: Return result counts for each result set which has non-zero results, even when the request itself is limited to a subset.
-                            FACET_RESULTS: Return only facet results.
-                            QUERY_METADATA: Returns result counts for each result set which has non-zero results, as well as other information about the search such as suggested spelling corrections.
-                            RESULTS: Return search result documents.
-                            SPELLCHECK_METADATA: Return metadata pertaining to spellcheck results.
                         enum:
                             - ALL_RESULT_COUNTS
                             - FACET_RESULTS
                             - QUERY_METADATA
                             - RESULTS
                             - SPELLCHECK_METADATA
+                        x-speakeasy-enum-descriptions:
+                            ALL_RESULT_COUNTS: Return result counts for each result set which has non-zero results, even when the request itself is limited to a subset.
+                            FACET_RESULTS: Return only facet results.
+                            QUERY_METADATA: Returns result counts for each result set which has non-zero results, as well as other information about the search such as suggested spelling corrections.
+                            RESULTS: Return search result documents.
+                            SPELLCHECK_METADATA: Return metadata pertaining to spellcheck results.
                 timezoneOffset:
                     type: integer
                     description: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
@@ -5910,7 +5916,7 @@ components:
                         - TICKET
                         - TRANSCRIPT
                         - WITH
-                    x-enumDescriptions:
+                    x-speakeasy-enum-descriptions:
                         CANONICAL: Canonical documents for the entity, such as overview docs, architecture docs elastic.
                 associatedEntityId:
                     type: string
@@ -6044,14 +6050,14 @@ components:
                 prominence:
                     type: string
                     description: The level of visual distinction that should be given to a result.
-                    x-enumDescriptions:
-                        HERO: A high-confidence result that should feature prominently on the page.
-                        PROMOTED: May not be the best result but should be given additional visual distinction.
-                        STANDARD: Should not be distinct from any other results.
                     enum:
                         - HERO
                         - PROMOTED
                         - STANDARD
+                    x-speakeasy-enum-descriptions:
+                        HERO: A high-confidence result that should feature prominently on the page.
+                        PROMOTED: May not be the best result but should be given additional visual distinction.
+                        STANDARD: Should not be distinct from any other results.
                 source:
                     type: string
                     description: Source context for this result. Possible values depend on the result type.
@@ -6101,14 +6107,14 @@ components:
             type: string
             description: |
                 The level of visual distinction that should be given to a result.
-            x-enumDescriptions:
-                HERO: A high-confidence result that should feature prominently on the page.
-                PROMOTED: May not be the best result but should be given additional visual distinction.
-                STANDARD: Should not be distinct from any other results.
             enum:
                 - HERO
                 - PROMOTED
                 - STANDARD
+            x-speakeasy-enum-descriptions:
+                HERO: A high-confidence result that should feature prominently on the page.
+                PROMOTED: May not be the best result but should be given additional visual distinction.
+                STANDARD: Should not be distinct from any other results.
         PinDocumentMutableProperties:
             properties:
                 queries:
@@ -6398,17 +6404,17 @@ components:
             properties:
                 type:
                     type: string
-                    x-enumDescriptions:
-                        FULL_TIME: The person is a current full-time employee of the company.
-                        CONTRACTOR: The person is a current contractor of the company.
-                        NON_EMPLOYEE: The person object represents a non-human actor such as a service or admin account.
-                        FORMER_EMPLOYEE: The person is a previous employee of the company.
                     enum:
                         - FULL_TIME
                         - CONTRACTOR
                         - NON_EMPLOYEE
                         - FORMER_EMPLOYEE
                     example: FULL_TIME
+                    x-speakeasy-enum-descriptions:
+                        FULL_TIME: The person is a current full-time employee of the company.
+                        CONTRACTOR: The person is a current contractor of the company.
+                        NON_EMPLOYEE: The person object represents a non-human actor such as a service or admin account.
+                        FORMER_EMPLOYEE: The person is a previous employee of the company.
                 firstName:
                     type: string
                     description: The first name of the person
@@ -6573,13 +6579,6 @@ components:
         DocumentVisibility:
             type: string
             description: The level of visibility of the document as understood by our system.
-            x-enumDescriptions:
-                PRIVATE: Only one person is able to see the document.
-                SPECIFIC_PEOPLE_AND_GROUPS: Only specific people and/or groups can see the document.
-                DOMAIN_LINK: Anyone in the domain with the link can see the document.
-                DOMAIN_VISIBLE: Anyone in the domain can search for the document.
-                PUBLIC_LINK: Anyone with the link can see the document.
-                PUBLIC_VISIBLE: Anyone on the internet can search for the document.
             enum:
                 - PRIVATE
                 - SPECIFIC_PEOPLE_AND_GROUPS
@@ -6587,6 +6586,13 @@ components:
                 - DOMAIN_VISIBLE
                 - PUBLIC_LINK
                 - PUBLIC_VISIBLE
+            x-speakeasy-enum-descriptions:
+                PRIVATE: Only one person is able to see the document.
+                SPECIFIC_PEOPLE_AND_GROUPS: Only specific people and/or groups can see the document.
+                DOMAIN_LINK: Anyone in the domain with the link can see the document.
+                DOMAIN_VISIBLE: Anyone in the domain can search for the document.
+                PUBLIC_LINK: Anyone with the link can see the document.
+                PUBLIC_VISIBLE: Anyone on the internet can search for the document.
         Reaction:
             properties:
                 type:
@@ -7064,29 +7070,29 @@ components:
                 agent:
                     type: string
                     description: Name of the agent.
-                    x-enumDescriptions:
-                        DEFAULT: Integrates with your company's knowledge. This will soon be deprecated in favor of the FAST and ADVANCED `agent` values
-                        GPT: Communicates directly with the LLM. This will soon be deprecated in favor of the FAST and ADVANCED `agent` values
-                        UNIVERSAL: Uses both company and web knowledge. This will soon be deprecated in favor of the FAST and ADVANCED `agent` values
-                        FAST: Uses an agent powered by the agentic engine that responds faster but may have lower quality results. Requires the agentic engine to be enabled in the deployment.
-                        ADVANCED: Uses an agent powered by the agentic engine that thinks for longer and potentially makes more LLM calls to return higher quality results. Requires the agentic engine to be enabled in the deployment.
                     enum:
                         - DEFAULT
                         - GPT
                         - UNIVERSAL
                         - FAST
                         - ADVANCED
+                    x-speakeasy-enum-descriptions:
+                        DEFAULT: Integrates with your company's knowledge. This will soon be deprecated in favor of the FAST and ADVANCED `agent` values
+                        GPT: Communicates directly with the LLM. This will soon be deprecated in favor of the FAST and ADVANCED `agent` values
+                        UNIVERSAL: Uses both company and web knowledge. This will soon be deprecated in favor of the FAST and ADVANCED `agent` values
+                        FAST: Uses an agent powered by the agentic engine that responds faster but may have lower quality results. Requires the agentic engine to be enabled in the deployment.
+                        ADVANCED: Uses an agent powered by the agentic engine that thinks for longer and potentially makes more LLM calls to return higher quality results. Requires the agentic engine to be enabled in the deployment.
                 toolSets:
                     $ref: "#/components/schemas/ToolSets"
                 mode:
                     type: string
                     description: Top level modes to run GleanChat in.
-                    x-enumDescriptions:
-                        DEFAULT: Used if no mode supplied.
-                        QUICK: Deprecated.
                     enum:
                         - DEFAULT
                         - QUICK
+                    x-speakeasy-enum-descriptions:
+                        DEFAULT: Used if no mode supplied.
+                        QUICK: Deprecated.
                 useImageGeneration:
                     type: boolean
                     description: Whether the agent should create an image.
@@ -7308,10 +7314,11 @@ components:
                     description: The time the tool was last updated in ISO format (ISO 8601)
                 writeActionType:
                     type: string
-                    description: Valid only for write actions. Represents the type of write action. REDIRECT - The client renders the URL which contains information for carrying out the action. EXECUTION - Send a request to an external server and execute the action.
+                    description: Valid only for write actions. Represents the type of write action. REDIRECT - The client renders the URL which contains information for carrying out the action. EXECUTION - Send a request to an external server and execute the action. MCP - Send a tools/call request to an MCP server to execute the action.
                     enum:
                         - REDIRECT
                         - EXECUTION
+                        - MCP
                 authType:
                     type: string
                     enum:
@@ -7446,16 +7453,6 @@ components:
                     type: string
                     default: CONTENT
                     description: Semantically groups content of a certain type. It can be used for purposes such as differential UI treatment. USER authored messages should be of type CONTENT and do not need `messageType` specified.
-                    x-enumDescriptions:
-                        UPDATE: An intermediate state message for progress updates.
-                        CONTENT: A user query or response message.
-                        CONTEXT: A message providing context in addition to the user query.
-                        DEBUG: A debug message. Strictly used internally.
-                        DEBUG_EXTERNAL: A debug message to be used while debugging Action creation.
-                        ERROR: A message that describes an error while processing the request.
-                        HEADING: A heading message used to distinguish different sections of the holistic response.
-                        WARNING: A warning message to be shown to the user.
-                        SERVER_TOOL: A message used to for server-side tool auth/use, for request and response.
                     enum:
                         - UPDATE
                         - CONTENT
@@ -7466,6 +7463,16 @@ components:
                         - HEADING
                         - WARNING
                         - SERVER_TOOL
+                    x-speakeasy-enum-descriptions:
+                        UPDATE: An intermediate state message for progress updates.
+                        CONTENT: A user query or response message.
+                        CONTEXT: A message providing context in addition to the user query.
+                        DEBUG: A debug message. Strictly used internally.
+                        DEBUG_EXTERNAL: A debug message to be used while debugging Action creation.
+                        ERROR: A message that describes an error while processing the request.
+                        HEADING: A heading message used to distinguish different sections of the holistic response.
+                        WARNING: A warning message to be shown to the user.
+                        SERVER_TOOL: A message used to for server-side tool auth/use, for request and response.
                 hasMoreFragments:
                     deprecated: true
                     type: boolean
@@ -9743,23 +9750,23 @@ components:
         SectionType:
             type: string
             description: Type of the section. This defines how the section should be interpreted and rendered in the digest.
-            x-enumDescriptions:
-                CHANNEL: A standard section for channel-based digests (e.g. from Slack, Teams).
-                MENTIONS: A dedicated section that surfaces user mentions (actionable, informative, or all).
-                TOPIC: A section driven by a generic topic, not tied to any specific channel or instance.
             enum:
                 - CHANNEL
                 - MENTIONS
                 - TOPIC
+            x-speakeasy-enum-descriptions:
+                CHANNEL: A standard section for channel-based digests (e.g. from Slack, Teams).
+                MENTIONS: A dedicated section that surfaces user mentions (actionable, informative, or all).
+                TOPIC: A section driven by a generic topic, not tied to any specific channel or instance.
         UpdateType:
             type: string
             description: Optional type classification for the update.
-            x-enumDescriptions:
-                ACTIONABLE: Updates that require user attention or action
-                INFORMATIVE: Updates that are purely informational
             enum:
                 - ACTIONABLE
                 - INFORMATIVE
+            x-speakeasy-enum-descriptions:
+                ACTIONABLE: Updates that require user attention or action
+                INFORMATIVE: Updates that are purely informational
         DigestUpdate:
             type: object
             properties:
@@ -10269,12 +10276,12 @@ components:
                     type: string
                     default: STANDARD
                     description: The type of request being made.
-                    x-enumDescriptions:
-                        STANDARD: Used by default for all requests and satisfies all standard use cases for list requests. Limited to 10000 entities.
-                        FULL_DIRECTORY: Used exclusively to return a comprehensive list of all people entities in the organization, typically for audit like purposes. The recommended approach is to sort by FIRST_NAME or LAST_NAME, and use pagination for large organizations.
                     enum:
                         - STANDARD
                         - FULL_DIRECTORY
+                    x-speakeasy-enum-descriptions:
+                        STANDARD: Used by default for all requests and satisfies all standard use cases for list requests. Limited to 10000 entities.
+                        FULL_DIRECTORY: Used exclusively to return a comprehensive list of all people entities in the organization, typically for audit like purposes. The recommended approach is to sort by FIRST_NAME or LAST_NAME, and use pagination for large organizations.
         EntitiesSortOrder:
             type: string
             description: Different ways of sorting entities
@@ -10358,15 +10365,15 @@ components:
                             - PEOPLE_WITHOUT_MANAGER
                 includeTypes:
                     description: The types of people entities to include in the response in addition to those returned by default.
-                    x-enumDescriptions:
-                        PEOPLE_WITHOUT_MANAGER: Returns all people without a manager apart from the requested IDs.
-                        INVALID_ENTITIES: Includes invalid entities in the response if any of the requested IDs are invalid.
                     type: array
                     items:
                         type: string
                         enum:
                             - PEOPLE_WITHOUT_MANAGER
                             - INVALID_ENTITIES
+                    x-speakeasy-enum-descriptions:
+                        PEOPLE_WITHOUT_MANAGER: Returns all people without a manager apart from the requested IDs.
+                        INVALID_ENTITIES: Includes invalid entities in the response if any of the requested IDs are invalid.
                 source:
                     type: string
                     description: A string denoting the search surface from which the endpoint is called.

@@ -24,9 +24,13 @@ if TYPE_CHECKING:
 
 
 class PersonMetadataType(str, Enum):
+    # The person is a current full-time employee of the company.
     FULL_TIME = "FULL_TIME"
+    # The person is a current contractor of the company.
     CONTRACTOR = "CONTRACTOR"
+    # The person object represents a non-human actor such as a service or admin account.
     NON_EMPLOYEE = "NON_EMPLOYEE"
+    # The person is a previous employee of the company.
     FORMER_EMPLOYEE = "FORMER_EMPLOYEE"
 
 

@@ -28,10 +28,11 @@ class KnowledgeType(str, Enum):
 
 
 class WriteActionType(str, Enum):
-    r"""Valid only for write actions. Represents the type of write action. REDIRECT - The client renders the URL which contains information for carrying out the action. EXECUTION - Send a request to an external server and execute the action."""
+    r"""Valid only for write actions. Represents the type of write action. REDIRECT - The client renders the URL which contains information for carrying out the action. EXECUTION - Send a request to an external server and execute the action. MCP - Send a tools/call request to an MCP server to execute the action."""
 
     REDIRECT = "REDIRECT"
     EXECUTION = "EXECUTION"
+    MCP = "MCP"
 
 
 class AuthType(str, Enum):
@@ -77,7 +78,7 @@ class ToolMetadataTypedDict(TypedDict):
     last_updated_at: NotRequired[datetime]
     r"""The time the tool was last updated in ISO format (ISO 8601)"""
     write_action_type: NotRequired[WriteActionType]
-    r"""Valid only for write actions. Represents the type of write action. REDIRECT - The client renders the URL which contains information for carrying out the action. EXECUTION - Send a request to an external server and execute the action."""
+    r"""Valid only for write actions. Represents the type of write action. REDIRECT - The client renders the URL which contains information for carrying out the action. EXECUTION - Send a request to an external server and execute the action. MCP - Send a tools/call request to an MCP server to execute the action."""
     auth_type: NotRequired[AuthType]
     r"""The type of authentication being used.
     Use 'OAUTH_*' when Glean calls an external API (e.g., Jira) on behalf of a user to obtain an OAuth token.
@@ -143,7 +144,7 @@ class ToolMetadata(BaseModel):
     write_action_type: Annotated[
         Optional[WriteActionType], pydantic.Field(alias="writeActionType")
     ] = None
-    r"""Valid only for write actions. Represents the type of write action. REDIRECT - The client renders the URL which contains information for carrying out the action. EXECUTION - Send a request to an external server and execute the action."""
+    r"""Valid only for write actions. Represents the type of write action. REDIRECT - The client renders the URL which contains information for carrying out the action. EXECUTION - Send a request to an external server and execute the action. MCP - Send a tools/call request to an MCP server to execute the action."""
 
     auth_type: Annotated[Optional[AuthType], pydantic.Field(alias="authType")] = None
     r"""The type of authentication being used.

@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 3e3290ca-0ee8-4981-b1bc-14536048fa63
 management:
-  docChecksum: dcd614b69cdc88d754706e156a66d71b
+  docChecksum: 0ac885f7072adae50d62b33db76f5bb4
   docVersion: 0.9.0
   speakeasyVersion: 1.650.0
   generationVersion: 2.743.2
-  releaseVersion: 0.11.4
-  configChecksum: 2309fbf1f9596ee1bbfbd2a06e77e96d
+  releaseVersion: 0.11.6
+  configChecksum: d985e94635c94b65adb4be5e9489c272
   repoURL: https://github.com/gleanwork/api-client-python.git
   installationURL: https://github.com/gleanwork/api-client-python.git
   published: true

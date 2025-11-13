@@ -16,10 +16,15 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 class ResponseHint(str, Enum):
     r"""Hints for the response content."""
 
+    # Return result counts for each result set which has non-zero results, even when the request itself is limited to a subset.
     ALL_RESULT_COUNTS = "ALL_RESULT_COUNTS"
+    # Return only facet results.
     FACET_RESULTS = "FACET_RESULTS"
+    # Returns result counts for each result set which has non-zero results, as well as other information about the search such as suggested spelling corrections.
     QUERY_METADATA = "QUERY_METADATA"
+    # Return search result documents.
     RESULTS = "RESULTS"
+    # Return metadata pertaining to spellcheck results.
     SPELLCHECK_METADATA = "SPELLCHECK_METADATA"
 
 

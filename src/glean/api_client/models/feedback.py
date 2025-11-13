@@ -39,36 +39,66 @@ class FeedbackCategory(str, Enum):
 class Event(str, Enum):
     r"""The action the user took within a Glean client with respect to the object referred to by the given `trackingToken`."""
 
+    # The object's primary link was clicked with the intent to view its full representation. Depending on the object type, this may imply an external navigation or navigating to a new page or view within the Glean app.
     CLICK = "CLICK"
+    # A link to the object's parent container (e.g. the folder in which it's located) was clicked.
     CONTAINER_CLICK = "CONTAINER_CLICK"
+    # The user copied a link to the primary link.
     COPY_LINK = "COPY_LINK"
+    # The user creates a document.
     CREATE = "CREATE"
+    # The user dismissed the object such that it was hidden from view.
     DISMISS = "DISMISS"
+    # The user gave feedback that the object was not useful.
     DOWNVOTE = "DOWNVOTE"
+    # The user attempted to send an email.
     EMAIL = "EMAIL"
+    # The user executed the object (e.g. ran a workflow).
     EXECUTE = "EXECUTE"
+    # The user applied a filter.
     FILTER = "FILTER"
+    # The first token of a streaming response is received.
     FIRST_TOKEN = "FIRST_TOKEN"
+    # The user clicked into an interactive element, e.g. the search box.
     FOCUS_IN = "FOCUS_IN"
+    # The final token of a streaming response is received.
     LAST_TOKEN = "LAST_TOKEN"
+    # The user submitted textual manual feedback regarding the object.
     MANUAL_FEEDBACK = "MANUAL_FEEDBACK"
+    # The user submitted comparative feedback for multiple side-by-side implementations.
     MANUAL_FEEDBACK_SIDE_BY_SIDE = "MANUAL_FEEDBACK_SIDE_BY_SIDE"
+    # The user explicitly marked the content as read.
     MARK_AS_READ = "MARK_AS_READ"
+    # The user attempted to send a message using their default messaing app.
     MESSAGE = "MESSAGE"
+    # The user middle clicked the object's primary link with the intent to open its full representation in a new tab.
     MIDDLE_CLICK = "MIDDLE_CLICK"
+    # The user puts a page out of focus but keeps it in the background.
     PAGE_BLUR = "PAGE_BLUR"
+    # The user puts a page in focus, meaning it is the first to receive keyboard events.
     PAGE_FOCUS = "PAGE_FOCUS"
+    # The user leaves a page and it is unloaded (by clicking a link, closing the tab/window, etc).
     PAGE_LEAVE = "PAGE_LEAVE"
+    # The user clicked the object's inline preview affordance.
     PREVIEW = "PREVIEW"
     RELATED_CLICK = "RELATED_CLICK"
+    # The user right clicked the object's primary link. This may indicate an intent to open it in a new tab or copy it.
     RIGHT_CLICK = "RIGHT_CLICK"
+    # The user clicked a link to a subsection of the primary object.
     SECTION_CLICK = "SECTION_CLICK"
+    # The user has likely seen the object (e.g. took action to make the object visible within the user's viewport).
     SEEN = "SEEN"
+    # The user explicitly selected something, eg. a chat response variant they prefer.
     SELECT = "SELECT"
+    # The user shared the object with another user.
     SHARE = "SHARE"
+    # The user clicked the object's show more affordance.
     SHOW_MORE = "SHOW_MORE"
+    # The user gave feedback that the object was useful.
     UPVOTE = "UPVOTE"
+    # The object was visible within the user's viewport.
     VIEW = "VIEW"
+    # The object was visible within the user's viewport.
     VISIBLE = "VISIBLE"
 
 

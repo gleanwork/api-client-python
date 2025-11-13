@@ -7,6 +7,9 @@ from enum import Enum
 class SectionType(str, Enum):
     r"""Type of the section. This defines how the section should be interpreted and rendered in the digest."""
 
+    # A standard section for channel-based digests (e.g. from Slack, Teams).
     CHANNEL = "CHANNEL"
+    # A dedicated section that surfaces user mentions (actionable, informative, or all).
     MENTIONS = "MENTIONS"
+    # A section driven by a generic topic, not tied to any specific channel or instance.
     TOPIC = "TOPIC"

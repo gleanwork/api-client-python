@@ -7,5 +7,7 @@ from enum import Enum
 class UpdateType(str, Enum):
     r"""Optional type classification for the update."""
 
+    # Updates that require user attention or action
     ACTIONABLE = "ACTIONABLE"
+    # Updates that are purely informational
     INFORMATIVE = "INFORMATIVE"

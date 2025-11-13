@@ -33,8 +33,11 @@ if TYPE_CHECKING:
 class Prominence(str, Enum):
     r"""The level of visual distinction that should be given to a result."""
 
+    # A high-confidence result that should feature prominently on the page.
     HERO = "HERO"
+    # May not be the best result but should be given additional visual distinction.
     PROMOTED = "PROMOTED"
+    # Should not be distinct from any other results.
     STANDARD = "STANDARD"
 
 
