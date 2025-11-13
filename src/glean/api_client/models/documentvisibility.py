@@ -7,9 +7,15 @@ from enum import Enum
 class DocumentVisibility(str, Enum):
     r"""The level of visibility of the document as understood by our system."""
 
+    # Only one person is able to see the document.
     PRIVATE = "PRIVATE"
+    # Only specific people and/or groups can see the document.
     SPECIFIC_PEOPLE_AND_GROUPS = "SPECIFIC_PEOPLE_AND_GROUPS"
+    # Anyone in the domain with the link can see the document.
     DOMAIN_LINK = "DOMAIN_LINK"
+    # Anyone in the domain can search for the document.
     DOMAIN_VISIBLE = "DOMAIN_VISIBLE"
+    # Anyone with the link can see the document.
     PUBLIC_LINK = "PUBLIC_LINK"
+    # Anyone on the internet can search for the document.
     PUBLIC_VISIBLE = "PUBLIC_VISIBLE"

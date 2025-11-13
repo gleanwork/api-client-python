@@ -17,6 +17,7 @@ class Relation(str, Enum):
     r"""How this document relates to the including entity."""
 
     ATTACHMENT = "ATTACHMENT"
+    # Canonical documents for the entity, such as overview docs, architecture docs elastic.
     CANONICAL = "CANONICAL"
     CASE = "CASE"
     CONTACT_LOWER = "contact"

@@ -66,12 +66,13 @@ func (e *KnowledgeType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// WriteActionType - Valid only for write actions. Represents the type of write action. REDIRECT - The client renders the URL which contains information for carrying out the action. EXECUTION - Send a request to an external server and execute the action.
+// WriteActionType - Valid only for write actions. Represents the type of write action. REDIRECT - The client renders the URL which contains information for carrying out the action. EXECUTION - Send a request to an external server and execute the action. MCP - Send a tools/call request to an MCP server to execute the action.
 type WriteActionType string
 
 const (
 	WriteActionTypeRedirect  WriteActionType = "REDIRECT"
 	WriteActionTypeExecution WriteActionType = "EXECUTION"
+	WriteActionTypeMcp       WriteActionType = "MCP"
 )
 
 func (e WriteActionType) ToPointer() *WriteActionType {
@@ -86,6 +87,8 @@ func (e *WriteActionType) UnmarshalJSON(data []byte) error {
 	case "REDIRECT":
 		fallthrough
 	case "EXECUTION":
+		fallthrough
+	case "MCP":
 		*e = WriteActionType(v)
 		return nil
 	default:
@@ -160,7 +163,7 @@ type ToolMetadata struct {
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	// The time the tool was last updated in ISO format (ISO 8601)
 	LastUpdatedAt *time.Time `json:"lastUpdatedAt,omitempty"`
-	// Valid only for write actions. Represents the type of write action. REDIRECT - The client renders the URL which contains information for carrying out the action. EXECUTION - Send a request to an external server and execute the action.
+	// Valid only for write actions. Represents the type of write action. REDIRECT - The client renders the URL which contains information for carrying out the action. EXECUTION - Send a request to an external server and execute the action. MCP - Send a tools/call request to an MCP server to execute the action.
 	WriteActionType *WriteActionType `json:"writeActionType,omitempty"`
 	// The type of authentication being used.
 	// Use 'OAUTH_*' when Glean calls an external API (e.g., Jira) on behalf of a user to obtain an OAuth token.

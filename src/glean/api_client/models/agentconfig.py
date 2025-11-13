@@ -12,17 +12,24 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 class AgentEnum(str, Enum):
     r"""Name of the agent."""
 
+    # Integrates with your company's knowledge. This will soon be deprecated in favor of the FAST and ADVANCED `agent` values
     DEFAULT = "DEFAULT"
+    # Communicates directly with the LLM. This will soon be deprecated in favor of the FAST and ADVANCED `agent` values
     GPT = "GPT"
+    # Uses both company and web knowledge. This will soon be deprecated in favor of the FAST and ADVANCED `agent` values
     UNIVERSAL = "UNIVERSAL"
+    # Uses an agent powered by the agentic engine that responds faster but may have lower quality results. Requires the agentic engine to be enabled in the deployment.
     FAST = "FAST"
+    # Uses an agent powered by the agentic engine that thinks for longer and potentially makes more LLM calls to return higher quality results. Requires the agentic engine to be enabled in the deployment.
     ADVANCED = "ADVANCED"
 
 
 class Mode(str, Enum):
     r"""Top level modes to run GleanChat in."""
 
+    # Used if no mode supplied.
     DEFAULT = "DEFAULT"
+    # Deprecated.
     QUICK = "QUICK"
 
 

@@ -9,10 +9,15 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class RelationType(str, Enum):
+    # The value is equal to the specified value.
     EQUALS = "EQUALS"
+    # The value is equal to the specified ID.
     ID_EQUALS = "ID_EQUALS"
+    # The value is less than the specified value.
     LT = "LT"
+    # The value is greater than the specified value.
     GT = "GT"
+    # The value is not equal to the specified value.
     NOT_EQUALS = "NOT_EQUALS"
 
 

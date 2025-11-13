@@ -12,12 +12,19 @@ from typing_extensions import NotRequired, TypedDict
 class ActivityEventAction(str, Enum):
     r"""The type of activity this represents."""
 
+    # Represents a visit to the given `url`.
     VIEW = "VIEW"
+    # Represents an edit of the document represented by the `url`.
     EDIT = "EDIT"
+    # Represents a search performed at the given `url`.
     SEARCH = "SEARCH"
+    # Represents a comment on the document represented by the `url`.
     COMMENT = "COMMENT"
+    # Represents an explicit request to index the given `url` along with associated attributes in this payload.
     CRAWL = "CRAWL"
+    # Represents a search performed at the given `url` as indicated by the user's history.
     HISTORICAL_SEARCH = "HISTORICAL_SEARCH"
+    # Represents a visit to the given `url` as indicated by the user's history.
     HISTORICAL_VIEW = "HISTORICAL_VIEW"
 
 
