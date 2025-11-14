@@ -7654,9 +7654,6 @@ components:
                     items:
                         type: string
                     description: IDs of files to fetch.
-                chatId:
-                    type: string
-                    description: The ID of the chat that contains the chat file.
         GetChatFilesResponse:
             properties:
                 files:

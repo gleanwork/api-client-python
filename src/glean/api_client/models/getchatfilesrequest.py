@@ -3,20 +3,15 @@
 from __future__ import annotations
 from glean.api_client.types import BaseModel
 import pydantic
-from typing import List, Optional
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing import List
+from typing_extensions import Annotated, TypedDict
 
 
 class GetChatFilesRequestTypedDict(TypedDict):
     file_ids: List[str]
     r"""IDs of files to fetch."""
-    chat_id: NotRequired[str]
-    r"""The ID of the chat that contains the chat file."""
 
 
 class GetChatFilesRequest(BaseModel):
     file_ids: Annotated[List[str], pydantic.Field(alias="fileIds")]
     r"""IDs of files to fetch."""
-
-    chat_id: Annotated[Optional[str], pydantic.Field(alias="chatId")] = None
-    r"""The ID of the chat that contains the chat file."""
