@@ -1373,7 +1373,6 @@ class ClientChat(BaseSDK):
         *,
         file_ids: List[str],
         timezone_offset: Optional[int] = None,
-        chat_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1385,7 +1384,6 @@ class ClientChat(BaseSDK):
 
         :param file_ids: IDs of files to fetch.
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
-        :param chat_id: The ID of the chat that contains the chat file.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1405,7 +1403,6 @@ class ClientChat(BaseSDK):
             timezone_offset=timezone_offset,
             get_chat_files_request=models.GetChatFilesRequest(
                 file_ids=file_ids,
-                chat_id=chat_id,
             ),
         )
 
@@ -1471,7 +1468,6 @@ class ClientChat(BaseSDK):
         *,
         file_ids: List[str],
         timezone_offset: Optional[int] = None,
-        chat_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1483,7 +1479,6 @@ class ClientChat(BaseSDK):
 
         :param file_ids: IDs of files to fetch.
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
-        :param chat_id: The ID of the chat that contains the chat file.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1503,7 +1498,6 @@ class ClientChat(BaseSDK):
             timezone_offset=timezone_offset,
             get_chat_files_request=models.GetChatFilesRequest(
                 file_ids=file_ids,
-                chat_id=chat_id,
             ),
         )
 

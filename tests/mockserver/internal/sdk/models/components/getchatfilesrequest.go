@@ -5,8 +5,6 @@ package components
 type GetChatFilesRequest struct {
 	// IDs of files to fetch.
 	FileIds []string `json:"fileIds"`
-	// The ID of the chat that contains the chat file.
-	ChatID *string `json:"chatId,omitempty"`
 }
 
 func (o *GetChatFilesRequest) GetFileIds() []string {
@@ -14,11 +12,4 @@ func (o *GetChatFilesRequest) GetFileIds() []string {
 		return []string{}
 	}
 	return o.FileIds
-}
-
-func (o *GetChatFilesRequest) GetChatID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ChatID
 }

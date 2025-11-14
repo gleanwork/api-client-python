@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 3e3290ca-0ee8-4981-b1bc-14536048fa63
 management:
-  docChecksum: 0ac885f7072adae50d62b33db76f5bb4
+  docChecksum: 09ae73bbaebb3968dc7590f295580164
   docVersion: 0.9.0
   speakeasyVersion: 1.650.0
   generationVersion: 2.743.2
-  releaseVersion: 0.11.6
-  configChecksum: d985e94635c94b65adb4be5e9489c272
+  releaseVersion: 0.11.8
+  configChecksum: 822545fd662c7ee4c3cd04767a37a98a
   repoURL: https://github.com/gleanwork/api-client-python.git
   installationURL: https://github.com/gleanwork/api-client-python.git
   published: true
@@ -2742,3 +2742,6 @@ generatedTests:
   editcollection: "2025-06-12T19:13:52-04:00"
   createshortcut: "2025-06-12T19:13:52-04:00"
   updateshortcut: "2025-06-12T19:13:52-04:00"
+releaseNotes: |
+  ## Python SDK Changes Detected:
+  * `glean.client.chat.retrieve_files()`:  `request.chat_id` **Removed** **Breaking** :warning:
