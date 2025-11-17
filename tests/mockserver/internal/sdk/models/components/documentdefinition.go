@@ -20,7 +20,8 @@ type DocumentDefinition struct {
 	// The permalink for viewing the document. **Note: viewURL is a required field for non-entity datasources, but not required if the datasource is used to push custom entities (ie. datasources where isEntityDatasource is false).**'
 	//
 	ViewURL *string `json:"viewURL,omitempty"`
-	// The datasource specific id for the document. This field is case insensitive and should not be more than 200 characters in length.
+	// The datasource specific id for the document. This field is case insensitive and should not be more than 200 characters in length. Note: id is a required field for datasources created after 1st March 2025
+	//
 	ID *string `json:"id,omitempty"`
 	// Describes text content or base64 encoded binary content
 	Summary *ContentDefinition `json:"summary,omitempty"`

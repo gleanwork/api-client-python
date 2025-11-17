@@ -56,14 +56,14 @@ func testCreatecollectionCreatecollection0(w http.ResponseWriter, req *http.Requ
 		operations.ResponseBody2{
 			Collection: &components.Collection{
 				Name:        "<value>",
-				Description: "whole busily jive hawk gee basic minus hence",
+				Description: "motionless whenever paintwork import over cuckoo",
 				AddedRoles: []components.UserRoleSpecification{
 					components.UserRoleSpecification{
 						Person: &components.Person{
 							Name:         "George Clooney",
 							ObfuscatedID: "abc123",
 						},
-						Role: components.UserRoleAnswerModerator,
+						Role: components.UserRoleOwner,
 					},
 				},
 				RemovedRoles: []components.UserRoleSpecification{
@@ -90,7 +90,7 @@ func testCreatecollectionCreatecollection0(w http.ResponseWriter, req *http.Requ
 						},
 					},
 				},
-				ID: 158969,
+				ID: 363711,
 				Creator: &components.Person{
 					Name:         "George Clooney",
 					ObfuscatedID: "abc123",
@@ -101,7 +101,7 @@ func testCreatecollectionCreatecollection0(w http.ResponseWriter, req *http.Requ
 				},
 				Items: []components.CollectionItem{
 					components.CollectionItem{
-						CollectionID: 110375,
+						CollectionID: 570197,
 						CreatedBy: &components.Person{
 							Name:         "George Clooney",
 							ObfuscatedID: "abc123",
@@ -266,13 +266,13 @@ func testCreatecollectionCreatecollection0(w http.ResponseWriter, req *http.Requ
 										Name:         "George Clooney",
 										ObfuscatedID: "abc123",
 									},
-									Role: components.UserRoleEditor,
+									Role: components.UserRoleAnswerModerator,
 								},
 							},
 						},
 						Collection: &components.Collection{
 							Name:        "<value>",
-							Description: "wedge colorfully orientate rally",
+							Description: "athwart skateboard newsstand farm bourgeoisie ah how elliptical aha well-to-do",
 							AudienceFilters: []components.FacetFilter{
 								components.FacetFilter{
 									FieldName: types.String("type"),
@@ -288,7 +288,7 @@ func testCreatecollectionCreatecollection0(w http.ResponseWriter, req *http.Requ
 									},
 								},
 							},
-							ID: 131797,
+							ID: 643990,
 							Creator: &components.Person{
 								Name:         "George Clooney",
 								ObfuscatedID: "abc123",
@@ -300,7 +300,7 @@ func testCreatecollectionCreatecollection0(w http.ResponseWriter, req *http.Requ
 							Children: []components.Collection{
 								components.Collection{
 									Name:        "<value>",
-									Description: "outside yippee sidetrack mature regularly mouser inject worth",
+									Description: "woot purse salty even as advanced",
 									AudienceFilters: []components.FacetFilter{
 										components.FacetFilter{
 											FieldName: types.String("type"),
@@ -316,7 +316,7 @@ func testCreatecollectionCreatecollection0(w http.ResponseWriter, req *http.Requ
 											},
 										},
 									},
-									ID: 149448,
+									ID: 359978,
 									Creator: &components.Person{
 										Name:         "George Clooney",
 										ObfuscatedID: "abc123",
@@ -328,7 +328,7 @@ func testCreatecollectionCreatecollection0(w http.ResponseWriter, req *http.Requ
 								},
 							},
 						},
-						ItemType: components.CollectionItemItemTypeCollection,
+						ItemType: components.CollectionItemItemTypeURL,
 					},
 				},
 			},
