@@ -43,7 +43,9 @@ class DocumentDefinitionTypedDict(TypedDict):
 
     """
     id: NotRequired[str]
-    r"""The datasource specific id for the document. This field is case insensitive and should not be more than 200 characters in length."""
+    r"""The datasource specific id for the document. This field is case insensitive and should not be more than 200 characters in length. Note: id is a required field for datasources created after 1st March 2025
+
+    """
     summary: NotRequired[ContentDefinitionTypedDict]
     r"""Describes text content or base64 encoded binary content"""
     body: NotRequired[ContentDefinitionTypedDict]
@@ -106,7 +108,9 @@ class DocumentDefinition(BaseModel):
     """
 
     id: Optional[str] = None
-    r"""The datasource specific id for the document. This field is case insensitive and should not be more than 200 characters in length."""
+    r"""The datasource specific id for the document. This field is case insensitive and should not be more than 200 characters in length. Note: id is a required field for datasources created after 1st March 2025
+
+    """
 
     summary: Optional[ContentDefinition] = None
     r"""Describes text content or base64 encoded binary content"""

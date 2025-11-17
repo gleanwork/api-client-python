@@ -2,11 +2,11 @@ speakeasyVersion: 1.650.0
 sources:
     Glean API:
         sourceNamespace: glean-api-specs
-        sourceRevisionDigest: sha256:fd35d47c584495c0f29e30f502ee3f6bde461142a6d2bb69c0822440494c1d41
-        sourceBlobDigest: sha256:de7302488181d96aed6b8d230db6667f83ec481bf6c1c5295778c358a32ebb68
+        sourceRevisionDigest: sha256:32fce82d031f7f53e3ac040caae0f7ff32686e08ab3ed5291b710a6a4cc19e97
+        sourceBlobDigest: sha256:1161e7578cd01452b8aa987120ec26127f910ccff14897b24601c9f78a1e44d0
         tags:
             - latest
-            - speakeasy-sdk-regen-1763156875
+            - speakeasy-sdk-regen-1763167768
     Glean Client API:
         sourceNamespace: glean-client-api
         sourceRevisionDigest: sha256:4edc63ad559e4f2c9fb9ebf5edaaaaa9269f1874d271cfd84b441d6dacac43d2
@@ -17,10 +17,10 @@ targets:
     glean:
         source: Glean API
         sourceNamespace: glean-api-specs
-        sourceRevisionDigest: sha256:fd35d47c584495c0f29e30f502ee3f6bde461142a6d2bb69c0822440494c1d41
-        sourceBlobDigest: sha256:de7302488181d96aed6b8d230db6667f83ec481bf6c1c5295778c358a32ebb68
+        sourceRevisionDigest: sha256:32fce82d031f7f53e3ac040caae0f7ff32686e08ab3ed5291b710a6a4cc19e97
+        sourceBlobDigest: sha256:1161e7578cd01452b8aa987120ec26127f910ccff14897b24601c9f78a1e44d0
         codeSamplesNamespace: glean-api-specs-python-code-samples
-        codeSamplesRevisionDigest: sha256:9a224cc91f138da2d105f51f3996008ae0bc5c34a4276b0aa4cabd1f6a57c28d
+        codeSamplesRevisionDigest: sha256:b3fef6598b035770b97aec02d552dcc779a69b61bee9d07e0943d125588eaa14
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
