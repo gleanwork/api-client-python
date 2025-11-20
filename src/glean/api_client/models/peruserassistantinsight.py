@@ -17,9 +17,9 @@ class PerUserAssistantInsightTypedDict(TypedDict):
     num_ai_answers: NotRequired[int]
     r"""Total number of AI Answers interacted with by this user over the specified time period."""
     num_gleanbot_interactions: NotRequired[int]
-    r"""Total number of Gleanbot interacted with by this user over the specified time period."""
+    r"""Total number of Gleanbot responses marked useful by this user over the specified time period."""
     num_days_active: NotRequired[int]
-    r"""Total number of days this user was active over the specified time period."""
+    r"""Total number of days this user was active on the Assistant over the specified time period."""
 
 
 class PerUserAssistantInsight(BaseModel):
@@ -43,9 +43,9 @@ class PerUserAssistantInsight(BaseModel):
     num_gleanbot_interactions: Annotated[
         Optional[int], pydantic.Field(alias="numGleanbotInteractions")
     ] = None
-    r"""Total number of Gleanbot interacted with by this user over the specified time period."""
+    r"""Total number of Gleanbot responses marked useful by this user over the specified time period."""
 
     num_days_active: Annotated[Optional[int], pydantic.Field(alias="numDaysActive")] = (
         None
     )
-    r"""Total number of days this user was active over the specified time period."""
+    r"""Total number of days this user was active on the Assistant over the specified time period."""

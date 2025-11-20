@@ -10,9 +10,9 @@ type PerUserAssistantInsight struct {
 	NumSummarizations *int64 `json:"numSummarizations,omitempty"`
 	// Total number of AI Answers interacted with by this user over the specified time period.
 	NumAiAnswers *int64 `json:"numAiAnswers,omitempty"`
-	// Total number of Gleanbot interacted with by this user over the specified time period.
+	// Total number of Gleanbot responses marked useful by this user over the specified time period.
 	NumGleanbotInteractions *int64 `json:"numGleanbotInteractions,omitempty"`
-	// Total number of days this user was active over the specified time period.
+	// Total number of days this user was active on the Assistant over the specified time period.
 	NumDaysActive *int64 `json:"numDaysActive,omitempty"`
 }
 

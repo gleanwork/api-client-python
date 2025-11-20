@@ -819,8 +819,6 @@ if TYPE_CHECKING:
         InsightsOverviewRequestTypedDict,
     )
     from .insightsoverviewresponse import (
-        EngagementBreakdown,
-        EngagementBreakdownTypedDict,
         InsightsOverviewResponse,
         InsightsOverviewResponseTypedDict,
     )
@@ -1703,8 +1701,6 @@ __all__ = [
     "EmployeeInfoDefinitionTypedDict",
     "EmployeeTeamInfo",
     "EmployeeTeamInfoTypedDict",
-    "EngagementBreakdown",
-    "EngagementBreakdownTypedDict",
     "EntitiesSortOrder",
     "EntityRelationship",
     "EntityRelationshipTypedDict",
@@ -2917,8 +2913,6 @@ _dynamic_imports: dict[str, str] = {
     "InsightsChatSummaryTypedDict": ".insightschatsummary",
     "InsightsOverviewRequest": ".insightsoverviewrequest",
     "InsightsOverviewRequestTypedDict": ".insightsoverviewrequest",
-    "EngagementBreakdown": ".insightsoverviewresponse",
-    "EngagementBreakdownTypedDict": ".insightsoverviewresponse",
     "InsightsOverviewResponse": ".insightsoverviewresponse",
     "InsightsOverviewResponseTypedDict": ".insightsoverviewresponse",
     "AssistantActivityType": ".insightsrequest",
