@@ -15,6 +15,8 @@ class PerAgentInsightTypedDict(TypedDict):
     r"""Agent name"""
     icon: NotRequired[IconConfigTypedDict]
     r"""Defines how to render an icon"""
+    is_deleted: NotRequired[bool]
+    r"""Indicates whether the agent has been deleted"""
     user_count: NotRequired[int]
     r"""Total number of users for this agent over the specified time period."""
     run_count: NotRequired[int]
@@ -34,6 +36,9 @@ class PerAgentInsight(BaseModel):
 
     icon: Optional[IconConfig] = None
     r"""Defines how to render an icon"""
+
+    is_deleted: Annotated[Optional[bool], pydantic.Field(alias="isDeleted")] = None
+    r"""Indicates whether the agent has been deleted"""
 
     user_count: Annotated[Optional[int], pydantic.Field(alias="userCount")] = None
     r"""Total number of users for this agent over the specified time period."""

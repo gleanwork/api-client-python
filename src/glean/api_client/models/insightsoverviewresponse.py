@@ -12,31 +12,6 @@ from typing import Dict, List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class EngagementBreakdownTypedDict(TypedDict):
-    non_users: NotRequired[int]
-    r"""Number of non-user employees in the specified departments."""
-    dormant_users: NotRequired[int]
-    r"""Number of currently dormant users in the specified departments."""
-    regular_users: NotRequired[int]
-    r"""Number of currently regular users in the specified departments."""
-    power_users: NotRequired[int]
-    r"""Number of currently power users in the specified departments."""
-
-
-class EngagementBreakdown(BaseModel):
-    non_users: Annotated[Optional[int], pydantic.Field(alias="nonUsers")] = None
-    r"""Number of non-user employees in the specified departments."""
-
-    dormant_users: Annotated[Optional[int], pydantic.Field(alias="dormantUsers")] = None
-    r"""Number of currently dormant users in the specified departments."""
-
-    regular_users: Annotated[Optional[int], pydantic.Field(alias="regularUsers")] = None
-    r"""Number of currently regular users in the specified departments."""
-
-    power_users: Annotated[Optional[int], pydantic.Field(alias="powerUsers")] = None
-    r"""Number of currently power users in the specified departments."""
-
-
 class InsightsOverviewResponseTypedDict(TypedDict):
     monthly_active_users: NotRequired[int]
     r"""Number of current Monthly Active Users, in the specified departments."""
@@ -64,8 +39,7 @@ class InsightsOverviewResponseTypedDict(TypedDict):
     chat_datasource_counts: NotRequired[Dict[str, int]]
     r"""Counts of cited documents in chat, by datasource, over the specified time period in the specified departments."""
     per_user_insights: NotRequired[List[PerUserInsightTypedDict]]
-    r"""Top power users, over the specified time period in the specified departments."""
-    engagement_breakdown: NotRequired[EngagementBreakdownTypedDict]
+    r"""Per-user insights, over the specified time period in the specified departments. All current users in the organization who have signed into Glean at least once are included."""
 
 
 class InsightsOverviewResponse(BaseModel):
@@ -141,8 +115,4 @@ class InsightsOverviewResponse(BaseModel):
     per_user_insights: Annotated[
         Optional[List[PerUserInsight]], pydantic.Field(alias="perUserInsights")
     ] = None
-    r"""Top power users, over the specified time period in the specified departments."""
-
-    engagement_breakdown: Annotated[
-        Optional[EngagementBreakdown], pydantic.Field(alias="engagementBreakdown")
-    ] = None
+    r"""Per-user insights, over the specified time period in the specified departments. All current users in the organization who have signed into Glean at least once are included."""

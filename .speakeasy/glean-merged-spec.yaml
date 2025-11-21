@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
     version: 0.9.0
     title: Glean API
-    x-source-commit-sha: 3c1d4f5f7b2de021e7e5ab5dff962254c16aa5db
+    x-source-commit-sha: 31b1e4d8c27047c952fd0380361790a2edfdd676
     description: |
         # Introduction
         In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This is useful, for example, for doing permissions-aware search over content in internal tools that reside on-prem as well as for searching over applications that Glean does not currently support first class. In addition these APIs allow the customer to push organization data (people info, organization structure etc) into Glean.
@@ -22,7 +22,7 @@ info:
         These API clients provide type-safe, idiomatic interfaces for working with Glean IndexingAPIs in your language of choice.
     x-logo:
         url: https://app.glean.com/images/glean-text2.svg
-    x-open-api-commit-sha: b20a53af8a9aee1fd48c351fe14b4b12c8eefd12
+    x-open-api-commit-sha: e4416ec5a5adef38fa93d4fef0557174d402e553
     x-speakeasy-name: 'Glean API'
 servers:
     - url: https://{instance}-be.glean.com
@@ -8562,6 +8562,15 @@ components:
                 numChats:
                     type: integer
                     description: Total number of chats by this user over the specified time period.
+                numActiveSessions:
+                    type: integer
+                    description: Total number of active sessions by this user in a Glean client over the specified time period.
+                numGleanbotUsefulResponses:
+                    type: integer
+                    description: Total number of Gleanbot responses marked useful by this user over the specified time period.
+                numDaysActive:
+                    type: integer
+                    description: Total number of days this user was an Active User over the specified time period.
         InsightsOverviewResponse:
             allOf:
                 - $ref: "#/components/schemas/InsightsDepartmentsSummary"
@@ -8594,22 +8603,7 @@ components:
                         type: array
                         items:
                             $ref: "#/components/schemas/PerUserInsight"
-                        description: Top power users, over the specified time period in the specified departments.
-                    engagementBreakdown:
-                        type: object
-                        properties:
-                            nonUsers:
-                                type: integer
-                                description: Number of non-user employees in the specified departments.
-                            dormantUsers:
-                                type: integer
-                                description: Number of currently dormant users in the specified departments.
-                            regularUsers:
-                                type: integer
-                                description: Number of currently regular users in the specified departments.
-                            powerUsers:
-                                type: integer
-                                description: Number of currently power users in the specified departments.
+                        description: Per-user insights, over the specified time period in the specified departments. All current users in the organization who have signed into Glean at least once are included.
         PerUserAssistantInsight:
             properties:
                 person:
@@ -8625,10 +8619,10 @@ components:
                     description: Total number of AI Answers interacted with by this user over the specified time period.
                 numGleanbotInteractions:
                     type: integer
-                    description: Total number of Gleanbot interacted with by this user over the specified time period.
+                    description: Total number of Gleanbot responses marked useful by this user over the specified time period.
                 numDaysActive:
                     type: integer
-                    description: Total number of days this user was active over the specified time period.
+                    description: Total number of days this user was active on the Assistant over the specified time period.
         AssistantInsightsResponse:
             allOf:
                 - $ref: "#/components/schemas/CurrentActiveUsers"
@@ -8673,6 +8667,9 @@ components:
                 icon:
                     $ref: "#/components/schemas/IconConfig"
                     description: Agent icon configuration
+                isDeleted:
+                    type: boolean
+                    description: Indicates whether the agent has been deleted
                 userCount:
                     type: integer
                     description: Total number of users for this agent over the specified time period.
