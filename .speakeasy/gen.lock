@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 3e3290ca-0ee8-4981-b1bc-14536048fa63
 management:
-  docChecksum: 648d674fdd05aad794f8dd9965d820b5
+  docChecksum: 3e5657019a4816420ae24bbe0aa55deb
   docVersion: 0.9.0
   speakeasyVersion: 1.650.0
   generationVersion: 2.743.2
-  releaseVersion: 0.11.14
-  configChecksum: ceccdd78049847212e98f17e1f761752
+  releaseVersion: 0.11.16
+  configChecksum: 8f3025db067290e02de69c0e74482958
   repoURL: https://github.com/gleanwork/api-client-python.git
   installationURL: https://github.com/gleanwork/api-client-python.git
   published: true
@@ -283,7 +283,6 @@ generatedFiles:
   - docs/models/editpinrequest.md
   - docs/models/employeeinfodefinition.md
   - docs/models/employeeteaminfo.md
-  - docs/models/engagementbreakdown.md
   - docs/models/entitiessortorder.md
   - docs/models/entityrelationship.md
   - docs/models/entitytype.md
@@ -2742,3 +2741,6 @@ generatedTests:
   editcollection: "2025-06-12T19:13:52-04:00"
   createshortcut: "2025-06-12T19:13:52-04:00"
   updateshortcut: "2025-06-12T19:13:52-04:00"
+releaseNotes: |
+  ## Python SDK Changes Detected:
+  * `glean.client.insights.retrieve()`:  `response` **Changed** **Breaking** :warning:

@@ -12,7 +12,6 @@ targets:
         publish:
             pypi:
                 token: $pypi_token
-                packageName: glean-api-client
         codeSamples:
             registry:
                 location: registry.speakeasyapi.dev/glean-el2/sdk/glean-api-specs-python-code-samples

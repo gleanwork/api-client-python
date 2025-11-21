@@ -14,6 +14,12 @@ class PerUserInsightTypedDict(TypedDict):
     r"""Total number of searches by this user over the specified time period."""
     num_chats: NotRequired[int]
     r"""Total number of chats by this user over the specified time period."""
+    num_active_sessions: NotRequired[int]
+    r"""Total number of active sessions by this user in a Glean client over the specified time period."""
+    num_gleanbot_useful_responses: NotRequired[int]
+    r"""Total number of Gleanbot responses marked useful by this user over the specified time period."""
+    num_days_active: NotRequired[int]
+    r"""Total number of days this user was an Active User over the specified time period."""
 
 
 class PerUserInsight(BaseModel):
@@ -24,3 +30,18 @@ class PerUserInsight(BaseModel):
 
     num_chats: Annotated[Optional[int], pydantic.Field(alias="numChats")] = None
     r"""Total number of chats by this user over the specified time period."""
+
+    num_active_sessions: Annotated[
+        Optional[int], pydantic.Field(alias="numActiveSessions")
+    ] = None
+    r"""Total number of active sessions by this user in a Glean client over the specified time period."""
+
+    num_gleanbot_useful_responses: Annotated[
+        Optional[int], pydantic.Field(alias="numGleanbotUsefulResponses")
+    ] = None
+    r"""Total number of Gleanbot responses marked useful by this user over the specified time period."""
+
+    num_days_active: Annotated[Optional[int], pydantic.Field(alias="numDaysActive")] = (
+        None
+    )
+    r"""Total number of days this user was an Active User over the specified time period."""

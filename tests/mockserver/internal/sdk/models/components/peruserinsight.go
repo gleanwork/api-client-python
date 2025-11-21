@@ -8,6 +8,12 @@ type PerUserInsight struct {
 	NumSearches *int64 `json:"numSearches,omitempty"`
 	// Total number of chats by this user over the specified time period.
 	NumChats *int64 `json:"numChats,omitempty"`
+	// Total number of active sessions by this user in a Glean client over the specified time period.
+	NumActiveSessions *int64 `json:"numActiveSessions,omitempty"`
+	// Total number of Gleanbot responses marked useful by this user over the specified time period.
+	NumGleanbotUsefulResponses *int64 `json:"numGleanbotUsefulResponses,omitempty"`
+	// Total number of days this user was an Active User over the specified time period.
+	NumDaysActive *int64 `json:"numDaysActive,omitempty"`
 }
 
 func (o *PerUserInsight) GetPerson() *Person {
@@ -29,4 +35,25 @@ func (o *PerUserInsight) GetNumChats() *int64 {
 		return nil
 	}
 	return o.NumChats
+}
+
+func (o *PerUserInsight) GetNumActiveSessions() *int64 {
+	if o == nil {
+		return nil
+	}
+	return o.NumActiveSessions
+}
+
+func (o *PerUserInsight) GetNumGleanbotUsefulResponses() *int64 {
+	if o == nil {
+		return nil
+	}
+	return o.NumGleanbotUsefulResponses
+}
+
+func (o *PerUserInsight) GetNumDaysActive() *int64 {
+	if o == nil {
+		return nil
+	}
+	return o.NumDaysActive
 }
