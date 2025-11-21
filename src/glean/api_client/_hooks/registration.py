@@ -1,5 +1,6 @@
 from .types import Hooks
 from .multipart_fix_hook import MultipartFileFieldFixHook
+from .agent_file_upload_error_hook import AgentFileUploadErrorHook
 
 
 # This file is only ever generated once on the first generation and then is free to be modified.
@@ -15,3 +16,6 @@ def init_hooks(hooks: Hooks):
 
     # Register hook to fix multipart file field names that incorrectly have '[]' suffix
     hooks.register_sdk_init_hook(MultipartFileFieldFixHook())
+
+    # Register hook to provide helpful error messages for agent file upload issues
+    hooks.register_after_error_hook(AgentFileUploadErrorHook())
