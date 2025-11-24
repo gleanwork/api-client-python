@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
     version: 0.9.0
     title: Glean API
-    x-source-commit-sha: 9d70dc6fd5686efed566683e892e33d087e59fb3
+    x-source-commit-sha: 1c30a2e9466bf278374bd82863042433f7fa8a6d
     description: |
         # Introduction
         In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This is useful, for example, for doing permissions-aware search over content in internal tools that reside on-prem as well as for searching over applications that Glean does not currently support first class. In addition these APIs allow the customer to push organization data (people info, organization structure etc) into Glean.
@@ -22,7 +22,7 @@ info:
         These API clients provide type-safe, idiomatic interfaces for working with Glean IndexingAPIs in your language of choice.
     x-logo:
         url: https://app.glean.com/images/glean-text2.svg
-    x-open-api-commit-sha: 3c0c128eb9356e9aee605457114fd985b8165472
+    x-open-api-commit-sha: bfa098a27c3b8f11087766de34606765c946e305
     x-speakeasy-name: 'Glean API'
 servers:
     - url: https://{instance}-be.glean.com
@@ -8703,6 +8703,12 @@ components:
                 agentName:
                     type: string
                     description: Name of the agent to be shown in the agent column in this department over the specified time period.
+                icon:
+                    $ref: "#/components/schemas/IconConfig"
+                    description: Agent icon configuration
+                isDeleted:
+                    type: boolean
+                    description: Indicates whether the agent has been deleted
         AgentUsersInsight:
             properties:
                 person:
@@ -12414,6 +12420,9 @@ components:
                     enum:
                         - LIKELY
                         - VERY_LIKELY
+                        - POSSIBLE
+                        - UNLIKELY
+                        - VERY_UNLIKELY
                 infoType:
                     description: Text representation of an info-type to scan for.
                     type: string

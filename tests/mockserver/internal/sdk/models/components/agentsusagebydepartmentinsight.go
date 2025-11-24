@@ -15,6 +15,10 @@ type AgentsUsageByDepartmentInsight struct {
 	AgentID *string `json:"agentId,omitempty"`
 	// Name of the agent to be shown in the agent column in this department over the specified time period.
 	AgentName *string `json:"agentName,omitempty"`
+	// Defines how to render an icon
+	Icon *IconConfig `json:"icon,omitempty"`
+	// Indicates whether the agent has been deleted
+	IsDeleted *bool `json:"isDeleted,omitempty"`
 }
 
 func (o *AgentsUsageByDepartmentInsight) GetDepartment() *string {
@@ -57,4 +61,18 @@ func (o *AgentsUsageByDepartmentInsight) GetAgentName() *string {
 		return nil
 	}
 	return o.AgentName
+}
+
+func (o *AgentsUsageByDepartmentInsight) GetIcon() *IconConfig {
+	if o == nil {
+		return nil
+	}
+	return o.Icon
+}
+
+func (o *AgentsUsageByDepartmentInsight) GetIsDeleted() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.IsDeleted
 }
