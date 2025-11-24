@@ -14,6 +14,9 @@ from typing_extensions import Annotated, NotRequired, TypedDict, deprecated
 class LikelihoodThreshold(str, Enum):
     LIKELY = "LIKELY"
     VERY_LIKELY = "VERY_LIKELY"
+    POSSIBLE = "POSSIBLE"
+    UNLIKELY = "UNLIKELY"
+    VERY_UNLIKELY = "VERY_UNLIKELY"
 
 
 class SensitiveInfoTypeTypedDict(TypedDict):

@@ -5,7 +5,10 @@
 
 ## Values
 
-| Name          | Value         |
-| ------------- | ------------- |
-| `LIKELY`      | LIKELY        |
-| `VERY_LIKELY` | VERY_LIKELY   |
+| Name            | Value           |
+| --------------- | --------------- |
+| `LIKELY`        | LIKELY          |
+| `VERY_LIKELY`   | VERY_LIKELY     |
+| `POSSIBLE`      | POSSIBLE        |
+| `UNLIKELY`      | UNLIKELY        |
+| `VERY_UNLIKELY` | VERY_UNLIKELY   |

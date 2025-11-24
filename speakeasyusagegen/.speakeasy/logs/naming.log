@@ -922,7 +922,7 @@ GetpolicyResponse (HttpMeta: HTTPMetadata, GetDlpReportResponse: GetDlpReportRes
   DlpReport (id: string, name: string, config: DlpConfig ...)
    DlpConfig (version: integer, sensitiveInfoTypes: array, inputOptions: InputOptions ...)
      SensitiveInfoType (likelihoodThreshold: enum, infoType: string)
-      LikelihoodThreshold (enum: LIKELY, VERY_LIKELY)
+      LikelihoodThreshold (enum: LIKELY, VERY_LIKELY, POSSIBLE ...)
     InputOptions (urlGreenlist: array, datasourcesType: enum, datasources: array ...)
      DatasourcesType (enum: ALL, CUSTOM)
      TimePeriodType (enum: ALL_TIME, PAST_YEAR, PAST_DAY ...)

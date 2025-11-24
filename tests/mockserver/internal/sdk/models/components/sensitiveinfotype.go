@@ -13,8 +13,11 @@ import (
 type LikelihoodThreshold string
 
 const (
-	LikelihoodThresholdLikely     LikelihoodThreshold = "LIKELY"
-	LikelihoodThresholdVeryLikely LikelihoodThreshold = "VERY_LIKELY"
+	LikelihoodThresholdLikely       LikelihoodThreshold = "LIKELY"
+	LikelihoodThresholdVeryLikely   LikelihoodThreshold = "VERY_LIKELY"
+	LikelihoodThresholdPossible     LikelihoodThreshold = "POSSIBLE"
+	LikelihoodThresholdUnlikely     LikelihoodThreshold = "UNLIKELY"
+	LikelihoodThresholdVeryUnlikely LikelihoodThreshold = "VERY_UNLIKELY"
 )
 
 func (e LikelihoodThreshold) ToPointer() *LikelihoodThreshold {
@@ -29,6 +32,12 @@ func (e *LikelihoodThreshold) UnmarshalJSON(data []byte) error {
 	case "LIKELY":
 		fallthrough
 	case "VERY_LIKELY":
+		fallthrough
+	case "POSSIBLE":
+		fallthrough
+	case "UNLIKELY":
+		fallthrough
+	case "VERY_UNLIKELY":
 		*e = LikelihoodThreshold(v)
 		return nil
 	default:
