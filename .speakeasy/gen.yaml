@@ -29,6 +29,7 @@ generation:
     generateTests: true
     generateNewTests: true
     skipResponseBodyAssertions: true
+  multipartArrayFormat: standard
 python:
   version: 0.11.22
   additionalDependencies:
