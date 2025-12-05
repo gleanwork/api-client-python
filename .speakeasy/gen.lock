@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 3e3290ca-0ee8-4981-b1bc-14536048fa63
 management:
-  docChecksum: f901905eddb4d3e76a54e8da46f5347d
+  docChecksum: 077c6362a0efa2eeabfcbaf36c09ccf5
   docVersion: 0.9.0
   speakeasyVersion: 1.650.0
   generationVersion: 2.743.2
-  releaseVersion: 0.11.22
-  configChecksum: 15c71f102e245f5606dc6f4f470c2ad8
+  releaseVersion: 0.12.1
+  configChecksum: 49b9e5da7f967f599e502dd87a1ffb77
   repoURL: https://github.com/gleanwork/api-client-python.git
   installationURL: https://github.com/gleanwork/api-client-python.git
   published: true
@@ -194,6 +194,10 @@ generatedFiles:
   - docs/models/customfieldvalueperson.md
   - docs/models/customfieldvaluestr.md
   - docs/models/customproperty.md
+  - docs/models/customsensitiveexpression.md
+  - docs/models/customsensitiverule.md
+  - docs/models/customsensitiverulelikelihoodthreshold.md
+  - docs/models/customsensitiveruletype.md
   - docs/models/datasource.md
   - docs/models/datasourcebulkmembershipdefinition.md
   - docs/models/datasourcecategory.md
@@ -407,7 +411,6 @@ generatedFiles:
   - docs/models/knowledgetype.md
   - docs/models/labeledcountinfo.md
   - docs/models/lastscanstatus.md
-  - docs/models/likelihoodthreshold.md
   - docs/models/listanswersrequest.md
   - docs/models/listanswersresponse.md
   - docs/models/listchatsrequest.md
@@ -536,6 +539,7 @@ generatedFiles:
   - docs/models/sensitivecontentoptions.md
   - docs/models/sensitiveexpression.md
   - docs/models/sensitiveinfotype.md
+  - docs/models/sensitiveinfotypelikelihoodthreshold.md
   - docs/models/sessioninfo.md
   - docs/models/share.md
   - docs/models/sharingoptions.md
@@ -822,6 +826,9 @@ generatedFiles:
   - src/glean/api_client/models/customfieldvalueperson.py
   - src/glean/api_client/models/customfieldvaluestr.py
   - src/glean/api_client/models/customproperty.py
+  - src/glean/api_client/models/customsensitiveexpression.py
+  - src/glean/api_client/models/customsensitiverule.py
+  - src/glean/api_client/models/customsensitiveruletype.py
   - src/glean/api_client/models/datasourcebulkmembershipdefinition.py
   - src/glean/api_client/models/datasourcegroupdefinition.py
   - src/glean/api_client/models/datasourcemembershipdefinition.py
@@ -1414,6 +1421,9 @@ generatedFiles:
   - tests/mockserver/internal/sdk/models/components/customfieldvalueperson.go
   - tests/mockserver/internal/sdk/models/components/customfieldvaluestr.go
   - tests/mockserver/internal/sdk/models/components/customproperty.go
+  - tests/mockserver/internal/sdk/models/components/customsensitiveexpression.go
+  - tests/mockserver/internal/sdk/models/components/customsensitiverule.go
+  - tests/mockserver/internal/sdk/models/components/customsensitiveruletype.go
   - tests/mockserver/internal/sdk/models/components/datasourcebulkmembershipdefinition.go
   - tests/mockserver/internal/sdk/models/components/datasourcegroupdefinition.go
   - tests/mockserver/internal/sdk/models/components/datasourcemembershipdefinition.go
@@ -2741,6 +2751,4 @@ generatedTests:
   editcollection: "2025-06-12T19:13:52-04:00"
   createshortcut: "2025-06-12T19:13:52-04:00"
   updateshortcut: "2025-06-12T19:13:52-04:00"
-releaseNotes: |
-  ## Python SDK Changes Detected:
-  * `glean.client.insights.retrieve()`:  `response.agents_response.agents_usage_by_department_insights.[]` **Changed**
+releaseNotes: "## Python SDK Changes Detected:\n* `glean.client.announcements.create()`: \n  *  `request.body.structured_list.[].document.metadata.author.metadata.timezone_iana` **Added**\n  *  `response.body.structured_list.[].document.metadata.author.metadata.timezone_iana` **Added**\n* `glean.client.announcements.update()`: \n  *  `request.body.structured_list.[].document.metadata.author.metadata.timezone_iana` **Added**\n  *  `response.body.structured_list.[].document.metadata.author.metadata.timezone_iana` **Added**\n* `glean.client.answers.create()`: \n  *  `request.data.added_roles.[].person.metadata.timezone_iana` **Added**\n  *  `response.added_roles.[].person.metadata.timezone_iana` **Added**\n* `glean.client.answers.update()`: \n  *  `request.added_roles.[].person.metadata.timezone_iana` **Added**\n  *  `response.added_roles.[].person.metadata.timezone_iana` **Added**\n* `glean.client.answers.retrieve()`:  `response.answer_result.answer.added_roles.[].person.metadata.timezone_iana` **Added**\n* `glean.client.answers.list()`:  `response.answer_results.[].answer.added_roles.[].person.metadata.timezone_iana` **Added**\n* `glean.client.chat.create()`: \n  *  `request.messages.[].citations.[].source_document.metadata.author.metadata.timezone_iana` **Added**\n  *  `response.messages.[].citations.[].source_document.metadata.author.metadata.timezone_iana` **Added**\n* `glean.client.chat.retrieve()`:  `response.chat_result.chat.created_by.metadata.timezone_iana` **Added**\n* `glean.client.chat.list()`:  `response.chat_results.[].chat.created_by.metadata.timezone_iana` **Added**\n* `glean.client.chat.create_stream()`: \n  *  `request.messages.[].citations.[].source_document.metadata.author.metadata.timezone_iana` **Added**\n* `glean.client.collections.add_items()`:  `response.collection.added_roles.[].person.metadata.timezone_iana` **Added**\n* `glean.client.collections.create()`: \n  *  `request.added_roles.[].person.metadata.timezone_iana` **Added**\n  *  `response.[class].collection.added_roles.[].person.metadata.timezone_iana` **Added**\n* `glean.client.collections.delete_item()`:  `response.collection.added_roles.[].person.metadata.timezone_iana` **Added**\n* `glean.client.collections.update()`: \n  *  `request.added_roles.[].person.metadata.timezone_iana` **Added**\n  *  `response.added_roles.[].person.metadata.timezone_iana` **Added**\n* `glean.client.collections.update_item()`:  `response.collection.added_roles.[].person.metadata.timezone_iana` **Added**\n* `glean.client.collections.retrieve()`:  `response.collection.added_roles.[].person.metadata.timezone_iana` **Added**\n* `glean.client.collections.list()`:  `response.collections.[].added_roles.[].person.metadata.timezone_iana` **Added**\n* `glean.client.documents.retrieve()`:  `response.documents.{}.[document].metadata.author.metadata.timezone_iana` **Added**\n* `glean.client.documents.retrieve_by_facets()`:  `response.documents.[].metadata.author.metadata.timezone_iana` **Added**\n* `glean.client.insights.retrieve()`:  `response.users.activity_insights.[].user.metadata.timezone_iana` **Added**\n* `glean.client.messages.retrieve()`:  `response.search_response.results.[].structured_results.[].document.metadata.author.metadata.timezone_iana` **Added**\n* `glean.client.pins.update()`:  `response.attribution.metadata.timezone_iana` **Added**\n* `glean.client.pins.retrieve()`:  `response.pin.attribution.metadata.timezone_iana` **Added**\n* `glean.client.pins.list()`:  `response.pins.[].attribution.metadata.timezone_iana` **Added**\n* `glean.client.pins.create()`:  `response.attribution.metadata.timezone_iana` **Added**\n* `glean.client.search.query_as_admin()`: \n  *  `request.source_document.metadata.author.metadata.timezone_iana` **Added**\n  *  `response.results.[].structured_results.[].document.metadata.author.metadata.timezone_iana` **Added**\n* `glean.client.search.autocomplete()`:  `response.results.[].document.metadata.author.metadata.timezone_iana` **Added**\n* `glean.client.search.retrieve_feed()`:  `response.results.[].primary_entry.created_by.metadata.timezone_iana` **Added**\n* `glean.client.search.recommendations()`: \n  *  `request.source_document.metadata.author.metadata.timezone_iana` **Added**\n  *  `response.results.[].structured_results.[].document.metadata.author.metadata.timezone_iana` **Added**\n* `glean.client.search.query()`: \n  *  `request.source_document.metadata.author.metadata.timezone_iana` **Added**\n  *  `response.results.[].structured_results.[].document.metadata.author.metadata.timezone_iana` **Added**\n* `glean.client.entities.list()`:  `response.results.[].metadata.timezone_iana` **Added**\n* `glean.client.entities.read_people()`:  `response.results.[].metadata.timezone_iana` **Added**\n* `glean.client.shortcuts.create()`: \n  *  `request.data.added_roles.[].person.metadata.timezone_iana` **Added**\n  *  `response.shortcut.added_roles.[].person.metadata.timezone_iana` **Added**\n* `glean.client.shortcuts.retrieve()`:  `response.shortcut.added_roles.[].person.metadata.timezone_iana` **Added**\n* `glean.client.shortcuts.list()`:  `response.shortcuts.[].added_roles.[].person.metadata.timezone_iana` **Added**\n* `glean.client.shortcuts.update()`: \n  *  `request.added_roles.[].person.metadata.timezone_iana` **Added**\n  *  `response.shortcut.added_roles.[].person.metadata.timezone_iana` **Added**\n* `glean.client.verification.add_reminder()`:  `response.metadata.last_verifier.metadata.timezone_iana` **Added**\n* `glean.client.verification.list()`:  `response.documents.[].metadata.last_verifier.metadata.timezone_iana` **Added**\n* `glean.client.verification.verify()`:  `response.metadata.last_verifier.metadata.timezone_iana` **Added**\n* `glean.client.governance.data.policies.retrieve()`:  `response.report.config.sensitive_content_options.custom_sensitive_expressions` **Added**\n* `glean.client.governance.data.policies.update()`: \n  *  `request.config.sensitive_content_options.custom_sensitive_expressions` **Added**\n* `glean.client.governance.data.policies.list()`:  `response.reports.[].config.sensitive_content_options.custom_sensitive_expressions` **Added**\n* `glean.client.governance.data.policies.create()`: \n  *  `request.config.sensitive_content_options.custom_sensitive_expressions` **Added**\n  *  `response.report.config.sensitive_content_options.custom_sensitive_expressions` **Added**\n* `glean.client.governance.data.reports.create()`: \n  *  `request.config.sensitive_content_options.custom_sensitive_expressions` **Added**\n"

@@ -366,6 +366,16 @@ if TYPE_CHECKING:
     )
     from .customfieldvaluestr import CustomFieldValueStr, CustomFieldValueStrTypedDict
     from .customproperty import CustomProperty, CustomPropertyTypedDict
+    from .customsensitiveexpression import (
+        CustomSensitiveExpression,
+        CustomSensitiveExpressionTypedDict,
+    )
+    from .customsensitiverule import (
+        CustomSensitiveRule,
+        CustomSensitiveRuleLikelihoodThreshold,
+        CustomSensitiveRuleTypedDict,
+    )
+    from .customsensitiveruletype import CustomSensitiveRuleType
     from .datasourcebulkmembershipdefinition import (
         DatasourceBulkMembershipDefinition,
         DatasourceBulkMembershipDefinitionTypedDict,
@@ -1051,8 +1061,8 @@ if TYPE_CHECKING:
     )
     from .sensitiveexpression import SensitiveExpression, SensitiveExpressionTypedDict
     from .sensitiveinfotype import (
-        LikelihoodThreshold,
         SensitiveInfoType,
+        SensitiveInfoTypeLikelihoodThreshold,
         SensitiveInfoTypeTypedDict,
     )
     from .sessioninfo import SessionInfo, SessionInfoTypedDict
@@ -1535,6 +1545,12 @@ __all__ = [
     "CustomFieldValueTypedDict",
     "CustomProperty",
     "CustomPropertyTypedDict",
+    "CustomSensitiveExpression",
+    "CustomSensitiveExpressionTypedDict",
+    "CustomSensitiveRule",
+    "CustomSensitiveRuleLikelihoodThreshold",
+    "CustomSensitiveRuleType",
+    "CustomSensitiveRuleTypedDict",
     "Customer",
     "CustomerMetadata",
     "CustomerMetadataTypedDict",
@@ -1925,7 +1941,6 @@ __all__ = [
     "LabeledCountInfo",
     "LabeledCountInfoTypedDict",
     "LastScanStatus",
-    "LikelihoodThreshold",
     "ListAnswersRequest",
     "ListAnswersRequestTypedDict",
     "ListAnswersResponse",
@@ -2151,6 +2166,7 @@ __all__ = [
     "SensitiveExpression",
     "SensitiveExpressionTypedDict",
     "SensitiveInfoType",
+    "SensitiveInfoTypeLikelihoodThreshold",
     "SensitiveInfoTypeTypedDict",
     "SessionInfo",
     "SessionInfoTypedDict",
@@ -2561,6 +2577,12 @@ _dynamic_imports: dict[str, str] = {
     "CustomFieldValueStrTypedDict": ".customfieldvaluestr",
     "CustomProperty": ".customproperty",
     "CustomPropertyTypedDict": ".customproperty",
+    "CustomSensitiveExpression": ".customsensitiveexpression",
+    "CustomSensitiveExpressionTypedDict": ".customsensitiveexpression",
+    "CustomSensitiveRule": ".customsensitiverule",
+    "CustomSensitiveRuleLikelihoodThreshold": ".customsensitiverule",
+    "CustomSensitiveRuleTypedDict": ".customsensitiverule",
+    "CustomSensitiveRuleType": ".customsensitiveruletype",
     "DatasourceBulkMembershipDefinition": ".datasourcebulkmembershipdefinition",
     "DatasourceBulkMembershipDefinitionTypedDict": ".datasourcebulkmembershipdefinition",
     "DatasourceGroupDefinition": ".datasourcegroupdefinition",
@@ -3111,8 +3133,8 @@ _dynamic_imports: dict[str, str] = {
     "SensitiveContentOptionsTypedDict": ".sensitivecontentoptions",
     "SensitiveExpression": ".sensitiveexpression",
     "SensitiveExpressionTypedDict": ".sensitiveexpression",
-    "LikelihoodThreshold": ".sensitiveinfotype",
     "SensitiveInfoType": ".sensitiveinfotype",
+    "SensitiveInfoTypeLikelihoodThreshold": ".sensitiveinfotype",
     "SensitiveInfoTypeTypedDict": ".sensitiveinfotype",
     "SessionInfo": ".sessioninfo",
     "SessionInfoTypedDict": ".sessioninfo",

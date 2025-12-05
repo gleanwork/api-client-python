@@ -14,6 +14,7 @@ class GetDocumentsRequestIncludeField(str, Enum):
     VISITORS_COUNT = "VISITORS_COUNT"
     RECENT_SHARES = "RECENT_SHARES"
     DOCUMENT_CONTENT = "DOCUMENT_CONTENT"
+    CUSTOM_METADATA = "CUSTOM_METADATA"
 
 
 class GetDocumentsRequestTypedDict(TypedDict):

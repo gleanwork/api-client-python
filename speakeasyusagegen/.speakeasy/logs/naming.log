@@ -360,6 +360,15 @@ DEBUG	discriminated: Renamed to "DebugDatasourceStatusIdentityResponseComponent_
 	 registrationID: "scope:shared refType:Schemas refName:DebugDatasourceStatusIdentityResponseComponent originalName:counts"
 DEBUG	
 
+--- Renaming 2 types with name "likelihoodThreshold" ---
+DEBUG	discriminated: Renamed to "SensitiveInfoType_likelihoodThreshold" 
+	 labels: "original_name:likelihoodThreshold scope:shared data_type:enum refName:SensitiveInfoType" 
+	 registrationID: "scope:shared refType:Schemas refName:SensitiveInfoType originalName:likelihoodThreshold"
+DEBUG	discriminated: Renamed to "CustomSensitiveRule_likelihoodThreshold" 
+	 labels: "original_name:likelihoodThreshold scope:shared data_type:enum refName:CustomSensitiveRule" 
+	 registrationID: "scope:shared refType:Schemas refName:CustomSensitiveRule originalName:likelihoodThreshold"
+DEBUG	
+
 --- Renaming 2 types with name "override" ---
 DEBUG	discriminated: Renamed to "DocumentVisibilityOverride_override" 
 	 labels: "original_name:override scope:shared data_type:enum refName:DocumentVisibilityOverride" 
@@ -922,17 +931,21 @@ GetpolicyResponse (HttpMeta: HTTPMetadata, GetDlpReportResponse: GetDlpReportRes
   DlpReport (id: string, name: string, config: DlpConfig ...)
    DlpConfig (version: integer, sensitiveInfoTypes: array, inputOptions: InputOptions ...)
      SensitiveInfoType (likelihoodThreshold: enum, infoType: string)
-      LikelihoodThreshold (enum: LIKELY, VERY_LIKELY, POSSIBLE ...)
+      SensitiveInfoTypeLikelihoodThreshold (enum: LIKELY, VERY_LIKELY, POSSIBLE ...)
     InputOptions (urlGreenlist: array, datasourcesType: enum, datasources: array ...)
      DatasourcesType (enum: ALL, CUSTOM)
      TimePeriodType (enum: ALL_TIME, PAST_YEAR, PAST_DAY ...)
      TimeRange (startTime: date-time, endTime: date-time, lastNDaysValue: integer)
     ExternalSharingOptions (enabled: boolean, threshold: integer, thresholdEnabled: boolean ...)
     SharingOptions (enabled: boolean, threshold: integer, thresholdEnabled: boolean ...)
-    SensitiveContentOptions (sensitiveInfoTypes: array, sensitiveTerms: array, sensitiveRegexes: array)
+    SensitiveContentOptions (sensitiveInfoTypes: array, sensitiveTerms: array, sensitiveRegexes: array ...)
       SensitiveExpression (expression: string, hotwords: array)
         Hotword (regex: string, proximity: HotwordProximity)
          HotwordProximity (windowBefore: integer, windowAfter: integer)
+      CustomSensitiveExpression (id: string, keyword: CustomSensitiveRule, evaluationExpression: string)
+       CustomSensitiveRule (id: string, value: string, type: CustomSensitiveRuleType ...)
+        CustomSensitiveRuleType (enum: REGEX, TERM, INFO_TYPE)
+        CustomSensitiveRuleLikelihoodThreshold (enum: LIKELY, VERY_LIKELY, POSSIBLE ...)
     DlpPerson (name: string, obfuscatedId: string, metadata: DlpPersonMetadata)
      DlpPersonMetadata (firstName: string, email: string)
     AllowlistOptions (terms: array)

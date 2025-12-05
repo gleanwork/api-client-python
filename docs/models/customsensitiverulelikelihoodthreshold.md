@@ -1,6 +1,6 @@
-# ~~LikelihoodThreshold~~
+# CustomSensitiveRuleLikelihoodThreshold
 
-> :warning: **DEPRECATED**: This will be removed in a future release, please migrate away from it as soon as possible.
+Likelihood threshold for BUILT_IN infotypes (e.g., LIKELY, VERY_LIKELY). Only applicable for BUILT_IN type.
 
 
 ## Values
