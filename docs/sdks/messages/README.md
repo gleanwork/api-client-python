@@ -1,5 +1,4 @@
-# Messages
-(*client.messages*)
+# Client.Messages
 
 ## Overview
 

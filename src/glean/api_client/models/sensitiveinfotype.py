@@ -11,7 +11,7 @@ from typing_extensions import Annotated, NotRequired, TypedDict, deprecated
 @deprecated(
     "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
 )
-class LikelihoodThreshold(str, Enum):
+class SensitiveInfoTypeLikelihoodThreshold(str, Enum):
     LIKELY = "LIKELY"
     VERY_LIKELY = "VERY_LIKELY"
     POSSIBLE = "POSSIBLE"
@@ -20,14 +20,14 @@ class LikelihoodThreshold(str, Enum):
 
 
 class SensitiveInfoTypeTypedDict(TypedDict):
-    likelihood_threshold: NotRequired[LikelihoodThreshold]
+    likelihood_threshold: NotRequired[SensitiveInfoTypeLikelihoodThreshold]
     info_type: NotRequired[str]
     r"""Text representation of an info-type to scan for."""
 
 
 class SensitiveInfoType(BaseModel):
     likelihood_threshold: Annotated[
-        Optional[LikelihoodThreshold],
+        Optional[SensitiveInfoTypeLikelihoodThreshold],
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible.",
             alias="likelihoodThreshold",

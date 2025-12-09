@@ -61,6 +61,7 @@ class ClientShortcuts(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.CreateShortcutRequest
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -149,6 +150,7 @@ class ClientShortcuts(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.CreateShortcutRequest
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -235,6 +237,7 @@ class ClientShortcuts(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.DeleteShortcutRequest
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -321,6 +324,7 @@ class ClientShortcuts(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.DeleteShortcutRequest
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -409,6 +413,7 @@ class ClientShortcuts(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.GetShortcutRequestUnion
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -497,6 +502,7 @@ class ClientShortcuts(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.GetShortcutRequestUnion
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -604,6 +610,7 @@ class ClientShortcuts(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.ListShortcutsPaginatedRequest
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -713,6 +720,7 @@ class ClientShortcuts(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.ListShortcutsPaginatedRequest
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -839,6 +847,7 @@ class ClientShortcuts(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.UpdateShortcutRequest
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -963,6 +972,7 @@ class ClientShortcuts(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.UpdateShortcutRequest
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 

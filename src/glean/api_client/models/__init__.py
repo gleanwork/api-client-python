@@ -366,6 +366,16 @@ if TYPE_CHECKING:
     )
     from .customfieldvaluestr import CustomFieldValueStr, CustomFieldValueStrTypedDict
     from .customproperty import CustomProperty, CustomPropertyTypedDict
+    from .customsensitiveexpression import (
+        CustomSensitiveExpression,
+        CustomSensitiveExpressionTypedDict,
+    )
+    from .customsensitiverule import (
+        CustomSensitiveRule,
+        CustomSensitiveRuleLikelihoodThreshold,
+        CustomSensitiveRuleTypedDict,
+    )
+    from .customsensitiveruletype import CustomSensitiveRuleType
     from .datasourcebulkmembershipdefinition import (
         DatasourceBulkMembershipDefinition,
         DatasourceBulkMembershipDefinitionTypedDict,
@@ -465,6 +475,10 @@ if TYPE_CHECKING:
         DeleteEmployeeRequest,
         DeleteEmployeeRequestTypedDict,
     )
+    from .deletefindingsexportop import (
+        DeletefindingsexportRequest,
+        DeletefindingsexportRequestTypedDict,
+    )
     from .deletegrouprequest import DeleteGroupRequest, DeleteGroupRequestTypedDict
     from .deletemembershiprequest import (
         DeleteMembershipRequest,
@@ -485,11 +499,19 @@ if TYPE_CHECKING:
         DisplayableListItemUIConfigTypedDict,
     )
     from .dlpconfig import DlpConfig, DlpConfigTypedDict
+    from .dlpexportfindingsrequest import (
+        DlpExportFindingsRequest,
+        DlpExportFindingsRequestTypedDict,
+        ExportType,
+        FieldScope,
+    )
+    from .dlpfindingfilter import DlpFindingFilter, DlpFindingFilterTypedDict
     from .dlpfrequency import DlpFrequency
     from .dlpperson import DlpPerson, DlpPersonTypedDict
     from .dlppersonmetadata import DlpPersonMetadata, DlpPersonMetadataTypedDict
     from .dlpreport import DlpReport, DlpReportTypedDict, LastScanStatus
     from .dlpreportstatus import DlpReportStatus
+    from .dlpseverity import DlpSeverity
     from .dlpsimpleresult import DlpSimpleResult
     from .documentcontent import DocumentContent, DocumentContentTypedDict
     from .documentdefinition import DocumentDefinition, DocumentDefinitionTypedDict
@@ -538,6 +560,10 @@ if TYPE_CHECKING:
         DocumentVisibilityUpdateResultOverride,
         DocumentVisibilityUpdateResultTypedDict,
     )
+    from .downloadfindingsexportop import (
+        DownloadfindingsexportRequest,
+        DownloadfindingsexportRequestTypedDict,
+    )
     from .downloadpolicycsvop import (
         DownloadpolicycsvRequest,
         DownloadpolicycsvRequestTypedDict,
@@ -581,6 +607,7 @@ if TYPE_CHECKING:
     from .eventclassification import EventClassification, EventClassificationTypedDict
     from .eventclassificationname import EventClassificationName
     from .eventstrategyname import EventStrategyName
+    from .exportinfo import ExportInfo, ExportInfoStatus, ExportInfoTypedDict
     from .externalsharingoptions import (
         ExternalSharingOptions,
         ExternalSharingOptionsTypedDict,
@@ -798,8 +825,8 @@ if TYPE_CHECKING:
     from .inputoptions import (
         DatasourcesType,
         InputOptions,
+        InputOptionsTimePeriodType,
         InputOptionsTypedDict,
-        TimePeriodType,
     )
     from .insightsagentsrequestoptions import (
         InsightsAgentsRequestOptions,
@@ -849,6 +876,10 @@ if TYPE_CHECKING:
     from .listcollectionsresponse import (
         ListCollectionsResponse,
         ListCollectionsResponseTypedDict,
+    )
+    from .listdlpfindingsexportsresponse import (
+        ListDlpFindingsExportsResponse,
+        ListDlpFindingsExportsResponseTypedDict,
     )
     from .listdlpreportsresponse import (
         ListDlpReportsResponse,
@@ -1051,8 +1082,8 @@ if TYPE_CHECKING:
     )
     from .sensitiveexpression import SensitiveExpression, SensitiveExpressionTypedDict
     from .sensitiveinfotype import (
-        LikelihoodThreshold,
         SensitiveInfoType,
+        SensitiveInfoTypeLikelihoodThreshold,
         SensitiveInfoTypeTypedDict,
     )
     from .sessioninfo import SessionInfo, SessionInfoTypedDict
@@ -1108,6 +1139,11 @@ if TYPE_CHECKING:
     from .timeinterval import TimeInterval, TimeIntervalTypedDict
     from .timepoint import TimePoint, TimePointTypedDict
     from .timerange import TimeRange, TimeRangeTypedDict
+    from .timerangefilter import (
+        TimeRangeFilter,
+        TimeRangeFilterTimePeriodType,
+        TimeRangeFilterTypedDict,
+    )
     from .tool import Tool, ToolType, ToolTypedDict
     from .toolinfo import ToolInfo, ToolInfoTypedDict
     from .toolmetadata import (
@@ -1535,6 +1571,12 @@ __all__ = [
     "CustomFieldValueTypedDict",
     "CustomProperty",
     "CustomPropertyTypedDict",
+    "CustomSensitiveExpression",
+    "CustomSensitiveExpressionTypedDict",
+    "CustomSensitiveRule",
+    "CustomSensitiveRuleLikelihoodThreshold",
+    "CustomSensitiveRuleType",
+    "CustomSensitiveRuleTypedDict",
     "Customer",
     "CustomerMetadata",
     "CustomerMetadataTypedDict",
@@ -1611,6 +1653,8 @@ __all__ = [
     "DeletechatfilesRequestRequestTypedDict",
     "DeletechatsRequestRequest",
     "DeletechatsRequestRequestTypedDict",
+    "DeletefindingsexportRequest",
+    "DeletefindingsexportRequestTypedDict",
     "Digest",
     "DigestSection",
     "DigestSectionTypedDict",
@@ -1624,6 +1668,10 @@ __all__ = [
     "DisplayableListItemUIConfigTypedDict",
     "DlpConfig",
     "DlpConfigTypedDict",
+    "DlpExportFindingsRequest",
+    "DlpExportFindingsRequestTypedDict",
+    "DlpFindingFilter",
+    "DlpFindingFilterTypedDict",
     "DlpFrequency",
     "DlpPerson",
     "DlpPersonMetadata",
@@ -1632,6 +1680,7 @@ __all__ = [
     "DlpReport",
     "DlpReportStatus",
     "DlpReportTypedDict",
+    "DlpSeverity",
     "DlpSimpleResult",
     "DocCategory",
     "Document",
@@ -1679,6 +1728,8 @@ __all__ = [
     "DocumentVisibilityUpdateResultTypedDict",
     "Documents",
     "DocumentsTypedDict",
+    "DownloadfindingsexportRequest",
+    "DownloadfindingsexportRequestTypedDict",
     "DownloadpolicycsvRequest",
     "DownloadpolicycsvRequestTypedDict",
     "DownloadreportcsvRequest",
@@ -1714,6 +1765,10 @@ __all__ = [
     "EventClassificationName",
     "EventClassificationTypedDict",
     "EventStrategyName",
+    "ExportInfo",
+    "ExportInfoStatus",
+    "ExportInfoTypedDict",
+    "ExportType",
     "ExternalSharingOptions",
     "ExternalSharingOptionsTypedDict",
     "ExternalShortcut",
@@ -1756,6 +1811,7 @@ __all__ = [
     "FeedbackRequest",
     "FeedbackRequestTypedDict",
     "FeedbackTypedDict",
+    "FieldScope",
     "File",
     "FileTypedDict",
     "FollowupAction",
@@ -1893,6 +1949,7 @@ __all__ = [
     "IndexingShortcut",
     "IndexingShortcutTypedDict",
     "InputOptions",
+    "InputOptionsTimePeriodType",
     "InputOptionsTypedDict",
     "InputSchema",
     "InputSchemaTypedDict",
@@ -1925,7 +1982,6 @@ __all__ = [
     "LabeledCountInfo",
     "LabeledCountInfoTypedDict",
     "LastScanStatus",
-    "LikelihoodThreshold",
     "ListAnswersRequest",
     "ListAnswersRequestTypedDict",
     "ListAnswersResponse",
@@ -1936,6 +1992,8 @@ __all__ = [
     "ListCollectionsRequestTypedDict",
     "ListCollectionsResponse",
     "ListCollectionsResponseTypedDict",
+    "ListDlpFindingsExportsResponse",
+    "ListDlpFindingsExportsResponseTypedDict",
     "ListDlpReportsResponse",
     "ListDlpReportsResponseTypedDict",
     "ListEntitiesRequest",
@@ -2151,6 +2209,7 @@ __all__ = [
     "SensitiveExpression",
     "SensitiveExpressionTypedDict",
     "SensitiveInfoType",
+    "SensitiveInfoTypeLikelihoodThreshold",
     "SensitiveInfoTypeTypedDict",
     "SessionInfo",
     "SessionInfoTypedDict",
@@ -2215,10 +2274,12 @@ __all__ = [
     "ThumbnailTypedDict",
     "TimeInterval",
     "TimeIntervalTypedDict",
-    "TimePeriodType",
     "TimePoint",
     "TimePointTypedDict",
     "TimeRange",
+    "TimeRangeFilter",
+    "TimeRangeFilterTimePeriodType",
+    "TimeRangeFilterTypedDict",
     "TimeRangeTypedDict",
     "Tool",
     "ToolInfo",
@@ -2561,6 +2622,12 @@ _dynamic_imports: dict[str, str] = {
     "CustomFieldValueStrTypedDict": ".customfieldvaluestr",
     "CustomProperty": ".customproperty",
     "CustomPropertyTypedDict": ".customproperty",
+    "CustomSensitiveExpression": ".customsensitiveexpression",
+    "CustomSensitiveExpressionTypedDict": ".customsensitiveexpression",
+    "CustomSensitiveRule": ".customsensitiverule",
+    "CustomSensitiveRuleLikelihoodThreshold": ".customsensitiverule",
+    "CustomSensitiveRuleTypedDict": ".customsensitiverule",
+    "CustomSensitiveRuleType": ".customsensitiveruletype",
     "DatasourceBulkMembershipDefinition": ".datasourcebulkmembershipdefinition",
     "DatasourceBulkMembershipDefinitionTypedDict": ".datasourcebulkmembershipdefinition",
     "DatasourceGroupDefinition": ".datasourcegroupdefinition",
@@ -2624,6 +2691,8 @@ _dynamic_imports: dict[str, str] = {
     "DeleteDocumentRequestTypedDict": ".deletedocumentrequest",
     "DeleteEmployeeRequest": ".deleteemployeerequest",
     "DeleteEmployeeRequestTypedDict": ".deleteemployeerequest",
+    "DeletefindingsexportRequest": ".deletefindingsexportop",
+    "DeletefindingsexportRequestTypedDict": ".deletefindingsexportop",
     "DeleteGroupRequest": ".deletegrouprequest",
     "DeleteGroupRequestTypedDict": ".deletegrouprequest",
     "DeleteMembershipRequest": ".deletemembershiprequest",
@@ -2646,6 +2715,12 @@ _dynamic_imports: dict[str, str] = {
     "DisplayableListItemUIConfigTypedDict": ".displayablelistitemuiconfig",
     "DlpConfig": ".dlpconfig",
     "DlpConfigTypedDict": ".dlpconfig",
+    "DlpExportFindingsRequest": ".dlpexportfindingsrequest",
+    "DlpExportFindingsRequestTypedDict": ".dlpexportfindingsrequest",
+    "ExportType": ".dlpexportfindingsrequest",
+    "FieldScope": ".dlpexportfindingsrequest",
+    "DlpFindingFilter": ".dlpfindingfilter",
+    "DlpFindingFilterTypedDict": ".dlpfindingfilter",
     "DlpFrequency": ".dlpfrequency",
     "DlpPerson": ".dlpperson",
     "DlpPersonTypedDict": ".dlpperson",
@@ -2655,6 +2730,7 @@ _dynamic_imports: dict[str, str] = {
     "DlpReportTypedDict": ".dlpreport",
     "LastScanStatus": ".dlpreport",
     "DlpReportStatus": ".dlpreportstatus",
+    "DlpSeverity": ".dlpseverity",
     "DlpSimpleResult": ".dlpsimpleresult",
     "DocumentContent": ".documentcontent",
     "DocumentContentTypedDict": ".documentcontent",
@@ -2693,6 +2769,8 @@ _dynamic_imports: dict[str, str] = {
     "DocumentVisibilityUpdateResult": ".documentvisibilityupdateresult",
     "DocumentVisibilityUpdateResultOverride": ".documentvisibilityupdateresult",
     "DocumentVisibilityUpdateResultTypedDict": ".documentvisibilityupdateresult",
+    "DownloadfindingsexportRequest": ".downloadfindingsexportop",
+    "DownloadfindingsexportRequestTypedDict": ".downloadfindingsexportop",
     "DownloadpolicycsvRequest": ".downloadpolicycsvop",
     "DownloadpolicycsvRequestTypedDict": ".downloadpolicycsvop",
     "DownloadreportcsvRequest": ".downloadreportcsvop",
@@ -2725,6 +2803,9 @@ _dynamic_imports: dict[str, str] = {
     "EventClassificationTypedDict": ".eventclassification",
     "EventClassificationName": ".eventclassificationname",
     "EventStrategyName": ".eventstrategyname",
+    "ExportInfo": ".exportinfo",
+    "ExportInfoStatus": ".exportinfo",
+    "ExportInfoTypedDict": ".exportinfo",
     "ExternalSharingOptions": ".externalsharingoptions",
     "ExternalSharingOptionsTypedDict": ".externalsharingoptions",
     "ExternalShortcut": ".externalshortcut",
@@ -2901,8 +2982,8 @@ _dynamic_imports: dict[str, str] = {
     "IndexUserRequestTypedDict": ".indexuserrequest",
     "DatasourcesType": ".inputoptions",
     "InputOptions": ".inputoptions",
+    "InputOptionsTimePeriodType": ".inputoptions",
     "InputOptionsTypedDict": ".inputoptions",
-    "TimePeriodType": ".inputoptions",
     "InsightsAgentsRequestOptions": ".insightsagentsrequestoptions",
     "InsightsAgentsRequestOptionsTypedDict": ".insightsagentsrequestoptions",
     "InsightsAiAppRequestOptions": ".insightsaiapprequestoptions",
@@ -2939,6 +3020,8 @@ _dynamic_imports: dict[str, str] = {
     "ListCollectionsRequestTypedDict": ".listcollectionsrequest",
     "ListCollectionsResponse": ".listcollectionsresponse",
     "ListCollectionsResponseTypedDict": ".listcollectionsresponse",
+    "ListDlpFindingsExportsResponse": ".listdlpfindingsexportsresponse",
+    "ListDlpFindingsExportsResponseTypedDict": ".listdlpfindingsexportsresponse",
     "ListDlpReportsResponse": ".listdlpreportsresponse",
     "ListDlpReportsResponseTypedDict": ".listdlpreportsresponse",
     "ListEntitiesRequest": ".listentitiesrequest",
@@ -3111,8 +3194,8 @@ _dynamic_imports: dict[str, str] = {
     "SensitiveContentOptionsTypedDict": ".sensitivecontentoptions",
     "SensitiveExpression": ".sensitiveexpression",
     "SensitiveExpressionTypedDict": ".sensitiveexpression",
-    "LikelihoodThreshold": ".sensitiveinfotype",
     "SensitiveInfoType": ".sensitiveinfotype",
+    "SensitiveInfoTypeLikelihoodThreshold": ".sensitiveinfotype",
     "SensitiveInfoTypeTypedDict": ".sensitiveinfotype",
     "SessionInfo": ".sessioninfo",
     "SessionInfoTypedDict": ".sessioninfo",
@@ -3168,6 +3251,9 @@ _dynamic_imports: dict[str, str] = {
     "TimePointTypedDict": ".timepoint",
     "TimeRange": ".timerange",
     "TimeRangeTypedDict": ".timerange",
+    "TimeRangeFilter": ".timerangefilter",
+    "TimeRangeFilterTimePeriodType": ".timerangefilter",
+    "TimeRangeFilterTypedDict": ".timerangefilter",
     "Tool": ".tool",
     "ToolType": ".tool",
     "ToolTypedDict": ".tool",

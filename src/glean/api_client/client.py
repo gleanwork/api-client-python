@@ -9,11 +9,11 @@ from glean.api_client.client_activity import ClientActivity
 from glean.api_client.client_authentication import ClientAuthentication
 from glean.api_client.client_chat import ClientChat
 from glean.api_client.client_documents import ClientDocuments
+from glean.api_client.client_governance import ClientGovernance
 from glean.api_client.client_shortcuts import ClientShortcuts
 from glean.api_client.client_verification import ClientVerification
 from glean.api_client.collections import Collections
 from glean.api_client.entities import Entities
-from glean.api_client.governance import Governance
 from glean.api_client.insights import Insights
 from glean.api_client.messages import Messages
 from glean.api_client.pins import Pins
@@ -39,7 +39,7 @@ class Client(BaseSDK):
     shortcuts: ClientShortcuts
     verification: ClientVerification
     tools: Tools
-    governance: Governance
+    governance: ClientGovernance
 
     def __init__(
         self, sdk_config: SDKConfiguration, parent_ref: Optional[object] = None
@@ -79,4 +79,6 @@ class Client(BaseSDK):
             self.sdk_configuration, parent_ref=self.parent_ref
         )
         self.tools = Tools(self.sdk_configuration, parent_ref=self.parent_ref)
-        self.governance = Governance(self.sdk_configuration, parent_ref=self.parent_ref)
+        self.governance = ClientGovernance(
+            self.sdk_configuration, parent_ref=self.parent_ref
+        )

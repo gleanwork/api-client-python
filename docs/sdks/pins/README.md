@@ -1,5 +1,4 @@
-# Pins
-(*client.pins*)
+# Client.Pins
 
 ## Overview
 

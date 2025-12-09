@@ -16,6 +16,7 @@ import weakref
 
 if TYPE_CHECKING:
     from glean.api_client.client import Client
+    from glean.api_client.governance import Governance
     from glean.api_client.indexing import Indexing
 
 
@@ -41,9 +42,11 @@ class Glean(BaseSDK):
 
     client: "Client"
     indexing: "Indexing"
+    governance: "Governance"
     _sub_sdk_map = {
         "client": ("glean.api_client.client", "Client"),
         "indexing": ("glean.api_client.indexing", "Indexing"),
+        "governance": ("glean.api_client.governance", "Governance"),
     }
 
     def __init__(

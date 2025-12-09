@@ -1,5 +1,4 @@
-# Tools
-(*client.tools*)
+# Client.Tools
 
 ## Overview
 

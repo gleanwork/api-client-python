@@ -1,5 +1,4 @@
-# Agents
-(*client.agents*)
+# Client.Agents
 
 ## Overview
 

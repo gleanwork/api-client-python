@@ -1,5 +1,4 @@
-# Collections
-(*client.collections*)
+# Client.Collections
 
 ## Overview
 

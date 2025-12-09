@@ -60,6 +60,12 @@ DEBUG	discriminated: Renamed to "indexing_shortcuts"
 	 registrationID: "scope:sdk mainSDK:SDK group:indexing originalName:shortcuts"
 DEBUG	
 
+--- Renaming 2 types with name "governance" ---
+DEBUG	discriminated: Renamed to "client_governance" 
+	 labels: "original_name:governance group:client data_type:SDK" 
+	 registrationID: "scope:sdk mainSDK:SDK group:client originalName:governance"
+DEBUG	
+
 --- Renaming 3 types with name "action" ---
 DEBUG	discriminated: Renamed to "ActivityEvent_action" 
 	 labels: "original_name:action scope:shared data_type:enum refName:ActivityEvent" 
@@ -216,7 +222,7 @@ DEBUG	discriminated: Renamed to "PersonTeam_relationship"
 	 registrationID: "scope:shared refType:Schemas refName:PersonTeam originalName:relationship"
 DEBUG	
 
---- Renaming 5 types with name "status" ---
+--- Renaming 6 types with name "status" ---
 DEBUG	discriminated: Renamed to "Team_status" 
 	 labels: "original_name:status scope:shared data_type:enum refName:Team" 
 	 registrationID: "scope:shared refType:Schemas refName:Team originalName:status"
@@ -232,6 +238,9 @@ DEBUG	discriminated: Renamed to "BulkUploadHistoryEvent_status"
 DEBUG	discriminated: Renamed to "ReportStatusResponse_status" 
 	 labels: "original_name:status scope:shared data_type:enum refName:ReportStatusResponse" 
 	 registrationID: "scope:shared refType:Schemas refName:ReportStatusResponse originalName:status"
+DEBUG	discriminated: Renamed to "ExportInfo_status" 
+	 labels: "original_name:status scope:shared data_type:enum refName:ExportInfo" 
+	 registrationID: "scope:shared refType:Schemas refName:ExportInfo originalName:status"
 DEBUG	
 
 --- Renaming 3 types with name "sourceType" ---
@@ -360,6 +369,24 @@ DEBUG	discriminated: Renamed to "DebugDatasourceStatusIdentityResponseComponent_
 	 registrationID: "scope:shared refType:Schemas refName:DebugDatasourceStatusIdentityResponseComponent originalName:counts"
 DEBUG	
 
+--- Renaming 2 types with name "likelihoodThreshold" ---
+DEBUG	discriminated: Renamed to "SensitiveInfoType_likelihoodThreshold" 
+	 labels: "original_name:likelihoodThreshold scope:shared data_type:enum refName:SensitiveInfoType" 
+	 registrationID: "scope:shared refType:Schemas refName:SensitiveInfoType originalName:likelihoodThreshold"
+DEBUG	discriminated: Renamed to "CustomSensitiveRule_likelihoodThreshold" 
+	 labels: "original_name:likelihoodThreshold scope:shared data_type:enum refName:CustomSensitiveRule" 
+	 registrationID: "scope:shared refType:Schemas refName:CustomSensitiveRule originalName:likelihoodThreshold"
+DEBUG	
+
+--- Renaming 2 types with name "timePeriodType" ---
+DEBUG	discriminated: Renamed to "InputOptions_timePeriodType" 
+	 labels: "original_name:timePeriodType scope:shared data_type:enum refName:InputOptions" 
+	 registrationID: "scope:shared refType:Schemas refName:InputOptions originalName:timePeriodType"
+DEBUG	discriminated: Renamed to "TimeRangeFilter_timePeriodType" 
+	 labels: "original_name:timePeriodType scope:shared data_type:enum refName:TimeRangeFilter" 
+	 registrationID: "scope:shared refType:Schemas refName:TimeRangeFilter originalName:timePeriodType"
+DEBUG	
+
 --- Renaming 2 types with name "override" ---
 DEBUG	discriminated: Renamed to "DocumentVisibilityOverride_override" 
 	 labels: "original_name:override scope:shared data_type:enum refName:DocumentVisibilityOverride" 
@@ -429,6 +456,7 @@ CreateAnnouncementRequest (startTime: date-time, endTime: date-time, title: stri
            Relation (enum: ATTACHMENT, CANONICAL, CASE ...)
            QuerySuggestion (missingTerm: string, query: string, searchProviderInfo: SearchProviderInfo ...)
             SearchProviderInfo (name: string, logoUrl: string, searchLinkUrlTemplate: string)
+            ResultTab (id: string, count: integer, datasource: string ...)
             SearchRequestOptions (datasourceFilter: string, datasourcesFilter: array, queryOverridesFacetFilters: boolean ...)
               FacetFilter (fieldName: string, values: array, groupName: string)
                 FacetFilterValue (value: string, relationType: enum, isNegated: boolean)
@@ -780,7 +808,6 @@ MessagesResponse (HttpMeta: HTTPMetadata, MessagesResponse: MessagesResponse)
     FacetResult (sourceName: string, operatorName: string, buckets: array ...)
       FacetBucket (count: integer, datasource: string, percentage: integer ...)
        FacetValue (stringValue: string, integerValue: integer, displayLabel: string ...)
-    ResultTab (id: string, count: integer, datasource: string ...)
    ResultsDescription (text: string, iconConfig: IconConfig)
 Pins (SDK empty)
 EditPinRequest (queries: array, audienceFilters: array, id: string)
@@ -913,7 +940,7 @@ ToolsCallRequest (name: string, parameters: map)
   ToolsCallParameter (name: string, value: string, items: array ...)
 PostRestApiV1ToolsCallResponse (HttpMeta: HTTPMetadata, ToolsCallResponse: ToolsCallResponse)
  ToolsCallResponse (rawResponse: map, error: string)
-Governance (SDK empty)
+ClientGovernance (SDK empty)
 Data (SDK empty)
 Policies (SDK empty)
 GetpolicyRequest (id: string, version: integer)
@@ -922,17 +949,21 @@ GetpolicyResponse (HttpMeta: HTTPMetadata, GetDlpReportResponse: GetDlpReportRes
   DlpReport (id: string, name: string, config: DlpConfig ...)
    DlpConfig (version: integer, sensitiveInfoTypes: array, inputOptions: InputOptions ...)
      SensitiveInfoType (likelihoodThreshold: enum, infoType: string)
-      LikelihoodThreshold (enum: LIKELY, VERY_LIKELY, POSSIBLE ...)
+      SensitiveInfoTypeLikelihoodThreshold (enum: LIKELY, VERY_LIKELY, POSSIBLE ...)
     InputOptions (urlGreenlist: array, datasourcesType: enum, datasources: array ...)
      DatasourcesType (enum: ALL, CUSTOM)
-     TimePeriodType (enum: ALL_TIME, PAST_YEAR, PAST_DAY ...)
+     InputOptionsTimePeriodType (enum: ALL_TIME, PAST_YEAR, PAST_DAY ...)
      TimeRange (startTime: date-time, endTime: date-time, lastNDaysValue: integer)
     ExternalSharingOptions (enabled: boolean, threshold: integer, thresholdEnabled: boolean ...)
     SharingOptions (enabled: boolean, threshold: integer, thresholdEnabled: boolean ...)
-    SensitiveContentOptions (sensitiveInfoTypes: array, sensitiveTerms: array, sensitiveRegexes: array)
+    SensitiveContentOptions (sensitiveInfoTypes: array, sensitiveTerms: array, sensitiveRegexes: array ...)
       SensitiveExpression (expression: string, hotwords: array)
         Hotword (regex: string, proximity: HotwordProximity)
          HotwordProximity (windowBefore: integer, windowAfter: integer)
+      CustomSensitiveExpression (id: string, keyword: CustomSensitiveRule, evaluationExpression: string)
+       CustomSensitiveRule (id: string, value: string, type: CustomSensitiveRuleType ...)
+        CustomSensitiveRuleType (enum: REGEX, TERM, INFO_TYPE)
+        CustomSensitiveRuleLikelihoodThreshold (enum: LIKELY, VERY_LIKELY, POSSIBLE ...)
     DlpPerson (name: string, obfuscatedId: string, metadata: DlpPersonMetadata)
      DlpPersonMetadata (firstName: string, email: string)
     AllowlistOptions (terms: array)
@@ -1113,4 +1144,21 @@ PostApiIndexV1BulkindexshortcutsResponse (HttpMeta: HTTPMetadata)
 UploadShortcutsRequest (uploadId: string, isFirstPage: boolean, isLastPage: boolean ...)
   IndexingShortcut (inputAlias: string, description: string, destinationUrl: string ...)
 PostApiIndexV1UploadshortcutsResponse (HttpMeta: HTTPMetadata)
+Governance (SDK empty)
+DlpExportFindingsRequest (exportType: enum, filter: DlpFindingFilter, fileName: string ...)
+ ExportType (enum: FINDINGS, DOCUMENTS)
+ DlpFindingFilter (infoType: string, regexId: string, reportId: string ...)
+  DlpSeverity (enum: UNSPECIFIED, LOW, MEDIUM ...)
+  TimeRangeFilter (timePeriodType: enum, customTimeRange: TimeRange)
+   TimeRangeFilterTimePeriodType (enum: PAST_DAY, PAST_WEEK, PAST_MONTH ...)
+ FieldScope (enum: ALL, EXCLUDE_SENSITIVE, CUSTOM)
+CreatefindingsexportResponse (HttpMeta: HTTPMetadata, ExportInfo: ExportInfo)
+ ExportInfo (createdBy: DlpPerson, startTime: string, endTime: string ...)
+  ExportInfoStatus (enum: PENDING, COMPLETED, FAILED)
+ListfindingsexportsResponse (HttpMeta: HTTPMetadata, ListDlpFindingsExportsResponse: ListDlpFindingsExportsResponse)
+ ListDlpFindingsExportsResponse (exports: array)
+DownloadfindingsexportRequest (id: string)
+DownloadfindingsexportResponse (HttpMeta: HTTPMetadata, res: string)
+DeletefindingsexportRequest (id: integer)
+DeletefindingsexportResponse (HttpMeta: HTTPMetadata)
 

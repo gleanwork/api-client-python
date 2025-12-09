@@ -14,6 +14,7 @@ const (
 	GetDocumentsRequestIncludeFieldVisitorsCount   GetDocumentsRequestIncludeField = "VISITORS_COUNT"
 	GetDocumentsRequestIncludeFieldRecentShares    GetDocumentsRequestIncludeField = "RECENT_SHARES"
 	GetDocumentsRequestIncludeFieldDocumentContent GetDocumentsRequestIncludeField = "DOCUMENT_CONTENT"
+	GetDocumentsRequestIncludeFieldCustomMetadata  GetDocumentsRequestIncludeField = "CUSTOM_METADATA"
 )
 
 func (e GetDocumentsRequestIncludeField) ToPointer() *GetDocumentsRequestIncludeField {
@@ -32,6 +33,8 @@ func (e *GetDocumentsRequestIncludeField) UnmarshalJSON(data []byte) error {
 	case "RECENT_SHARES":
 		fallthrough
 	case "DOCUMENT_CONTENT":
+		fallthrough
+	case "CUSTOM_METADATA":
 		*e = GetDocumentsRequestIncludeField(v)
 		return nil
 	default:

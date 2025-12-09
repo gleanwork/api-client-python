@@ -158406,3 +158406,33 @@ workflows:
                 }
               type: simple
       x-speakeasy-test-group: client_shortcuts
+    - workflowId: listfindingsexports
+      steps:
+        - stepId: test
+          operationId: listfindingsexports
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {}
+              type: simple
+      x-speakeasy-test-group: Governance
+      x-speakeasy-test-rebuild: true
+    - workflowId: downloadfindingsexport
+      steps:
+        - stepId: test
+          operationId: downloadfindingsexport
+          parameters:
+            - name: id
+              in: path
+              value: <id>
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == text/csv; charset=UTF-8
+            - context: $response.body
+              condition: |
+                "<value>"
+              type: simple
+      x-speakeasy-test-group: Governance
+      x-speakeasy-test-rebuild: true

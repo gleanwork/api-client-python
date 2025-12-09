@@ -25,12 +25,13 @@ generation:
   requestBodyFieldName: ""
   mockServer:
     disabled: false
+  persistentEdits: {}
   tests:
     generateTests: true
     generateNewTests: true
     skipResponseBodyAssertions: true
 python:
-  version: 0.11.22
+  version: 0.12.1
   additionalDependencies:
     dev: {}
     main: {}
@@ -61,18 +62,20 @@ python:
       operations: ""
       shared: ""
       webhooks: ""
+  inferUnionDiscriminators: true
   inputModelSuffix: input
   legacyPyright: true
   license: ""
   maxMethodParams: 999
   methodArguments: infer-optional-args
   moduleName: glean.api_client
+  multipartArrayFormat: standard
   outputModelSuffix: output
   packageManager: poetry
   packageName: glean
+  preApplyUnionDiscriminators: false
   pytestFilterWarnings: []
   pytestTimeout: 0
   responseFormat: flat
   sseFlatResponse: false
   templateVersion: v2
-  multipartArrayFormat: standard
