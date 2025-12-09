@@ -40,7 +40,7 @@ python:
     - input
   asyncMode: both
   authors:
-    - Speakeasy
+    - Glean Technologies, Inc.
   baseErrorName: GleanBaseError
   clientServerStatusCodesAsErrors: true
   defaultErrorName: GleanError
@@ -69,7 +69,7 @@ python:
   moduleName: glean.api_client
   outputModelSuffix: output
   packageManager: poetry
-  packageName: glean
+  packageName: glean-api-client
   pytestFilterWarnings: []
   pytestTimeout: 0
   responseFormat: flat
