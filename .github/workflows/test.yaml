@@ -26,6 +26,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: "Ensure README-PYPI.md is created"
+        run: python scripts/prepare_readme.py
+
       # run the glean target specified in .speakeasy/workflow.yaml
       - run: speakeasy test --target glean
 
