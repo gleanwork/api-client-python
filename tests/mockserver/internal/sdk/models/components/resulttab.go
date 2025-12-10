@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type ResultTab struct {
 	// The unique ID of the tab. Can be passed in a search request to get results for that tab.
 	ID *string `json:"id,omitempty"`
@@ -11,6 +15,17 @@ type ResultTab struct {
 	Datasource *string `json:"datasource,omitempty"`
 	// The datasource instance associated with the tab, if any.
 	DatasourceInstance *string `json:"datasourceInstance,omitempty"`
+}
+
+func (r ResultTab) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *ResultTab) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *ResultTab) GetID() *string {

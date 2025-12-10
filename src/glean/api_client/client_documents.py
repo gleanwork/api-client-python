@@ -60,6 +60,7 @@ class ClientDocuments(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.GetDocPermissionsRequest
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -146,6 +147,7 @@ class ClientDocuments(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.GetDocPermissionsRequest
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -234,6 +236,7 @@ class ClientDocuments(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, True, "json", Optional[models.GetDocumentsRequest]
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -322,6 +325,7 @@ class ClientDocuments(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, True, "json", Optional[models.GetDocumentsRequest]
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -419,6 +423,7 @@ class ClientDocuments(BaseSDK):
                 "json",
                 Optional[models.GetDocumentsByFacetsRequest],
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -518,6 +523,7 @@ class ClientDocuments(BaseSDK):
                 "json",
                 Optional[models.GetDocumentsByFacetsRequest],
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -622,6 +628,7 @@ class ClientDocuments(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.SummarizeRequest
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -724,6 +731,7 @@ class ClientDocuments(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.SummarizeRequest
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 

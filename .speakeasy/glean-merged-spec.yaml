@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
     version: 0.9.0
     title: Glean API
-    x-source-commit-sha: 1c30a2e9466bf278374bd82863042433f7fa8a6d
+    x-source-commit-sha: 5d93f45c3b069606a4c2a183b536454275519697
     description: |
         # Introduction
         In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This is useful, for example, for doing permissions-aware search over content in internal tools that reside on-prem as well as for searching over applications that Glean does not currently support first class. In addition these APIs allow the customer to push organization data (people info, organization structure etc) into Glean.
@@ -22,7 +22,7 @@ info:
         These API clients provide type-safe, idiomatic interfaces for working with Glean IndexingAPIs in your language of choice.
     x-logo:
         url: https://app.glean.com/images/glean-text2.svg
-    x-open-api-commit-sha: bfa098a27c3b8f11087766de34606765c946e305
+    x-open-api-commit-sha: 9cb7b6b6ca96236282f27d82e82e8f9141c0c247
     x-speakeasy-name: 'Glean API'
 servers:
     - url: https://{instance}-be.glean.com
@@ -3495,6 +3495,98 @@ paths:
                     description: Internal error
             x-speakeasy-group: client.governance.documents.visibilityoverrides
             x-speakeasy-name-override: create
+    /rest/api/v1/governance/data/findings/exports:
+        post:
+            description: Creates a new DLP findings export job.
+            summary: Creates findings export
+            operationId: createfindingsexport
+            x-visibility: Private
+            tags:
+                - Governance
+            requestBody:
+                content:
+                    application/json; charset=UTF-8:
+                        schema:
+                            $ref: "#/components/schemas/DlpExportFindingsRequest"
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ExportInfo"
+                "403":
+                    description: Permissions error
+                "500":
+                    description: Internal error
+        get:
+            description: Lists all DLP findings exports.
+            summary: Lists findings exports
+            operationId: listfindingsexports
+            x-visibility: Private
+            tags:
+                - Governance
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/ListDlpFindingsExportsResponse"
+                "403":
+                    description: Permissions error
+                "500":
+                    description: Internal error
+    /rest/api/v1/governance/data/findings/exports/{id}:
+        get:
+            description: Downloads a DLP findings export as a CSV file.
+            summary: Downloads findings export
+            operationId: downloadfindingsexport
+            x-visibility: Private
+            tags:
+                - Governance
+            parameters:
+                - name: id
+                  in: path
+                  description: The ID of the export to download.
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: Downloads CSV of exported findings.
+                    content:
+                        text/csv; charset=UTF-8:
+                            schema:
+                                description: CSV of all the exported findings.
+                                type: string
+                "403":
+                    description: Permissions error
+                "500":
+                    description: Internal error
+        delete:
+            description: Deletes a DLP findings export.
+            summary: Deletes findings export
+            operationId: deletefindingsexport
+            x-visibility: Private
+            tags:
+                - Governance
+            parameters:
+                - name: id
+                  in: path
+                  description: The ID of the export to delete.
+                  required: true
+                  schema:
+                    type: integer
+                    format: int64
+            responses:
+                "200":
+                    description: OK
+                "403":
+                    description: Permissions error
+                "500":
+                    description: Internal error
     /rest/api/v1/chat#stream:
         post:
             tags:
@@ -3810,6 +3902,7 @@ components:
                         - SIDEBAR
                         - SUMMARY
                         - TASKS
+                        - TASK_EXECUTION
                 issue:
                     type: string
                     description: The issue the user indicated in the feedback.
@@ -4195,6 +4288,20 @@ components:
                 name: Google
                 logo: https://app.glean.com/images/feather/globe.svg
                 searchLinkUrlTemplate: https://www.google.com/search?q={query}&hl=en
+        ResultTab:
+            properties:
+                id:
+                    type: string
+                    description: The unique ID of the tab. Can be passed in a search request to get results for that tab.
+                count:
+                    type: integer
+                    description: The number of results in this tab for the current query.
+                datasource:
+                    type: string
+                    description: The datasource associated with the tab, if any.
+                datasourceInstance:
+                    type: string
+                    description: The datasource instance associated with the tab, if any.
         FacetFilterValue:
             properties:
                 value:
@@ -4492,6 +4599,9 @@ components:
                 datasource:
                     type: string
                     description: The datasource associated with the suggestion.
+                resultTab:
+                    $ref: "#/components/schemas/ResultTab"
+                    description: The result tab associated with the suggestion.
                 requestOptions:
                     $ref: "#/components/schemas/SearchRequestOptions"
                 ranges:
@@ -6473,6 +6583,9 @@ components:
                     type: integer
                     format: int64
                     description: The offset of the person's timezone in seconds from UTC.
+                timezoneIANA:
+                    type: string
+                    description: The IANA timezone identifier, e.g. "America/Los_Angeles".
                 photoUrl:
                     type: string
                     format: url
@@ -8069,6 +8182,7 @@ components:
                             - VISITORS_COUNT
                             - RECENT_SHARES
                             - DOCUMENT_CONTENT
+                            - CUSTOM_METADATA
         DocumentOrError:
             oneOf:
                 - $ref: "#/components/schemas/Document"
@@ -8571,6 +8685,15 @@ components:
                 numDaysActive:
                     type: integer
                     description: Total number of days this user was an Active User over the specified time period.
+                numSummarizations:
+                    type: integer
+                    description: Total number of summarized items by this user over the specified time period.
+                numAiAnswers:
+                    type: integer
+                    description: Total number of AI Answers interacted with by this user over the specified time period.
+                numAgentRuns:
+                    type: integer
+                    description: Total number of agent runs for this user over the specified time period.
         InsightsOverviewResponse:
             allOf:
                 - $ref: "#/components/schemas/InsightsDepartmentsSummary"
@@ -9051,20 +9174,6 @@ components:
                     type: string
                     description: For most facets this will be the empty string, meaning the facet is high-level and applies to all documents for the datasource. When non-empty, this is used to group facets together (i.e. group facets for each doctype for a certain datasource)
                     example: Service Cloud
-        ResultTab:
-            properties:
-                id:
-                    type: string
-                    description: The unique ID of the tab. Can be passed in a search request to get results for that tab.
-                count:
-                    type: integer
-                    description: The number of results in this tab for the current query.
-                datasource:
-                    type: string
-                    description: The datasource associated with the tab, if any.
-                datasourceInstance:
-                    type: string
-                    description: The datasource instance associated with the tab, if any.
         ResultsDescription:
             properties:
                 text:
@@ -12092,6 +12201,26 @@ components:
                     description: List of lifecycle events corresponding to the document
                     items:
                         $ref: "#/components/schemas/LifeCycleEvent"
+        SuccessResponse:
+            type: object
+            description: Success response for custom metadata operations
+            properties:
+                success:
+                    type: boolean
+                    description: Indicates if the operation was successful
+                    default: true
+        ErrorInfoResponse:
+            type: object
+            description: Error response for custom metadata operations
+            properties:
+                error:
+                    type: string
+                    description: Error message describing what went wrong
+                message:
+                    type: string
+                    description: Additional details about the error
+            required:
+                - error
         PropertyDefinition:
             properties:
                 name:
@@ -12537,24 +12666,69 @@ components:
                     type: array
                     items:
                         $ref: "#/components/schemas/Hotword"
+        CustomSensitiveRuleType:
+            type: string
+            description: Type of the custom sensitive rule.
+            enum:
+                - REGEX
+                - TERM
+                - INFO_TYPE
+        CustomSensitiveRule:
+            properties:
+                id:
+                    description: Identifier for the custom sensitive expression.
+                    type: string
+                value:
+                    type: string
+                    description: The value of the custom sensitive rule. For REGEX type, this is the regex pattern; for TERM type, it is the term to match; and for INFO_TYPE type, it refers to predefined categories of sensitive content. See https://cloud.google.com/dlp/docs/infotypes-reference for available options.
+                type:
+                    $ref: "#/components/schemas/CustomSensitiveRuleType"
+                likelihoodThreshold:
+                    description: Likelihood threshold for BUILT_IN infotypes (e.g., LIKELY, VERY_LIKELY). Only applicable for BUILT_IN type.
+                    type: string
+                    enum:
+                        - LIKELY
+                        - VERY_LIKELY
+                        - POSSIBLE
+                        - UNLIKELY
+                        - VERY_UNLIKELY
+        CustomSensitiveExpression:
+            properties:
+                id:
+                    description: Identifier for the custom sensitive expression.
+                    type: string
+                keyword:
+                    description: The keyword to match against.
+                    $ref: "#/components/schemas/CustomSensitiveRule"
+                evaluationExpression:
+                    description: The expression to evaluate the keyword match.
+                    type: string
         SensitiveContentOptions:
             description: Options for defining sensitive content within scanned documents.
             properties:
                 sensitiveInfoTypes:
-                    description: Predefined categories of terms to consider as sensitive content. See https://cloud.google.com/dlp/docs/infotypes-reference for available types.
+                    deprecated: true
+                    description: DEPRECATED - use 'customSensitiveExpressions' instead.
                     type: array
                     items:
                         $ref: "#/components/schemas/SensitiveInfoType"
                 sensitiveTerms:
-                    description: list of words and phrases to consider as sensitive content
+                    deprecated: true
+                    description: DEPRECATED - use 'customSensitiveExpressions' instead.
                     type: array
                     items:
                         $ref: "#/components/schemas/SensitiveExpression"
                 sensitiveRegexes:
-                    description: list of regular expressions to consider as sensitive content
+                    deprecated: true
+                    description: DEPRECATED - use 'customSensitiveExpressions' instead.
                     type: array
                     items:
                         $ref: "#/components/schemas/SensitiveExpression"
+                customSensitiveExpressions:
+                    description: list of custom sensitive expressions to consider as sensitive content
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/CustomSensitiveExpression"
         DlpPersonMetadata:
             properties:
                 firstName:
@@ -12819,6 +12993,112 @@ components:
                     type: array
                     items:
                         $ref: "#/components/schemas/DocumentVisibilityUpdateResult"
+        DlpSeverity:
+            type: string
+            description: Severity levels for DLP findings and analyses.
+            x-include-enum-class-prefix: true
+            enum:
+                - UNSPECIFIED
+                - LOW
+                - MEDIUM
+                - HIGH
+        TimeRangeFilter:
+            properties:
+                timePeriodType:
+                    type: string
+                    description: The type of time period for which to filter findings.
+                    enum:
+                        - PAST_DAY
+                        - PAST_WEEK
+                        - PAST_MONTH
+                        - PAST_YEAR
+                        - CUSTOM
+                customTimeRange:
+                    $ref: "#/components/schemas/TimeRange"
+        DlpFindingFilter:
+            properties:
+                infoType:
+                    type: string
+                regexId:
+                    type: string
+                reportId:
+                    type: string
+                datasource:
+                    type: string
+                visibility:
+                    type: string
+                documentIds:
+                    type: array
+                    items:
+                        type: string
+                severity:
+                    $ref: "#/components/schemas/DlpSeverity"
+                documentSeverity:
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/DlpSeverity"
+                timeRange:
+                    $ref: "#/components/schemas/TimeRangeFilter"
+        ExportInfo:
+            properties:
+                createdBy:
+                    description: person who triggered this export
+                    $ref: "#/components/schemas/DlpPerson"
+                startTime:
+                    description: Timestamp at which this export started.
+                    type: string
+                    format: iso-date-time
+                endTime:
+                    description: Timestamp at which this export completed.
+                    type: string
+                    format: iso-date-time
+                exportId:
+                    type: string
+                    description: The ID of the export
+                fileName:
+                    type: string
+                    description: The name of the file to export the findings to
+                filter:
+                    $ref: "#/components/schemas/DlpFindingFilter"
+                    description: The filters used to export the findings
+                status:
+                    type: string
+                    description: The status of the export
+                    enum:
+                        - PENDING
+                        - COMPLETED
+                        - FAILED
+        ListDlpFindingsExportsResponse:
+            properties:
+                exports:
+                    type: array
+                    items:
+                        $ref: "#/components/schemas/ExportInfo"
+        DlpExportFindingsRequest:
+            properties:
+                exportType:
+                    type: string
+                    description: The type of export to perform
+                    enum:
+                        - FINDINGS
+                        - DOCUMENTS
+                filter:
+                    $ref: "#/components/schemas/DlpFindingFilter"
+                fileName:
+                    type: string
+                    description: The name of the file to export the findings to
+                fieldScope:
+                    type: string
+                    description: Controls which fields to include in the export
+                    enum:
+                        - ALL
+                        - EXCLUDE_SENSITIVE
+                        - CUSTOM
+                fieldsToExclude:
+                    type: array
+                    items:
+                        type: string
+                    description: List of field names to exclude from the export
         ChatRequestStream:
             required:
                 - messages
@@ -12869,6 +13149,43 @@ components:
             description: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
             schema:
                 type: integer
+    responses:
+        SuccessResponse:
+            description: OK
+            content:
+                application/json:
+                    schema:
+                        $ref: "#/components/schemas/SuccessResponse"
+        BadRequestError:
+            description: Bad Request
+            content:
+                application/json:
+                    schema:
+                        $ref: "#/components/schemas/ErrorInfoResponse"
+        UnauthorizedError:
+            description: Not Authorized
+            content:
+                application/json:
+                    schema:
+                        $ref: "#/components/schemas/ErrorInfoResponse"
+        NotFoundError:
+            description: Not Found
+            content:
+                application/json:
+                    schema:
+                        $ref: "#/components/schemas/ErrorInfoResponse"
+        TooManyRequestsError:
+            description: Too Many Requests
+            content:
+                application/json:
+                    schema:
+                        $ref: "#/components/schemas/ErrorInfoResponse"
+        InternalServerError:
+            description: Internal Server Error
+            content:
+                application/json:
+                    schema:
+                        $ref: "#/components/schemas/ErrorInfoResponse"
 x-tagGroups:
     - name: Search & Generative AI
       tags:

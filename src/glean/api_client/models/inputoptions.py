@@ -16,7 +16,7 @@ class DatasourcesType(str, Enum):
     CUSTOM = "CUSTOM"
 
 
-class TimePeriodType(str, Enum):
+class InputOptionsTimePeriodType(str, Enum):
     r"""Type of time period for which to run the report/policy. PAST_DAY is deprecated."""
 
     ALL_TIME = "ALL_TIME"
@@ -37,7 +37,7 @@ class InputOptionsTypedDict(TypedDict):
     r"""List of datasources to consider for report. DEPRECATED - use datasourceInstances instead."""
     datasource_instances: NotRequired[List[str]]
     r"""List of datasource instances to consider for report/policy."""
-    time_period_type: NotRequired[TimePeriodType]
+    time_period_type: NotRequired[InputOptionsTimePeriodType]
     r"""Type of time period for which to run the report/policy. PAST_DAY is deprecated."""
     custom_time_range: NotRequired[TimeRangeTypedDict]
 
@@ -73,7 +73,7 @@ class InputOptions(BaseModel):
     r"""List of datasource instances to consider for report/policy."""
 
     time_period_type: Annotated[
-        Optional[TimePeriodType], pydantic.Field(alias="timePeriodType")
+        Optional[InputOptionsTimePeriodType], pydantic.Field(alias="timePeriodType")
     ] = None
     r"""Type of time period for which to run the report/policy. PAST_DAY is deprecated."""
 

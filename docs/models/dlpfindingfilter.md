@@ -1,0 +1,16 @@
+# DlpFindingFilter
+
+
+## Fields
+
+| Field                                                            | Type                                                             | Required                                                         | Description                                                      |
+| ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- |
+| `info_type`                                                      | *Optional[str]*                                                  | :heavy_minus_sign:                                               | N/A                                                              |
+| `regex_id`                                                       | *Optional[str]*                                                  | :heavy_minus_sign:                                               | N/A                                                              |
+| `report_id`                                                      | *Optional[str]*                                                  | :heavy_minus_sign:                                               | N/A                                                              |
+| `datasource`                                                     | *Optional[str]*                                                  | :heavy_minus_sign:                                               | N/A                                                              |
+| `visibility`                                                     | *Optional[str]*                                                  | :heavy_minus_sign:                                               | N/A                                                              |
+| `document_ids`                                                   | List[*str*]                                                      | :heavy_minus_sign:                                               | N/A                                                              |
+| `severity`                                                       | [Optional[models.DlpSeverity]](../models/dlpseverity.md)         | :heavy_minus_sign:                                               | Severity levels for DLP findings and analyses.                   |
+| `document_severity`                                              | List[[models.DlpSeverity](../models/dlpseverity.md)]             | :heavy_minus_sign:                                               | N/A                                                              |
+| `time_range`                                                     | [Optional[models.TimeRangeFilter]](../models/timerangefilter.md) | :heavy_minus_sign:                                               | N/A                                                              |

@@ -1,5 +1,4 @@
-# ClientAuthentication
-(*client.authentication*)
+# Client.Authentication
 
 ## Overview
 

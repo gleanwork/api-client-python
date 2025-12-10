@@ -336,12 +336,12 @@ For more information on obtaining the appropriate token type, please contact you
 <details open>
 <summary>Available methods</summary>
 
-#### [client.activity](docs/sdks/clientactivity/README.md)
+### [Client.Activity](docs/sdks/clientactivity/README.md)
 
 * [report](docs/sdks/clientactivity/README.md#report) - Report document activity
 * [feedback](docs/sdks/clientactivity/README.md#feedback) - Report client activity
 
-#### [client.agents](docs/sdks/agents/README.md)
+### [Client.Agents](docs/sdks/agents/README.md)
 
 * [retrieve](docs/sdks/agents/README.md#retrieve) - Retrieve an agent
 * [retrieve_schemas](docs/sdks/agents/README.md#retrieve_schemas) - List an agent's schemas
@@ -349,13 +349,13 @@ For more information on obtaining the appropriate token type, please contact you
 * [run_stream](docs/sdks/agents/README.md#run_stream) - Create an agent run and stream the response
 * [run](docs/sdks/agents/README.md#run) - Create an agent run and wait for the response
 
-#### [client.announcements](docs/sdks/announcements/README.md)
+### [Client.Announcements](docs/sdks/announcements/README.md)
 
 * [create](docs/sdks/announcements/README.md#create) - Create Announcement
 * [delete](docs/sdks/announcements/README.md#delete) - Delete Announcement
 * [update](docs/sdks/announcements/README.md#update) - Update Announcement
 
-#### [client.answers](docs/sdks/answers/README.md)
+### [Client.Answers](docs/sdks/answers/README.md)
 
 * [create](docs/sdks/answers/README.md#create) - Create Answer
 * [delete](docs/sdks/answers/README.md#delete) - Delete Answer
@@ -363,11 +363,11 @@ For more information on obtaining the appropriate token type, please contact you
 * [retrieve](docs/sdks/answers/README.md#retrieve) - Read Answer
 * [list](docs/sdks/answers/README.md#list) - List Answers
 
-#### [client.authentication](docs/sdks/clientauthentication/README.md)
+### [Client.Authentication](docs/sdks/clientauthentication/README.md)
 
 * [create_token](docs/sdks/clientauthentication/README.md#create_token) - Create authentication token
 
-#### [client.chat](docs/sdks/clientchat/README.md)
+### [Client.Chat](docs/sdks/clientchat/README.md)
 
 * [create](docs/sdks/clientchat/README.md#create) - Chat
 * [delete_all](docs/sdks/clientchat/README.md#delete_all) - Deletes all saved Chats owned by a user
@@ -380,7 +380,7 @@ For more information on obtaining the appropriate token type, please contact you
 * [delete_files](docs/sdks/clientchat/README.md#delete_files) - Delete files uploaded by a user for chat.
 * [create_stream](docs/sdks/clientchat/README.md#create_stream) - Chat
 
-#### [client.collections](docs/sdks/collections/README.md)
+### [Client.Collections](docs/sdks/collections/README.md)
 
 * [add_items](docs/sdks/collections/README.md#add_items) - Add Collection item
 * [create](docs/sdks/collections/README.md#create) - Create Collection
@@ -391,19 +391,19 @@ For more information on obtaining the appropriate token type, please contact you
 * [retrieve](docs/sdks/collections/README.md#retrieve) - Read Collection
 * [list](docs/sdks/collections/README.md#list) - List Collections
 
-#### [client.documents](docs/sdks/clientdocuments/README.md)
+### [Client.Documents](docs/sdks/clientdocuments/README.md)
 
 * [retrieve_permissions](docs/sdks/clientdocuments/README.md#retrieve_permissions) - Read document permissions
 * [retrieve](docs/sdks/clientdocuments/README.md#retrieve) - Read documents
 * [retrieve_by_facets](docs/sdks/clientdocuments/README.md#retrieve_by_facets) - Read documents by facets
 * [summarize](docs/sdks/clientdocuments/README.md#summarize) - Summarize documents
 
-#### [client.entities](docs/sdks/entities/README.md)
+### [Client.Entities](docs/sdks/entities/README.md)
 
 * [list](docs/sdks/entities/README.md#list) - List entities
 * [read_people](docs/sdks/entities/README.md#read_people) - Read people
 
-#### [client.governance.data.policies](docs/sdks/policies/README.md)
+### [Client.Governance.Data.Policies](docs/sdks/policies/README.md)
 
 * [retrieve](docs/sdks/policies/README.md#retrieve) - Gets specified policy
 * [update](docs/sdks/policies/README.md#update) - Updates an existing policy
@@ -411,26 +411,26 @@ For more information on obtaining the appropriate token type, please contact you
 * [create](docs/sdks/policies/README.md#create) - Creates new policy
 * [download](docs/sdks/policies/README.md#download) - Downloads violations CSV for policy
 
-#### [client.governance.data.reports](docs/sdks/reports/README.md)
+### [Client.Governance.Data.Reports](docs/sdks/reports/README.md)
 
 * [create](docs/sdks/reports/README.md#create) - Creates new one-time report
 * [download](docs/sdks/reports/README.md#download) - Downloads violations CSV for report
 * [status](docs/sdks/reports/README.md#status) - Fetches report run status
 
-#### [client.governance.documents.visibilityoverrides](docs/sdks/visibilityoverrides/README.md)
+### [Client.Governance.Documents.Visibilityoverrides](docs/sdks/visibilityoverrides/README.md)
 
 * [list](docs/sdks/visibilityoverrides/README.md#list) - Fetches documents visibility
 * [create](docs/sdks/visibilityoverrides/README.md#create) - Hide or unhide docs
 
-#### [client.insights](docs/sdks/insights/README.md)
+### [Client.Insights](docs/sdks/insights/README.md)
 
 * [retrieve](docs/sdks/insights/README.md#retrieve) - Get insights
 
-#### [client.messages](docs/sdks/messages/README.md)
+### [Client.Messages](docs/sdks/messages/README.md)
 
 * [retrieve](docs/sdks/messages/README.md#retrieve) - Read messages
 
-#### [client.pins](docs/sdks/pins/README.md)
+### [Client.Pins](docs/sdks/pins/README.md)
 
 * [update](docs/sdks/pins/README.md#update) - Update pin
 * [retrieve](docs/sdks/pins/README.md#retrieve) - Read pin
@@ -438,7 +438,7 @@ For more information on obtaining the appropriate token type, please contact you
 * [create](docs/sdks/pins/README.md#create) - Create pin
 * [remove](docs/sdks/pins/README.md#remove) - Delete pin
 
-#### [client.search](docs/sdks/search/README.md)
+### [Client.Search](docs/sdks/search/README.md)
 
 * [query_as_admin](docs/sdks/search/README.md#query_as_admin) - Search the index (admin)
 * [autocomplete](docs/sdks/search/README.md#autocomplete) - Autocomplete
@@ -446,7 +446,7 @@ For more information on obtaining the appropriate token type, please contact you
 * [recommendations](docs/sdks/search/README.md#recommendations) - Recommend documents
 * [query](docs/sdks/search/README.md#query) - Search
 
-#### [client.shortcuts](docs/sdks/clientshortcuts/README.md)
+### [Client.Shortcuts](docs/sdks/clientshortcuts/README.md)
 
 * [create](docs/sdks/clientshortcuts/README.md#create) - Create shortcut
 * [delete](docs/sdks/clientshortcuts/README.md#delete) - Delete shortcut
@@ -454,32 +454,39 @@ For more information on obtaining the appropriate token type, please contact you
 * [list](docs/sdks/clientshortcuts/README.md#list) - List shortcuts
 * [update](docs/sdks/clientshortcuts/README.md#update) - Update shortcut
 
-#### [client.tools](docs/sdks/tools/README.md)
+### [Client.Tools](docs/sdks/tools/README.md)
 
 * [list](docs/sdks/tools/README.md#list) - List available tools
 * [run](docs/sdks/tools/README.md#run) - Execute the specified tool
 
-#### [client.verification](docs/sdks/clientverification/README.md)
+### [Client.Verification](docs/sdks/clientverification/README.md)
 
 * [add_reminder](docs/sdks/clientverification/README.md#add_reminder) - Create verification
 * [list](docs/sdks/clientverification/README.md#list) - List verifications
 * [verify](docs/sdks/clientverification/README.md#verify) - Update verification
 
-#### [indexing.authentication](docs/sdks/indexingauthentication/README.md)
+### [Governance](docs/sdks/governance/README.md)
+
+* [createfindingsexport](docs/sdks/governance/README.md#createfindingsexport) - Creates findings export
+* [listfindingsexports](docs/sdks/governance/README.md#listfindingsexports) - Lists findings exports
+* [downloadfindingsexport](docs/sdks/governance/README.md#downloadfindingsexport) - Downloads findings export
+* [deletefindingsexport](docs/sdks/governance/README.md#deletefindingsexport) - Deletes findings export
+
+### [Indexing.Authentication](docs/sdks/indexingauthentication/README.md)
 
 * [rotate_token](docs/sdks/indexingauthentication/README.md#rotate_token) - Rotate token
 
-#### [indexing.datasource](docs/sdks/indexingdatasource/README.md)
+### [Indexing.Datasource](docs/sdks/indexingdatasource/README.md)
 
 * [status](docs/sdks/indexingdatasource/README.md#status) - Beta: Get datasource status
 
 
-#### [indexing.datasources](docs/sdks/datasources/README.md)
+### [Indexing.Datasources](docs/sdks/datasources/README.md)
 
 * [add](docs/sdks/datasources/README.md#add) - Add or update datasource
 * [retrieve_config](docs/sdks/datasources/README.md#retrieve_config) - Get datasource config
 
-#### [indexing.documents](docs/sdks/indexingdocuments/README.md)
+### [Indexing.Documents](docs/sdks/indexingdocuments/README.md)
 
 * [add_or_update](docs/sdks/indexingdocuments/README.md#add_or_update) - Index document
 * [index](docs/sdks/indexingdocuments/README.md#index) - Index documents
@@ -494,7 +501,7 @@ For more information on obtaining the appropriate token type, please contact you
 * [~~status~~](docs/sdks/indexingdocuments/README.md#status) - Get document upload and indexing status :warning: **Deprecated**
 * [~~count~~](docs/sdks/indexingdocuments/README.md#count) - Get document count :warning: **Deprecated**
 
-#### [indexing.people](docs/sdks/people/README.md)
+### [Indexing.People](docs/sdks/people/README.md)
 
 * [debug](docs/sdks/people/README.md#debug) - Beta: Get user information
 
@@ -507,7 +514,7 @@ For more information on obtaining the appropriate token type, please contact you
 * [delete_team](docs/sdks/people/README.md#delete_team) - Delete team
 * [bulk_index_teams](docs/sdks/people/README.md#bulk_index_teams) - Bulk index teams
 
-#### [indexing.permissions](docs/sdks/indexingpermissions/README.md)
+### [Indexing.Permissions](docs/sdks/indexingpermissions/README.md)
 
 * [update_permissions](docs/sdks/indexingpermissions/README.md#update_permissions) - Update document permissions
 * [index_user](docs/sdks/indexingpermissions/README.md#index_user) - Index user
@@ -522,7 +529,7 @@ For more information on obtaining the appropriate token type, please contact you
 * [delete_membership](docs/sdks/indexingpermissions/README.md#delete_membership) - Delete membership
 * [authorize_beta_users](docs/sdks/indexingpermissions/README.md#authorize_beta_users) - Beta users
 
-#### [indexing.shortcuts](docs/sdks/indexingshortcuts/README.md)
+### [Indexing.Shortcuts](docs/sdks/indexingshortcuts/README.md)
 
 * [bulk_index](docs/sdks/indexingshortcuts/README.md#bulk_index) - Bulk index external shortcuts
 * [upload](docs/sdks/indexingshortcuts/README.md#upload) - Upload shortcuts

@@ -1,5 +1,4 @@
-# Visibilityoverrides
-(*client.governance.documents.visibilityoverrides*)
+# Client.Governance.Documents.Visibilityoverrides
 
 ## Overview
 

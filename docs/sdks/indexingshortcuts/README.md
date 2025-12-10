@@ -1,5 +1,4 @@
-# IndexingShortcuts
-(*indexing.shortcuts*)
+# Indexing.Shortcuts
 
 ## Overview
 

@@ -162,6 +162,7 @@ class Datasources(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.CustomDatasourceConfig
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -351,6 +352,7 @@ class Datasources(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.CustomDatasourceConfig
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -437,6 +439,7 @@ class Datasources(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.GetDatasourceConfigRequest
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -523,6 +526,7 @@ class Datasources(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.GetDatasourceConfigRequest
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
