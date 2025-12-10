@@ -63,6 +63,7 @@ class IndexingDocuments(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.IndexDocumentRequest
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -152,6 +153,7 @@ class IndexingDocuments(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.IndexDocumentRequest
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -248,6 +250,7 @@ class IndexingDocuments(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.IndexDocumentsRequest
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -344,6 +347,7 @@ class IndexingDocuments(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.IndexDocumentsRequest
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -452,6 +456,7 @@ class IndexingDocuments(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.BulkIndexDocumentsRequest
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -560,6 +565,7 @@ class IndexingDocuments(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.BulkIndexDocumentsRequest
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -668,6 +674,7 @@ class IndexingDocuments(BaseSDK):
                 "json",
                 Optional[models.ProcessAllDocumentsRequest],
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -776,6 +783,7 @@ class IndexingDocuments(BaseSDK):
                 "json",
                 Optional[models.ProcessAllDocumentsRequest],
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -871,6 +879,7 @@ class IndexingDocuments(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.DeleteDocumentRequest
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -966,6 +975,7 @@ class IndexingDocuments(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.DeleteDocumentRequest
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1067,6 +1077,7 @@ class IndexingDocuments(BaseSDK):
                 "json",
                 models.DebugDocumentRequest,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1168,6 +1179,7 @@ class IndexingDocuments(BaseSDK):
                 "json",
                 models.DebugDocumentRequest,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1271,6 +1283,7 @@ class IndexingDocuments(BaseSDK):
                 "json",
                 models.DebugDocumentsRequest,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1374,6 +1387,7 @@ class IndexingDocuments(BaseSDK):
                 "json",
                 models.DebugDocumentsRequest,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1472,6 +1486,7 @@ class IndexingDocuments(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.CheckDocumentAccessRequest
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1570,6 +1585,7 @@ class IndexingDocuments(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.CheckDocumentAccessRequest
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1668,6 +1684,7 @@ class IndexingDocuments(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.GetDocumentStatusRequest
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1766,6 +1783,7 @@ class IndexingDocuments(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.GetDocumentStatusRequest
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1858,6 +1876,7 @@ class IndexingDocuments(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.GetDocumentCountRequest
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1950,6 +1969,7 @@ class IndexingDocuments(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "json", models.GetDocumentCountRequest
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 

@@ -1,5 +1,4 @@
-# Announcements
-(*client.announcements*)
+# Client.Announcements
 
 ## Overview
 

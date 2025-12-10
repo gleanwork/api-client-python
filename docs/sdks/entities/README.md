@@ -1,5 +1,4 @@
-# Entities
-(*client.entities*)
+# Client.Entities
 
 ## Overview
 

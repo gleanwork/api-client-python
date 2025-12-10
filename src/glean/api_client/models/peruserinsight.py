@@ -20,6 +20,12 @@ class PerUserInsightTypedDict(TypedDict):
     r"""Total number of Gleanbot responses marked useful by this user over the specified time period."""
     num_days_active: NotRequired[int]
     r"""Total number of days this user was an Active User over the specified time period."""
+    num_summarizations: NotRequired[int]
+    r"""Total number of summarized items by this user over the specified time period."""
+    num_ai_answers: NotRequired[int]
+    r"""Total number of AI Answers interacted with by this user over the specified time period."""
+    num_agent_runs: NotRequired[int]
+    r"""Total number of agent runs for this user over the specified time period."""
 
 
 class PerUserInsight(BaseModel):
@@ -45,3 +51,18 @@ class PerUserInsight(BaseModel):
         None
     )
     r"""Total number of days this user was an Active User over the specified time period."""
+
+    num_summarizations: Annotated[
+        Optional[int], pydantic.Field(alias="numSummarizations")
+    ] = None
+    r"""Total number of summarized items by this user over the specified time period."""
+
+    num_ai_answers: Annotated[Optional[int], pydantic.Field(alias="numAiAnswers")] = (
+        None
+    )
+    r"""Total number of AI Answers interacted with by this user over the specified time period."""
+
+    num_agent_runs: Annotated[Optional[int], pydantic.Field(alias="numAgentRuns")] = (
+        None
+    )
+    r"""Total number of agent runs for this user over the specified time period."""

@@ -1,5 +1,4 @@
-# ClientDocuments
-(*client.documents*)
+# Client.Documents
 
 ## Overview
 

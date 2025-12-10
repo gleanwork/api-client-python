@@ -33,6 +33,7 @@ class ManualFeedbackInfoSource(str, Enum):
     SIDEBAR = "SIDEBAR"
     SUMMARY = "SUMMARY"
     TASKS = "TASKS"
+    TASK_EXECUTION = "TASK_EXECUTION"
 
 
 class Issue(str, Enum):

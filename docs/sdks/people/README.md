@@ -1,5 +1,4 @@
-# People
-(*indexing.people*)
+# Indexing.People
 
 ## Overview
 

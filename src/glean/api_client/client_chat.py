@@ -110,6 +110,7 @@ class ClientChat(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request.chat_request, False, False, "json", models.ChatRequest
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -247,6 +248,7 @@ class ClientChat(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request.chat_request, False, False, "json", models.ChatRequest
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -330,6 +332,7 @@ class ClientChat(BaseSDK):
             accept_header_value="*/*",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -413,6 +416,7 @@ class ClientChat(BaseSDK):
             accept_header_value="*/*",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -508,6 +512,7 @@ class ClientChat(BaseSDK):
                 "json",
                 models.DeleteChatsRequest,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -603,6 +608,7 @@ class ClientChat(BaseSDK):
                 "json",
                 models.DeleteChatsRequest,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -694,6 +700,7 @@ class ClientChat(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request.get_chat_request, False, False, "json", models.GetChatRequest
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -785,6 +792,7 @@ class ClientChat(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request.get_chat_request, False, False, "json", models.GetChatRequest
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -868,6 +876,7 @@ class ClientChat(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -951,6 +960,7 @@ class ClientChat(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1046,6 +1056,7 @@ class ClientChat(BaseSDK):
                 "json",
                 models.GetChatApplicationRequest,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1141,6 +1152,7 @@ class ClientChat(BaseSDK):
                 "json",
                 models.GetChatApplicationRequest,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1236,6 +1248,7 @@ class ClientChat(BaseSDK):
                 "multipart",
                 models.UploadChatFilesRequest,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1331,6 +1344,7 @@ class ClientChat(BaseSDK):
                 "multipart",
                 models.UploadChatFilesRequest,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1426,6 +1440,7 @@ class ClientChat(BaseSDK):
                 "json",
                 models.GetChatFilesRequest,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1521,6 +1536,7 @@ class ClientChat(BaseSDK):
                 "json",
                 models.GetChatFilesRequest,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1616,6 +1632,7 @@ class ClientChat(BaseSDK):
                 "json",
                 models.DeleteChatFilesRequest,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1711,6 +1728,7 @@ class ClientChat(BaseSDK):
                 "json",
                 models.DeleteChatFilesRequest,
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1848,6 +1866,7 @@ class ClientChat(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request.chat_request, False, False, "json", models.ChatRequest
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -1985,6 +2004,7 @@ class ClientChat(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request.chat_request, False, False, "json", models.ChatRequest
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 

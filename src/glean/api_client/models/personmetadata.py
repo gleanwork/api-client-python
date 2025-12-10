@@ -69,6 +69,8 @@ class PersonMetadataTypedDict(TypedDict):
     r"""The timezone of the person. E.g. \"Pacific Daylight Time\"."""
     timezone_offset: NotRequired[int]
     r"""The offset of the person's timezone in seconds from UTC."""
+    timezone_iana: NotRequired[str]
+    r"""The IANA timezone identifier, e.g. \"America/Los_Angeles\"."""
     photo_url: NotRequired[str]
     r"""The URL of the person's avatar. Public, glean-authenticated and Base64 encoded data URLs are all valid (but not third-party-authenticated URLs)."""
     unedited_photo_url: NotRequired[str]
@@ -187,6 +189,9 @@ class PersonMetadata(BaseModel):
         Optional[int], pydantic.Field(alias="timezoneOffset")
     ] = None
     r"""The offset of the person's timezone in seconds from UTC."""
+
+    timezone_iana: Annotated[Optional[str], pydantic.Field(alias="timezoneIANA")] = None
+    r"""The IANA timezone identifier, e.g. \"America/Los_Angeles\"."""
 
     photo_url: Annotated[Optional[str], pydantic.Field(alias="photoUrl")] = None
     r"""The URL of the person's avatar. Public, glean-authenticated and Base64 encoded data URLs are all valid (but not third-party-authenticated URLs)."""

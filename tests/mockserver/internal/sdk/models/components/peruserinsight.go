@@ -14,6 +14,12 @@ type PerUserInsight struct {
 	NumGleanbotUsefulResponses *int64 `json:"numGleanbotUsefulResponses,omitempty"`
 	// Total number of days this user was an Active User over the specified time period.
 	NumDaysActive *int64 `json:"numDaysActive,omitempty"`
+	// Total number of summarized items by this user over the specified time period.
+	NumSummarizations *int64 `json:"numSummarizations,omitempty"`
+	// Total number of AI Answers interacted with by this user over the specified time period.
+	NumAiAnswers *int64 `json:"numAiAnswers,omitempty"`
+	// Total number of agent runs for this user over the specified time period.
+	NumAgentRuns *int64 `json:"numAgentRuns,omitempty"`
 }
 
 func (o *PerUserInsight) GetPerson() *Person {
@@ -56,4 +62,25 @@ func (o *PerUserInsight) GetNumDaysActive() *int64 {
 		return nil
 	}
 	return o.NumDaysActive
+}
+
+func (o *PerUserInsight) GetNumSummarizations() *int64 {
+	if o == nil {
+		return nil
+	}
+	return o.NumSummarizations
+}
+
+func (o *PerUserInsight) GetNumAiAnswers() *int64 {
+	if o == nil {
+		return nil
+	}
+	return o.NumAiAnswers
+}
+
+func (o *PerUserInsight) GetNumAgentRuns() *int64 {
+	if o == nil {
+		return nil
+	}
+	return o.NumAgentRuns
 }

@@ -1,5 +1,4 @@
-# IndexingDocuments
-(*indexing.documents*)
+# Indexing.Documents
 
 ## Overview
 
