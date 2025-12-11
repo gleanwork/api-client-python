@@ -19,10 +19,11 @@ def test_summarize_summarize():
             document_specs=[
                 {
                     "ugc_type": models.DocumentSpecUgcType1.SHORTCUTS,
-                    "content_id": 544883,
+                    "content_id": 602763,
                 },
                 {
-                    "id": "<id>",
+                    "ugc_type": models.DocumentSpecUgcType1.SHORTCUTS,
+                    "content_id": 602763,
                 },
             ]
         )
