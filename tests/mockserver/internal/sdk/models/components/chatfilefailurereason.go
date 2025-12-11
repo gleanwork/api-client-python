@@ -18,6 +18,10 @@ const (
 	ChatFileFailureReasonFileExtensionUnsupported   ChatFileFailureReason = "FILE_EXTENSION_UNSUPPORTED"
 	ChatFileFailureReasonFileMetadataValidationFail ChatFileFailureReason = "FILE_METADATA_VALIDATION_FAIL"
 	ChatFileFailureReasonFileProcessingTimedOut     ChatFileFailureReason = "FILE_PROCESSING_TIMED_OUT"
+	ChatFileFailureReasonOauthNeeded                ChatFileFailureReason = "OAUTH_NEEDED"
+	ChatFileFailureReasonURLFetchFailed             ChatFileFailureReason = "URL_FETCH_FAILED"
+	ChatFileFailureReasonEmptyContent               ChatFileFailureReason = "EMPTY_CONTENT"
+	ChatFileFailureReasonAuthRequired               ChatFileFailureReason = "AUTH_REQUIRED"
 )
 
 func (e ChatFileFailureReason) ToPointer() *ChatFileFailureReason {
@@ -42,6 +46,14 @@ func (e *ChatFileFailureReason) UnmarshalJSON(data []byte) error {
 	case "FILE_METADATA_VALIDATION_FAIL":
 		fallthrough
 	case "FILE_PROCESSING_TIMED_OUT":
+		fallthrough
+	case "OAUTH_NEEDED":
+		fallthrough
+	case "URL_FETCH_FAILED":
+		fallthrough
+	case "EMPTY_CONTENT":
+		fallthrough
+	case "AUTH_REQUIRED":
 		*e = ChatFileFailureReason(v)
 		return nil
 	default:

@@ -569,7 +569,7 @@ CreateAnnouncementRequest (startTime: date-time, endTime: date-time, title: stri
                Disambiguation (name: string, id: string, type: EntityType)
                 EntityType (enum: PERSON, PROJECT, CUSTOMER)
                Prominence (enum: HERO, PROMOTED, STANDARD)
-               StructuredResultSource (enum: EXPERT_DETECTION, ENTITY_NLQ)
+               StructuredResultSource (enum: EXPERT_DETECTION, ENTITY_NLQ, CALENDAR_EVENT ...)
         DocumentVisibility (enum: PRIVATE, SPECIFIC_PEOPLE_AND_GROUPS, DOMAIN_LINK ...)
         DocumentInteractions (numComments: integer, numReactions: integer, reactions: array ...)
           Reaction (type: string, count: integer, reactors: array ...)

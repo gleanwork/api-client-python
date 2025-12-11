@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 3e3290ca-0ee8-4981-b1bc-14536048fa63
 management:
-  docChecksum: 87ea08434932dfda20a25df5dbedd6ce
+  docChecksum: 74646e230b3f40b8ae92d641bbb73b26
   docVersion: 0.9.0
-  speakeasyVersion: 1.675.2
-  generationVersion: 2.778.5
-  releaseVersion: 0.11.23
-  configChecksum: 7be6764b63c1d8b2ad9a3f49013845f1
+  speakeasyVersion: 1.675.4
+  generationVersion: 2.779.2
+  releaseVersion: 0.11.24
+  configChecksum: a044a31fd8d5216cd834231a60cde29c
   repoURL: https://github.com/gleanwork/api-client-python.git
   installationURL: https://github.com/gleanwork/api-client-python.git
   published: true
 persistentEdits:
-  generation_id: 48aa87a3-1598-4e4c-a2a4-1103a6d5f848
-  pristine_commit_hash: 5b2b79e680b93a5eeaedaa8fc24104eaea814b4c
-  pristine_tree_hash: 1510ea7825da8da971558e0061d7d4be2e31e09f
+  generation_id: ee309897-aec1-4317-88f5-3dff4d49c3cc
+  pristine_commit_hash: e5668951d13674dd22a14b067aaa6e4edf5ce61d
+  pristine_tree_hash: 364495821dc525d169bc8c0970f66b60822ff04c
 features:
   python:
     additionalDependencies: 1.0.0
@@ -383,8 +383,8 @@ trackedFiles:
     pristine_git_object: 31d5a62636ad0c94d41892b473b78a7988df0a17
   docs/models/chatfilefailurereason.md:
     id: 7d31e70789c0
-    last_write_checksum: sha1:bff55667a3d359dc30ee44260bda3fb1919a312c
-    pristine_git_object: eee5850d3409fa0e3ae15608b1f0aeac97de6378
+    last_write_checksum: sha1:fec1b0fc1a7112b996c5050aba2b6f3a30f4c2a3
+    pristine_git_object: 64426814af5b0e5f252db06e7c8851eb079cb483
   docs/models/chatfilemetadata.md:
     id: 0cc9ade06a58
     last_write_checksum: sha1:231dba9ebb94cb688a9b1e3dafae879be6d56e5c
@@ -2159,8 +2159,8 @@ trackedFiles:
     pristine_git_object: 1c1798de3c8697c7d5d99264d2dc87ca20ed620e
   docs/models/structuredresultsource.md:
     id: 065642e7abe3
-    last_write_checksum: sha1:f610ef10f429d5d4b3c8b493ccf17a4db1db085e
-    pristine_git_object: 3fe738ea7914a8f4845dd6f81cf2fdb6095dc237
+    last_write_checksum: sha1:e4fa446a21e6677b04224b3c6b23da770594ea6f
+    pristine_git_object: fb03b801d9a4cde37aa05205f1e80f6ce44e2970
   docs/models/structuredtext.md:
     id: f29072cb71a7
     last_write_checksum: sha1:ea77efd10d4b272a7f95d83f31013753fc74113d
@@ -2611,8 +2611,8 @@ trackedFiles:
     pristine_git_object: 8e34b78a71b8bb97bad6dea99d0f791beb134e5b
   pyproject.toml:
     id: 5d07e7d72637
-    last_write_checksum: sha1:bfceb471bac458cfd9d3a54484b797cb57e3a1b5
-    pristine_git_object: ff70d00c44620a7dcb93c03054633e208c92b8d0
+    last_write_checksum: sha1:c7bf6c95b6765eb1d21e5a312941ed3a187827cd
+    pristine_git_object: 8c199aae928ee4debecc67433e11d55d8b025b26
   scripts/prepare_readme.py:
     id: e0c5957a6035
     last_write_checksum: sha1:c2c83f71dea61eb50c9e05da83b16d18b4da8794
@@ -2639,8 +2639,8 @@ trackedFiles:
     pristine_git_object: 58c4d70ac1797b86ff5c4237cafbc344c42d8f64
   src/glean/api_client/_version.py:
     id: 0ce22b26136b
-    last_write_checksum: sha1:efa255803f685d60e08d1d05eda6ae92b8d41e9f
-    pristine_git_object: 8c4559cd23c3eeb3eb032836dd983016c8d84453
+    last_write_checksum: sha1:7f37552299f470bd24d55bc45e65eebfa6ab51bb
+    pristine_git_object: 32953e133b21396c657d5a85c2c8d534ac9505a5
   src/glean/api_client/agents.py:
     id: b925701a9217
     last_write_checksum: sha1:56f1329fbf799ea92ed30229d4ed2404666d455d
@@ -2999,8 +2999,8 @@ trackedFiles:
     pristine_git_object: 972ff1bf2e1b54031314e168115a06613773f9b6
   src/glean/api_client/models/chatfilefailurereason.py:
     id: c60997a33e36
-    last_write_checksum: sha1:73c1098a604ad73b138195bc12e5d71cd07715d2
-    pristine_git_object: 66efaaa3b94afdd208c23eab1ad5e6c0e7080963
+    last_write_checksum: sha1:025e7cc000253326a9efd004cc5c7225f775927f
+    pristine_git_object: fdae31905651d8b10cbe8d645e41584a3dae769c
   src/glean/api_client/models/chatfilemetadata.py:
     id: b8648f87910e
     last_write_checksum: sha1:668a56870d98d0292804fd883b0f48c30402967f
@@ -4399,8 +4399,8 @@ trackedFiles:
     pristine_git_object: 5530056809c70669da85c33ef8aea46523be363f
   src/glean/api_client/models/structuredresult.py:
     id: 1777b707d24b
-    last_write_checksum: sha1:0d2f9b85a94b97f56bd5de2d65031fcff51b064e
-    pristine_git_object: 8d4fbd05e6ab81126aaf745943b20bfb51aa21ac
+    last_write_checksum: sha1:0cefe48c3e0cf7c6b92bdb193fb5a9d29b312081
+    pristine_git_object: d65c3e1570ac4adf7f8922d17babf78701e721a6
   src/glean/api_client/models/structuredtext.py:
     id: 5a5980e70744
     last_write_checksum: sha1:137c72ceec8daec23a6a4de697eba1385beb0709
@@ -4886,7 +4886,7 @@ trackedFiles:
   tests/mockserver/internal/handler/pathpostrestapiv1createauthtoken.go:
     last_write_checksum: sha1:6ce83ba03066acb436796c018d19715615f548c1
   tests/mockserver/internal/handler/pathpostrestapiv1createcollection.go:
-    last_write_checksum: sha1:f9f4c718408bddadbdf826194f07970bb111e57e
+    last_write_checksum: sha1:14b4a1d98dd55ce2b487ae1aaab4a7dece08df25
   tests/mockserver/internal/handler/pathpostrestapiv1createshortcut.go:
     last_write_checksum: sha1:dcdf684a85e20db1aee571db9a54a3ee259d71d5
   tests/mockserver/internal/handler/pathpostrestapiv1deleteallchats.go:
@@ -5102,7 +5102,7 @@ trackedFiles:
   tests/mockserver/internal/sdk/models/components/chatfile.go:
     last_write_checksum: sha1:2d220b166f37523e64aa0965e237872532f4ccfe
   tests/mockserver/internal/sdk/models/components/chatfilefailurereason.go:
-    last_write_checksum: sha1:2178b351fd9bcfc0b11e0ce7ef52d59762b757db
+    last_write_checksum: sha1:21b914bf1323b19bede96d1e8a4e56494c2f7a4f
   tests/mockserver/internal/sdk/models/components/chatfilemetadata.go:
     last_write_checksum: sha1:4e608b0813ad32b7a981f73a511952b6459979e0
   tests/mockserver/internal/sdk/models/components/chatfilestatus.go:
@@ -5748,7 +5748,7 @@ trackedFiles:
   tests/mockserver/internal/sdk/models/components/structuredlocation.go:
     last_write_checksum: sha1:952c61d565a519770c1e1bd456dbe06a43527a1d
   tests/mockserver/internal/sdk/models/components/structuredresult.go:
-    last_write_checksum: sha1:d1114da6ac2c2ecca7b66464b3c7c2b0cbab4bd2
+    last_write_checksum: sha1:d557993e556e831f0bef162e5388c35ed4499055
   tests/mockserver/internal/sdk/models/components/structuredtext.go:
     last_write_checksum: sha1:355352f1325e5756bc262be00952f3a75b46de11
   tests/mockserver/internal/sdk/models/components/structuredtextitem.go:
@@ -6255,8 +6255,8 @@ trackedFiles:
     pristine_git_object: df2944ebda36db652b2770dd1c23be83df90fc99
   tests/test_summarize.py:
     id: a255d8a6f627
-    last_write_checksum: sha1:54133b124c0940a3188a5f22c3705e89e04c0599
-    pristine_git_object: 4752dda147dc1265028d19e0fadeb80528c82927
+    last_write_checksum: sha1:6383d6969c6f1bf1832e5ace511e5c2ffaa6d86f
+    pristine_git_object: cac8e9788f25fda1ff78bd2e3e36917319145e82
   tests/test_tools.py:
     id: 70889bdf7321
     last_write_checksum: sha1:3c0c220f8975b050c322f6475e95f7af4e65b995
@@ -7144,7 +7144,6 @@ generatedTests:
   updateshortcut: "2025-06-12T19:13:52-04:00"
   listfindingsexports: "2025-12-10T17:53:31Z"
   downloadfindingsexport: "2025-12-10T17:53:31Z"
-releaseNotes: "## Python SDK Changes:\n* `glean.governance.createfindingsexport()`: **Added**\n* `glean.governance.listfindingsexports()`: **Added**\n* `glean.governance.downloadfindingsexport()`: **Added**\n* `glean.governance.deletefindingsexport()`: **Added**\n* `glean.client.announcements.create()`: \n  *  `request.body.structured_list.[].document.metadata.author` **Changed**\n  *  `response.body.structured_list.[].document.metadata.author` **Changed**\n* `glean.client.announcements.update()`: \n  *  `request.body.structured_list.[].document.metadata.author` **Changed**\n  *  `response.body.structured_list.[].document.metadata.author` **Changed**\n* `glean.client.answers.create()`: \n  *  `request.data.added_roles.[].person` **Changed**\n  *  `response.added_roles.[].person` **Changed**\n* `glean.client.answers.update()`: \n  *  `request.added_roles.[].person` **Changed**\n  *  `response.added_roles.[].person` **Changed**\n* `glean.client.answers.retrieve()`:  `response.answer_result.answer.added_roles.[].person` **Changed**\n* `glean.client.answers.list()`:  `response.answer_results.[].answer.added_roles.[].person` **Changed**\n* `glean.client.chat.create()`: \n  *  `request.messages.[].citations.[].source_document.metadata.author` **Changed**\n  *  `response.messages.[].citations.[].source_document.metadata.author` **Changed**\n* `glean.client.chat.retrieve()`:  `response.chat_result.chat.created_by` **Changed**\n* `glean.client.chat.list()`:  `response.chat_results.[].chat.created_by` **Changed**\n* `glean.client.chat.create_stream()`: \n  *  `request.messages.[].citations.[].source_document.metadata.author` **Changed**\n* `glean.client.collections.add_items()`:  `response.collection.added_roles.[].person` **Changed**\n* `glean.client.collections.create()`: \n  *  `request.added_roles.[].person` **Changed**\n  *  `response.[class].collection.added_roles.[].person` **Changed**\n* `glean.client.collections.delete_item()`:  `response.collection.added_roles.[].person` **Changed**\n* `glean.client.collections.update()`: \n  *  `request.added_roles.[].person` **Changed**\n  *  `response.added_roles.[].person` **Changed**\n* `glean.client.collections.update_item()`:  `response.collection.added_roles.[].person` **Changed**\n* `glean.client.collections.retrieve()`:  `response.collection.added_roles.[].person` **Changed**\n* `glean.client.collections.list()`:  `response.collections.[].added_roles.[].person` **Changed**\n* `glean.client.documents.retrieve()`:  `response.documents.{}.[document].metadata.author` **Changed**\n* `glean.client.documents.retrieve_by_facets()`:  `response.documents.[].metadata.author` **Changed**\n* `glean.client.insights.retrieve()`:  `response` **Changed**\n* `glean.client.messages.retrieve()`:  `response.search_response.results.[].structured_results.[].document.metadata.author` **Changed**\n* `glean.client.pins.update()`:  `response.attribution` **Changed**\n* `glean.client.pins.retrieve()`:  `response.pin.attribution` **Changed**\n* `glean.client.pins.list()`:  `response.pins.[].attribution` **Changed**\n* `glean.client.pins.create()`:  `response.attribution` **Changed**\n* `glean.client.search.query_as_admin()`: \n  *  `request.source_document.metadata.author` **Changed**\n  *  `response.results.[].structured_results.[].document.metadata.author` **Changed**\n* `glean.client.search.autocomplete()`:  `response.results.[].document.metadata.author` **Changed**\n* `glean.client.search.retrieve_feed()`:  `response.results.[].primary_entry.created_by` **Changed**\n* `glean.client.search.recommendations()`: \n  *  `request.source_document.metadata.author` **Changed**\n  *  `response.results.[].structured_results.[].document.metadata.author` **Changed**\n* `glean.client.search.query()`: \n  *  `request.source_document.metadata.author` **Changed**\n  *  `response.results.[].structured_results.[].document.metadata.author` **Changed**\n* `glean.client.entities.list()`:  `response.results.[]` **Changed**\n* `glean.client.entities.read_people()`:  `response.results.[]` **Changed**\n* `glean.client.shortcuts.create()`: \n  *  `request.data.added_roles.[].person` **Changed**\n  *  `response.shortcut.added_roles.[].person` **Changed**\n* `glean.client.shortcuts.retrieve()`:  `response.shortcut.added_roles.[].person` **Changed**\n* `glean.client.shortcuts.list()`:  `response.shortcuts.[].added_roles.[].person` **Changed**\n* `glean.client.shortcuts.update()`: \n  *  `request.added_roles.[].person` **Changed**\n  *  `response.shortcut.added_roles.[].person` **Changed**\n* `glean.client.verification.add_reminder()`:  `response.metadata.last_verifier` **Changed**\n* `glean.client.verification.list()`:  `response.documents.[].metadata.last_verifier` **Changed**\n* `glean.client.verification.verify()`:  `response.metadata.last_verifier` **Changed**\n* `glean.client.governance.data.policies.retrieve()`:  `response.report.config.sensitive_content_options.custom_sensitive_expressions` **Added**\n* `glean.client.governance.data.policies.update()`: \n  *  `request.config.sensitive_content_options.custom_sensitive_expressions` **Added**\n* `glean.client.governance.data.policies.list()`:  `response.reports.[].config.sensitive_content_options.custom_sensitive_expressions` **Added**\n* `glean.client.governance.data.policies.create()`: \n  *  `request.config.sensitive_content_options.custom_sensitive_expressions` **Added**\n  *  `response.report.config.sensitive_content_options.custom_sensitive_expressions` **Added**\n* `glean.client.governance.data.reports.create()`: \n  *  `request.config.sensitive_content_options.custom_sensitive_expressions` **Added**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json

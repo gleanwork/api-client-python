@@ -44,6 +44,8 @@ type StructuredResultSource string
 const (
 	StructuredResultSourceExpertDetection StructuredResultSource = "EXPERT_DETECTION"
 	StructuredResultSourceEntityNlq       StructuredResultSource = "ENTITY_NLQ"
+	StructuredResultSourceCalendarEvent   StructuredResultSource = "CALENDAR_EVENT"
+	StructuredResultSourceAgent           StructuredResultSource = "AGENT"
 )
 
 func (e StructuredResultSource) ToPointer() *StructuredResultSource {
@@ -58,6 +60,10 @@ func (e *StructuredResultSource) UnmarshalJSON(data []byte) error {
 	case "EXPERT_DETECTION":
 		fallthrough
 	case "ENTITY_NLQ":
+		fallthrough
+	case "CALENDAR_EVENT":
+		fallthrough
+	case "AGENT":
 		*e = StructuredResultSource(v)
 		return nil
 	default:

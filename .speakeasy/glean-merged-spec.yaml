@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
     version: 0.9.0
     title: Glean API
-    x-source-commit-sha: 5d93f45c3b069606a4c2a183b536454275519697
+    x-source-commit-sha: 2716d99b958fa0dbf1a48290203cb28f43c37a92
     description: |
         # Introduction
         In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This is useful, for example, for doing permissions-aware search over content in internal tools that reside on-prem as well as for searching over applications that Glean does not currently support first class. In addition these APIs allow the customer to push organization data (people info, organization structure etc) into Glean.
@@ -22,7 +22,7 @@ info:
         These API clients provide type-safe, idiomatic interfaces for working with Glean IndexingAPIs in your language of choice.
     x-logo:
         url: https://app.glean.com/images/glean-text2.svg
-    x-open-api-commit-sha: 9cb7b6b6ca96236282f27d82e82e8f9141c0c247
+    x-open-api-commit-sha: ecce1959afb4701947e853c482ed77ed6743e643
     x-speakeasy-name: 'Glean API'
 servers:
     - url: https://{instance}-be.glean.com
@@ -6176,6 +6176,8 @@ components:
                     enum:
                         - EXPERT_DETECTION
                         - ENTITY_NLQ
+                        - CALENDAR_EVENT
+                        - AGENT
         Result:
             properties:
                 structuredResults:
@@ -7232,6 +7234,10 @@ components:
                 - FILE_EXTENSION_UNSUPPORTED
                 - FILE_METADATA_VALIDATION_FAIL
                 - FILE_PROCESSING_TIMED_OUT
+                - OAUTH_NEEDED
+                - URL_FETCH_FAILED
+                - EMPTY_CONTENT
+                - AUTH_REQUIRED
         ChatFileMetadata:
             type: object
             description: Metadata of a file uploaded by a user for Chat.
@@ -7605,6 +7611,12 @@ components:
                 sessionInfo:
                     description: Optional object for tracking the session used by the client and for debugging purposes.
                     $ref: "#/components/schemas/SessionInfo"
+                saveChat:
+                    type: boolean
+                    description: Save the current interaction as a Chat for the user to access and potentially continue later.
+                chatId:
+                    type: string
+                    description: The id of the Chat that context should be retrieved from and messages added to. An empty id starts a new Chat, and the Chat is saved if saveChat is true.
         ChatRestrictionFilters:
             allOf:
                 - $ref: "#/components/schemas/RestrictionFilters"
@@ -7623,12 +7635,6 @@ components:
                 - $ref: "#/components/schemas/ChatRequestBase"
                 - type: object
                   properties:
-                    saveChat:
-                        type: boolean
-                        description: Save the current interaction as a Chat for the user to access and potentially continue later.
-                    chatId:
-                        type: string
-                        description: The id of the Chat that context should be retrieved from and messages added to. An empty id starts a new Chat, and the Chat is saved if saveChat is true.
                     agentConfig:
                         $ref: "#/components/schemas/AgentConfig"
                         description: Describes the agent that will execute the request.
