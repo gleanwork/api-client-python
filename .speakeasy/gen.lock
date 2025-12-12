@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 3e3290ca-0ee8-4981-b1bc-14536048fa63
 management:
-  docChecksum: 74646e230b3f40b8ae92d641bbb73b26
+  docChecksum: 155a8a099a04ddbed1268d2c31ba186a
   docVersion: 0.9.0
   speakeasyVersion: 1.675.4
   generationVersion: 2.779.2
-  releaseVersion: 0.11.24
-  configChecksum: a044a31fd8d5216cd834231a60cde29c
+  releaseVersion: 0.11.25
+  configChecksum: eeecb9b00ada03322b4c87d8ec90db91
   repoURL: https://github.com/gleanwork/api-client-python.git
   installationURL: https://github.com/gleanwork/api-client-python.git
   published: true
 persistentEdits:
-  generation_id: ee309897-aec1-4317-88f5-3dff4d49c3cc
-  pristine_commit_hash: e5668951d13674dd22a14b067aaa6e4edf5ce61d
-  pristine_tree_hash: 364495821dc525d169bc8c0970f66b60822ff04c
+  generation_id: ae27c813-e27b-49f4-8b29-b8ea002c14e7
+  pristine_commit_hash: dfb743e628fdc9144777502e9abdbc9ef378ce15
+  pristine_tree_hash: eb9728fe81c4c32440414597ccce323de02cf3aa
 features:
   python:
     additionalDependencies: 1.0.0
@@ -1087,8 +1087,8 @@ trackedFiles:
     pristine_git_object: 51c0237020d03cd196c1ec210563364967cead8e
   docs/models/exportinfo.md:
     id: 08c8529beddd
-    last_write_checksum: sha1:4c4902c7c6e5d0b290167f79fce41c29f22b7765
-    pristine_git_object: 32bd60f7d1c30790014ce497e6600cbad864d29b
+    last_write_checksum: sha1:52c974d3e1a4740f5b41a2c96ef2674c4872a1d9
+    pristine_git_object: fd1547a8a4890b6565e01918acdef4dc255e82b4
   docs/models/exportinfostatus.md:
     id: 00e8b292b3fb
     last_write_checksum: sha1:7123b260311651a2ff48d6a66e1c3a573e7752f5
@@ -2611,8 +2611,8 @@ trackedFiles:
     pristine_git_object: 8e34b78a71b8bb97bad6dea99d0f791beb134e5b
   pyproject.toml:
     id: 5d07e7d72637
-    last_write_checksum: sha1:c7bf6c95b6765eb1d21e5a312941ed3a187827cd
-    pristine_git_object: 8c199aae928ee4debecc67433e11d55d8b025b26
+    last_write_checksum: sha1:5e9a1c86cdbf59f5853a8ff79c448cab1b21a33c
+    pristine_git_object: 74e7a505ae169183c934b33ef1e3550bbd93a903
   scripts/prepare_readme.py:
     id: e0c5957a6035
     last_write_checksum: sha1:c2c83f71dea61eb50c9e05da83b16d18b4da8794
@@ -2639,8 +2639,8 @@ trackedFiles:
     pristine_git_object: 58c4d70ac1797b86ff5c4237cafbc344c42d8f64
   src/glean/api_client/_version.py:
     id: 0ce22b26136b
-    last_write_checksum: sha1:7f37552299f470bd24d55bc45e65eebfa6ab51bb
-    pristine_git_object: 32953e133b21396c657d5a85c2c8d534ac9505a5
+    last_write_checksum: sha1:30abb718971de47ac189a7bd4cb7e7aad5c010ce
+    pristine_git_object: 54635c2e1ffa97430bf82ab8d4db3a8e77e1512d
   src/glean/api_client/agents.py:
     id: b925701a9217
     last_write_checksum: sha1:56f1329fbf799ea92ed30229d4ed2404666d455d
@@ -3583,8 +3583,8 @@ trackedFiles:
     pristine_git_object: 5ede7c8c9cad35bbf68587ce4247ee51cf74b55e
   src/glean/api_client/models/exportinfo.py:
     id: 7039fdf82b53
-    last_write_checksum: sha1:34cba20e6b7e17e194cd55a65b5f0f149cf4732e
-    pristine_git_object: eaa8128293b2c65addbbe8bdeb2a1f9a7c6337be
+    last_write_checksum: sha1:fa5db79c5e687c4d55001bc778aabd0bec08aec4
+    pristine_git_object: 2e4a1a37acb1577fc1d83fe1ac68e5d257fb4651
   src/glean/api_client/models/externalsharingoptions.py:
     id: 0df611382e60
     last_write_checksum: sha1:b9b95361f20f2e056f7878c43d2144ca1afc47e3
@@ -5374,7 +5374,7 @@ trackedFiles:
   tests/mockserver/internal/sdk/models/components/eventstrategyname.go:
     last_write_checksum: sha1:acecfa3fb469871561d21b30275631ced4a4a11c
   tests/mockserver/internal/sdk/models/components/exportinfo.go:
-    last_write_checksum: sha1:0fd962ff58d720caf13e09ce08624617485a4dcd
+    last_write_checksum: sha1:a211dd685d03fa0b8d7e0186d15abf9756d1bf4e
   tests/mockserver/internal/sdk/models/components/externalsharingoptions.go:
     last_write_checksum: sha1:82c4ead1f0d347a66103a3c44c8232b1a6f78243
   tests/mockserver/internal/sdk/models/components/externalshortcut.go:
@@ -7144,6 +7144,10 @@ generatedTests:
   updateshortcut: "2025-06-12T19:13:52-04:00"
   listfindingsexports: "2025-12-10T17:53:31Z"
   downloadfindingsexport: "2025-12-10T17:53:31Z"
+releaseNotes: |
+  ## Python SDK Changes:
+  * `glean.governance.createfindingsexport()`:  `response.export_size` **Added**
+  * `glean.governance.listfindingsexports()`:  `response.exports.[].export_size` **Added**
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
