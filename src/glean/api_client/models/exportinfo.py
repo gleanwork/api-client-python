@@ -32,6 +32,8 @@ class ExportInfoTypedDict(TypedDict):
     filter_: NotRequired[DlpFindingFilterTypedDict]
     status: NotRequired[ExportInfoStatus]
     r"""The status of the export"""
+    export_size: NotRequired[int]
+    r"""The size of the exported file in bytes"""
 
 
 class ExportInfo(BaseModel):
@@ -56,3 +58,6 @@ class ExportInfo(BaseModel):
 
     status: Optional[ExportInfoStatus] = None
     r"""The status of the export"""
+
+    export_size: Annotated[Optional[int], pydantic.Field(alias="exportSize")] = None
+    r"""The size of the exported file in bytes"""
