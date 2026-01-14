@@ -34,6 +34,18 @@ class InsightsOverviewResponseTypedDict(TypedDict):
     monthly_active_user_timeseries: NotRequired[LabeledCountInfoTypedDict]
     weekly_active_user_timeseries: NotRequired[LabeledCountInfoTypedDict]
     daily_active_user_timeseries: NotRequired[LabeledCountInfoTypedDict]
+    search_monthly_active_user_timeseries: NotRequired[LabeledCountInfoTypedDict]
+    search_weekly_active_user_timeseries: NotRequired[LabeledCountInfoTypedDict]
+    search_daily_active_user_timeseries: NotRequired[LabeledCountInfoTypedDict]
+    assistant_monthly_active_user_timeseries: NotRequired[LabeledCountInfoTypedDict]
+    assistant_weekly_active_user_timeseries: NotRequired[LabeledCountInfoTypedDict]
+    assistant_daily_active_user_timeseries: NotRequired[LabeledCountInfoTypedDict]
+    agents_monthly_active_user_timeseries: NotRequired[LabeledCountInfoTypedDict]
+    agents_weekly_active_user_timeseries: NotRequired[LabeledCountInfoTypedDict]
+    agents_daily_active_user_timeseries: NotRequired[LabeledCountInfoTypedDict]
+    searches_timeseries: NotRequired[LabeledCountInfoTypedDict]
+    assistant_interactions_timeseries: NotRequired[LabeledCountInfoTypedDict]
+    agent_runs_timeseries: NotRequired[LabeledCountInfoTypedDict]
     search_datasource_counts: NotRequired[Dict[str, int]]
     r"""Counts of search result clicks, by datasource, over the specified time period in the specified departments."""
     chat_datasource_counts: NotRequired[Dict[str, int]]
@@ -100,6 +112,64 @@ class InsightsOverviewResponse(BaseModel):
 
     daily_active_user_timeseries: Annotated[
         Optional[LabeledCountInfo], pydantic.Field(alias="dailyActiveUserTimeseries")
+    ] = None
+
+    search_monthly_active_user_timeseries: Annotated[
+        Optional[LabeledCountInfo],
+        pydantic.Field(alias="searchMonthlyActiveUserTimeseries"),
+    ] = None
+
+    search_weekly_active_user_timeseries: Annotated[
+        Optional[LabeledCountInfo],
+        pydantic.Field(alias="searchWeeklyActiveUserTimeseries"),
+    ] = None
+
+    search_daily_active_user_timeseries: Annotated[
+        Optional[LabeledCountInfo],
+        pydantic.Field(alias="searchDailyActiveUserTimeseries"),
+    ] = None
+
+    assistant_monthly_active_user_timeseries: Annotated[
+        Optional[LabeledCountInfo],
+        pydantic.Field(alias="assistantMonthlyActiveUserTimeseries"),
+    ] = None
+
+    assistant_weekly_active_user_timeseries: Annotated[
+        Optional[LabeledCountInfo],
+        pydantic.Field(alias="assistantWeeklyActiveUserTimeseries"),
+    ] = None
+
+    assistant_daily_active_user_timeseries: Annotated[
+        Optional[LabeledCountInfo],
+        pydantic.Field(alias="assistantDailyActiveUserTimeseries"),
+    ] = None
+
+    agents_monthly_active_user_timeseries: Annotated[
+        Optional[LabeledCountInfo],
+        pydantic.Field(alias="agentsMonthlyActiveUserTimeseries"),
+    ] = None
+
+    agents_weekly_active_user_timeseries: Annotated[
+        Optional[LabeledCountInfo],
+        pydantic.Field(alias="agentsWeeklyActiveUserTimeseries"),
+    ] = None
+
+    agents_daily_active_user_timeseries: Annotated[
+        Optional[LabeledCountInfo],
+        pydantic.Field(alias="agentsDailyActiveUserTimeseries"),
+    ] = None
+
+    searches_timeseries: Annotated[
+        Optional[LabeledCountInfo], pydantic.Field(alias="searchesTimeseries")
+    ] = None
+
+    assistant_interactions_timeseries: Annotated[
+        Optional[LabeledCountInfo],
+        pydantic.Field(alias="assistantInteractionsTimeseries"),
+    ] = None
+
+    agent_runs_timeseries: Annotated[
+        Optional[LabeledCountInfo], pydantic.Field(alias="agentRunsTimeseries")
     ] = None
 
     search_datasource_counts: Annotated[

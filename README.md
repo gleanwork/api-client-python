@@ -361,7 +361,7 @@ For more information on obtaining the appropriate token type, please contact you
 * [delete](docs/sdks/answers/README.md#delete) - Delete Answer
 * [update](docs/sdks/answers/README.md#update) - Update Answer
 * [retrieve](docs/sdks/answers/README.md#retrieve) - Read Answer
-* [list](docs/sdks/answers/README.md#list) - List Answers
+* [~~list~~](docs/sdks/answers/README.md#list) - List Answers :warning: **Deprecated**
 
 ### [Client.Authentication](docs/sdks/clientauthentication/README.md)
 

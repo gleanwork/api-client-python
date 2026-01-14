@@ -7,6 +7,7 @@ from glean.api_client.types import OptionalNullable, UNSET
 from glean.api_client.utils import get_security_from_env
 from glean.api_client.utils.unmarshal_json_response import unmarshal_json_response
 from typing import List, Mapping, Optional, Union
+from typing_extensions import deprecated
 
 
 class Answers(BaseSDK):
@@ -874,6 +875,9 @@ class Answers(BaseSDK):
 
         raise errors.GleanError("Unexpected response received", http_res)
 
+    @deprecated(
+        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+    )
     def list(
         self,
         *,
@@ -961,6 +965,9 @@ class Answers(BaseSDK):
 
         raise errors.GleanError("Unexpected response received", http_res)
 
+    @deprecated(
+        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+    )
     async def list_async(
         self,
         *,

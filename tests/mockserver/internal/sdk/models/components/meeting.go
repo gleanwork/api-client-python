@@ -15,6 +15,16 @@ type Meeting struct {
 	StartTime   *time.Time         `json:"startTime,omitempty"`
 	EndTime     *time.Time         `json:"endTime,omitempty"`
 	Attendees   *CalendarAttendees `json:"attendees,omitempty"`
+	// Whether the meeting has been cancelled
+	IsCancelled *bool `json:"isCancelled,omitempty"`
+	// The location/venue of the meeting
+	Location *string `json:"location,omitempty"`
+	// The current user's response status (accepted, declined, tentativelyAccepted, none)
+	ResponseStatus *string `json:"responseStatus,omitempty"`
+	// The meeting join link (Teams, Zoom, etc.)
+	ConferenceURI *string `json:"conferenceUri,omitempty"`
+	// The conference provider (e.g., "Microsoft Teams", "Zoom")
+	ConferenceProvider *string `json:"conferenceProvider,omitempty"`
 }
 
 func (m Meeting) MarshalJSON() ([]byte, error) {
@@ -75,4 +85,39 @@ func (o *Meeting) GetAttendees() *CalendarAttendees {
 		return nil
 	}
 	return o.Attendees
+}
+
+func (o *Meeting) GetIsCancelled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.IsCancelled
+}
+
+func (o *Meeting) GetLocation() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Location
+}
+
+func (o *Meeting) GetResponseStatus() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseStatus
+}
+
+func (o *Meeting) GetConferenceURI() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ConferenceURI
+}
+
+func (o *Meeting) GetConferenceProvider() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ConferenceProvider
 }

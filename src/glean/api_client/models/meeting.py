@@ -19,6 +19,16 @@ class MeetingTypedDict(TypedDict):
     start_time: NotRequired[datetime]
     end_time: NotRequired[datetime]
     attendees: NotRequired["CalendarAttendeesTypedDict"]
+    is_cancelled: NotRequired[bool]
+    r"""Whether the meeting has been cancelled"""
+    location: NotRequired[str]
+    r"""The location/venue of the meeting"""
+    response_status: NotRequired[str]
+    r"""The current user's response status (accepted, declined, tentativelyAccepted, none)"""
+    conference_uri: NotRequired[str]
+    r"""The meeting join link (Teams, Zoom, etc.)"""
+    conference_provider: NotRequired[str]
+    r"""The conference provider (e.g., \"Microsoft Teams\", \"Zoom\")"""
 
 
 class Meeting(BaseModel):
@@ -35,3 +45,24 @@ class Meeting(BaseModel):
     end_time: Annotated[Optional[datetime], pydantic.Field(alias="endTime")] = None
 
     attendees: Optional["CalendarAttendees"] = None
+
+    is_cancelled: Annotated[Optional[bool], pydantic.Field(alias="isCancelled")] = None
+    r"""Whether the meeting has been cancelled"""
+
+    location: Optional[str] = None
+    r"""The location/venue of the meeting"""
+
+    response_status: Annotated[
+        Optional[str], pydantic.Field(alias="responseStatus")
+    ] = None
+    r"""The current user's response status (accepted, declined, tentativelyAccepted, none)"""
+
+    conference_uri: Annotated[Optional[str], pydantic.Field(alias="conferenceUri")] = (
+        None
+    )
+    r"""The meeting join link (Teams, Zoom, etc.)"""
+
+    conference_provider: Annotated[
+        Optional[str], pydantic.Field(alias="conferenceProvider")
+    ] = None
+    r"""The conference provider (e.g., \"Microsoft Teams\", \"Zoom\")"""

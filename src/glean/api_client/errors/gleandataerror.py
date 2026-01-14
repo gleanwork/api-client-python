@@ -19,18 +19,15 @@ class GleanDataErrorData(BaseModel):
         Optional[bool], pydantic.Field(alias="badGmailToken")
     ] = None
     r"""Indicates the gmail results could not be fetched due to bad token."""
-
     bad_outlook_token: Annotated[
         Optional[bool], pydantic.Field(alias="badOutlookToken")
     ] = None
     r"""Indicates the outlook results could not be fetched due to bad token."""
-
     invalid_operators: Annotated[
         Optional[List[models_invalidoperatorvalueerror.InvalidOperatorValueError]],
         pydantic.Field(alias="invalidOperators"),
     ] = None
     r"""Indicates results could not be fetched due to invalid operators in the query."""
-
     error_messages: Annotated[
         Optional[List[models_errormessage.ErrorMessage]],
         pydantic.Field(alias="errorMessages"),

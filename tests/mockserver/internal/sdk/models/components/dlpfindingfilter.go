@@ -13,6 +13,7 @@ type DlpFindingFilter struct {
 	Severity         *DlpSeverity     `json:"severity,omitempty"`
 	DocumentSeverity []DlpSeverity    `json:"documentSeverity,omitempty"`
 	TimeRange        *TimeRangeFilter `json:"timeRange,omitempty"`
+	Archived         *bool            `json:"archived,omitempty"`
 }
 
 func (o *DlpFindingFilter) GetInfoType() *string {
@@ -76,4 +77,11 @@ func (o *DlpFindingFilter) GetTimeRange() *TimeRangeFilter {
 		return nil
 	}
 	return o.TimeRange
+}
+
+func (o *DlpFindingFilter) GetArchived() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Archived
 }

@@ -807,37 +807,6 @@ func testGetchatGetchat0(w http.ResponseWriter, req *http.Request) {
 													CandidateVerifiers: []components.Person{},
 												},
 											},
-											Board: &components.AnswerBoard{
-												Name:         "<value>",
-												Description:  "indolent vainly closely",
-												AddedRoles:   []components.UserRoleSpecification{},
-												RemovedRoles: []components.UserRoleSpecification{},
-												AudienceFilters: []components.FacetFilter{
-													components.FacetFilter{
-														FieldName: types.String("type"),
-														Values: []components.FacetFilterValue{
-															components.FacetFilterValue{
-																Value:        types.String("Spreadsheet"),
-																RelationType: components.RelationTypeEquals.ToPointer(),
-															},
-															components.FacetFilterValue{
-																Value:        types.String("Presentation"),
-																RelationType: components.RelationTypeEquals.ToPointer(),
-															},
-														},
-													},
-												},
-												ID: 601522,
-												Creator: &components.Person{
-													Name:         "George Clooney",
-													ObfuscatedID: "abc123",
-												},
-												UpdatedBy: &components.Person{
-													Name:         "George Clooney",
-													ObfuscatedID: "abc123",
-												},
-												Roles: []components.UserRoleSpecification{},
-											},
 											Collections:      []components.Collection{},
 											DocumentCategory: types.String("<value>"),
 											SourceDocument: &components.Document{
@@ -1010,46 +979,6 @@ func testGetchatGetchat0(w http.ResponseWriter, req *http.Request) {
 											Shortcuts:  []string{},
 											Children:   []components.Collection{},
 											Roles:      []components.UserRoleSpecification{},
-										},
-										AnswerBoard: &components.AnswerBoard{
-											Name:            "<value>",
-											Description:     "innocent downchange ick rudely what youthfully lightly yum",
-											AddedRoles:      []components.UserRoleSpecification{},
-											RemovedRoles:    []components.UserRoleSpecification{},
-											AudienceFilters: []components.FacetFilter{},
-											ID:              569914,
-											CreateTime:      types.MustNewTimeFromString("2023-02-12T07:51:20.736Z"),
-											UpdateTime:      types.MustNewTimeFromString("2024-03-18T02:09:52.587Z"),
-											Creator: &components.Person{
-												Name:             "<value>",
-												ObfuscatedID:     "<id>",
-												RelatedDocuments: []components.RelatedDocuments{},
-												Metadata: &components.PersonMetadata{
-													Title:      types.String("Actor"),
-													Department: types.String("Movies"),
-													Email:      types.String("george@example.com"),
-													Location:   types.String("Hollywood, CA"),
-													Phone:      types.String("6505551234"),
-													PhotoURL:   types.String("https://example.com/george.jpg"),
-													StartDate:  types.MustNewDateFromString("2000-01-23"),
-												},
-											},
-											UpdatedBy: &components.Person{
-												Name:             "<value>",
-												ObfuscatedID:     "<id>",
-												RelatedDocuments: []components.RelatedDocuments{},
-												Metadata: &components.PersonMetadata{
-													Title:      types.String("Actor"),
-													Department: types.String("Movies"),
-													Email:      types.String("george@example.com"),
-													Location:   types.String("Hollywood, CA"),
-													Phone:      types.String("6505551234"),
-													PhotoURL:   types.String("https://example.com/george.jpg"),
-													StartDate:  types.MustNewDateFromString("2000-01-23"),
-												},
-											},
-											ItemCount: types.Int64(771154),
-											Roles:     []components.UserRoleSpecification{},
 										},
 										Code: &components.Code{
 											RepoName: types.String("scio"),

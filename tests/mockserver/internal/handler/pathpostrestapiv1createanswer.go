@@ -468,34 +468,6 @@ func testCreateanswerCreateanswer0(w http.ResponseWriter, req *http.Request) {
 									},
 								},
 							},
-							Board: &components.AnswerBoard{
-								Name:        "<value>",
-								Description: "up shrill except hmph blowgun mechanically seldom beyond",
-								AudienceFilters: []components.FacetFilter{
-									components.FacetFilter{
-										FieldName: types.String("type"),
-										Values: []components.FacetFilterValue{
-											components.FacetFilterValue{
-												Value:        types.String("Spreadsheet"),
-												RelationType: components.RelationTypeEquals.ToPointer(),
-											},
-											components.FacetFilterValue{
-												Value:        types.String("Presentation"),
-												RelationType: components.RelationTypeEquals.ToPointer(),
-											},
-										},
-									},
-								},
-								ID: 198996,
-								Creator: &components.Person{
-									Name:         "George Clooney",
-									ObfuscatedID: "abc123",
-								},
-								UpdatedBy: &components.Person{
-									Name:         "George Clooney",
-									ObfuscatedID: "abc123",
-								},
-							},
 							Collections: []components.Collection{
 								components.Collection{
 									Name:        "<value>",
@@ -926,34 +898,6 @@ func testCreateanswerCreateanswer0(w http.ResponseWriter, req *http.Request) {
 								},
 							},
 						},
-						AnswerBoard: &components.AnswerBoard{
-							Name:        "<value>",
-							Description: "wordy coincide near where husky at meh terrible",
-							AudienceFilters: []components.FacetFilter{
-								components.FacetFilter{
-									FieldName: types.String("type"),
-									Values: []components.FacetFilterValue{
-										components.FacetFilterValue{
-											Value:        types.String("Spreadsheet"),
-											RelationType: components.RelationTypeEquals.ToPointer(),
-										},
-										components.FacetFilterValue{
-											Value:        types.String("Presentation"),
-											RelationType: components.RelationTypeEquals.ToPointer(),
-										},
-									},
-								},
-							},
-							ID: 994124,
-							Creator: &components.Person{
-								Name:         "George Clooney",
-								ObfuscatedID: "abc123",
-							},
-							UpdatedBy: &components.Person{
-								Name:         "George Clooney",
-								ObfuscatedID: "abc123",
-							},
-						},
 						Code: &components.Code{
 							RepoName: types.String("scio"),
 							FileName: types.String("README.md"),
@@ -1287,34 +1231,6 @@ func testCreateanswerCreateanswer0(w http.ResponseWriter, req *http.Request) {
 						ObfuscatedID: "abc123",
 					},
 				},
-			},
-		},
-		Board: &components.AnswerBoard{
-			Name:        "<value>",
-			Description: "up shrill except hmph blowgun mechanically seldom beyond",
-			AudienceFilters: []components.FacetFilter{
-				components.FacetFilter{
-					FieldName: types.String("type"),
-					Values: []components.FacetFilterValue{
-						components.FacetFilterValue{
-							Value:        types.String("Spreadsheet"),
-							RelationType: components.RelationTypeEquals.ToPointer(),
-						},
-						components.FacetFilterValue{
-							Value:        types.String("Presentation"),
-							RelationType: components.RelationTypeEquals.ToPointer(),
-						},
-					},
-				},
-			},
-			ID: 198996,
-			Creator: &components.Person{
-				Name:         "George Clooney",
-				ObfuscatedID: "abc123",
-			},
-			UpdatedBy: &components.Person{
-				Name:         "George Clooney",
-				ObfuscatedID: "abc123",
 			},
 		},
 		SourceDocument: &components.Document{
