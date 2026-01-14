@@ -422,34 +422,6 @@ with Glean(
                                 ],
                             ),
                         ),
-                        board=models.AnswerBoard(
-                            name="<value>",
-                            description="actual even swift curse while puppet outlandish since urgently",
-                            audience_filters=[
-                                models.FacetFilter(
-                                    field_name="type",
-                                    values=[
-                                        models.FacetFilterValue(
-                                            value="Spreadsheet",
-                                            relation_type=models.RelationType.EQUALS,
-                                        ),
-                                        models.FacetFilterValue(
-                                            value="Presentation",
-                                            relation_type=models.RelationType.EQUALS,
-                                        ),
-                                    ],
-                                ),
-                            ],
-                            id=812610,
-                            creator=models.Person(
-                                name="George Clooney",
-                                obfuscated_id="abc123",
-                            ),
-                            updated_by=models.Person(
-                                name="George Clooney",
-                                obfuscated_id="abc123",
-                            ),
-                        ),
                         collections=[
                             models.Collection(
                                 name="<value>",
@@ -879,34 +851,6 @@ with Glean(
                                 ),
                             ),
                         ],
-                    ),
-                    answer_board=models.AnswerBoard(
-                        name="<value>",
-                        description="capitalise rubric championship snowplow",
-                        audience_filters=[
-                            models.FacetFilter(
-                                field_name="type",
-                                values=[
-                                    models.FacetFilterValue(
-                                        value="Spreadsheet",
-                                        relation_type=models.RelationType.EQUALS,
-                                    ),
-                                    models.FacetFilterValue(
-                                        value="Presentation",
-                                        relation_type=models.RelationType.EQUALS,
-                                    ),
-                                ],
-                            ),
-                        ],
-                        id=920771,
-                        creator=models.Person(
-                            name="George Clooney",
-                            obfuscated_id="abc123",
-                        ),
-                        updated_by=models.Person(
-                            name="George Clooney",
-                            obfuscated_id="abc123",
-                        ),
                     ),
                     code=models.Code(
                         repo_name="scio",
@@ -1611,34 +1555,6 @@ with Glean(
                                 ],
                             ),
                         ),
-                        board=models.AnswerBoard(
-                            name="<value>",
-                            description="litter anenst happy probable birdcage till",
-                            audience_filters=[
-                                models.FacetFilter(
-                                    field_name="type",
-                                    values=[
-                                        models.FacetFilterValue(
-                                            value="Spreadsheet",
-                                            relation_type=models.RelationType.EQUALS,
-                                        ),
-                                        models.FacetFilterValue(
-                                            value="Presentation",
-                                            relation_type=models.RelationType.EQUALS,
-                                        ),
-                                    ],
-                                ),
-                            ],
-                            id=34422,
-                            creator=models.Person(
-                                name="George Clooney",
-                                obfuscated_id="abc123",
-                            ),
-                            updated_by=models.Person(
-                                name="George Clooney",
-                                obfuscated_id="abc123",
-                            ),
-                        ),
                         collections=[
                             models.Collection(
                                 name="<value>",
@@ -2068,34 +1984,6 @@ with Glean(
                                 ),
                             ),
                         ],
-                    ),
-                    answer_board=models.AnswerBoard(
-                        name="<value>",
-                        description="bookend dense second-hand",
-                        audience_filters=[
-                            models.FacetFilter(
-                                field_name="type",
-                                values=[
-                                    models.FacetFilterValue(
-                                        value="Spreadsheet",
-                                        relation_type=models.RelationType.EQUALS,
-                                    ),
-                                    models.FacetFilterValue(
-                                        value="Presentation",
-                                        relation_type=models.RelationType.EQUALS,
-                                    ),
-                                ],
-                            ),
-                        ],
-                        id=964771,
-                        creator=models.Person(
-                            name="George Clooney",
-                            obfuscated_id="abc123",
-                        ),
-                        updated_by=models.Person(
-                            name="George Clooney",
-                            obfuscated_id="abc123",
-                        ),
                     ),
                     code=models.Code(
                         repo_name="scio",

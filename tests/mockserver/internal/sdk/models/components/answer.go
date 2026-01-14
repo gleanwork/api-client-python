@@ -69,7 +69,6 @@ type Answer struct {
 	UpdateTime   *time.Time    `json:"updateTime,omitempty"`
 	UpdatedBy    *Person       `json:"updatedBy,omitempty"`
 	Verification *Verification `json:"verification,omitempty"`
-	Board        *AnswerBoard  `json:"board,omitempty"`
 	// The collections to which the answer belongs.
 	Collections []Collection `json:"collections,omitempty"`
 	// The document's document_category(.proto).
@@ -226,13 +225,6 @@ func (o *Answer) GetVerification() *Verification {
 		return nil
 	}
 	return o.Verification
-}
-
-func (o *Answer) GetBoard() *AnswerBoard {
-	if o == nil {
-		return nil
-	}
-	return o.Board
 }
 
 func (o *Answer) GetCollections() []Collection {

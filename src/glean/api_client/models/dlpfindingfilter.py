@@ -20,6 +20,7 @@ class DlpFindingFilterTypedDict(TypedDict):
     r"""Severity levels for DLP findings and analyses."""
     document_severity: NotRequired[List[DlpSeverity]]
     time_range: NotRequired[TimeRangeFilterTypedDict]
+    archived: NotRequired[bool]
 
 
 class DlpFindingFilter(BaseModel):
@@ -47,3 +48,5 @@ class DlpFindingFilter(BaseModel):
     time_range: Annotated[
         Optional[TimeRangeFilter], pydantic.Field(alias="timeRange")
     ] = None
+
+    archived: Optional[bool] = None

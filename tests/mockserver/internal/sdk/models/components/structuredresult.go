@@ -84,7 +84,6 @@ type StructuredResult struct {
 	Meeting          *Meeting             `json:"meeting,omitempty"`
 	App              *AppResult           `json:"app,omitempty"`
 	Collection       *Collection          `json:"collection,omitempty"`
-	AnswerBoard      *AnswerBoard         `json:"answerBoard,omitempty"`
 	Code             *Code                `json:"code,omitempty"`
 	Shortcut         *Shortcut            `json:"shortcut,omitempty"`
 	QuerySuggestions *QuerySuggestionList `json:"querySuggestions,omitempty"`
@@ -191,13 +190,6 @@ func (o *StructuredResult) GetCollection() *Collection {
 		return nil
 	}
 	return o.Collection
-}
-
-func (o *StructuredResult) GetAnswerBoard() *AnswerBoard {
-	if o == nil {
-		return nil
-	}
-	return o.AnswerBoard
 }
 
 func (o *StructuredResult) GetCode() *Code {

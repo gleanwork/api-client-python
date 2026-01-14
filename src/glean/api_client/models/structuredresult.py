@@ -11,7 +11,6 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 if TYPE_CHECKING:
     from .answer import Answer, AnswerTypedDict
-    from .answerboard import AnswerBoard, AnswerBoardTypedDict
     from .chatmetadata import ChatMetadata, ChatMetadataTypedDict
     from .code import Code, CodeTypedDict
     from .collection import Collection, CollectionTypedDict
@@ -64,7 +63,6 @@ class StructuredResultTypedDict(TypedDict):
     meeting: NotRequired["MeetingTypedDict"]
     app: NotRequired[AppResultTypedDict]
     collection: NotRequired["CollectionTypedDict"]
-    answer_board: NotRequired["AnswerBoardTypedDict"]
     code: NotRequired["CodeTypedDict"]
     shortcut: NotRequired["ShortcutTypedDict"]
     query_suggestions: NotRequired["QuerySuggestionListTypedDict"]
@@ -115,10 +113,6 @@ class StructuredResult(BaseModel):
     app: Optional[AppResult] = None
 
     collection: Optional["Collection"] = None
-
-    answer_board: Annotated[
-        Optional["AnswerBoard"], pydantic.Field(alias="answerBoard")
-    ] = None
 
     code: Optional["Code"] = None
 

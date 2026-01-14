@@ -715,34 +715,6 @@ def test_client_chat_chat_stream_update_response():
                                                 ],
                                             ),
                                         ),
-                                        board=models.AnswerBoard(
-                                            name="<value>",
-                                            description="stage atop minion which best sturdy enormously afore circumference duh",
-                                            audience_filters=[
-                                                models.FacetFilter(
-                                                    field_name="type",
-                                                    values=[
-                                                        models.FacetFilterValue(
-                                                            value="Spreadsheet",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                        models.FacetFilterValue(
-                                                            value="Presentation",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                    ],
-                                                ),
-                                            ],
-                                            id=647529,
-                                            creator=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                            updated_by=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                        ),
                                         collections=[
                                             models.Collection(
                                                 name="<value>",
@@ -1026,34 +998,6 @@ def test_client_chat_chat_stream_update_response():
                                             ),
                                         ],
                                         id=79387,
-                                        creator=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                        updated_by=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                    ),
-                                    answer_board=models.AnswerBoard(
-                                        name="<value>",
-                                        description="after er grouchy stained plus buck",
-                                        audience_filters=[
-                                            models.FacetFilter(
-                                                field_name="type",
-                                                values=[
-                                                    models.FacetFilterValue(
-                                                        value="Spreadsheet",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                    models.FacetFilterValue(
-                                                        value="Presentation",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                ],
-                                            ),
-                                        ],
-                                        id=668238,
                                         creator=models.Person(
                                             name="George Clooney",
                                             obfuscated_id="abc123",
@@ -1350,34 +1294,6 @@ def test_client_chat_chat_stream_update_response():
                                                 ),
                                             ),
                                         ),
-                                        board=models.AnswerBoard(
-                                            name="<value>",
-                                            description="finally waist inasmuch woot ignorance",
-                                            audience_filters=[
-                                                models.FacetFilter(
-                                                    field_name="type",
-                                                    values=[
-                                                        models.FacetFilterValue(
-                                                            value="Spreadsheet",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                        models.FacetFilterValue(
-                                                            value="Presentation",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                    ],
-                                                ),
-                                            ],
-                                            id=291881,
-                                            creator=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                            updated_by=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                        ),
                                         source_document=models.Document(
                                             metadata=models.DocumentMetadata(
                                                 datasource="datasource",
@@ -1436,34 +1352,6 @@ def test_client_chat_chat_stream_update_response():
                                             ),
                                         ],
                                         id=833343,
-                                        creator=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                        updated_by=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                    ),
-                                    answer_board=models.AnswerBoard(
-                                        name="<value>",
-                                        description="geez huzzah oof webbed certainly degenerate along inure cow zowie",
-                                        audience_filters=[
-                                            models.FacetFilter(
-                                                field_name="type",
-                                                values=[
-                                                    models.FacetFilterValue(
-                                                        value="Spreadsheet",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                    models.FacetFilterValue(
-                                                        value="Presentation",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                ],
-                                            ),
-                                        ],
-                                        id=656491,
                                         creator=models.Person(
                                             name="George Clooney",
                                             obfuscated_id="abc123",
@@ -1693,34 +1581,6 @@ def test_client_chat_chat_stream_update_response():
                                                 ),
                                             ),
                                         ),
-                                        board=models.AnswerBoard(
-                                            name="<value>",
-                                            description="the across instead into aching where descent shark lest times",
-                                            audience_filters=[
-                                                models.FacetFilter(
-                                                    field_name="type",
-                                                    values=[
-                                                        models.FacetFilterValue(
-                                                            value="Spreadsheet",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                        models.FacetFilterValue(
-                                                            value="Presentation",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                    ],
-                                                ),
-                                            ],
-                                            id=760885,
-                                            creator=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                            updated_by=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                        ),
                                         source_document=models.Document(
                                             metadata=models.DocumentMetadata(
                                                 datasource="datasource",
@@ -1779,34 +1639,6 @@ def test_client_chat_chat_stream_update_response():
                                             ),
                                         ],
                                         id=750557,
-                                        creator=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                        updated_by=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                    ),
-                                    answer_board=models.AnswerBoard(
-                                        name="<value>",
-                                        description="impanel hydrant spectacles justly hence absolve after sleet drat",
-                                        audience_filters=[
-                                            models.FacetFilter(
-                                                field_name="type",
-                                                values=[
-                                                    models.FacetFilterValue(
-                                                        value="Spreadsheet",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                    models.FacetFilterValue(
-                                                        value="Presentation",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                ],
-                                            ),
-                                        ],
-                                        id=603732,
                                         creator=models.Person(
                                             name="George Clooney",
                                             obfuscated_id="abc123",
@@ -2009,34 +1841,6 @@ def test_client_chat_chat_stream_update_response():
                                                 ),
                                             ),
                                         ),
-                                        board=models.AnswerBoard(
-                                            name="<value>",
-                                            description="amongst uh-huh reassemble upset concrete",
-                                            audience_filters=[
-                                                models.FacetFilter(
-                                                    field_name="type",
-                                                    values=[
-                                                        models.FacetFilterValue(
-                                                            value="Spreadsheet",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                        models.FacetFilterValue(
-                                                            value="Presentation",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                    ],
-                                                ),
-                                            ],
-                                            id=911324,
-                                            creator=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                            updated_by=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                        ),
                                         source_document=models.Document(
                                             metadata=models.DocumentMetadata(
                                                 datasource="datasource",
@@ -2095,34 +1899,6 @@ def test_client_chat_chat_stream_update_response():
                                             ),
                                         ],
                                         id=146903,
-                                        creator=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                        updated_by=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                    ),
-                                    answer_board=models.AnswerBoard(
-                                        name="<value>",
-                                        description="psst um devil gazebo save",
-                                        audience_filters=[
-                                            models.FacetFilter(
-                                                field_name="type",
-                                                values=[
-                                                    models.FacetFilterValue(
-                                                        value="Spreadsheet",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                    models.FacetFilterValue(
-                                                        value="Presentation",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                ],
-                                            ),
-                                        ],
-                                        id=45693,
                                         creator=models.Person(
                                             name="George Clooney",
                                             obfuscated_id="abc123",
@@ -2321,34 +2097,6 @@ def test_client_chat_chat_stream_update_response():
                                                 ),
                                             ),
                                         ),
-                                        board=models.AnswerBoard(
-                                            name="<value>",
-                                            description="except gadzooks geez",
-                                            audience_filters=[
-                                                models.FacetFilter(
-                                                    field_name="type",
-                                                    values=[
-                                                        models.FacetFilterValue(
-                                                            value="Spreadsheet",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                        models.FacetFilterValue(
-                                                            value="Presentation",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                    ],
-                                                ),
-                                            ],
-                                            id=567840,
-                                            creator=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                            updated_by=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                        ),
                                         source_document=models.Document(
                                             metadata=models.DocumentMetadata(
                                                 datasource="datasource",
@@ -2407,34 +2155,6 @@ def test_client_chat_chat_stream_update_response():
                                             ),
                                         ],
                                         id=376424,
-                                        creator=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                        updated_by=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                    ),
-                                    answer_board=models.AnswerBoard(
-                                        name="<value>",
-                                        description="surprise outside whether ack",
-                                        audience_filters=[
-                                            models.FacetFilter(
-                                                field_name="type",
-                                                values=[
-                                                    models.FacetFilterValue(
-                                                        value="Spreadsheet",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                    models.FacetFilterValue(
-                                                        value="Presentation",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                ],
-                                            ),
-                                        ],
-                                        id=621220,
                                         creator=models.Person(
                                             name="George Clooney",
                                             obfuscated_id="abc123",
@@ -3023,34 +2743,6 @@ def test_client_chat_chat_stream_update_response():
                                                 ),
                                             ),
                                         ),
-                                        board=models.AnswerBoard(
-                                            name="<value>",
-                                            description="short-term suffice why rightfully",
-                                            audience_filters=[
-                                                models.FacetFilter(
-                                                    field_name="type",
-                                                    values=[
-                                                        models.FacetFilterValue(
-                                                            value="Spreadsheet",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                        models.FacetFilterValue(
-                                                            value="Presentation",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                    ],
-                                                ),
-                                            ],
-                                            id=974132,
-                                            creator=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                            updated_by=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                        ),
                                         source_document=models.Document(
                                             metadata=models.DocumentMetadata(
                                                 datasource="datasource",
@@ -3109,34 +2801,6 @@ def test_client_chat_chat_stream_update_response():
                                             ),
                                         ],
                                         id=186567,
-                                        creator=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                        updated_by=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                    ),
-                                    answer_board=models.AnswerBoard(
-                                        name="<value>",
-                                        description="er reconsideration triumphantly meaty yearly fragrant delightfully though painfully robust",
-                                        audience_filters=[
-                                            models.FacetFilter(
-                                                field_name="type",
-                                                values=[
-                                                    models.FacetFilterValue(
-                                                        value="Spreadsheet",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                    models.FacetFilterValue(
-                                                        value="Presentation",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                ],
-                                            ),
-                                        ],
-                                        id=804940,
                                         creator=models.Person(
                                             name="George Clooney",
                                             obfuscated_id="abc123",
@@ -3339,34 +3003,6 @@ def test_client_chat_chat_stream_update_response():
                                                 ),
                                             ),
                                         ),
-                                        board=models.AnswerBoard(
-                                            name="<value>",
-                                            description="planula presume mismatch of commandeer ready mortally although",
-                                            audience_filters=[
-                                                models.FacetFilter(
-                                                    field_name="type",
-                                                    values=[
-                                                        models.FacetFilterValue(
-                                                            value="Spreadsheet",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                        models.FacetFilterValue(
-                                                            value="Presentation",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                    ],
-                                                ),
-                                            ],
-                                            id=711093,
-                                            creator=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                            updated_by=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                        ),
                                         source_document=models.Document(
                                             metadata=models.DocumentMetadata(
                                                 datasource="datasource",
@@ -3425,34 +3061,6 @@ def test_client_chat_chat_stream_update_response():
                                             ),
                                         ],
                                         id=365383,
-                                        creator=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                        updated_by=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                    ),
-                                    answer_board=models.AnswerBoard(
-                                        name="<value>",
-                                        description="rundown recklessly favorite supposing dull politely soon ignorant",
-                                        audience_filters=[
-                                            models.FacetFilter(
-                                                field_name="type",
-                                                values=[
-                                                    models.FacetFilterValue(
-                                                        value="Spreadsheet",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                    models.FacetFilterValue(
-                                                        value="Presentation",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                ],
-                                            ),
-                                        ],
-                                        id=171217,
                                         creator=models.Person(
                                             name="George Clooney",
                                             obfuscated_id="abc123",
@@ -3655,34 +3263,6 @@ def test_client_chat_chat_stream_update_response():
                                                 ),
                                             ),
                                         ),
-                                        board=models.AnswerBoard(
-                                            name="<value>",
-                                            description="striking confound wilderness but rapid an convection scoop litter than",
-                                            audience_filters=[
-                                                models.FacetFilter(
-                                                    field_name="type",
-                                                    values=[
-                                                        models.FacetFilterValue(
-                                                            value="Spreadsheet",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                        models.FacetFilterValue(
-                                                            value="Presentation",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                    ],
-                                                ),
-                                            ],
-                                            id=569913,
-                                            creator=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                            updated_by=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                        ),
                                         source_document=models.Document(
                                             metadata=models.DocumentMetadata(
                                                 datasource="datasource",
@@ -3741,34 +3321,6 @@ def test_client_chat_chat_stream_update_response():
                                             ),
                                         ],
                                         id=123250,
-                                        creator=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                        updated_by=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                    ),
-                                    answer_board=models.AnswerBoard(
-                                        name="<value>",
-                                        description="meaty impure round",
-                                        audience_filters=[
-                                            models.FacetFilter(
-                                                field_name="type",
-                                                values=[
-                                                    models.FacetFilterValue(
-                                                        value="Spreadsheet",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                    models.FacetFilterValue(
-                                                        value="Presentation",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                ],
-                                            ),
-                                        ],
-                                        id=31007,
                                         creator=models.Person(
                                             name="George Clooney",
                                             obfuscated_id="abc123",
@@ -3994,34 +3546,6 @@ def test_client_chat_chat_stream_update_response():
                                                 ),
                                             ),
                                         ),
-                                        board=models.AnswerBoard(
-                                            name="<value>",
-                                            description="intrigue psst furthermore personalise actually showboat eek punctuation ownership ah",
-                                            audience_filters=[
-                                                models.FacetFilter(
-                                                    field_name="type",
-                                                    values=[
-                                                        models.FacetFilterValue(
-                                                            value="Spreadsheet",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                        models.FacetFilterValue(
-                                                            value="Presentation",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                    ],
-                                                ),
-                                            ],
-                                            id=785749,
-                                            creator=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                            updated_by=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                        ),
                                         source_document=models.Document(
                                             metadata=models.DocumentMetadata(
                                                 datasource="datasource",
@@ -4080,34 +3604,6 @@ def test_client_chat_chat_stream_update_response():
                                             ),
                                         ],
                                         id=362665,
-                                        creator=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                        updated_by=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                    ),
-                                    answer_board=models.AnswerBoard(
-                                        name="<value>",
-                                        description="colorfully aha where",
-                                        audience_filters=[
-                                            models.FacetFilter(
-                                                field_name="type",
-                                                values=[
-                                                    models.FacetFilterValue(
-                                                        value="Spreadsheet",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                    models.FacetFilterValue(
-                                                        value="Presentation",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                ],
-                                            ),
-                                        ],
-                                        id=673010,
                                         creator=models.Person(
                                             name="George Clooney",
                                             obfuscated_id="abc123",
@@ -4314,34 +3810,6 @@ def test_client_chat_chat_stream_update_response():
                                                 ),
                                             ),
                                         ),
-                                        board=models.AnswerBoard(
-                                            name="<value>",
-                                            description="hence inquisitively proud meh yahoo",
-                                            audience_filters=[
-                                                models.FacetFilter(
-                                                    field_name="type",
-                                                    values=[
-                                                        models.FacetFilterValue(
-                                                            value="Spreadsheet",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                        models.FacetFilterValue(
-                                                            value="Presentation",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                    ],
-                                                ),
-                                            ],
-                                            id=165945,
-                                            creator=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                            updated_by=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                        ),
                                         source_document=models.Document(
                                             metadata=models.DocumentMetadata(
                                                 datasource="datasource",
@@ -4400,34 +3868,6 @@ def test_client_chat_chat_stream_update_response():
                                             ),
                                         ],
                                         id=52239,
-                                        creator=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                        updated_by=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                    ),
-                                    answer_board=models.AnswerBoard(
-                                        name="<value>",
-                                        description="excluding severe amongst bump farm zowie prickly why",
-                                        audience_filters=[
-                                            models.FacetFilter(
-                                                field_name="type",
-                                                values=[
-                                                    models.FacetFilterValue(
-                                                        value="Spreadsheet",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                    models.FacetFilterValue(
-                                                        value="Presentation",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                ],
-                                            ),
-                                        ],
-                                        id=617911,
                                         creator=models.Person(
                                             name="George Clooney",
                                             obfuscated_id="abc123",
@@ -4634,34 +4074,6 @@ def test_client_chat_chat_stream_update_response():
                                                 ),
                                             ),
                                         ),
-                                        board=models.AnswerBoard(
-                                            name="<value>",
-                                            description="approach hm gadzooks yahoo shameless underneath negative",
-                                            audience_filters=[
-                                                models.FacetFilter(
-                                                    field_name="type",
-                                                    values=[
-                                                        models.FacetFilterValue(
-                                                            value="Spreadsheet",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                        models.FacetFilterValue(
-                                                            value="Presentation",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                    ],
-                                                ),
-                                            ],
-                                            id=111255,
-                                            creator=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                            updated_by=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                        ),
                                         source_document=models.Document(
                                             metadata=models.DocumentMetadata(
                                                 datasource="datasource",
@@ -4720,34 +4132,6 @@ def test_client_chat_chat_stream_update_response():
                                             ),
                                         ],
                                         id=656993,
-                                        creator=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                        updated_by=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                    ),
-                                    answer_board=models.AnswerBoard(
-                                        name="<value>",
-                                        description="guidance zen cross-contamination ick pry mundane thoroughly oof ha",
-                                        audience_filters=[
-                                            models.FacetFilter(
-                                                field_name="type",
-                                                values=[
-                                                    models.FacetFilterValue(
-                                                        value="Spreadsheet",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                    models.FacetFilterValue(
-                                                        value="Presentation",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                ],
-                                            ),
-                                        ],
-                                        id=474526,
                                         creator=models.Person(
                                             name="George Clooney",
                                             obfuscated_id="abc123",
@@ -5451,34 +4835,6 @@ def test_client_chat_chat_stream_citation_response():
                                                 ],
                                             ),
                                         ),
-                                        board=models.AnswerBoard(
-                                            name="<value>",
-                                            description="extent emotional white oil buck",
-                                            audience_filters=[
-                                                models.FacetFilter(
-                                                    field_name="type",
-                                                    values=[
-                                                        models.FacetFilterValue(
-                                                            value="Spreadsheet",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                        models.FacetFilterValue(
-                                                            value="Presentation",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                    ],
-                                                ),
-                                            ],
-                                            id=392138,
-                                            creator=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                            updated_by=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                        ),
                                         collections=[
                                             models.Collection(
                                                 name="<value>",
@@ -5824,34 +5180,6 @@ def test_client_chat_chat_stream_citation_response():
                                             obfuscated_id="abc123",
                                         ),
                                     ),
-                                    answer_board=models.AnswerBoard(
-                                        name="<value>",
-                                        description="communicate prudent powerful considering quietly with tromp spring brr",
-                                        audience_filters=[
-                                            models.FacetFilter(
-                                                field_name="type",
-                                                values=[
-                                                    models.FacetFilterValue(
-                                                        value="Spreadsheet",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                    models.FacetFilterValue(
-                                                        value="Presentation",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                ],
-                                            ),
-                                        ],
-                                        id=595008,
-                                        creator=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                        updated_by=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                    ),
                                     code=models.Code(
                                         repo_name="scio",
                                         file_name="README.md",
@@ -6152,34 +5480,6 @@ def test_client_chat_chat_stream_citation_response():
                                                 ),
                                             ),
                                         ),
-                                        board=models.AnswerBoard(
-                                            name="<value>",
-                                            description="materialise likewise ew bah scarper instead",
-                                            audience_filters=[
-                                                models.FacetFilter(
-                                                    field_name="type",
-                                                    values=[
-                                                        models.FacetFilterValue(
-                                                            value="Spreadsheet",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                        models.FacetFilterValue(
-                                                            value="Presentation",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                    ],
-                                                ),
-                                            ],
-                                            id=291792,
-                                            creator=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                            updated_by=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                        ),
                                         source_document=models.Document(
                                             metadata=models.DocumentMetadata(
                                                 datasource="datasource",
@@ -6238,34 +5538,6 @@ def test_client_chat_chat_stream_citation_response():
                                             ),
                                         ],
                                         id=535445,
-                                        creator=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                        updated_by=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                    ),
-                                    answer_board=models.AnswerBoard(
-                                        name="<value>",
-                                        description="heavenly status yippee whose blushing",
-                                        audience_filters=[
-                                            models.FacetFilter(
-                                                field_name="type",
-                                                values=[
-                                                    models.FacetFilterValue(
-                                                        value="Spreadsheet",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                    models.FacetFilterValue(
-                                                        value="Presentation",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                ],
-                                            ),
-                                        ],
-                                        id=983667,
                                         creator=models.Person(
                                             name="George Clooney",
                                             obfuscated_id="abc123",
@@ -6464,34 +5736,6 @@ def test_client_chat_chat_stream_citation_response():
                                                 ),
                                             ),
                                         ),
-                                        board=models.AnswerBoard(
-                                            name="<value>",
-                                            description="manipulate explode out",
-                                            audience_filters=[
-                                                models.FacetFilter(
-                                                    field_name="type",
-                                                    values=[
-                                                        models.FacetFilterValue(
-                                                            value="Spreadsheet",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                        models.FacetFilterValue(
-                                                            value="Presentation",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                    ],
-                                                ),
-                                            ],
-                                            id=605176,
-                                            creator=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                            updated_by=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                        ),
                                         source_document=models.Document(
                                             metadata=models.DocumentMetadata(
                                                 datasource="datasource",
@@ -6550,34 +5794,6 @@ def test_client_chat_chat_stream_citation_response():
                                             ),
                                         ],
                                         id=512474,
-                                        creator=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                        updated_by=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                    ),
-                                    answer_board=models.AnswerBoard(
-                                        name="<value>",
-                                        description="complete help um live beyond for huzzah rowdy foot cross",
-                                        audience_filters=[
-                                            models.FacetFilter(
-                                                field_name="type",
-                                                values=[
-                                                    models.FacetFilterValue(
-                                                        value="Spreadsheet",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                    models.FacetFilterValue(
-                                                        value="Presentation",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                ],
-                                            ),
-                                        ],
-                                        id=402862,
                                         creator=models.Person(
                                             name="George Clooney",
                                             obfuscated_id="abc123",
@@ -6776,34 +5992,6 @@ def test_client_chat_chat_stream_citation_response():
                                                 ),
                                             ),
                                         ),
-                                        board=models.AnswerBoard(
-                                            name="<value>",
-                                            description="lobotomise below psst duh interchange poetry",
-                                            audience_filters=[
-                                                models.FacetFilter(
-                                                    field_name="type",
-                                                    values=[
-                                                        models.FacetFilterValue(
-                                                            value="Spreadsheet",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                        models.FacetFilterValue(
-                                                            value="Presentation",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                    ],
-                                                ),
-                                            ],
-                                            id=521402,
-                                            creator=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                            updated_by=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                        ),
                                         source_document=models.Document(
                                             metadata=models.DocumentMetadata(
                                                 datasource="datasource",
@@ -6862,34 +6050,6 @@ def test_client_chat_chat_stream_citation_response():
                                             ),
                                         ],
                                         id=175510,
-                                        creator=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                        updated_by=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                    ),
-                                    answer_board=models.AnswerBoard(
-                                        name="<value>",
-                                        description="fashion bleakly thankfully indeed fully",
-                                        audience_filters=[
-                                            models.FacetFilter(
-                                                field_name="type",
-                                                values=[
-                                                    models.FacetFilterValue(
-                                                        value="Spreadsheet",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                    models.FacetFilterValue(
-                                                        value="Presentation",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                ],
-                                            ),
-                                        ],
-                                        id=723852,
                                         creator=models.Person(
                                             name="George Clooney",
                                             obfuscated_id="abc123",
@@ -7283,34 +6443,6 @@ def test_client_chat_chat_stream_citation_response():
                                                 ),
                                             ),
                                         ),
-                                        board=models.AnswerBoard(
-                                            name="<value>",
-                                            description="minus oof dazzling ew for forearm utterly hm onto unexpectedly",
-                                            audience_filters=[
-                                                models.FacetFilter(
-                                                    field_name="type",
-                                                    values=[
-                                                        models.FacetFilterValue(
-                                                            value="Spreadsheet",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                        models.FacetFilterValue(
-                                                            value="Presentation",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                    ],
-                                                ),
-                                            ],
-                                            id=808814,
-                                            creator=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                            updated_by=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                        ),
                                         source_document=models.Document(
                                             metadata=models.DocumentMetadata(
                                                 datasource="datasource",
@@ -7369,34 +6501,6 @@ def test_client_chat_chat_stream_citation_response():
                                             ),
                                         ],
                                         id=999094,
-                                        creator=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                        updated_by=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                    ),
-                                    answer_board=models.AnswerBoard(
-                                        name="<value>",
-                                        description="elderly since boohoo appropriate righteously vice following complete impartial sans",
-                                        audience_filters=[
-                                            models.FacetFilter(
-                                                field_name="type",
-                                                values=[
-                                                    models.FacetFilterValue(
-                                                        value="Spreadsheet",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                    models.FacetFilterValue(
-                                                        value="Presentation",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                ],
-                                            ),
-                                        ],
-                                        id=315292,
                                         creator=models.Person(
                                             name="George Clooney",
                                             obfuscated_id="abc123",
@@ -7603,34 +6707,6 @@ def test_client_chat_chat_stream_citation_response():
                                                 ),
                                             ),
                                         ),
-                                        board=models.AnswerBoard(
-                                            name="<value>",
-                                            description="netsuke stump terrorise ugh zowie",
-                                            audience_filters=[
-                                                models.FacetFilter(
-                                                    field_name="type",
-                                                    values=[
-                                                        models.FacetFilterValue(
-                                                            value="Spreadsheet",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                        models.FacetFilterValue(
-                                                            value="Presentation",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                    ],
-                                                ),
-                                            ],
-                                            id=942095,
-                                            creator=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                            updated_by=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                        ),
                                         source_document=models.Document(
                                             metadata=models.DocumentMetadata(
                                                 datasource="datasource",
@@ -7689,34 +6765,6 @@ def test_client_chat_chat_stream_citation_response():
                                             ),
                                         ],
                                         id=65448,
-                                        creator=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                        updated_by=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                    ),
-                                    answer_board=models.AnswerBoard(
-                                        name="<value>",
-                                        description="abaft tightly blah redound qua",
-                                        audience_filters=[
-                                            models.FacetFilter(
-                                                field_name="type",
-                                                values=[
-                                                    models.FacetFilterValue(
-                                                        value="Spreadsheet",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                    models.FacetFilterValue(
-                                                        value="Presentation",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                ],
-                                            ),
-                                        ],
-                                        id=843154,
                                         creator=models.Person(
                                             name="George Clooney",
                                             obfuscated_id="abc123",
@@ -7915,34 +6963,6 @@ def test_client_chat_chat_stream_citation_response():
                                                 ),
                                             ),
                                         ),
-                                        board=models.AnswerBoard(
-                                            name="<value>",
-                                            description="gratefully failing square consequently discourse since",
-                                            audience_filters=[
-                                                models.FacetFilter(
-                                                    field_name="type",
-                                                    values=[
-                                                        models.FacetFilterValue(
-                                                            value="Spreadsheet",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                        models.FacetFilterValue(
-                                                            value="Presentation",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                    ],
-                                                ),
-                                            ],
-                                            id=139991,
-                                            creator=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                            updated_by=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                        ),
                                         source_document=models.Document(
                                             metadata=models.DocumentMetadata(
                                                 datasource="datasource",
@@ -8001,34 +7021,6 @@ def test_client_chat_chat_stream_citation_response():
                                             ),
                                         ],
                                         id=455101,
-                                        creator=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                        updated_by=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                    ),
-                                    answer_board=models.AnswerBoard(
-                                        name="<value>",
-                                        description="able mockingly boo entice softly furthermore woeful",
-                                        audience_filters=[
-                                            models.FacetFilter(
-                                                field_name="type",
-                                                values=[
-                                                    models.FacetFilterValue(
-                                                        value="Spreadsheet",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                    models.FacetFilterValue(
-                                                        value="Presentation",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                ],
-                                            ),
-                                        ],
-                                        id=33669,
                                         creator=models.Person(
                                             name="George Clooney",
                                             obfuscated_id="abc123",
@@ -8660,34 +7652,6 @@ def test_client_chat_chat_stream_citation_response():
                                                 ),
                                             ),
                                         ),
-                                        board=models.AnswerBoard(
-                                            name="<value>",
-                                            description="affiliate who lamp blushing plait after violent",
-                                            audience_filters=[
-                                                models.FacetFilter(
-                                                    field_name="type",
-                                                    values=[
-                                                        models.FacetFilterValue(
-                                                            value="Spreadsheet",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                        models.FacetFilterValue(
-                                                            value="Presentation",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                    ],
-                                                ),
-                                            ],
-                                            id=55380,
-                                            creator=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                            updated_by=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                        ),
                                         source_document=models.Document(
                                             metadata=models.DocumentMetadata(
                                                 datasource="datasource",
@@ -8746,34 +7710,6 @@ def test_client_chat_chat_stream_citation_response():
                                             ),
                                         ],
                                         id=420468,
-                                        creator=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                        updated_by=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                    ),
-                                    answer_board=models.AnswerBoard(
-                                        name="<value>",
-                                        description="gee edge scholarship",
-                                        audience_filters=[
-                                            models.FacetFilter(
-                                                field_name="type",
-                                                values=[
-                                                    models.FacetFilterValue(
-                                                        value="Spreadsheet",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                    models.FacetFilterValue(
-                                                        value="Presentation",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                ],
-                                            ),
-                                        ],
-                                        id=632878,
                                         creator=models.Person(
                                             name="George Clooney",
                                             obfuscated_id="abc123",
@@ -8976,34 +7912,6 @@ def test_client_chat_chat_stream_citation_response():
                                                 ),
                                             ),
                                         ),
-                                        board=models.AnswerBoard(
-                                            name="<value>",
-                                            description="rust forenenst phew immediately",
-                                            audience_filters=[
-                                                models.FacetFilter(
-                                                    field_name="type",
-                                                    values=[
-                                                        models.FacetFilterValue(
-                                                            value="Spreadsheet",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                        models.FacetFilterValue(
-                                                            value="Presentation",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                    ],
-                                                ),
-                                            ],
-                                            id=277574,
-                                            creator=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                            updated_by=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                        ),
                                         source_document=models.Document(
                                             metadata=models.DocumentMetadata(
                                                 datasource="datasource",
@@ -9062,34 +7970,6 @@ def test_client_chat_chat_stream_citation_response():
                                             ),
                                         ],
                                         id=377350,
-                                        creator=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                        updated_by=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                    ),
-                                    answer_board=models.AnswerBoard(
-                                        name="<value>",
-                                        description="blah lowball who moor following folklore as or",
-                                        audience_filters=[
-                                            models.FacetFilter(
-                                                field_name="type",
-                                                values=[
-                                                    models.FacetFilterValue(
-                                                        value="Spreadsheet",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                    models.FacetFilterValue(
-                                                        value="Presentation",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                ],
-                                            ),
-                                        ],
-                                        id=115719,
                                         creator=models.Person(
                                             name="George Clooney",
                                             obfuscated_id="abc123",
@@ -9296,34 +8176,6 @@ def test_client_chat_chat_stream_citation_response():
                                                 ),
                                             ),
                                         ),
-                                        board=models.AnswerBoard(
-                                            name="<value>",
-                                            description="among under although ack gee atop horn",
-                                            audience_filters=[
-                                                models.FacetFilter(
-                                                    field_name="type",
-                                                    values=[
-                                                        models.FacetFilterValue(
-                                                            value="Spreadsheet",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                        models.FacetFilterValue(
-                                                            value="Presentation",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                    ],
-                                                ),
-                                            ],
-                                            id=170010,
-                                            creator=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                            updated_by=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                        ),
                                         source_document=models.Document(
                                             metadata=models.DocumentMetadata(
                                                 datasource="datasource",
@@ -9382,34 +8234,6 @@ def test_client_chat_chat_stream_citation_response():
                                             ),
                                         ],
                                         id=754074,
-                                        creator=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                        updated_by=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                    ),
-                                    answer_board=models.AnswerBoard(
-                                        name="<value>",
-                                        description="finally jaggedly nightlife surface",
-                                        audience_filters=[
-                                            models.FacetFilter(
-                                                field_name="type",
-                                                values=[
-                                                    models.FacetFilterValue(
-                                                        value="Spreadsheet",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                    models.FacetFilterValue(
-                                                        value="Presentation",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                ],
-                                            ),
-                                        ],
-                                        id=435267,
                                         creator=models.Person(
                                             name="George Clooney",
                                             obfuscated_id="abc123",
@@ -9635,34 +8459,6 @@ def test_client_chat_chat_stream_citation_response():
                                                 ),
                                             ),
                                         ),
-                                        board=models.AnswerBoard(
-                                            name="<value>",
-                                            description="ah once gee",
-                                            audience_filters=[
-                                                models.FacetFilter(
-                                                    field_name="type",
-                                                    values=[
-                                                        models.FacetFilterValue(
-                                                            value="Spreadsheet",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                        models.FacetFilterValue(
-                                                            value="Presentation",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                    ],
-                                                ),
-                                            ],
-                                            id=785222,
-                                            creator=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                            updated_by=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                        ),
                                         source_document=models.Document(
                                             metadata=models.DocumentMetadata(
                                                 datasource="datasource",
@@ -9721,34 +8517,6 @@ def test_client_chat_chat_stream_citation_response():
                                             ),
                                         ],
                                         id=655575,
-                                        creator=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                        updated_by=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                    ),
-                                    answer_board=models.AnswerBoard(
-                                        name="<value>",
-                                        description="godparent before colorize",
-                                        audience_filters=[
-                                            models.FacetFilter(
-                                                field_name="type",
-                                                values=[
-                                                    models.FacetFilterValue(
-                                                        value="Spreadsheet",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                    models.FacetFilterValue(
-                                                        value="Presentation",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                ],
-                                            ),
-                                        ],
-                                        id=624868,
                                         creator=models.Person(
                                             name="George Clooney",
                                             obfuscated_id="abc123",
@@ -9951,34 +8719,6 @@ def test_client_chat_chat_stream_citation_response():
                                                 ),
                                             ),
                                         ),
-                                        board=models.AnswerBoard(
-                                            name="<value>",
-                                            description="uh-huh ha notwithstanding so near troubled onto volunteer hm",
-                                            audience_filters=[
-                                                models.FacetFilter(
-                                                    field_name="type",
-                                                    values=[
-                                                        models.FacetFilterValue(
-                                                            value="Spreadsheet",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                        models.FacetFilterValue(
-                                                            value="Presentation",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                    ],
-                                                ),
-                                            ],
-                                            id=38370,
-                                            creator=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                            updated_by=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                        ),
                                         source_document=models.Document(
                                             metadata=models.DocumentMetadata(
                                                 datasource="datasource",
@@ -10037,34 +8777,6 @@ def test_client_chat_chat_stream_citation_response():
                                             ),
                                         ],
                                         id=816883,
-                                        creator=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                        updated_by=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                    ),
-                                    answer_board=models.AnswerBoard(
-                                        name="<value>",
-                                        description="meanwhile instead colorfully overheard",
-                                        audience_filters=[
-                                            models.FacetFilter(
-                                                field_name="type",
-                                                values=[
-                                                    models.FacetFilterValue(
-                                                        value="Spreadsheet",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                    models.FacetFilterValue(
-                                                        value="Presentation",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                ],
-                                            ),
-                                        ],
-                                        id=209097,
                                         creator=models.Person(
                                             name="George Clooney",
                                             obfuscated_id="abc123",
@@ -10271,34 +8983,6 @@ def test_client_chat_chat_stream_citation_response():
                                                 ),
                                             ),
                                         ),
-                                        board=models.AnswerBoard(
-                                            name="<value>",
-                                            description="indelible aha yuck loyally",
-                                            audience_filters=[
-                                                models.FacetFilter(
-                                                    field_name="type",
-                                                    values=[
-                                                        models.FacetFilterValue(
-                                                            value="Spreadsheet",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                        models.FacetFilterValue(
-                                                            value="Presentation",
-                                                            relation_type=models.RelationType.EQUALS,
-                                                        ),
-                                                    ],
-                                                ),
-                                            ],
-                                            id=278807,
-                                            creator=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                            updated_by=models.Person(
-                                                name="George Clooney",
-                                                obfuscated_id="abc123",
-                                            ),
-                                        ),
                                         source_document=models.Document(
                                             metadata=models.DocumentMetadata(
                                                 datasource="datasource",
@@ -10357,34 +9041,6 @@ def test_client_chat_chat_stream_citation_response():
                                             ),
                                         ],
                                         id=316354,
-                                        creator=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                        updated_by=models.Person(
-                                            name="George Clooney",
-                                            obfuscated_id="abc123",
-                                        ),
-                                    ),
-                                    answer_board=models.AnswerBoard(
-                                        name="<value>",
-                                        description="frequent aw above ultimate into till pish husky wetly agitated",
-                                        audience_filters=[
-                                            models.FacetFilter(
-                                                field_name="type",
-                                                values=[
-                                                    models.FacetFilterValue(
-                                                        value="Spreadsheet",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                    models.FacetFilterValue(
-                                                        value="Presentation",
-                                                        relation_type=models.RelationType.EQUALS,
-                                                    ),
-                                                ],
-                                            ),
-                                        ],
-                                        id=744434,
                                         creator=models.Person(
                                             name="George Clooney",
                                             obfuscated_id="abc123",

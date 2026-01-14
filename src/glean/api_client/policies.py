@@ -835,13 +835,13 @@ class Policies(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["403", "4XX", "500", "5XX"],
+            error_status_codes=["400", "403", "4XX", "500", "5XX"],
             retry_config=retry_config,
         )
 
         if utils.match_response(http_res, "200", "text/csv; charset=UTF-8"):
             return http_res.text
-        if utils.match_response(http_res, ["403", "4XX"], "*"):
+        if utils.match_response(http_res, ["400", "403", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, ["500", "5XX"], "*"):
@@ -919,13 +919,13 @@ class Policies(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["403", "4XX", "500", "5XX"],
+            error_status_codes=["400", "403", "4XX", "500", "5XX"],
             retry_config=retry_config,
         )
 
         if utils.match_response(http_res, "200", "text/csv; charset=UTF-8"):
             return http_res.text
-        if utils.match_response(http_res, ["403", "4XX"], "*"):
+        if utils.match_response(http_res, ["400", "403", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, ["500", "5XX"], "*"):

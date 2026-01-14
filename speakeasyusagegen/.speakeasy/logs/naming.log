@@ -537,7 +537,6 @@ CreateAnnouncementRequest (startTime: date-time, endTime: date-time, title: stri
                    CountInfo (count: integer, period: Period, org: string)
                     Period (minDaysFromNow: integer, maxDaysFromNow: integer, start: TimePoint ...)
                      TimePoint (epochSeconds: integer, daysFromNow: integer)
-                AnswerBoard (name: string, description: string, addedRoles: array ...)
                  Collection (name: string, description: string, addedRoles: array ...)
                   Thumbnail (photoId: string, url: string)
                    CollectionItem (name: string, description: string, icon: string ...)

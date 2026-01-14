@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
     version: 0.9.0
     title: Glean API
-    x-source-commit-sha: 6c18cdaa8da169e191cc66885c326e2ea6d13644
+    x-source-commit-sha: 80a17b90f735e5c9738cb1cf8fa7025e1d0a9361
     description: |
         # Introduction
         In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This is useful, for example, for doing permissions-aware search over content in internal tools that reside on-prem as well as for searching over applications that Glean does not currently support first class. In addition these APIs allow the customer to push organization data (people info, organization structure etc) into Glean.
@@ -22,7 +22,7 @@ info:
         These API clients provide type-safe, idiomatic interfaces for working with Glean IndexingAPIs in your language of choice.
     x-logo:
         url: https://app.glean.com/images/glean-text2.svg
-    x-open-api-commit-sha: c7a6190b989a16d24b879348f08e27efcb304566
+    x-open-api-commit-sha: 76c9a769942823963f9ac3400922e023ccf26826
     x-speakeasy-name: 'Glean API'
 servers:
     - url: https://{instance}-be.glean.com
@@ -322,6 +322,7 @@ paths:
             summary: List Answers
             description: List Answers created by the current user.
             operationId: listanswers
+            deprecated: true
             x-visibility: Public
             x-codegen-request-body-name: payload
             parameters: []
@@ -3350,6 +3351,8 @@ paths:
                             schema:
                                 description: CSV of all the violations found for this policy.
                                 type: string
+                "400":
+                    description: Bad request error (e.g., continuous policies are not supported).
                 "403":
                     description: Permissions error
                 "500":
@@ -5293,39 +5296,6 @@ components:
                     items:
                         $ref: "#/components/schemas/FacetFilter"
                     description: Filters which restrict who should see this Collection. Values are taken from the corresponding filters in people search.
-        AnswerBoardMutableProperties:
-            allOf:
-                - $ref: "#/components/schemas/CollectionBaseMutableProperties"
-        AnswerBoard:
-            allOf:
-                - $ref: "#/components/schemas/AnswerBoardMutableProperties"
-                - $ref: "#/components/schemas/PermissionedObject"
-                - type: object
-                  required:
-                    - id
-                    - description
-                  properties:
-                    id:
-                        type: integer
-                        description: The unique ID of the Answer Board.
-                    createTime:
-                        type: string
-                        format: date-time
-                    updateTime:
-                        type: string
-                        format: date-time
-                    creator:
-                        $ref: "#/components/schemas/Person"
-                    updatedBy:
-                        $ref: "#/components/schemas/Person"
-                    itemCount:
-                        type: integer
-                        description: The number of items currently in the Answer Board. Separated from the actual items so we can grab the count without items.
-                    roles:
-                        type: array
-                        description: A list of user roles for the Answer Board.
-                        items:
-                            $ref: "#/components/schemas/UserRoleSpecification"
         Thumbnail:
             properties:
                 photoId:
@@ -5622,9 +5592,6 @@ components:
                         $ref: "#/components/schemas/Person"
                     verification:
                         $ref: "#/components/schemas/Verification"
-                    board:
-                        $ref: "#/components/schemas/AnswerBoard"
-                        description: The parent board this answer is in.
                     collections:
                         type: array
                         description: The collections to which the answer belongs.
@@ -5873,6 +5840,21 @@ components:
                 attendees:
                     $ref: "#/components/schemas/CalendarAttendees"
                     description: The attendee list, including their response status
+                isCancelled:
+                    type: boolean
+                    description: Whether the meeting has been cancelled
+                location:
+                    type: string
+                    description: The location/venue of the meeting
+                responseStatus:
+                    type: string
+                    description: The current user's response status (accepted, declined, tentativelyAccepted, none)
+                conferenceUri:
+                    type: string
+                    description: The meeting join link (Teams, Zoom, etc.)
+                conferenceProvider:
+                    type: string
+                    description: The conference provider (e.g., "Microsoft Teams", "Zoom")
         AppResult:
             required:
                 - datasource
@@ -6132,8 +6114,6 @@ components:
                     $ref: "#/components/schemas/AppResult"
                 collection:
                     $ref: "#/components/schemas/Collection"
-                answerBoard:
-                    $ref: "#/components/schemas/AnswerBoard"
                 code:
                     $ref: "#/components/schemas/Code"
                 shortcut:
@@ -7617,6 +7597,9 @@ components:
                 chatId:
                     type: string
                     description: The id of the Chat that context should be retrieved from and messages added to. An empty id starts a new Chat, and the Chat is saved if saveChat is true.
+                agentConfig:
+                    $ref: "#/components/schemas/AgentConfig"
+                    description: Describes the agent that will execute the request.
         ChatRestrictionFilters:
             allOf:
                 - $ref: "#/components/schemas/RestrictionFilters"
@@ -7635,9 +7618,6 @@ components:
                 - $ref: "#/components/schemas/ChatRequestBase"
                 - type: object
                   properties:
-                    agentConfig:
-                        $ref: "#/components/schemas/AgentConfig"
-                        description: Describes the agent that will execute the request.
                     inclusions:
                         $ref: "#/components/schemas/ChatRestrictionFilters"
                         description: A list of filters which only allows chat to access certain content.
@@ -8190,6 +8170,7 @@ components:
                             - DOCUMENT_CONTENT
                             - CUSTOM_METADATA
         DocumentOrError:
+            x-omit-error-on-success: true
             oneOf:
                 - $ref: "#/components/schemas/Document"
                 - type: object
@@ -8199,6 +8180,7 @@ components:
                     error:
                         type: string
                         description: The text for error, reason.
+                        x-is-error-field: true
         GetDocumentsResponse:
             properties:
                 documents:
@@ -8717,6 +8699,30 @@ components:
                     weeklyActiveUserTimeseries:
                         $ref: "#/components/schemas/LabeledCountInfo"
                     dailyActiveUserTimeseries:
+                        $ref: "#/components/schemas/LabeledCountInfo"
+                    searchMonthlyActiveUserTimeseries:
+                        $ref: "#/components/schemas/LabeledCountInfo"
+                    searchWeeklyActiveUserTimeseries:
+                        $ref: "#/components/schemas/LabeledCountInfo"
+                    searchDailyActiveUserTimeseries:
+                        $ref: "#/components/schemas/LabeledCountInfo"
+                    assistantMonthlyActiveUserTimeseries:
+                        $ref: "#/components/schemas/LabeledCountInfo"
+                    assistantWeeklyActiveUserTimeseries:
+                        $ref: "#/components/schemas/LabeledCountInfo"
+                    assistantDailyActiveUserTimeseries:
+                        $ref: "#/components/schemas/LabeledCountInfo"
+                    agentsMonthlyActiveUserTimeseries:
+                        $ref: "#/components/schemas/LabeledCountInfo"
+                    agentsWeeklyActiveUserTimeseries:
+                        $ref: "#/components/schemas/LabeledCountInfo"
+                    agentsDailyActiveUserTimeseries:
+                        $ref: "#/components/schemas/LabeledCountInfo"
+                    searchesTimeseries:
+                        $ref: "#/components/schemas/LabeledCountInfo"
+                    assistantInteractionsTimeseries:
+                        $ref: "#/components/schemas/LabeledCountInfo"
+                    agentRunsTimeseries:
                         $ref: "#/components/schemas/LabeledCountInfo"
                     searchDatasourceCounts:
                         type: object
@@ -13045,6 +13051,8 @@ components:
                         $ref: "#/components/schemas/DlpSeverity"
                 timeRange:
                     $ref: "#/components/schemas/TimeRangeFilter"
+                archived:
+                    type: boolean
         ExportInfo:
             properties:
                 createdBy:

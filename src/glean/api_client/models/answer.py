@@ -12,7 +12,6 @@ from typing import List, Optional, TYPE_CHECKING
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 if TYPE_CHECKING:
-    from .answerboard import AnswerBoard, AnswerBoardTypedDict
     from .answerlikes import AnswerLikes, AnswerLikesTypedDict
     from .collection import Collection, CollectionTypedDict
     from .document import Document, DocumentTypedDict
@@ -62,7 +61,6 @@ class AnswerTypedDict(TypedDict):
     r"""The time the answer was last updated in ISO format (ISO 8601)."""
     updated_by: NotRequired["PersonTypedDict"]
     verification: NotRequired["VerificationTypedDict"]
-    board: NotRequired["AnswerBoardTypedDict"]
     collections: NotRequired[List["CollectionTypedDict"]]
     r"""The collections to which the answer belongs."""
     document_category: NotRequired[str]
@@ -145,8 +143,6 @@ class Answer(BaseModel):
     updated_by: Annotated[Optional["Person"], pydantic.Field(alias="updatedBy")] = None
 
     verification: Optional["Verification"] = None
-
-    board: Optional["AnswerBoard"] = None
 
     collections: Optional[List["Collection"]] = None
     r"""The collections to which the answer belongs."""
