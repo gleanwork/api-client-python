@@ -5,8 +5,9 @@ from .agentconfig import AgentConfig, AgentConfigTypedDict
 from .chatmessagecitation import ChatMessageCitation, ChatMessageCitationTypedDict
 from .chatmessagefragment import ChatMessageFragment, ChatMessageFragmentTypedDict
 from enum import Enum
-from glean.api_client.types import BaseModel
+from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
+from pydantic import model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -108,3 +109,32 @@ class ChatMessage(BaseModel):
         ),
     ] = None
     r"""Signals there are additional response fragments incoming."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "agentConfig",
+                "author",
+                "citations",
+                "uploadedFileIds",
+                "fragments",
+                "ts",
+                "messageId",
+                "messageTrackingToken",
+                "messageType",
+                "hasMoreFragments",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

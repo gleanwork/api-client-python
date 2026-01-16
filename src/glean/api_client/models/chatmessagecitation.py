@@ -5,8 +5,9 @@ from .chatfile import ChatFile, ChatFileTypedDict
 from .document import Document, DocumentTypedDict
 from .person import Person, PersonTypedDict
 from .referencerange import ReferenceRange, ReferenceRangeTypedDict
-from glean.api_client.types import BaseModel
+from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
+from pydantic import model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -49,3 +50,27 @@ class ChatMessageCitation(BaseModel):
         Optional[List[ReferenceRange]], pydantic.Field(alias="referenceRanges")
     ] = None
     r"""Each reference range and its corresponding snippets"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "trackingToken",
+                "sourceDocument",
+                "sourceFile",
+                "sourcePerson",
+                "referenceRanges",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

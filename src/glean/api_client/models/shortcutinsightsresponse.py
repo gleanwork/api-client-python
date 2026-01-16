@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 from .shortcutinsight import ShortcutInsight, ShortcutInsightTypedDict
-from glean.api_client.types import BaseModel
+from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
+from pydantic import model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -37,3 +38,26 @@ class ShortcutInsightsResponse(BaseModel):
         Optional[int], pydantic.Field(alias="minVisitorThreshold")
     ] = None
     r"""Min threshold in number of visitors while populating results, otherwise 0."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "lastLogTimestamp",
+                "shortcutInsights",
+                "departments",
+                "minVisitorThreshold",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

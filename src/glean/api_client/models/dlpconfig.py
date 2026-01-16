@@ -14,8 +14,9 @@ from .sensitivecontentoptions import (
 )
 from .sensitiveinfotype import SensitiveInfoType, SensitiveInfoTypeTypedDict
 from .sharingoptions import SharingOptions, SharingOptionsTypedDict
-from glean.api_client.types import BaseModel
+from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
+from pydantic import model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -111,3 +112,35 @@ class DlpConfig(BaseModel):
         Optional[AllowlistOptions], pydantic.Field(alias="allowlistOptions")
     ] = None
     r"""Terms that are allow-listed during the scans. If any finding picked up by a rule exactly matches a term in the allow-list, it will not be counted as a violation."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "version",
+                "sensitiveInfoTypes",
+                "inputOptions",
+                "externalSharingOptions",
+                "broadSharingOptions",
+                "sensitiveContentOptions",
+                "reportName",
+                "frequency",
+                "createdBy",
+                "createdAt",
+                "redactQuote",
+                "autoHideDocs",
+                "allowlistOptions",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

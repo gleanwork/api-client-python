@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 from .facetfiltervalue import FacetFilterValue, FacetFilterValueTypedDict
-from glean.api_client.types import BaseModel
+from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
+from pydantic import model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -24,3 +25,19 @@ class FacetFilter(BaseModel):
 
     group_name: Annotated[Optional[str], pydantic.Field(alias="groupName")] = None
     r"""Indicates the value of a facet, if any, that the given facet is grouped under. This is only used for nested facets, for example, fieldName could be owner and groupName would be Spreadsheet if showing all owners for spreadsheets as a nested facet."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["fieldName", "values", "groupName"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

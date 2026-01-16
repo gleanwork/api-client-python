@@ -4,8 +4,9 @@ from __future__ import annotations
 from .countinfo import CountInfo, CountInfoTypedDict
 from .favoriteinfo import FavoriteInfo, FavoriteInfoTypedDict
 from .prompttemplate import PromptTemplate, PromptTemplateTypedDict
-from glean.api_client.types import BaseModel
+from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
+from pydantic import model_serializer
 from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -33,3 +34,21 @@ class PromptTemplateResult(BaseModel):
     ] = None
 
     run_count: Annotated[Optional[CountInfo], pydantic.Field(alias="runCount")] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            ["promptTemplate", "trackingToken", "favoriteInfo", "runCount"]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

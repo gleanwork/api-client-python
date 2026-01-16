@@ -9,8 +9,9 @@ from .objectpermissions import ObjectPermissions, ObjectPermissionsTypedDict
 from .thumbnail import Thumbnail, ThumbnailTypedDict
 from .viewerinfo import ViewerInfo, ViewerInfoTypedDict
 from datetime import datetime
-from glean.api_client.types import BaseModel
+from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
+from pydantic import model_serializer
 from typing import Dict, List, Optional, TYPE_CHECKING
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -226,3 +227,62 @@ class DocumentMetadata(BaseModel):
 
     ancestors: Optional[List["Document"]] = None
     r"""A list of documents that are ancestors of this document in the hierarchy of the document's datasource, for example parent folders or containers. Ancestors can be of different types and some may not be indexed. Higher level ancestors appear earlier in the list."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "datasource",
+                "datasourceInstance",
+                "objectType",
+                "container",
+                "containerId",
+                "superContainerId",
+                "parentId",
+                "mimeType",
+                "documentId",
+                "loggingId",
+                "documentIdHash",
+                "createTime",
+                "updateTime",
+                "author",
+                "owner",
+                "mentionedPeople",
+                "visibility",
+                "components",
+                "status",
+                "statusCategory",
+                "pins",
+                "priority",
+                "assignedTo",
+                "updatedBy",
+                "labels",
+                "collections",
+                "datasourceId",
+                "interactions",
+                "verification",
+                "viewerInfo",
+                "permissions",
+                "visitCount",
+                "shortcuts",
+                "path",
+                "customData",
+                "documentCategory",
+                "contactPerson",
+                "thumbnail",
+                "indexStatus",
+                "ancestors",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

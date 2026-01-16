@@ -8,8 +8,9 @@ from .chatrestrictionfilters import (
     ChatRestrictionFiltersTypedDict,
 )
 from .sessioninfo import SessionInfo, SessionInfoTypedDict
-from glean.api_client.types import BaseModel
+from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
+from pydantic import model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -78,3 +79,32 @@ class ChatRequest(BaseModel):
 
     stream: Optional[bool] = None
     r"""If set, response lines will be streamed one-by-one as they become available. Each will be a ChatResponse, formatted as JSON, and separated by a new line. If false, the entire response will be returned at once. Note that if this is set and the model being used does not support streaming, the model's response will not be streamed, but other messages from the endpoint still will be."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "sessionInfo",
+                "saveChat",
+                "chatId",
+                "agentConfig",
+                "inclusions",
+                "exclusions",
+                "timeoutMillis",
+                "applicationId",
+                "agentId",
+                "stream",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

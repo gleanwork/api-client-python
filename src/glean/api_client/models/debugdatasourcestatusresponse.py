@@ -18,8 +18,9 @@ from .processinghistoryevent import (
     ProcessingHistoryEventTypedDict,
 )
 from enum import Enum
-from glean.api_client.types import BaseModel
+from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
+from pydantic import model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -41,6 +42,22 @@ class DebugDatasourceStatusResponseCounts(BaseModel):
 
     indexed: Optional[List[DatasourceObjectTypeDocumentCountEntry]] = None
     r"""The number of documents indexed, grouped by objectType"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["uploaded", "indexed"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class DocumentsTypedDict(TypedDict):
@@ -66,6 +83,22 @@ class Documents(BaseModel):
     ] = None
     r"""Information about processing history for the datasource"""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["bulkUploadHistory", "counts", "processingHistory"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class IdentityTypedDict(TypedDict):
     processing_history: NotRequired[List[ProcessingHistoryEventTypedDict]]
@@ -87,6 +120,22 @@ class Identity(BaseModel):
     groups: Optional[DebugDatasourceStatusIdentityResponseComponent] = None
 
     memberships: Optional[DebugDatasourceStatusIdentityResponseComponent] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["processingHistory", "users", "groups", "memberships"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class DatasourceVisibility(str, Enum):
@@ -117,3 +166,19 @@ class DebugDatasourceStatusResponse(BaseModel):
         Optional[DatasourceVisibility], pydantic.Field(alias="datasourceVisibility")
     ] = None
     r"""The visibility of the datasource, an enum of VISIBLE_TO_ALL, VISIBLE_TO_TEST_GROUP, NOT_VISIBLE"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["documents", "identity", "datasourceVisibility"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

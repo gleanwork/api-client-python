@@ -6,8 +6,9 @@ from .objectpermissions import ObjectPermissions, ObjectPermissionsTypedDict
 from .personobject import PersonObject, PersonObjectTypedDict
 from datetime import datetime
 from enum import Enum
-from glean.api_client.types import BaseModel
+from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
+from pydantic import model_serializer
 from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -169,3 +170,36 @@ class ToolMetadata(BaseModel):
         Optional[bool], pydantic.Field(alias="isSetupFinished")
     ] = None
     r"""Whether this action has been fully configured and validated."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "toolId",
+                "logoUrl",
+                "objectName",
+                "knowledgeType",
+                "createdBy",
+                "lastUpdatedBy",
+                "createdAt",
+                "lastUpdatedAt",
+                "writeActionType",
+                "authType",
+                "auth",
+                "permissions",
+                "usageInstructions",
+                "isSetupFinished",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

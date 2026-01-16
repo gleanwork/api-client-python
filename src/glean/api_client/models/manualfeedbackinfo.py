@@ -3,8 +3,9 @@
 from __future__ import annotations
 from .feedbackchatexchange import FeedbackChatExchange, FeedbackChatExchangeTypedDict
 from enum import Enum
-from glean.api_client.types import BaseModel
+from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
+from pydantic import model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -165,3 +166,39 @@ class ManualFeedbackInfo(BaseModel):
 
     rating_scale: Annotated[Optional[int], pydantic.Field(alias="ratingScale")] = None
     r"""The scale of comparison for a rating associated with the feedback. Rating values start from one and go up to the maximum specified by ratingScale. For example, a five-option satisfaction rating will have a ratingScale of 5 and a thumbs-up/thumbs-down rating will have a ratingScale of 2."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "email",
+                "source",
+                "issue",
+                "issues",
+                "imageUrls",
+                "query",
+                "obscuredQuery",
+                "activeTab",
+                "comments",
+                "searchResults",
+                "previousMessages",
+                "chatTranscript",
+                "numQueriesFromFirstRun",
+                "vote",
+                "rating",
+                "ratingKey",
+                "ratingScale",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

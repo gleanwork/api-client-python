@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 from enum import Enum
-from glean.api_client.types import BaseModel
+from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
+from pydantic import model_serializer
 from typing import Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
@@ -37,6 +38,22 @@ class DocumentSpec4(BaseModel):
     doc_type: Annotated[Optional[str], pydantic.Field(alias="docType")] = None
     r"""The specific type of the user generated content type."""
 
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["docType"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
 
 class DocumentSpecUgcType1(str, Enum):
     r"""The type of the user generated content (UGC datasource)."""
@@ -66,6 +83,22 @@ class DocumentSpec3(BaseModel):
 
     doc_type: Annotated[Optional[str], pydantic.Field(alias="docType")] = None
     r"""The specific type of the user generated content type."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["docType"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class DocumentSpec2TypedDict(TypedDict):

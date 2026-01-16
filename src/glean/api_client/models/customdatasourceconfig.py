@@ -8,8 +8,9 @@ from .canonicalizingregextype import (
 from .objectdefinition import ObjectDefinition, ObjectDefinitionTypedDict
 from .quicklink import Quicklink, QuicklinkTypedDict
 from enum import Enum
-from glean.api_client.types import BaseModel
+from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
+from pydantic import model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -236,3 +237,48 @@ class CustomDatasourceConfig(BaseModel):
         Optional[bool], pydantic.Field(alias="isTestDatasource")
     ] = False
     r"""True if this datasource will be used for testing purpose only. Documents from such a datasource wouldn't have any effect on search rankings."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "displayName",
+                "datasourceCategory",
+                "urlRegex",
+                "iconUrl",
+                "objectDefinitions",
+                "suggestionText",
+                "homeUrl",
+                "crawlerSeedUrls",
+                "iconDarkUrl",
+                "hideBuiltInFacets",
+                "canonicalizingURLRegex",
+                "canonicalizingTitleRegex",
+                "redlistTitleRegex",
+                "connectorType",
+                "quicklinks",
+                "renderConfigPreset",
+                "aliases",
+                "isOnPrem",
+                "trustUrlRegexForViewActivity",
+                "includeUtmSource",
+                "stripFragmentInCanonicalUrl",
+                "identityDatasourceName",
+                "productAccessGroup",
+                "isUserReferencedByEmail",
+                "isEntityDatasource",
+                "isTestDatasource",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

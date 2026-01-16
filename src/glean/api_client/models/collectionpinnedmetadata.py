@@ -3,8 +3,9 @@
 from __future__ import annotations
 from .collectionpinmetadata import CollectionPinMetadata, CollectionPinMetadataTypedDict
 from .collectionpintarget import CollectionPinTarget, CollectionPinTargetTypedDict
-from glean.api_client.types import BaseModel
+from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
+from pydantic import model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -26,3 +27,19 @@ class CollectionPinnedMetadata(BaseModel):
         Optional[List[CollectionPinMetadata]], pydantic.Field(alias="eligiblePins")
     ] = None
     r"""List of targets this Collection can be pinned to, excluding the targets this Collection is already pinned to. We also include Collection ID already is pinned to each eligible target, which will be 0 if the target has no pinned Collection."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["existingPins", "eligiblePins"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

@@ -9,8 +9,9 @@ from .structuredtext import StructuredText, StructuredTextTypedDict
 from .thumbnail import Thumbnail, ThumbnailTypedDict
 from datetime import datetime
 from enum import Enum
-from glean.api_client.types import BaseModel
+from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
+from pydantic import model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -42,6 +43,22 @@ class AnnouncementViewerInfo(BaseModel):
 
     is_read: Annotated[Optional[bool], pydantic.Field(alias="isRead")] = None
     r"""Whether the viewer has read the announcement."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["isDismissed", "isRead"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class AnnouncementTypedDict(TypedDict):
@@ -169,3 +186,46 @@ class Announcement(BaseModel):
 
     is_published: Annotated[Optional[bool], pydantic.Field(alias="isPublished")] = None
     r"""Whether or not the announcement is published."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "startTime",
+                "endTime",
+                "title",
+                "body",
+                "emoji",
+                "thumbnail",
+                "banner",
+                "audienceFilters",
+                "sourceDocumentId",
+                "hideAttribution",
+                "channel",
+                "postType",
+                "isPrioritized",
+                "viewUrl",
+                "draftId",
+                "permissions",
+                "id",
+                "author",
+                "createTimestamp",
+                "lastUpdateTimestamp",
+                "updatedBy",
+                "viewerInfo",
+                "sourceDocument",
+                "isPublished",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
