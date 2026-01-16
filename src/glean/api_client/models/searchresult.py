@@ -3,8 +3,9 @@
 from __future__ import annotations
 from .clustertypeenum import ClusterTypeEnum
 from .searchresultprominenceenum import SearchResultProminenceEnum
-from glean.api_client.types import BaseModel
+from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
+from pydantic import model_serializer
 from typing import List, Optional, TYPE_CHECKING
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -147,3 +148,42 @@ class SearchResult(BaseModel):
 
     pins: Optional[List["PinDocument"]] = None
     r"""A list of pins associated with this search result."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "structuredResults",
+                "trackingToken",
+                "document",
+                "title",
+                "nativeAppUrl",
+                "snippets",
+                "fullText",
+                "fullTextList",
+                "relatedResults",
+                "clusteredResults",
+                "allClusteredResults",
+                "attachmentCount",
+                "attachments",
+                "backlinkResults",
+                "clusterType",
+                "mustIncludeSuggestions",
+                "querySuggestion",
+                "prominence",
+                "attachmentContext",
+                "pins",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

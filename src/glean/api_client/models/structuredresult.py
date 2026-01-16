@@ -4,8 +4,9 @@ from __future__ import annotations
 from .appresult import AppResult, AppResultTypedDict
 from .disambiguation import Disambiguation, DisambiguationTypedDict
 from enum import Enum
-from glean.api_client.types import BaseModel
+from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
+from pydantic import model_serializer
 from typing import List, Optional, TYPE_CHECKING
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -150,3 +151,44 @@ class StructuredResult(BaseModel):
 
     source: Optional[StructuredResultSource] = None
     r"""Source context for this result. Possible values depend on the result type."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "document",
+                "person",
+                "customer",
+                "team",
+                "customEntity",
+                "answer",
+                "generatedQna",
+                "extractedQnA",
+                "meeting",
+                "app",
+                "collection",
+                "code",
+                "shortcut",
+                "querySuggestions",
+                "chat",
+                "relatedDocuments",
+                "relatedQuestion",
+                "disambiguation",
+                "snippets",
+                "trackingToken",
+                "prominence",
+                "source",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

@@ -11,8 +11,9 @@ from .socialnetwork import SocialNetwork, SocialNetworkTypedDict
 from .structuredlocation import StructuredLocation, StructuredLocationTypedDict
 from datetime import date, datetime
 from enum import Enum
-from glean.api_client.types import BaseModel
+from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
+from pydantic import model_serializer
 from typing import Dict, List, Optional, TYPE_CHECKING
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -298,3 +299,67 @@ class PersonMetadata(BaseModel):
 
     is_org_root: Annotated[Optional[bool], pydantic.Field(alias="isOrgRoot")] = None
     r"""Whether this person is a \"root\" node in their organization's hierarchy."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "type",
+                "firstName",
+                "lastName",
+                "title",
+                "businessUnit",
+                "department",
+                "teams",
+                "departmentCount",
+                "email",
+                "aliasEmails",
+                "location",
+                "structuredLocation",
+                "externalProfileLink",
+                "manager",
+                "managementChain",
+                "phone",
+                "timezone",
+                "timezoneOffset",
+                "timezoneIANA",
+                "photoUrl",
+                "uneditedPhotoUrl",
+                "bannerUrl",
+                "reports",
+                "startDate",
+                "endDate",
+                "bio",
+                "pronoun",
+                "orgSizeCount",
+                "directReportsCount",
+                "preferredName",
+                "socialNetwork",
+                "datasourceProfile",
+                "querySuggestions",
+                "peopleDistance",
+                "inviteInfo",
+                "isSignedUp",
+                "lastExtensionUse",
+                "permissions",
+                "customFields",
+                "loggingId",
+                "startDatePercentile",
+                "busyEvents",
+                "profileBoolSettings",
+                "badges",
+                "isOrgRoot",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

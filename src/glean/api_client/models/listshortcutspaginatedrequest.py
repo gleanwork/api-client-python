@@ -4,8 +4,9 @@ from __future__ import annotations
 from .facetfilter import FacetFilter, FacetFilterTypedDict
 from .sortoptions import SortOptions, SortOptionsTypedDict
 from enum import Enum
-from glean.api_client.types import BaseModel
+from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
+from pydantic import model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -47,3 +48,19 @@ class ListShortcutsPaginatedRequest(BaseModel):
 
     query: Optional[str] = None
     r"""Search query that should be a substring in atleast one of the fields (alias , inputAlias, destinationUrl, description). Empty query does not filter shortcuts."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["includeFields", "cursor", "filters", "sort", "query"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

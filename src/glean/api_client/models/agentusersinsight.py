@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 from .person import Person, PersonTypedDict
-from glean.api_client.types import BaseModel
+from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
+from pydantic import model_serializer
 from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -47,3 +48,28 @@ class AgentUsersInsight(BaseModel):
 
     run_count: Annotated[Optional[int], pydantic.Field(alias="runCount")] = None
     r"""Total number of agent runs for this user over the specified time period."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "person",
+                "departmentName",
+                "agentsUsedCount",
+                "averageRunsPerDayCount",
+                "agentsCreatedCount",
+                "runCount",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

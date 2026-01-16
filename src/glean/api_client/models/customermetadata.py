@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 from .customdatavalue import CustomDataValue, CustomDataValueTypedDict
-from glean.api_client.types import BaseModel
+from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
+from pydantic import model_serializer
 from typing import Dict, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -23,3 +24,19 @@ class CustomerMetadata(BaseModel):
         Optional[Dict[str, CustomDataValue]], pydantic.Field(alias="customData")
     ] = None
     r"""Custom fields specific to individual datasources"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["datasourceId", "customData"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

@@ -6,8 +6,9 @@ from .facetfilter import FacetFilter, FacetFilterTypedDict
 from .objectpermissions import ObjectPermissions, ObjectPermissionsTypedDict
 from datetime import datetime
 from enum import Enum
-from glean.api_client.types import BaseModel
+from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
+from pydantic import model_serializer
 from typing import List, Optional, TYPE_CHECKING
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -155,3 +156,44 @@ class Answer(BaseModel):
     source_document: Annotated[
         Optional["Document"], pydantic.Field(alias="sourceDocument")
     ] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "docId",
+                "question",
+                "questionVariations",
+                "bodyText",
+                "boardId",
+                "audienceFilters",
+                "addedRoles",
+                "removedRoles",
+                "roles",
+                "sourceDocumentSpec",
+                "sourceType",
+                "permissions",
+                "combinedAnswerText",
+                "likes",
+                "author",
+                "createTime",
+                "updateTime",
+                "updatedBy",
+                "verification",
+                "collections",
+                "documentCategory",
+                "sourceDocument",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

@@ -6,8 +6,9 @@ from .insightschatsummary import InsightsChatSummary, InsightsChatSummaryTypedDi
 from .insightssearchsummary import InsightsSearchSummary, InsightsSearchSummaryTypedDict
 from .labeledcountinfo import LabeledCountInfo, LabeledCountInfoTypedDict
 from .peruserinsight import PerUserInsight, PerUserInsightTypedDict
-from glean.api_client.types import BaseModel
+from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
+from pydantic import model_serializer
 from typing import Dict, List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -186,3 +187,51 @@ class InsightsOverviewResponse(BaseModel):
         Optional[List[PerUserInsight]], pydantic.Field(alias="perUserInsights")
     ] = None
     r"""Per-user insights, over the specified time period in the specified departments. All current users in the organization who have signed into Glean at least once are included."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "monthlyActiveUsers",
+                "weeklyActiveUsers",
+                "departments",
+                "employeeCount",
+                "totalSignups",
+                "searchSummary",
+                "chatSummary",
+                "extensionSummary",
+                "ugcSummary",
+                "lastUpdatedTs",
+                "searchSessionSatisfaction",
+                "monthlyActiveUserTimeseries",
+                "weeklyActiveUserTimeseries",
+                "dailyActiveUserTimeseries",
+                "searchMonthlyActiveUserTimeseries",
+                "searchWeeklyActiveUserTimeseries",
+                "searchDailyActiveUserTimeseries",
+                "assistantMonthlyActiveUserTimeseries",
+                "assistantWeeklyActiveUserTimeseries",
+                "assistantDailyActiveUserTimeseries",
+                "agentsMonthlyActiveUserTimeseries",
+                "agentsWeeklyActiveUserTimeseries",
+                "agentsDailyActiveUserTimeseries",
+                "searchesTimeseries",
+                "assistantInteractionsTimeseries",
+                "agentRunsTimeseries",
+                "searchDatasourceCounts",
+                "chatDatasourceCounts",
+                "perUserInsights",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

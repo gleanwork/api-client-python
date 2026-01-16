@@ -20,8 +20,9 @@ from .thumbnail import Thumbnail, ThumbnailTypedDict
 from .useractivity import UserActivity, UserActivityTypedDict
 from .workflowresult import WorkflowResult, WorkflowResultTypedDict
 from enum import Enum
-from glean.api_client.types import BaseModel
+from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
+from pydantic import model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -47,6 +48,22 @@ class UIConfig(BaseModel):
         Optional[DisplayableListItemUIConfig], pydantic.Field(alias="additionalFlags")
     ] = None
     r"""UI configurations for each item of the list"""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["format", "additionalFlags"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class JustificationType(str, Enum):
@@ -183,3 +200,43 @@ class FeedEntry(BaseModel):
     document_visitor_count: Annotated[
         Optional[CountInfo], pydantic.Field(alias="documentVisitorCount")
     ] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "entryId",
+                "thumbnail",
+                "createdBy",
+                "uiConfig",
+                "justificationType",
+                "justification",
+                "trackingToken",
+                "viewUrl",
+                "document",
+                "event",
+                "announcement",
+                "digest",
+                "collection",
+                "collectionItem",
+                "person",
+                "app",
+                "chatSuggestion",
+                "promptTemplate",
+                "workflow",
+                "activities",
+                "documentVisitorCount",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

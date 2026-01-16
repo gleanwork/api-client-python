@@ -6,8 +6,9 @@ from .structuredtext import StructuredText, StructuredTextTypedDict
 from .thumbnail import Thumbnail, ThumbnailTypedDict
 from datetime import datetime
 from enum import Enum
-from glean.api_client.types import BaseModel
+from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
+from pydantic import model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -108,3 +109,33 @@ class UpdateAnnouncementRequest(BaseModel):
 
     view_url: Annotated[Optional[str], pydantic.Field(alias="viewUrl")] = None
     r"""URL for viewing the announcement. It will be set to document URL for announcements from other datasources e.g. simpplr. Can only be written when channel=\"SOCIAL_FEED\"."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "body",
+                "emoji",
+                "thumbnail",
+                "banner",
+                "audienceFilters",
+                "sourceDocumentId",
+                "hideAttribution",
+                "channel",
+                "postType",
+                "isPrioritized",
+                "viewUrl",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

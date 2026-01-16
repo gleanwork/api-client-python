@@ -7,8 +7,9 @@ from .relatedobjectedge import RelatedObjectEdge, RelatedObjectEdgeTypedDict
 from .teamemail import TeamEmail, TeamEmailTypedDict
 from datetime import datetime
 from enum import Enum
-from glean.api_client.types import BaseModel
+from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
+from pydantic import model_serializer
 from typing import Dict, List, Optional, TYPE_CHECKING
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -144,3 +145,41 @@ class Team(BaseModel):
 
     logging_id: Annotated[Optional[str], pydantic.Field(alias="loggingId")] = None
     r"""The logging id of the team used in scrubbed logs, client analytics, and metrics."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "relatedObjects",
+                "permissions",
+                "description",
+                "businessUnit",
+                "department",
+                "photoUrl",
+                "bannerUrl",
+                "externalLink",
+                "members",
+                "memberCount",
+                "emails",
+                "customFields",
+                "datasourceProfiles",
+                "datasource",
+                "createdFrom",
+                "lastUpdatedAt",
+                "status",
+                "canBeDeleted",
+                "loggingId",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

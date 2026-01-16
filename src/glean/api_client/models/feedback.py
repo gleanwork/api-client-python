@@ -13,8 +13,9 @@ from .userviewinfo import UserViewInfo, UserViewInfoTypedDict
 from .workflowfeedbackinfo import WorkflowFeedbackInfo, WorkflowFeedbackInfoTypedDict
 from datetime import datetime
 from enum import Enum
-from glean.api_client.types import BaseModel
+from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
+from pydantic import model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -218,3 +219,41 @@ class Feedback(BaseModel):
 
     agent_id: Annotated[Optional[str], pydantic.Field(alias="agentId")] = None
     r"""The agent ID of the client that sent the feedback event."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "id",
+                "category",
+                "position",
+                "payload",
+                "sessionInfo",
+                "timestamp",
+                "user",
+                "pathname",
+                "channels",
+                "url",
+                "uiTree",
+                "uiElement",
+                "manualFeedbackInfo",
+                "manualFeedbackSideBySideInfo",
+                "seenFeedbackInfo",
+                "userViewInfo",
+                "workflowFeedbackInfo",
+                "applicationId",
+                "agentId",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

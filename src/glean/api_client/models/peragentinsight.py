@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 from .iconconfig import IconConfig, IconConfigTypedDict
-from glean.api_client.types import BaseModel
+from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
+from pydantic import model_serializer
 from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -53,3 +54,30 @@ class PerAgentInsight(BaseModel):
         None
     )
     r"""Total number of downvotes for this agent over the specified time period."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "agentId",
+                "agentName",
+                "icon",
+                "isDeleted",
+                "userCount",
+                "runCount",
+                "upvoteCount",
+                "downvoteCount",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

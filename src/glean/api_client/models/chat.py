@@ -6,8 +6,9 @@ from .iconconfig import IconConfig, IconConfigTypedDict
 from .objectpermissions import ObjectPermissions, ObjectPermissionsTypedDict
 from .person import Person, PersonTypedDict
 from .userrolespecification import UserRoleSpecification, UserRoleSpecificationTypedDict
-from glean.api_client.types import BaseModel
+from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
+from pydantic import model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -74,3 +75,33 @@ class Chat(BaseModel):
 
     roles: Optional[List[UserRoleSpecification]] = None
     r"""A list of roles for this Chat."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "id",
+                "createTime",
+                "createdBy",
+                "updateTime",
+                "name",
+                "applicationId",
+                "applicationName",
+                "icon",
+                "permissions",
+                "messages",
+                "roles",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

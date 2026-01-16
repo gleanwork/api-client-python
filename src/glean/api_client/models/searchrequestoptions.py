@@ -7,8 +7,9 @@ from .facetfilter import FacetFilter, FacetFilterTypedDict
 from .facetfilterset import FacetFilterSet, FacetFilterSetTypedDict
 from .restrictionfilters import RestrictionFilters, RestrictionFiltersTypedDict
 from enum import Enum
-from glean.api_client.types import BaseModel
+from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
+from pydantic import model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -138,3 +139,38 @@ class SearchRequestOptions(BaseModel):
     inclusions: Optional[RestrictionFilters] = None
 
     exclusions: Optional[RestrictionFilters] = None
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "datasourceFilter",
+                "datasourcesFilter",
+                "queryOverridesFacetFilters",
+                "facetFilters",
+                "facetFilterSets",
+                "facetBucketFilter",
+                "defaultFacets",
+                "authTokens",
+                "fetchAllDatasourceCounts",
+                "responseHints",
+                "timezoneOffset",
+                "disableSpellcheck",
+                "disableQueryAutocorrect",
+                "returnLlmContentOverSnippets",
+                "inclusions",
+                "exclusions",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

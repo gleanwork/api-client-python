@@ -16,8 +16,9 @@ from .userreferencedefinition import (
     UserReferenceDefinition,
     UserReferenceDefinitionTypedDict,
 )
-from glean.api_client.types import BaseModel
+from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
+from pydantic import model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -158,3 +159,44 @@ class DocumentDefinition(BaseModel):
         Optional[List[CustomProperty]], pydantic.Field(alias="customProperties")
     ] = None
     r"""Additional metadata properties of the document. These can surface as [facets and operators](https://developers.glean.com/indexing/datasource/custom-properties/operators_and_facets)."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "title",
+                "filename",
+                "container",
+                "containerDatasourceId",
+                "containerObjectType",
+                "objectType",
+                "viewURL",
+                "id",
+                "summary",
+                "body",
+                "author",
+                "owner",
+                "permissions",
+                "createdAt",
+                "updatedAt",
+                "updatedBy",
+                "tags",
+                "interactions",
+                "status",
+                "additionalUrls",
+                "comments",
+                "customProperties",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

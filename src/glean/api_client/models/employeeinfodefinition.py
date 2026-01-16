@@ -14,8 +14,9 @@ from .socialnetworkdefinition import (
 )
 from .structuredlocation import StructuredLocation, StructuredLocationTypedDict
 from datetime import date
-from glean.api_client.types import BaseModel
+from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
+from pydantic import model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -196,3 +197,47 @@ class EmployeeInfoDefinition(BaseModel):
         pydantic.Field(alias="additionalFields"),
     ] = None
     r"""List of additional fields with more information about the employee."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "firstName",
+                "lastName",
+                "preferredName",
+                "id",
+                "phoneNumber",
+                "location",
+                "structuredLocation",
+                "title",
+                "photoUrl",
+                "businessUnit",
+                "datasourceProfiles",
+                "teams",
+                "startDate",
+                "endDate",
+                "bio",
+                "pronoun",
+                "alsoKnownAs",
+                "profileUrl",
+                "socialNetworks",
+                "managerEmail",
+                "managerId",
+                "type",
+                "relationships",
+                "status",
+                "additionalFields",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m

@@ -9,8 +9,9 @@ from .searchrequestinputdetails import (
 from .searchrequestoptions import SearchRequestOptions, SearchRequestOptionsTypedDict
 from .sessioninfo import SessionInfo, SessionInfoTypedDict
 from datetime import datetime
-from glean.api_client.types import BaseModel
+from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
+from pydantic import model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -93,3 +94,34 @@ class SearchRequest(BaseModel):
         Optional[bool], pydantic.Field(alias="disableSpellcheck")
     ] = None
     r"""Whether or not to disable spellcheck."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(
+            [
+                "timestamp",
+                "trackingToken",
+                "sessionInfo",
+                "sourceDocument",
+                "pageSize",
+                "maxSnippetSize",
+                "cursor",
+                "resultTabIds",
+                "inputDetails",
+                "requestOptions",
+                "timeoutMillis",
+                "disableSpellcheck",
+            ]
+        )
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
