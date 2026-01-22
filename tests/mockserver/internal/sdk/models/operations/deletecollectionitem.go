@@ -6,6 +6,27 @@ import (
 	"mockserver/internal/sdk/models/components"
 )
 
+type DeletecollectionitemRequest struct {
+	// The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
+	Locale *string `queryParam:"style=form,explode=true,name=locale"`
+	// Data describing the delete operation.
+	Body components.DeleteCollectionItemRequest `request:"mediaType=application/json"`
+}
+
+func (o *DeletecollectionitemRequest) GetLocale() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Locale
+}
+
+func (o *DeletecollectionitemRequest) GetBody() components.DeleteCollectionItemRequest {
+	if o == nil {
+		return components.DeleteCollectionItemRequest{}
+	}
+	return o.Body
+}
+
 type DeletecollectionitemResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// OK

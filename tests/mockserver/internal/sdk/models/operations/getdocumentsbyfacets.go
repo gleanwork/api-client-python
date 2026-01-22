@@ -6,6 +6,27 @@ import (
 	"mockserver/internal/sdk/models/components"
 )
 
+type GetdocumentsbyfacetsRequest struct {
+	// The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
+	Locale *string `queryParam:"style=form,explode=true,name=locale"`
+	// Information about facet conditions for documents to be retrieved.
+	Body *components.GetDocumentsByFacetsRequest `request:"mediaType=application/json"`
+}
+
+func (o *GetdocumentsbyfacetsRequest) GetLocale() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Locale
+}
+
+func (o *GetdocumentsbyfacetsRequest) GetBody() *components.GetDocumentsByFacetsRequest {
+	if o == nil {
+		return nil
+	}
+	return o.Body
+}
+
 type GetdocumentsbyfacetsResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// OK

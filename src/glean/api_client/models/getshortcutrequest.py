@@ -10,22 +10,22 @@ from typing import Union
 from typing_extensions import TypeAliasType, TypedDict
 
 
-class GetShortcutRequestTypedDict(TypedDict):
+class GetShortcutRequest1TypedDict(TypedDict):
     alias: str
     r"""The alias for the shortcut, including any arguments for variable shortcuts."""
 
 
-class GetShortcutRequest(BaseModel):
+class GetShortcutRequest1(BaseModel):
     alias: str
     r"""The alias for the shortcut, including any arguments for variable shortcuts."""
 
 
-GetShortcutRequestUnionTypedDict = TypeAliasType(
-    "GetShortcutRequestUnionTypedDict",
-    Union[UserGeneratedContentIDTypedDict, GetShortcutRequestTypedDict],
+GetShortcutRequestTypedDict = TypeAliasType(
+    "GetShortcutRequestTypedDict",
+    Union[UserGeneratedContentIDTypedDict, GetShortcutRequest1TypedDict],
 )
 
 
-GetShortcutRequestUnion = TypeAliasType(
-    "GetShortcutRequestUnion", Union[UserGeneratedContentID, GetShortcutRequest]
+GetShortcutRequest = TypeAliasType(
+    "GetShortcutRequest", Union[UserGeneratedContentID, GetShortcutRequest1]
 )

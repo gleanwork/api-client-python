@@ -41,6 +41,8 @@ class InputOptionsTypedDict(TypedDict):
     time_period_type: NotRequired[InputOptionsTimePeriodType]
     r"""Type of time period for which to run the report/policy. PAST_DAY is deprecated."""
     custom_time_range: NotRequired[TimeRangeTypedDict]
+    subset_doc_ids_to_scan: NotRequired[List[str]]
+    r"""Subset of document IDs to scan. If empty, all documents matching other scope criteria will be scanned."""
 
 
 class InputOptions(BaseModel):
@@ -82,6 +84,11 @@ class InputOptions(BaseModel):
         Optional[TimeRange], pydantic.Field(alias="customTimeRange")
     ] = None
 
+    subset_doc_ids_to_scan: Annotated[
+        Optional[List[str]], pydantic.Field(alias="subsetDocIdsToScan")
+    ] = None
+    r"""Subset of document IDs to scan. If empty, all documents matching other scope criteria will be scanned."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -92,6 +99,7 @@ class InputOptions(BaseModel):
                 "datasourceInstances",
                 "timePeriodType",
                 "customTimeRange",
+                "subsetDocIdsToScan",
             ]
         )
         serialized = handler(self)

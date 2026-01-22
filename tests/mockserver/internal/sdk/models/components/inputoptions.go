@@ -87,6 +87,8 @@ type InputOptions struct {
 	// Type of time period for which to run the report/policy. PAST_DAY is deprecated.
 	TimePeriodType  *InputOptionsTimePeriodType `json:"timePeriodType,omitempty"`
 	CustomTimeRange *TimeRange                  `json:"customTimeRange,omitempty"`
+	// Subset of document IDs to scan. If empty, all documents matching other scope criteria will be scanned.
+	SubsetDocIdsToScan []string `json:"subsetDocIdsToScan,omitempty"`
 }
 
 func (o *InputOptions) GetURLGreenlist() []string {
@@ -129,4 +131,11 @@ func (o *InputOptions) GetCustomTimeRange() *TimeRange {
 		return nil
 	}
 	return o.CustomTimeRange
+}
+
+func (o *InputOptions) GetSubsetDocIdsToScan() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SubsetDocIdsToScan
 }

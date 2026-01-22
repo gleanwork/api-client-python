@@ -30,7 +30,7 @@ def test_client_shortcuts_getshortcut():
         assert glean is not None
 
         res = glean.client.shortcuts.retrieve(
-            request={
+            get_shortcut_request={
                 "alias": "<value>",
             }
         )

@@ -6,6 +6,27 @@ import (
 	"mockserver/internal/sdk/models/components"
 )
 
+type MessagesRequest struct {
+	// The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
+	Locale *string `queryParam:"style=form,explode=true,name=locale"`
+	// Includes request params such as the id for channel/message and direction.
+	Body components.MessagesRequest `request:"mediaType=application/json"`
+}
+
+func (o *MessagesRequest) GetLocale() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Locale
+}
+
+func (o *MessagesRequest) GetBody() components.MessagesRequest {
+	if o == nil {
+		return components.MessagesRequest{}
+	}
+	return o.Body
+}
+
 type MessagesResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// OK

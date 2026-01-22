@@ -14,6 +14,7 @@ class Agents(BaseSDK):
         self,
         *,
         agent_id: str,
+        locale: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -25,6 +26,7 @@ class Agents(BaseSDK):
         Returns details of an [agent](https://developers.glean.com/agents/agents-api) created in the Agent Builder.
 
         :param agent_id: The ID of the agent.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -42,6 +44,7 @@ class Agents(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetAgentRequest(
+            locale=locale,
             timezone_offset=timezone_offset,
             agent_id=agent_id,
         )
@@ -101,6 +104,7 @@ class Agents(BaseSDK):
         self,
         *,
         agent_id: str,
+        locale: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -112,6 +116,7 @@ class Agents(BaseSDK):
         Returns details of an [agent](https://developers.glean.com/agents/agents-api) created in the Agent Builder.
 
         :param agent_id: The ID of the agent.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -129,6 +134,7 @@ class Agents(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetAgentRequest(
+            locale=locale,
             timezone_offset=timezone_offset,
             agent_id=agent_id,
         )
@@ -188,6 +194,7 @@ class Agents(BaseSDK):
         self,
         *,
         agent_id: str,
+        locale: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -199,6 +206,7 @@ class Agents(BaseSDK):
         Return [agent](https://developers.glean.com/agents/agents-api)'s input and output schemas. You can use these schemas to detect changes to an agent's input or output structure.
 
         :param agent_id: The ID of the agent.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -216,6 +224,7 @@ class Agents(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetAgentSchemasRequest(
+            locale=locale,
             timezone_offset=timezone_offset,
             agent_id=agent_id,
         )
@@ -275,6 +284,7 @@ class Agents(BaseSDK):
         self,
         *,
         agent_id: str,
+        locale: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -286,6 +296,7 @@ class Agents(BaseSDK):
         Return [agent](https://developers.glean.com/agents/agents-api)'s input and output schemas. You can use these schemas to detect changes to an agent's input or output structure.
 
         :param agent_id: The ID of the agent.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -303,6 +314,7 @@ class Agents(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetAgentSchemasRequest(
+            locale=locale,
             timezone_offset=timezone_offset,
             agent_id=agent_id,
         )

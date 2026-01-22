@@ -15,7 +15,9 @@ type GleanDataError struct {
 	// Indicates results could not be fetched due to invalid operators in the query.
 	InvalidOperators []components.InvalidOperatorValueError `json:"invalidOperators,omitempty"`
 	ErrorMessages    []components.ErrorMessage              `json:"errorMessages,omitempty"`
-	HTTPMeta         components.HTTPMetadata                `json:"-"`
+	// Indicates the federated search results could not be fetched due to rate limiting.
+	FederatedSearchRateLimitError *bool                   `json:"federatedSearchRateLimitError,omitempty"`
+	HTTPMeta                      components.HTTPMetadata `json:"-"`
 }
 
 var _ error = &GleanDataError{}

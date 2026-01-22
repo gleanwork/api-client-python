@@ -6,6 +6,27 @@ import (
 	"mockserver/internal/sdk/models/components"
 )
 
+type AutocompleteRequest struct {
+	// The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
+	Locale *string `queryParam:"style=form,explode=true,name=locale"`
+	// Autocomplete request
+	Body components.AutocompleteRequest `request:"mediaType=application/json"`
+}
+
+func (o *AutocompleteRequest) GetLocale() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Locale
+}
+
+func (o *AutocompleteRequest) GetBody() components.AutocompleteRequest {
+	if o == nil {
+		return components.AutocompleteRequest{}
+	}
+	return o.Body
+}
+
 type AutocompleteResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// OK
