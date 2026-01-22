@@ -1,6 +1,7 @@
 from .types import Hooks
 from .multipart_fix_hook import MultipartFileFieldFixHook
 from .agent_file_upload_error_hook import AgentFileUploadErrorHook
+from .x_glean import XGlean
 
 
 # This file is only ever generated once on the first generation and then is free to be modified.
@@ -19,3 +20,6 @@ def init_hooks(hooks: Hooks):
 
     # Register hook to provide helpful error messages for agent file upload issues
     hooks.register_after_error_hook(AgentFileUploadErrorHook())
+
+    # Register hook for X-Glean headers (experimental features and deprecation testing)
+    hooks.register_before_request_hook(XGlean())
