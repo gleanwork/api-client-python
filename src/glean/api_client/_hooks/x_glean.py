@@ -49,12 +49,12 @@ class XGlean(BeforeRequestHook):
         # Get deprecated value - env var takes precedence
         deprecated_value = _get_first_value(
             os.environ.get("X_GLEAN_EXCLUDE_DEPRECATED_AFTER"),
-            hook_ctx.config.exclude_deprecated_after,
+            getattr(hook_ctx.config, "exclude_deprecated_after", None),
         )
 
         # Get experimental value - env var takes precedence
         config_experimental = (
-            "true" if hook_ctx.config.include_experimental is True else None
+            "true" if getattr(hook_ctx.config, "include_experimental", None) is True else None
         )
         experimental_value = _get_first_value(
             os.environ.get("X_GLEAN_INCLUDE_EXPERIMENTAL"),
