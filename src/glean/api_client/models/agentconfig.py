@@ -23,6 +23,8 @@ class AgentEnum(str, Enum):
     FAST = "FAST"
     # Uses an agent powered by the agentic engine that thinks for longer and potentially makes more LLM calls to return higher quality results. Requires the agentic engine to be enabled in the deployment.
     ADVANCED = "ADVANCED"
+    # Uses an agent powered by the agentic engine that routes between reasoning efforts based on the question and context.
+    AUTO = "AUTO"
 
 
 class Mode(str, Enum):

@@ -426,6 +426,9 @@ func handleDefaultConstValue(tagValue string, val interface{}, tag reflect.Struc
 		return []byte(fmt.Sprintf(`"%s"`, tagValue))
 	default:
 		if typ.Kind() == reflect.String {
+			if strings.HasPrefix(tagValue, "\"") && strings.HasSuffix(tagValue, "\"") {
+				return []byte(tagValue)
+			}
 			return []byte(fmt.Sprintf("%q", tagValue))
 		}
 	}

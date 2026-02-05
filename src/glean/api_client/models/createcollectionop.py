@@ -3,10 +3,52 @@
 from __future__ import annotations
 from .collection import Collection, CollectionTypedDict
 from .collectionerror import CollectionError, CollectionErrorTypedDict
+from .createcollectionrequest import (
+    CreateCollectionRequest,
+    CreateCollectionRequestTypedDict,
+)
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
+from glean.api_client.utils import FieldMetadata, QueryParamMetadata, RequestMetadata
 from pydantic import model_serializer
 from typing import Optional, Union
-from typing_extensions import NotRequired, TypeAliasType, TypedDict
+from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
+
+
+class CreatecollectionRequestRequestTypedDict(TypedDict):
+    create_collection_request: CreateCollectionRequestTypedDict
+    r"""Collection content plus any additional metadata for the request."""
+    locale: NotRequired[str]
+    r"""The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`."""
+
+
+class CreatecollectionRequestRequest(BaseModel):
+    create_collection_request: Annotated[
+        CreateCollectionRequest,
+        FieldMetadata(request=RequestMetadata(media_type="application/json")),
+    ]
+    r"""Collection content plus any additional metadata for the request."""
+
+    locale: Annotated[
+        Optional[str],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+    r"""The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`."""
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["locale"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k)
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
 
 
 class ResponseBody2TypedDict(TypedDict):

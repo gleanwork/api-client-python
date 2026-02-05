@@ -32,6 +32,10 @@ class GleanDataErrorData(BaseModel):
         Optional[List[models_errormessage.ErrorMessage]],
         pydantic.Field(alias="errorMessages"),
     ] = None
+    federated_search_rate_limit_error: Annotated[
+        Optional[bool], pydantic.Field(alias="federatedSearchRateLimitError")
+    ] = None
+    r"""Indicates the federated search results could not be fetched due to rate limiting."""
 
 
 @dataclass(unsafe_hash=True)

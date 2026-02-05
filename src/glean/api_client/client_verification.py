@@ -14,6 +14,7 @@ class ClientVerification(BaseSDK):
         self,
         *,
         document_id: str,
+        locale: Optional[str] = None,
         assignee: Optional[str] = None,
         remind_in_days: Optional[int] = None,
         reason: Optional[str] = None,
@@ -27,6 +28,7 @@ class ClientVerification(BaseSDK):
         Creates a verification reminder for the document. Users can create verification reminders from different product surfaces.
 
         :param document_id: The document which the verification is for new reminders and/or update.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param assignee: The obfuscated id of the person this verification is assigned to.
         :param remind_in_days: Reminder for the next verifications in terms of days. For deletion, this will be omitted.
         :param reason: An optional free-text reason for the reminder. This is particularly useful when a reminder is used to ask for verification from another user (for example, \"Duplicate\", \"Incomplete\", \"Incorrect\").
@@ -45,11 +47,14 @@ class ClientVerification(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.ReminderRequest(
-            document_id=document_id,
-            assignee=assignee,
-            remind_in_days=remind_in_days,
-            reason=reason,
+        request = models.AddverificationreminderRequest(
+            locale=locale,
+            reminder_request=models.ReminderRequest(
+                document_id=document_id,
+                assignee=assignee,
+                remind_in_days=remind_in_days,
+                reason=reason,
+            ),
         )
 
         req = self._build_request(
@@ -66,7 +71,7 @@ class ClientVerification(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.ReminderRequest
+                request.reminder_request, False, False, "json", models.ReminderRequest
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -110,6 +115,7 @@ class ClientVerification(BaseSDK):
         self,
         *,
         document_id: str,
+        locale: Optional[str] = None,
         assignee: Optional[str] = None,
         remind_in_days: Optional[int] = None,
         reason: Optional[str] = None,
@@ -123,6 +129,7 @@ class ClientVerification(BaseSDK):
         Creates a verification reminder for the document. Users can create verification reminders from different product surfaces.
 
         :param document_id: The document which the verification is for new reminders and/or update.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param assignee: The obfuscated id of the person this verification is assigned to.
         :param remind_in_days: Reminder for the next verifications in terms of days. For deletion, this will be omitted.
         :param reason: An optional free-text reason for the reminder. This is particularly useful when a reminder is used to ask for verification from another user (for example, \"Duplicate\", \"Incomplete\", \"Incorrect\").
@@ -141,11 +148,14 @@ class ClientVerification(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.ReminderRequest(
-            document_id=document_id,
-            assignee=assignee,
-            remind_in_days=remind_in_days,
-            reason=reason,
+        request = models.AddverificationreminderRequest(
+            locale=locale,
+            reminder_request=models.ReminderRequest(
+                document_id=document_id,
+                assignee=assignee,
+                remind_in_days=remind_in_days,
+                reason=reason,
+            ),
         )
 
         req = self._build_request_async(
@@ -162,7 +172,7 @@ class ClientVerification(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.ReminderRequest
+                request.reminder_request, False, False, "json", models.ReminderRequest
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -206,6 +216,7 @@ class ClientVerification(BaseSDK):
         self,
         *,
         count: Optional[int] = None,
+        locale: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -216,6 +227,7 @@ class ClientVerification(BaseSDK):
         Returns the information to be rendered in verification dashboard. Includes information for each document owned by user regarding their verifications.
 
         :param count: Maximum number of documents to return
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -233,6 +245,7 @@ class ClientVerification(BaseSDK):
 
         request = models.ListverificationsRequest(
             count=count,
+            locale=locale,
         )
 
         req = self._build_request(
@@ -290,6 +303,7 @@ class ClientVerification(BaseSDK):
         self,
         *,
         count: Optional[int] = None,
+        locale: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -300,6 +314,7 @@ class ClientVerification(BaseSDK):
         Returns the information to be rendered in verification dashboard. Includes information for each document owned by user regarding their verifications.
 
         :param count: Maximum number of documents to return
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -317,6 +332,7 @@ class ClientVerification(BaseSDK):
 
         request = models.ListverificationsRequest(
             count=count,
+            locale=locale,
         )
 
         req = self._build_request_async(
@@ -374,6 +390,7 @@ class ClientVerification(BaseSDK):
         self,
         *,
         document_id: str,
+        locale: Optional[str] = None,
         action: Optional[models.VerifyRequestAction] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -385,6 +402,7 @@ class ClientVerification(BaseSDK):
         Verify documents to keep the knowledge up to date within customer corpus.
 
         :param document_id: The document which is verified.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param action: The verification action requested.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -401,9 +419,12 @@ class ClientVerification(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.VerifyRequest(
-            document_id=document_id,
-            action=action,
+        request = models.VerifyRequestRequest(
+            locale=locale,
+            verify_request=models.VerifyRequest(
+                document_id=document_id,
+                action=action,
+            ),
         )
 
         req = self._build_request(
@@ -420,7 +441,7 @@ class ClientVerification(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.VerifyRequest
+                request.verify_request, False, False, "json", models.VerifyRequest
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -464,6 +485,7 @@ class ClientVerification(BaseSDK):
         self,
         *,
         document_id: str,
+        locale: Optional[str] = None,
         action: Optional[models.VerifyRequestAction] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -475,6 +497,7 @@ class ClientVerification(BaseSDK):
         Verify documents to keep the knowledge up to date within customer corpus.
 
         :param document_id: The document which is verified.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param action: The verification action requested.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -491,9 +514,12 @@ class ClientVerification(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.VerifyRequest(
-            document_id=document_id,
-            action=action,
+        request = models.VerifyRequestRequest(
+            locale=locale,
+            verify_request=models.VerifyRequest(
+                document_id=document_id,
+                action=action,
+            ),
         )
 
         req = self._build_request_async(
@@ -510,7 +536,7 @@ class ClientVerification(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.VerifyRequest
+                request.verify_request, False, False, "json", models.VerifyRequest
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,

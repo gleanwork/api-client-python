@@ -21,6 +21,8 @@ class GleanDataErrorTypedDict(TypedDict):
     invalid_operators: NotRequired[List[InvalidOperatorValueErrorTypedDict]]
     r"""Indicates results could not be fetched due to invalid operators in the query."""
     error_messages: NotRequired[List[ErrorMessageTypedDict]]
+    federated_search_rate_limit_error: NotRequired[bool]
+    r"""Indicates the federated search results could not be fetched due to rate limiting."""
 
 
 class GleanDataError(BaseModel):
@@ -44,10 +46,21 @@ class GleanDataError(BaseModel):
         Optional[List[ErrorMessage]], pydantic.Field(alias="errorMessages")
     ] = None
 
+    federated_search_rate_limit_error: Annotated[
+        Optional[bool], pydantic.Field(alias="federatedSearchRateLimitError")
+    ] = None
+    r"""Indicates the federated search results could not be fetched due to rate limiting."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["badGmailToken", "badOutlookToken", "invalidOperators", "errorMessages"]
+            [
+                "badGmailToken",
+                "badOutlookToken",
+                "invalidOperators",
+                "errorMessages",
+                "federatedSearchRateLimitError",
+            ]
         )
         serialized = handler(self)
         m = {}

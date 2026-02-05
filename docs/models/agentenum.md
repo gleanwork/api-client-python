@@ -12,3 +12,4 @@ Name of the agent.
 | `UNIVERSAL` | UNIVERSAL   |
 | `FAST`      | FAST        |
 | `ADVANCED`  | ADVANCED    |
+| `AUTO`      | AUTO        |

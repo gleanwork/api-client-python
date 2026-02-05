@@ -39,19 +39,6 @@ class SDKConfiguration:
     user_agent: str = __user_agent__
     retry_config: OptionalNullable[RetryConfig] = Field(default_factory=lambda: UNSET)
     timeout_ms: Optional[int] = None
-    exclude_deprecated_after: Optional[str] = None
-    """
-    Exclude API endpoints that will be deprecated after this date.
-    Use this to test your integration against upcoming deprecations.
-    Format: YYYY-MM-DD (e.g., '2026-10-15')
-
-    More information: https://developers.glean.com/deprecations/overview
-    """
-    include_experimental: Optional[bool] = None
-    """
-    When True, enables experimental API features that are not yet generally available.
-    Use this to preview and test new functionality.
-    """
 
     def get_server_details(self) -> Tuple[str, Dict[str, str]]:
         if self.server_url is not None and self.server_url:

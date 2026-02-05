@@ -16,6 +16,7 @@ const (
 	UgcTypeShortcutsType       UgcType = "SHORTCUTS_TYPE"
 	UgcTypeWorkflowsType       UgcType = "WORKFLOWS_TYPE"
 	UgcTypePromptTemplatesType UgcType = "PROMPT_TEMPLATES_TYPE"
+	UgcTypePrismViewsType      UgcType = "PRISM_VIEWS_TYPE"
 )
 
 func (e UgcType) ToPointer() *UgcType {
@@ -38,6 +39,8 @@ func (e *UgcType) UnmarshalJSON(data []byte) error {
 	case "WORKFLOWS_TYPE":
 		fallthrough
 	case "PROMPT_TEMPLATES_TYPE":
+		fallthrough
+	case "PRISM_VIEWS_TYPE":
 		*e = UgcType(v)
 		return nil
 	default:

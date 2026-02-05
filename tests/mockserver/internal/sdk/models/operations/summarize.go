@@ -6,6 +6,27 @@ import (
 	"mockserver/internal/sdk/models/components"
 )
 
+type SummarizeRequest struct {
+	// The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
+	Locale *string `queryParam:"style=form,explode=true,name=locale"`
+	// Includes request params such as the query and specs of the documents to summarize.
+	Body components.SummarizeRequest `request:"mediaType=application/json"`
+}
+
+func (o *SummarizeRequest) GetLocale() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Locale
+}
+
+func (o *SummarizeRequest) GetBody() components.SummarizeRequest {
+	if o == nil {
+		return components.SummarizeRequest{}
+	}
+	return o.Body
+}
+
 type SummarizeResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// OK

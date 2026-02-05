@@ -59,7 +59,7 @@ def test_pins_listpins():
     ) as glean:
         assert glean is not None
 
-        res = glean.client.pins.list(request={})
+        res = glean.client.pins.list(request_body={})
         assert res is not None
 
 

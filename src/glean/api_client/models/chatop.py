@@ -13,6 +13,8 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 class ChatRequestRequestTypedDict(TypedDict):
     chat_request: ChatRequestTypedDict
     r"""Includes chat history for Glean AI to respond to."""
+    locale: NotRequired[str]
+    r"""The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`."""
     timezone_offset: NotRequired[int]
     r"""The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC."""
 
@@ -24,6 +26,12 @@ class ChatRequestRequest(BaseModel):
     ]
     r"""Includes chat history for Glean AI to respond to."""
 
+    locale: Annotated[
+        Optional[str],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+    r"""The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`."""
+
     timezone_offset: Annotated[
         Optional[int],
         pydantic.Field(alias="timezoneOffset"),
@@ -33,7 +41,7 @@ class ChatRequestRequest(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["timezoneOffset"])
+        optional_fields = set(["locale", "timezoneOffset"])
         serialized = handler(self)
         m = {}
 

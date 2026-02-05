@@ -15,6 +15,7 @@ class Answers(BaseSDK):
         self,
         *,
         data: Union[models.AnswerCreationData, models.AnswerCreationDataTypedDict],
+        locale: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -25,6 +26,7 @@ class Answers(BaseSDK):
         Create a user-generated Answer that contains a question and answer.
 
         :param data:
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -40,8 +42,11 @@ class Answers(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.CreateAnswerRequest(
-            data=utils.get_pydantic_model(data, models.AnswerCreationData),
+        request = models.CreateanswerRequestRequest(
+            locale=locale,
+            create_answer_request=models.CreateAnswerRequest(
+                data=utils.get_pydantic_model(data, models.AnswerCreationData),
+            ),
         )
 
         req = self._build_request(
@@ -58,7 +63,11 @@ class Answers(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.CreateAnswerRequest
+                request.create_answer_request,
+                False,
+                False,
+                "json",
+                models.CreateAnswerRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -102,6 +111,7 @@ class Answers(BaseSDK):
         self,
         *,
         data: Union[models.AnswerCreationData, models.AnswerCreationDataTypedDict],
+        locale: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -112,6 +122,7 @@ class Answers(BaseSDK):
         Create a user-generated Answer that contains a question and answer.
 
         :param data:
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -127,8 +138,11 @@ class Answers(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.CreateAnswerRequest(
-            data=utils.get_pydantic_model(data, models.AnswerCreationData),
+        request = models.CreateanswerRequestRequest(
+            locale=locale,
+            create_answer_request=models.CreateAnswerRequest(
+                data=utils.get_pydantic_model(data, models.AnswerCreationData),
+            ),
         )
 
         req = self._build_request_async(
@@ -145,7 +159,11 @@ class Answers(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.CreateAnswerRequest
+                request.create_answer_request,
+                False,
+                False,
+                "json",
+                models.CreateAnswerRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -189,6 +207,7 @@ class Answers(BaseSDK):
         self,
         *,
         id: int,
+        locale: Optional[str] = None,
         doc_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -200,6 +219,7 @@ class Answers(BaseSDK):
         Delete an existing user-generated Answer.
 
         :param id: The opaque ID of the Answer.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param doc_id: Glean Document ID of the Answer. The Glean Document ID is supported for cases where the Answer ID isn't available. If both are available, using the Answer ID is preferred.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -216,9 +236,12 @@ class Answers(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.DeleteAnswerRequest(
-            id=id,
-            doc_id=doc_id,
+        request = models.DeleteanswerRequestRequest(
+            locale=locale,
+            delete_answer_request=models.DeleteAnswerRequest(
+                id=id,
+                doc_id=doc_id,
+            ),
         )
 
         req = self._build_request(
@@ -235,7 +258,11 @@ class Answers(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.DeleteAnswerRequest
+                request.delete_answer_request,
+                False,
+                False,
+                "json",
+                models.DeleteAnswerRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -279,6 +306,7 @@ class Answers(BaseSDK):
         self,
         *,
         id: int,
+        locale: Optional[str] = None,
         doc_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -290,6 +318,7 @@ class Answers(BaseSDK):
         Delete an existing user-generated Answer.
 
         :param id: The opaque ID of the Answer.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param doc_id: Glean Document ID of the Answer. The Glean Document ID is supported for cases where the Answer ID isn't available. If both are available, using the Answer ID is preferred.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -306,9 +335,12 @@ class Answers(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.DeleteAnswerRequest(
-            id=id,
-            doc_id=doc_id,
+        request = models.DeleteanswerRequestRequest(
+            locale=locale,
+            delete_answer_request=models.DeleteAnswerRequest(
+                id=id,
+                doc_id=doc_id,
+            ),
         )
 
         req = self._build_request_async(
@@ -325,7 +357,11 @@ class Answers(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.DeleteAnswerRequest
+                request.delete_answer_request,
+                False,
+                False,
+                "json",
+                models.DeleteAnswerRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -369,6 +405,7 @@ class Answers(BaseSDK):
         self,
         *,
         id: int,
+        locale: Optional[str] = None,
         doc_id: Optional[str] = None,
         question: Optional[str] = None,
         question_variations: Optional[List[str]] = None,
@@ -417,6 +454,7 @@ class Answers(BaseSDK):
         Update an existing user-generated Answer.
 
         :param id: The opaque ID of the Answer.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param doc_id: Glean Document ID of the Answer. The Glean Document ID is supported for cases where the Answer ID isn't available. If both are available, using the Answer ID is preferred.
         :param question:
         :param question_variations: Additional ways of phrasing this question.
@@ -446,33 +484,37 @@ class Answers(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.EditAnswerRequest(
-            id=id,
-            doc_id=doc_id,
-            question=question,
-            question_variations=question_variations,
-            body_text=body_text,
-            board_id=board_id,
-            audience_filters=utils.get_pydantic_model(
-                audience_filters, Optional[List[models.FacetFilter]]
-            ),
-            added_roles=utils.get_pydantic_model(
-                added_roles, Optional[List[models.UserRoleSpecification]]
-            ),
-            removed_roles=utils.get_pydantic_model(
-                removed_roles, Optional[List[models.UserRoleSpecification]]
-            ),
-            roles=utils.get_pydantic_model(
-                roles, Optional[List[models.UserRoleSpecification]]
-            ),
-            source_document_spec=utils.get_pydantic_model(
-                source_document_spec, Optional[models.DocumentSpecUnion]
-            ),
-            source_type=source_type,
-            added_collections=added_collections,
-            removed_collections=removed_collections,
-            combined_answer_text=utils.get_pydantic_model(
-                combined_answer_text, Optional[models.StructuredTextMutableProperties]
+        request = models.EditanswerRequestRequest(
+            locale=locale,
+            edit_answer_request=models.EditAnswerRequest(
+                id=id,
+                doc_id=doc_id,
+                question=question,
+                question_variations=question_variations,
+                body_text=body_text,
+                board_id=board_id,
+                audience_filters=utils.get_pydantic_model(
+                    audience_filters, Optional[List[models.FacetFilter]]
+                ),
+                added_roles=utils.get_pydantic_model(
+                    added_roles, Optional[List[models.UserRoleSpecification]]
+                ),
+                removed_roles=utils.get_pydantic_model(
+                    removed_roles, Optional[List[models.UserRoleSpecification]]
+                ),
+                roles=utils.get_pydantic_model(
+                    roles, Optional[List[models.UserRoleSpecification]]
+                ),
+                source_document_spec=utils.get_pydantic_model(
+                    source_document_spec, Optional[models.DocumentSpecUnion]
+                ),
+                source_type=source_type,
+                added_collections=added_collections,
+                removed_collections=removed_collections,
+                combined_answer_text=utils.get_pydantic_model(
+                    combined_answer_text,
+                    Optional[models.StructuredTextMutableProperties],
+                ),
             ),
         )
 
@@ -490,7 +532,11 @@ class Answers(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.EditAnswerRequest
+                request.edit_answer_request,
+                False,
+                False,
+                "json",
+                models.EditAnswerRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -534,6 +580,7 @@ class Answers(BaseSDK):
         self,
         *,
         id: int,
+        locale: Optional[str] = None,
         doc_id: Optional[str] = None,
         question: Optional[str] = None,
         question_variations: Optional[List[str]] = None,
@@ -582,6 +629,7 @@ class Answers(BaseSDK):
         Update an existing user-generated Answer.
 
         :param id: The opaque ID of the Answer.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param doc_id: Glean Document ID of the Answer. The Glean Document ID is supported for cases where the Answer ID isn't available. If both are available, using the Answer ID is preferred.
         :param question:
         :param question_variations: Additional ways of phrasing this question.
@@ -611,33 +659,37 @@ class Answers(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.EditAnswerRequest(
-            id=id,
-            doc_id=doc_id,
-            question=question,
-            question_variations=question_variations,
-            body_text=body_text,
-            board_id=board_id,
-            audience_filters=utils.get_pydantic_model(
-                audience_filters, Optional[List[models.FacetFilter]]
-            ),
-            added_roles=utils.get_pydantic_model(
-                added_roles, Optional[List[models.UserRoleSpecification]]
-            ),
-            removed_roles=utils.get_pydantic_model(
-                removed_roles, Optional[List[models.UserRoleSpecification]]
-            ),
-            roles=utils.get_pydantic_model(
-                roles, Optional[List[models.UserRoleSpecification]]
-            ),
-            source_document_spec=utils.get_pydantic_model(
-                source_document_spec, Optional[models.DocumentSpecUnion]
-            ),
-            source_type=source_type,
-            added_collections=added_collections,
-            removed_collections=removed_collections,
-            combined_answer_text=utils.get_pydantic_model(
-                combined_answer_text, Optional[models.StructuredTextMutableProperties]
+        request = models.EditanswerRequestRequest(
+            locale=locale,
+            edit_answer_request=models.EditAnswerRequest(
+                id=id,
+                doc_id=doc_id,
+                question=question,
+                question_variations=question_variations,
+                body_text=body_text,
+                board_id=board_id,
+                audience_filters=utils.get_pydantic_model(
+                    audience_filters, Optional[List[models.FacetFilter]]
+                ),
+                added_roles=utils.get_pydantic_model(
+                    added_roles, Optional[List[models.UserRoleSpecification]]
+                ),
+                removed_roles=utils.get_pydantic_model(
+                    removed_roles, Optional[List[models.UserRoleSpecification]]
+                ),
+                roles=utils.get_pydantic_model(
+                    roles, Optional[List[models.UserRoleSpecification]]
+                ),
+                source_document_spec=utils.get_pydantic_model(
+                    source_document_spec, Optional[models.DocumentSpecUnion]
+                ),
+                source_type=source_type,
+                added_collections=added_collections,
+                removed_collections=removed_collections,
+                combined_answer_text=utils.get_pydantic_model(
+                    combined_answer_text,
+                    Optional[models.StructuredTextMutableProperties],
+                ),
             ),
         )
 
@@ -655,7 +707,11 @@ class Answers(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.EditAnswerRequest
+                request.edit_answer_request,
+                False,
+                False,
+                "json",
+                models.EditAnswerRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -698,6 +754,7 @@ class Answers(BaseSDK):
     def retrieve(
         self,
         *,
+        locale: Optional[str] = None,
         id: Optional[int] = None,
         doc_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -709,6 +766,7 @@ class Answers(BaseSDK):
 
         Read the details of a particular Answer given its ID.
 
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param id: The opaque ID of the Answer.
         :param doc_id: Glean Document ID of the Answer. The Glean Document ID is supported for cases where the Answer ID isn't available. If both are available, using the Answer ID is preferred.
         :param retries: Override the default retry configuration for this method
@@ -726,9 +784,12 @@ class Answers(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.GetAnswerRequest(
-            id=id,
-            doc_id=doc_id,
+        request = models.GetanswerRequestRequest(
+            locale=locale,
+            get_answer_request=models.GetAnswerRequest(
+                id=id,
+                doc_id=doc_id,
+            ),
         )
 
         req = self._build_request(
@@ -745,7 +806,11 @@ class Answers(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.GetAnswerRequest
+                request.get_answer_request,
+                False,
+                False,
+                "json",
+                models.GetAnswerRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -788,6 +853,7 @@ class Answers(BaseSDK):
     async def retrieve_async(
         self,
         *,
+        locale: Optional[str] = None,
         id: Optional[int] = None,
         doc_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -799,6 +865,7 @@ class Answers(BaseSDK):
 
         Read the details of a particular Answer given its ID.
 
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param id: The opaque ID of the Answer.
         :param doc_id: Glean Document ID of the Answer. The Glean Document ID is supported for cases where the Answer ID isn't available. If both are available, using the Answer ID is preferred.
         :param retries: Override the default retry configuration for this method
@@ -816,9 +883,12 @@ class Answers(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.GetAnswerRequest(
-            id=id,
-            doc_id=doc_id,
+        request = models.GetanswerRequestRequest(
+            locale=locale,
+            get_answer_request=models.GetAnswerRequest(
+                id=id,
+                doc_id=doc_id,
+            ),
         )
 
         req = self._build_request_async(
@@ -835,7 +905,11 @@ class Answers(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.GetAnswerRequest
+                request.get_answer_request,
+                False,
+                False,
+                "json",
+                models.GetAnswerRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -876,11 +950,12 @@ class Answers(BaseSDK):
         raise errors.GleanError("Unexpected response received", http_res)
 
     @deprecated(
-        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+        "warning: ** DEPRECATED ** - Deprecated on 2026-01-21, removal scheduled for 2026-10-15: Answer boards have been removed and this endpoint no longer serves a purpose."
     )
     def list(
         self,
         *,
+        locale: Optional[str] = None,
         board_id: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -891,6 +966,7 @@ class Answers(BaseSDK):
 
         List Answers created by the current user.
 
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param board_id: The Answer Board Id to list answers on.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -907,8 +983,11 @@ class Answers(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.ListAnswersRequest(
-            board_id=board_id,
+        request = models.ListanswersRequestRequest(
+            locale=locale,
+            list_answers_request=models.ListAnswersRequest(
+                board_id=board_id,
+            ),
         )
 
         req = self._build_request(
@@ -925,7 +1004,11 @@ class Answers(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.ListAnswersRequest
+                request.list_answers_request,
+                False,
+                False,
+                "json",
+                models.ListAnswersRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -966,11 +1049,12 @@ class Answers(BaseSDK):
         raise errors.GleanError("Unexpected response received", http_res)
 
     @deprecated(
-        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+        "warning: ** DEPRECATED ** - Deprecated on 2026-01-21, removal scheduled for 2026-10-15: Answer boards have been removed and this endpoint no longer serves a purpose."
     )
     async def list_async(
         self,
         *,
+        locale: Optional[str] = None,
         board_id: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -981,6 +1065,7 @@ class Answers(BaseSDK):
 
         List Answers created by the current user.
 
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param board_id: The Answer Board Id to list answers on.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -997,8 +1082,11 @@ class Answers(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.ListAnswersRequest(
-            board_id=board_id,
+        request = models.ListanswersRequestRequest(
+            locale=locale,
+            list_answers_request=models.ListAnswersRequest(
+                board_id=board_id,
+            ),
         )
 
         req = self._build_request_async(
@@ -1015,7 +1103,11 @@ class Answers(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.ListAnswersRequest
+                request.list_answers_request,
+                False,
+                False,
+                "json",
+                models.ListAnswersRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,

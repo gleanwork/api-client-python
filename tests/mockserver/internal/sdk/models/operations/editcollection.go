@@ -6,6 +6,27 @@ import (
 	"mockserver/internal/sdk/models/components"
 )
 
+type EditcollectionRequest struct {
+	// The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
+	Locale *string `queryParam:"style=form,explode=true,name=locale"`
+	// Collection content plus any additional metadata for the request.
+	Body components.EditCollectionRequest `request:"mediaType=application/json"`
+}
+
+func (o *EditcollectionRequest) GetLocale() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Locale
+}
+
+func (o *EditcollectionRequest) GetBody() components.EditCollectionRequest {
+	if o == nil {
+		return components.EditCollectionRequest{}
+	}
+	return o.Body
+}
+
 type EditcollectionResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// OK
