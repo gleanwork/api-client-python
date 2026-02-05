@@ -2,7 +2,7 @@
 poetry = "latest"
 
 # matches version in .python-version
-python = "3.9"
+python = "3.10"
 
 # needed by speakeasy mockserver
 go = "1.22"
