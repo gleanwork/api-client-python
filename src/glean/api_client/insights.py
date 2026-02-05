@@ -6,13 +6,14 @@ from glean.api_client._hooks import HookContext
 from glean.api_client.types import OptionalNullable, UNSET
 from glean.api_client.utils import get_security_from_env
 from glean.api_client.utils.unmarshal_json_response import unmarshal_json_response
-from typing import List, Mapping, Optional, Union
+from typing import Mapping, Optional, Union
 
 
 class Insights(BaseSDK):
     def retrieve(
         self,
         *,
+        locale: Optional[str] = None,
         overview_request: Optional[
             Union[
                 models.InsightsOverviewRequest, models.InsightsOverviewRequestTypedDict
@@ -30,22 +31,6 @@ class Insights(BaseSDK):
             ]
         ] = None,
         disable_per_user_insights: Optional[bool] = None,
-        categories: Optional[List[models.InsightsRequestCategory]] = None,
-        departments: Optional[List[str]] = None,
-        day_range: Optional[Union[models.Period, models.PeriodTypedDict]] = None,
-        ai_app_request_options: Optional[
-            Union[
-                models.InsightsAiAppRequestOptions,
-                models.InsightsAiAppRequestOptionsTypedDict,
-            ]
-        ] = None,
-        agents_request_options: Optional[
-            Union[
-                models.InsightsAgentsRequestOptions,
-                models.InsightsAgentsRequestOptionsTypedDict,
-            ]
-        ] = None,
-        assistant_activity_types: Optional[List[models.AssistantActivityType]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -55,16 +40,11 @@ class Insights(BaseSDK):
 
         Gets the aggregate usage insights data displayed in the Insights Dashboards.
 
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param overview_request:
         :param assistant_request:
         :param agents_request:
         :param disable_per_user_insights: If true, suppresses the generation of per-user Insights in the response. Default is false.
-        :param categories: Categories of data requested. Request can include single or multiple types.
-        :param departments: Departments that the data is requested for. If this is empty, corresponds to whole company.
-        :param day_range:
-        :param ai_app_request_options:
-        :param agents_request_options:
-        :param assistant_activity_types: Types of activity that should count in the definition of an Assistant Active User. Affects only insights for AI category.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -80,27 +60,20 @@ class Insights(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.InsightsRequest(
-            overview_request=utils.get_pydantic_model(
-                overview_request, Optional[models.InsightsOverviewRequest]
+        request = models.InsightsRequestRequest(
+            locale=locale,
+            insights_request=models.InsightsRequest(
+                overview_request=utils.get_pydantic_model(
+                    overview_request, Optional[models.InsightsOverviewRequest]
+                ),
+                assistant_request=utils.get_pydantic_model(
+                    assistant_request, Optional[models.InsightsAssistantRequest]
+                ),
+                agents_request=utils.get_pydantic_model(
+                    agents_request, Optional[models.AgentsInsightsV2Request]
+                ),
+                disable_per_user_insights=disable_per_user_insights,
             ),
-            assistant_request=utils.get_pydantic_model(
-                assistant_request, Optional[models.InsightsAssistantRequest]
-            ),
-            agents_request=utils.get_pydantic_model(
-                agents_request, Optional[models.AgentsInsightsV2Request]
-            ),
-            disable_per_user_insights=disable_per_user_insights,
-            categories=categories,
-            departments=departments,
-            day_range=utils.get_pydantic_model(day_range, Optional[models.Period]),
-            ai_app_request_options=utils.get_pydantic_model(
-                ai_app_request_options, Optional[models.InsightsAiAppRequestOptions]
-            ),
-            agents_request_options=utils.get_pydantic_model(
-                agents_request_options, Optional[models.InsightsAgentsRequestOptions]
-            ),
-            assistant_activity_types=assistant_activity_types,
         )
 
         req = self._build_request(
@@ -117,7 +90,7 @@ class Insights(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.InsightsRequest
+                request.insights_request, False, False, "json", models.InsightsRequest
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -160,6 +133,7 @@ class Insights(BaseSDK):
     async def retrieve_async(
         self,
         *,
+        locale: Optional[str] = None,
         overview_request: Optional[
             Union[
                 models.InsightsOverviewRequest, models.InsightsOverviewRequestTypedDict
@@ -177,22 +151,6 @@ class Insights(BaseSDK):
             ]
         ] = None,
         disable_per_user_insights: Optional[bool] = None,
-        categories: Optional[List[models.InsightsRequestCategory]] = None,
-        departments: Optional[List[str]] = None,
-        day_range: Optional[Union[models.Period, models.PeriodTypedDict]] = None,
-        ai_app_request_options: Optional[
-            Union[
-                models.InsightsAiAppRequestOptions,
-                models.InsightsAiAppRequestOptionsTypedDict,
-            ]
-        ] = None,
-        agents_request_options: Optional[
-            Union[
-                models.InsightsAgentsRequestOptions,
-                models.InsightsAgentsRequestOptionsTypedDict,
-            ]
-        ] = None,
-        assistant_activity_types: Optional[List[models.AssistantActivityType]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -202,16 +160,11 @@ class Insights(BaseSDK):
 
         Gets the aggregate usage insights data displayed in the Insights Dashboards.
 
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param overview_request:
         :param assistant_request:
         :param agents_request:
         :param disable_per_user_insights: If true, suppresses the generation of per-user Insights in the response. Default is false.
-        :param categories: Categories of data requested. Request can include single or multiple types.
-        :param departments: Departments that the data is requested for. If this is empty, corresponds to whole company.
-        :param day_range:
-        :param ai_app_request_options:
-        :param agents_request_options:
-        :param assistant_activity_types: Types of activity that should count in the definition of an Assistant Active User. Affects only insights for AI category.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -227,27 +180,20 @@ class Insights(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.InsightsRequest(
-            overview_request=utils.get_pydantic_model(
-                overview_request, Optional[models.InsightsOverviewRequest]
+        request = models.InsightsRequestRequest(
+            locale=locale,
+            insights_request=models.InsightsRequest(
+                overview_request=utils.get_pydantic_model(
+                    overview_request, Optional[models.InsightsOverviewRequest]
+                ),
+                assistant_request=utils.get_pydantic_model(
+                    assistant_request, Optional[models.InsightsAssistantRequest]
+                ),
+                agents_request=utils.get_pydantic_model(
+                    agents_request, Optional[models.AgentsInsightsV2Request]
+                ),
+                disable_per_user_insights=disable_per_user_insights,
             ),
-            assistant_request=utils.get_pydantic_model(
-                assistant_request, Optional[models.InsightsAssistantRequest]
-            ),
-            agents_request=utils.get_pydantic_model(
-                agents_request, Optional[models.AgentsInsightsV2Request]
-            ),
-            disable_per_user_insights=disable_per_user_insights,
-            categories=categories,
-            departments=departments,
-            day_range=utils.get_pydantic_model(day_range, Optional[models.Period]),
-            ai_app_request_options=utils.get_pydantic_model(
-                ai_app_request_options, Optional[models.InsightsAiAppRequestOptions]
-            ),
-            agents_request_options=utils.get_pydantic_model(
-                agents_request_options, Optional[models.InsightsAgentsRequestOptions]
-            ),
-            assistant_activity_types=assistant_activity_types,
         )
 
         req = self._build_request_async(
@@ -264,7 +210,7 @@ class Insights(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.InsightsRequest
+                request.insights_request, False, False, "json", models.InsightsRequest
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,

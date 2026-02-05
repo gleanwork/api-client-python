@@ -6,6 +6,27 @@ import (
 	"mockserver/internal/sdk/models/components"
 )
 
+type VerifyRequest struct {
+	// The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
+	Locale *string `queryParam:"style=form,explode=true,name=locale"`
+	// Details about the verification request.
+	Body components.VerifyRequest `request:"mediaType=application/json"`
+}
+
+func (o *VerifyRequest) GetLocale() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Locale
+}
+
+func (o *VerifyRequest) GetBody() components.VerifyRequest {
+	if o == nil {
+		return components.VerifyRequest{}
+	}
+	return o.Body
+}
+
 type VerifyResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// OK

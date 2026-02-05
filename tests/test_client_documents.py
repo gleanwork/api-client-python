@@ -45,7 +45,7 @@ def test_client_documents_getdocumentsbyfacets():
         assert glean is not None
 
         res = glean.client.documents.retrieve_by_facets(
-            request={
+            get_documents_by_facets_request={
                 "filter_sets": [
                     {
                         "filters": [

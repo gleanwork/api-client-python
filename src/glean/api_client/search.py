@@ -15,6 +15,7 @@ class Search(BaseSDK):
         self,
         *,
         query: str,
+        locale: Optional[str] = None,
         timestamp: Optional[datetime] = None,
         tracking_token: Optional[str] = None,
         session_info: Optional[
@@ -48,6 +49,7 @@ class Search(BaseSDK):
         Retrieves results for search query without respect for permissions. This is available only to privileged users.
 
         :param query: The search terms.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param timestamp: The ISO 8601 timestamp associated with the client request.
         :param tracking_token: A previously received trackingToken for a search associated with the same query. Useful for more requests and requests for other tabs.
         :param session_info:
@@ -75,28 +77,31 @@ class Search(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.SearchRequest(
-            timestamp=timestamp,
-            tracking_token=tracking_token,
-            session_info=utils.get_pydantic_model(
-                session_info, Optional[models.SessionInfo]
+        request = models.AdminsearchRequest(
+            locale=locale,
+            search_request=models.SearchRequest(
+                timestamp=timestamp,
+                tracking_token=tracking_token,
+                session_info=utils.get_pydantic_model(
+                    session_info, Optional[models.SessionInfo]
+                ),
+                source_document=utils.get_pydantic_model(
+                    source_document, Optional[models.Document]
+                ),
+                page_size=page_size,
+                max_snippet_size=max_snippet_size,
+                query=query,
+                cursor=cursor,
+                result_tab_ids=result_tab_ids,
+                input_details=utils.get_pydantic_model(
+                    input_details, Optional[models.SearchRequestInputDetails]
+                ),
+                request_options=utils.get_pydantic_model(
+                    request_options, Optional[models.SearchRequestOptions]
+                ),
+                timeout_millis=timeout_millis,
+                disable_spellcheck=disable_spellcheck,
             ),
-            source_document=utils.get_pydantic_model(
-                source_document, Optional[models.Document]
-            ),
-            page_size=page_size,
-            max_snippet_size=max_snippet_size,
-            query=query,
-            cursor=cursor,
-            result_tab_ids=result_tab_ids,
-            input_details=utils.get_pydantic_model(
-                input_details, Optional[models.SearchRequestInputDetails]
-            ),
-            request_options=utils.get_pydantic_model(
-                request_options, Optional[models.SearchRequestOptions]
-            ),
-            timeout_millis=timeout_millis,
-            disable_spellcheck=disable_spellcheck,
         )
 
         req = self._build_request(
@@ -113,7 +118,7 @@ class Search(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.SearchRequest
+                request.search_request, False, False, "json", models.SearchRequest
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -161,6 +166,7 @@ class Search(BaseSDK):
         self,
         *,
         query: str,
+        locale: Optional[str] = None,
         timestamp: Optional[datetime] = None,
         tracking_token: Optional[str] = None,
         session_info: Optional[
@@ -194,6 +200,7 @@ class Search(BaseSDK):
         Retrieves results for search query without respect for permissions. This is available only to privileged users.
 
         :param query: The search terms.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param timestamp: The ISO 8601 timestamp associated with the client request.
         :param tracking_token: A previously received trackingToken for a search associated with the same query. Useful for more requests and requests for other tabs.
         :param session_info:
@@ -221,28 +228,31 @@ class Search(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.SearchRequest(
-            timestamp=timestamp,
-            tracking_token=tracking_token,
-            session_info=utils.get_pydantic_model(
-                session_info, Optional[models.SessionInfo]
+        request = models.AdminsearchRequest(
+            locale=locale,
+            search_request=models.SearchRequest(
+                timestamp=timestamp,
+                tracking_token=tracking_token,
+                session_info=utils.get_pydantic_model(
+                    session_info, Optional[models.SessionInfo]
+                ),
+                source_document=utils.get_pydantic_model(
+                    source_document, Optional[models.Document]
+                ),
+                page_size=page_size,
+                max_snippet_size=max_snippet_size,
+                query=query,
+                cursor=cursor,
+                result_tab_ids=result_tab_ids,
+                input_details=utils.get_pydantic_model(
+                    input_details, Optional[models.SearchRequestInputDetails]
+                ),
+                request_options=utils.get_pydantic_model(
+                    request_options, Optional[models.SearchRequestOptions]
+                ),
+                timeout_millis=timeout_millis,
+                disable_spellcheck=disable_spellcheck,
             ),
-            source_document=utils.get_pydantic_model(
-                source_document, Optional[models.Document]
-            ),
-            page_size=page_size,
-            max_snippet_size=max_snippet_size,
-            query=query,
-            cursor=cursor,
-            result_tab_ids=result_tab_ids,
-            input_details=utils.get_pydantic_model(
-                input_details, Optional[models.SearchRequestInputDetails]
-            ),
-            request_options=utils.get_pydantic_model(
-                request_options, Optional[models.SearchRequestOptions]
-            ),
-            timeout_millis=timeout_millis,
-            disable_spellcheck=disable_spellcheck,
         )
 
         req = self._build_request_async(
@@ -259,7 +269,7 @@ class Search(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.SearchRequest
+                request.search_request, False, False, "json", models.SearchRequest
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -306,6 +316,7 @@ class Search(BaseSDK):
     def autocomplete(
         self,
         *,
+        locale: Optional[str] = None,
         tracking_token: Optional[str] = None,
         session_info: Optional[
             Union[models.SessionInfo, models.SessionInfoTypedDict]
@@ -327,6 +338,7 @@ class Search(BaseSDK):
 
         Retrieve query suggestions, operators and documents for the given partially typed query.
 
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param tracking_token:
         :param session_info:
         :param query: Partially typed query.
@@ -351,18 +363,21 @@ class Search(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.AutocompleteRequest(
-            tracking_token=tracking_token,
-            session_info=utils.get_pydantic_model(
-                session_info, Optional[models.SessionInfo]
-            ),
-            query=query,
-            datasources_filter=datasources_filter,
-            datasource=datasource,
-            result_types=result_types,
-            result_size=result_size,
-            auth_tokens=utils.get_pydantic_model(
-                auth_tokens, Optional[List[models.AuthToken]]
+        request = models.AutocompleteRequestRequest(
+            locale=locale,
+            autocomplete_request=models.AutocompleteRequest(
+                tracking_token=tracking_token,
+                session_info=utils.get_pydantic_model(
+                    session_info, Optional[models.SessionInfo]
+                ),
+                query=query,
+                datasources_filter=datasources_filter,
+                datasource=datasource,
+                result_types=result_types,
+                result_size=result_size,
+                auth_tokens=utils.get_pydantic_model(
+                    auth_tokens, Optional[List[models.AuthToken]]
+                ),
             ),
         )
 
@@ -380,7 +395,11 @@ class Search(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.AutocompleteRequest
+                request.autocomplete_request,
+                False,
+                False,
+                "json",
+                models.AutocompleteRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -423,6 +442,7 @@ class Search(BaseSDK):
     async def autocomplete_async(
         self,
         *,
+        locale: Optional[str] = None,
         tracking_token: Optional[str] = None,
         session_info: Optional[
             Union[models.SessionInfo, models.SessionInfoTypedDict]
@@ -444,6 +464,7 @@ class Search(BaseSDK):
 
         Retrieve query suggestions, operators and documents for the given partially typed query.
 
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param tracking_token:
         :param session_info:
         :param query: Partially typed query.
@@ -468,18 +489,21 @@ class Search(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.AutocompleteRequest(
-            tracking_token=tracking_token,
-            session_info=utils.get_pydantic_model(
-                session_info, Optional[models.SessionInfo]
-            ),
-            query=query,
-            datasources_filter=datasources_filter,
-            datasource=datasource,
-            result_types=result_types,
-            result_size=result_size,
-            auth_tokens=utils.get_pydantic_model(
-                auth_tokens, Optional[List[models.AuthToken]]
+        request = models.AutocompleteRequestRequest(
+            locale=locale,
+            autocomplete_request=models.AutocompleteRequest(
+                tracking_token=tracking_token,
+                session_info=utils.get_pydantic_model(
+                    session_info, Optional[models.SessionInfo]
+                ),
+                query=query,
+                datasources_filter=datasources_filter,
+                datasource=datasource,
+                result_types=result_types,
+                result_size=result_size,
+                auth_tokens=utils.get_pydantic_model(
+                    auth_tokens, Optional[List[models.AuthToken]]
+                ),
             ),
         )
 
@@ -497,7 +521,11 @@ class Search(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.AutocompleteRequest
+                request.autocomplete_request,
+                False,
+                False,
+                "json",
+                models.AutocompleteRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -540,6 +568,7 @@ class Search(BaseSDK):
     def retrieve_feed(
         self,
         *,
+        locale: Optional[str] = None,
         categories: Optional[List[models.FeedRequestCategory]] = None,
         request_options: Optional[
             Union[models.FeedRequestOptions, models.FeedRequestOptionsTypedDict]
@@ -557,6 +586,7 @@ class Search(BaseSDK):
 
         The personalized feed/home includes different types of contents including suggestions, recents, calendar events and many more.
 
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param categories: Categories of content requested. An allowlist gives flexibility to request content separately or together.
         :param request_options:
         :param timeout_millis: Timeout in milliseconds for the request. A `408` error will be returned if handling the request takes longer.
@@ -576,14 +606,17 @@ class Search(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.FeedRequest(
-            categories=categories,
-            request_options=utils.get_pydantic_model(
-                request_options, Optional[models.FeedRequestOptions]
-            ),
-            timeout_millis=timeout_millis,
-            session_info=utils.get_pydantic_model(
-                session_info, Optional[models.SessionInfo]
+        request = models.FeedRequestRequest(
+            locale=locale,
+            feed_request=models.FeedRequest(
+                categories=categories,
+                request_options=utils.get_pydantic_model(
+                    request_options, Optional[models.FeedRequestOptions]
+                ),
+                timeout_millis=timeout_millis,
+                session_info=utils.get_pydantic_model(
+                    session_info, Optional[models.SessionInfo]
+                ),
             ),
         )
 
@@ -601,7 +634,7 @@ class Search(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.FeedRequest
+                request.feed_request, False, False, "json", models.FeedRequest
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -644,6 +677,7 @@ class Search(BaseSDK):
     async def retrieve_feed_async(
         self,
         *,
+        locale: Optional[str] = None,
         categories: Optional[List[models.FeedRequestCategory]] = None,
         request_options: Optional[
             Union[models.FeedRequestOptions, models.FeedRequestOptionsTypedDict]
@@ -661,6 +695,7 @@ class Search(BaseSDK):
 
         The personalized feed/home includes different types of contents including suggestions, recents, calendar events and many more.
 
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param categories: Categories of content requested. An allowlist gives flexibility to request content separately or together.
         :param request_options:
         :param timeout_millis: Timeout in milliseconds for the request. A `408` error will be returned if handling the request takes longer.
@@ -680,14 +715,17 @@ class Search(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.FeedRequest(
-            categories=categories,
-            request_options=utils.get_pydantic_model(
-                request_options, Optional[models.FeedRequestOptions]
-            ),
-            timeout_millis=timeout_millis,
-            session_info=utils.get_pydantic_model(
-                session_info, Optional[models.SessionInfo]
+        request = models.FeedRequestRequest(
+            locale=locale,
+            feed_request=models.FeedRequest(
+                categories=categories,
+                request_options=utils.get_pydantic_model(
+                    request_options, Optional[models.FeedRequestOptions]
+                ),
+                timeout_millis=timeout_millis,
+                session_info=utils.get_pydantic_model(
+                    session_info, Optional[models.SessionInfo]
+                ),
             ),
         )
 
@@ -705,7 +743,7 @@ class Search(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.FeedRequest
+                request.feed_request, False, False, "json", models.FeedRequest
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -748,6 +786,7 @@ class Search(BaseSDK):
     def recommendations(
         self,
         *,
+        locale: Optional[str] = None,
         timestamp: Optional[datetime] = None,
         tracking_token: Optional[str] = None,
         session_info: Optional[
@@ -776,6 +815,7 @@ class Search(BaseSDK):
 
         Retrieve recommended documents for the given URL or Glean Document ID.
 
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param timestamp: The ISO 8601 timestamp associated with the client request.
         :param tracking_token: A previously received trackingToken for a search associated with the same query. Useful for more requests and requests for other tabs.
         :param session_info:
@@ -799,22 +839,25 @@ class Search(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.RecommendationsRequest(
-            timestamp=timestamp,
-            tracking_token=tracking_token,
-            session_info=utils.get_pydantic_model(
-                session_info, Optional[models.SessionInfo]
-            ),
-            source_document=utils.get_pydantic_model(
-                source_document, Optional[models.Document]
-            ),
-            page_size=page_size,
-            max_snippet_size=max_snippet_size,
-            recommendation_document_spec=utils.get_pydantic_model(
-                recommendation_document_spec, Optional[models.DocumentSpecUnion]
-            ),
-            request_options=utils.get_pydantic_model(
-                request_options, Optional[models.RecommendationsRequestOptions]
+        request = models.RecommendationsRequestRequest(
+            locale=locale,
+            recommendations_request=models.RecommendationsRequest(
+                timestamp=timestamp,
+                tracking_token=tracking_token,
+                session_info=utils.get_pydantic_model(
+                    session_info, Optional[models.SessionInfo]
+                ),
+                source_document=utils.get_pydantic_model(
+                    source_document, Optional[models.Document]
+                ),
+                page_size=page_size,
+                max_snippet_size=max_snippet_size,
+                recommendation_document_spec=utils.get_pydantic_model(
+                    recommendation_document_spec, Optional[models.DocumentSpecUnion]
+                ),
+                request_options=utils.get_pydantic_model(
+                    request_options, Optional[models.RecommendationsRequestOptions]
+                ),
             ),
         )
 
@@ -832,7 +875,11 @@ class Search(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.RecommendationsRequest
+                request.recommendations_request,
+                False,
+                False,
+                "json",
+                models.RecommendationsRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -877,6 +924,7 @@ class Search(BaseSDK):
     async def recommendations_async(
         self,
         *,
+        locale: Optional[str] = None,
         timestamp: Optional[datetime] = None,
         tracking_token: Optional[str] = None,
         session_info: Optional[
@@ -905,6 +953,7 @@ class Search(BaseSDK):
 
         Retrieve recommended documents for the given URL or Glean Document ID.
 
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param timestamp: The ISO 8601 timestamp associated with the client request.
         :param tracking_token: A previously received trackingToken for a search associated with the same query. Useful for more requests and requests for other tabs.
         :param session_info:
@@ -928,22 +977,25 @@ class Search(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.RecommendationsRequest(
-            timestamp=timestamp,
-            tracking_token=tracking_token,
-            session_info=utils.get_pydantic_model(
-                session_info, Optional[models.SessionInfo]
-            ),
-            source_document=utils.get_pydantic_model(
-                source_document, Optional[models.Document]
-            ),
-            page_size=page_size,
-            max_snippet_size=max_snippet_size,
-            recommendation_document_spec=utils.get_pydantic_model(
-                recommendation_document_spec, Optional[models.DocumentSpecUnion]
-            ),
-            request_options=utils.get_pydantic_model(
-                request_options, Optional[models.RecommendationsRequestOptions]
+        request = models.RecommendationsRequestRequest(
+            locale=locale,
+            recommendations_request=models.RecommendationsRequest(
+                timestamp=timestamp,
+                tracking_token=tracking_token,
+                session_info=utils.get_pydantic_model(
+                    session_info, Optional[models.SessionInfo]
+                ),
+                source_document=utils.get_pydantic_model(
+                    source_document, Optional[models.Document]
+                ),
+                page_size=page_size,
+                max_snippet_size=max_snippet_size,
+                recommendation_document_spec=utils.get_pydantic_model(
+                    recommendation_document_spec, Optional[models.DocumentSpecUnion]
+                ),
+                request_options=utils.get_pydantic_model(
+                    request_options, Optional[models.RecommendationsRequestOptions]
+                ),
             ),
         )
 
@@ -961,7 +1013,11 @@ class Search(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.RecommendationsRequest
+                request.recommendations_request,
+                False,
+                False,
+                "json",
+                models.RecommendationsRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -1007,6 +1063,7 @@ class Search(BaseSDK):
         self,
         *,
         query: str,
+        locale: Optional[str] = None,
         timestamp: Optional[datetime] = None,
         tracking_token: Optional[str] = None,
         session_info: Optional[
@@ -1040,6 +1097,7 @@ class Search(BaseSDK):
         Retrieve results from the index for the given query and filters.
 
         :param query: The search terms.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param timestamp: The ISO 8601 timestamp associated with the client request.
         :param tracking_token: A previously received trackingToken for a search associated with the same query. Useful for more requests and requests for other tabs.
         :param session_info:
@@ -1067,28 +1125,31 @@ class Search(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.SearchRequest(
-            timestamp=timestamp,
-            tracking_token=tracking_token,
-            session_info=utils.get_pydantic_model(
-                session_info, Optional[models.SessionInfo]
+        request = models.SearchRequestRequest(
+            locale=locale,
+            search_request=models.SearchRequest(
+                timestamp=timestamp,
+                tracking_token=tracking_token,
+                session_info=utils.get_pydantic_model(
+                    session_info, Optional[models.SessionInfo]
+                ),
+                source_document=utils.get_pydantic_model(
+                    source_document, Optional[models.Document]
+                ),
+                page_size=page_size,
+                max_snippet_size=max_snippet_size,
+                query=query,
+                cursor=cursor,
+                result_tab_ids=result_tab_ids,
+                input_details=utils.get_pydantic_model(
+                    input_details, Optional[models.SearchRequestInputDetails]
+                ),
+                request_options=utils.get_pydantic_model(
+                    request_options, Optional[models.SearchRequestOptions]
+                ),
+                timeout_millis=timeout_millis,
+                disable_spellcheck=disable_spellcheck,
             ),
-            source_document=utils.get_pydantic_model(
-                source_document, Optional[models.Document]
-            ),
-            page_size=page_size,
-            max_snippet_size=max_snippet_size,
-            query=query,
-            cursor=cursor,
-            result_tab_ids=result_tab_ids,
-            input_details=utils.get_pydantic_model(
-                input_details, Optional[models.SearchRequestInputDetails]
-            ),
-            request_options=utils.get_pydantic_model(
-                request_options, Optional[models.SearchRequestOptions]
-            ),
-            timeout_millis=timeout_millis,
-            disable_spellcheck=disable_spellcheck,
         )
 
         req = self._build_request(
@@ -1105,7 +1166,7 @@ class Search(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.SearchRequest
+                request.search_request, False, False, "json", models.SearchRequest
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -1153,6 +1214,7 @@ class Search(BaseSDK):
         self,
         *,
         query: str,
+        locale: Optional[str] = None,
         timestamp: Optional[datetime] = None,
         tracking_token: Optional[str] = None,
         session_info: Optional[
@@ -1186,6 +1248,7 @@ class Search(BaseSDK):
         Retrieve results from the index for the given query and filters.
 
         :param query: The search terms.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param timestamp: The ISO 8601 timestamp associated with the client request.
         :param tracking_token: A previously received trackingToken for a search associated with the same query. Useful for more requests and requests for other tabs.
         :param session_info:
@@ -1213,28 +1276,31 @@ class Search(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.SearchRequest(
-            timestamp=timestamp,
-            tracking_token=tracking_token,
-            session_info=utils.get_pydantic_model(
-                session_info, Optional[models.SessionInfo]
+        request = models.SearchRequestRequest(
+            locale=locale,
+            search_request=models.SearchRequest(
+                timestamp=timestamp,
+                tracking_token=tracking_token,
+                session_info=utils.get_pydantic_model(
+                    session_info, Optional[models.SessionInfo]
+                ),
+                source_document=utils.get_pydantic_model(
+                    source_document, Optional[models.Document]
+                ),
+                page_size=page_size,
+                max_snippet_size=max_snippet_size,
+                query=query,
+                cursor=cursor,
+                result_tab_ids=result_tab_ids,
+                input_details=utils.get_pydantic_model(
+                    input_details, Optional[models.SearchRequestInputDetails]
+                ),
+                request_options=utils.get_pydantic_model(
+                    request_options, Optional[models.SearchRequestOptions]
+                ),
+                timeout_millis=timeout_millis,
+                disable_spellcheck=disable_spellcheck,
             ),
-            source_document=utils.get_pydantic_model(
-                source_document, Optional[models.Document]
-            ),
-            page_size=page_size,
-            max_snippet_size=max_snippet_size,
-            query=query,
-            cursor=cursor,
-            result_tab_ids=result_tab_ids,
-            input_details=utils.get_pydantic_model(
-                input_details, Optional[models.SearchRequestInputDetails]
-            ),
-            request_options=utils.get_pydantic_model(
-                request_options, Optional[models.SearchRequestOptions]
-            ),
-            timeout_millis=timeout_millis,
-            disable_spellcheck=disable_spellcheck,
         )
 
         req = self._build_request_async(
@@ -1251,7 +1317,7 @@ class Search(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.SearchRequest
+                request.search_request, False, False, "json", models.SearchRequest
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,

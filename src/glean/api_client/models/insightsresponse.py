@@ -5,18 +5,9 @@ from .agentsinsightsv2response import (
     AgentsInsightsV2Response,
     AgentsInsightsV2ResponseTypedDict,
 )
-from .aiappsinsightsresponse import (
-    AiAppsInsightsResponse,
-    AiAppsInsightsResponseTypedDict,
-)
-from .aiinsightsresponse import AiInsightsResponse, AiInsightsResponseTypedDict
 from .assistantinsightsresponse import (
     AssistantInsightsResponse,
     AssistantInsightsResponseTypedDict,
-)
-from .contentinsightsresponse import (
-    ContentInsightsResponse,
-    ContentInsightsResponseTypedDict,
 )
 from .gleanassistinsightsresponse import (
     GleanAssistInsightsResponse,
@@ -26,85 +17,24 @@ from .insightsoverviewresponse import (
     InsightsOverviewResponse,
     InsightsOverviewResponseTypedDict,
 )
-from .labeledcountinfo import LabeledCountInfo, LabeledCountInfoTypedDict
-from .queryinsightsresponse import QueryInsightsResponse, QueryInsightsResponseTypedDict
-from .shortcutinsightsresponse import (
-    ShortcutInsightsResponse,
-    ShortcutInsightsResponseTypedDict,
-)
-from .userinsightsresponse import UserInsightsResponse, UserInsightsResponseTypedDict
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
 from pydantic import model_serializer
-from typing import List, Optional
+from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class InsightsResponseTypedDict(TypedDict):
-    timeseries: NotRequired[List[LabeledCountInfoTypedDict]]
-    r"""List of timeseries to make charts (if applicable)."""
-    users: NotRequired[UserInsightsResponseTypedDict]
-    content: NotRequired[ContentInsightsResponseTypedDict]
-    queries: NotRequired[QueryInsightsResponseTypedDict]
-    collections: NotRequired[ContentInsightsResponseTypedDict]
-    collections_v2: NotRequired[ContentInsightsResponseTypedDict]
-    shortcuts: NotRequired[ShortcutInsightsResponseTypedDict]
-    announcements: NotRequired[ContentInsightsResponseTypedDict]
-    answers: NotRequired[ContentInsightsResponseTypedDict]
-    ai: NotRequired[AiInsightsResponseTypedDict]
-    ai_apps: NotRequired[AiAppsInsightsResponseTypedDict]
     glean_assist: NotRequired[GleanAssistInsightsResponseTypedDict]
-    departments: NotRequired[List[str]]
-    r"""list of all departments."""
     overview_response: NotRequired[InsightsOverviewResponseTypedDict]
     assistant_response: NotRequired[AssistantInsightsResponseTypedDict]
     agents_response: NotRequired[AgentsInsightsV2ResponseTypedDict]
 
 
 class InsightsResponse(BaseModel):
-    timeseries: Annotated[
-        Optional[List[LabeledCountInfo]],
-        pydantic.Field(
-            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
-        ),
-    ] = None
-    r"""List of timeseries to make charts (if applicable)."""
-
-    users: Optional[UserInsightsResponse] = None
-
-    content: Optional[ContentInsightsResponse] = None
-
-    queries: Optional[QueryInsightsResponse] = None
-
-    collections: Optional[ContentInsightsResponse] = None
-
-    collections_v2: Annotated[
-        Optional[ContentInsightsResponse], pydantic.Field(alias="collectionsV2")
-    ] = None
-
-    shortcuts: Optional[ShortcutInsightsResponse] = None
-
-    announcements: Optional[ContentInsightsResponse] = None
-
-    answers: Optional[ContentInsightsResponse] = None
-
-    ai: Optional[AiInsightsResponse] = None
-
-    ai_apps: Annotated[
-        Optional[AiAppsInsightsResponse], pydantic.Field(alias="aiApps")
-    ] = None
-
     glean_assist: Annotated[
         Optional[GleanAssistInsightsResponse], pydantic.Field(alias="gleanAssist")
     ] = None
-
-    departments: Annotated[
-        Optional[List[str]],
-        pydantic.Field(
-            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
-        ),
-    ] = None
-    r"""list of all departments."""
 
     overview_response: Annotated[
         Optional[InsightsOverviewResponse], pydantic.Field(alias="overviewResponse")
@@ -121,24 +51,7 @@ class InsightsResponse(BaseModel):
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            [
-                "timeseries",
-                "users",
-                "content",
-                "queries",
-                "collections",
-                "collectionsV2",
-                "shortcuts",
-                "announcements",
-                "answers",
-                "ai",
-                "aiApps",
-                "gleanAssist",
-                "departments",
-                "overviewResponse",
-                "assistantResponse",
-                "agentsResponse",
-            ]
+            ["gleanAssist", "overviewResponse", "assistantResponse", "agentsResponse"]
         )
         serialized = handler(self)
         m = {}

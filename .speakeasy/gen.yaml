@@ -24,6 +24,7 @@ generation:
   schemas:
     allOfMergeStrategy: shallowMerge
   requestBodyFieldName: ""
+  versioningStrategy: automatic
   mockServer:
     disabled: false
   persistentEdits: {}
@@ -32,7 +33,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: true
 python:
-  version: 0.11.27
+  version: 0.12.0
   additionalDependencies:
     dev: {}
     main: {}

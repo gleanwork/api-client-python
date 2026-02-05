@@ -3,10 +3,10 @@
 from .basesdk import BaseSDK
 from glean.api_client import errors, models, utils
 from glean.api_client._hooks import HookContext
-from glean.api_client.types import BaseModel, OptionalNullable, UNSET
+from glean.api_client.types import OptionalNullable, UNSET
 from glean.api_client.utils import get_security_from_env
 from glean.api_client.utils.unmarshal_json_response import unmarshal_json_response
-from typing import List, Mapping, Optional, Union, cast
+from typing import List, Mapping, Optional, Union
 
 
 class ClientShortcuts(BaseSDK):
@@ -16,6 +16,7 @@ class ClientShortcuts(BaseSDK):
         data: Union[
             models.ShortcutMutableProperties, models.ShortcutMutablePropertiesTypedDict
         ],
+        locale: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -26,6 +27,7 @@ class ClientShortcuts(BaseSDK):
         Create a user-generated shortcut that contains an alias and destination URL.
 
         :param data:
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -41,8 +43,11 @@ class ClientShortcuts(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.CreateShortcutRequest(
-            data=utils.get_pydantic_model(data, models.ShortcutMutableProperties),
+        request = models.CreateshortcutRequestRequest(
+            locale=locale,
+            create_shortcut_request=models.CreateShortcutRequest(
+                data=utils.get_pydantic_model(data, models.ShortcutMutableProperties),
+            ),
         )
 
         req = self._build_request(
@@ -59,7 +64,11 @@ class ClientShortcuts(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.CreateShortcutRequest
+                request.create_shortcut_request,
+                False,
+                False,
+                "json",
+                models.CreateShortcutRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -105,6 +114,7 @@ class ClientShortcuts(BaseSDK):
         data: Union[
             models.ShortcutMutableProperties, models.ShortcutMutablePropertiesTypedDict
         ],
+        locale: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -115,6 +125,7 @@ class ClientShortcuts(BaseSDK):
         Create a user-generated shortcut that contains an alias and destination URL.
 
         :param data:
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -130,8 +141,11 @@ class ClientShortcuts(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.CreateShortcutRequest(
-            data=utils.get_pydantic_model(data, models.ShortcutMutableProperties),
+        request = models.CreateshortcutRequestRequest(
+            locale=locale,
+            create_shortcut_request=models.CreateShortcutRequest(
+                data=utils.get_pydantic_model(data, models.ShortcutMutableProperties),
+            ),
         )
 
         req = self._build_request_async(
@@ -148,7 +162,11 @@ class ClientShortcuts(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.CreateShortcutRequest
+                request.create_shortcut_request,
+                False,
+                False,
+                "json",
+                models.CreateShortcutRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -192,6 +210,7 @@ class ClientShortcuts(BaseSDK):
         self,
         *,
         id: int,
+        locale: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -202,6 +221,7 @@ class ClientShortcuts(BaseSDK):
         Delete an existing user-generated shortcut.
 
         :param id: The opaque id of the user generated content.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -217,8 +237,11 @@ class ClientShortcuts(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.DeleteShortcutRequest(
-            id=id,
+        request = models.DeleteshortcutRequestRequest(
+            locale=locale,
+            delete_shortcut_request=models.DeleteShortcutRequest(
+                id=id,
+            ),
         )
 
         req = self._build_request(
@@ -235,7 +258,11 @@ class ClientShortcuts(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.DeleteShortcutRequest
+                request.delete_shortcut_request,
+                False,
+                False,
+                "json",
+                models.DeleteShortcutRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -279,6 +306,7 @@ class ClientShortcuts(BaseSDK):
         self,
         *,
         id: int,
+        locale: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -289,6 +317,7 @@ class ClientShortcuts(BaseSDK):
         Delete an existing user-generated shortcut.
 
         :param id: The opaque id of the user generated content.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -304,8 +333,11 @@ class ClientShortcuts(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.DeleteShortcutRequest(
-            id=id,
+        request = models.DeleteshortcutRequestRequest(
+            locale=locale,
+            delete_shortcut_request=models.DeleteShortcutRequest(
+                id=id,
+            ),
         )
 
         req = self._build_request_async(
@@ -322,7 +354,11 @@ class ClientShortcuts(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.DeleteShortcutRequest
+                request.delete_shortcut_request,
+                False,
+                False,
+                "json",
+                models.DeleteShortcutRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -365,9 +401,10 @@ class ClientShortcuts(BaseSDK):
     def retrieve(
         self,
         *,
-        request: Union[
-            models.GetShortcutRequestUnion, models.GetShortcutRequestUnionTypedDict
+        get_shortcut_request: Union[
+            models.GetShortcutRequest, models.GetShortcutRequestTypedDict
         ],
+        locale: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -377,7 +414,8 @@ class ClientShortcuts(BaseSDK):
 
         Read a particular shortcut's details given its ID.
 
-        :param request: The request object to send.
+        :param get_shortcut_request: GetShortcut request
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -393,9 +431,12 @@ class ClientShortcuts(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.GetShortcutRequestUnion)
-        request = cast(models.GetShortcutRequestUnion, request)
+        request = models.GetshortcutRequestRequest(
+            locale=locale,
+            get_shortcut_request=utils.get_pydantic_model(
+                get_shortcut_request, models.GetShortcutRequest
+            ),
+        )
 
         req = self._build_request(
             method="POST",
@@ -411,7 +452,11 @@ class ClientShortcuts(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.GetShortcutRequestUnion
+                request.get_shortcut_request,
+                False,
+                False,
+                "json",
+                models.GetShortcutRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -454,9 +499,10 @@ class ClientShortcuts(BaseSDK):
     async def retrieve_async(
         self,
         *,
-        request: Union[
-            models.GetShortcutRequestUnion, models.GetShortcutRequestUnionTypedDict
+        get_shortcut_request: Union[
+            models.GetShortcutRequest, models.GetShortcutRequestTypedDict
         ],
+        locale: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -466,7 +512,8 @@ class ClientShortcuts(BaseSDK):
 
         Read a particular shortcut's details given its ID.
 
-        :param request: The request object to send.
+        :param get_shortcut_request: GetShortcut request
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -482,9 +529,12 @@ class ClientShortcuts(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.GetShortcutRequestUnion)
-        request = cast(models.GetShortcutRequestUnion, request)
+        request = models.GetshortcutRequestRequest(
+            locale=locale,
+            get_shortcut_request=utils.get_pydantic_model(
+                get_shortcut_request, models.GetShortcutRequest
+            ),
+        )
 
         req = self._build_request_async(
             method="POST",
@@ -500,7 +550,11 @@ class ClientShortcuts(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.GetShortcutRequestUnion
+                request.get_shortcut_request,
+                False,
+                False,
+                "json",
+                models.GetShortcutRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -544,6 +598,7 @@ class ClientShortcuts(BaseSDK):
         self,
         *,
         page_size: int,
+        locale: Optional[str] = None,
         include_fields: Optional[
             List[models.ListShortcutsPaginatedRequestIncludeField]
         ] = None,
@@ -563,6 +618,7 @@ class ClientShortcuts(BaseSDK):
         List shortcuts editable/owned by the currently authenticated user.
 
         :param page_size:
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param include_fields: Array of fields/data to be included in response that are not included by default
         :param cursor: A token specifying the position in the overall results to start at. Received from the endpoint and iterated back. Currently being used as page no (as we implement offset pagination)
         :param filters: A list of filters for the query. An AND is assumed between different filters. We support filters on Go Link name, author, department and type.
@@ -583,15 +639,18 @@ class ClientShortcuts(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.ListShortcutsPaginatedRequest(
-            include_fields=include_fields,
-            page_size=page_size,
-            cursor=cursor,
-            filters=utils.get_pydantic_model(
-                filters, Optional[List[models.FacetFilter]]
+        request = models.ListshortcutsRequest(
+            locale=locale,
+            list_shortcuts_paginated_request=models.ListShortcutsPaginatedRequest(
+                include_fields=include_fields,
+                page_size=page_size,
+                cursor=cursor,
+                filters=utils.get_pydantic_model(
+                    filters, Optional[List[models.FacetFilter]]
+                ),
+                sort=utils.get_pydantic_model(sort, Optional[models.SortOptions]),
+                query=query,
             ),
-            sort=utils.get_pydantic_model(sort, Optional[models.SortOptions]),
-            query=query,
         )
 
         req = self._build_request(
@@ -608,7 +667,11 @@ class ClientShortcuts(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.ListShortcutsPaginatedRequest
+                request.list_shortcuts_paginated_request,
+                False,
+                False,
+                "json",
+                models.ListShortcutsPaginatedRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -654,6 +717,7 @@ class ClientShortcuts(BaseSDK):
         self,
         *,
         page_size: int,
+        locale: Optional[str] = None,
         include_fields: Optional[
             List[models.ListShortcutsPaginatedRequestIncludeField]
         ] = None,
@@ -673,6 +737,7 @@ class ClientShortcuts(BaseSDK):
         List shortcuts editable/owned by the currently authenticated user.
 
         :param page_size:
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param include_fields: Array of fields/data to be included in response that are not included by default
         :param cursor: A token specifying the position in the overall results to start at. Received from the endpoint and iterated back. Currently being used as page no (as we implement offset pagination)
         :param filters: A list of filters for the query. An AND is assumed between different filters. We support filters on Go Link name, author, department and type.
@@ -693,15 +758,18 @@ class ClientShortcuts(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.ListShortcutsPaginatedRequest(
-            include_fields=include_fields,
-            page_size=page_size,
-            cursor=cursor,
-            filters=utils.get_pydantic_model(
-                filters, Optional[List[models.FacetFilter]]
+        request = models.ListshortcutsRequest(
+            locale=locale,
+            list_shortcuts_paginated_request=models.ListShortcutsPaginatedRequest(
+                include_fields=include_fields,
+                page_size=page_size,
+                cursor=cursor,
+                filters=utils.get_pydantic_model(
+                    filters, Optional[List[models.FacetFilter]]
+                ),
+                sort=utils.get_pydantic_model(sort, Optional[models.SortOptions]),
+                query=query,
             ),
-            sort=utils.get_pydantic_model(sort, Optional[models.SortOptions]),
-            query=query,
         )
 
         req = self._build_request_async(
@@ -718,7 +786,11 @@ class ClientShortcuts(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.ListShortcutsPaginatedRequest
+                request.list_shortcuts_paginated_request,
+                False,
+                False,
+                "json",
+                models.ListShortcutsPaginatedRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -764,6 +836,7 @@ class ClientShortcuts(BaseSDK):
         self,
         *,
         id: int,
+        locale: Optional[str] = None,
         input_alias: Optional[str] = None,
         destination_url: Optional[str] = None,
         destination_document_id: Optional[str] = None,
@@ -792,6 +865,7 @@ class ClientShortcuts(BaseSDK):
         Updates the shortcut with the given ID.
 
         :param id: The opaque id of the user generated content.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param input_alias: Link text following go/ prefix as entered by the user.
         :param destination_url: Destination URL for the shortcut.
         :param destination_document_id: Glean Document ID for the URL, if known.
@@ -815,19 +889,22 @@ class ClientShortcuts(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.UpdateShortcutRequest(
-            id=id,
-            input_alias=input_alias,
-            destination_url=destination_url,
-            destination_document_id=destination_document_id,
-            description=description,
-            unlisted=unlisted,
-            url_template=url_template,
-            added_roles=utils.get_pydantic_model(
-                added_roles, Optional[List[models.UserRoleSpecification]]
-            ),
-            removed_roles=utils.get_pydantic_model(
-                removed_roles, Optional[List[models.UserRoleSpecification]]
+        request = models.UpdateshortcutRequestRequest(
+            locale=locale,
+            update_shortcut_request=models.UpdateShortcutRequest(
+                id=id,
+                input_alias=input_alias,
+                destination_url=destination_url,
+                destination_document_id=destination_document_id,
+                description=description,
+                unlisted=unlisted,
+                url_template=url_template,
+                added_roles=utils.get_pydantic_model(
+                    added_roles, Optional[List[models.UserRoleSpecification]]
+                ),
+                removed_roles=utils.get_pydantic_model(
+                    removed_roles, Optional[List[models.UserRoleSpecification]]
+                ),
             ),
         )
 
@@ -845,7 +922,11 @@ class ClientShortcuts(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.UpdateShortcutRequest
+                request.update_shortcut_request,
+                False,
+                False,
+                "json",
+                models.UpdateShortcutRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -889,6 +970,7 @@ class ClientShortcuts(BaseSDK):
         self,
         *,
         id: int,
+        locale: Optional[str] = None,
         input_alias: Optional[str] = None,
         destination_url: Optional[str] = None,
         destination_document_id: Optional[str] = None,
@@ -917,6 +999,7 @@ class ClientShortcuts(BaseSDK):
         Updates the shortcut with the given ID.
 
         :param id: The opaque id of the user generated content.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param input_alias: Link text following go/ prefix as entered by the user.
         :param destination_url: Destination URL for the shortcut.
         :param destination_document_id: Glean Document ID for the URL, if known.
@@ -940,19 +1023,22 @@ class ClientShortcuts(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.UpdateShortcutRequest(
-            id=id,
-            input_alias=input_alias,
-            destination_url=destination_url,
-            destination_document_id=destination_document_id,
-            description=description,
-            unlisted=unlisted,
-            url_template=url_template,
-            added_roles=utils.get_pydantic_model(
-                added_roles, Optional[List[models.UserRoleSpecification]]
-            ),
-            removed_roles=utils.get_pydantic_model(
-                removed_roles, Optional[List[models.UserRoleSpecification]]
+        request = models.UpdateshortcutRequestRequest(
+            locale=locale,
+            update_shortcut_request=models.UpdateShortcutRequest(
+                id=id,
+                input_alias=input_alias,
+                destination_url=destination_url,
+                destination_document_id=destination_document_id,
+                description=description,
+                unlisted=unlisted,
+                url_template=url_template,
+                added_roles=utils.get_pydantic_model(
+                    added_roles, Optional[List[models.UserRoleSpecification]]
+                ),
+                removed_roles=utils.get_pydantic_model(
+                    removed_roles, Optional[List[models.UserRoleSpecification]]
+                ),
             ),
         )
 
@@ -970,7 +1056,11 @@ class ClientShortcuts(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.UpdateShortcutRequest
+                request.update_shortcut_request,
+                False,
+                False,
+                "json",
+                models.UpdateShortcutRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,

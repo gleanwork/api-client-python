@@ -6,6 +6,27 @@ import (
 	"mockserver/internal/sdk/models/components"
 )
 
+type UpdateannouncementRequest struct {
+	// The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
+	Locale *string `queryParam:"style=form,explode=true,name=locale"`
+	// Announcement content. Id need to be specified for the announcement.
+	Body components.UpdateAnnouncementRequest `request:"mediaType=application/json"`
+}
+
+func (o *UpdateannouncementRequest) GetLocale() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Locale
+}
+
+func (o *UpdateannouncementRequest) GetBody() components.UpdateAnnouncementRequest {
+	if o == nil {
+		return components.UpdateAnnouncementRequest{}
+	}
+	return o.Body
+}
+
 type UpdateannouncementResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// OK

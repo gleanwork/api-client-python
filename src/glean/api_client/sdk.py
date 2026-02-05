@@ -61,8 +61,6 @@ class Glean(BaseSDK):
         retry_config: OptionalNullable[RetryConfig] = UNSET,
         timeout_ms: Optional[int] = None,
         debug_logger: Optional[Logger] = None,
-        exclude_deprecated_after: Optional[str] = None,
-        include_experimental: Optional[bool] = None,
     ) -> None:
         r"""Instantiates the SDK configuring it with the provided parameters.
 
@@ -75,8 +73,6 @@ class Glean(BaseSDK):
         :param async_client: The Async HTTP client to use for all asynchronous methods
         :param retry_config: The retry configuration to use for all supported methods
         :param timeout_ms: Optional request timeout applied to each operation in milliseconds
-        :param exclude_deprecated_after: Exclude API endpoints deprecated after this date (YYYY-MM-DD)
-        :param include_experimental: When True, enables experimental API features
         """
         client_supplied = True
         if client is None:
@@ -129,8 +125,6 @@ class Glean(BaseSDK):
                 retry_config=retry_config,
                 timeout_ms=timeout_ms,
                 debug_logger=debug_logger,
-                exclude_deprecated_after=exclude_deprecated_after,
-                include_experimental=include_experimental,
             ),
             parent_ref=self,
         )

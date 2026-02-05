@@ -5,14 +5,6 @@ from .agentsinsightsv2request import (
     AgentsInsightsV2Request,
     AgentsInsightsV2RequestTypedDict,
 )
-from .insightsagentsrequestoptions import (
-    InsightsAgentsRequestOptions,
-    InsightsAgentsRequestOptionsTypedDict,
-)
-from .insightsaiapprequestoptions import (
-    InsightsAiAppRequestOptions,
-    InsightsAiAppRequestOptionsTypedDict,
-)
 from .insightsassistantrequest import (
     InsightsAssistantRequest,
     InsightsAssistantRequestTypedDict,
@@ -21,37 +13,11 @@ from .insightsoverviewrequest import (
     InsightsOverviewRequest,
     InsightsOverviewRequestTypedDict,
 )
-from .period import Period, PeriodTypedDict
-from enum import Enum
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
 from pydantic import model_serializer
-from typing import List, Optional
+from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
-
-
-class InsightsRequestCategory(str, Enum):
-    AGENTS = "AGENTS"
-    AGENT_USERS = "AGENT_USERS"
-    TOP_AGENTS = "TOP_AGENTS"
-    AGENTS_USAGE_BY_DEPARTMENT = "AGENTS_USAGE_BY_DEPARTMENT"
-    AI = "AI"
-    AI_APPS = "AI_APPS"
-    ANNOUNCEMENTS = "ANNOUNCEMENTS"
-    ANSWERS = "ANSWERS"
-    COLLECTIONS = "COLLECTIONS"
-    CONTENT = "CONTENT"
-    GLEAN_ASSIST = "GLEAN_ASSIST"
-    QUERIES = "QUERIES"
-    SHORTCUTS = "SHORTCUTS"
-    USERS = "USERS"
-
-
-class AssistantActivityType(str, Enum):
-    GLEAN_CHAT = "GLEAN_CHAT"
-    AI_SUMMARY = "AI_SUMMARY"
-    AI_ANSWER = "AI_ANSWER"
-    GLEANBOT_RESPONSE = "GLEANBOT_RESPONSE"
 
 
 class InsightsRequestTypedDict(TypedDict):
@@ -60,15 +26,6 @@ class InsightsRequestTypedDict(TypedDict):
     agents_request: NotRequired[AgentsInsightsV2RequestTypedDict]
     disable_per_user_insights: NotRequired[bool]
     r"""If true, suppresses the generation of per-user Insights in the response. Default is false."""
-    categories: NotRequired[List[InsightsRequestCategory]]
-    r"""Categories of data requested. Request can include single or multiple types."""
-    departments: NotRequired[List[str]]
-    r"""Departments that the data is requested for. If this is empty, corresponds to whole company."""
-    day_range: NotRequired[PeriodTypedDict]
-    ai_app_request_options: NotRequired[InsightsAiAppRequestOptionsTypedDict]
-    agents_request_options: NotRequired[InsightsAgentsRequestOptionsTypedDict]
-    assistant_activity_types: NotRequired[List[AssistantActivityType]]
-    r"""Types of activity that should count in the definition of an Assistant Active User. Affects only insights for AI category."""
 
 
 class InsightsRequest(BaseModel):
@@ -89,43 +46,6 @@ class InsightsRequest(BaseModel):
     ] = None
     r"""If true, suppresses the generation of per-user Insights in the response. Default is false."""
 
-    categories: Annotated[
-        Optional[List[InsightsRequestCategory]],
-        pydantic.Field(
-            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
-        ),
-    ] = None
-    r"""Categories of data requested. Request can include single or multiple types."""
-
-    departments: Annotated[
-        Optional[List[str]],
-        pydantic.Field(
-            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
-        ),
-    ] = None
-    r"""Departments that the data is requested for. If this is empty, corresponds to whole company."""
-
-    day_range: Annotated[Optional[Period], pydantic.Field(alias="dayRange")] = None
-
-    ai_app_request_options: Annotated[
-        Optional[InsightsAiAppRequestOptions],
-        pydantic.Field(alias="aiAppRequestOptions"),
-    ] = None
-
-    agents_request_options: Annotated[
-        Optional[InsightsAgentsRequestOptions],
-        pydantic.Field(alias="agentsRequestOptions"),
-    ] = None
-
-    assistant_activity_types: Annotated[
-        Optional[List[AssistantActivityType]],
-        pydantic.Field(
-            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible.",
-            alias="assistantActivityTypes",
-        ),
-    ] = None
-    r"""Types of activity that should count in the definition of an Assistant Active User. Affects only insights for AI category."""
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -134,12 +54,6 @@ class InsightsRequest(BaseModel):
                 "assistantRequest",
                 "agentsRequest",
                 "disablePerUserInsights",
-                "categories",
-                "departments",
-                "dayRange",
-                "aiAppRequestOptions",
-                "agentsRequestOptions",
-                "assistantActivityTypes",
             ]
         )
         serialized = handler(self)

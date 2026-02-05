@@ -11,6 +11,8 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 class ListverificationsRequestTypedDict(TypedDict):
     count: NotRequired[int]
     r"""Maximum number of documents to return"""
+    locale: NotRequired[str]
+    r"""The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`."""
 
 
 class ListverificationsRequest(BaseModel):
@@ -20,9 +22,15 @@ class ListverificationsRequest(BaseModel):
     ] = None
     r"""Maximum number of documents to return"""
 
+    locale: Annotated[
+        Optional[str],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+    r"""The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["count"])
+        optional_fields = set(["count", "locale"])
         serialized = handler(self)
         m = {}
 

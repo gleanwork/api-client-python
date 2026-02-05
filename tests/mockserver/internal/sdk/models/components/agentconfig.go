@@ -16,6 +16,7 @@ const (
 	AgentEnumUniversal AgentEnum = "UNIVERSAL"
 	AgentEnumFast      AgentEnum = "FAST"
 	AgentEnumAdvanced  AgentEnum = "ADVANCED"
+	AgentEnumAuto      AgentEnum = "AUTO"
 )
 
 func (e AgentEnum) ToPointer() *AgentEnum {
@@ -36,6 +37,8 @@ func (e *AgentEnum) UnmarshalJSON(data []byte) error {
 	case "FAST":
 		fallthrough
 	case "ADVANCED":
+		fallthrough
+	case "AUTO":
 		*e = AgentEnum(v)
 		return nil
 	default:

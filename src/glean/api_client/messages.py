@@ -16,6 +16,7 @@ class Messages(BaseSDK):
         id_type: models.IDType,
         id: str,
         datasource: models.Datasource,
+        locale: Optional[str] = None,
         workspace_id: Optional[str] = None,
         direction: Optional[models.Direction] = None,
         timestamp_millis: Optional[int] = None,
@@ -33,6 +34,7 @@ class Messages(BaseSDK):
         :param id_type: Type of the id in the incoming request.
         :param id: ID corresponding to the requested idType. Note that channel and threads are represented by the underlying datasource's ID and conversations are represented by their document's ID.
         :param datasource: The type of the data source.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param workspace_id: Id for the for the workspace in case of multiple workspaces.
         :param direction: The direction of the results asked with respect to the reference timestamp. Missing field defaults to OLDER. Only applicable when using a message_id.
         :param timestamp_millis: Timestamp in millis of the reference message. Only applicable when using a message_id.
@@ -53,15 +55,18 @@ class Messages(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.MessagesRequest(
-            id_type=id_type,
-            id=id,
-            workspace_id=workspace_id,
-            direction=direction,
-            timestamp_millis=timestamp_millis,
-            include_root_message=include_root_message,
-            datasource=datasource,
-            datasource_instance_display_name=datasource_instance_display_name,
+        request = models.MessagesRequestRequest(
+            locale=locale,
+            messages_request=models.MessagesRequest(
+                id_type=id_type,
+                id=id,
+                workspace_id=workspace_id,
+                direction=direction,
+                timestamp_millis=timestamp_millis,
+                include_root_message=include_root_message,
+                datasource=datasource,
+                datasource_instance_display_name=datasource_instance_display_name,
+            ),
         )
 
         req = self._build_request(
@@ -78,7 +83,7 @@ class Messages(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.MessagesRequest
+                request.messages_request, False, False, "json", models.MessagesRequest
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -124,6 +129,7 @@ class Messages(BaseSDK):
         id_type: models.IDType,
         id: str,
         datasource: models.Datasource,
+        locale: Optional[str] = None,
         workspace_id: Optional[str] = None,
         direction: Optional[models.Direction] = None,
         timestamp_millis: Optional[int] = None,
@@ -141,6 +147,7 @@ class Messages(BaseSDK):
         :param id_type: Type of the id in the incoming request.
         :param id: ID corresponding to the requested idType. Note that channel and threads are represented by the underlying datasource's ID and conversations are represented by their document's ID.
         :param datasource: The type of the data source.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param workspace_id: Id for the for the workspace in case of multiple workspaces.
         :param direction: The direction of the results asked with respect to the reference timestamp. Missing field defaults to OLDER. Only applicable when using a message_id.
         :param timestamp_millis: Timestamp in millis of the reference message. Only applicable when using a message_id.
@@ -161,15 +168,18 @@ class Messages(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.MessagesRequest(
-            id_type=id_type,
-            id=id,
-            workspace_id=workspace_id,
-            direction=direction,
-            timestamp_millis=timestamp_millis,
-            include_root_message=include_root_message,
-            datasource=datasource,
-            datasource_instance_display_name=datasource_instance_display_name,
+        request = models.MessagesRequestRequest(
+            locale=locale,
+            messages_request=models.MessagesRequest(
+                id_type=id_type,
+                id=id,
+                workspace_id=workspace_id,
+                direction=direction,
+                timestamp_millis=timestamp_millis,
+                include_root_message=include_root_message,
+                datasource=datasource,
+                datasource_instance_display_name=datasource_instance_display_name,
+            ),
         )
 
         req = self._build_request_async(
@@ -186,7 +196,7 @@ class Messages(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.MessagesRequest
+                request.messages_request, False, False, "json", models.MessagesRequest
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,

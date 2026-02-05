@@ -14,6 +14,7 @@ class Collections(BaseSDK):
         self,
         *,
         collection_id: float,
+        locale: Optional[str] = None,
         added_collection_item_descriptors: Optional[
             Union[
                 List[models.CollectionItemDescriptor],
@@ -30,6 +31,7 @@ class Collections(BaseSDK):
         Add items to a Collection.
 
         :param collection_id: The ID of the Collection to add items to.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param added_collection_item_descriptors: The CollectionItemDescriptors of the items being added.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -46,11 +48,14 @@ class Collections(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.AddCollectionItemsRequest(
-            collection_id=collection_id,
-            added_collection_item_descriptors=utils.get_pydantic_model(
-                added_collection_item_descriptors,
-                Optional[List[models.CollectionItemDescriptor]],
+        request = models.AddcollectionitemsRequestRequest(
+            locale=locale,
+            add_collection_items_request=models.AddCollectionItemsRequest(
+                collection_id=collection_id,
+                added_collection_item_descriptors=utils.get_pydantic_model(
+                    added_collection_item_descriptors,
+                    Optional[List[models.CollectionItemDescriptor]],
+                ),
             ),
         )
 
@@ -68,7 +73,11 @@ class Collections(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.AddCollectionItemsRequest
+                request.add_collection_items_request,
+                False,
+                False,
+                "json",
+                models.AddCollectionItemsRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -112,6 +121,7 @@ class Collections(BaseSDK):
         self,
         *,
         collection_id: float,
+        locale: Optional[str] = None,
         added_collection_item_descriptors: Optional[
             Union[
                 List[models.CollectionItemDescriptor],
@@ -128,6 +138,7 @@ class Collections(BaseSDK):
         Add items to a Collection.
 
         :param collection_id: The ID of the Collection to add items to.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param added_collection_item_descriptors: The CollectionItemDescriptors of the items being added.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -144,11 +155,14 @@ class Collections(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.AddCollectionItemsRequest(
-            collection_id=collection_id,
-            added_collection_item_descriptors=utils.get_pydantic_model(
-                added_collection_item_descriptors,
-                Optional[List[models.CollectionItemDescriptor]],
+        request = models.AddcollectionitemsRequestRequest(
+            locale=locale,
+            add_collection_items_request=models.AddCollectionItemsRequest(
+                collection_id=collection_id,
+                added_collection_item_descriptors=utils.get_pydantic_model(
+                    added_collection_item_descriptors,
+                    Optional[List[models.CollectionItemDescriptor]],
+                ),
             ),
         )
 
@@ -166,7 +180,11 @@ class Collections(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.AddCollectionItemsRequest
+                request.add_collection_items_request,
+                False,
+                False,
+                "json",
+                models.AddCollectionItemsRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -210,6 +228,7 @@ class Collections(BaseSDK):
         self,
         *,
         name: str,
+        locale: Optional[str] = None,
         description: Optional[str] = None,
         added_roles: Optional[
             Union[
@@ -242,6 +261,7 @@ class Collections(BaseSDK):
         Create a publicly visible (empty) Collection of documents.
 
         :param name: The unique name of the Collection.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param description: A brief summary of the Collection's contents.
         :param added_roles: A list of added user roles for the Collection.
         :param removed_roles: A list of removed user roles for the Collection.
@@ -267,24 +287,29 @@ class Collections(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.CreateCollectionRequest(
-            name=name,
-            description=description,
-            added_roles=utils.get_pydantic_model(
-                added_roles, Optional[List[models.UserRoleSpecification]]
+        request = models.CreatecollectionRequestRequest(
+            locale=locale,
+            create_collection_request=models.CreateCollectionRequest(
+                name=name,
+                description=description,
+                added_roles=utils.get_pydantic_model(
+                    added_roles, Optional[List[models.UserRoleSpecification]]
+                ),
+                removed_roles=utils.get_pydantic_model(
+                    removed_roles, Optional[List[models.UserRoleSpecification]]
+                ),
+                audience_filters=utils.get_pydantic_model(
+                    audience_filters, Optional[List[models.FacetFilter]]
+                ),
+                icon=icon,
+                admin_locked=admin_locked,
+                parent_id=parent_id,
+                thumbnail=utils.get_pydantic_model(
+                    thumbnail, Optional[models.Thumbnail]
+                ),
+                allowed_datasource=allowed_datasource,
+                new_next_item_id=new_next_item_id,
             ),
-            removed_roles=utils.get_pydantic_model(
-                removed_roles, Optional[List[models.UserRoleSpecification]]
-            ),
-            audience_filters=utils.get_pydantic_model(
-                audience_filters, Optional[List[models.FacetFilter]]
-            ),
-            icon=icon,
-            admin_locked=admin_locked,
-            parent_id=parent_id,
-            thumbnail=utils.get_pydantic_model(thumbnail, Optional[models.Thumbnail]),
-            allowed_datasource=allowed_datasource,
-            new_next_item_id=new_next_item_id,
         )
 
         req = self._build_request(
@@ -301,7 +326,11 @@ class Collections(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.CreateCollectionRequest
+                request.create_collection_request,
+                False,
+                False,
+                "json",
+                models.CreateCollectionRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -351,6 +380,7 @@ class Collections(BaseSDK):
         self,
         *,
         name: str,
+        locale: Optional[str] = None,
         description: Optional[str] = None,
         added_roles: Optional[
             Union[
@@ -383,6 +413,7 @@ class Collections(BaseSDK):
         Create a publicly visible (empty) Collection of documents.
 
         :param name: The unique name of the Collection.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param description: A brief summary of the Collection's contents.
         :param added_roles: A list of added user roles for the Collection.
         :param removed_roles: A list of removed user roles for the Collection.
@@ -408,24 +439,29 @@ class Collections(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.CreateCollectionRequest(
-            name=name,
-            description=description,
-            added_roles=utils.get_pydantic_model(
-                added_roles, Optional[List[models.UserRoleSpecification]]
+        request = models.CreatecollectionRequestRequest(
+            locale=locale,
+            create_collection_request=models.CreateCollectionRequest(
+                name=name,
+                description=description,
+                added_roles=utils.get_pydantic_model(
+                    added_roles, Optional[List[models.UserRoleSpecification]]
+                ),
+                removed_roles=utils.get_pydantic_model(
+                    removed_roles, Optional[List[models.UserRoleSpecification]]
+                ),
+                audience_filters=utils.get_pydantic_model(
+                    audience_filters, Optional[List[models.FacetFilter]]
+                ),
+                icon=icon,
+                admin_locked=admin_locked,
+                parent_id=parent_id,
+                thumbnail=utils.get_pydantic_model(
+                    thumbnail, Optional[models.Thumbnail]
+                ),
+                allowed_datasource=allowed_datasource,
+                new_next_item_id=new_next_item_id,
             ),
-            removed_roles=utils.get_pydantic_model(
-                removed_roles, Optional[List[models.UserRoleSpecification]]
-            ),
-            audience_filters=utils.get_pydantic_model(
-                audience_filters, Optional[List[models.FacetFilter]]
-            ),
-            icon=icon,
-            admin_locked=admin_locked,
-            parent_id=parent_id,
-            thumbnail=utils.get_pydantic_model(thumbnail, Optional[models.Thumbnail]),
-            allowed_datasource=allowed_datasource,
-            new_next_item_id=new_next_item_id,
         )
 
         req = self._build_request_async(
@@ -442,7 +478,11 @@ class Collections(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.CreateCollectionRequest
+                request.create_collection_request,
+                False,
+                False,
+                "json",
+                models.CreateCollectionRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -492,6 +532,7 @@ class Collections(BaseSDK):
         self,
         *,
         ids: List[int],
+        locale: Optional[str] = None,
         allowed_datasource: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -503,6 +544,7 @@ class Collections(BaseSDK):
         Delete a Collection given the Collection's ID.
 
         :param ids: The IDs of the Collections to delete.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param allowed_datasource: The datasource allowed in the Collection to be deleted.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -519,9 +561,12 @@ class Collections(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.DeleteCollectionRequest(
-            ids=ids,
-            allowed_datasource=allowed_datasource,
+        request = models.DeletecollectionRequestRequest(
+            locale=locale,
+            delete_collection_request=models.DeleteCollectionRequest(
+                ids=ids,
+                allowed_datasource=allowed_datasource,
+            ),
         )
 
         req = self._build_request(
@@ -538,7 +583,11 @@ class Collections(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.DeleteCollectionRequest
+                request.delete_collection_request,
+                False,
+                False,
+                "json",
+                models.DeleteCollectionRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -588,6 +637,7 @@ class Collections(BaseSDK):
         self,
         *,
         ids: List[int],
+        locale: Optional[str] = None,
         allowed_datasource: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -599,6 +649,7 @@ class Collections(BaseSDK):
         Delete a Collection given the Collection's ID.
 
         :param ids: The IDs of the Collections to delete.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param allowed_datasource: The datasource allowed in the Collection to be deleted.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -615,9 +666,12 @@ class Collections(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.DeleteCollectionRequest(
-            ids=ids,
-            allowed_datasource=allowed_datasource,
+        request = models.DeletecollectionRequestRequest(
+            locale=locale,
+            delete_collection_request=models.DeleteCollectionRequest(
+                ids=ids,
+                allowed_datasource=allowed_datasource,
+            ),
         )
 
         req = self._build_request_async(
@@ -634,7 +688,11 @@ class Collections(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.DeleteCollectionRequest
+                request.delete_collection_request,
+                False,
+                False,
+                "json",
+                models.DeleteCollectionRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -685,6 +743,7 @@ class Collections(BaseSDK):
         *,
         collection_id: float,
         item_id: str,
+        locale: Optional[str] = None,
         document_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -697,6 +756,7 @@ class Collections(BaseSDK):
 
         :param collection_id: The ID of the Collection to remove an item in.
         :param item_id: The item ID of the CollectionItem to remove from this Collection.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param document_id: The (optional) Glean Document ID of the CollectionItem to remove from this Collection if this is an indexed document.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -713,10 +773,13 @@ class Collections(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.DeleteCollectionItemRequest(
-            collection_id=collection_id,
-            item_id=item_id,
-            document_id=document_id,
+        request = models.DeletecollectionitemRequestRequest(
+            locale=locale,
+            delete_collection_item_request=models.DeleteCollectionItemRequest(
+                collection_id=collection_id,
+                item_id=item_id,
+                document_id=document_id,
+            ),
         )
 
         req = self._build_request(
@@ -733,7 +796,11 @@ class Collections(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.DeleteCollectionItemRequest
+                request.delete_collection_item_request,
+                False,
+                False,
+                "json",
+                models.DeleteCollectionItemRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -780,6 +847,7 @@ class Collections(BaseSDK):
         *,
         collection_id: float,
         item_id: str,
+        locale: Optional[str] = None,
         document_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -792,6 +860,7 @@ class Collections(BaseSDK):
 
         :param collection_id: The ID of the Collection to remove an item in.
         :param item_id: The item ID of the CollectionItem to remove from this Collection.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param document_id: The (optional) Glean Document ID of the CollectionItem to remove from this Collection if this is an indexed document.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -808,10 +877,13 @@ class Collections(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.DeleteCollectionItemRequest(
-            collection_id=collection_id,
-            item_id=item_id,
-            document_id=document_id,
+        request = models.DeletecollectionitemRequestRequest(
+            locale=locale,
+            delete_collection_item_request=models.DeleteCollectionItemRequest(
+                collection_id=collection_id,
+                item_id=item_id,
+                document_id=document_id,
+            ),
         )
 
         req = self._build_request_async(
@@ -828,7 +900,11 @@ class Collections(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.DeleteCollectionItemRequest
+                request.delete_collection_item_request,
+                False,
+                False,
+                "json",
+                models.DeleteCollectionItemRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -875,6 +951,7 @@ class Collections(BaseSDK):
         *,
         name: str,
         id: int,
+        locale: Optional[str] = None,
         description: Optional[str] = None,
         added_roles: Optional[
             Union[
@@ -907,6 +984,7 @@ class Collections(BaseSDK):
 
         :param name: The unique name of the Collection.
         :param id: The ID of the Collection to modify.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param description: A brief summary of the Collection's contents.
         :param added_roles: A list of added user roles for the Collection.
         :param removed_roles: A list of removed user roles for the Collection.
@@ -931,24 +1009,29 @@ class Collections(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.EditCollectionRequest(
-            name=name,
-            description=description,
-            added_roles=utils.get_pydantic_model(
-                added_roles, Optional[List[models.UserRoleSpecification]]
+        request = models.EditcollectionRequestRequest(
+            locale=locale,
+            edit_collection_request=models.EditCollectionRequest(
+                name=name,
+                description=description,
+                added_roles=utils.get_pydantic_model(
+                    added_roles, Optional[List[models.UserRoleSpecification]]
+                ),
+                removed_roles=utils.get_pydantic_model(
+                    removed_roles, Optional[List[models.UserRoleSpecification]]
+                ),
+                audience_filters=utils.get_pydantic_model(
+                    audience_filters, Optional[List[models.FacetFilter]]
+                ),
+                icon=icon,
+                admin_locked=admin_locked,
+                parent_id=parent_id,
+                thumbnail=utils.get_pydantic_model(
+                    thumbnail, Optional[models.Thumbnail]
+                ),
+                allowed_datasource=allowed_datasource,
+                id=id,
             ),
-            removed_roles=utils.get_pydantic_model(
-                removed_roles, Optional[List[models.UserRoleSpecification]]
-            ),
-            audience_filters=utils.get_pydantic_model(
-                audience_filters, Optional[List[models.FacetFilter]]
-            ),
-            icon=icon,
-            admin_locked=admin_locked,
-            parent_id=parent_id,
-            thumbnail=utils.get_pydantic_model(thumbnail, Optional[models.Thumbnail]),
-            allowed_datasource=allowed_datasource,
-            id=id,
         )
 
         req = self._build_request(
@@ -965,7 +1048,11 @@ class Collections(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.EditCollectionRequest
+                request.edit_collection_request,
+                False,
+                False,
+                "json",
+                models.EditCollectionRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -1016,6 +1103,7 @@ class Collections(BaseSDK):
         *,
         name: str,
         id: int,
+        locale: Optional[str] = None,
         description: Optional[str] = None,
         added_roles: Optional[
             Union[
@@ -1048,6 +1136,7 @@ class Collections(BaseSDK):
 
         :param name: The unique name of the Collection.
         :param id: The ID of the Collection to modify.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param description: A brief summary of the Collection's contents.
         :param added_roles: A list of added user roles for the Collection.
         :param removed_roles: A list of removed user roles for the Collection.
@@ -1072,24 +1161,29 @@ class Collections(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.EditCollectionRequest(
-            name=name,
-            description=description,
-            added_roles=utils.get_pydantic_model(
-                added_roles, Optional[List[models.UserRoleSpecification]]
+        request = models.EditcollectionRequestRequest(
+            locale=locale,
+            edit_collection_request=models.EditCollectionRequest(
+                name=name,
+                description=description,
+                added_roles=utils.get_pydantic_model(
+                    added_roles, Optional[List[models.UserRoleSpecification]]
+                ),
+                removed_roles=utils.get_pydantic_model(
+                    removed_roles, Optional[List[models.UserRoleSpecification]]
+                ),
+                audience_filters=utils.get_pydantic_model(
+                    audience_filters, Optional[List[models.FacetFilter]]
+                ),
+                icon=icon,
+                admin_locked=admin_locked,
+                parent_id=parent_id,
+                thumbnail=utils.get_pydantic_model(
+                    thumbnail, Optional[models.Thumbnail]
+                ),
+                allowed_datasource=allowed_datasource,
+                id=id,
             ),
-            removed_roles=utils.get_pydantic_model(
-                removed_roles, Optional[List[models.UserRoleSpecification]]
-            ),
-            audience_filters=utils.get_pydantic_model(
-                audience_filters, Optional[List[models.FacetFilter]]
-            ),
-            icon=icon,
-            admin_locked=admin_locked,
-            parent_id=parent_id,
-            thumbnail=utils.get_pydantic_model(thumbnail, Optional[models.Thumbnail]),
-            allowed_datasource=allowed_datasource,
-            id=id,
         )
 
         req = self._build_request_async(
@@ -1106,7 +1200,11 @@ class Collections(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.EditCollectionRequest
+                request.edit_collection_request,
+                False,
+                False,
+                "json",
+                models.EditCollectionRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -1157,6 +1255,7 @@ class Collections(BaseSDK):
         *,
         collection_id: int,
         item_id: str,
+        locale: Optional[str] = None,
         name: Optional[str] = None,
         description: Optional[str] = None,
         icon: Optional[str] = None,
@@ -1171,6 +1270,7 @@ class Collections(BaseSDK):
 
         :param collection_id: The ID of the Collection to edit CollectionItems in.
         :param item_id: The ID of the CollectionItem to edit.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param name: The optional name of the Collection item.
         :param description: A helpful description of why this CollectionItem is in the Collection that it's in.
         :param icon: The emoji icon for this CollectionItem. Only used for Text type items.
@@ -1189,12 +1289,15 @@ class Collections(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.EditCollectionItemRequest(
-            name=name,
-            description=description,
-            icon=icon,
-            collection_id=collection_id,
-            item_id=item_id,
+        request = models.EditcollectionitemRequestRequest(
+            locale=locale,
+            edit_collection_item_request=models.EditCollectionItemRequest(
+                name=name,
+                description=description,
+                icon=icon,
+                collection_id=collection_id,
+                item_id=item_id,
+            ),
         )
 
         req = self._build_request(
@@ -1211,7 +1314,11 @@ class Collections(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.EditCollectionItemRequest
+                request.edit_collection_item_request,
+                False,
+                False,
+                "json",
+                models.EditCollectionItemRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -1256,6 +1363,7 @@ class Collections(BaseSDK):
         *,
         collection_id: int,
         item_id: str,
+        locale: Optional[str] = None,
         name: Optional[str] = None,
         description: Optional[str] = None,
         icon: Optional[str] = None,
@@ -1270,6 +1378,7 @@ class Collections(BaseSDK):
 
         :param collection_id: The ID of the Collection to edit CollectionItems in.
         :param item_id: The ID of the CollectionItem to edit.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param name: The optional name of the Collection item.
         :param description: A helpful description of why this CollectionItem is in the Collection that it's in.
         :param icon: The emoji icon for this CollectionItem. Only used for Text type items.
@@ -1288,12 +1397,15 @@ class Collections(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.EditCollectionItemRequest(
-            name=name,
-            description=description,
-            icon=icon,
-            collection_id=collection_id,
-            item_id=item_id,
+        request = models.EditcollectionitemRequestRequest(
+            locale=locale,
+            edit_collection_item_request=models.EditCollectionItemRequest(
+                name=name,
+                description=description,
+                icon=icon,
+                collection_id=collection_id,
+                item_id=item_id,
+            ),
         )
 
         req = self._build_request_async(
@@ -1310,7 +1422,11 @@ class Collections(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.EditCollectionItemRequest
+                request.edit_collection_item_request,
+                False,
+                False,
+                "json",
+                models.EditCollectionItemRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -1354,6 +1470,7 @@ class Collections(BaseSDK):
         self,
         *,
         id: int,
+        locale: Optional[str] = None,
         with_items: Optional[bool] = None,
         with_hierarchy: Optional[bool] = None,
         allowed_datasource: Optional[str] = None,
@@ -1367,6 +1484,7 @@ class Collections(BaseSDK):
         Read the details of a Collection given its ID. Does not fetch items in this Collection.
 
         :param id: The ID of the Collection to be retrieved.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param with_items: Whether or not to include the Collection Items in this Collection. Only request if absolutely required, as this is expensive.
         :param with_hierarchy: Whether or not to include the top level Collection in this Collection's hierarchy.
         :param allowed_datasource: The datasource allowed in the Collection returned.
@@ -1385,11 +1503,14 @@ class Collections(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.GetCollectionRequest(
-            id=id,
-            with_items=with_items,
-            with_hierarchy=with_hierarchy,
-            allowed_datasource=allowed_datasource,
+        request = models.GetcollectionRequestRequest(
+            locale=locale,
+            get_collection_request=models.GetCollectionRequest(
+                id=id,
+                with_items=with_items,
+                with_hierarchy=with_hierarchy,
+                allowed_datasource=allowed_datasource,
+            ),
         )
 
         req = self._build_request(
@@ -1406,7 +1527,11 @@ class Collections(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.GetCollectionRequest
+                request.get_collection_request,
+                False,
+                False,
+                "json",
+                models.GetCollectionRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -1450,6 +1575,7 @@ class Collections(BaseSDK):
         self,
         *,
         id: int,
+        locale: Optional[str] = None,
         with_items: Optional[bool] = None,
         with_hierarchy: Optional[bool] = None,
         allowed_datasource: Optional[str] = None,
@@ -1463,6 +1589,7 @@ class Collections(BaseSDK):
         Read the details of a Collection given its ID. Does not fetch items in this Collection.
 
         :param id: The ID of the Collection to be retrieved.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param with_items: Whether or not to include the Collection Items in this Collection. Only request if absolutely required, as this is expensive.
         :param with_hierarchy: Whether or not to include the top level Collection in this Collection's hierarchy.
         :param allowed_datasource: The datasource allowed in the Collection returned.
@@ -1481,11 +1608,14 @@ class Collections(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.GetCollectionRequest(
-            id=id,
-            with_items=with_items,
-            with_hierarchy=with_hierarchy,
-            allowed_datasource=allowed_datasource,
+        request = models.GetcollectionRequestRequest(
+            locale=locale,
+            get_collection_request=models.GetCollectionRequest(
+                id=id,
+                with_items=with_items,
+                with_hierarchy=with_hierarchy,
+                allowed_datasource=allowed_datasource,
+            ),
         )
 
         req = self._build_request_async(
@@ -1502,7 +1632,11 @@ class Collections(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.GetCollectionRequest
+                request.get_collection_request,
+                False,
+                False,
+                "json",
+                models.GetCollectionRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -1545,6 +1679,7 @@ class Collections(BaseSDK):
     def list(
         self,
         *,
+        locale: Optional[str] = None,
         include_audience: Optional[bool] = None,
         include_roles: Optional[bool] = None,
         allowed_datasource: Optional[str] = None,
@@ -1557,6 +1692,7 @@ class Collections(BaseSDK):
 
         List all existing Collections.
 
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param include_audience: Whether to include the audience filters with the listed Collections.
         :param include_roles: Whether to include the editor roles with the listed Collections.
         :param allowed_datasource: The datasource type this Collection can hold.
@@ -1576,10 +1712,13 @@ class Collections(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.ListCollectionsRequest(
-            include_audience=include_audience,
-            include_roles=include_roles,
-            allowed_datasource=allowed_datasource,
+        request = models.ListcollectionsRequestRequest(
+            locale=locale,
+            list_collections_request=models.ListCollectionsRequest(
+                include_audience=include_audience,
+                include_roles=include_roles,
+                allowed_datasource=allowed_datasource,
+            ),
         )
 
         req = self._build_request(
@@ -1596,7 +1735,11 @@ class Collections(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.ListCollectionsRequest
+                request.list_collections_request,
+                False,
+                False,
+                "json",
+                models.ListCollectionsRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -1639,6 +1782,7 @@ class Collections(BaseSDK):
     async def list_async(
         self,
         *,
+        locale: Optional[str] = None,
         include_audience: Optional[bool] = None,
         include_roles: Optional[bool] = None,
         allowed_datasource: Optional[str] = None,
@@ -1651,6 +1795,7 @@ class Collections(BaseSDK):
 
         List all existing Collections.
 
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param include_audience: Whether to include the audience filters with the listed Collections.
         :param include_roles: Whether to include the editor roles with the listed Collections.
         :param allowed_datasource: The datasource type this Collection can hold.
@@ -1670,10 +1815,13 @@ class Collections(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.ListCollectionsRequest(
-            include_audience=include_audience,
-            include_roles=include_roles,
-            allowed_datasource=allowed_datasource,
+        request = models.ListcollectionsRequestRequest(
+            locale=locale,
+            list_collections_request=models.ListCollectionsRequest(
+                include_audience=include_audience,
+                include_roles=include_roles,
+                allowed_datasource=allowed_datasource,
+            ),
         )
 
         req = self._build_request_async(
@@ -1690,7 +1838,11 @@ class Collections(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.ListCollectionsRequest
+                request.list_collections_request,
+                False,
+                False,
+                "json",
+                models.ListCollectionsRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,

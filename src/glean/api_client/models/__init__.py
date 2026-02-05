@@ -84,6 +84,10 @@ if TYPE_CHECKING:
         AddCollectionItemsErrorErrorType,
         AddCollectionItemsErrorTypedDict,
     )
+    from .addcollectionitemsop import (
+        AddcollectionitemsRequestRequest,
+        AddcollectionitemsRequestRequestTypedDict,
+    )
     from .addcollectionitemsrequest import (
         AddCollectionItemsRequest,
         AddCollectionItemsRequestTypedDict,
@@ -98,6 +102,11 @@ if TYPE_CHECKING:
         Value,
         ValueTypedDict,
     )
+    from .addverificationreminderop import (
+        AddverificationreminderRequest,
+        AddverificationreminderRequestTypedDict,
+    )
+    from .adminsearchop import AdminsearchRequest, AdminsearchRequestTypedDict
     from .agent import (
         Agent,
         AgentCapabilities,
@@ -135,12 +144,6 @@ if TYPE_CHECKING:
         AgentsUsageByDepartmentInsightTypedDict,
     )
     from .agentusersinsight import AgentUsersInsight, AgentUsersInsightTypedDict
-    from .aiappactioncounts import AiAppActionCounts, AiAppActionCountsTypedDict
-    from .aiappsinsightsresponse import (
-        AiAppsInsightsResponse,
-        AiAppsInsightsResponseTypedDict,
-    )
-    from .aiinsightsresponse import AiInsightsResponse, AiInsightsResponseTypedDict
     from .allowlistoptions import AllowlistOptions, AllowlistOptionsTypedDict
     from .announcement import (
         Announcement,
@@ -174,6 +177,10 @@ if TYPE_CHECKING:
         GrantType,
     )
     from .authtoken import AuthToken, AuthTokenTypedDict
+    from .autocompleteop import (
+        AutocompleteRequestRequest,
+        AutocompleteRequestRequestTypedDict,
+    )
     from .autocompleterequest import (
         AutocompleteRequest,
         AutocompleteRequestResultType,
@@ -300,17 +307,21 @@ if TYPE_CHECKING:
     )
     from .connectortype import ConnectorType
     from .contentdefinition import ContentDefinition, ContentDefinitionTypedDict
-    from .contentinsightsresponse import (
-        ContentInsightsResponse,
-        ContentInsightsResponseTypedDict,
-    )
     from .contenttype import ContentType
     from .countinfo import CountInfo, CountInfoTypedDict
+    from .createannouncementop import (
+        CreateannouncementRequestRequest,
+        CreateannouncementRequestRequestTypedDict,
+    )
     from .createannouncementrequest import (
         CreateAnnouncementRequest,
         CreateAnnouncementRequestChannel,
         CreateAnnouncementRequestPostType,
         CreateAnnouncementRequestTypedDict,
+    )
+    from .createanswerop import (
+        CreateanswerRequestRequest,
+        CreateanswerRequestRequestTypedDict,
     )
     from .createanswerrequest import CreateAnswerRequest, CreateAnswerRequestTypedDict
     from .createauthtokenresponse import (
@@ -318,6 +329,8 @@ if TYPE_CHECKING:
         CreateAuthTokenResponseTypedDict,
     )
     from .createcollectionop import (
+        CreatecollectionRequestRequest,
+        CreatecollectionRequestRequestTypedDict,
         CreatecollectionResponse,
         CreatecollectionResponseTypedDict,
         ResponseBody1,
@@ -336,6 +349,10 @@ if TYPE_CHECKING:
     from .createdlpreportresponse import (
         CreateDlpReportResponse,
         CreateDlpReportResponseTypedDict,
+    )
+    from .createshortcutop import (
+        CreateshortcutRequestRequest,
+        CreateshortcutRequestRequestTypedDict,
     )
     from .createshortcutrequest import (
         CreateShortcutRequest,
@@ -436,9 +453,17 @@ if TYPE_CHECKING:
     from .debuguserrequest import DebugUserRequest, DebugUserRequestTypedDict
     from .debuguserresponse import DebugUserResponse, DebugUserResponseTypedDict
     from .deleteallchatsop import DeleteallchatsRequest, DeleteallchatsRequestTypedDict
+    from .deleteannouncementop import (
+        DeleteannouncementRequestRequest,
+        DeleteannouncementRequestRequestTypedDict,
+    )
     from .deleteannouncementrequest import (
         DeleteAnnouncementRequest,
         DeleteAnnouncementRequestTypedDict,
+    )
+    from .deleteanswerop import (
+        DeleteanswerRequestRequest,
+        DeleteanswerRequestRequestTypedDict,
     )
     from .deleteanswerrequest import DeleteAnswerRequest, DeleteAnswerRequestTypedDict
     from .deletechatfilesop import (
@@ -454,6 +479,10 @@ if TYPE_CHECKING:
         DeletechatsRequestRequestTypedDict,
     )
     from .deletechatsrequest import DeleteChatsRequest, DeleteChatsRequestTypedDict
+    from .deletecollectionitemop import (
+        DeletecollectionitemRequestRequest,
+        DeletecollectionitemRequestRequestTypedDict,
+    )
     from .deletecollectionitemrequest import (
         DeleteCollectionItemRequest,
         DeleteCollectionItemRequestTypedDict,
@@ -461,6 +490,10 @@ if TYPE_CHECKING:
     from .deletecollectionitemresponse import (
         DeleteCollectionItemResponse,
         DeleteCollectionItemResponseTypedDict,
+    )
+    from .deletecollectionop import (
+        DeletecollectionRequestRequest,
+        DeletecollectionRequestRequestTypedDict,
     )
     from .deletecollectionrequest import (
         DeleteCollectionRequest,
@@ -482,6 +515,10 @@ if TYPE_CHECKING:
     from .deletemembershiprequest import (
         DeleteMembershipRequest,
         DeleteMembershipRequestTypedDict,
+    )
+    from .deleteshortcutop import (
+        DeleteshortcutRequestRequest,
+        DeleteshortcutRequestRequestTypedDict,
     )
     from .deleteshortcutrequest import (
         DeleteShortcutRequest,
@@ -514,7 +551,6 @@ if TYPE_CHECKING:
     from .dlpsimpleresult import DlpSimpleResult
     from .documentcontent import DocumentContent, DocumentContentTypedDict
     from .documentdefinition import DocumentDefinition, DocumentDefinitionTypedDict
-    from .documentinsight import DocumentInsight, DocumentInsightTypedDict
     from .documentinteractionsdefinition import (
         DocumentInteractionsDefinition,
         DocumentInteractionsDefinitionTypedDict,
@@ -571,10 +607,18 @@ if TYPE_CHECKING:
         DownloadreportcsvRequest,
         DownloadreportcsvRequestTypedDict,
     )
+    from .editanswerop import (
+        EditanswerRequestRequest,
+        EditanswerRequestRequestTypedDict,
+    )
     from .editanswerrequest import (
         EditAnswerRequest,
         EditAnswerRequestSourceType,
         EditAnswerRequestTypedDict,
+    )
+    from .editcollectionitemop import (
+        EditcollectionitemRequestRequest,
+        EditcollectionitemRequestRequestTypedDict,
     )
     from .editcollectionitemrequest import (
         EditCollectionItemRequest,
@@ -583,6 +627,10 @@ if TYPE_CHECKING:
     from .editcollectionitemresponse import (
         EditCollectionItemResponse,
         EditCollectionItemResponseTypedDict,
+    )
+    from .editcollectionop import (
+        EditcollectionRequestRequest,
+        EditcollectionRequestRequestTypedDict,
     )
     from .editcollectionrequest import (
         EditCollectionRequest,
@@ -593,6 +641,7 @@ if TYPE_CHECKING:
         EditCollectionResponseErrorCode,
         EditCollectionResponseTypedDict,
     )
+    from .editpinop import EditpinRequestRequest, EditpinRequestRequestTypedDict
     from .editpinrequest import EditPinRequest, EditPinRequestTypedDict
     from .employeeinfodefinition import (
         EmployeeInfoDefinition,
@@ -646,6 +695,7 @@ if TYPE_CHECKING:
         UIConfig,
         UIConfigTypedDict,
     )
+    from .feedop import FeedRequestRequest, FeedRequestRequestTypedDict
     from .feedrequest import FeedRequest, FeedRequestCategory, FeedRequestTypedDict
     from .feedrequestoptions import (
         CategoryToResultSize,
@@ -675,6 +725,7 @@ if TYPE_CHECKING:
         GetAnswerErrorErrorType,
         GetAnswerErrorTypedDict,
     )
+    from .getanswerop import GetanswerRequestRequest, GetanswerRequestRequestTypedDict
     from .getanswerrequest import GetAnswerRequest, GetAnswerRequestTypedDict
     from .getanswerresponse import GetAnswerResponse, GetAnswerResponseTypedDict
     from .getchatapplicationop import (
@@ -701,6 +752,10 @@ if TYPE_CHECKING:
     from .getchatop import GetchatRequestRequest, GetchatRequestRequestTypedDict
     from .getchatrequest import GetChatRequest, GetChatRequestTypedDict
     from .getchatresponse import GetChatResponse, GetChatResponseTypedDict
+    from .getcollectionop import (
+        GetcollectionRequestRequest,
+        GetcollectionRequestRequestTypedDict,
+    )
     from .getcollectionrequest import (
         GetCollectionRequest,
         GetCollectionRequestTypedDict,
@@ -716,6 +771,10 @@ if TYPE_CHECKING:
     from .getdlpreportresponse import (
         GetDlpReportResponse,
         GetDlpReportResponseTypedDict,
+    )
+    from .getdocpermissionsop import (
+        GetdocpermissionsRequestRequest,
+        GetdocpermissionsRequestRequestTypedDict,
     )
     from .getdocpermissionsrequest import (
         GetDocPermissionsRequest,
@@ -733,6 +792,10 @@ if TYPE_CHECKING:
         GetDocumentCountResponse,
         GetDocumentCountResponseTypedDict,
     )
+    from .getdocumentsbyfacetsop import (
+        GetdocumentsbyfacetsRequestRequest,
+        GetdocumentsbyfacetsRequestRequestTypedDict,
+    )
     from .getdocumentsbyfacetsrequest import (
         GetDocumentsByFacetsRequest,
         GetDocumentsByFacetsRequestTypedDict,
@@ -740,6 +803,10 @@ if TYPE_CHECKING:
     from .getdocumentsbyfacetsresponse import (
         GetDocumentsByFacetsResponse,
         GetDocumentsByFacetsResponseTypedDict,
+    )
+    from .getdocumentsop import (
+        GetdocumentsRequestRequest,
+        GetdocumentsRequestRequestTypedDict,
     )
     from .getdocumentsrequest import (
         GetDocumentsRequest,
@@ -766,6 +833,7 @@ if TYPE_CHECKING:
         GetdocvisibilityRequest,
         GetdocvisibilityRequestTypedDict,
     )
+    from .getpinop import GetpinRequestRequest, GetpinRequestRequestTypedDict
     from .getpinrequest import GetPinRequest, GetPinRequestTypedDict
     from .getpinresponse import GetPinResponse, GetPinResponseTypedDict
     from .getpolicyop import GetpolicyRequest, GetpolicyRequestTypedDict
@@ -773,11 +841,15 @@ if TYPE_CHECKING:
         GetreportstatusRequest,
         GetreportstatusRequestTypedDict,
     )
-    from .getshortcutrequest_union import (
+    from .getshortcutop import (
+        GetshortcutRequestRequest,
+        GetshortcutRequestRequestTypedDict,
+    )
+    from .getshortcutrequest import (
         GetShortcutRequest,
+        GetShortcutRequest1,
+        GetShortcutRequest1TypedDict,
         GetShortcutRequestTypedDict,
-        GetShortcutRequestUnion,
-        GetShortcutRequestUnionTypedDict,
     )
     from .getshortcutresponse import GetShortcutResponse, GetShortcutResponseTypedDict
     from .getusercountrequest import GetUserCountRequest, GetUserCountRequestTypedDict
@@ -827,19 +899,12 @@ if TYPE_CHECKING:
         InputOptionsTimePeriodType,
         InputOptionsTypedDict,
     )
-    from .insightsagentsrequestoptions import (
-        InsightsAgentsRequestOptions,
-        InsightsAgentsRequestOptionsTypedDict,
-    )
-    from .insightsaiapprequestoptions import (
-        InsightsAiAppRequestOptions,
-        InsightsAiAppRequestOptionsTypedDict,
-    )
     from .insightsassistantrequest import (
         InsightsAssistantRequest,
         InsightsAssistantRequestTypedDict,
     )
     from .insightschatsummary import InsightsChatSummary, InsightsChatSummaryTypedDict
+    from .insightsop import InsightsRequestRequest, InsightsRequestRequestTypedDict
     from .insightsoverviewrequest import (
         InsightsOverviewRequest,
         InsightsOverviewRequestTypedDict,
@@ -848,12 +913,7 @@ if TYPE_CHECKING:
         InsightsOverviewResponse,
         InsightsOverviewResponseTypedDict,
     )
-    from .insightsrequest import (
-        AssistantActivityType,
-        InsightsRequest,
-        InsightsRequestCategory,
-        InsightsRequestTypedDict,
-    )
+    from .insightsrequest import InsightsRequest, InsightsRequestTypedDict
     from .insightsresponse import InsightsResponse, InsightsResponseTypedDict
     from .insightssearchsummary import (
         InsightsSearchSummary,
@@ -864,10 +924,18 @@ if TYPE_CHECKING:
         InvalidOperatorValueErrorTypedDict,
     )
     from .labeledcountinfo import LabeledCountInfo, LabeledCountInfoTypedDict
+    from .listanswersop import (
+        ListanswersRequestRequest,
+        ListanswersRequestRequestTypedDict,
+    )
     from .listanswersrequest import ListAnswersRequest, ListAnswersRequestTypedDict
     from .listanswersresponse import ListAnswersResponse, ListAnswersResponseTypedDict
     from .listchatsop import ListchatsRequest, ListchatsRequestTypedDict
     from .listchatsresponse import ListChatsResponse, ListChatsResponseTypedDict
+    from .listcollectionsop import (
+        ListcollectionsRequestRequest,
+        ListcollectionsRequestRequestTypedDict,
+    )
     from .listcollectionsrequest import (
         ListCollectionsRequest,
         ListCollectionsRequestTypedDict,
@@ -884,6 +952,10 @@ if TYPE_CHECKING:
         ListDlpReportsResponse,
         ListDlpReportsResponseTypedDict,
     )
+    from .listentitiesop import (
+        ListentitiesRequestRequest,
+        ListentitiesRequestRequestTypedDict,
+    )
     from .listentitiesrequest import (
         ListEntitiesRequest,
         ListEntitiesRequestEntityType,
@@ -895,9 +967,15 @@ if TYPE_CHECKING:
         ListEntitiesResponse,
         ListEntitiesResponseTypedDict,
     )
-    from .listpinsop import ListpinsRequest, ListpinsRequestTypedDict
+    from .listpinsop import (
+        ListpinsRequest,
+        ListpinsRequestBody,
+        ListpinsRequestBodyTypedDict,
+        ListpinsRequestTypedDict,
+    )
     from .listpinsresponse import ListPinsResponse, ListPinsResponseTypedDict
     from .listpoliciesop import ListpoliciesRequest, ListpoliciesRequestTypedDict
+    from .listshortcutsop import ListshortcutsRequest, ListshortcutsRequestTypedDict
     from .listshortcutspaginatedrequest import (
         ListShortcutsPaginatedRequest,
         ListShortcutsPaginatedRequestIncludeField,
@@ -930,6 +1008,7 @@ if TYPE_CHECKING:
         MessageTextBlockTypedDict,
         MessageTypedDict,
     )
+    from .messagesop import MessagesRequestRequest, MessagesRequestRequestTypedDict
     from .messagesrequest import (
         Datasource,
         Direction,
@@ -950,6 +1029,7 @@ if TYPE_CHECKING:
         OperatorType,
     )
     from .operatorscope import OperatorScope, OperatorScopeTypedDict
+    from .peopleop import PeopleRequestRequest, PeopleRequestRequestTypedDict
     from .peoplerequest import (
         IncludeType,
         PeopleRequest,
@@ -972,6 +1052,7 @@ if TYPE_CHECKING:
         PerUserAssistantInsightTypedDict,
     )
     from .peruserinsight import PerUserInsight, PerUserInsightTypedDict
+    from .pinop import PinRequestRequest, PinRequestRequestTypedDict
     from .pinrequest import PinRequest, PinRequestTypedDict
     from .possiblevalue import PossibleValue, PossibleValueTypedDict
     from .post_api_index_v1_debug_datasource_documentop import (
@@ -1014,13 +1095,12 @@ if TYPE_CHECKING:
         UIOptions,
     )
     from .propertygroup import PropertyGroup, PropertyGroupTypedDict
-    from .queryinsight import QueryInsight, QueryInsightTypedDict
-    from .queryinsightsresponse import (
-        QueryInsightsResponse,
-        QueryInsightsResponseTypedDict,
-    )
     from .quicklink import Quicklink, QuicklinkTypedDict, Scope
     from .readpermission import ReadPermission, ReadPermissionTypedDict
+    from .recommendationsop import (
+        RecommendationsRequestRequest,
+        RecommendationsRequestRequestTypedDict,
+    )
     from .recommendationsrequest import (
         RecommendationsRequest,
         RecommendationsRequestTypedDict,
@@ -1054,6 +1134,7 @@ if TYPE_CHECKING:
         SearchAgentsResponse,
         SearchAgentsResponseTypedDict,
     )
+    from .searchop import SearchRequestRequest, SearchRequestRequestTypedDict
     from .searchproviderinfo import SearchProviderInfo, SearchProviderInfoTypedDict
     from .searchrequest import SearchRequest, SearchRequestTypedDict
     from .searchrequestinputdetails import (
@@ -1092,11 +1173,6 @@ if TYPE_CHECKING:
         ShortcutErrorErrorType,
         ShortcutErrorTypedDict,
     )
-    from .shortcutinsight import ShortcutInsight, ShortcutInsightTypedDict
-    from .shortcutinsightsresponse import (
-        ShortcutInsightsResponse,
-        ShortcutInsightsResponseTypedDict,
-    )
     from .shortcutmutableproperties import (
         ShortcutMutableProperties,
         ShortcutMutablePropertiesTypedDict,
@@ -1123,6 +1199,7 @@ if TYPE_CHECKING:
         StructuredTextMutableProperties,
         StructuredTextMutablePropertiesTypedDict,
     )
+    from .summarizeop import SummarizeRequestRequest, SummarizeRequestRequestTypedDict
     from .summarizerequest import SummarizeRequest, SummarizeRequestTypedDict
     from .summarizeresponse import (
         Error,
@@ -1161,6 +1238,11 @@ if TYPE_CHECKING:
     from .toolslistresponse import ToolsListResponse, ToolsListResponseTypedDict
     from .ugctype import UgcType
     from .unpin import Unpin, UnpinTypedDict
+    from .unpinop import UnpinRequest, UnpinRequestTypedDict
+    from .updateannouncementop import (
+        UpdateannouncementRequestRequest,
+        UpdateannouncementRequestRequestTypedDict,
+    )
     from .updateannouncementrequest import (
         UpdateAnnouncementRequest,
         UpdateAnnouncementRequestChannel,
@@ -1196,6 +1278,10 @@ if TYPE_CHECKING:
         UpdatePermissionsRequestTypedDict,
     )
     from .updatepolicyop import UpdatepolicyRequest, UpdatepolicyRequestTypedDict
+    from .updateshortcutop import (
+        UpdateshortcutRequestRequest,
+        UpdateshortcutRequestRequestTypedDict,
+    )
     from .updateshortcutrequest import (
         UpdateShortcutRequest,
         UpdateShortcutRequestTypedDict,
@@ -1235,10 +1321,6 @@ if TYPE_CHECKING:
         UserGeneratedContentID,
         UserGeneratedContentIDTypedDict,
     )
-    from .userinsightsresponse import (
-        UserInsightsResponse,
-        UserInsightsResponseTypedDict,
-    )
     from .userreferencedefinition import (
         UserReferenceDefinition,
         UserReferenceDefinitionTypedDict,
@@ -1247,6 +1329,7 @@ if TYPE_CHECKING:
     from .userstatusresponse import UserStatusResponse, UserStatusResponseTypedDict
     from .userviewinfo import UserViewInfo, UserViewInfoTypedDict
     from .verificationfeed import VerificationFeed, VerificationFeedTypedDict
+    from .verifyop import VerifyRequestRequest, VerifyRequestRequestTypedDict
     from .verifyrequest import (
         VerifyRequest,
         VerifyRequestAction,
@@ -1332,8 +1415,14 @@ __all__ = [
     "AddCollectionItemsRequestTypedDict",
     "AddCollectionItemsResponse",
     "AddCollectionItemsResponseTypedDict",
+    "AddcollectionitemsRequestRequest",
+    "AddcollectionitemsRequestRequestTypedDict",
     "AdditionalFieldDefinition",
     "AdditionalFieldDefinitionTypedDict",
+    "AddverificationreminderRequest",
+    "AddverificationreminderRequestTypedDict",
+    "AdminsearchRequest",
+    "AdminsearchRequestTypedDict",
     "Agent",
     "AgentCapabilities",
     "AgentCapabilitiesTypedDict",
@@ -1360,12 +1449,6 @@ __all__ = [
     "AgentsInsightsV2ResponseTypedDict",
     "AgentsUsageByDepartmentInsight",
     "AgentsUsageByDepartmentInsightTypedDict",
-    "AiAppActionCounts",
-    "AiAppActionCountsTypedDict",
-    "AiAppsInsightsResponse",
-    "AiAppsInsightsResponseTypedDict",
-    "AiInsightsResponse",
-    "AiInsightsResponseTypedDict",
     "AllowlistOptions",
     "AllowlistOptionsTypedDict",
     "Announcement",
@@ -1391,7 +1474,6 @@ __all__ = [
     "AnswerTypedDict",
     "AppResult",
     "AppResultTypedDict",
-    "AssistantActivityType",
     "AssistantInsightsResponse",
     "AssistantInsightsResponseTypedDict",
     "AuthConfig",
@@ -1403,6 +1485,8 @@ __all__ = [
     "AuthType",
     "Author",
     "AutocompleteRequest",
+    "AutocompleteRequestRequest",
+    "AutocompleteRequestRequestTypedDict",
     "AutocompleteRequestResultType",
     "AutocompleteRequestTypedDict",
     "AutocompleteResponse",
@@ -1519,8 +1603,6 @@ __all__ = [
     "ConnectorType",
     "ContentDefinition",
     "ContentDefinitionTypedDict",
-    "ContentInsightsResponse",
-    "ContentInsightsResponseTypedDict",
     "ContentType",
     "CountInfo",
     "CountInfoTypedDict",
@@ -1542,8 +1624,16 @@ __all__ = [
     "CreateShortcutRequestTypedDict",
     "CreateShortcutResponse",
     "CreateShortcutResponseTypedDict",
+    "CreateannouncementRequestRequest",
+    "CreateannouncementRequestRequestTypedDict",
+    "CreateanswerRequestRequest",
+    "CreateanswerRequestRequestTypedDict",
+    "CreatecollectionRequestRequest",
+    "CreatecollectionRequestRequestTypedDict",
     "CreatecollectionResponse",
     "CreatecollectionResponseTypedDict",
+    "CreateshortcutRequestRequest",
+    "CreateshortcutRequestRequestTypedDict",
     "CurrentActiveUsers",
     "CurrentActiveUsersTypedDict",
     "CustomDataValue",
@@ -1645,12 +1735,22 @@ __all__ = [
     "DeleteUserRequestTypedDict",
     "DeleteallchatsRequest",
     "DeleteallchatsRequestTypedDict",
+    "DeleteannouncementRequestRequest",
+    "DeleteannouncementRequestRequestTypedDict",
+    "DeleteanswerRequestRequest",
+    "DeleteanswerRequestRequestTypedDict",
     "DeletechatfilesRequestRequest",
     "DeletechatfilesRequestRequestTypedDict",
     "DeletechatsRequestRequest",
     "DeletechatsRequestRequestTypedDict",
+    "DeletecollectionRequestRequest",
+    "DeletecollectionRequestRequestTypedDict",
+    "DeletecollectionitemRequestRequest",
+    "DeletecollectionitemRequestRequestTypedDict",
     "DeletefindingsexportRequest",
     "DeletefindingsexportRequestTypedDict",
+    "DeleteshortcutRequestRequest",
+    "DeleteshortcutRequestRequestTypedDict",
     "Digest",
     "DigestSection",
     "DigestSectionTypedDict",
@@ -1684,8 +1784,6 @@ __all__ = [
     "DocumentContentTypedDict",
     "DocumentDefinition",
     "DocumentDefinitionTypedDict",
-    "DocumentInsight",
-    "DocumentInsightTypedDict",
     "DocumentInteractions",
     "DocumentInteractionsDefinition",
     "DocumentInteractionsDefinitionTypedDict",
@@ -1744,6 +1842,14 @@ __all__ = [
     "EditCollectionResponseTypedDict",
     "EditPinRequest",
     "EditPinRequestTypedDict",
+    "EditanswerRequestRequest",
+    "EditanswerRequestRequestTypedDict",
+    "EditcollectionRequestRequest",
+    "EditcollectionRequestRequestTypedDict",
+    "EditcollectionitemRequestRequest",
+    "EditcollectionitemRequestRequestTypedDict",
+    "EditpinRequestRequest",
+    "EditpinRequestRequestTypedDict",
     "EmployeeInfoDefinition",
     "EmployeeInfoDefinitionTypedDict",
     "EmployeeTeamInfo",
@@ -1793,6 +1899,8 @@ __all__ = [
     "FeedRequestCategory",
     "FeedRequestOptions",
     "FeedRequestOptionsTypedDict",
+    "FeedRequestRequest",
+    "FeedRequestRequestTypedDict",
     "FeedRequestTypedDict",
     "FeedResponse",
     "FeedResponseTypedDict",
@@ -1881,27 +1989,41 @@ __all__ = [
     "GetRestAPIV1ToolsListRequest",
     "GetRestAPIV1ToolsListRequestTypedDict",
     "GetShortcutRequest",
+    "GetShortcutRequest1",
+    "GetShortcutRequest1TypedDict",
     "GetShortcutRequestTypedDict",
-    "GetShortcutRequestUnion",
-    "GetShortcutRequestUnionTypedDict",
     "GetShortcutResponse",
     "GetShortcutResponseTypedDict",
     "GetUserCountRequest",
     "GetUserCountRequestTypedDict",
     "GetUserCountResponse",
     "GetUserCountResponseTypedDict",
+    "GetanswerRequestRequest",
+    "GetanswerRequestRequestTypedDict",
     "GetchatRequestRequest",
     "GetchatRequestRequestTypedDict",
     "GetchatapplicationRequestRequest",
     "GetchatapplicationRequestRequestTypedDict",
     "GetchatfilesRequestRequest",
     "GetchatfilesRequestRequestTypedDict",
+    "GetcollectionRequestRequest",
+    "GetcollectionRequestRequestTypedDict",
+    "GetdocpermissionsRequestRequest",
+    "GetdocpermissionsRequestRequestTypedDict",
+    "GetdocumentsRequestRequest",
+    "GetdocumentsRequestRequestTypedDict",
+    "GetdocumentsbyfacetsRequestRequest",
+    "GetdocumentsbyfacetsRequestRequestTypedDict",
     "GetdocvisibilityRequest",
     "GetdocvisibilityRequestTypedDict",
+    "GetpinRequestRequest",
+    "GetpinRequestRequestTypedDict",
     "GetpolicyRequest",
     "GetpolicyRequestTypedDict",
     "GetreportstatusRequest",
     "GetreportstatusRequestTypedDict",
+    "GetshortcutRequestRequest",
+    "GetshortcutRequestRequestTypedDict",
     "GleanAssistInsightsResponse",
     "GleanAssistInsightsResponseTypedDict",
     "GleanDataError",
@@ -1949,10 +2071,6 @@ __all__ = [
     "InputOptionsTypedDict",
     "InputSchema",
     "InputSchemaTypedDict",
-    "InsightsAgentsRequestOptions",
-    "InsightsAgentsRequestOptionsTypedDict",
-    "InsightsAiAppRequestOptions",
-    "InsightsAiAppRequestOptionsTypedDict",
     "InsightsAssistantRequest",
     "InsightsAssistantRequestTypedDict",
     "InsightsChatSummary",
@@ -1962,7 +2080,8 @@ __all__ = [
     "InsightsOverviewResponse",
     "InsightsOverviewResponseTypedDict",
     "InsightsRequest",
-    "InsightsRequestCategory",
+    "InsightsRequestRequest",
+    "InsightsRequestRequestTypedDict",
     "InsightsRequestTypedDict",
     "InsightsResponse",
     "InsightsResponseTypedDict",
@@ -2005,12 +2124,22 @@ __all__ = [
     "ListShortcutsPaginatedRequestTypedDict",
     "ListShortcutsPaginatedResponse",
     "ListShortcutsPaginatedResponseTypedDict",
+    "ListanswersRequestRequest",
+    "ListanswersRequestRequestTypedDict",
     "ListchatsRequest",
     "ListchatsRequestTypedDict",
+    "ListcollectionsRequestRequest",
+    "ListcollectionsRequestRequestTypedDict",
+    "ListentitiesRequestRequest",
+    "ListentitiesRequestRequestTypedDict",
     "ListpinsRequest",
+    "ListpinsRequestBody",
+    "ListpinsRequestBodyTypedDict",
     "ListpinsRequestTypedDict",
     "ListpoliciesRequest",
     "ListpoliciesRequestTypedDict",
+    "ListshortcutsRequest",
+    "ListshortcutsRequestTypedDict",
     "ListverificationsRequest",
     "ListverificationsRequestTypedDict",
     "ManualFeedbackInfo",
@@ -2029,6 +2158,8 @@ __all__ = [
     "MessageType",
     "MessageTypedDict",
     "MessagesRequest",
+    "MessagesRequestRequest",
+    "MessagesRequestRequestTypedDict",
     "MessagesRequestTypedDict",
     "MessagesResponse",
     "MessagesResponseTypedDict",
@@ -2047,6 +2178,8 @@ __all__ = [
     "OutputSchemaTypedDict",
     "PeopleRequest",
     "PeopleRequestIncludeField",
+    "PeopleRequestRequest",
+    "PeopleRequestRequestTypedDict",
     "PeopleRequestTypedDict",
     "PeopleResponse",
     "PeopleResponseTypedDict",
@@ -2080,6 +2213,8 @@ __all__ = [
     "PinDocument",
     "PinDocumentTypedDict",
     "PinRequest",
+    "PinRequestRequest",
+    "PinRequestRequestTypedDict",
     "PinRequestTypedDict",
     "PossibleValue",
     "PossibleValueTypedDict",
@@ -2109,10 +2244,6 @@ __all__ = [
     "PropertyGroupTypedDict",
     "PropertyType",
     "Provider",
-    "QueryInsight",
-    "QueryInsightTypedDict",
-    "QueryInsightsResponse",
-    "QueryInsightsResponseTypedDict",
     "QuerySuggestion",
     "QuerySuggestionList",
     "QuerySuggestionListTypedDict",
@@ -2126,6 +2257,8 @@ __all__ = [
     "RecommendationsRequest",
     "RecommendationsRequestOptions",
     "RecommendationsRequestOptionsTypedDict",
+    "RecommendationsRequestRequest",
+    "RecommendationsRequestRequestTypedDict",
     "RecommendationsRequestTypedDict",
     "ReferenceRange",
     "ReferenceRangeTypedDict",
@@ -2183,6 +2316,8 @@ __all__ = [
     "SearchRequestInputDetailsTypedDict",
     "SearchRequestOptions",
     "SearchRequestOptionsTypedDict",
+    "SearchRequestRequest",
+    "SearchRequestRequestTypedDict",
     "SearchRequestTypedDict",
     "SearchResponse",
     "SearchResponseMetadata",
@@ -2217,10 +2352,6 @@ __all__ = [
     "ShortcutError",
     "ShortcutErrorErrorType",
     "ShortcutErrorTypedDict",
-    "ShortcutInsight",
-    "ShortcutInsightTypedDict",
-    "ShortcutInsightsResponse",
-    "ShortcutInsightsResponseTypedDict",
     "ShortcutMutableProperties",
     "ShortcutMutablePropertiesTypedDict",
     "ShortcutTypedDict",
@@ -2249,6 +2380,8 @@ __all__ = [
     "StructuredTextMutablePropertiesTypedDict",
     "StructuredTextTypedDict",
     "SummarizeRequest",
+    "SummarizeRequestRequest",
+    "SummarizeRequestRequestTypedDict",
     "SummarizeRequestTypedDict",
     "SummarizeResponse",
     "SummarizeResponseTypedDict",
@@ -2303,6 +2436,8 @@ __all__ = [
     "UIOptions",
     "UgcType",
     "Unpin",
+    "UnpinRequest",
+    "UnpinRequestTypedDict",
     "UnpinTypedDict",
     "UpdateAnnouncementRequest",
     "UpdateAnnouncementRequestChannel",
@@ -2327,8 +2462,12 @@ __all__ = [
     "UpdateShortcutResponse",
     "UpdateShortcutResponseTypedDict",
     "UpdateType",
+    "UpdateannouncementRequestRequest",
+    "UpdateannouncementRequestRequestTypedDict",
     "UpdatepolicyRequest",
     "UpdatepolicyRequestTypedDict",
+    "UpdateshortcutRequestRequest",
+    "UpdateshortcutRequestRequestTypedDict",
     "UploadChatFilesRequest",
     "UploadChatFilesRequestTypedDict",
     "UploadChatFilesResponse",
@@ -2346,8 +2485,6 @@ __all__ = [
     "UserActivityTypedDict",
     "UserGeneratedContentID",
     "UserGeneratedContentIDTypedDict",
-    "UserInsightsResponse",
-    "UserInsightsResponseTypedDict",
     "UserReferenceDefinition",
     "UserReferenceDefinitionTypedDict",
     "UserRole",
@@ -2368,6 +2505,8 @@ __all__ = [
     "VerificationTypedDict",
     "VerifyRequest",
     "VerifyRequestAction",
+    "VerifyRequestRequest",
+    "VerifyRequestRequestTypedDict",
     "VerifyRequestTypedDict",
     "ViewerInfo",
     "ViewerInfoTypedDict",
@@ -2398,6 +2537,8 @@ _dynamic_imports: dict[str, str] = {
     "AddCollectionItemsError": ".addcollectionitemserror",
     "AddCollectionItemsErrorErrorType": ".addcollectionitemserror",
     "AddCollectionItemsErrorTypedDict": ".addcollectionitemserror",
+    "AddcollectionitemsRequestRequest": ".addcollectionitemsop",
+    "AddcollectionitemsRequestRequestTypedDict": ".addcollectionitemsop",
     "AddCollectionItemsRequest": ".addcollectionitemsrequest",
     "AddCollectionItemsRequestTypedDict": ".addcollectionitemsrequest",
     "AddCollectionItemsResponse": ".addcollectionitemsresponse",
@@ -2406,6 +2547,10 @@ _dynamic_imports: dict[str, str] = {
     "AdditionalFieldDefinitionTypedDict": ".additionalfielddefinition",
     "Value": ".additionalfielddefinition",
     "ValueTypedDict": ".additionalfielddefinition",
+    "AddverificationreminderRequest": ".addverificationreminderop",
+    "AddverificationreminderRequestTypedDict": ".addverificationreminderop",
+    "AdminsearchRequest": ".adminsearchop",
+    "AdminsearchRequestTypedDict": ".adminsearchop",
     "Agent": ".agent",
     "AgentCapabilities": ".agent",
     "AgentCapabilitiesTypedDict": ".agent",
@@ -2437,12 +2582,6 @@ _dynamic_imports: dict[str, str] = {
     "AgentsUsageByDepartmentInsightTypedDict": ".agentsusagebydepartmentinsight",
     "AgentUsersInsight": ".agentusersinsight",
     "AgentUsersInsightTypedDict": ".agentusersinsight",
-    "AiAppActionCounts": ".aiappactioncounts",
-    "AiAppActionCountsTypedDict": ".aiappactioncounts",
-    "AiAppsInsightsResponse": ".aiappsinsightsresponse",
-    "AiAppsInsightsResponseTypedDict": ".aiappsinsightsresponse",
-    "AiInsightsResponse": ".aiinsightsresponse",
-    "AiInsightsResponseTypedDict": ".aiinsightsresponse",
     "AllowlistOptions": ".allowlistoptions",
     "AllowlistOptionsTypedDict": ".allowlistoptions",
     "Announcement": ".announcement",
@@ -2470,6 +2609,8 @@ _dynamic_imports: dict[str, str] = {
     "GrantType": ".authconfig",
     "AuthToken": ".authtoken",
     "AuthTokenTypedDict": ".authtoken",
+    "AutocompleteRequestRequest": ".autocompleteop",
+    "AutocompleteRequestRequestTypedDict": ".autocompleteop",
     "AutocompleteRequest": ".autocompleterequest",
     "AutocompleteRequestResultType": ".autocompleterequest",
     "AutocompleteRequestTypedDict": ".autocompleterequest",
@@ -2570,19 +2711,23 @@ _dynamic_imports: dict[str, str] = {
     "ConnectorType": ".connectortype",
     "ContentDefinition": ".contentdefinition",
     "ContentDefinitionTypedDict": ".contentdefinition",
-    "ContentInsightsResponse": ".contentinsightsresponse",
-    "ContentInsightsResponseTypedDict": ".contentinsightsresponse",
     "ContentType": ".contenttype",
     "CountInfo": ".countinfo",
     "CountInfoTypedDict": ".countinfo",
+    "CreateannouncementRequestRequest": ".createannouncementop",
+    "CreateannouncementRequestRequestTypedDict": ".createannouncementop",
     "CreateAnnouncementRequest": ".createannouncementrequest",
     "CreateAnnouncementRequestChannel": ".createannouncementrequest",
     "CreateAnnouncementRequestPostType": ".createannouncementrequest",
     "CreateAnnouncementRequestTypedDict": ".createannouncementrequest",
+    "CreateanswerRequestRequest": ".createanswerop",
+    "CreateanswerRequestRequestTypedDict": ".createanswerop",
     "CreateAnswerRequest": ".createanswerrequest",
     "CreateAnswerRequestTypedDict": ".createanswerrequest",
     "CreateAuthTokenResponse": ".createauthtokenresponse",
     "CreateAuthTokenResponseTypedDict": ".createauthtokenresponse",
+    "CreatecollectionRequestRequest": ".createcollectionop",
+    "CreatecollectionRequestRequestTypedDict": ".createcollectionop",
     "CreatecollectionResponse": ".createcollectionop",
     "CreatecollectionResponseTypedDict": ".createcollectionop",
     "ResponseBody1": ".createcollectionop",
@@ -2595,6 +2740,8 @@ _dynamic_imports: dict[str, str] = {
     "CreateDlpReportRequestTypedDict": ".createdlpreportrequest",
     "CreateDlpReportResponse": ".createdlpreportresponse",
     "CreateDlpReportResponseTypedDict": ".createdlpreportresponse",
+    "CreateshortcutRequestRequest": ".createshortcutop",
+    "CreateshortcutRequestRequestTypedDict": ".createshortcutop",
     "CreateShortcutRequest": ".createshortcutrequest",
     "CreateShortcutRequestTypedDict": ".createshortcutrequest",
     "CreateShortcutResponse": ".createshortcutresponse",
@@ -2665,8 +2812,12 @@ _dynamic_imports: dict[str, str] = {
     "DebugUserResponseTypedDict": ".debuguserresponse",
     "DeleteallchatsRequest": ".deleteallchatsop",
     "DeleteallchatsRequestTypedDict": ".deleteallchatsop",
+    "DeleteannouncementRequestRequest": ".deleteannouncementop",
+    "DeleteannouncementRequestRequestTypedDict": ".deleteannouncementop",
     "DeleteAnnouncementRequest": ".deleteannouncementrequest",
     "DeleteAnnouncementRequestTypedDict": ".deleteannouncementrequest",
+    "DeleteanswerRequestRequest": ".deleteanswerop",
+    "DeleteanswerRequestRequestTypedDict": ".deleteanswerop",
     "DeleteAnswerRequest": ".deleteanswerrequest",
     "DeleteAnswerRequestTypedDict": ".deleteanswerrequest",
     "DeletechatfilesRequestRequest": ".deletechatfilesop",
@@ -2677,10 +2828,14 @@ _dynamic_imports: dict[str, str] = {
     "DeletechatsRequestRequestTypedDict": ".deletechatsop",
     "DeleteChatsRequest": ".deletechatsrequest",
     "DeleteChatsRequestTypedDict": ".deletechatsrequest",
+    "DeletecollectionitemRequestRequest": ".deletecollectionitemop",
+    "DeletecollectionitemRequestRequestTypedDict": ".deletecollectionitemop",
     "DeleteCollectionItemRequest": ".deletecollectionitemrequest",
     "DeleteCollectionItemRequestTypedDict": ".deletecollectionitemrequest",
     "DeleteCollectionItemResponse": ".deletecollectionitemresponse",
     "DeleteCollectionItemResponseTypedDict": ".deletecollectionitemresponse",
+    "DeletecollectionRequestRequest": ".deletecollectionop",
+    "DeletecollectionRequestRequestTypedDict": ".deletecollectionop",
     "DeleteCollectionRequest": ".deletecollectionrequest",
     "DeleteCollectionRequestTypedDict": ".deletecollectionrequest",
     "DeleteDocumentRequest": ".deletedocumentrequest",
@@ -2693,6 +2848,8 @@ _dynamic_imports: dict[str, str] = {
     "DeleteGroupRequestTypedDict": ".deletegrouprequest",
     "DeleteMembershipRequest": ".deletemembershiprequest",
     "DeleteMembershipRequestTypedDict": ".deletemembershiprequest",
+    "DeleteshortcutRequestRequest": ".deleteshortcutop",
+    "DeleteshortcutRequestRequestTypedDict": ".deleteshortcutop",
     "DeleteShortcutRequest": ".deleteshortcutrequest",
     "DeleteShortcutRequestTypedDict": ".deleteshortcutrequest",
     "DeleteTeamRequest": ".deleteteamrequest",
@@ -2732,8 +2889,6 @@ _dynamic_imports: dict[str, str] = {
     "DocumentContentTypedDict": ".documentcontent",
     "DocumentDefinition": ".documentdefinition",
     "DocumentDefinitionTypedDict": ".documentdefinition",
-    "DocumentInsight": ".documentinsight",
-    "DocumentInsightTypedDict": ".documentinsight",
     "DocumentInteractionsDefinition": ".documentinteractionsdefinition",
     "DocumentInteractionsDefinitionTypedDict": ".documentinteractionsdefinition",
     "DocumentOrError": ".documentorerror_union",
@@ -2771,18 +2926,26 @@ _dynamic_imports: dict[str, str] = {
     "DownloadpolicycsvRequestTypedDict": ".downloadpolicycsvop",
     "DownloadreportcsvRequest": ".downloadreportcsvop",
     "DownloadreportcsvRequestTypedDict": ".downloadreportcsvop",
+    "EditanswerRequestRequest": ".editanswerop",
+    "EditanswerRequestRequestTypedDict": ".editanswerop",
     "EditAnswerRequest": ".editanswerrequest",
     "EditAnswerRequestSourceType": ".editanswerrequest",
     "EditAnswerRequestTypedDict": ".editanswerrequest",
+    "EditcollectionitemRequestRequest": ".editcollectionitemop",
+    "EditcollectionitemRequestRequestTypedDict": ".editcollectionitemop",
     "EditCollectionItemRequest": ".editcollectionitemrequest",
     "EditCollectionItemRequestTypedDict": ".editcollectionitemrequest",
     "EditCollectionItemResponse": ".editcollectionitemresponse",
     "EditCollectionItemResponseTypedDict": ".editcollectionitemresponse",
+    "EditcollectionRequestRequest": ".editcollectionop",
+    "EditcollectionRequestRequestTypedDict": ".editcollectionop",
     "EditCollectionRequest": ".editcollectionrequest",
     "EditCollectionRequestTypedDict": ".editcollectionrequest",
     "EditCollectionResponse": ".editcollectionresponse",
     "EditCollectionResponseErrorCode": ".editcollectionresponse",
     "EditCollectionResponseTypedDict": ".editcollectionresponse",
+    "EditpinRequestRequest": ".editpinop",
+    "EditpinRequestRequestTypedDict": ".editpinop",
     "EditPinRequest": ".editpinrequest",
     "EditPinRequestTypedDict": ".editpinrequest",
     "EmployeeInfoDefinition": ".employeeinfodefinition",
@@ -2840,6 +3003,8 @@ _dynamic_imports: dict[str, str] = {
     "JustificationType": ".feedentry",
     "UIConfig": ".feedentry",
     "UIConfigTypedDict": ".feedentry",
+    "FeedRequestRequest": ".feedop",
+    "FeedRequestRequestTypedDict": ".feedop",
     "FeedRequest": ".feedrequest",
     "FeedRequestCategory": ".feedrequest",
     "FeedRequestTypedDict": ".feedrequest",
@@ -2867,6 +3032,8 @@ _dynamic_imports: dict[str, str] = {
     "GetAnswerError": ".getanswererror",
     "GetAnswerErrorErrorType": ".getanswererror",
     "GetAnswerErrorTypedDict": ".getanswererror",
+    "GetanswerRequestRequest": ".getanswerop",
+    "GetanswerRequestRequestTypedDict": ".getanswerop",
     "GetAnswerRequest": ".getanswerrequest",
     "GetAnswerRequestTypedDict": ".getanswerrequest",
     "GetAnswerResponse": ".getanswerresponse",
@@ -2889,6 +3056,8 @@ _dynamic_imports: dict[str, str] = {
     "GetChatRequestTypedDict": ".getchatrequest",
     "GetChatResponse": ".getchatresponse",
     "GetChatResponseTypedDict": ".getchatresponse",
+    "GetcollectionRequestRequest": ".getcollectionop",
+    "GetcollectionRequestRequestTypedDict": ".getcollectionop",
     "GetCollectionRequest": ".getcollectionrequest",
     "GetCollectionRequestTypedDict": ".getcollectionrequest",
     "GetCollectionResponse": ".getcollectionresponse",
@@ -2897,6 +3066,8 @@ _dynamic_imports: dict[str, str] = {
     "GetDatasourceConfigRequestTypedDict": ".getdatasourceconfigrequest",
     "GetDlpReportResponse": ".getdlpreportresponse",
     "GetDlpReportResponseTypedDict": ".getdlpreportresponse",
+    "GetdocpermissionsRequestRequest": ".getdocpermissionsop",
+    "GetdocpermissionsRequestRequestTypedDict": ".getdocpermissionsop",
     "GetDocPermissionsRequest": ".getdocpermissionsrequest",
     "GetDocPermissionsRequestTypedDict": ".getdocpermissionsrequest",
     "GetDocPermissionsResponse": ".getdocpermissionsresponse",
@@ -2905,10 +3076,14 @@ _dynamic_imports: dict[str, str] = {
     "GetDocumentCountRequestTypedDict": ".getdocumentcountrequest",
     "GetDocumentCountResponse": ".getdocumentcountresponse",
     "GetDocumentCountResponseTypedDict": ".getdocumentcountresponse",
+    "GetdocumentsbyfacetsRequestRequest": ".getdocumentsbyfacetsop",
+    "GetdocumentsbyfacetsRequestRequestTypedDict": ".getdocumentsbyfacetsop",
     "GetDocumentsByFacetsRequest": ".getdocumentsbyfacetsrequest",
     "GetDocumentsByFacetsRequestTypedDict": ".getdocumentsbyfacetsrequest",
     "GetDocumentsByFacetsResponse": ".getdocumentsbyfacetsresponse",
     "GetDocumentsByFacetsResponseTypedDict": ".getdocumentsbyfacetsresponse",
+    "GetdocumentsRequestRequest": ".getdocumentsop",
+    "GetdocumentsRequestRequestTypedDict": ".getdocumentsop",
     "GetDocumentsRequest": ".getdocumentsrequest",
     "GetDocumentsRequestIncludeField": ".getdocumentsrequest",
     "GetDocumentsRequestTypedDict": ".getdocumentsrequest",
@@ -2922,6 +3097,8 @@ _dynamic_imports: dict[str, str] = {
     "GetDocumentVisibilityOverridesResponseTypedDict": ".getdocumentvisibilityoverridesresponse",
     "GetdocvisibilityRequest": ".getdocvisibilityop",
     "GetdocvisibilityRequestTypedDict": ".getdocvisibilityop",
+    "GetpinRequestRequest": ".getpinop",
+    "GetpinRequestRequestTypedDict": ".getpinop",
     "GetPinRequest": ".getpinrequest",
     "GetPinRequestTypedDict": ".getpinrequest",
     "GetPinResponse": ".getpinresponse",
@@ -2930,10 +3107,12 @@ _dynamic_imports: dict[str, str] = {
     "GetpolicyRequestTypedDict": ".getpolicyop",
     "GetreportstatusRequest": ".getreportstatusop",
     "GetreportstatusRequestTypedDict": ".getreportstatusop",
-    "GetShortcutRequest": ".getshortcutrequest_union",
-    "GetShortcutRequestTypedDict": ".getshortcutrequest_union",
-    "GetShortcutRequestUnion": ".getshortcutrequest_union",
-    "GetShortcutRequestUnionTypedDict": ".getshortcutrequest_union",
+    "GetshortcutRequestRequest": ".getshortcutop",
+    "GetshortcutRequestRequestTypedDict": ".getshortcutop",
+    "GetShortcutRequest": ".getshortcutrequest",
+    "GetShortcutRequest1": ".getshortcutrequest",
+    "GetShortcutRequest1TypedDict": ".getshortcutrequest",
+    "GetShortcutRequestTypedDict": ".getshortcutrequest",
     "GetShortcutResponse": ".getshortcutresponse",
     "GetShortcutResponseTypedDict": ".getshortcutresponse",
     "GetUserCountRequest": ".getusercountrequest",
@@ -2980,21 +3159,17 @@ _dynamic_imports: dict[str, str] = {
     "InputOptions": ".inputoptions",
     "InputOptionsTimePeriodType": ".inputoptions",
     "InputOptionsTypedDict": ".inputoptions",
-    "InsightsAgentsRequestOptions": ".insightsagentsrequestoptions",
-    "InsightsAgentsRequestOptionsTypedDict": ".insightsagentsrequestoptions",
-    "InsightsAiAppRequestOptions": ".insightsaiapprequestoptions",
-    "InsightsAiAppRequestOptionsTypedDict": ".insightsaiapprequestoptions",
     "InsightsAssistantRequest": ".insightsassistantrequest",
     "InsightsAssistantRequestTypedDict": ".insightsassistantrequest",
     "InsightsChatSummary": ".insightschatsummary",
     "InsightsChatSummaryTypedDict": ".insightschatsummary",
+    "InsightsRequestRequest": ".insightsop",
+    "InsightsRequestRequestTypedDict": ".insightsop",
     "InsightsOverviewRequest": ".insightsoverviewrequest",
     "InsightsOverviewRequestTypedDict": ".insightsoverviewrequest",
     "InsightsOverviewResponse": ".insightsoverviewresponse",
     "InsightsOverviewResponseTypedDict": ".insightsoverviewresponse",
-    "AssistantActivityType": ".insightsrequest",
     "InsightsRequest": ".insightsrequest",
-    "InsightsRequestCategory": ".insightsrequest",
     "InsightsRequestTypedDict": ".insightsrequest",
     "InsightsResponse": ".insightsresponse",
     "InsightsResponseTypedDict": ".insightsresponse",
@@ -3004,6 +3179,8 @@ _dynamic_imports: dict[str, str] = {
     "InvalidOperatorValueErrorTypedDict": ".invalidoperatorvalueerror",
     "LabeledCountInfo": ".labeledcountinfo",
     "LabeledCountInfoTypedDict": ".labeledcountinfo",
+    "ListanswersRequestRequest": ".listanswersop",
+    "ListanswersRequestRequestTypedDict": ".listanswersop",
     "ListAnswersRequest": ".listanswersrequest",
     "ListAnswersRequestTypedDict": ".listanswersrequest",
     "ListAnswersResponse": ".listanswersresponse",
@@ -3012,6 +3189,8 @@ _dynamic_imports: dict[str, str] = {
     "ListchatsRequestTypedDict": ".listchatsop",
     "ListChatsResponse": ".listchatsresponse",
     "ListChatsResponseTypedDict": ".listchatsresponse",
+    "ListcollectionsRequestRequest": ".listcollectionsop",
+    "ListcollectionsRequestRequestTypedDict": ".listcollectionsop",
     "ListCollectionsRequest": ".listcollectionsrequest",
     "ListCollectionsRequestTypedDict": ".listcollectionsrequest",
     "ListCollectionsResponse": ".listcollectionsresponse",
@@ -3020,6 +3199,8 @@ _dynamic_imports: dict[str, str] = {
     "ListDlpFindingsExportsResponseTypedDict": ".listdlpfindingsexportsresponse",
     "ListDlpReportsResponse": ".listdlpreportsresponse",
     "ListDlpReportsResponseTypedDict": ".listdlpreportsresponse",
+    "ListentitiesRequestRequest": ".listentitiesop",
+    "ListentitiesRequestRequestTypedDict": ".listentitiesop",
     "ListEntitiesRequest": ".listentitiesrequest",
     "ListEntitiesRequestEntityType": ".listentitiesrequest",
     "ListEntitiesRequestIncludeField": ".listentitiesrequest",
@@ -3028,11 +3209,15 @@ _dynamic_imports: dict[str, str] = {
     "ListEntitiesResponse": ".listentitiesresponse",
     "ListEntitiesResponseTypedDict": ".listentitiesresponse",
     "ListpinsRequest": ".listpinsop",
+    "ListpinsRequestBody": ".listpinsop",
+    "ListpinsRequestBodyTypedDict": ".listpinsop",
     "ListpinsRequestTypedDict": ".listpinsop",
     "ListPinsResponse": ".listpinsresponse",
     "ListPinsResponseTypedDict": ".listpinsresponse",
     "ListpoliciesRequest": ".listpoliciesop",
     "ListpoliciesRequestTypedDict": ".listpoliciesop",
+    "ListshortcutsRequest": ".listshortcutsop",
+    "ListshortcutsRequestTypedDict": ".listshortcutsop",
     "ListShortcutsPaginatedRequest": ".listshortcutspaginatedrequest",
     "ListShortcutsPaginatedRequestIncludeField": ".listshortcutspaginatedrequest",
     "ListShortcutsPaginatedRequestTypedDict": ".listshortcutspaginatedrequest",
@@ -3053,6 +3238,8 @@ _dynamic_imports: dict[str, str] = {
     "MessageTextBlock": ".message",
     "MessageTextBlockTypedDict": ".message",
     "MessageTypedDict": ".message",
+    "MessagesRequestRequest": ".messagesop",
+    "MessagesRequestRequestTypedDict": ".messagesop",
     "Datasource": ".messagesrequest",
     "Direction": ".messagesrequest",
     "IDType": ".messagesrequest",
@@ -3070,6 +3257,8 @@ _dynamic_imports: dict[str, str] = {
     "OperatorType": ".operatormetadata",
     "OperatorScope": ".operatorscope",
     "OperatorScopeTypedDict": ".operatorscope",
+    "PeopleRequestRequest": ".peopleop",
+    "PeopleRequestRequestTypedDict": ".peopleop",
     "IncludeType": ".peoplerequest",
     "PeopleRequest": ".peoplerequest",
     "PeopleRequestIncludeField": ".peoplerequest",
@@ -3095,6 +3284,8 @@ _dynamic_imports: dict[str, str] = {
     "PerUserAssistantInsightTypedDict": ".peruserassistantinsight",
     "PerUserInsight": ".peruserinsight",
     "PerUserInsightTypedDict": ".peruserinsight",
+    "PinRequestRequest": ".pinop",
+    "PinRequestRequestTypedDict": ".pinop",
     "PinRequest": ".pinrequest",
     "PinRequestTypedDict": ".pinrequest",
     "PossibleValue": ".possiblevalue",
@@ -3123,15 +3314,13 @@ _dynamic_imports: dict[str, str] = {
     "UIOptions": ".propertydefinition",
     "PropertyGroup": ".propertygroup",
     "PropertyGroupTypedDict": ".propertygroup",
-    "QueryInsight": ".queryinsight",
-    "QueryInsightTypedDict": ".queryinsight",
-    "QueryInsightsResponse": ".queryinsightsresponse",
-    "QueryInsightsResponseTypedDict": ".queryinsightsresponse",
     "Quicklink": ".quicklink",
     "QuicklinkTypedDict": ".quicklink",
     "Scope": ".quicklink",
     "ReadPermission": ".readpermission",
     "ReadPermissionTypedDict": ".readpermission",
+    "RecommendationsRequestRequest": ".recommendationsop",
+    "RecommendationsRequestRequestTypedDict": ".recommendationsop",
     "RecommendationsRequest": ".recommendationsrequest",
     "RecommendationsRequestTypedDict": ".recommendationsrequest",
     "RecommendationsRequestOptions": ".recommendationsrequestoptions",
@@ -3164,6 +3353,8 @@ _dynamic_imports: dict[str, str] = {
     "SearchAgentsRequestTypedDict": ".searchagentsrequest",
     "SearchAgentsResponse": ".searchagentsresponse",
     "SearchAgentsResponseTypedDict": ".searchagentsresponse",
+    "SearchRequestRequest": ".searchop",
+    "SearchRequestRequestTypedDict": ".searchop",
     "SearchProviderInfo": ".searchproviderinfo",
     "SearchProviderInfoTypedDict": ".searchproviderinfo",
     "SearchRequest": ".searchrequest",
@@ -3200,10 +3391,6 @@ _dynamic_imports: dict[str, str] = {
     "ShortcutError": ".shortcuterror",
     "ShortcutErrorErrorType": ".shortcuterror",
     "ShortcutErrorTypedDict": ".shortcuterror",
-    "ShortcutInsight": ".shortcutinsight",
-    "ShortcutInsightTypedDict": ".shortcutinsight",
-    "ShortcutInsightsResponse": ".shortcutinsightsresponse",
-    "ShortcutInsightsResponseTypedDict": ".shortcutinsightsresponse",
     "ShortcutMutableProperties": ".shortcutmutableproperties",
     "ShortcutMutablePropertiesTypedDict": ".shortcutmutableproperties",
     "ShortcutsPaginationMetadata": ".shortcutspaginationmetadata",
@@ -3225,6 +3412,8 @@ _dynamic_imports: dict[str, str] = {
     "StructuredLocationTypedDict": ".structuredlocation",
     "StructuredTextMutableProperties": ".structuredtextmutableproperties",
     "StructuredTextMutablePropertiesTypedDict": ".structuredtextmutableproperties",
+    "SummarizeRequestRequest": ".summarizeop",
+    "SummarizeRequestRequestTypedDict": ".summarizeop",
     "SummarizeRequest": ".summarizerequest",
     "SummarizeRequestTypedDict": ".summarizerequest",
     "Error": ".summarizeresponse",
@@ -3277,6 +3466,10 @@ _dynamic_imports: dict[str, str] = {
     "UgcType": ".ugctype",
     "Unpin": ".unpin",
     "UnpinTypedDict": ".unpin",
+    "UnpinRequest": ".unpinop",
+    "UnpinRequestTypedDict": ".unpinop",
+    "UpdateannouncementRequestRequest": ".updateannouncementop",
+    "UpdateannouncementRequestRequestTypedDict": ".updateannouncementop",
     "UpdateAnnouncementRequest": ".updateannouncementrequest",
     "UpdateAnnouncementRequestChannel": ".updateannouncementrequest",
     "UpdateAnnouncementRequestPostType": ".updateannouncementrequest",
@@ -3297,6 +3490,8 @@ _dynamic_imports: dict[str, str] = {
     "UpdatePermissionsRequestTypedDict": ".updatepermissionsrequest",
     "UpdatepolicyRequest": ".updatepolicyop",
     "UpdatepolicyRequestTypedDict": ".updatepolicyop",
+    "UpdateshortcutRequestRequest": ".updateshortcutop",
+    "UpdateshortcutRequestRequestTypedDict": ".updateshortcutop",
     "UpdateShortcutRequest": ".updateshortcutrequest",
     "UpdateShortcutRequestTypedDict": ".updateshortcutrequest",
     "UpdateShortcutResponse": ".updateshortcutresponse",
@@ -3323,8 +3518,6 @@ _dynamic_imports: dict[str, str] = {
     "UserActivityInsightTypedDict": ".useractivityinsight",
     "UserGeneratedContentID": ".usergeneratedcontentid",
     "UserGeneratedContentIDTypedDict": ".usergeneratedcontentid",
-    "UserInsightsResponse": ".userinsightsresponse",
-    "UserInsightsResponseTypedDict": ".userinsightsresponse",
     "UserReferenceDefinition": ".userreferencedefinition",
     "UserReferenceDefinitionTypedDict": ".userreferencedefinition",
     "UserRole": ".userrole",
@@ -3334,6 +3527,8 @@ _dynamic_imports: dict[str, str] = {
     "UserViewInfoTypedDict": ".userviewinfo",
     "VerificationFeed": ".verificationfeed",
     "VerificationFeedTypedDict": ".verificationfeed",
+    "VerifyRequestRequest": ".verifyop",
+    "VerifyRequestRequestTypedDict": ".verifyop",
     "VerifyRequest": ".verifyrequest",
     "VerifyRequestAction": ".verifyrequest",
     "VerifyRequestTypedDict": ".verifyrequest",

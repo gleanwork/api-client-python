@@ -4,16 +4,17 @@ from .basesdk import BaseSDK
 from datetime import datetime
 from glean.api_client import errors, models, utils
 from glean.api_client._hooks import HookContext
-from glean.api_client.types import BaseModel, OptionalNullable, UNSET
+from glean.api_client.types import OptionalNullable, UNSET
 from glean.api_client.utils import get_security_from_env
 from glean.api_client.utils.unmarshal_json_response import unmarshal_json_response
-from typing import List, Mapping, Optional, Union, cast
+from typing import List, Mapping, Optional, Union
 
 
 class ClientDocuments(BaseSDK):
     def retrieve_permissions(
         self,
         *,
+        locale: Optional[str] = None,
         document_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -24,6 +25,7 @@ class ClientDocuments(BaseSDK):
 
         Read the emails of all users who have access to the given document.
 
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param document_id: The Glean Document ID to retrieve permissions for.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -40,8 +42,11 @@ class ClientDocuments(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.GetDocPermissionsRequest(
-            document_id=document_id,
+        request = models.GetdocpermissionsRequestRequest(
+            locale=locale,
+            get_doc_permissions_request=models.GetDocPermissionsRequest(
+                document_id=document_id,
+            ),
         )
 
         req = self._build_request(
@@ -58,7 +63,11 @@ class ClientDocuments(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.GetDocPermissionsRequest
+                request.get_doc_permissions_request,
+                False,
+                False,
+                "json",
+                models.GetDocPermissionsRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -101,6 +110,7 @@ class ClientDocuments(BaseSDK):
     async def retrieve_permissions_async(
         self,
         *,
+        locale: Optional[str] = None,
         document_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -111,6 +121,7 @@ class ClientDocuments(BaseSDK):
 
         Read the emails of all users who have access to the given document.
 
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param document_id: The Glean Document ID to retrieve permissions for.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -127,8 +138,11 @@ class ClientDocuments(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.GetDocPermissionsRequest(
-            document_id=document_id,
+        request = models.GetdocpermissionsRequestRequest(
+            locale=locale,
+            get_doc_permissions_request=models.GetDocPermissionsRequest(
+                document_id=document_id,
+            ),
         )
 
         req = self._build_request_async(
@@ -145,7 +159,11 @@ class ClientDocuments(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.GetDocPermissionsRequest
+                request.get_doc_permissions_request,
+                False,
+                False,
+                "json",
+                models.GetDocPermissionsRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -188,7 +206,8 @@ class ClientDocuments(BaseSDK):
     def retrieve(
         self,
         *,
-        request: Optional[
+        locale: Optional[str] = None,
+        get_documents_request: Optional[
             Union[models.GetDocumentsRequest, models.GetDocumentsRequestTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -200,7 +219,8 @@ class ClientDocuments(BaseSDK):
 
         Read the documents including metadata (does not include enhanced metadata via `/documentmetadata`) for the given list of Glean Document IDs or URLs specified in the request.
 
-        :param request: The request object to send.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
+        :param get_documents_request: Information about documents requested.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -216,9 +236,12 @@ class ClientDocuments(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, Optional[models.GetDocumentsRequest])
-        request = cast(Optional[models.GetDocumentsRequest], request)
+        request = models.GetdocumentsRequestRequest(
+            locale=locale,
+            get_documents_request=utils.get_pydantic_model(
+                get_documents_request, Optional[models.GetDocumentsRequest]
+            ),
+        )
 
         req = self._build_request(
             method="POST",
@@ -234,7 +257,11 @@ class ClientDocuments(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.GetDocumentsRequest]
+                request.get_documents_request,
+                False,
+                True,
+                "json",
+                Optional[models.GetDocumentsRequest],
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -277,7 +304,8 @@ class ClientDocuments(BaseSDK):
     async def retrieve_async(
         self,
         *,
-        request: Optional[
+        locale: Optional[str] = None,
+        get_documents_request: Optional[
             Union[models.GetDocumentsRequest, models.GetDocumentsRequestTypedDict]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -289,7 +317,8 @@ class ClientDocuments(BaseSDK):
 
         Read the documents including metadata (does not include enhanced metadata via `/documentmetadata`) for the given list of Glean Document IDs or URLs specified in the request.
 
-        :param request: The request object to send.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
+        :param get_documents_request: Information about documents requested.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -305,9 +334,12 @@ class ClientDocuments(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, Optional[models.GetDocumentsRequest])
-        request = cast(Optional[models.GetDocumentsRequest], request)
+        request = models.GetdocumentsRequestRequest(
+            locale=locale,
+            get_documents_request=utils.get_pydantic_model(
+                get_documents_request, Optional[models.GetDocumentsRequest]
+            ),
+        )
 
         req = self._build_request_async(
             method="POST",
@@ -323,7 +355,11 @@ class ClientDocuments(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, True, "json", Optional[models.GetDocumentsRequest]
+                request.get_documents_request,
+                False,
+                True,
+                "json",
+                Optional[models.GetDocumentsRequest],
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -366,7 +402,8 @@ class ClientDocuments(BaseSDK):
     def retrieve_by_facets(
         self,
         *,
-        request: Optional[
+        locale: Optional[str] = None,
+        get_documents_by_facets_request: Optional[
             Union[
                 models.GetDocumentsByFacetsRequest,
                 models.GetDocumentsByFacetsRequestTypedDict,
@@ -381,7 +418,8 @@ class ClientDocuments(BaseSDK):
 
         Read the documents including metadata (does not include enhanced metadata via `/documentmetadata`) macthing the given facet conditions.
 
-        :param request: The request object to send.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
+        :param get_documents_by_facets_request: Information about facet conditions for documents to be retrieved.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -397,11 +435,13 @@ class ClientDocuments(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(
-                request, Optional[models.GetDocumentsByFacetsRequest]
-            )
-        request = cast(Optional[models.GetDocumentsByFacetsRequest], request)
+        request = models.GetdocumentsbyfacetsRequestRequest(
+            locale=locale,
+            get_documents_by_facets_request=utils.get_pydantic_model(
+                get_documents_by_facets_request,
+                Optional[models.GetDocumentsByFacetsRequest],
+            ),
+        )
 
         req = self._build_request(
             method="POST",
@@ -417,7 +457,7 @@ class ClientDocuments(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request,
+                request.get_documents_by_facets_request,
                 False,
                 True,
                 "json",
@@ -466,7 +506,8 @@ class ClientDocuments(BaseSDK):
     async def retrieve_by_facets_async(
         self,
         *,
-        request: Optional[
+        locale: Optional[str] = None,
+        get_documents_by_facets_request: Optional[
             Union[
                 models.GetDocumentsByFacetsRequest,
                 models.GetDocumentsByFacetsRequestTypedDict,
@@ -481,7 +522,8 @@ class ClientDocuments(BaseSDK):
 
         Read the documents including metadata (does not include enhanced metadata via `/documentmetadata`) macthing the given facet conditions.
 
-        :param request: The request object to send.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
+        :param get_documents_by_facets_request: Information about facet conditions for documents to be retrieved.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -497,11 +539,13 @@ class ClientDocuments(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(
-                request, Optional[models.GetDocumentsByFacetsRequest]
-            )
-        request = cast(Optional[models.GetDocumentsByFacetsRequest], request)
+        request = models.GetdocumentsbyfacetsRequestRequest(
+            locale=locale,
+            get_documents_by_facets_request=utils.get_pydantic_model(
+                get_documents_by_facets_request,
+                Optional[models.GetDocumentsByFacetsRequest],
+            ),
+        )
 
         req = self._build_request_async(
             method="POST",
@@ -517,7 +561,7 @@ class ClientDocuments(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request,
+                request.get_documents_by_facets_request,
                 False,
                 True,
                 "json",
@@ -569,6 +613,7 @@ class ClientDocuments(BaseSDK):
         document_specs: Union[
             List[models.DocumentSpecUnion], List[models.DocumentSpecUnionTypedDict]
         ],
+        locale: Optional[str] = None,
         timestamp: Optional[datetime] = None,
         query: Optional[str] = None,
         preferred_summary_length: Optional[int] = None,
@@ -583,6 +628,7 @@ class ClientDocuments(BaseSDK):
         Generate an AI summary of the requested documents.
 
         :param document_specs: Specifications of documents to summarize
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param timestamp: The ISO 8601 timestamp associated with the client request.
         :param query: Optional query that the summary should be about
         :param preferred_summary_length: Optional length of summary output. If not given, defaults to 500 chars.
@@ -602,14 +648,17 @@ class ClientDocuments(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.SummarizeRequest(
-            timestamp=timestamp,
-            query=query,
-            preferred_summary_length=preferred_summary_length,
-            document_specs=utils.get_pydantic_model(
-                document_specs, List[models.DocumentSpecUnion]
+        request = models.SummarizeRequestRequest(
+            locale=locale,
+            summarize_request=models.SummarizeRequest(
+                timestamp=timestamp,
+                query=query,
+                preferred_summary_length=preferred_summary_length,
+                document_specs=utils.get_pydantic_model(
+                    document_specs, List[models.DocumentSpecUnion]
+                ),
+                tracking_token=tracking_token,
             ),
-            tracking_token=tracking_token,
         )
 
         req = self._build_request(
@@ -626,7 +675,7 @@ class ClientDocuments(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.SummarizeRequest
+                request.summarize_request, False, False, "json", models.SummarizeRequest
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -672,6 +721,7 @@ class ClientDocuments(BaseSDK):
         document_specs: Union[
             List[models.DocumentSpecUnion], List[models.DocumentSpecUnionTypedDict]
         ],
+        locale: Optional[str] = None,
         timestamp: Optional[datetime] = None,
         query: Optional[str] = None,
         preferred_summary_length: Optional[int] = None,
@@ -686,6 +736,7 @@ class ClientDocuments(BaseSDK):
         Generate an AI summary of the requested documents.
 
         :param document_specs: Specifications of documents to summarize
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param timestamp: The ISO 8601 timestamp associated with the client request.
         :param query: Optional query that the summary should be about
         :param preferred_summary_length: Optional length of summary output. If not given, defaults to 500 chars.
@@ -705,14 +756,17 @@ class ClientDocuments(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.SummarizeRequest(
-            timestamp=timestamp,
-            query=query,
-            preferred_summary_length=preferred_summary_length,
-            document_specs=utils.get_pydantic_model(
-                document_specs, List[models.DocumentSpecUnion]
+        request = models.SummarizeRequestRequest(
+            locale=locale,
+            summarize_request=models.SummarizeRequest(
+                timestamp=timestamp,
+                query=query,
+                preferred_summary_length=preferred_summary_length,
+                document_specs=utils.get_pydantic_model(
+                    document_specs, List[models.DocumentSpecUnion]
+                ),
+                tracking_token=tracking_token,
             ),
-            tracking_token=tracking_token,
         )
 
         req = self._build_request_async(
@@ -729,7 +783,7 @@ class ClientDocuments(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.SummarizeRequest
+                request.summarize_request, False, False, "json", models.SummarizeRequest
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,

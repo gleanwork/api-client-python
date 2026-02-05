@@ -14,6 +14,7 @@ class ClientChat(BaseSDK):
         self,
         *,
         messages: Union[List[models.ChatMessage], List[models.ChatMessageTypedDict]],
+        locale: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         session_info: Optional[
             Union[models.SessionInfo, models.SessionInfoTypedDict]
@@ -43,6 +44,7 @@ class ClientChat(BaseSDK):
         Have a conversation with Glean AI.
 
         :param messages: A list of chat messages, from most recent to least recent. At least one message must specify a USER author.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param session_info:
         :param save_chat: Save the current interaction as a Chat for the user to access and potentially continue later.
@@ -70,6 +72,7 @@ class ClientChat(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.ChatRequestRequest(
+            locale=locale,
             timezone_offset=timezone_offset,
             chat_request=models.ChatRequest(
                 messages=utils.get_pydantic_model(messages, List[models.ChatMessage]),
@@ -152,6 +155,7 @@ class ClientChat(BaseSDK):
         self,
         *,
         messages: Union[List[models.ChatMessage], List[models.ChatMessageTypedDict]],
+        locale: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         session_info: Optional[
             Union[models.SessionInfo, models.SessionInfoTypedDict]
@@ -181,6 +185,7 @@ class ClientChat(BaseSDK):
         Have a conversation with Glean AI.
 
         :param messages: A list of chat messages, from most recent to least recent. At least one message must specify a USER author.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param session_info:
         :param save_chat: Save the current interaction as a Chat for the user to access and potentially continue later.
@@ -208,6 +213,7 @@ class ClientChat(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.ChatRequestRequest(
+            locale=locale,
             timezone_offset=timezone_offset,
             chat_request=models.ChatRequest(
                 messages=utils.get_pydantic_model(messages, List[models.ChatMessage]),
@@ -289,6 +295,7 @@ class ClientChat(BaseSDK):
     def delete_all(
         self,
         *,
+        locale: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -299,6 +306,7 @@ class ClientChat(BaseSDK):
 
         Deletes all saved Chats a user has had and all their contained conversational content.
 
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -316,6 +324,7 @@ class ClientChat(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.DeleteallchatsRequest(
+            locale=locale,
             timezone_offset=timezone_offset,
         )
 
@@ -373,6 +382,7 @@ class ClientChat(BaseSDK):
     async def delete_all_async(
         self,
         *,
+        locale: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -383,6 +393,7 @@ class ClientChat(BaseSDK):
 
         Deletes all saved Chats a user has had and all their contained conversational content.
 
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -400,6 +411,7 @@ class ClientChat(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.DeleteallchatsRequest(
+            locale=locale,
             timezone_offset=timezone_offset,
         )
 
@@ -458,6 +470,7 @@ class ClientChat(BaseSDK):
         self,
         *,
         ids: List[str],
+        locale: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -469,6 +482,7 @@ class ClientChat(BaseSDK):
         Deletes saved Chats and all their contained conversational content.
 
         :param ids: A non-empty list of ids of the Chats to be deleted.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -486,6 +500,7 @@ class ClientChat(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.DeletechatsRequestRequest(
+            locale=locale,
             timezone_offset=timezone_offset,
             delete_chats_request=models.DeleteChatsRequest(
                 ids=ids,
@@ -554,6 +569,7 @@ class ClientChat(BaseSDK):
         self,
         *,
         ids: List[str],
+        locale: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -565,6 +581,7 @@ class ClientChat(BaseSDK):
         Deletes saved Chats and all their contained conversational content.
 
         :param ids: A non-empty list of ids of the Chats to be deleted.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -582,6 +599,7 @@ class ClientChat(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.DeletechatsRequestRequest(
+            locale=locale,
             timezone_offset=timezone_offset,
             delete_chats_request=models.DeleteChatsRequest(
                 ids=ids,
@@ -650,6 +668,7 @@ class ClientChat(BaseSDK):
         self,
         *,
         id: str,
+        locale: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -661,6 +680,7 @@ class ClientChat(BaseSDK):
         Retrieves the chat history between Glean Assistant and the user for a given Chat.
 
         :param id: The id of the Chat to be retrieved.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -678,6 +698,7 @@ class ClientChat(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetchatRequestRequest(
+            locale=locale,
             timezone_offset=timezone_offset,
             get_chat_request=models.GetChatRequest(
                 id=id,
@@ -742,6 +763,7 @@ class ClientChat(BaseSDK):
         self,
         *,
         id: str,
+        locale: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -753,6 +775,7 @@ class ClientChat(BaseSDK):
         Retrieves the chat history between Glean Assistant and the user for a given Chat.
 
         :param id: The id of the Chat to be retrieved.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -770,6 +793,7 @@ class ClientChat(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetchatRequestRequest(
+            locale=locale,
             timezone_offset=timezone_offset,
             get_chat_request=models.GetChatRequest(
                 id=id,
@@ -833,6 +857,7 @@ class ClientChat(BaseSDK):
     def list(
         self,
         *,
+        locale: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -843,6 +868,7 @@ class ClientChat(BaseSDK):
 
         Retrieves all the saved Chats between Glean Assistant and the user. The returned Chats contain only metadata and no conversational content.
 
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -860,6 +886,7 @@ class ClientChat(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.ListchatsRequest(
+            locale=locale,
             timezone_offset=timezone_offset,
         )
 
@@ -917,6 +944,7 @@ class ClientChat(BaseSDK):
     async def list_async(
         self,
         *,
+        locale: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -927,6 +955,7 @@ class ClientChat(BaseSDK):
 
         Retrieves all the saved Chats between Glean Assistant and the user. The returned Chats contain only metadata and no conversational content.
 
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -944,6 +973,7 @@ class ClientChat(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.ListchatsRequest(
+            locale=locale,
             timezone_offset=timezone_offset,
         )
 
@@ -1002,6 +1032,7 @@ class ClientChat(BaseSDK):
         self,
         *,
         id: str,
+        locale: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1013,6 +1044,7 @@ class ClientChat(BaseSDK):
         Gets the Chat application details for the specified application ID.
 
         :param id: The id of the Chat application to be retrieved.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -1030,6 +1062,7 @@ class ClientChat(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetchatapplicationRequestRequest(
+            locale=locale,
             timezone_offset=timezone_offset,
             get_chat_application_request=models.GetChatApplicationRequest(
                 id=id,
@@ -1098,6 +1131,7 @@ class ClientChat(BaseSDK):
         self,
         *,
         id: str,
+        locale: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1109,6 +1143,7 @@ class ClientChat(BaseSDK):
         Gets the Chat application details for the specified application ID.
 
         :param id: The id of the Chat application to be retrieved.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -1126,6 +1161,7 @@ class ClientChat(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetchatapplicationRequestRequest(
+            locale=locale,
             timezone_offset=timezone_offset,
             get_chat_application_request=models.GetChatApplicationRequest(
                 id=id,
@@ -1194,6 +1230,7 @@ class ClientChat(BaseSDK):
         self,
         *,
         files: Union[List[models.File], List[models.FileTypedDict]],
+        locale: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1205,6 +1242,7 @@ class ClientChat(BaseSDK):
         Upload files for Chat.
 
         :param files: Raw files to be uploaded for chat in binary format.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -1222,6 +1260,7 @@ class ClientChat(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.UploadchatfilesRequestRequest(
+            locale=locale,
             timezone_offset=timezone_offset,
             upload_chat_files_request=models.UploadChatFilesRequest(
                 files=utils.get_pydantic_model(files, List[models.File]),
@@ -1290,6 +1329,7 @@ class ClientChat(BaseSDK):
         self,
         *,
         files: Union[List[models.File], List[models.FileTypedDict]],
+        locale: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1301,6 +1341,7 @@ class ClientChat(BaseSDK):
         Upload files for Chat.
 
         :param files: Raw files to be uploaded for chat in binary format.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -1318,6 +1359,7 @@ class ClientChat(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.UploadchatfilesRequestRequest(
+            locale=locale,
             timezone_offset=timezone_offset,
             upload_chat_files_request=models.UploadChatFilesRequest(
                 files=utils.get_pydantic_model(files, List[models.File]),
@@ -1386,6 +1428,7 @@ class ClientChat(BaseSDK):
         self,
         *,
         file_ids: List[str],
+        locale: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1397,6 +1440,7 @@ class ClientChat(BaseSDK):
         Get files uploaded by a user for Chat.
 
         :param file_ids: IDs of files to fetch.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -1414,6 +1458,7 @@ class ClientChat(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetchatfilesRequestRequest(
+            locale=locale,
             timezone_offset=timezone_offset,
             get_chat_files_request=models.GetChatFilesRequest(
                 file_ids=file_ids,
@@ -1482,6 +1527,7 @@ class ClientChat(BaseSDK):
         self,
         *,
         file_ids: List[str],
+        locale: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1493,6 +1539,7 @@ class ClientChat(BaseSDK):
         Get files uploaded by a user for Chat.
 
         :param file_ids: IDs of files to fetch.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -1510,6 +1557,7 @@ class ClientChat(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetchatfilesRequestRequest(
+            locale=locale,
             timezone_offset=timezone_offset,
             get_chat_files_request=models.GetChatFilesRequest(
                 file_ids=file_ids,
@@ -1578,6 +1626,7 @@ class ClientChat(BaseSDK):
         self,
         *,
         file_ids: List[str],
+        locale: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1589,6 +1638,7 @@ class ClientChat(BaseSDK):
         Delete files uploaded by a user for Chat.
 
         :param file_ids: IDs of files to delete.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -1606,6 +1656,7 @@ class ClientChat(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.DeletechatfilesRequestRequest(
+            locale=locale,
             timezone_offset=timezone_offset,
             delete_chat_files_request=models.DeleteChatFilesRequest(
                 file_ids=file_ids,
@@ -1674,6 +1725,7 @@ class ClientChat(BaseSDK):
         self,
         *,
         file_ids: List[str],
+        locale: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1685,6 +1737,7 @@ class ClientChat(BaseSDK):
         Delete files uploaded by a user for Chat.
 
         :param file_ids: IDs of files to delete.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -1702,6 +1755,7 @@ class ClientChat(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.DeletechatfilesRequestRequest(
+            locale=locale,
             timezone_offset=timezone_offset,
             delete_chat_files_request=models.DeleteChatFilesRequest(
                 file_ids=file_ids,

@@ -6,6 +6,27 @@ import (
 	"mockserver/internal/sdk/models/components"
 )
 
+type FeedRequest struct {
+	// The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
+	Locale *string `queryParam:"style=form,explode=true,name=locale"`
+	// Includes request params, client data and more for making user's feed.
+	Body components.FeedRequest `request:"mediaType=application/json"`
+}
+
+func (o *FeedRequest) GetLocale() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Locale
+}
+
+func (o *FeedRequest) GetBody() components.FeedRequest {
+	if o == nil {
+		return components.FeedRequest{}
+	}
+	return o.Body
+}
+
 type FeedResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// OK

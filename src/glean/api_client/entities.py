@@ -13,6 +13,7 @@ class Entities(BaseSDK):
     def list(
         self,
         *,
+        locale: Optional[str] = None,
         filter_: Optional[
             Union[List[models.FacetFilter], List[models.FacetFilterTypedDict]]
         ] = None,
@@ -38,6 +39,7 @@ class Entities(BaseSDK):
 
         List some set of details for all entities that fit the given criteria and return in the requested order. Does not support negation in filters, assumes relation type EQUALS. There is a limit of 10000 entities that can be retrieved via this endpoint, except when using FULL_DIRECTORY request type for people entities.
 
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param filter_:
         :param sort: Use EntitiesSortOrder enum for SortOptions.sortBy
         :param entity_type:
@@ -63,19 +65,22 @@ class Entities(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.ListEntitiesRequest(
-            filter_=utils.get_pydantic_model(
-                filter_, Optional[List[models.FacetFilter]]
+        request = models.ListentitiesRequestRequest(
+            locale=locale,
+            list_entities_request=models.ListEntitiesRequest(
+                filter_=utils.get_pydantic_model(
+                    filter_, Optional[List[models.FacetFilter]]
+                ),
+                sort=utils.get_pydantic_model(sort, Optional[List[models.SortOptions]]),
+                entity_type=entity_type,
+                datasource=datasource,
+                query=query,
+                include_fields=include_fields,
+                page_size=page_size,
+                cursor=cursor,
+                source=source,
+                request_type=request_type,
             ),
-            sort=utils.get_pydantic_model(sort, Optional[List[models.SortOptions]]),
-            entity_type=entity_type,
-            datasource=datasource,
-            query=query,
-            include_fields=include_fields,
-            page_size=page_size,
-            cursor=cursor,
-            source=source,
-            request_type=request_type,
         )
 
         req = self._build_request(
@@ -92,7 +97,11 @@ class Entities(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.ListEntitiesRequest
+                request.list_entities_request,
+                False,
+                False,
+                "json",
+                models.ListEntitiesRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -135,6 +144,7 @@ class Entities(BaseSDK):
     async def list_async(
         self,
         *,
+        locale: Optional[str] = None,
         filter_: Optional[
             Union[List[models.FacetFilter], List[models.FacetFilterTypedDict]]
         ] = None,
@@ -160,6 +170,7 @@ class Entities(BaseSDK):
 
         List some set of details for all entities that fit the given criteria and return in the requested order. Does not support negation in filters, assumes relation type EQUALS. There is a limit of 10000 entities that can be retrieved via this endpoint, except when using FULL_DIRECTORY request type for people entities.
 
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param filter_:
         :param sort: Use EntitiesSortOrder enum for SortOptions.sortBy
         :param entity_type:
@@ -185,19 +196,22 @@ class Entities(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.ListEntitiesRequest(
-            filter_=utils.get_pydantic_model(
-                filter_, Optional[List[models.FacetFilter]]
+        request = models.ListentitiesRequestRequest(
+            locale=locale,
+            list_entities_request=models.ListEntitiesRequest(
+                filter_=utils.get_pydantic_model(
+                    filter_, Optional[List[models.FacetFilter]]
+                ),
+                sort=utils.get_pydantic_model(sort, Optional[List[models.SortOptions]]),
+                entity_type=entity_type,
+                datasource=datasource,
+                query=query,
+                include_fields=include_fields,
+                page_size=page_size,
+                cursor=cursor,
+                source=source,
+                request_type=request_type,
             ),
-            sort=utils.get_pydantic_model(sort, Optional[List[models.SortOptions]]),
-            entity_type=entity_type,
-            datasource=datasource,
-            query=query,
-            include_fields=include_fields,
-            page_size=page_size,
-            cursor=cursor,
-            source=source,
-            request_type=request_type,
         )
 
         req = self._build_request_async(
@@ -214,7 +228,11 @@ class Entities(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.ListEntitiesRequest
+                request.list_entities_request,
+                False,
+                False,
+                "json",
+                models.ListEntitiesRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -257,6 +275,7 @@ class Entities(BaseSDK):
     def read_people(
         self,
         *,
+        locale: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         obfuscated_ids: Optional[List[str]] = None,
         email_ids: Optional[List[str]] = None,
@@ -272,6 +291,7 @@ class Entities(BaseSDK):
 
         Read people details for the given IDs.
 
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param obfuscated_ids: The Person IDs to retrieve. If no IDs are requested, the current user's details are returned.
         :param email_ids: The email IDs to retrieve. The result is the deduplicated union of emailIds and obfuscatedIds.
@@ -293,13 +313,16 @@ class Entities(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.PeopleRequest(
-            timezone_offset=timezone_offset,
-            obfuscated_ids=obfuscated_ids,
-            email_ids=email_ids,
-            include_fields=include_fields,
-            include_types=include_types,
-            source=source,
+        request = models.PeopleRequestRequest(
+            locale=locale,
+            people_request=models.PeopleRequest(
+                timezone_offset=timezone_offset,
+                obfuscated_ids=obfuscated_ids,
+                email_ids=email_ids,
+                include_fields=include_fields,
+                include_types=include_types,
+                source=source,
+            ),
         )
 
         req = self._build_request(
@@ -316,7 +339,7 @@ class Entities(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.PeopleRequest
+                request.people_request, False, False, "json", models.PeopleRequest
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -359,6 +382,7 @@ class Entities(BaseSDK):
     async def read_people_async(
         self,
         *,
+        locale: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         obfuscated_ids: Optional[List[str]] = None,
         email_ids: Optional[List[str]] = None,
@@ -374,6 +398,7 @@ class Entities(BaseSDK):
 
         Read people details for the given IDs.
 
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param obfuscated_ids: The Person IDs to retrieve. If no IDs are requested, the current user's details are returned.
         :param email_ids: The email IDs to retrieve. The result is the deduplicated union of emailIds and obfuscatedIds.
@@ -395,13 +420,16 @@ class Entities(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.PeopleRequest(
-            timezone_offset=timezone_offset,
-            obfuscated_ids=obfuscated_ids,
-            email_ids=email_ids,
-            include_fields=include_fields,
-            include_types=include_types,
-            source=source,
+        request = models.PeopleRequestRequest(
+            locale=locale,
+            people_request=models.PeopleRequest(
+                timezone_offset=timezone_offset,
+                obfuscated_ids=obfuscated_ids,
+                email_ids=email_ids,
+                include_fields=include_fields,
+                include_types=include_types,
+                source=source,
+            ),
         )
 
         req = self._build_request_async(
@@ -418,7 +446,7 @@ class Entities(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.PeopleRequest
+                request.people_request, False, False, "json", models.PeopleRequest
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,

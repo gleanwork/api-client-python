@@ -3,16 +3,17 @@
 from .basesdk import BaseSDK
 from glean.api_client import errors, models, utils
 from glean.api_client._hooks import HookContext
-from glean.api_client.types import BaseModel, OptionalNullable, UNSET
+from glean.api_client.types import OptionalNullable, UNSET
 from glean.api_client.utils import get_security_from_env
 from glean.api_client.utils.unmarshal_json_response import unmarshal_json_response
-from typing import List, Mapping, Optional, Union, cast
+from typing import List, Mapping, Optional, Union
 
 
 class Pins(BaseSDK):
     def update(
         self,
         *,
+        locale: Optional[str] = None,
         queries: Optional[List[str]] = None,
         audience_filters: Optional[
             Union[List[models.FacetFilter], List[models.FacetFilterTypedDict]]
@@ -27,6 +28,7 @@ class Pins(BaseSDK):
 
         Update an existing user-generated pin.
 
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param queries: The query strings for which the pinned result will show.
         :param audience_filters: Filters which restrict who should see the pinned document. Values are taken from the corresponding filters in people search.
         :param id: The opaque id of the pin to be edited.
@@ -45,12 +47,15 @@ class Pins(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.EditPinRequest(
-            queries=queries,
-            audience_filters=utils.get_pydantic_model(
-                audience_filters, Optional[List[models.FacetFilter]]
+        request = models.EditpinRequestRequest(
+            locale=locale,
+            edit_pin_request=models.EditPinRequest(
+                queries=queries,
+                audience_filters=utils.get_pydantic_model(
+                    audience_filters, Optional[List[models.FacetFilter]]
+                ),
+                id=id,
             ),
-            id=id,
         )
 
         req = self._build_request(
@@ -67,7 +72,7 @@ class Pins(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.EditPinRequest
+                request.edit_pin_request, False, False, "json", models.EditPinRequest
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -110,6 +115,7 @@ class Pins(BaseSDK):
     async def update_async(
         self,
         *,
+        locale: Optional[str] = None,
         queries: Optional[List[str]] = None,
         audience_filters: Optional[
             Union[List[models.FacetFilter], List[models.FacetFilterTypedDict]]
@@ -124,6 +130,7 @@ class Pins(BaseSDK):
 
         Update an existing user-generated pin.
 
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param queries: The query strings for which the pinned result will show.
         :param audience_filters: Filters which restrict who should see the pinned document. Values are taken from the corresponding filters in people search.
         :param id: The opaque id of the pin to be edited.
@@ -142,12 +149,15 @@ class Pins(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.EditPinRequest(
-            queries=queries,
-            audience_filters=utils.get_pydantic_model(
-                audience_filters, Optional[List[models.FacetFilter]]
+        request = models.EditpinRequestRequest(
+            locale=locale,
+            edit_pin_request=models.EditPinRequest(
+                queries=queries,
+                audience_filters=utils.get_pydantic_model(
+                    audience_filters, Optional[List[models.FacetFilter]]
+                ),
+                id=id,
             ),
-            id=id,
         )
 
         req = self._build_request_async(
@@ -164,7 +174,7 @@ class Pins(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.EditPinRequest
+                request.edit_pin_request, False, False, "json", models.EditPinRequest
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -207,6 +217,7 @@ class Pins(BaseSDK):
     def retrieve(
         self,
         *,
+        locale: Optional[str] = None,
         id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -217,6 +228,7 @@ class Pins(BaseSDK):
 
         Read pin details given its ID.
 
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param id: The opaque id of the pin to be fetched.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -233,8 +245,11 @@ class Pins(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.GetPinRequest(
-            id=id,
+        request = models.GetpinRequestRequest(
+            locale=locale,
+            get_pin_request=models.GetPinRequest(
+                id=id,
+            ),
         )
 
         req = self._build_request(
@@ -251,7 +266,7 @@ class Pins(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.GetPinRequest
+                request.get_pin_request, False, False, "json", models.GetPinRequest
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -294,6 +309,7 @@ class Pins(BaseSDK):
     async def retrieve_async(
         self,
         *,
+        locale: Optional[str] = None,
         id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -304,6 +320,7 @@ class Pins(BaseSDK):
 
         Read pin details given its ID.
 
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param id: The opaque id of the pin to be fetched.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -320,8 +337,11 @@ class Pins(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.GetPinRequest(
-            id=id,
+        request = models.GetpinRequestRequest(
+            locale=locale,
+            get_pin_request=models.GetPinRequest(
+                id=id,
+            ),
         )
 
         req = self._build_request_async(
@@ -338,7 +358,7 @@ class Pins(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.GetPinRequest
+                request.get_pin_request, False, False, "json", models.GetPinRequest
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -381,7 +401,10 @@ class Pins(BaseSDK):
     def list(
         self,
         *,
-        request: Union[models.ListpinsRequest, models.ListpinsRequestTypedDict],
+        request_body: Union[
+            models.ListpinsRequestBody, models.ListpinsRequestBodyTypedDict
+        ],
+        locale: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -391,7 +414,8 @@ class Pins(BaseSDK):
 
         Lists all pins.
 
-        :param request: The request object to send.
+        :param request_body: List pins request
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -407,9 +431,12 @@ class Pins(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.ListpinsRequest)
-        request = cast(models.ListpinsRequest, request)
+        request = models.ListpinsRequest(
+            locale=locale,
+            request_body=utils.get_pydantic_model(
+                request_body, models.ListpinsRequestBody
+            ),
+        )
 
         req = self._build_request(
             method="POST",
@@ -425,7 +452,7 @@ class Pins(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.ListpinsRequest
+                request.request_body, False, False, "json", models.ListpinsRequestBody
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -468,7 +495,10 @@ class Pins(BaseSDK):
     async def list_async(
         self,
         *,
-        request: Union[models.ListpinsRequest, models.ListpinsRequestTypedDict],
+        request_body: Union[
+            models.ListpinsRequestBody, models.ListpinsRequestBodyTypedDict
+        ],
+        locale: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -478,7 +508,8 @@ class Pins(BaseSDK):
 
         Lists all pins.
 
-        :param request: The request object to send.
+        :param request_body: List pins request
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -494,9 +525,12 @@ class Pins(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, models.ListpinsRequest)
-        request = cast(models.ListpinsRequest, request)
+        request = models.ListpinsRequest(
+            locale=locale,
+            request_body=utils.get_pydantic_model(
+                request_body, models.ListpinsRequestBody
+            ),
+        )
 
         req = self._build_request_async(
             method="POST",
@@ -512,7 +546,7 @@ class Pins(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.ListpinsRequest
+                request.request_body, False, False, "json", models.ListpinsRequestBody
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -555,6 +589,7 @@ class Pins(BaseSDK):
     def create(
         self,
         *,
+        locale: Optional[str] = None,
         queries: Optional[List[str]] = None,
         audience_filters: Optional[
             Union[List[models.FacetFilter], List[models.FacetFilterTypedDict]]
@@ -569,6 +604,7 @@ class Pins(BaseSDK):
 
         Pin a document as a result for a given search query.Pin results that are known to be a good match.
 
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param queries: The query strings for which the pinned result will show.
         :param audience_filters: Filters which restrict who should see the pinned document. Values are taken from the corresponding filters in people search.
         :param document_id: The document to be pinned.
@@ -587,12 +623,15 @@ class Pins(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.PinRequest(
-            queries=queries,
-            audience_filters=utils.get_pydantic_model(
-                audience_filters, Optional[List[models.FacetFilter]]
+        request = models.PinRequestRequest(
+            locale=locale,
+            pin_request=models.PinRequest(
+                queries=queries,
+                audience_filters=utils.get_pydantic_model(
+                    audience_filters, Optional[List[models.FacetFilter]]
+                ),
+                document_id=document_id,
             ),
-            document_id=document_id,
         )
 
         req = self._build_request(
@@ -609,7 +648,7 @@ class Pins(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.PinRequest
+                request.pin_request, False, False, "json", models.PinRequest
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -652,6 +691,7 @@ class Pins(BaseSDK):
     async def create_async(
         self,
         *,
+        locale: Optional[str] = None,
         queries: Optional[List[str]] = None,
         audience_filters: Optional[
             Union[List[models.FacetFilter], List[models.FacetFilterTypedDict]]
@@ -666,6 +706,7 @@ class Pins(BaseSDK):
 
         Pin a document as a result for a given search query.Pin results that are known to be a good match.
 
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param queries: The query strings for which the pinned result will show.
         :param audience_filters: Filters which restrict who should see the pinned document. Values are taken from the corresponding filters in people search.
         :param document_id: The document to be pinned.
@@ -684,12 +725,15 @@ class Pins(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.PinRequest(
-            queries=queries,
-            audience_filters=utils.get_pydantic_model(
-                audience_filters, Optional[List[models.FacetFilter]]
+        request = models.PinRequestRequest(
+            locale=locale,
+            pin_request=models.PinRequest(
+                queries=queries,
+                audience_filters=utils.get_pydantic_model(
+                    audience_filters, Optional[List[models.FacetFilter]]
+                ),
+                document_id=document_id,
             ),
-            document_id=document_id,
         )
 
         req = self._build_request_async(
@@ -706,7 +750,7 @@ class Pins(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.PinRequest
+                request.pin_request, False, False, "json", models.PinRequest
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -749,6 +793,7 @@ class Pins(BaseSDK):
     def remove(
         self,
         *,
+        locale: Optional[str] = None,
         id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -759,6 +804,7 @@ class Pins(BaseSDK):
 
         Unpin a previously pinned result.
 
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param id: The opaque id of the pin to be unpinned.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -775,8 +821,11 @@ class Pins(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.Unpin(
-            id=id,
+        request = models.UnpinRequest(
+            locale=locale,
+            unpin=models.Unpin(
+                id=id,
+            ),
         )
 
         req = self._build_request(
@@ -793,7 +842,7 @@ class Pins(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.Unpin
+                request.unpin, False, False, "json", models.Unpin
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -836,6 +885,7 @@ class Pins(BaseSDK):
     async def remove_async(
         self,
         *,
+        locale: Optional[str] = None,
         id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -846,6 +896,7 @@ class Pins(BaseSDK):
 
         Unpin a previously pinned result.
 
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param id: The opaque id of the pin to be unpinned.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -862,8 +913,11 @@ class Pins(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.Unpin(
-            id=id,
+        request = models.UnpinRequest(
+            locale=locale,
+            unpin=models.Unpin(
+                id=id,
+            ),
         )
 
         req = self._build_request_async(
@@ -880,7 +934,7 @@ class Pins(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.Unpin
+                request.unpin, False, False, "json", models.Unpin
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,

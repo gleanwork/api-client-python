@@ -6,6 +6,27 @@ import (
 	"mockserver/internal/sdk/models/components"
 )
 
+type CreateanswerRequest struct {
+	// The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
+	Locale *string `queryParam:"style=form,explode=true,name=locale"`
+	// CreateAnswer request
+	Body components.CreateAnswerRequest `request:"mediaType=application/json"`
+}
+
+func (o *CreateanswerRequest) GetLocale() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Locale
+}
+
+func (o *CreateanswerRequest) GetBody() components.CreateAnswerRequest {
+	if o == nil {
+		return components.CreateAnswerRequest{}
+	}
+	return o.Body
+}
+
 type CreateanswerResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// OK

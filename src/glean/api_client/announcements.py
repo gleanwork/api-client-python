@@ -17,6 +17,7 @@ class Announcements(BaseSDK):
         start_time: datetime,
         end_time: datetime,
         title: str,
+        locale: Optional[str] = None,
         body: Optional[
             Union[models.StructuredText, models.StructuredTextTypedDict]
         ] = None,
@@ -44,6 +45,7 @@ class Announcements(BaseSDK):
         :param start_time: The date and time at which the announcement becomes active.
         :param end_time: The date and time at which the announcement expires.
         :param title: The headline of the announcement.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param body:
         :param emoji: An emoji used to indicate the nature of the announcement.
         :param thumbnail:
@@ -70,23 +72,28 @@ class Announcements(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.CreateAnnouncementRequest(
-            start_time=start_time,
-            end_time=end_time,
-            title=title,
-            body=utils.get_pydantic_model(body, Optional[models.StructuredText]),
-            emoji=emoji,
-            thumbnail=utils.get_pydantic_model(thumbnail, Optional[models.Thumbnail]),
-            banner=utils.get_pydantic_model(banner, Optional[models.Thumbnail]),
-            audience_filters=utils.get_pydantic_model(
-                audience_filters, Optional[List[models.FacetFilter]]
+        request = models.CreateannouncementRequestRequest(
+            locale=locale,
+            create_announcement_request=models.CreateAnnouncementRequest(
+                start_time=start_time,
+                end_time=end_time,
+                title=title,
+                body=utils.get_pydantic_model(body, Optional[models.StructuredText]),
+                emoji=emoji,
+                thumbnail=utils.get_pydantic_model(
+                    thumbnail, Optional[models.Thumbnail]
+                ),
+                banner=utils.get_pydantic_model(banner, Optional[models.Thumbnail]),
+                audience_filters=utils.get_pydantic_model(
+                    audience_filters, Optional[List[models.FacetFilter]]
+                ),
+                source_document_id=source_document_id,
+                hide_attribution=hide_attribution,
+                channel=channel,
+                post_type=post_type,
+                is_prioritized=is_prioritized,
+                view_url=view_url,
             ),
-            source_document_id=source_document_id,
-            hide_attribution=hide_attribution,
-            channel=channel,
-            post_type=post_type,
-            is_prioritized=is_prioritized,
-            view_url=view_url,
         )
 
         req = self._build_request(
@@ -103,7 +110,11 @@ class Announcements(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.CreateAnnouncementRequest
+                request.create_announcement_request,
+                False,
+                False,
+                "json",
+                models.CreateAnnouncementRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -149,6 +160,7 @@ class Announcements(BaseSDK):
         start_time: datetime,
         end_time: datetime,
         title: str,
+        locale: Optional[str] = None,
         body: Optional[
             Union[models.StructuredText, models.StructuredTextTypedDict]
         ] = None,
@@ -176,6 +188,7 @@ class Announcements(BaseSDK):
         :param start_time: The date and time at which the announcement becomes active.
         :param end_time: The date and time at which the announcement expires.
         :param title: The headline of the announcement.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param body:
         :param emoji: An emoji used to indicate the nature of the announcement.
         :param thumbnail:
@@ -202,23 +215,28 @@ class Announcements(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.CreateAnnouncementRequest(
-            start_time=start_time,
-            end_time=end_time,
-            title=title,
-            body=utils.get_pydantic_model(body, Optional[models.StructuredText]),
-            emoji=emoji,
-            thumbnail=utils.get_pydantic_model(thumbnail, Optional[models.Thumbnail]),
-            banner=utils.get_pydantic_model(banner, Optional[models.Thumbnail]),
-            audience_filters=utils.get_pydantic_model(
-                audience_filters, Optional[List[models.FacetFilter]]
+        request = models.CreateannouncementRequestRequest(
+            locale=locale,
+            create_announcement_request=models.CreateAnnouncementRequest(
+                start_time=start_time,
+                end_time=end_time,
+                title=title,
+                body=utils.get_pydantic_model(body, Optional[models.StructuredText]),
+                emoji=emoji,
+                thumbnail=utils.get_pydantic_model(
+                    thumbnail, Optional[models.Thumbnail]
+                ),
+                banner=utils.get_pydantic_model(banner, Optional[models.Thumbnail]),
+                audience_filters=utils.get_pydantic_model(
+                    audience_filters, Optional[List[models.FacetFilter]]
+                ),
+                source_document_id=source_document_id,
+                hide_attribution=hide_attribution,
+                channel=channel,
+                post_type=post_type,
+                is_prioritized=is_prioritized,
+                view_url=view_url,
             ),
-            source_document_id=source_document_id,
-            hide_attribution=hide_attribution,
-            channel=channel,
-            post_type=post_type,
-            is_prioritized=is_prioritized,
-            view_url=view_url,
         )
 
         req = self._build_request_async(
@@ -235,7 +253,11 @@ class Announcements(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.CreateAnnouncementRequest
+                request.create_announcement_request,
+                False,
+                False,
+                "json",
+                models.CreateAnnouncementRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -279,6 +301,7 @@ class Announcements(BaseSDK):
         self,
         *,
         id: int,
+        locale: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -289,6 +312,7 @@ class Announcements(BaseSDK):
         Delete an existing user-generated announcement.
 
         :param id: The opaque id of the announcement to be deleted.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -304,8 +328,11 @@ class Announcements(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.DeleteAnnouncementRequest(
-            id=id,
+        request = models.DeleteannouncementRequestRequest(
+            locale=locale,
+            delete_announcement_request=models.DeleteAnnouncementRequest(
+                id=id,
+            ),
         )
 
         req = self._build_request(
@@ -322,7 +349,11 @@ class Announcements(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.DeleteAnnouncementRequest
+                request.delete_announcement_request,
+                False,
+                False,
+                "json",
+                models.DeleteAnnouncementRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -366,6 +397,7 @@ class Announcements(BaseSDK):
         self,
         *,
         id: int,
+        locale: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -376,6 +408,7 @@ class Announcements(BaseSDK):
         Delete an existing user-generated announcement.
 
         :param id: The opaque id of the announcement to be deleted.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -391,8 +424,11 @@ class Announcements(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.DeleteAnnouncementRequest(
-            id=id,
+        request = models.DeleteannouncementRequestRequest(
+            locale=locale,
+            delete_announcement_request=models.DeleteAnnouncementRequest(
+                id=id,
+            ),
         )
 
         req = self._build_request_async(
@@ -409,7 +445,11 @@ class Announcements(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.DeleteAnnouncementRequest
+                request.delete_announcement_request,
+                False,
+                False,
+                "json",
+                models.DeleteAnnouncementRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -456,6 +496,7 @@ class Announcements(BaseSDK):
         end_time: datetime,
         title: str,
         id: int,
+        locale: Optional[str] = None,
         body: Optional[
             Union[models.StructuredText, models.StructuredTextTypedDict]
         ] = None,
@@ -484,6 +525,7 @@ class Announcements(BaseSDK):
         :param end_time: The date and time at which the announcement expires.
         :param title: The headline of the announcement.
         :param id: The opaque id of the announcement.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param body:
         :param emoji: An emoji used to indicate the nature of the announcement.
         :param thumbnail:
@@ -510,24 +552,29 @@ class Announcements(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.UpdateAnnouncementRequest(
-            start_time=start_time,
-            end_time=end_time,
-            title=title,
-            body=utils.get_pydantic_model(body, Optional[models.StructuredText]),
-            emoji=emoji,
-            thumbnail=utils.get_pydantic_model(thumbnail, Optional[models.Thumbnail]),
-            banner=utils.get_pydantic_model(banner, Optional[models.Thumbnail]),
-            audience_filters=utils.get_pydantic_model(
-                audience_filters, Optional[List[models.FacetFilter]]
+        request = models.UpdateannouncementRequestRequest(
+            locale=locale,
+            update_announcement_request=models.UpdateAnnouncementRequest(
+                start_time=start_time,
+                end_time=end_time,
+                title=title,
+                body=utils.get_pydantic_model(body, Optional[models.StructuredText]),
+                emoji=emoji,
+                thumbnail=utils.get_pydantic_model(
+                    thumbnail, Optional[models.Thumbnail]
+                ),
+                banner=utils.get_pydantic_model(banner, Optional[models.Thumbnail]),
+                audience_filters=utils.get_pydantic_model(
+                    audience_filters, Optional[List[models.FacetFilter]]
+                ),
+                source_document_id=source_document_id,
+                hide_attribution=hide_attribution,
+                channel=channel,
+                post_type=post_type,
+                is_prioritized=is_prioritized,
+                view_url=view_url,
+                id=id,
             ),
-            source_document_id=source_document_id,
-            hide_attribution=hide_attribution,
-            channel=channel,
-            post_type=post_type,
-            is_prioritized=is_prioritized,
-            view_url=view_url,
-            id=id,
         )
 
         req = self._build_request(
@@ -544,7 +591,11 @@ class Announcements(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.UpdateAnnouncementRequest
+                request.update_announcement_request,
+                False,
+                False,
+                "json",
+                models.UpdateAnnouncementRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -591,6 +642,7 @@ class Announcements(BaseSDK):
         end_time: datetime,
         title: str,
         id: int,
+        locale: Optional[str] = None,
         body: Optional[
             Union[models.StructuredText, models.StructuredTextTypedDict]
         ] = None,
@@ -619,6 +671,7 @@ class Announcements(BaseSDK):
         :param end_time: The date and time at which the announcement expires.
         :param title: The headline of the announcement.
         :param id: The opaque id of the announcement.
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param body:
         :param emoji: An emoji used to indicate the nature of the announcement.
         :param thumbnail:
@@ -645,24 +698,29 @@ class Announcements(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.UpdateAnnouncementRequest(
-            start_time=start_time,
-            end_time=end_time,
-            title=title,
-            body=utils.get_pydantic_model(body, Optional[models.StructuredText]),
-            emoji=emoji,
-            thumbnail=utils.get_pydantic_model(thumbnail, Optional[models.Thumbnail]),
-            banner=utils.get_pydantic_model(banner, Optional[models.Thumbnail]),
-            audience_filters=utils.get_pydantic_model(
-                audience_filters, Optional[List[models.FacetFilter]]
+        request = models.UpdateannouncementRequestRequest(
+            locale=locale,
+            update_announcement_request=models.UpdateAnnouncementRequest(
+                start_time=start_time,
+                end_time=end_time,
+                title=title,
+                body=utils.get_pydantic_model(body, Optional[models.StructuredText]),
+                emoji=emoji,
+                thumbnail=utils.get_pydantic_model(
+                    thumbnail, Optional[models.Thumbnail]
+                ),
+                banner=utils.get_pydantic_model(banner, Optional[models.Thumbnail]),
+                audience_filters=utils.get_pydantic_model(
+                    audience_filters, Optional[List[models.FacetFilter]]
+                ),
+                source_document_id=source_document_id,
+                hide_attribution=hide_attribution,
+                channel=channel,
+                post_type=post_type,
+                is_prioritized=is_prioritized,
+                view_url=view_url,
+                id=id,
             ),
-            source_document_id=source_document_id,
-            hide_attribution=hide_attribution,
-            channel=channel,
-            post_type=post_type,
-            is_prioritized=is_prioritized,
-            view_url=view_url,
-            id=id,
         )
 
         req = self._build_request_async(
@@ -679,7 +737,11 @@ class Announcements(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.UpdateAnnouncementRequest
+                request.update_announcement_request,
+                False,
+                False,
+                "json",
+                models.UpdateAnnouncementRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,

@@ -6,6 +6,27 @@ import (
 	"mockserver/internal/sdk/models/components"
 )
 
+type GetdocpermissionsRequest struct {
+	// The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
+	Locale *string `queryParam:"style=form,explode=true,name=locale"`
+	// Document permissions request
+	Body components.GetDocPermissionsRequest `request:"mediaType=application/json"`
+}
+
+func (o *GetdocpermissionsRequest) GetLocale() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Locale
+}
+
+func (o *GetdocpermissionsRequest) GetBody() components.GetDocPermissionsRequest {
+	if o == nil {
+		return components.GetDocPermissionsRequest{}
+	}
+	return o.Body
+}
+
 type GetdocpermissionsResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// OK
