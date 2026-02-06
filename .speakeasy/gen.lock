@@ -1,26 +1,26 @@
 lockVersion: 2.0.0
 id: 3e3290ca-0ee8-4981-b1bc-14536048fa63
 management:
-  docChecksum: ff92a330e7d904337377df34896b8348
+  docChecksum: 9f934db728af8f9aaaa1df7eb9781bff
   docVersion: 0.9.0
-  speakeasyVersion: 1.704.0
-  generationVersion: 2.806.4
-  releaseVersion: 0.12.0
-  configChecksum: f454677646cf29807a0eaa8b5523295a
+  speakeasyVersion: 1.706.1
+  generationVersion: 2.809.2
+  releaseVersion: 0.12.1
+  configChecksum: 445d4c451e5ec0817b996f7782217353
   repoURL: https://github.com/gleanwork/api-client-python.git
   installationURL: https://github.com/gleanwork/api-client-python.git
   published: true
 persistentEdits:
-  generation_id: 75788064-eb96-4023-8850-7e640931cb3d
-  pristine_commit_hash: bf1cc3faef576da211a2d8a1d20efff808a41037
-  pristine_tree_hash: 47bde492478fd4cd4de14c19385ddaa5206b5806
+  generation_id: 570b69de-0a85-488e-8d00-41c4dc3591c8
+  pristine_commit_hash: f9fa6f4a12ab8af9007b75d6c64504c5b7e710d8
+  pristine_tree_hash: b8fa5b8be2db0ea4757e7500875fea78a4b61b80
 features:
   python:
     additionalDependencies: 1.0.0
     additionalProperties: 1.0.1
     configurableModuleName: 0.2.0
     constsAndDefaults: 1.0.6
-    core: 6.0.2
+    core: 6.0.3
     defaultEnabledRetries: 0.2.0
     deprecations: 3.0.2
     devContainers: 3.0.0
@@ -29,7 +29,7 @@ features:
     examples: 3.0.2
     flatRequests: 1.0.1
     flattening: 3.1.1
-    globalSecurity: 3.0.4
+    globalSecurity: 3.0.5
     globalSecurityCallbacks: 1.0.0
     globalSecurityFlattening: 1.0.0
     globalServerURLs: 3.2.0
@@ -2715,8 +2715,8 @@ trackedFiles:
     pristine_git_object: 33c17ec92e441b6c363a28a5b7319df5a2ad94dd
   pyproject.toml:
     id: 5d07e7d72637
-    last_write_checksum: sha1:d97a10d69c08ee3de1c7e13b15c602a5406e1b9b
-    pristine_git_object: 6a525cbe1ff46afaa986095d88fe894d67e3a8c4
+    last_write_checksum: sha1:e9db932bb828d9c1245edec14224a5690a80b7a3
+    pristine_git_object: 2a56a22494af43f01d8902bd6a0f498dd23f305f
   scripts/prepare_readme.py:
     id: e0c5957a6035
     last_write_checksum: sha1:c2c83f71dea61eb50c9e05da83b16d18b4da8794
@@ -2743,8 +2743,8 @@ trackedFiles:
     pristine_git_object: 58c4d70ac1797b86ff5c4237cafbc344c42d8f64
   src/glean/api_client/_version.py:
     id: 0ce22b26136b
-    last_write_checksum: sha1:41722c38ebdc94eaf7260bd58cf6ec9a3236aabb
-    pristine_git_object: c3594d3fd8d262424b3882bb98e4896020bb8d42
+    last_write_checksum: sha1:a666730776e1ff328b50bac5dcffef7f4c9045a2
+    pristine_git_object: e2b72bf755902fbb0842635724ecb14ab9cca446
   src/glean/api_client/agents.py:
     id: b925701a9217
     last_write_checksum: sha1:35034b44db8e95826ceb314f3a59eeb8961fd419
@@ -4927,8 +4927,8 @@ trackedFiles:
     pristine_git_object: 3324e1bc2668c54c4d5f5a1a845675319757a828
   src/glean/api_client/utils/eventstreaming.py:
     id: fdc3230ebb0e
-    last_write_checksum: sha1:bababae5d54b7efc360db701daa49e18a92c2f3b
-    pristine_git_object: 0969899bfc491e5e408d05643525f347ea95e4fc
+    last_write_checksum: sha1:ffa870a25a7e4e2015bfd7a467ccd3aa1de97f0e
+    pristine_git_object: f2052fc22d9fd6c663ba3dce019fe234ca37108b
   src/glean/api_client/utils/forms.py:
     id: 00f73e14b0f0
     last_write_checksum: sha1:0ca31459b99f761fcc6d0557a0a38daac4ad50f4
@@ -4959,8 +4959,8 @@ trackedFiles:
     pristine_git_object: 88a91b10cd2076b4a2c6cff2ac6bfaa5e3c5ad13
   src/glean/api_client/utils/security.py:
     id: 5c4255995c2c
-    last_write_checksum: sha1:61b5eab8e97fdb03b7d847f927164da70a610760
-    pristine_git_object: 9a8b701e4e0cb7415576fd6fac3c3509c403bef7
+    last_write_checksum: sha1:863f4bd46af8e0e9c1756a1e394117cc9710ddb3
+    pristine_git_object: e91e5a6e195e5b2b8d2ed5d901ca934bc02aa5dd
   src/glean/api_client/utils/serializers.py:
     id: c499367f56e9
     last_write_checksum: sha1:ce1d8d7f500a9ccba0aeca5057cee9c271f4dfd7
@@ -5132,7 +5132,7 @@ trackedFiles:
   tests/mockserver/internal/handler/pathpostrestapiv1getanswer.go:
     last_write_checksum: sha1:3bec6f7cd190f9394bebac2407f9d7f1e606e479
   tests/mockserver/internal/handler/pathpostrestapiv1getchat.go:
-    last_write_checksum: sha1:2c2b7acb22e422a721a21801cccfa30fedfd3169
+    last_write_checksum: sha1:089475adb3686c656bd0eb52940285a7e037ab83
   tests/mockserver/internal/handler/pathpostrestapiv1getchatapplication.go:
     last_write_checksum: sha1:7b81898137fdb3a89b4dcfa318b9b5b92e8860c0
   tests/mockserver/internal/handler/pathpostrestapiv1getchatfiles.go:
@@ -7330,7 +7330,6 @@ generatedTests:
   updateshortcut: "2025-06-12T19:13:52-04:00"
   listfindingsexports: "2025-12-10T17:53:31Z"
   downloadfindingsexport: "2025-12-10T17:53:31Z"
-releaseNotes: "## Python SDK Changes:\n* `glean.client.chat.create()`: \n  *  `request` **Changed**\n  *  `response.messages[].agent_config.agent.enum(auto)` **Added** (Breaking ⚠️)\n* `glean.client.shortcuts.retrieve()`:  `request` **Changed** (Breaking ⚠️)\n* `glean.client.search.retrieve_feed()`: \n  *  `request.locale` **Added**\n  *  `response.results[].primary_entry.prompt_template.favorite_info.ugc_type.enum(prism_views_type)` **Added** (Breaking ⚠️)\n* `glean.client.pins.list()`:  `request` **Changed** (Breaking ⚠️)\n* `glean.client.insights.retrieve()`: \n  *  `request` **Changed** (Breaking ⚠️)\n  *  `response` **Changed** (Breaking ⚠️)\n* `glean.client.documents.retrieve_by_facets()`:  `request` **Changed** (Breaking ⚠️)\n* `glean.client.documents.retrieve()`:  `request` **Changed** (Breaking ⚠️)\n* `glean.client.chat.retrieve()`: \n  *  `request.locale` **Added**\n  *  `response.chat_result.chat.messages[].agent_config.agent.enum(auto)` **Added** (Breaking ⚠️)\n* `glean.client.collections.list()`:  `request.locale` **Added**\n* `glean.client.messages.retrieve()`: \n  *  `request.locale` **Added**\n  *  `response.search_response.glean_data_error.federated_search_rate_limit_error` **Added**\n* `glean.client.chat.delete()`:  `request.locale` **Added**\n* `glean.client.answers.list()`:  `request.locale` **Added**\n* `glean.client.chat.list()`:  `request.locale` **Added**\n* `glean.client.chat.retrieve_application()`:  `request.locale` **Added**\n* `glean.client.chat.upload_files()`:  `request.locale` **Added**\n* `glean.client.chat.retrieve_files()`:  `request.locale` **Added**\n* `glean.client.chat.delete_files()`:  `request.locale` **Added**\n* `glean.client.chat.create_stream()`: \n  *  `request.messages[].agent_config.agent.enum(auto)` **Added**\n* `glean.client.agents.retrieve()`:  `request.locale` **Added**\n* `glean.client.agents.retrieve_schemas()`:  `request.locale` **Added**\n* `glean.client.collections.add_items()`:  `request.locale` **Added**\n* `glean.client.collections.create()`:  `request.locale` **Added**\n* `glean.client.collections.delete()`:  `request.locale` **Added**\n* `glean.client.collections.delete_item()`:  `request.locale` **Added**\n* `glean.client.collections.update()`:  `request.locale` **Added**\n* `glean.client.collections.update_item()`:  `request.locale` **Added**\n* `glean.client.collections.retrieve()`:  `request.locale` **Added**\n* `glean.client.announcements.create()`:  `request.locale` **Added**\n* `glean.client.documents.retrieve_permissions()`:  `request.locale` **Added**\n* `glean.client.answers.retrieve()`:  `request.locale` **Added**\n* `glean.client.answers.update()`:  `request.locale` **Added**\n* `glean.client.documents.summarize()`:  `request.locale` **Added**\n* `glean.client.answers.delete()`:  `request.locale` **Added**\n* `glean.client.chat.delete_all()`:  `request.locale` **Added**\n* `glean.client.pins.update()`:  `request.locale` **Added**\n* `glean.client.pins.retrieve()`:  `request.locale` **Added**\n* `glean.client.answers.create()`:  `request.locale` **Added**\n* `glean.client.pins.create()`:  `request.locale` **Added**\n* `glean.client.pins.remove()`:  `request.locale` **Added**\n* `glean.client.search.query_as_admin()`: \n  *  `request.locale` **Added**\n  *  `response.glean_data_error.federated_search_rate_limit_error` **Added**\n  *  `error.federated_search_rate_limit_error` **Added**\n* `glean.client.search.autocomplete()`: \n  *  `request.locale` **Added**\n  *  `response.glean_data_error.federated_search_rate_limit_error` **Added**\n* `glean.client.announcements.update()`:  `request.locale` **Added**\n* `glean.client.search.recommendations()`: \n  *  `request.locale` **Added**\n  *  `response.glean_data_error.federated_search_rate_limit_error` **Added**\n* `glean.client.search.query()`: \n  *  `request.locale` **Added**\n  *  `response.glean_data_error.federated_search_rate_limit_error` **Added**\n  *  `error.federated_search_rate_limit_error` **Added**\n* `glean.client.entities.list()`:  `request.locale` **Added**\n* `glean.client.entities.read_people()`:  `request.locale` **Added**\n* `glean.client.shortcuts.create()`:  `request.locale` **Added**\n* `glean.client.shortcuts.delete()`:  `request.locale` **Added**\n* `glean.client.announcements.delete()`:  `request.locale` **Added**\n* `glean.client.shortcuts.list()`:  `request.locale` **Added**\n* `glean.client.shortcuts.update()`:  `request.locale` **Added**\n* `glean.client.verification.add_reminder()`:  `request.locale` **Added**\n* `glean.client.verification.list()`:  `request.locale` **Added**\n* `glean.client.verification.verify()`:  `request.locale` **Added**\n* `glean.client.governance.data.policies.retrieve()`:  `response.report.config.input_options.subset_doc_ids_to_scan` **Added**\n* `glean.client.governance.data.policies.update()`: \n  *  `request.config.input_options.subset_doc_ids_to_scan` **Added**\n* `glean.client.governance.data.policies.list()`:  `response.reports[].config.input_options.subset_doc_ids_to_scan` **Added**\n* `glean.client.governance.data.policies.create()`: \n  *  `request.config.input_options.subset_doc_ids_to_scan` **Added**\n  *  `response.report.config.input_options.subset_doc_ids_to_scan` **Added**\n* `glean.client.governance.data.reports.create()`: \n  *  `request.config.input_options.subset_doc_ids_to_scan` **Added**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json

@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
     version: 0.9.0
     title: Glean API
-    x-source-commit-sha: e9d79a2b78690b4f39de6c7160b23871dc74ca44
+    x-source-commit-sha: 9e30d574b26af5aea9f343b173a4c04a4d6bd044
     description: |
         # Introduction
         In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This is useful, for example, for doing permissions-aware search over content in internal tools that reside on-prem as well as for searching over applications that Glean does not currently support first class. In addition these APIs allow the customer to push organization data (people info, organization structure etc) into Glean.
@@ -22,7 +22,7 @@ info:
         These API clients provide type-safe, idiomatic interfaces for working with Glean IndexingAPIs in your language of choice.
     x-logo:
         url: https://app.glean.com/images/glean-text2.svg
-    x-open-api-commit-sha: 3059642aa7ad5465cf3e9a0bd9a2081e8aa2ac02
+    x-open-api-commit-sha: e9deba03749240dbb9c0ba9d110e15591825b6ab
     x-speakeasy-name: 'Glean API'
 servers:
     - url: https://{instance}-be.glean.com
@@ -8780,6 +8780,12 @@ components:
                 gleanAssist:
                     deprecated: true
                     $ref: "#/components/schemas/GleanAssistInsightsResponse"
+                    x-glean-deprecated:
+                        id: 15850758-4d95-4d98-8d57-39c50663a796
+                        introduced: "2026-02-05"
+                        message: Field is deprecated
+                        removal: "2026-10-15"
+                    x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Field is deprecated"
                 overviewResponse:
                     $ref: "#/components/schemas/InsightsOverviewResponse"
                 assistantResponse:
