@@ -136,7 +136,7 @@ with Glean(
 
 ## run_stream
 
-Executes an [agent](https://developers.glean.com/agents/agents-api) run and returns the result as a stream of server-sent events (SSE).
+Executes an [agent](https://developers.glean.com/agents/agents-api) run and returns the result as a stream of server-sent events (SSE). **Note**: If the agent uses an input form trigger, all form fields (including optional fields) must be included in the `input` object.
 
 ### Example Usage
 
@@ -163,13 +163,13 @@ with Glean(
 
 ### Parameters
 
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `agent_id`                                                          | *str*                                                               | :heavy_check_mark:                                                  | The ID of the agent to run.                                         |
-| `input`                                                             | Dict[str, *Any*]                                                    | :heavy_minus_sign:                                                  | The input to the agent.                                             |
-| `messages`                                                          | List[[models.Message](../../models/message.md)]                     | :heavy_minus_sign:                                                  | The messages to pass an input to the agent.                         |
-| `metadata`                                                          | Dict[str, *Any*]                                                    | :heavy_minus_sign:                                                  | The metadata to pass to the agent.                                  |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+| Parameter                                                                   | Type                                                                        | Required                                                                    | Description                                                                 |
+| --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `agent_id`                                                                  | *str*                                                                       | :heavy_check_mark:                                                          | The ID of the agent to run.                                                 |
+| `input`                                                                     | Dict[str, *Any*]                                                            | :heavy_minus_sign:                                                          | The input to the agent. Required when the agent uses an input form trigger. |
+| `messages`                                                                  | List[[models.Message](../../models/message.md)]                             | :heavy_minus_sign:                                                          | The messages to pass an input to the agent.                                 |
+| `metadata`                                                                  | Dict[str, *Any*]                                                            | :heavy_minus_sign:                                                          | The metadata to pass to the agent.                                          |
+| `retries`                                                                   | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)            | :heavy_minus_sign:                                                          | Configuration to override the default retry behavior of the client.         |
 
 ### Response
 
@@ -183,7 +183,7 @@ with Glean(
 
 ## run
 
-Executes an [agent](https://developers.glean.com/agents/agents-api) run and returns the final response.
+Executes an [agent](https://developers.glean.com/agents/agents-api) run and returns the final response. **Note**: If the agent uses an input form trigger, all form fields (including optional fields) must be included in the `input` object.
 
 ### Example Usage
 
@@ -210,13 +210,13 @@ with Glean(
 
 ### Parameters
 
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `agent_id`                                                          | *str*                                                               | :heavy_check_mark:                                                  | The ID of the agent to run.                                         |
-| `input`                                                             | Dict[str, *Any*]                                                    | :heavy_minus_sign:                                                  | The input to the agent.                                             |
-| `messages`                                                          | List[[models.Message](../../models/message.md)]                     | :heavy_minus_sign:                                                  | The messages to pass an input to the agent.                         |
-| `metadata`                                                          | Dict[str, *Any*]                                                    | :heavy_minus_sign:                                                  | The metadata to pass to the agent.                                  |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+| Parameter                                                                   | Type                                                                        | Required                                                                    | Description                                                                 |
+| --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `agent_id`                                                                  | *str*                                                                       | :heavy_check_mark:                                                          | The ID of the agent to run.                                                 |
+| `input`                                                                     | Dict[str, *Any*]                                                            | :heavy_minus_sign:                                                          | The input to the agent. Required when the agent uses an input form trigger. |
+| `messages`                                                                  | List[[models.Message](../../models/message.md)]                             | :heavy_minus_sign:                                                          | The messages to pass an input to the agent.                                 |
+| `metadata`                                                                  | Dict[str, *Any*]                                                            | :heavy_minus_sign:                                                          | The metadata to pass to the agent.                                          |
+| `retries`                                                                   | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)            | :heavy_minus_sign:                                                          | Configuration to override the default retry behavior of the client.         |
 
 ### Response
 

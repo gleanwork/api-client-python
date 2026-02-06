@@ -10,12 +10,12 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class AgentRunTypedDict(TypedDict):
-    r"""Payload for creating a run."""
+    r"""Payload for creating a run. **Important**: If the agent uses an input form trigger, the `input` field is required and must include all fields defined in the form schema. Even fields marked as optional in the UI must be included in the request—use an empty string (`\"\"`) for optional fields without values. Omitting required form fields will result in a 500 error."""
 
     agent_id: str
     r"""The ID of the agent to run."""
     input: NotRequired[Dict[str, Any]]
-    r"""The input to the agent."""
+    r"""The input to the agent. Required when the agent uses an input form trigger."""
     messages: NotRequired[List[MessageTypedDict]]
     r"""The messages to pass an input to the agent."""
     metadata: NotRequired[Dict[str, Any]]
@@ -25,13 +25,13 @@ class AgentRunTypedDict(TypedDict):
 
 
 class AgentRun(BaseModel):
-    r"""Payload for creating a run."""
+    r"""Payload for creating a run. **Important**: If the agent uses an input form trigger, the `input` field is required and must include all fields defined in the form schema. Even fields marked as optional in the UI must be included in the request—use an empty string (`\"\"`) for optional fields without values. Omitting required form fields will result in a 500 error."""
 
     agent_id: str
     r"""The ID of the agent to run."""
 
     input: Optional[Dict[str, Any]] = None
-    r"""The input to the agent."""
+    r"""The input to the agent. Required when the agent uses an input form trigger."""
 
     messages: Optional[List[Message]] = None
     r"""The messages to pass an input to the agent."""

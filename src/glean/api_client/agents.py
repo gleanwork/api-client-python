@@ -560,10 +560,10 @@ class Agents(BaseSDK):
     ) -> str:
         r"""Create an agent run and stream the response
 
-        Executes an [agent](https://developers.glean.com/agents/agents-api) run and returns the result as a stream of server-sent events (SSE).
+        Executes an [agent](https://developers.glean.com/agents/agents-api) run and returns the result as a stream of server-sent events (SSE). **Note**: If the agent uses an input form trigger, all form fields (including optional fields) must be included in the `input` object.
 
         :param agent_id: The ID of the agent to run.
-        :param input: The input to the agent.
+        :param input: The input to the agent. Required when the agent uses an input form trigger.
         :param messages: The messages to pass an input to the agent.
         :param metadata: The metadata to pass to the agent.
         :param retries: Override the default retry configuration for this method
@@ -660,10 +660,10 @@ class Agents(BaseSDK):
     ) -> str:
         r"""Create an agent run and stream the response
 
-        Executes an [agent](https://developers.glean.com/agents/agents-api) run and returns the result as a stream of server-sent events (SSE).
+        Executes an [agent](https://developers.glean.com/agents/agents-api) run and returns the result as a stream of server-sent events (SSE). **Note**: If the agent uses an input form trigger, all form fields (including optional fields) must be included in the `input` object.
 
         :param agent_id: The ID of the agent to run.
-        :param input: The input to the agent.
+        :param input: The input to the agent. Required when the agent uses an input form trigger.
         :param messages: The messages to pass an input to the agent.
         :param metadata: The metadata to pass to the agent.
         :param retries: Override the default retry configuration for this method
@@ -760,10 +760,10 @@ class Agents(BaseSDK):
     ) -> models.AgentRunWaitResponse:
         r"""Create an agent run and wait for the response
 
-        Executes an [agent](https://developers.glean.com/agents/agents-api) run and returns the final response.
+        Executes an [agent](https://developers.glean.com/agents/agents-api) run and returns the final response. **Note**: If the agent uses an input form trigger, all form fields (including optional fields) must be included in the `input` object.
 
         :param agent_id: The ID of the agent to run.
-        :param input: The input to the agent.
+        :param input: The input to the agent. Required when the agent uses an input form trigger.
         :param messages: The messages to pass an input to the agent.
         :param metadata: The metadata to pass to the agent.
         :param retries: Override the default retry configuration for this method
@@ -860,10 +860,10 @@ class Agents(BaseSDK):
     ) -> models.AgentRunWaitResponse:
         r"""Create an agent run and wait for the response
 
-        Executes an [agent](https://developers.glean.com/agents/agents-api) run and returns the final response.
+        Executes an [agent](https://developers.glean.com/agents/agents-api) run and returns the final response. **Note**: If the agent uses an input form trigger, all form fields (including optional fields) must be included in the `input` object.
 
         :param agent_id: The ID of the agent to run.
-        :param input: The input to the agent.
+        :param input: The input to the agent. Required when the agent uses an input form trigger.
         :param messages: The messages to pass an input to the agent.
         :param metadata: The metadata to pass to the agent.
         :param retries: Override the default retry configuration for this method

@@ -19,9 +19,27 @@
 
 Have a conversation with Glean AI.
 
-### Example Usage
+### Example Usage: citationResponse
 
-<!-- UsageSnippet language="python" operationID="chat" method="post" path="/rest/api/v1/chat" -->
+<!-- UsageSnippet language="python" operationID="chat" method="post" path="/rest/api/v1/chat" example="citationResponse" -->
+```python
+from glean.api_client import Glean
+import os
+
+
+with Glean(
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+) as glean:
+
+    res = glean.client.chat.create(messages=[], timeout_millis=30000)
+
+    # Handle response
+    print(res)
+
+```
+### Example Usage: defaultExample
+
+<!-- UsageSnippet language="python" operationID="chat" method="post" path="/rest/api/v1/chat" example="defaultExample" -->
 ```python
 from glean.api_client import Glean, models
 import os
@@ -40,6 +58,70 @@ with Glean(
             ],
         },
     ], timeout_millis=30000)
+
+    # Handle response
+    print(res)
+
+```
+### Example Usage: gptAgentExample
+
+<!-- UsageSnippet language="python" operationID="chat" method="post" path="/rest/api/v1/chat" example="gptAgentExample" -->
+```python
+from glean.api_client import Glean, models
+import os
+
+
+with Glean(
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+) as glean:
+
+    res = glean.client.chat.create(messages=[
+        {
+            "fragments": [
+                models.ChatMessageFragment(
+                    text="Who was the first person to land on the moon?",
+                ),
+            ],
+        },
+    ], agent_config={
+        "agent": models.AgentEnum.GPT,
+    }, timeout_millis=30000)
+
+    # Handle response
+    print(res)
+
+```
+### Example Usage: streamingExample
+
+<!-- UsageSnippet language="python" operationID="chat" method="post" path="/rest/api/v1/chat" example="streamingExample" -->
+```python
+from glean.api_client import Glean
+import os
+
+
+with Glean(
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+) as glean:
+
+    res = glean.client.chat.create(messages=[], timeout_millis=30000)
+
+    # Handle response
+    print(res)
+
+```
+### Example Usage: updateResponse
+
+<!-- UsageSnippet language="python" operationID="chat" method="post" path="/rest/api/v1/chat" example="updateResponse" -->
+```python
+from glean.api_client import Glean
+import os
+
+
+with Glean(
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+) as glean:
+
+    res = glean.client.chat.create(messages=[], timeout_millis=30000)
 
     # Handle response
     print(res)
@@ -404,9 +486,27 @@ with Glean(
 
 Have a conversation with Glean AI.
 
-### Example Usage
+### Example Usage: citationResponse
 
-<!-- UsageSnippet language="python" operationID="chatStream" method="post" path="/rest/api/v1/chat#stream" -->
+<!-- UsageSnippet language="python" operationID="chatStream" method="post" path="/rest/api/v1/chat#stream" example="citationResponse" -->
+```python
+from glean.api_client import Glean
+import os
+
+
+with Glean(
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+) as glean:
+
+    res = glean.client.chat.create_stream(messages=[], timeout_millis=30000)
+
+    # Handle response
+    print(res)
+
+```
+### Example Usage: defaultExample
+
+<!-- UsageSnippet language="python" operationID="chatStream" method="post" path="/rest/api/v1/chat#stream" example="defaultExample" -->
 ```python
 from glean.api_client import Glean, models
 import os
@@ -425,6 +525,70 @@ with Glean(
             ],
         },
     ], timeout_millis=30000)
+
+    # Handle response
+    print(res)
+
+```
+### Example Usage: gptAgentExample
+
+<!-- UsageSnippet language="python" operationID="chatStream" method="post" path="/rest/api/v1/chat#stream" example="gptAgentExample" -->
+```python
+from glean.api_client import Glean, models
+import os
+
+
+with Glean(
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+) as glean:
+
+    res = glean.client.chat.create_stream(messages=[
+        {
+            "fragments": [
+                models.ChatMessageFragment(
+                    text="Who was the first person to land on the moon?",
+                ),
+            ],
+        },
+    ], agent_config={
+        "agent": models.AgentEnum.GPT,
+    }, timeout_millis=30000)
+
+    # Handle response
+    print(res)
+
+```
+### Example Usage: streamingExample
+
+<!-- UsageSnippet language="python" operationID="chatStream" method="post" path="/rest/api/v1/chat#stream" example="streamingExample" -->
+```python
+from glean.api_client import Glean
+import os
+
+
+with Glean(
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+) as glean:
+
+    res = glean.client.chat.create_stream(messages=[], timeout_millis=30000)
+
+    # Handle response
+    print(res)
+
+```
+### Example Usage: updateResponse
+
+<!-- UsageSnippet language="python" operationID="chatStream" method="post" path="/rest/api/v1/chat#stream" example="updateResponse" -->
+```python
+from glean.api_client import Glean
+import os
+
+
+with Glean(
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+) as glean:
+
+    res = glean.client.chat.create_stream(messages=[], timeout_millis=30000)
 
     # Handle response
     print(res)
