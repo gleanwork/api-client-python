@@ -33,7 +33,7 @@ class SharingOptions(BaseModel):
     enabled: Annotated[
         Optional[bool],
         pydantic.Field(
-            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+            deprecated="warning: ** DEPRECATED ** - Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Field is deprecated."
         ),
     ] = None
 
@@ -48,7 +48,7 @@ class SharingOptions(BaseModel):
     anyone_with_link_enabled: Annotated[
         Optional[bool],
         pydantic.Field(
-            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible.",
+            deprecated="warning: ** DEPRECATED ** - Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Field is deprecated.",
             alias="anyoneWithLinkEnabled",
         ),
     ] = None

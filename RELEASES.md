@@ -539,3 +539,13 @@ Based on:
 - [python v0.12.3] .
 ### Releases
 - [PyPI v0.12.3] https://pypi.org/project/glean-api-client/0.12.3 - .
+
+## 2026-02-09 17:35:34
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.709.1 (2.812.2) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [python v0.12.4] .
+### Releases
+- [PyPI v0.12.4] https://pypi.org/project/glean-api-client/0.12.4 - .

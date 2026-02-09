@@ -51,7 +51,7 @@ class InputOptions(BaseModel):
     url_greenlist: Annotated[
         Optional[List[str]],
         pydantic.Field(
-            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible.",
+            deprecated="warning: ** DEPRECATED ** - Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Field is deprecated.",
             alias="urlGreenlist",
         ),
     ] = None
@@ -65,7 +65,7 @@ class InputOptions(BaseModel):
     datasources: Annotated[
         Optional[List[str]],
         pydantic.Field(
-            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+            deprecated="warning: ** DEPRECATED ** - Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use datasourceInstances instead."
         ),
     ] = None
     r"""List of datasources to consider for report. DEPRECATED - use datasourceInstances instead."""

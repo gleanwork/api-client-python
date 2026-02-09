@@ -74,13 +74,13 @@ func (e *InputOptionsTimePeriodType) UnmarshalJSON(data []byte) error {
 type InputOptions struct {
 	// list of url regex matching documents excluded from report
 	//
-	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	// Deprecated: Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Field is deprecated.
 	URLGreenlist []string `json:"urlGreenlist,omitempty"`
 	// The types of datasource for which to run the report/policy.
 	DatasourcesType *DatasourcesType `json:"datasourcesType,omitempty"`
 	// List of datasources to consider for report. DEPRECATED - use datasourceInstances instead.
 	//
-	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	// Deprecated: Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use datasourceInstances instead.
 	Datasources []string `json:"datasources,omitempty"`
 	// List of datasource instances to consider for report/policy.
 	DatasourceInstances []string `json:"datasourceInstances,omitempty"`

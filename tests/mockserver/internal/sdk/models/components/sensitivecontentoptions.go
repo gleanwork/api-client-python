@@ -6,15 +6,15 @@ package components
 type SensitiveContentOptions struct {
 	// DEPRECATED - use 'customSensitiveExpressions' instead.
 	//
-	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	// Deprecated: Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use customSensitiveExpressions instead.
 	SensitiveInfoTypes []SensitiveInfoType `json:"sensitiveInfoTypes,omitempty"`
 	// DEPRECATED - use 'customSensitiveExpressions' instead.
 	//
-	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	// Deprecated: Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use customSensitiveExpressions instead.
 	SensitiveTerms []SensitiveExpression `json:"sensitiveTerms,omitempty"`
 	// DEPRECATED - use 'customSensitiveExpressions' instead.
 	//
-	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	// Deprecated: Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use customSensitiveExpressions instead.
 	SensitiveRegexes []SensitiveExpression `json:"sensitiveRegexes,omitempty"`
 	// list of custom sensitive expressions to consider as sensitive content
 	CustomSensitiveExpressions []CustomSensitiveExpression `json:"customSensitiveExpressions,omitempty"`
