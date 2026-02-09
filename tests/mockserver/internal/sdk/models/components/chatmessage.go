@@ -87,7 +87,9 @@ type ChatMessage struct {
 	// Describes the agent that executes the request.
 	AgentConfig *AgentConfig `json:"agentConfig,omitempty"`
 	Author      *Author      `default:"USER" json:"author"`
-	// A list of Citations that were used to generate the response.
+	// Deprecated: Use inline citations via ChatMessageFragment.citation instead. For detailed reference information, use ChatMessageCitation.referenceRanges. This field is still populated for backward compatibility.
+	//
+	// Deprecated: Deprecated on 2026-02-06, removal scheduled for 2026-10-15: Use inline citations via ChatMessageFragment.citation and ChatMessageCitation.referenceRanges instead. This field is still populated for backward compatibility..
 	Citations []ChatMessageCitation `json:"citations,omitempty"`
 	// IDs of files uploaded in the message that are referenced to generate the answer.
 	UploadedFileIds []string `json:"uploadedFileIds,omitempty"`
