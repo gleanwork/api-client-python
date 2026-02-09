@@ -70,7 +70,7 @@ class EditAnswerRequest(BaseModel):
     board_id: Annotated[
         Optional[int],
         pydantic.Field(
-            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible.",
+            deprecated="warning: ** DEPRECATED ** - Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Answer Boards no longer supported.",
             alias="boardId",
         ),
     ] = None

@@ -10,7 +10,7 @@ from typing_extensions import Annotated, NotRequired, TypedDict, deprecated
 
 
 @deprecated(
-    "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+    "warning: ** DEPRECATED ** - Deprecated on undefined, removal scheduled for undefined."
 )
 class SensitiveInfoTypeLikelihoodThreshold(str, Enum):
     LIKELY = "LIKELY"
@@ -30,7 +30,7 @@ class SensitiveInfoType(BaseModel):
     likelihood_threshold: Annotated[
         Optional[SensitiveInfoTypeLikelihoodThreshold],
         pydantic.Field(
-            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible.",
+            deprecated="warning: ** DEPRECATED ** - Deprecated on undefined, removal scheduled for undefined.",
             alias="likelihoodThreshold",
         ),
     ] = None

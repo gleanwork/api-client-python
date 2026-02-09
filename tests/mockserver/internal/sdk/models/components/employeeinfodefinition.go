@@ -26,7 +26,7 @@ type EmployeeInfoDefinition struct {
 	PhoneNumber *string `json:"phoneNumber,omitempty"`
 	// The employee's location (city/office name etc).
 	//
-	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	// Deprecated: Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Field is deprecated.
 	Location *string `json:"location,omitempty"`
 	// Detailed location with information about country, state, city etc.
 	StructuredLocation *StructuredLocation `json:"structuredLocation,omitempty"`

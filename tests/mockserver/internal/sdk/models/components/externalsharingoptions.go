@@ -4,15 +4,15 @@ package components
 
 // ExternalSharingOptions - Controls how "shared" a document must be to get picked for scans.
 //
-// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+// Deprecated: Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use broadSharingOptions instead.
 type ExternalSharingOptions struct {
-	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	// Deprecated: Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Field is deprecated.
 	Enabled *bool `json:"enabled,omitempty"`
 	// The minimum number of users the document is shared with.
 	Threshold *int64 `json:"threshold,omitempty"`
 	// Documents will be filtered based on how many people have access to it.
 	ThresholdEnabled *bool `json:"thresholdEnabled,omitempty"`
-	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	// Deprecated: Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Field is deprecated.
 	AnyoneWithLinkEnabled *bool `json:"anyoneWithLinkEnabled,omitempty"`
 	// Only users within the organization can access the document.
 	AnyoneInternalEnabled *bool `json:"anyoneInternalEnabled,omitempty"`

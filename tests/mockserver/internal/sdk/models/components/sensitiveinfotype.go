@@ -9,7 +9,7 @@ import (
 
 // SensitiveInfoTypeLikelihoodThreshold
 //
-// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+// Deprecated: Deprecated on undefined, removal scheduled for undefined.
 type SensitiveInfoTypeLikelihoodThreshold string
 
 const (
@@ -46,7 +46,7 @@ func (e *SensitiveInfoTypeLikelihoodThreshold) UnmarshalJSON(data []byte) error 
 }
 
 type SensitiveInfoType struct {
-	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	// Deprecated: Deprecated on undefined, removal scheduled for undefined.
 	LikelihoodThreshold *SensitiveInfoTypeLikelihoodThreshold `json:"likelihoodThreshold,omitempty"`
 	// Text representation of an info-type to scan for.
 	InfoType *string `json:"infoType,omitempty"`

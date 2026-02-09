@@ -59,7 +59,7 @@ class DlpConfig(BaseModel):
     sensitive_info_types: Annotated[
         Optional[List[SensitiveInfoType]],
         pydantic.Field(
-            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible.",
+            deprecated="warning: ** DEPRECATED ** - Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use sensitiveContentOptions instead.",
             alias="sensitiveInfoTypes",
         ),
     ] = None
@@ -73,7 +73,7 @@ class DlpConfig(BaseModel):
     external_sharing_options: Annotated[
         Optional[ExternalSharingOptions],
         pydantic.Field(
-            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible.",
+            deprecated="warning: ** DEPRECATED ** - Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use broadSharingOptions instead.",
             alias="externalSharingOptions",
         ),
     ] = None
