@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
     version: 0.9.0
     title: Glean API
-    x-source-commit-sha: 2a745f932cc47169f6ceb0e7b3e9869d02726cea
+    x-source-commit-sha: 7cb24e246b05f2b9bef2eb5a0de443756d8b2e62
     description: |
         # Introduction
         In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This is useful, for example, for doing permissions-aware search over content in internal tools that reside on-prem as well as for searching over applications that Glean does not currently support first class. In addition these APIs allow the customer to push organization data (people info, organization structure etc) into Glean.
@@ -22,7 +22,7 @@ info:
         These API clients provide type-safe, idiomatic interfaces for working with Glean IndexingAPIs in your language of choice.
     x-logo:
         url: https://app.glean.com/images/glean-text2.svg
-    x-open-api-commit-sha: c9207631abff9271cdd02433399797f6ee15e063
+    x-open-api-commit-sha: 9164805c95e3fac7bb472685c0d3811323a3e1e3
     x-speakeasy-name: 'Glean API'
 servers:
     - url: https://{instance}-be.glean.com
@@ -7674,7 +7674,14 @@ components:
                     type: array
                     items:
                         $ref: "#/components/schemas/ChatMessageCitation"
-                    description: A list of Citations that were used to generate the response.
+                    description: "Deprecated: Use inline citations via ChatMessageFragment.citation instead. For detailed reference information, use ChatMessageCitation.referenceRanges. This field is still populated for backward compatibility."
+                    deprecated: true
+                    x-glean-deprecated:
+                        id: 6446f85e-c90e-4c00-9717-796f9db3dc61
+                        introduced: "2026-02-06"
+                        message: Use inline citations via ChatMessageFragment.citation and ChatMessageCitation.referenceRanges instead. This field is still populated for backward compatibility.
+                        removal: "2026-10-15"
+                    x-speakeasy-deprecation-message: "Deprecated on 2026-02-06, removal scheduled for 2026-10-15: Use inline citations via ChatMessageFragment.citation and ChatMessageCitation.referenceRanges instead. This field is still populated for backward compatibility."
                 uploadedFileIds:
                     type: array
                     items:
@@ -7974,6 +7981,19 @@ components:
             type: string
             title: ErrorResponse
             description: Error message returned from the server
+        ActionSummary:
+            type: object
+            description: Represents a minimal summary of an action.
+            required:
+                - tool_id
+                - display_name
+            properties:
+                tool_id:
+                    type: string
+                    description: The unique identifier of the action.
+                display_name:
+                    type: string
+                    description: The display name of the action.
         AgentSchemas:
             properties:
                 agent_id:
@@ -7989,6 +8009,12 @@ components:
                     type: object
                     title: Output Schema
                     description: The schema for the agent output. In JSON Schema format.
+                tools:
+                    type: array
+                    title: Tools
+                    description: List of tools that the agent can invoke. Only included when include_tools query parameter is set to true.
+                    items:
+                        $ref: "#/components/schemas/ActionSummary"
             type: object
             required:
                 - agent_id

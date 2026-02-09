@@ -47,7 +47,7 @@ class ChatMessageTypedDict(TypedDict):
     r"""Describes the agent that executes the request."""
     author: NotRequired[Author]
     citations: NotRequired[List[ChatMessageCitationTypedDict]]
-    r"""A list of Citations that were used to generate the response."""
+    r"""Deprecated: Use inline citations via ChatMessageFragment.citation instead. For detailed reference information, use ChatMessageCitation.referenceRanges. This field is still populated for backward compatibility."""
     uploaded_file_ids: NotRequired[List[str]]
     r"""IDs of files uploaded in the message that are referenced to generate the answer."""
     fragments: NotRequired[List[ChatMessageFragmentTypedDict]]
@@ -74,8 +74,13 @@ class ChatMessage(BaseModel):
 
     author: Optional[Author] = Author.USER
 
-    citations: Optional[List[ChatMessageCitation]] = None
-    r"""A list of Citations that were used to generate the response."""
+    citations: Annotated[
+        Optional[List[ChatMessageCitation]],
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - Deprecated on 2026-02-06, removal scheduled for 2026-10-15: Use inline citations via ChatMessageFragment.citation and ChatMessageCitation.referenceRanges instead. This field is still populated for backward compatibility.."
+        ),
+    ] = None
+    r"""Deprecated: Use inline citations via ChatMessageFragment.citation instead. For detailed reference information, use ChatMessageCitation.referenceRanges. This field is still populated for backward compatibility."""
 
     uploaded_file_ids: Annotated[
         Optional[List[str]], pydantic.Field(alias="uploadedFileIds")

@@ -72,6 +72,7 @@ import builtins
 import sys
 
 if TYPE_CHECKING:
+    from .actionsummary import ActionSummary, ActionSummaryTypedDict
     from .activity import Activity, ActivityTypedDict
     from .activityevent import (
         ActivityEvent,
@@ -1400,6 +1401,8 @@ Reaction.model_rebuild()
 
 
 __all__ = [
+    "ActionSummary",
+    "ActionSummaryTypedDict",
     "Activity",
     "ActivityEnum",
     "ActivityEvent",
@@ -2527,6 +2530,8 @@ __all__ = [
 ]
 
 _dynamic_imports: dict[str, str] = {
+    "ActionSummary": ".actionsummary",
+    "ActionSummaryTypedDict": ".actionsummary",
     "Activity": ".activity",
     "ActivityTypedDict": ".activity",
     "ActivityEvent": ".activityevent",
