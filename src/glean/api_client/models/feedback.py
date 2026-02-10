@@ -68,6 +68,8 @@ class Event(str, Enum):
     MANUAL_FEEDBACK = "MANUAL_FEEDBACK"
     # The user submitted comparative feedback for multiple side-by-side implementations.
     MANUAL_FEEDBACK_SIDE_BY_SIDE = "MANUAL_FEEDBACK_SIDE_BY_SIDE"
+    # The user submitted feedback about time saved by an agent or workflow.
+    FEEDBACK_TIME_SAVED = "FEEDBACK_TIME_SAVED"
     # The user explicitly marked the content as read.
     MARK_AS_READ = "MARK_AS_READ"
     # The user attempted to send a message using their default messaing app.

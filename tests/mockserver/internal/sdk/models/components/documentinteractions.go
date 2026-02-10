@@ -13,7 +13,7 @@ type DocumentInteractions struct {
 	NumReactions *int64 `json:"numReactions,omitempty"`
 	// To be deprecated in favor of reacts. A (potentially non-exhaustive) list of reactions for the document.
 	//
-	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	// Deprecated: Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use reacts instead.
 	Reactions []string   `json:"reactions,omitempty"`
 	Reacts    []Reaction `json:"reacts,omitempty"`
 	// Describes instances of someone posting a link to this document in one of our indexed datasources.

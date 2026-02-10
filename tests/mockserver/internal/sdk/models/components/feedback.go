@@ -84,6 +84,7 @@ const (
 	EventLastToken                Event = "LAST_TOKEN"
 	EventManualFeedback           Event = "MANUAL_FEEDBACK"
 	EventManualFeedbackSideBySide Event = "MANUAL_FEEDBACK_SIDE_BY_SIDE"
+	EventFeedbackTimeSaved        Event = "FEEDBACK_TIME_SAVED"
 	EventMarkAsRead               Event = "MARK_AS_READ"
 	EventMessage                  Event = "MESSAGE"
 	EventMiddleClick              Event = "MIDDLE_CLICK"
@@ -139,6 +140,8 @@ func (e *Event) UnmarshalJSON(data []byte) error {
 	case "MANUAL_FEEDBACK":
 		fallthrough
 	case "MANUAL_FEEDBACK_SIDE_BY_SIDE":
+		fallthrough
+	case "FEEDBACK_TIME_SAVED":
 		fallthrough
 	case "MARK_AS_READ":
 		fallthrough

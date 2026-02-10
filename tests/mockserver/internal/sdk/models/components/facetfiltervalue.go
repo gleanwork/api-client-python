@@ -48,7 +48,7 @@ type FacetFilterValue struct {
 	RelationType *RelationType `json:"relationType,omitempty"`
 	// DEPRECATED - please use relationType instead
 	//
-	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
+	// Deprecated: Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use relationType instead.
 	IsNegated *bool `json:"isNegated,omitempty"`
 }
 
