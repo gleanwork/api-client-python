@@ -64,7 +64,7 @@ class RelatedDocuments(BaseModel):
     documents: Annotated[
         Optional[List["Document"]],
         pydantic.Field(
-            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+            deprecated="warning: ** DEPRECATED ** - Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Field is deprecated."
         ),
     ] = None
     r"""A truncated list of documents with this relation. TO BE DEPRECATED."""
