@@ -47,3 +47,9 @@ class IndexDocumentsRequest(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    IndexDocumentsRequest.model_rebuild()
+except NameError:
+    pass

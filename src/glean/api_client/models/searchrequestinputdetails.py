@@ -34,3 +34,9 @@ class SearchRequestInputDetails(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    SearchRequestInputDetails.model_rebuild()
+except NameError:
+    pass

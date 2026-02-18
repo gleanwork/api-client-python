@@ -34,3 +34,9 @@ class DocumentContent(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    DocumentContent.model_rebuild()
+except NameError:
+    pass

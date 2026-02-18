@@ -149,3 +149,9 @@ class EditAnswerRequest(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    EditAnswerRequest.model_rebuild()
+except NameError:
+    pass

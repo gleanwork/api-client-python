@@ -286,3 +286,9 @@ class DocumentMetadata(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    DocumentMetadata.model_rebuild()
+except NameError:
+    pass

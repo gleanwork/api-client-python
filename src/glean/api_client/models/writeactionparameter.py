@@ -79,3 +79,9 @@ class WriteActionParameter(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    WriteActionParameter.model_rebuild()
+except NameError:
+    pass

@@ -108,3 +108,13 @@ class SideBySideImplementation(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    ResponseMetadata.model_rebuild()
+except NameError:
+    pass
+try:
+    SideBySideImplementation.model_rebuild()
+except NameError:
+    pass

@@ -240,3 +240,13 @@ class FeedEntry(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    UIConfig.model_rebuild()
+except NameError:
+    pass
+try:
+    FeedEntry.model_rebuild()
+except NameError:
+    pass

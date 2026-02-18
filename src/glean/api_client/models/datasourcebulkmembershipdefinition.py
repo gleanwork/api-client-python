@@ -45,3 +45,9 @@ class DatasourceBulkMembershipDefinition(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    DatasourceBulkMembershipDefinition.model_rebuild()
+except NameError:
+    pass

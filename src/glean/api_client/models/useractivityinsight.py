@@ -64,3 +64,9 @@ class UserActivityInsight(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    UserActivityInsight.model_rebuild()
+except NameError:
+    pass

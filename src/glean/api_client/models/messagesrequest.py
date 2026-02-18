@@ -107,3 +107,9 @@ class MessagesRequest(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    MessagesRequest.model_rebuild()
+except NameError:
+    pass

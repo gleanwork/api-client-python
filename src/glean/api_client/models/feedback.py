@@ -259,3 +259,9 @@ class Feedback(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    Feedback.model_rebuild()
+except NameError:
+    pass

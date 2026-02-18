@@ -118,3 +118,9 @@ class PromptTemplate(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    PromptTemplate.model_rebuild()
+except NameError:
+    pass

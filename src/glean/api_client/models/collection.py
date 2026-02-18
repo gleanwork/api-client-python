@@ -181,3 +181,9 @@ class Collection(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    Collection.model_rebuild()
+except NameError:
+    pass

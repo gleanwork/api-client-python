@@ -23,3 +23,9 @@ class DebugDocumentRequest(BaseModel):
 
     doc_id: Annotated[str, pydantic.Field(alias="docId")]
     r"""Glean Document ID within the datasource to get the status for."""
+
+
+try:
+    DebugDocumentRequest.model_rebuild()
+except NameError:
+    pass

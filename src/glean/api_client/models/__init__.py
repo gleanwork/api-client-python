@@ -67,9 +67,8 @@ from .userrolespecification import UserRoleSpecification, UserRoleSpecificationT
 from .verification import State, Verification, VerificationTypedDict
 from .verificationmetadata import VerificationMetadata, VerificationMetadataTypedDict
 from typing import TYPE_CHECKING
-from importlib import import_module
-import builtins
-import sys
+
+from glean.api_client.utils.dynamic_imports import lazy_getattr, lazy_dir
 
 if TYPE_CHECKING:
     from .actionsummary import ActionSummary, ActionSummaryTypedDict
@@ -177,6 +176,7 @@ if TYPE_CHECKING:
         AuthConfigTypedDict,
         GrantType,
     )
+    from .authstatus import AuthStatus
     from .authtoken import AuthToken, AuthTokenTypedDict
     from .autocompleteop import (
         AutocompleteRequestRequest,
@@ -1238,6 +1238,10 @@ if TYPE_CHECKING:
     from .toolsets import ToolSets, ToolSetsTypedDict
     from .toolslistresponse import ToolsListResponse, ToolsListResponseTypedDict
     from .ugctype import UgcType
+    from .unauthorizeddatasourceinstance import (
+        UnauthorizedDatasourceInstance,
+        UnauthorizedDatasourceInstanceTypedDict,
+    )
     from .unpin import Unpin, UnpinTypedDict
     from .unpinop import UnpinRequest, UnpinRequestTypedDict
     from .updateannouncementop import (
@@ -1483,6 +1487,7 @@ __all__ = [
     "AuthConfigStatus",
     "AuthConfigType",
     "AuthConfigTypedDict",
+    "AuthStatus",
     "AuthToken",
     "AuthTokenTypedDict",
     "AuthType",
@@ -2438,6 +2443,8 @@ __all__ = [
     "UIConfigTypedDict",
     "UIOptions",
     "UgcType",
+    "UnauthorizedDatasourceInstance",
+    "UnauthorizedDatasourceInstanceTypedDict",
     "Unpin",
     "UnpinRequest",
     "UnpinRequestTypedDict",
@@ -2612,6 +2619,7 @@ _dynamic_imports: dict[str, str] = {
     "AuthConfigType": ".authconfig",
     "AuthConfigTypedDict": ".authconfig",
     "GrantType": ".authconfig",
+    "AuthStatus": ".authstatus",
     "AuthToken": ".authtoken",
     "AuthTokenTypedDict": ".authtoken",
     "AutocompleteRequestRequest": ".autocompleteop",
@@ -3469,6 +3477,8 @@ _dynamic_imports: dict[str, str] = {
     "ToolsListResponse": ".toolslistresponse",
     "ToolsListResponseTypedDict": ".toolslistresponse",
     "UgcType": ".ugctype",
+    "UnauthorizedDatasourceInstance": ".unauthorizeddatasourceinstance",
+    "UnauthorizedDatasourceInstanceTypedDict": ".unauthorizeddatasourceinstance",
     "Unpin": ".unpin",
     "UnpinTypedDict": ".unpin",
     "UnpinRequest": ".unpinop",
@@ -3555,39 +3565,11 @@ _dynamic_imports: dict[str, str] = {
 }
 
 
-def dynamic_import(modname, retries=3):
-    for attempt in range(retries):
-        try:
-            return import_module(modname, __package__)
-        except KeyError:
-            # Clear any half-initialized module and retry
-            sys.modules.pop(modname, None)
-            if attempt == retries - 1:
-                break
-    raise KeyError(f"Failed to import module '{modname}' after {retries} attempts")
-
-
 def __getattr__(attr_name: str) -> object:
-    module_name = _dynamic_imports.get(attr_name)
-    if module_name is None:
-        raise AttributeError(
-            f"No {attr_name} found in _dynamic_imports for module name -> {__name__} "
-        )
-
-    try:
-        module = dynamic_import(module_name)
-        result = getattr(module, attr_name)
-        return result
-    except ImportError as e:
-        raise ImportError(
-            f"Failed to import {attr_name} from {module_name}: {e}"
-        ) from e
-    except AttributeError as e:
-        raise AttributeError(
-            f"Failed to get {attr_name} from {module_name}: {e}"
-        ) from e
+    return lazy_getattr(
+        attr_name, package=__package__, dynamic_imports=_dynamic_imports
+    )
 
 
 def __dir__():
-    lazy_attrs = builtins.list(_dynamic_imports.keys())
-    return builtins.sorted(lazy_attrs)
+    return lazy_dir(dynamic_imports=_dynamic_imports)

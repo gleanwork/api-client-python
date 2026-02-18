@@ -75,3 +75,9 @@ class Quicklink(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    Quicklink.model_rebuild()
+except NameError:
+    pass

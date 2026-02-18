@@ -41,3 +41,9 @@ class CurrentActiveUsers(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    CurrentActiveUsers.model_rebuild()
+except NameError:
+    pass

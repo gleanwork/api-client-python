@@ -19,3 +19,9 @@ class PersonObject(BaseModel):
 
     obfuscated_id: Annotated[str, pydantic.Field(alias="obfuscatedId")]
     r"""An opaque identifier that can be used to request metadata for a Person."""
+
+
+try:
+    PersonObject.model_rebuild()
+except NameError:
+    pass

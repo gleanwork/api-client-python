@@ -63,3 +63,9 @@ class Tool(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    Tool.model_rebuild()
+except NameError:
+    pass

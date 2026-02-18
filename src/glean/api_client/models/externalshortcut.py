@@ -94,3 +94,9 @@ class ExternalShortcut(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    ExternalShortcut.model_rebuild()
+except NameError:
+    pass

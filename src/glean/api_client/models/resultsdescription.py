@@ -40,3 +40,9 @@ class ResultsDescription(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    ResultsDescription.model_rebuild()
+except NameError:
+    pass

@@ -83,3 +83,9 @@ class AutocompleteResponse(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    AutocompleteResponse.model_rebuild()
+except NameError:
+    pass

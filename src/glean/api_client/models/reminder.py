@@ -51,3 +51,9 @@ class Reminder(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    Reminder.model_rebuild()
+except NameError:
+    pass

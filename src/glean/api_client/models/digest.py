@@ -54,3 +54,9 @@ class Digest(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    Digest.model_rebuild()
+except NameError:
+    pass

@@ -52,3 +52,9 @@ class WritePermission(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    WritePermission.model_rebuild()
+except NameError:
+    pass

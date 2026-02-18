@@ -37,3 +37,9 @@ class CustomFieldValueHyperlink(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    CustomFieldValueHyperlink.model_rebuild()
+except NameError:
+    pass

@@ -48,3 +48,9 @@ class FavoriteInfo(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    FavoriteInfo.model_rebuild()
+except NameError:
+    pass

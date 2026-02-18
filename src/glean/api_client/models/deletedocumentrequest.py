@@ -51,3 +51,9 @@ class DeleteDocumentRequest(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    DeleteDocumentRequest.model_rebuild()
+except NameError:
+    pass

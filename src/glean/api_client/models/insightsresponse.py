@@ -65,3 +65,9 @@ class InsightsResponse(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    InsightsResponse.model_rebuild()
+except NameError:
+    pass

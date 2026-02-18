@@ -46,3 +46,9 @@ class VerifyRequest(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    VerifyRequest.model_rebuild()
+except NameError:
+    pass

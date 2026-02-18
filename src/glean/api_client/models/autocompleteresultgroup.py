@@ -46,3 +46,9 @@ class AutocompleteResultGroup(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    AutocompleteResultGroup.model_rebuild()
+except NameError:
+    pass

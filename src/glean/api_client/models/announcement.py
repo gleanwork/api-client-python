@@ -229,3 +229,13 @@ class Announcement(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    AnnouncementViewerInfo.model_rebuild()
+except NameError:
+    pass
+try:
+    Announcement.model_rebuild()
+except NameError:
+    pass

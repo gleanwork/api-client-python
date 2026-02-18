@@ -81,3 +81,9 @@ class AgentConfig(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    AgentConfig.model_rebuild()
+except NameError:
+    pass

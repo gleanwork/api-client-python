@@ -74,3 +74,9 @@ class DocumentInteractions(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    DocumentInteractions.model_rebuild()
+except NameError:
+    pass

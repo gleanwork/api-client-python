@@ -48,3 +48,9 @@ class Reaction(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    Reaction.model_rebuild()
+except NameError:
+    pass

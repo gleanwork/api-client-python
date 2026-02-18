@@ -174,3 +174,9 @@ class SearchRequestOptions(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    SearchRequestOptions.model_rebuild()
+except NameError:
+    pass

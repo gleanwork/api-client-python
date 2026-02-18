@@ -46,3 +46,9 @@ class ContentDefinition(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    ContentDefinition.model_rebuild()
+except NameError:
+    pass

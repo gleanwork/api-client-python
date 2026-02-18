@@ -37,3 +37,9 @@ class GrantPermission(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    GrantPermission.model_rebuild()
+except NameError:
+    pass

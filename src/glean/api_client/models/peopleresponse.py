@@ -46,3 +46,9 @@ class PeopleResponse(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    PeopleResponse.model_rebuild()
+except NameError:
+    pass

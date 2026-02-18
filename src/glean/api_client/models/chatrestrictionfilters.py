@@ -47,3 +47,9 @@ class ChatRestrictionFilters(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    ChatRestrictionFilters.model_rebuild()
+except NameError:
+    pass

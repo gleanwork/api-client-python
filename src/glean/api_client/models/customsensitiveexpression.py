@@ -43,3 +43,9 @@ class CustomSensitiveExpression(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    CustomSensitiveExpression.model_rebuild()
+except NameError:
+    pass

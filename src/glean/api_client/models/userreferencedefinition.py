@@ -44,3 +44,9 @@ class UserReferenceDefinition(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    UserReferenceDefinition.model_rebuild()
+except NameError:
+    pass

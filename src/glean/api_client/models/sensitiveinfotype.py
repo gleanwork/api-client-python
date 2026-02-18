@@ -53,3 +53,9 @@ class SensitiveInfoType(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    SensitiveInfoType.model_rebuild()
+except NameError:
+    pass

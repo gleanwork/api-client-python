@@ -136,3 +136,13 @@ DocumentSpecUnion = TypeAliasType(
     "DocumentSpecUnion",
     Union[DocumentSpec1, DocumentSpec2, DocumentSpec3, DocumentSpec4],
 )
+
+
+try:
+    DocumentSpec4.model_rebuild()
+except NameError:
+    pass
+try:
+    DocumentSpec3.model_rebuild()
+except NameError:
+    pass

@@ -64,3 +64,9 @@ class ListShortcutsPaginatedRequest(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    ListShortcutsPaginatedRequest.model_rebuild()
+except NameError:
+    pass

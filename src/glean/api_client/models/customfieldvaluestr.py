@@ -32,3 +32,9 @@ class CustomFieldValueStr(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    CustomFieldValueStr.model_rebuild()
+except NameError:
+    pass

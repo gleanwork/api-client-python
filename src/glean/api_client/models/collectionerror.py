@@ -23,3 +23,9 @@ class CollectionErrorTypedDict(TypedDict):
 
 class CollectionError(BaseModel):
     error_code: Annotated[CollectionErrorErrorCode, pydantic.Field(alias="errorCode")]
+
+
+try:
+    CollectionError.model_rebuild()
+except NameError:
+    pass

@@ -77,3 +77,9 @@ class DigestSection(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    DigestSection.model_rebuild()
+except NameError:
+    pass

@@ -97,3 +97,9 @@ class SharingOptions(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    SharingOptions.model_rebuild()
+except NameError:
+    pass

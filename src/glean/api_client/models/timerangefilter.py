@@ -51,3 +51,9 @@ class TimeRangeFilter(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    TimeRangeFilter.model_rebuild()
+except NameError:
+    pass

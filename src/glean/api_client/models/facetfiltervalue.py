@@ -60,3 +60,9 @@ class FacetFilterValue(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    FacetFilterValue.model_rebuild()
+except NameError:
+    pass

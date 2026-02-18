@@ -88,3 +88,9 @@ class VerificationMetadata(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    VerificationMetadata.model_rebuild()
+except NameError:
+    pass

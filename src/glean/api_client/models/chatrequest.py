@@ -108,3 +108,9 @@ class ChatRequest(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    ChatRequest.model_rebuild()
+except NameError:
+    pass

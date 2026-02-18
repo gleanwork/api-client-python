@@ -97,3 +97,13 @@ class FeedRequestOptions(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    CategoryToResultSize.model_rebuild()
+except NameError:
+    pass
+try:
+    FeedRequestOptions.model_rebuild()
+except NameError:
+    pass

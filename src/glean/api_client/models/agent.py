@@ -131,3 +131,9 @@ class Agent(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    AgentCapabilities.model_rebuild()
+except NameError:
+    pass

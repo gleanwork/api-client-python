@@ -56,3 +56,9 @@ class CustomDataValue(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    CustomDataValue.model_rebuild()
+except NameError:
+    pass

@@ -47,3 +47,9 @@ class DatasourceUserDefinition(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    DatasourceUserDefinition.model_rebuild()
+except NameError:
+    pass

@@ -81,3 +81,9 @@ class BulkIndexGroupsRequest(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    BulkIndexGroupsRequest.model_rebuild()
+except NameError:
+    pass

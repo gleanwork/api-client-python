@@ -49,3 +49,9 @@ class AuthToken(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    AuthToken.model_rebuild()
+except NameError:
+    pass

@@ -53,3 +53,9 @@ class UserStatusResponse(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    UserStatusResponse.model_rebuild()
+except NameError:
+    pass

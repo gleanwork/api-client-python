@@ -93,3 +93,9 @@ class Permissions(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    Permissions.model_rebuild()
+except NameError:
+    pass

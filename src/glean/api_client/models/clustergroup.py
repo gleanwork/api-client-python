@@ -50,3 +50,9 @@ class ClusterGroup(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    ClusterGroup.model_rebuild()
+except NameError:
+    pass

@@ -75,3 +75,9 @@ class GeneratedAttachment(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    GeneratedAttachment.model_rebuild()
+except NameError:
+    pass

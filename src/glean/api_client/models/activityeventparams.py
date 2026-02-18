@@ -88,3 +88,9 @@ class ActivityEventParams(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    ActivityEventParams.model_rebuild()
+except NameError:
+    pass

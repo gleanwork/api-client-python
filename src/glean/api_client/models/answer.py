@@ -197,3 +197,9 @@ class Answer(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    Answer.model_rebuild()
+except NameError:
+    pass

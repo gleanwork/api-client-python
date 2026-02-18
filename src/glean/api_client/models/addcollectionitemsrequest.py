@@ -46,3 +46,9 @@ class AddCollectionItemsRequest(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    AddCollectionItemsRequest.model_rebuild()
+except NameError:
+    pass

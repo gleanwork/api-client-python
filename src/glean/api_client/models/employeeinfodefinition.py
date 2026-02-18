@@ -241,3 +241,9 @@ class EmployeeInfoDefinition(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    EmployeeInfoDefinition.model_rebuild()
+except NameError:
+    pass

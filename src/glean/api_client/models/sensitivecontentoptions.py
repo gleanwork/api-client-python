@@ -85,3 +85,9 @@ class SensitiveContentOptions(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    SensitiveContentOptions.model_rebuild()
+except NameError:
+    pass

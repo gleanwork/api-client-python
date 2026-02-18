@@ -88,3 +88,9 @@ class ChatMetadata(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    ChatMetadata.model_rebuild()
+except NameError:
+    pass

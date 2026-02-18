@@ -33,3 +33,9 @@ class CheckDocumentAccessRequest(BaseModel):
 
     user_email: Annotated[str, pydantic.Field(alias="userEmail")]
     r"""Email of user to check access for."""
+
+
+try:
+    CheckDocumentAccessRequest.model_rebuild()
+except NameError:
+    pass

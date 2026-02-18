@@ -33,3 +33,9 @@ class GetChatResponse(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    GetChatResponse.model_rebuild()
+except NameError:
+    pass

@@ -91,3 +91,9 @@ class QuerySuggestion(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    QuerySuggestion.model_rebuild()
+except NameError:
+    pass

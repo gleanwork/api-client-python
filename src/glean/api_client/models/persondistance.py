@@ -24,3 +24,9 @@ class PersonDistance(BaseModel):
 
     distance: float
     r"""Distance to person, refer to PeopleDistance pipeline on interpretation of the value."""
+
+
+try:
+    PersonDistance.model_rebuild()
+except NameError:
+    pass

@@ -45,3 +45,9 @@ class TimeRange(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    TimeRange.model_rebuild()
+except NameError:
+    pass

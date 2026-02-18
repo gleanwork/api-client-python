@@ -41,3 +41,9 @@ class PropertyGroup(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    PropertyGroup.model_rebuild()
+except NameError:
+    pass

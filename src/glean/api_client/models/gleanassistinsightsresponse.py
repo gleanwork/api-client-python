@@ -69,3 +69,9 @@ class GleanAssistInsightsResponse(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    GleanAssistInsightsResponse.model_rebuild()
+except NameError:
+    pass

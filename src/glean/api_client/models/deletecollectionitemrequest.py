@@ -42,3 +42,9 @@ class DeleteCollectionItemRequest(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    DeleteCollectionItemRequest.model_rebuild()
+except NameError:
+    pass

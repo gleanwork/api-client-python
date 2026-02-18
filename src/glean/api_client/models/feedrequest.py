@@ -82,3 +82,9 @@ class FeedRequest(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    FeedRequest.model_rebuild()
+except NameError:
+    pass

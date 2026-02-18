@@ -52,3 +52,9 @@ class SessionInfo(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    SessionInfo.model_rebuild()
+except NameError:
+    pass

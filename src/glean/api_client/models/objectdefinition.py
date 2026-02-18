@@ -100,3 +100,9 @@ class ObjectDefinition(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    ObjectDefinition.model_rebuild()
+except NameError:
+    pass

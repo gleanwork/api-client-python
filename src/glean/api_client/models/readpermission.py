@@ -37,3 +37,9 @@ class ReadPermission(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    ReadPermission.model_rebuild()
+except NameError:
+    pass

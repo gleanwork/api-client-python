@@ -105,3 +105,9 @@ class Chat(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    Chat.model_rebuild()
+except NameError:
+    pass

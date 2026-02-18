@@ -16,3 +16,9 @@ class ListAnswersResponseTypedDict(TypedDict):
 class ListAnswersResponse(BaseModel):
     answer_results: Annotated[List[AnswerResult], pydantic.Field(alias="answerResults")]
     r"""List of answers with tracking tokens."""
+
+
+try:
+    ListAnswersResponse.model_rebuild()
+except NameError:
+    pass

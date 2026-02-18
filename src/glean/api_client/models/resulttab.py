@@ -49,3 +49,9 @@ class ResultTab(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    ResultTab.model_rebuild()
+except NameError:
+    pass

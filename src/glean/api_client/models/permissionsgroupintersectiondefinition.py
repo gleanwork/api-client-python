@@ -36,3 +36,9 @@ class PermissionsGroupIntersectionDefinition(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    PermissionsGroupIntersectionDefinition.model_rebuild()
+except NameError:
+    pass

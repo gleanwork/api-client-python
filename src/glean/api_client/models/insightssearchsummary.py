@@ -55,3 +55,9 @@ class InsightsSearchSummary(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    InsightsSearchSummary.model_rebuild()
+except NameError:
+    pass

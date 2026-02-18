@@ -88,3 +88,9 @@ class StructuredLocation(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    StructuredLocation.model_rebuild()
+except NameError:
+    pass

@@ -43,3 +43,9 @@ class CollectionPinnedMetadata(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    CollectionPinnedMetadata.model_rebuild()
+except NameError:
+    pass

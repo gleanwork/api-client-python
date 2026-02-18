@@ -50,3 +50,9 @@ class DatasourceMembershipDefinition(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    DatasourceMembershipDefinition.model_rebuild()
+except NameError:
+    pass

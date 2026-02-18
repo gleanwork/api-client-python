@@ -40,3 +40,9 @@ class DocumentInteractionsDefinition(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    DocumentInteractionsDefinition.model_rebuild()
+except NameError:
+    pass

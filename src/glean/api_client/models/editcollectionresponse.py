@@ -202,3 +202,9 @@ class EditCollectionResponse(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    EditCollectionResponse.model_rebuild()
+except NameError:
+    pass

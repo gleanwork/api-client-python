@@ -40,3 +40,9 @@ class LabeledCountInfo(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    LabeledCountInfo.model_rebuild()
+except NameError:
+    pass

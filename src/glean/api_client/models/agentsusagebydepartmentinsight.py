@@ -81,3 +81,9 @@ class AgentsUsageByDepartmentInsight(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    AgentsUsageByDepartmentInsight.model_rebuild()
+except NameError:
+    pass

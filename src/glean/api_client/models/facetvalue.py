@@ -50,3 +50,9 @@ class FacetValue(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    FacetValue.model_rebuild()
+except NameError:
+    pass

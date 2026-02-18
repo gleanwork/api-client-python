@@ -68,3 +68,9 @@ class DebugDatasourceStatusIdentityResponseComponent(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    DebugDatasourceStatusIdentityResponseComponent.model_rebuild()
+except NameError:
+    pass

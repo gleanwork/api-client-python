@@ -37,3 +37,9 @@ class GetAnswerResponse(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    GetAnswerResponse.model_rebuild()
+except NameError:
+    pass

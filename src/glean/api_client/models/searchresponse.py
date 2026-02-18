@@ -155,3 +155,9 @@ class SearchResponse(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    SearchResponse.model_rebuild()
+except NameError:
+    pass

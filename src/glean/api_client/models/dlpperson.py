@@ -45,3 +45,9 @@ class DlpPerson(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    DlpPerson.model_rebuild()
+except NameError:
+    pass

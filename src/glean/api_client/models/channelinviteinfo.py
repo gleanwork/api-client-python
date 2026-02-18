@@ -65,3 +65,9 @@ class ChannelInviteInfo(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    ChannelInviteInfo.model_rebuild()
+except NameError:
+    pass

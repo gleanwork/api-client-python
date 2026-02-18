@@ -74,3 +74,9 @@ class BulkIndexMembershipsRequest(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    BulkIndexMembershipsRequest.model_rebuild()
+except NameError:
+    pass

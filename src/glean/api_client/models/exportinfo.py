@@ -89,3 +89,9 @@ class ExportInfo(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    ExportInfo.model_rebuild()
+except NameError:
+    pass

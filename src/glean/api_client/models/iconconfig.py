@@ -93,3 +93,9 @@ class IconConfig(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    IconConfig.model_rebuild()
+except NameError:
+    pass

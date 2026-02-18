@@ -67,3 +67,9 @@ class OperatorMetadata(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    OperatorMetadata.model_rebuild()
+except NameError:
+    pass

@@ -74,3 +74,9 @@ class ChatMessageCitation(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    ChatMessageCitation.model_rebuild()
+except NameError:
+    pass

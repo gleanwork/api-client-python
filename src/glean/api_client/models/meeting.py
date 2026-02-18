@@ -98,3 +98,9 @@ class Meeting(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    Meeting.model_rebuild()
+except NameError:
+    pass

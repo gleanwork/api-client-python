@@ -33,3 +33,9 @@ class HotwordProximity(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    HotwordProximity.model_rebuild()
+except NameError:
+    pass

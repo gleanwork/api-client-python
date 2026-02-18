@@ -56,3 +56,9 @@ class DatasourceProfile(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    DatasourceProfile.model_rebuild()
+except NameError:
+    pass

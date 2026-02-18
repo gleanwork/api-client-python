@@ -35,3 +35,9 @@ class CustomEntityMetadata(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    CustomEntityMetadata.model_rebuild()
+except NameError:
+    pass

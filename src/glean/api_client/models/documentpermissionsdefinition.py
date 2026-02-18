@@ -85,3 +85,9 @@ class DocumentPermissionsDefinition(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    DocumentPermissionsDefinition.model_rebuild()
+except NameError:
+    pass

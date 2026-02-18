@@ -62,3 +62,9 @@ class UpdatePermissionsRequest(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    UpdatePermissionsRequest.model_rebuild()
+except NameError:
+    pass
