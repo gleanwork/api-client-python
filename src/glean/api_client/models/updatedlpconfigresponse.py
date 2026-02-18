@@ -36,3 +36,9 @@ class UpdateDlpConfigResponse(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    UpdateDlpConfigResponse.model_rebuild()
+except NameError:
+    pass

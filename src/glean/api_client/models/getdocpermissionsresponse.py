@@ -34,3 +34,9 @@ class GetDocPermissionsResponse(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    GetDocPermissionsResponse.model_rebuild()
+except NameError:
+    pass

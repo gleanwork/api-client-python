@@ -81,3 +81,9 @@ class ChatMessageFragment(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    ChatMessageFragment.model_rebuild()
+except NameError:
+    pass

@@ -81,3 +81,9 @@ class IndexingShortcut(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    IndexingShortcut.model_rebuild()
+except NameError:
+    pass

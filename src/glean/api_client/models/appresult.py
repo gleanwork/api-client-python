@@ -47,3 +47,9 @@ class AppResult(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    AppResult.model_rebuild()
+except NameError:
+    pass

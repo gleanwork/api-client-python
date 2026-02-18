@@ -85,3 +85,9 @@ class ResultsResponse(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    ResultsResponse.model_rebuild()
+except NameError:
+    pass

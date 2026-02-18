@@ -96,3 +96,9 @@ class Customer(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    Customer.model_rebuild()
+except NameError:
+    pass

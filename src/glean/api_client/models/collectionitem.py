@@ -111,3 +111,9 @@ class CollectionItem(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    CollectionItem.model_rebuild()
+except NameError:
+    pass

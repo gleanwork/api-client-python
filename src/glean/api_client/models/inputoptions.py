@@ -114,3 +114,9 @@ class InputOptions(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    InputOptions.model_rebuild()
+except NameError:
+    pass

@@ -37,3 +37,9 @@ class DlpPersonMetadata(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    DlpPersonMetadata.model_rebuild()
+except NameError:
+    pass

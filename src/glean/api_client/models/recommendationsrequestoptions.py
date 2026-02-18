@@ -70,3 +70,9 @@ class RecommendationsRequestOptions(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    RecommendationsRequestOptions.model_rebuild()
+except NameError:
+    pass

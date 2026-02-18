@@ -52,3 +52,9 @@ class EditCollectionItemRequest(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    EditCollectionItemRequest.model_rebuild()
+except NameError:
+    pass

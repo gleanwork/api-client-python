@@ -6,6 +6,10 @@ from .invalidoperatorvalueerror import (
     InvalidOperatorValueError,
     InvalidOperatorValueErrorTypedDict,
 )
+from .unauthorizeddatasourceinstance import (
+    UnauthorizedDatasourceInstance,
+    UnauthorizedDatasourceInstanceTypedDict,
+)
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
 from pydantic import model_serializer
@@ -23,6 +27,12 @@ class GleanDataErrorTypedDict(TypedDict):
     error_messages: NotRequired[List[ErrorMessageTypedDict]]
     federated_search_rate_limit_error: NotRequired[bool]
     r"""Indicates the federated search results could not be fetched due to rate limiting."""
+    unauthorized_datasource_instances: NotRequired[
+        List[UnauthorizedDatasourceInstanceTypedDict]
+    ]
+    r"""Datasource instances that could not be queried because the user has not completed or has expired per-user OAuth.
+
+    """
 
 
 class GleanDataError(BaseModel):
@@ -51,6 +61,14 @@ class GleanDataError(BaseModel):
     ] = None
     r"""Indicates the federated search results could not be fetched due to rate limiting."""
 
+    unauthorized_datasource_instances: Annotated[
+        Optional[List[UnauthorizedDatasourceInstance]],
+        pydantic.Field(alias="unauthorizedDatasourceInstances"),
+    ] = None
+    r"""Datasource instances that could not be queried because the user has not completed or has expired per-user OAuth.
+
+    """
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -60,6 +78,7 @@ class GleanDataError(BaseModel):
                 "invalidOperators",
                 "errorMessages",
                 "federatedSearchRateLimitError",
+                "unauthorizedDatasourceInstances",
             ]
         )
         serialized = handler(self)
@@ -74,3 +93,9 @@ class GleanDataError(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    GleanDataError.model_rebuild()
+except NameError:
+    pass

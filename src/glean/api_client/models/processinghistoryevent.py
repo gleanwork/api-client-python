@@ -41,3 +41,9 @@ class ProcessingHistoryEvent(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    ProcessingHistoryEvent.model_rebuild()
+except NameError:
+    pass

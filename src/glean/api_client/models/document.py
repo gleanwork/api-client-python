@@ -100,3 +100,9 @@ class Document(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    Document.model_rebuild()
+except NameError:
+    pass

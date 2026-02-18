@@ -37,3 +37,9 @@ class DatasourceObjectTypeDocumentCountEntry(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    DatasourceObjectTypeDocumentCountEntry.model_rebuild()
+except NameError:
+    pass

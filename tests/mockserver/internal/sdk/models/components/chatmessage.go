@@ -38,15 +38,21 @@ func (e *Author) UnmarshalJSON(data []byte) error {
 type MessageType string
 
 const (
-	MessageTypeUpdate        MessageType = "UPDATE"
-	MessageTypeContent       MessageType = "CONTENT"
-	MessageTypeContext       MessageType = "CONTEXT"
-	MessageTypeDebug         MessageType = "DEBUG"
-	MessageTypeDebugExternal MessageType = "DEBUG_EXTERNAL"
-	MessageTypeError         MessageType = "ERROR"
-	MessageTypeHeading       MessageType = "HEADING"
-	MessageTypeWarning       MessageType = "WARNING"
-	MessageTypeServerTool    MessageType = "SERVER_TOOL"
+	MessageTypeUpdate         MessageType = "UPDATE"
+	MessageTypeContent        MessageType = "CONTENT"
+	MessageTypeContext        MessageType = "CONTEXT"
+	MessageTypeControl        MessageType = "CONTROL"
+	MessageTypeControlStart   MessageType = "CONTROL_START"
+	MessageTypeControlFinish  MessageType = "CONTROL_FINISH"
+	MessageTypeControlCancel  MessageType = "CONTROL_CANCEL"
+	MessageTypeControlRetry   MessageType = "CONTROL_RETRY"
+	MessageTypeControlUnknown MessageType = "CONTROL_UNKNOWN"
+	MessageTypeDebug          MessageType = "DEBUG"
+	MessageTypeDebugExternal  MessageType = "DEBUG_EXTERNAL"
+	MessageTypeError          MessageType = "ERROR"
+	MessageTypeHeading        MessageType = "HEADING"
+	MessageTypeWarning        MessageType = "WARNING"
+	MessageTypeServerTool     MessageType = "SERVER_TOOL"
 )
 
 func (e MessageType) ToPointer() *MessageType {
@@ -63,6 +69,18 @@ func (e *MessageType) UnmarshalJSON(data []byte) error {
 	case "CONTENT":
 		fallthrough
 	case "CONTEXT":
+		fallthrough
+	case "CONTROL":
+		fallthrough
+	case "CONTROL_START":
+		fallthrough
+	case "CONTROL_FINISH":
+		fallthrough
+	case "CONTROL_CANCEL":
+		fallthrough
+	case "CONTROL_RETRY":
+		fallthrough
+	case "CONTROL_UNKNOWN":
 		fallthrough
 	case "DEBUG":
 		fallthrough

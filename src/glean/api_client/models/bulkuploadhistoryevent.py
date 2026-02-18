@@ -79,3 +79,9 @@ class BulkUploadHistoryEvent(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    BulkUploadHistoryEvent.model_rebuild()
+except NameError:
+    pass

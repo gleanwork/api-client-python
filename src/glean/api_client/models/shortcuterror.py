@@ -40,3 +40,9 @@ class ShortcutError(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    ShortcutError.model_rebuild()
+except NameError:
+    pass

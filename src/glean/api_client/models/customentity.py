@@ -76,3 +76,9 @@ class CustomEntity(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    CustomEntity.model_rebuild()
+except NameError:
+    pass

@@ -40,3 +40,9 @@ class StructuredText(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    StructuredText.model_rebuild()
+except NameError:
+    pass

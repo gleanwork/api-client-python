@@ -139,3 +139,9 @@ class UpdateAnnouncementRequest(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    UpdateAnnouncementRequest.model_rebuild()
+except NameError:
+    pass

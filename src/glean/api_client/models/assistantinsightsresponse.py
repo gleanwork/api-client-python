@@ -126,3 +126,9 @@ class AssistantInsightsResponse(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    AssistantInsightsResponse.model_rebuild()
+except NameError:
+    pass

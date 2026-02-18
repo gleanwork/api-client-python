@@ -19,3 +19,9 @@ class CreateAuthTokenResponse(BaseModel):
 
     expiration_time: Annotated[int, pydantic.Field(alias="expirationTime")]
     r"""Unix timestamp for when this token expires (in seconds since epoch UTC)."""
+
+
+try:
+    CreateAuthTokenResponse.model_rebuild()
+except NameError:
+    pass

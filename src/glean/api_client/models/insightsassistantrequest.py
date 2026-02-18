@@ -36,3 +36,9 @@ class InsightsAssistantRequest(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    InsightsAssistantRequest.model_rebuild()
+except NameError:
+    pass

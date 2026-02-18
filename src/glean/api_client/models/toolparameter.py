@@ -83,3 +83,9 @@ class ToolParameter(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    ToolParameter.model_rebuild()
+except NameError:
+    pass

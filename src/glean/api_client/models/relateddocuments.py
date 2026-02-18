@@ -95,3 +95,9 @@ class RelatedDocuments(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    RelatedDocuments.model_rebuild()
+except NameError:
+    pass

@@ -81,3 +81,9 @@ class PerAgentInsight(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    PerAgentInsight.model_rebuild()
+except NameError:
+    pass

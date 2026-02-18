@@ -65,3 +65,9 @@ class SummarizeResponse(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    SummarizeResponse.model_rebuild()
+except NameError:
+    pass

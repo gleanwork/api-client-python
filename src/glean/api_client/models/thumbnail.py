@@ -37,3 +37,9 @@ class Thumbnail(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    Thumbnail.model_rebuild()
+except NameError:
+    pass

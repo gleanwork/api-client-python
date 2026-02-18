@@ -103,3 +103,9 @@ class ManualFeedbackSideBySideInfo(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    ManualFeedbackSideBySideInfo.model_rebuild()
+except NameError:
+    pass

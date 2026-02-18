@@ -55,3 +55,9 @@ class InsightsChatSummary(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    InsightsChatSummary.model_rebuild()
+except NameError:
+    pass

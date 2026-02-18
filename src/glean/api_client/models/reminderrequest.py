@@ -49,3 +49,9 @@ class ReminderRequest(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    ReminderRequest.model_rebuild()
+except NameError:
+    pass

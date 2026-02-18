@@ -45,3 +45,9 @@ class DocumentVisibilityOverride(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    DocumentVisibilityOverride.model_rebuild()
+except NameError:
+    pass

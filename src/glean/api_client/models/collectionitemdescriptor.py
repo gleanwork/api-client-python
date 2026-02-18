@@ -81,3 +81,9 @@ class CollectionItemDescriptor(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    CollectionItemDescriptor.model_rebuild()
+except NameError:
+    pass

@@ -203,3 +203,9 @@ class ToolMetadata(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    ToolMetadata.model_rebuild()
+except NameError:
+    pass

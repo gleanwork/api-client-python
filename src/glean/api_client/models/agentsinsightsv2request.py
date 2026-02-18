@@ -41,3 +41,9 @@ class AgentsInsightsV2Request(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    AgentsInsightsV2Request.model_rebuild()
+except NameError:
+    pass

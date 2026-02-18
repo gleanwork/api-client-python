@@ -33,7 +33,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: true
 python:
-  version: 0.12.5
+  version: 0.12.6
   additionalDependencies:
     dev: {}
     main: {}
@@ -53,11 +53,14 @@ python:
   enumFormat: enum
   envVarPrefix: GLEAN
   fixFlags:
+    asyncPaginationSep2025: false
+    conflictResistantModelImportsFeb2026: false
     responseRequiredSep2024: true
   flattenGlobalSecurity: true
   flattenRequests: true
   flatteningOrder: parameters-first
   forwardCompatibleEnumsByDefault: false
+  forwardCompatibleUnionsByDefault: "false"
   imports:
     option: openapi
     paths:

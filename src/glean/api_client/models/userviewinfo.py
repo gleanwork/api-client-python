@@ -42,3 +42,9 @@ class UserViewInfo(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    UserViewInfo.model_rebuild()
+except NameError:
+    pass

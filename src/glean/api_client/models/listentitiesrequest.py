@@ -125,3 +125,9 @@ class ListEntitiesRequest(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    ListEntitiesRequest.model_rebuild()
+except NameError:
+    pass

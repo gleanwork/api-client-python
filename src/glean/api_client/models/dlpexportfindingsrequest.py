@@ -77,3 +77,9 @@ class DlpExportFindingsRequest(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    DlpExportFindingsRequest.model_rebuild()
+except NameError:
+    pass

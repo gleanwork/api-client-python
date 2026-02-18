@@ -144,3 +144,9 @@ class DlpConfig(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    DlpConfig.model_rebuild()
+except NameError:
+    pass

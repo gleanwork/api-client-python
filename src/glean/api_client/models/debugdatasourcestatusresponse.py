@@ -182,3 +182,17 @@ class DebugDatasourceStatusResponse(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    Documents.model_rebuild()
+except NameError:
+    pass
+try:
+    Identity.model_rebuild()
+except NameError:
+    pass
+try:
+    DebugDatasourceStatusResponse.model_rebuild()
+except NameError:
+    pass

@@ -59,3 +59,9 @@ class BulkIndexShortcutsRequest(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    BulkIndexShortcutsRequest.model_rebuild()
+except NameError:
+    pass

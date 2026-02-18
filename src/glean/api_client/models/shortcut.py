@@ -179,3 +179,9 @@ class Shortcut(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    Shortcut.model_rebuild()
+except NameError:
+    pass

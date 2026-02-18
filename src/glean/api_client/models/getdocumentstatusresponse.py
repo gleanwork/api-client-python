@@ -59,3 +59,9 @@ class GetDocumentStatusResponse(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    GetDocumentStatusResponse.model_rebuild()
+except NameError:
+    pass

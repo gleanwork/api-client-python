@@ -37,3 +37,9 @@ class Summary(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    Summary.model_rebuild()
+except NameError:
+    pass

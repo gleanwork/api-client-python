@@ -200,3 +200,9 @@ class DocumentDefinition(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    DocumentDefinition.model_rebuild()
+except NameError:
+    pass

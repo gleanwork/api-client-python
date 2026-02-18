@@ -37,3 +37,9 @@ class TimePoint(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    TimePoint.model_rebuild()
+except NameError:
+    pass

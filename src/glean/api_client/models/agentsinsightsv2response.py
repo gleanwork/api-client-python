@@ -118,3 +118,9 @@ class AgentsInsightsV2Response(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    AgentsInsightsV2Response.model_rebuild()
+except NameError:
+    pass

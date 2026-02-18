@@ -59,3 +59,9 @@ class UploadShortcutsRequest(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    UploadShortcutsRequest.model_rebuild()
+except NameError:
+    pass

@@ -73,3 +73,9 @@ class AgentUsersInsight(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    AgentUsersInsight.model_rebuild()
+except NameError:
+    pass

@@ -77,3 +77,9 @@ class CalendarAttendees(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    CalendarAttendees.model_rebuild()
+except NameError:
+    pass

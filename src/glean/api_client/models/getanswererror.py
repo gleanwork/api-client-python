@@ -44,3 +44,9 @@ class GetAnswerError(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    GetAnswerError.model_rebuild()
+except NameError:
+    pass

@@ -44,3 +44,9 @@ class MessagesResponse(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    MessagesResponse.model_rebuild()
+except NameError:
+    pass

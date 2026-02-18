@@ -80,3 +80,9 @@ class PinDocument(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    PinDocument.model_rebuild()
+except NameError:
+    pass

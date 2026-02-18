@@ -76,3 +76,9 @@ class BulkIndexEmployeesRequest(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    BulkIndexEmployeesRequest.model_rebuild()
+except NameError:
+    pass

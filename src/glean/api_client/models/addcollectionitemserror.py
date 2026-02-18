@@ -37,3 +37,9 @@ class AddCollectionItemsError(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    AddCollectionItemsError.model_rebuild()
+except NameError:
+    pass

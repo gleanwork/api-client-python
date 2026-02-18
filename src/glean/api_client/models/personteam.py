@@ -70,3 +70,9 @@ class PersonTeam(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    PersonTeam.model_rebuild()
+except NameError:
+    pass

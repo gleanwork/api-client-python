@@ -46,3 +46,9 @@ class SocialNetworkDefinition(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    SocialNetworkDefinition.model_rebuild()
+except NameError:
+    pass

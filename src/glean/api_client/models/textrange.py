@@ -63,3 +63,9 @@ class TextRange(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    TextRange.model_rebuild()
+except NameError:
+    pass

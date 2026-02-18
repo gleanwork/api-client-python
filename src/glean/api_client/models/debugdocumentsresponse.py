@@ -43,3 +43,9 @@ class DebugDocumentsResponse(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    DebugDocumentsResponse.model_rebuild()
+except NameError:
+    pass

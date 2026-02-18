@@ -42,3 +42,9 @@ class IndexStatus(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    IndexStatus.model_rebuild()
+except NameError:
+    pass

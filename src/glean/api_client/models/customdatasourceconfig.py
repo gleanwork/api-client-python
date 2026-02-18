@@ -282,3 +282,9 @@ class CustomDatasourceConfig(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    CustomDatasourceConfig.model_rebuild()
+except NameError:
+    pass

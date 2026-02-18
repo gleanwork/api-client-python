@@ -51,3 +51,9 @@ class Person(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    Person.model_rebuild()
+except NameError:
+    pass

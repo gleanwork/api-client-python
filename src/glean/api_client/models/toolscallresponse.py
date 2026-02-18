@@ -39,3 +39,9 @@ class ToolsCallResponse(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    ToolsCallResponse.model_rebuild()
+except NameError:
+    pass

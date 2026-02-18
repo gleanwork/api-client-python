@@ -78,3 +78,9 @@ class BulkIndexDocumentsRequest(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    BulkIndexDocumentsRequest.model_rebuild()
+except NameError:
+    pass

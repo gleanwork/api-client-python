@@ -45,3 +45,9 @@ class ExtractedQnA(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    ExtractedQnA.model_rebuild()
+except NameError:
+    pass

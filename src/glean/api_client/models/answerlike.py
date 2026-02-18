@@ -41,3 +41,9 @@ class AnswerLike(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    AnswerLike.model_rebuild()
+except NameError:
+    pass

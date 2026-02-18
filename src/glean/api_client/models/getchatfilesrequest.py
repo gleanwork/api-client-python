@@ -15,3 +15,9 @@ class GetChatFilesRequestTypedDict(TypedDict):
 class GetChatFilesRequest(BaseModel):
     file_ids: Annotated[List[str], pydantic.Field(alias="fileIds")]
     r"""IDs of files to fetch."""
+
+
+try:
+    GetChatFilesRequest.model_rebuild()
+except NameError:
+    pass

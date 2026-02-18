@@ -87,3 +87,9 @@ class ShortcutMutableProperties(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    ShortcutMutableProperties.model_rebuild()
+except NameError:
+    pass

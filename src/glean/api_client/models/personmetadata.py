@@ -363,3 +363,9 @@ class PersonMetadata(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    PersonMetadata.model_rebuild()
+except NameError:
+    pass

@@ -69,3 +69,9 @@ class SearchResultSnippet(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    SearchResultSnippet.model_rebuild()
+except NameError:
+    pass

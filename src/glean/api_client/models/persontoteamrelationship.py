@@ -68,3 +68,9 @@ class PersonToTeamRelationship(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    PersonToTeamRelationship.model_rebuild()
+except NameError:
+    pass

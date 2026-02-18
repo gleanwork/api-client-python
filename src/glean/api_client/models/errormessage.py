@@ -35,3 +35,9 @@ class ErrorMessage(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    ErrorMessage.model_rebuild()
+except NameError:
+    pass

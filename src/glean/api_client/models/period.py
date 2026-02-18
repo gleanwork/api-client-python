@@ -56,3 +56,9 @@ class Period(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    Period.model_rebuild()
+except NameError:
+    pass

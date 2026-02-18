@@ -51,3 +51,9 @@ class CreateDlpReportRequest(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    CreateDlpReportRequest.model_rebuild()
+except NameError:
+    pass

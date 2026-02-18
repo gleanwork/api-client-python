@@ -40,3 +40,9 @@ class ShortcutsPaginationMetadata(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    ShortcutsPaginationMetadata.model_rebuild()
+except NameError:
+    pass

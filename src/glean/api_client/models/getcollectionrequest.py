@@ -51,3 +51,9 @@ class GetCollectionRequest(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    GetCollectionRequest.model_rebuild()
+except NameError:
+    pass

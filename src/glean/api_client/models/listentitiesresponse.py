@@ -93,3 +93,9 @@ class ListEntitiesResponse(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    ListEntitiesResponse.model_rebuild()
+except NameError:
+    pass

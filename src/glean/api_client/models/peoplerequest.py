@@ -93,3 +93,9 @@ class PeopleRequest(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    PeopleRequest.model_rebuild()
+except NameError:
+    pass

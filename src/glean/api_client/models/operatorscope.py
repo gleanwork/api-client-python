@@ -33,3 +33,9 @@ class OperatorScope(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    OperatorScope.model_rebuild()
+except NameError:
+    pass

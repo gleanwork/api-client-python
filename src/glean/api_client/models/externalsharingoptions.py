@@ -109,3 +109,9 @@ class ExternalSharingOptions(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    ExternalSharingOptions.model_rebuild()
+except NameError:
+    pass

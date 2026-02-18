@@ -49,3 +49,9 @@ class UserRoleSpecification(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    UserRoleSpecification.model_rebuild()
+except NameError:
+    pass

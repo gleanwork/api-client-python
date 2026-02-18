@@ -59,3 +59,9 @@ class BulkIndexTeamsRequest(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    BulkIndexTeamsRequest.model_rebuild()
+except NameError:
+    pass

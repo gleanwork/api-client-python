@@ -32,3 +32,9 @@ class ListAnswersRequest(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    ListAnswersRequest.model_rebuild()
+except NameError:
+    pass

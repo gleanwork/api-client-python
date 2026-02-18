@@ -40,3 +40,9 @@ class CustomerMetadata(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    CustomerMetadata.model_rebuild()
+except NameError:
+    pass

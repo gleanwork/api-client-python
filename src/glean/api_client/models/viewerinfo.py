@@ -55,3 +55,9 @@ class ViewerInfo(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    ViewerInfo.model_rebuild()
+except NameError:
+    pass

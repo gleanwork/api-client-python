@@ -50,3 +50,9 @@ class AnonymousEvent(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    AnonymousEvent.model_rebuild()
+except NameError:
+    pass

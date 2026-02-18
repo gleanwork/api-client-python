@@ -22,3 +22,9 @@ class DebugDocumentsRequest(BaseModel):
         List[DebugDocumentRequest], pydantic.Field(alias="debugDocuments")
     ]
     r"""Documents to fetch debug information for"""
+
+
+try:
+    DebugDocumentsRequest.model_rebuild()
+except NameError:
+    pass

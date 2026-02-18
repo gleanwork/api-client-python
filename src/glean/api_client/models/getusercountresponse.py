@@ -36,3 +36,9 @@ class GetUserCountResponse(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    GetUserCountResponse.model_rebuild()
+except NameError:
+    pass

@@ -45,3 +45,9 @@ class GetDocumentsByFacetsRequest(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    GetDocumentsByFacetsRequest.model_rebuild()
+except NameError:
+    pass

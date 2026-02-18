@@ -34,3 +34,9 @@ class ChatZeroStateSuggestionOptions(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    ChatZeroStateSuggestionOptions.model_rebuild()
+except NameError:
+    pass

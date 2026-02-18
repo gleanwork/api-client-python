@@ -16,8 +16,11 @@ type GleanDataError struct {
 	InvalidOperators []components.InvalidOperatorValueError `json:"invalidOperators,omitempty"`
 	ErrorMessages    []components.ErrorMessage              `json:"errorMessages,omitempty"`
 	// Indicates the federated search results could not be fetched due to rate limiting.
-	FederatedSearchRateLimitError *bool                   `json:"federatedSearchRateLimitError,omitempty"`
-	HTTPMeta                      components.HTTPMetadata `json:"-"`
+	FederatedSearchRateLimitError *bool `json:"federatedSearchRateLimitError,omitempty"`
+	// Datasource instances that could not be queried because the user has not completed or has expired per-user OAuth.
+	//
+	UnauthorizedDatasourceInstances []components.UnauthorizedDatasourceInstance `json:"unauthorizedDatasourceInstances,omitempty"`
+	HTTPMeta                        components.HTTPMetadata                     `json:"-"`
 }
 
 var _ error = &GleanDataError{}

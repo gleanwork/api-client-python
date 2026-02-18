@@ -48,3 +48,9 @@ class RotateTokenResponse(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    RotateTokenResponse.model_rebuild()
+except NameError:
+    pass

@@ -48,3 +48,9 @@ class Share(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    Share.model_rebuild()
+except NameError:
+    pass

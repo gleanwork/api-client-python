@@ -57,3 +57,9 @@ class FacetResult(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    FacetResult.model_rebuild()
+except NameError:
+    pass

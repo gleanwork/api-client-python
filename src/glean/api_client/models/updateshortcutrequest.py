@@ -92,3 +92,9 @@ class UpdateShortcutRequest(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    UpdateShortcutRequest.model_rebuild()
+except NameError:
+    pass

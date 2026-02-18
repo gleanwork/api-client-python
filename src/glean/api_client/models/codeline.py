@@ -41,3 +41,9 @@ class CodeLine(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    CodeLine.model_rebuild()
+except NameError:
+    pass

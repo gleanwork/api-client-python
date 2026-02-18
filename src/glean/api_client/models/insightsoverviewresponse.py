@@ -235,3 +235,9 @@ class InsightsOverviewResponse(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    InsightsOverviewResponse.model_rebuild()
+except NameError:
+    pass

@@ -40,3 +40,9 @@ class ChatResult(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    ChatResult.model_rebuild()
+except NameError:
+    pass

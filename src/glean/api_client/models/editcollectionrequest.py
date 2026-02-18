@@ -103,3 +103,9 @@ class EditCollectionRequest(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    EditCollectionRequest.model_rebuild()
+except NameError:
+    pass

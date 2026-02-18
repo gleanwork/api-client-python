@@ -202,3 +202,9 @@ class ManualFeedbackInfo(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    ManualFeedbackInfo.model_rebuild()
+except NameError:
+    pass

@@ -64,3 +64,9 @@ class ChatFileMetadata(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    ChatFileMetadata.model_rebuild()
+except NameError:
+    pass

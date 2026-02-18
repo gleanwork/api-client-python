@@ -95,3 +95,9 @@ class PerUserInsight(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    PerUserInsight.model_rebuild()
+except NameError:
+    pass

@@ -109,3 +109,9 @@ class PropertyDefinition(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    PropertyDefinition.model_rebuild()
+except NameError:
+    pass

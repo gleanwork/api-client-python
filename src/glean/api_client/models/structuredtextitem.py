@@ -47,3 +47,9 @@ class StructuredTextItem(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    StructuredTextItem.model_rebuild()
+except NameError:
+    pass

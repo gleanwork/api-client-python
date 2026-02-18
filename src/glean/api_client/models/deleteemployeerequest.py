@@ -41,3 +41,9 @@ class DeleteEmployeeRequest(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    DeleteEmployeeRequest.model_rebuild()
+except NameError:
+    pass

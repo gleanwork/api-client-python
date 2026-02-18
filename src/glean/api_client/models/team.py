@@ -183,3 +183,9 @@ class Team(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    Team.model_rebuild()
+except NameError:
+    pass

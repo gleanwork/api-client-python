@@ -38,3 +38,9 @@ class DisplayableListItemUIConfig(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    DisplayableListItemUIConfig.model_rebuild()
+except NameError:
+    pass

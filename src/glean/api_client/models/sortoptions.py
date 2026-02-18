@@ -39,3 +39,9 @@ class SortOptions(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    SortOptions.model_rebuild()
+except NameError:
+    pass

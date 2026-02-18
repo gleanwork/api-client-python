@@ -74,3 +74,9 @@ class Workflow(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    Workflow.model_rebuild()
+except NameError:
+    pass

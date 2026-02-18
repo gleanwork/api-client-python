@@ -37,3 +37,9 @@ class GetDocumentVisibilityOverridesResponse(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    GetDocumentVisibilityOverridesResponse.model_rebuild()
+except NameError:
+    pass

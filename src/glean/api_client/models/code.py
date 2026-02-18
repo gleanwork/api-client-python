@@ -49,3 +49,9 @@ class Code(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    Code.model_rebuild()
+except NameError:
+    pass

@@ -15,3 +15,9 @@ class DeleteChatFilesRequestTypedDict(TypedDict):
 class DeleteChatFilesRequest(BaseModel):
     file_ids: Annotated[List[str], pydantic.Field(alias="fileIds")]
     r"""IDs of files to delete."""
+
+
+try:
+    DeleteChatFilesRequest.model_rebuild()
+except NameError:
+    pass

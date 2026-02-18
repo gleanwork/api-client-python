@@ -26,3 +26,9 @@ class AnswerLikes(BaseModel):
 
     num_likes: Annotated[int, pydantic.Field(alias="numLikes")]
     r"""The total number of likes for the answer."""
+
+
+try:
+    AnswerLikes.model_rebuild()
+except NameError:
+    pass

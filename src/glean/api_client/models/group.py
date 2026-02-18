@@ -57,3 +57,9 @@ class Group(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    Group.model_rebuild()
+except NameError:
+    pass

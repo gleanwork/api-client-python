@@ -45,3 +45,9 @@ class PinRequest(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    PinRequest.model_rebuild()
+except NameError:
+    pass

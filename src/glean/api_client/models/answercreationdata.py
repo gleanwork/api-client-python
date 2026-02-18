@@ -130,3 +130,9 @@ class AnswerCreationData(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    AnswerCreationData.model_rebuild()
+except NameError:
+    pass
