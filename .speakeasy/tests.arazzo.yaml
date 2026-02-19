@@ -158436,3 +158436,16 @@ workflows:
               type: simple
       x-speakeasy-test-group: Governance
       x-speakeasy-test-rebuild: true
+    - workflowId: checkdatasourceauth
+      steps:
+        - stepId: test
+          operationId: checkdatasourceauth
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"unauthorizedDatasourceInstances":[{"datasourceInstance":"slack_0","displayName":"Slack"}]}
+              type: simple
+      x-speakeasy-test-group: Authentication
+      x-speakeasy-test-rebuild: true

@@ -15,6 +15,7 @@ from typing import Any, Callable, Dict, List, Optional, TYPE_CHECKING, Union, ca
 import weakref
 
 if TYPE_CHECKING:
+    from glean.api_client.authentication import Authentication
     from glean.api_client.client import Client
     from glean.api_client.governance import Governance
     from glean.api_client.indexing import Indexing
@@ -41,10 +42,13 @@ class Glean(BaseSDK):
     """
 
     client: "Client"
+    authentication: "Authentication"
+    r"""Manage indexing API tokens."""
     indexing: "Indexing"
     governance: "Governance"
     _sub_sdk_map = {
         "client": ("glean.api_client.client", "Client"),
+        "authentication": ("glean.api_client.authentication", "Authentication"),
         "indexing": ("glean.api_client.indexing", "Indexing"),
         "governance": ("glean.api_client.governance", "Governance"),
     }

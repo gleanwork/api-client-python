@@ -21,7 +21,7 @@ class UnauthorizedDatasourceInstanceTypedDict(TypedDict):
     auth_status: NotRequired[AuthStatus]
     r"""The per-user authorization status for a datasource."""
     auth_url_relative_path: NotRequired[str]
-    r"""Relative path to initiate or resume OAuth for the current user and instance. Clients should prepend their configured Glean backend base URL.
+    r"""Relative path to initiate or resume OAuth for the current user and instance, including a one-time authentication token as a query parameter. Clients should prepend their configured Glean backend base URL.
 
     """
 
@@ -47,7 +47,7 @@ class UnauthorizedDatasourceInstance(BaseModel):
     auth_url_relative_path: Annotated[
         Optional[str], pydantic.Field(alias="authUrlRelativePath")
     ] = None
-    r"""Relative path to initiate or resume OAuth for the current user and instance. Clients should prepend their configured Glean backend base URL.
+    r"""Relative path to initiate or resume OAuth for the current user and instance, including a one-time authentication token as a query parameter. Clients should prepend their configured Glean backend base URL.
 
     """
 

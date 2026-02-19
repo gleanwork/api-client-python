@@ -66,7 +66,7 @@ from .textrange import TextRange, TextRangeType, TextRangeTypedDict
 from .userrolespecification import UserRoleSpecification, UserRoleSpecificationTypedDict
 from .verification import State, Verification, VerificationTypedDict
 from .verificationmetadata import VerificationMetadata, VerificationMetadataTypedDict
-from typing import TYPE_CHECKING
+from typing import Any, TYPE_CHECKING
 
 from glean.api_client.utils.dynamic_imports import lazy_getattr, lazy_dir
 
@@ -266,6 +266,10 @@ if TYPE_CHECKING:
     from .chatzerostatesuggestionoptions import (
         ChatZeroStateSuggestionOptions,
         ChatZeroStateSuggestionOptionsTypedDict,
+    )
+    from .checkdatasourceauthresponse import (
+        CheckDatasourceAuthResponse,
+        CheckDatasourceAuthResponseTypedDict,
     )
     from .checkdocumentaccessrequest import (
         CheckDocumentAccessRequest,
@@ -1570,6 +1574,8 @@ __all__ = [
     "ChatTypedDict",
     "ChatZeroStateSuggestionOptions",
     "ChatZeroStateSuggestionOptionsTypedDict",
+    "CheckDatasourceAuthResponse",
+    "CheckDatasourceAuthResponseTypedDict",
     "CheckDocumentAccessRequest",
     "CheckDocumentAccessRequestTypedDict",
     "CheckDocumentAccessResponse",
@@ -2693,6 +2699,8 @@ _dynamic_imports: dict[str, str] = {
     "ChatSuggestionTypedDict": ".chatsuggestion",
     "ChatZeroStateSuggestionOptions": ".chatzerostatesuggestionoptions",
     "ChatZeroStateSuggestionOptionsTypedDict": ".chatzerostatesuggestionoptions",
+    "CheckDatasourceAuthResponse": ".checkdatasourceauthresponse",
+    "CheckDatasourceAuthResponseTypedDict": ".checkdatasourceauthresponse",
     "CheckDocumentAccessRequest": ".checkdocumentaccessrequest",
     "CheckDocumentAccessRequestTypedDict": ".checkdocumentaccessrequest",
     "CheckDocumentAccessResponse": ".checkdocumentaccessresponse",
@@ -3565,7 +3573,7 @@ _dynamic_imports: dict[str, str] = {
 }
 
 
-def __getattr__(attr_name: str) -> object:
+def __getattr__(attr_name: str) -> Any:
     return lazy_getattr(
         attr_name, package=__package__, dynamic_imports=_dynamic_imports
     )

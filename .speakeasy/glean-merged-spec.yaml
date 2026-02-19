@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   version: 0.9.0
   title: Glean API
-  x-source-commit-sha: c18dcdd4226ac90fc693febef0db4e2f85b66110
+  x-source-commit-sha: 204dc378669e42116b8b928d58d5fddabb228aef
   description: |
     # Introduction
     In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This is useful, for example, for doing permissions-aware search over content in internal tools that reside on-prem as well as for searching over applications that Glean does not currently support first class. In addition these APIs allow the customer to push organization data (people info, organization structure etc) into Glean.
@@ -22,7 +22,7 @@ info:
     These API clients provide type-safe, idiomatic interfaces for working with Glean IndexingAPIs in your language of choice.
   x-logo:
     url: https://app.glean.com/images/glean-text2.svg
-  x-open-api-commit-sha: 8a421bb426d1efd54c918437077acb779a4ae87f
+  x-open-api-commit-sha: 8a4d8a857ef07a135526624459142e85f9444ec2
   x-speakeasy-name: 'Glean API'
 servers:
   - url: https://{instance}-be.glean.com
@@ -363,6 +363,33 @@ paths:
       x-speakeasy-deprecation-message: "Deprecated on 2026-01-21, removal scheduled for 2026-10-15: Answer boards have been removed and this endpoint no longer serves a purpose"
       x-speakeasy-name-override: list
       x-speakeasy-group: client.answers
+  /rest/api/v1/checkdatasourceauth:
+    post:
+      tags:
+        - Authentication
+      summary: Check datasource authorization
+      description: |
+        Returns all datasource instances that require per-user OAuth authorization
+        for the authenticated user, along with a transient auth token that can be
+        appended to auth URLs to complete OAuth flows.
+
+        Clients construct the full OAuth URL by combining the backend base URL,
+        the `authUrlRelativePath` from each instance, and the transient auth token:
+        `<backend>/<authUrlRelativePath>?transient_auth_token=<token>`.
+      operationId: checkdatasourceauth
+      x-visibility: Public
+      parameters: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CheckDatasourceAuthResponse"
+        "401":
+          description: Not Authorized
+        "429":
+          description: Too Many Requests
   /rest/api/v1/createauthtoken:
     post:
       tags:
@@ -7305,6 +7332,48 @@ components:
           items:
             $ref: "#/components/schemas/AnswerResult"
           description: List of answers with tracking tokens.
+    AuthStatus:
+      type: string
+      description: The per-user authorization status for a datasource.
+      enum:
+        - DISABLED
+        - AWAITING_AUTH
+        - AUTHORIZED
+        - STALE_OAUTH
+        - SEG_MIGRATION
+      x-enum-varnames:
+        - AUTH_STATUS_DISABLED
+        - AUTH_STATUS_AWAITING_AUTH
+        - AUTH_STATUS_AUTHORIZED
+        - AUTH_STATUS_STALE_OAUTH
+        - AUTH_STATUS_SEG_MIGRATION
+    UnauthorizedDatasourceInstance:
+      description: |
+        A datasource instance that could not return results for this request because the user has not completed or has expired per-user OAuth.
+      properties:
+        datasourceInstance:
+          type: string
+          description: |
+            The instance identifier (e.g. "github", "github_enterprise_0", "slack_0"). Matches the instance names used in datasource configuration.
+          example: slack_0
+        displayName:
+          type: string
+          description: Human-readable name of the datasource instance for display.
+          example: Slack
+        authStatus:
+          $ref: "#/components/schemas/AuthStatus"
+        authUrlRelativePath:
+          type: string
+          description: |
+            Relative path to initiate or resume OAuth for the current user and instance, including a one-time authentication token as a query parameter. Clients should prepend their configured Glean backend base URL.
+    CheckDatasourceAuthResponse:
+      properties:
+        unauthorizedDatasourceInstances:
+          type: array
+          description: |
+            Datasource instances that require per-user OAuth authorization. Empty or absent when all datasources are authorized.
+          items:
+            $ref: "#/components/schemas/UnauthorizedDatasourceInstance"
     CreateAuthTokenResponse:
       required:
         - token
@@ -7850,40 +7919,6 @@ components:
             stream:
               type: boolean
               description: If set, response lines will be streamed one-by-one as they become available. Each will be a ChatResponse, formatted as JSON, and separated by a new line. If false, the entire response will be returned at once. Note that if this is set and the model being used does not support streaming, the model's response will not be streamed, but other messages from the endpoint still will be.
-    AuthStatus:
-      type: string
-      description: The per-user authorization status for a datasource.
-      enum:
-        - DISABLED
-        - AWAITING_AUTH
-        - AUTHORIZED
-        - STALE_OAUTH
-        - SEG_MIGRATION
-      x-enum-varnames:
-        - AUTH_STATUS_DISABLED
-        - AUTH_STATUS_AWAITING_AUTH
-        - AUTH_STATUS_AUTHORIZED
-        - AUTH_STATUS_STALE_OAUTH
-        - AUTH_STATUS_SEG_MIGRATION
-    UnauthorizedDatasourceInstance:
-      description: |
-        A datasource instance that could not return results for this request because the user has not completed or has expired per-user OAuth.
-      properties:
-        datasourceInstance:
-          type: string
-          description: |
-            The instance identifier (e.g. "github", "github_enterprise_0", "slack_0"). Matches the instance names used in datasource configuration.
-          example: slack_0
-        displayName:
-          type: string
-          description: Human-readable name of the datasource instance for display.
-          example: Slack
-        authStatus:
-          $ref: "#/components/schemas/AuthStatus"
-        authUrlRelativePath:
-          type: string
-          description: |
-            Relative path to initiate or resume OAuth for the current user and instance. Clients should prepend their configured Glean backend base URL.
     ChatResponse:
       description: A single response from the /chat backend.
       properties:
