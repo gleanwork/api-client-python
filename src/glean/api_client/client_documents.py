@@ -257,7 +257,7 @@ class ClientDocuments(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.get_documents_request,
+                request.get_documents_request if request is not None else None,
                 False,
                 True,
                 "json",
@@ -355,7 +355,7 @@ class ClientDocuments(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.get_documents_request,
+                request.get_documents_request if request is not None else None,
                 False,
                 True,
                 "json",
@@ -457,7 +457,9 @@ class ClientDocuments(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.get_documents_by_facets_request,
+                request.get_documents_by_facets_request
+                if request is not None
+                else None,
                 False,
                 True,
                 "json",
@@ -561,7 +563,9 @@ class ClientDocuments(BaseSDK):
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.get_documents_by_facets_request,
+                request.get_documents_by_facets_request
+                if request is not None
+                else None,
                 False,
                 True,
                 "json",

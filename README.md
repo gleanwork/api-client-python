@@ -337,6 +337,10 @@ For more information on obtaining the appropriate token type, please contact you
 <details open>
 <summary>Available methods</summary>
 
+### [Authentication](docs/sdks/authentication/README.md)
+
+* [checkdatasourceauth](docs/sdks/authentication/README.md#checkdatasourceauth) - Check datasource authorization
+
 ### [Client.Activity](docs/sdks/clientactivity/README.md)
 
 * [report](docs/sdks/clientactivity/README.md#report) - Report document activity
