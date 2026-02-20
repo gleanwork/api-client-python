@@ -3,14 +3,14 @@
 package components
 
 type CheckDatasourceAuthResponse struct {
-	// Datasource instances that require per-user OAuth authorization. Empty or absent when all datasources are authorized.
+	// Datasource instances that require per-user OAuth authorization. Empty when all datasources are authorized.
 	//
-	UnauthorizedDatasourceInstances []UnauthorizedDatasourceInstance `json:"unauthorizedDatasourceInstances,omitempty"`
+	UnauthorizedDatasourceInstances []UnauthorizedDatasourceInstance `json:"unauthorizedDatasourceInstances"`
 }
 
 func (o *CheckDatasourceAuthResponse) GetUnauthorizedDatasourceInstances() []UnauthorizedDatasourceInstance {
 	if o == nil {
-		return nil
+		return []UnauthorizedDatasourceInstance{}
 	}
 	return o.UnauthorizedDatasourceInstances
 }

@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 3e3290ca-0ee8-4981-b1bc-14536048fa63
 management:
-  docChecksum: e61f09454154d7eb019991c03f6d19eb
+  docChecksum: 168d09185da75c45f6edca32cb2bc2dd
   docVersion: 0.9.0
   speakeasyVersion: 1.722.7
   generationVersion: 2.832.9
-  releaseVersion: 0.12.7
-  configChecksum: 8aebd542e0622973cae358ece93487de
+  releaseVersion: 0.12.8
+  configChecksum: 50bf621427a8287d9ca62293e512f86a
   repoURL: https://github.com/gleanwork/api-client-python.git
   installationURL: https://github.com/gleanwork/api-client-python.git
   published: true
 persistentEdits:
-  generation_id: 14a6d36a-77ef-4a8e-8cd9-f7a1c0dc8bcb
-  pristine_commit_hash: 0e7f43da90541b2445d05211577217c1bab49f5f
-  pristine_tree_hash: 5319dfb5aff7a24b5c67c68b76d1baf663ce8139
+  generation_id: bcf8dca0-d5eb-40ce-a204-2aa32fe24c88
+  pristine_commit_hash: 41297bcf79da7abf5156c3d09490fd4236aff892
+  pristine_tree_hash: 639a9981217f2ac59f39e86a5e053a64e33f9fbe
 features:
   python:
     additionalDependencies: 1.0.0
@@ -451,8 +451,8 @@ trackedFiles:
     pristine_git_object: f003c186b000ff51b939282191e5d42e08e06f7b
   docs/models/checkdatasourceauthresponse.md:
     id: c4214ea019e2
-    last_write_checksum: sha1:ede1e2ca7769edf83659cc1dfe2d2e1de2de6c1d
-    pristine_git_object: b1ea62b7cc4e3bed1c5e1715ccd8fbdf3d01331e
+    last_write_checksum: sha1:0cb03f6f8262685c2963aee29986841a38b6548a
+    pristine_git_object: be60699cc5a111d76b214d6f28642c7e79c6a806
   docs/models/checkdocumentaccessrequest.md:
     id: 7e17285c9fb1
     last_write_checksum: sha1:40cc7d27e54e5aca99ebaa24670579d312b9252c
@@ -2735,8 +2735,8 @@ trackedFiles:
     pristine_git_object: e2fda7fe263c2a111e53872e3ad5bc324b4dccfe
   pyproject.toml:
     id: 5d07e7d72637
-    last_write_checksum: sha1:8e7869a84ec05f482a7e02eb3ac7c4e268dfdfc6
-    pristine_git_object: 1697f7e0b295af2f4094232e666e9eff6a4d4d80
+    last_write_checksum: sha1:cd9618a071dc65e548c604011f7922a19bd4e112
+    pristine_git_object: 358810d2a9d3bd25e6fbe61eaab9cc0c6b9e374c
   scripts/prepare_readme.py:
     id: e0c5957a6035
     last_write_checksum: sha1:c2c83f71dea61eb50c9e05da83b16d18b4da8794
@@ -2763,8 +2763,8 @@ trackedFiles:
     pristine_git_object: 58c4d70ac1797b86ff5c4237cafbc344c42d8f64
   src/glean/api_client/_version.py:
     id: 0ce22b26136b
-    last_write_checksum: sha1:ad364a656d38e32a1c1a528364700f94839986ab
-    pristine_git_object: 0cba552d2edd6eeb52410ef1a127271395525a0e
+    last_write_checksum: sha1:1e660e8b70d98a8dc857edd2b64e505881b58095
+    pristine_git_object: ff2fde5492a4ff878e3ea49923b2f26af789a187
   src/glean/api_client/agents.py:
     id: b925701a9217
     last_write_checksum: sha1:c1688c3d141db7707458f3ac7ff29c4a71e6812b
@@ -3199,8 +3199,8 @@ trackedFiles:
     pristine_git_object: f4a630c009419f6f9144d393a808957c75b1eb3c
   src/glean/api_client/models/checkdatasourceauthresponse.py:
     id: 4b92648bff66
-    last_write_checksum: sha1:6b448e1f738f635983ab023658febd17d68f36bf
-    pristine_git_object: 3a043334e052e58c3ad73c407ec235556034208d
+    last_write_checksum: sha1:383e77b55a1ef1d8a4014954daacecefabb594e1
+    pristine_git_object: 23a67c29ffa76ce2ab3a08554fd16045f5325512
   src/glean/api_client/models/checkdocumentaccessrequest.py:
     id: 8ae1352111ea
     last_write_checksum: sha1:5c9a03c342cc40cf9618527f4802af3d9a4a49cd
@@ -5144,7 +5144,7 @@ trackedFiles:
   tests/mockserver/internal/handler/pathpostrestapiv1createauthtoken.go:
     last_write_checksum: sha1:6ce83ba03066acb436796c018d19715615f548c1
   tests/mockserver/internal/handler/pathpostrestapiv1createcollection.go:
-    last_write_checksum: sha1:14b4a1d98dd55ce2b487ae1aaab4a7dece08df25
+    last_write_checksum: sha1:f9f4c718408bddadbdf826194f07970bb111e57e
   tests/mockserver/internal/handler/pathpostrestapiv1createshortcut.go:
     last_write_checksum: sha1:dcdf684a85e20db1aee571db9a54a3ee259d71d5
   tests/mockserver/internal/handler/pathpostrestapiv1deleteallchats.go:
@@ -5178,7 +5178,7 @@ trackedFiles:
   tests/mockserver/internal/handler/pathpostrestapiv1getanswer.go:
     last_write_checksum: sha1:3bec6f7cd190f9394bebac2407f9d7f1e606e479
   tests/mockserver/internal/handler/pathpostrestapiv1getchat.go:
-    last_write_checksum: sha1:2c2b7acb22e422a721a21801cccfa30fedfd3169
+    last_write_checksum: sha1:089475adb3686c656bd0eb52940285a7e037ab83
   tests/mockserver/internal/handler/pathpostrestapiv1getchatapplication.go:
     last_write_checksum: sha1:7b81898137fdb3a89b4dcfa318b9b5b92e8860c0
   tests/mockserver/internal/handler/pathpostrestapiv1getchatfiles.go:
@@ -5384,7 +5384,7 @@ trackedFiles:
   tests/mockserver/internal/sdk/models/components/chatzerostatesuggestionoptions.go:
     last_write_checksum: sha1:da633547681ec1c8ef5df79cc1d2919fb3714d13
   tests/mockserver/internal/sdk/models/components/checkdatasourceauthresponse.go:
-    last_write_checksum: sha1:caa976ebc0e76d521725d4dd83e17c840842fd9a
+    last_write_checksum: sha1:e99e71069a2dee200904ebf2457ee9853b1777b4
   tests/mockserver/internal/sdk/models/components/checkdocumentaccessrequest.go:
     last_write_checksum: sha1:4b403181de5f24bde26d022703e625a832f685c8
   tests/mockserver/internal/sdk/models/components/checkdocumentaccessresponse.go:
@@ -7398,7 +7398,7 @@ generatedTests:
   checkdatasourceauth: "2026-02-19T15:48:52Z"
 releaseNotes: |
   ## Python SDK Changes:
-  * `glean.authentication.checkdatasourceauth()`: **Added**
+  * `glean.authentication.checkdatasourceauth()`:  `response.unauthorized_datasource_instances` **Changed**
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
