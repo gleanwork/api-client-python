@@ -5,46 +5,27 @@ from .unauthorizeddatasourceinstance import (
     UnauthorizedDatasourceInstance,
     UnauthorizedDatasourceInstanceTypedDict,
 )
-from glean.api_client.types import BaseModel, UNSET_SENTINEL
+from glean.api_client.types import BaseModel
 import pydantic
-from pydantic import model_serializer
-from typing import List, Optional
-from typing_extensions import Annotated, NotRequired, TypedDict
+from typing import List
+from typing_extensions import Annotated, TypedDict
 
 
 class CheckDatasourceAuthResponseTypedDict(TypedDict):
-    unauthorized_datasource_instances: NotRequired[
-        List[UnauthorizedDatasourceInstanceTypedDict]
-    ]
-    r"""Datasource instances that require per-user OAuth authorization. Empty or absent when all datasources are authorized.
+    unauthorized_datasource_instances: List[UnauthorizedDatasourceInstanceTypedDict]
+    r"""Datasource instances that require per-user OAuth authorization. Empty when all datasources are authorized.
 
     """
 
 
 class CheckDatasourceAuthResponse(BaseModel):
     unauthorized_datasource_instances: Annotated[
-        Optional[List[UnauthorizedDatasourceInstance]],
+        List[UnauthorizedDatasourceInstance],
         pydantic.Field(alias="unauthorizedDatasourceInstances"),
-    ] = None
-    r"""Datasource instances that require per-user OAuth authorization. Empty or absent when all datasources are authorized.
+    ]
+    r"""Datasource instances that require per-user OAuth authorization. Empty when all datasources are authorized.
 
     """
-
-    @model_serializer(mode="wrap")
-    def serialize_model(self, handler):
-        optional_fields = set(["unauthorizedDatasourceInstances"])
-        serialized = handler(self)
-        m = {}
-
-        for n, f in type(self).model_fields.items():
-            k = f.alias or n
-            val = serialized.get(k)
-
-            if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
-                    m[k] = val
-
-        return m
 
 
 try:
