@@ -17,7 +17,7 @@ Each namespace has its own authentication requirements and access patterns. Whil
 from glean.api_client import Glean
 import os
 
-with Glean(api_token="client-token", instance="instance-name") as glean:
+with Glean(api_token="client-token", server_url="https://mycompany-be.glean.com") as glean:
     search_response = glean.client.search.query(query="search term")
 
     print(search_response)
@@ -26,7 +26,7 @@ with Glean(api_token="client-token", instance="instance-name") as glean:
 from glean.api_client import Glean, models
 import os
 
-with Glean(api_token="indexing-token", instance="instance-name") as glean:
+with Glean(api_token="indexing-token", server_url="https://mycompany-be.glean.com") as glean:
     document_response = glean.indexing.documents.index(
         document=models.Document(
             id="doc-123",
@@ -744,13 +744,33 @@ By default, an API error will raise a errors.GleanError exception, which has the
 <!-- Start Server Selection [server] -->
 ## Server Selection
 
-### Server Variables
+### Server URL
 
-The default server `https://{instance}-be.glean.com` contains variables and is set to `https://instance-name-be.glean.com` by default. To override default values, the following parameters are available when initializing the SDK client instance:
+The recommended way to configure the Glean API server is to pass `server_url` when initializing the SDK client:
+
+```python
+from glean.api_client import Glean
+
+glean = Glean(
+    api_token="your-api-token",
+    server_url="https://mycompany-be.glean.com",
+)
+```
+
+Schemeless URLs (e.g., `"mycompany-be.glean.com"`) are also accepted — the SDK will automatically prepend `https://`.
+
+You can also configure the server URL via the `GLEAN_SERVER_URL` environment variable.
+
+### Server Variables (backwards compatible)
+
+For backwards compatibility, the SDK also supports the `instance` parameter, which constructs the server URL using the pattern `https://{instance}-be.glean.com`:
 
 | Variable   | Parameter       | Default           | Description                                                                                            |
 | ---------- | --------------- | ----------------- | ------------------------------------------------------------------------------------------------------ |
 | `instance` | `instance: str` | `"instance-name"` | The instance name (typically the email domain without the TLD) that determines the deployment backend. |
+
+> [!NOTE]
+> The `server_url` parameter is preferred over `instance`. If both are provided, `server_url` takes precedence.
 
 #### Example
 
@@ -761,8 +781,7 @@ import os
 
 
 with Glean(
-    server_idx=0,
-    instance="instance-name",
+    server_url="https://mycompany-be.glean.com",
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as glean:
 
@@ -989,7 +1008,7 @@ from glean.api_client import Glean
 
 glean = Glean(
     api_token=os.environ.get("GLEAN_API_TOKEN", ""),
-    instance=os.environ.get("GLEAN_INSTANCE", ""),
+    server_url="https://mycompany-be.glean.com",
 )
 ```
 
@@ -1002,7 +1021,7 @@ from glean.api_client import Glean
 
 glean = Glean(
     api_token=os.environ.get("GLEAN_API_TOKEN", ""),
-    instance=os.environ.get("GLEAN_INSTANCE", ""),
+    server_url="https://mycompany-be.glean.com",
     exclude_deprecated_after="2026-10-15",
     include_experimental=True,
 )
