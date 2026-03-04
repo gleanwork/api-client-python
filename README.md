@@ -17,7 +17,7 @@ Each namespace has its own authentication requirements and access patterns. Whil
 from glean.api_client import Glean
 import os
 
-with Glean(api_token="client-token", server_url="mycompany-be.glean.com") as glean:
+with Glean(api_token="client-token", server_url="https://mycompany-be.glean.com") as glean:
     search_response = glean.client.search.query(query="search term")
 
     print(search_response)
@@ -26,7 +26,7 @@ with Glean(api_token="client-token", server_url="mycompany-be.glean.com") as gle
 from glean.api_client import Glean, models
 import os
 
-with Glean(api_token="indexing-token", server_url="mycompany-be.glean.com") as glean:
+with Glean(api_token="indexing-token", server_url="https://mycompany-be.glean.com") as glean:
     document_response = glean.indexing.documents.index(
         document=models.Document(
             id="doc-123",
@@ -753,11 +753,11 @@ from glean.api_client import Glean
 
 glean = Glean(
     api_token="your-api-token",
-    server_url="mycompany-be.glean.com",
+    server_url="https://mycompany-be.glean.com",
 )
 ```
 
-The SDK accepts schemeless URLs (e.g., `"mycompany-be.glean.com"`); the `https://` prefix is added automatically.
+Schemeless URLs (e.g., `"mycompany-be.glean.com"`) are also accepted — the SDK will automatically prepend `https://`.
 
 You can also configure the server URL via the `GLEAN_SERVER_URL` environment variable.
 
@@ -781,7 +781,7 @@ import os
 
 
 with Glean(
-    server_url="mycompany-be.glean.com",
+    server_url="https://mycompany-be.glean.com",
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as glean:
 
@@ -1008,7 +1008,7 @@ from glean.api_client import Glean
 
 glean = Glean(
     api_token=os.environ.get("GLEAN_API_TOKEN", ""),
-    server_url="mycompany-be.glean.com",
+    server_url="https://mycompany-be.glean.com",
 )
 ```
 
@@ -1021,7 +1021,7 @@ from glean.api_client import Glean
 
 glean = Glean(
     api_token=os.environ.get("GLEAN_API_TOKEN", ""),
-    server_url="mycompany-be.glean.com",
+    server_url="https://mycompany-be.glean.com",
     exclude_deprecated_after="2026-10-15",
     include_experimental=True,
 )
