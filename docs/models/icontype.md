@@ -1,5 +1,15 @@
 # IconType
 
+## Example Usage
+
+```python
+from glean.api_client.models import IconType
+
+value = IconType.COLLECTION
+
+# Open enum: unrecognized values are captured as UnrecognizedStr
+```
+
 
 ## Values
 

@@ -60,7 +60,7 @@ func testAdminsearchAdminsearch0(w http.ResponseWriter, req *http.Request) {
 				Snippets: []components.SearchResultSnippet{
 					components.SearchResultSnippet{
 						MimeType: types.String("mimeType"),
-						Snippet:  "snippet",
+						Snippet:  types.String("snippet"),
 					},
 				},
 			},
@@ -70,7 +70,7 @@ func testAdminsearchAdminsearch0(w http.ResponseWriter, req *http.Request) {
 				Snippets: []components.SearchResultSnippet{},
 			},
 		},
-		GleanDataError: &components.GleanDataError{
+		ErrorInfo: &components.GleanDataError{
 			ErrorMessages: []components.ErrorMessage{
 				components.ErrorMessage{
 					Source:       types.String("gmail"),

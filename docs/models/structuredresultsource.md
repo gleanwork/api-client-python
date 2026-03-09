@@ -2,6 +2,16 @@
 
 Source context for this result. Possible values depend on the result type.
 
+## Example Usage
+
+```python
+from glean.api_client.models import StructuredResultSource
+
+value = StructuredResultSource.EXPERT_DETECTION
+
+# Open enum: unrecognized values are captured as UnrecognizedStr
+```
+
 
 ## Values
 

@@ -2,12 +2,14 @@
 
 from __future__ import annotations
 from enum import Enum
+from glean.api_client import models, utils
 from glean.api_client.types import BaseModel
 import pydantic
+from pydantic import field_serializer
 from typing_extensions import Annotated, TypedDict
 
 
-class CollectionErrorErrorCode(str, Enum):
+class CollectionErrorErrorCode(str, Enum, metaclass=utils.OpenEnumMeta):
     NAME_EXISTS = "NAME_EXISTS"
     NOT_FOUND = "NOT_FOUND"
     COLLECTION_PINNED = "COLLECTION_PINNED"
@@ -23,6 +25,15 @@ class CollectionErrorTypedDict(TypedDict):
 
 class CollectionError(BaseModel):
     error_code: Annotated[CollectionErrorErrorCode, pydantic.Field(alias="errorCode")]
+
+    @field_serializer("error_code")
+    def serialize_error_code(self, value):
+        if isinstance(value, str):
+            try:
+                return models.CollectionErrorErrorCode(value)
+            except ValueError:
+                return value
+        return value
 
 
 try:

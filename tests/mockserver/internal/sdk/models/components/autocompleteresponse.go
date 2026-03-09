@@ -10,8 +10,8 @@ type AutocompleteResponse struct {
 	SessionInfo   *SessionInfo         `json:"sessionInfo,omitempty"`
 	Results       []AutocompleteResult `json:"results,omitempty"`
 	// Subsections of the results list from which distinct sections should be created.
-	Groups         []AutocompleteResultGroup `json:"groups,omitempty"`
-	GleanDataError *GleanDataError           `json:"errorInfo,omitempty"`
+	Groups    []AutocompleteResultGroup `json:"groups,omitempty"`
+	ErrorInfo *GleanDataError           `json:"errorInfo,omitempty"`
 	// Time in milliseconds the backend took to respond to the request.
 	BackendTimeMillis *int64 `json:"backendTimeMillis,omitempty"`
 }
@@ -51,11 +51,11 @@ func (o *AutocompleteResponse) GetGroups() []AutocompleteResultGroup {
 	return o.Groups
 }
 
-func (o *AutocompleteResponse) GetGleanDataError() *GleanDataError {
+func (o *AutocompleteResponse) GetErrorInfo() *GleanDataError {
 	if o == nil {
 		return nil
 	}
-	return o.GleanDataError
+	return o.ErrorInfo
 }
 
 func (o *AutocompleteResponse) GetBackendTimeMillis() *int64 {

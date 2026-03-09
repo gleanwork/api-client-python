@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 from enum import Enum
+from glean.api_client import utils
 
 
-class EntityType(str, Enum):
+class EntityType(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""The type of entity."""
 
     PERSON = "PERSON"

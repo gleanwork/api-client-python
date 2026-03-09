@@ -1,5 +1,15 @@
 # ResponseStatus
 
+## Example Usage
+
+```python
+from glean.api_client.models import ResponseStatus
+
+value = ResponseStatus.ACCEPTED
+
+# Open enum: unrecognized values are captured as UnrecognizedStr
+```
+
 
 ## Values
 

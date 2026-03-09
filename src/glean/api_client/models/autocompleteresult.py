@@ -7,14 +7,15 @@ from .quicklink import Quicklink, QuicklinkTypedDict
 from .structuredresult import StructuredResult, StructuredResultTypedDict
 from .textrange import TextRange, TextRangeTypedDict
 from enum import Enum
+from glean.api_client import models, utils
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
-from pydantic import model_serializer
+from pydantic import field_serializer, model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class AutocompleteResultResultType(str, Enum):
+class AutocompleteResultResultType(str, Enum, metaclass=utils.OpenEnumMeta):
     ADDITIONAL_DOCUMENT = "ADDITIONAL_DOCUMENT"
     APP = "APP"
     BROWSER_HISTORY = "BROWSER_HISTORY"
@@ -88,6 +89,15 @@ class AutocompleteResult(BaseModel):
     ranges: Optional[List[TextRange]] = None
     r"""Subsections of the result string to which some special formatting should be applied (eg. bold)"""
 
+    @field_serializer("result_type")
+    def serialize_result_type(self, value):
+        if isinstance(value, str):
+            try:
+                return models.AutocompleteResultResultType(value)
+            except ValueError:
+                return value
+        return value
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -109,7 +119,7 @@ class AutocompleteResult(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

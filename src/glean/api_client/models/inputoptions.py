@@ -3,21 +3,22 @@
 from __future__ import annotations
 from .timerange import TimeRange, TimeRangeTypedDict
 from enum import Enum
+from glean.api_client import models, utils
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
-from pydantic import model_serializer
+from pydantic import field_serializer, model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class DatasourcesType(str, Enum):
+class DatasourcesType(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""The types of datasource for which to run the report/policy."""
 
     ALL = "ALL"
     CUSTOM = "CUSTOM"
 
 
-class InputOptionsTimePeriodType(str, Enum):
+class InputOptionsTimePeriodType(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""Type of time period for which to run the report/policy. PAST_DAY is deprecated."""
 
     ALL_TIME = "ALL_TIME"
@@ -89,6 +90,24 @@ class InputOptions(BaseModel):
     ] = None
     r"""Subset of document IDs to scan. If empty, all documents matching other scope criteria will be scanned."""
 
+    @field_serializer("datasources_type")
+    def serialize_datasources_type(self, value):
+        if isinstance(value, str):
+            try:
+                return models.DatasourcesType(value)
+            except ValueError:
+                return value
+        return value
+
+    @field_serializer("time_period_type")
+    def serialize_time_period_type(self, value):
+        if isinstance(value, str):
+            try:
+                return models.InputOptionsTimePeriodType(value)
+            except ValueError:
+                return value
+        return value
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -107,7 +126,7 @@ class InputOptions(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

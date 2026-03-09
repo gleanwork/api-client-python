@@ -4,9 +4,10 @@ from __future__ import annotations
 from .dlpconfig import DlpConfig, DlpConfigTypedDict
 from .dlpfrequency import DlpFrequency
 from .dlpreportstatus import DlpReportStatus
+from glean.api_client import models
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
-from pydantic import model_serializer
+from pydantic import field_serializer, model_serializer
 from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -42,6 +43,24 @@ class UpdateDlpReportRequest(BaseModel):
     report_name: Annotated[Optional[str], pydantic.Field(alias="reportName")] = None
     r"""The new name of the policy if provided."""
 
+    @field_serializer("frequency")
+    def serialize_frequency(self, value):
+        if isinstance(value, str):
+            try:
+                return models.DlpFrequency(value)
+            except ValueError:
+                return value
+        return value
+
+    @field_serializer("status")
+    def serialize_status(self, value):
+        if isinstance(value, str):
+            try:
+                return models.DlpReportStatus(value)
+            except ValueError:
+                return value
+        return value
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -52,7 +71,7 @@ class UpdateDlpReportRequest(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

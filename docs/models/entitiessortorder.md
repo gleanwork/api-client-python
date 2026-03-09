@@ -2,6 +2,16 @@
 
 Different ways of sorting entities
 
+## Example Usage
+
+```python
+from glean.api_client.models import EntitiesSortOrder
+
+value = EntitiesSortOrder.ENTITY_NAME
+
+# Open enum: unrecognized values are captured as UnrecognizedStr
+```
+
 
 ## Values
 

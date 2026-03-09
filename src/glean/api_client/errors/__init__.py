@@ -7,6 +7,7 @@ from glean.api_client.utils.dynamic_imports import lazy_getattr, lazy_dir
 
 if TYPE_CHECKING:
     from .collectionerror import CollectionError, CollectionErrorData
+    from .errorresponse import ErrorResponse, ErrorResponseData
     from .gleandataerror import GleanDataError, GleanDataErrorData
     from .gleanerror import GleanError
     from .no_response_error import NoResponseError
@@ -15,6 +16,8 @@ if TYPE_CHECKING:
 __all__ = [
     "CollectionError",
     "CollectionErrorData",
+    "ErrorResponse",
+    "ErrorResponseData",
     "GleanBaseError",
     "GleanDataError",
     "GleanDataErrorData",
@@ -26,6 +29,8 @@ __all__ = [
 _dynamic_imports: dict[str, str] = {
     "CollectionError": ".collectionerror",
     "CollectionErrorData": ".collectionerror",
+    "ErrorResponse": ".errorresponse",
+    "ErrorResponseData": ".errorresponse",
     "GleanDataError": ".gleandataerror",
     "GleanDataErrorData": ".gleandataerror",
     "GleanError": ".gleanerror",

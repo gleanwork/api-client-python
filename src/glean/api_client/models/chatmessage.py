@@ -5,19 +5,20 @@ from .agentconfig import AgentConfig, AgentConfigTypedDict
 from .chatmessagecitation import ChatMessageCitation, ChatMessageCitationTypedDict
 from .chatmessagefragment import ChatMessageFragment, ChatMessageFragmentTypedDict
 from enum import Enum
+from glean.api_client import models, utils
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
-from pydantic import model_serializer
+from pydantic import field_serializer, model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class Author(str, Enum):
+class Author(str, Enum, metaclass=utils.OpenEnumMeta):
     USER = "USER"
     GLEAN_AI = "GLEAN_AI"
 
 
-class MessageType(str, Enum):
+class MessageType(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""Semantically groups content of a certain type. It can be used for purposes such as differential UI treatment. USER authored messages should be of type CONTENT and do not need `messageType` specified."""
 
     # An intermediate state message for progress updates.
@@ -127,6 +128,24 @@ class ChatMessage(BaseModel):
     ] = None
     r"""Signals there are additional response fragments incoming."""
 
+    @field_serializer("author")
+    def serialize_author(self, value):
+        if isinstance(value, str):
+            try:
+                return models.Author(value)
+            except ValueError:
+                return value
+        return value
+
+    @field_serializer("message_type")
+    def serialize_message_type(self, value):
+        if isinstance(value, str):
+            try:
+                return models.MessageType(value)
+            except ValueError:
+                return value
+        return value
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -148,7 +167,7 @@ class ChatMessage(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

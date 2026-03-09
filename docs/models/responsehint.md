@@ -2,6 +2,16 @@
 
 Hints for the response content.
 
+## Example Usage
+
+```python
+from glean.api_client.models import ResponseHint
+
+value = ResponseHint.ALL_RESULT_COUNTS
+
+# Open enum: unrecognized values are captured as UnrecognizedStr
+```
+
 
 ## Values
 

@@ -310,6 +310,7 @@ if TYPE_CHECKING:
         ConferenceDataTypedDict,
         Provider,
     )
+    from .configurationvalue import ConfigurationValue, ConfigurationValueTypedDict
     from .connectortype import ConnectorType
     from .contentdefinition import ContentDefinition, ContentDefinitionTypedDict
     from .contenttype import ContentType
@@ -401,9 +402,17 @@ if TYPE_CHECKING:
         DatasourceBulkMembershipDefinition,
         DatasourceBulkMembershipDefinitionTypedDict,
     )
+    from .datasourceconfigurationresponse import (
+        DatasourceConfigurationResponse,
+        DatasourceConfigurationResponseTypedDict,
+    )
     from .datasourcegroupdefinition import (
         DatasourceGroupDefinition,
         DatasourceGroupDefinitionTypedDict,
+    )
+    from .datasourceinstanceconfiguration import (
+        DatasourceInstanceConfiguration,
+        DatasourceInstanceConfigurationTypedDict,
     )
     from .datasourcemembershipdefinition import (
         DatasourceMembershipDefinition,
@@ -772,6 +781,10 @@ if TYPE_CHECKING:
     from .getdatasourceconfigrequest import (
         GetDatasourceConfigRequest,
         GetDatasourceConfigRequestTypedDict,
+    )
+    from .getdatasourceinstanceconfigurationop import (
+        GetDatasourceInstanceConfigurationRequest,
+        GetDatasourceInstanceConfigurationRequestTypedDict,
     )
     from .getdlpreportresponse import (
         GetDlpReportResponse,
@@ -1258,6 +1271,14 @@ if TYPE_CHECKING:
         UpdateAnnouncementRequestPostType,
         UpdateAnnouncementRequestTypedDict,
     )
+    from .updatedatasourceconfigurationrequest import (
+        UpdateDatasourceConfigurationRequest,
+        UpdateDatasourceConfigurationRequestTypedDict,
+    )
+    from .updatedatasourceinstanceconfigurationop import (
+        UpdateDatasourceInstanceConfigurationRequest,
+        UpdateDatasourceInstanceConfigurationRequestTypedDict,
+    )
     from .updatedlpconfigrequest import (
         UpdateDlpConfigRequest,
         UpdateDlpConfigRequestTypedDict,
@@ -1614,6 +1635,8 @@ __all__ = [
     "ConferenceData",
     "ConferenceDataSource",
     "ConferenceDataTypedDict",
+    "ConfigurationValue",
+    "ConfigurationValueTypedDict",
     "ConnectorType",
     "ContentDefinition",
     "ContentDefinitionTypedDict",
@@ -1685,8 +1708,12 @@ __all__ = [
     "DatasourceBulkMembershipDefinition",
     "DatasourceBulkMembershipDefinitionTypedDict",
     "DatasourceCategory",
+    "DatasourceConfigurationResponse",
+    "DatasourceConfigurationResponseTypedDict",
     "DatasourceGroupDefinition",
     "DatasourceGroupDefinitionTypedDict",
+    "DatasourceInstanceConfiguration",
+    "DatasourceInstanceConfigurationTypedDict",
     "DatasourceMembershipDefinition",
     "DatasourceMembershipDefinitionTypedDict",
     "DatasourceObjectTypeDocumentCountEntry",
@@ -1971,6 +1998,8 @@ __all__ = [
     "GetCollectionResponseTypedDict",
     "GetDatasourceConfigRequest",
     "GetDatasourceConfigRequestTypedDict",
+    "GetDatasourceInstanceConfigurationRequest",
+    "GetDatasourceInstanceConfigurationRequestTypedDict",
     "GetDlpReportResponse",
     "GetDlpReportResponseTypedDict",
     "GetDocPermissionsRequest",
@@ -2459,6 +2488,10 @@ __all__ = [
     "UpdateAnnouncementRequestChannel",
     "UpdateAnnouncementRequestPostType",
     "UpdateAnnouncementRequestTypedDict",
+    "UpdateDatasourceConfigurationRequest",
+    "UpdateDatasourceConfigurationRequestTypedDict",
+    "UpdateDatasourceInstanceConfigurationRequest",
+    "UpdateDatasourceInstanceConfigurationRequestTypedDict",
     "UpdateDlpConfigRequest",
     "UpdateDlpConfigRequestTypedDict",
     "UpdateDlpConfigResponse",
@@ -2729,6 +2762,8 @@ _dynamic_imports: dict[str, str] = {
     "ConferenceDataSource": ".conferencedata",
     "ConferenceDataTypedDict": ".conferencedata",
     "Provider": ".conferencedata",
+    "ConfigurationValue": ".configurationvalue",
+    "ConfigurationValueTypedDict": ".configurationvalue",
     "ConnectorType": ".connectortype",
     "ContentDefinition": ".contentdefinition",
     "ContentDefinitionTypedDict": ".contentdefinition",
@@ -2794,8 +2829,12 @@ _dynamic_imports: dict[str, str] = {
     "CustomSensitiveRuleType": ".customsensitiveruletype",
     "DatasourceBulkMembershipDefinition": ".datasourcebulkmembershipdefinition",
     "DatasourceBulkMembershipDefinitionTypedDict": ".datasourcebulkmembershipdefinition",
+    "DatasourceConfigurationResponse": ".datasourceconfigurationresponse",
+    "DatasourceConfigurationResponseTypedDict": ".datasourceconfigurationresponse",
     "DatasourceGroupDefinition": ".datasourcegroupdefinition",
     "DatasourceGroupDefinitionTypedDict": ".datasourcegroupdefinition",
+    "DatasourceInstanceConfiguration": ".datasourceinstanceconfiguration",
+    "DatasourceInstanceConfigurationTypedDict": ".datasourceinstanceconfiguration",
     "DatasourceMembershipDefinition": ".datasourcemembershipdefinition",
     "DatasourceMembershipDefinitionTypedDict": ".datasourcemembershipdefinition",
     "DatasourceObjectTypeDocumentCountEntry": ".datasourceobjecttypedocumentcountentry",
@@ -3085,6 +3124,8 @@ _dynamic_imports: dict[str, str] = {
     "GetCollectionResponseTypedDict": ".getcollectionresponse",
     "GetDatasourceConfigRequest": ".getdatasourceconfigrequest",
     "GetDatasourceConfigRequestTypedDict": ".getdatasourceconfigrequest",
+    "GetDatasourceInstanceConfigurationRequest": ".getdatasourceinstanceconfigurationop",
+    "GetDatasourceInstanceConfigurationRequestTypedDict": ".getdatasourceinstanceconfigurationop",
     "GetDlpReportResponse": ".getdlpreportresponse",
     "GetDlpReportResponseTypedDict": ".getdlpreportresponse",
     "GetdocpermissionsRequestRequest": ".getdocpermissionsop",
@@ -3497,6 +3538,10 @@ _dynamic_imports: dict[str, str] = {
     "UpdateAnnouncementRequestChannel": ".updateannouncementrequest",
     "UpdateAnnouncementRequestPostType": ".updateannouncementrequest",
     "UpdateAnnouncementRequestTypedDict": ".updateannouncementrequest",
+    "UpdateDatasourceConfigurationRequest": ".updatedatasourceconfigurationrequest",
+    "UpdateDatasourceConfigurationRequestTypedDict": ".updatedatasourceconfigurationrequest",
+    "UpdateDatasourceInstanceConfigurationRequest": ".updatedatasourceinstanceconfigurationop",
+    "UpdateDatasourceInstanceConfigurationRequestTypedDict": ".updatedatasourceinstanceconfigurationop",
     "UpdateDlpConfigRequest": ".updatedlpconfigrequest",
     "UpdateDlpConfigRequestTypedDict": ".updatedlpconfigrequest",
     "UpdateDlpConfigResponse": ".updatedlpconfigresponse",

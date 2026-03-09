@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 from enum import Enum
+from glean.api_client import utils
 
 
-class EntitiesSortOrder(str, Enum):
+class EntitiesSortOrder(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""Different ways of sorting entities"""
 
     ENTITY_NAME = "ENTITY_NAME"

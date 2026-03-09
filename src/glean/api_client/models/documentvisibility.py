@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 from enum import Enum
+from glean.api_client import utils
 
 
-class DocumentVisibility(str, Enum):
+class DocumentVisibility(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""The level of visibility of the document as understood by our system."""
 
     # Only one person is able to see the document.

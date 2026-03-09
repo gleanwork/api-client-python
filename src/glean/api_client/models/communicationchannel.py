@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 from enum import Enum
+from glean.api_client import utils
 
 
-class CommunicationChannel(str, Enum):
+class CommunicationChannel(str, Enum, metaclass=utils.OpenEnumMeta):
     COMMUNICATION_CHANNEL_EMAIL = "COMMUNICATION_CHANNEL_EMAIL"
     COMMUNICATION_CHANNEL_SLACK = "COMMUNICATION_CHANNEL_SLACK"

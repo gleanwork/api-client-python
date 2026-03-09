@@ -2,6 +2,16 @@
 
 The type of this datasource. It is an important signal for relevance and must be specified and cannot be UNCATEGORIZED. Please refer to [this](https://developers.glean.com/docs/indexing_api_datasource_category/) for more details.
 
+## Example Usage
+
+```python
+from glean.api_client.models import DatasourceCategory
+
+value = DatasourceCategory.UNCATEGORIZED
+
+# Open enum: unrecognized values are captured as UnrecognizedStr
+```
+
 
 ## Values
 

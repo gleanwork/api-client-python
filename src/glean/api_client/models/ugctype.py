@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 from enum import Enum
+from glean.api_client import utils
 
 
-class UgcType(str, Enum):
+class UgcType(str, Enum, metaclass=utils.OpenEnumMeta):
     ANNOUNCEMENTS_TYPE = "ANNOUNCEMENTS_TYPE"
     ANSWERS_TYPE = "ANSWERS_TYPE"
     COLLECTIONS_TYPE = "COLLECTIONS_TYPE"

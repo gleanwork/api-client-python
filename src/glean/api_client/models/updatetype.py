@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 from enum import Enum
+from glean.api_client import utils
 
 
-class UpdateType(str, Enum):
+class UpdateType(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""Optional type classification for the update."""
 
     # Updates that require user attention or action

@@ -4,9 +4,10 @@ from __future__ import annotations
 from .appresult import AppResult, AppResultTypedDict
 from .disambiguation import Disambiguation, DisambiguationTypedDict
 from enum import Enum
+from glean.api_client import models, utils
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
-from pydantic import model_serializer
+from pydantic import field_serializer, model_serializer
 from typing import List, Optional, TYPE_CHECKING
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -30,7 +31,7 @@ if TYPE_CHECKING:
     from .team import Team, TeamTypedDict
 
 
-class Prominence(str, Enum):
+class Prominence(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""The level of visual distinction that should be given to a result."""
 
     # A high-confidence result that should feature prominently on the page.
@@ -41,7 +42,7 @@ class Prominence(str, Enum):
     STANDARD = "STANDARD"
 
 
-class StructuredResultSource(str, Enum):
+class StructuredResultSource(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""Source context for this result. Possible values depend on the result type."""
 
     EXPERT_DETECTION = "EXPERT_DETECTION"
@@ -152,6 +153,24 @@ class StructuredResult(BaseModel):
     source: Optional[StructuredResultSource] = None
     r"""Source context for this result. Possible values depend on the result type."""
 
+    @field_serializer("prominence")
+    def serialize_prominence(self, value):
+        if isinstance(value, str):
+            try:
+                return models.Prominence(value)
+            except ValueError:
+                return value
+        return value
+
+    @field_serializer("source")
+    def serialize_source(self, value):
+        if isinstance(value, str):
+            try:
+                return models.StructuredResultSource(value)
+            except ValueError:
+                return value
+        return value
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -185,7 +204,7 @@ class StructuredResult(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

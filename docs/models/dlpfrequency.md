@@ -2,6 +2,16 @@
 
 Interval between scans. DAILY is deprecated.
 
+## Example Usage
+
+```python
+from glean.api_client.models import DlpFrequency
+
+value = DlpFrequency.ONCE
+
+# Open enum: unrecognized values are captured as UnrecognizedStr
+```
+
 
 ## Values
 

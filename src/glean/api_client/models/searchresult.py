@@ -3,9 +3,10 @@
 from __future__ import annotations
 from .clustertypeenum import ClusterTypeEnum
 from .searchresultprominenceenum import SearchResultProminenceEnum
+from glean.api_client import models
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
-from pydantic import model_serializer
+from pydantic import field_serializer, model_serializer
 from typing import List, Optional, TYPE_CHECKING
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -149,6 +150,24 @@ class SearchResult(BaseModel):
     pins: Optional[List["PinDocument"]] = None
     r"""A list of pins associated with this search result."""
 
+    @field_serializer("cluster_type")
+    def serialize_cluster_type(self, value):
+        if isinstance(value, str):
+            try:
+                return models.ClusterTypeEnum(value)
+            except ValueError:
+                return value
+        return value
+
+    @field_serializer("prominence")
+    def serialize_prominence(self, value):
+        if isinstance(value, str):
+            try:
+                return models.SearchResultProminenceEnum(value)
+            except ValueError:
+                return value
+        return value
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -180,7 +199,7 @@ class SearchResult(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

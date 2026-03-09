@@ -1,5 +1,15 @@
 # CollectionErrorErrorCode
 
+## Example Usage
+
+```python
+from glean.api_client.models import CollectionErrorErrorCode
+
+value = CollectionErrorErrorCode.NAME_EXISTS
+
+# Open enum: unrecognized values are captured as UnrecognizedStr
+```
+
 
 ## Values
 

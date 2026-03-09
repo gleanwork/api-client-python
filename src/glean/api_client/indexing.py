@@ -2,9 +2,9 @@
 
 from .basesdk import BaseSDK
 from .sdkconfiguration import SDKConfiguration
-from glean.api_client.datasources import Datasources
 from glean.api_client.indexing_authentication import IndexingAuthentication
 from glean.api_client.indexing_datasource import IndexingDatasource
+from glean.api_client.indexing_datasources import IndexingDatasources
 from glean.api_client.indexing_documents import IndexingDocuments
 from glean.api_client.indexing_permissions import IndexingPermissions
 from glean.api_client.indexing_shortcuts import IndexingShortcuts
@@ -17,7 +17,7 @@ class Indexing(BaseSDK):
     permissions: IndexingPermissions
     datasource: IndexingDatasource
     people: People
-    datasources: Datasources
+    datasources: IndexingDatasources
     authentication: IndexingAuthentication
     shortcuts: IndexingShortcuts
 
@@ -39,7 +39,7 @@ class Indexing(BaseSDK):
             self.sdk_configuration, parent_ref=self.parent_ref
         )
         self.people = People(self.sdk_configuration, parent_ref=self.parent_ref)
-        self.datasources = Datasources(
+        self.datasources = IndexingDatasources(
             self.sdk_configuration, parent_ref=self.parent_ref
         )
         self.authentication = IndexingAuthentication(

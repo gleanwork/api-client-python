@@ -2,6 +2,16 @@
 
 The document category of this object type.
 
+## Example Usage
+
+```python
+from glean.api_client.models import DocCategory
+
+value = DocCategory.UNCATEGORIZED
+
+# Open enum: unrecognized values are captured as UnrecognizedStr
+```
+
 
 ## Values
 

@@ -2,6 +2,16 @@
 
 The type of user group
 
+## Example Usage
+
+```python
+from glean.api_client.models import GroupType
+
+value = GroupType.DEPARTMENT
+
+# Open enum: unrecognized values are captured as UnrecognizedStr
+```
+
 
 ## Values
 

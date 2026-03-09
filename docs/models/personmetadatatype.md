@@ -1,5 +1,15 @@
 # PersonMetadataType
 
+## Example Usage
+
+```python
+from glean.api_client.models import PersonMetadataType
+
+value = PersonMetadataType.FULL_TIME
+
+# Open enum: unrecognized values are captured as UnrecognizedStr
+```
+
 
 ## Values
 

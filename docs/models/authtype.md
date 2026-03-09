@@ -7,6 +7,16 @@ Use 'OAUTH_*' when Glean calls an external API (e.g., Jira) on behalf of a user 
 'DWD' refers to domain wide delegation.
 
 
+## Example Usage
+
+```python
+from glean.api_client.models import AuthType
+
+value = AuthType.NONE
+
+# Open enum: unrecognized values are captured as UnrecognizedStr
+```
+
 
 ## Values
 

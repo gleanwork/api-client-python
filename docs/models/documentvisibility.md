@@ -2,6 +2,16 @@
 
 The level of visibility of the document as understood by our system.
 
+## Example Usage
+
+```python
+from glean.api_client.models import DocumentVisibility
+
+value = DocumentVisibility.PRIVATE
+
+# Open enum: unrecognized values are captured as UnrecognizedStr
+```
+
 
 ## Values
 

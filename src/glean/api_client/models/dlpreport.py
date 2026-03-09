@@ -6,14 +6,15 @@ from .dlpfrequency import DlpFrequency
 from .dlpperson import DlpPerson, DlpPersonTypedDict
 from .dlpreportstatus import DlpReportStatus
 from enum import Enum
+from glean.api_client import models, utils
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
-from pydantic import model_serializer
+from pydantic import field_serializer, model_serializer
 from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class LastScanStatus(str, Enum):
+class LastScanStatus(str, Enum, metaclass=utils.OpenEnumMeta):
     PENDING = "PENDING"
     SUCCESS = "SUCCESS"
     FAILURE = "FAILURE"
@@ -92,6 +93,33 @@ class DlpReport(BaseModel):
     updated_by: Annotated[Optional[DlpPerson], pydantic.Field(alias="updatedBy")] = None
     r"""Details about the person who created this report/policy."""
 
+    @field_serializer("frequency")
+    def serialize_frequency(self, value):
+        if isinstance(value, str):
+            try:
+                return models.DlpFrequency(value)
+            except ValueError:
+                return value
+        return value
+
+    @field_serializer("status")
+    def serialize_status(self, value):
+        if isinstance(value, str):
+            try:
+                return models.DlpReportStatus(value)
+            except ValueError:
+                return value
+        return value
+
+    @field_serializer("last_scan_status")
+    def serialize_last_scan_status(self, value):
+        if isinstance(value, str):
+            try:
+                return models.LastScanStatus(value)
+            except ValueError:
+                return value
+        return value
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -115,7 +143,7 @@ class DlpReport(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

@@ -3,8 +3,9 @@
 from __future__ import annotations
 from .collectionpinnablecategories import CollectionPinnableCategories
 from .collectionpinnabletargets import CollectionPinnableTargets
+from glean.api_client import models
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
-from pydantic import model_serializer
+from pydantic import field_serializer, model_serializer
 from typing import Optional
 from typing_extensions import NotRequired, TypedDict
 
@@ -28,6 +29,24 @@ class CollectionPinTarget(BaseModel):
     target: Optional[CollectionPinnableTargets] = None
     r"""What targets can a Collection be pinned to."""
 
+    @field_serializer("category")
+    def serialize_category(self, value):
+        if isinstance(value, str):
+            try:
+                return models.CollectionPinnableCategories(value)
+            except ValueError:
+                return value
+        return value
+
+    @field_serializer("target")
+    def serialize_target(self, value):
+        if isinstance(value, str):
+            try:
+                return models.CollectionPinnableTargets(value)
+            except ValueError:
+                return value
+        return value
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(["value", "target"])
@@ -36,7 +55,7 @@ class CollectionPinTarget(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

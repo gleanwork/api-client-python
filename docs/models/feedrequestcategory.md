@@ -1,5 +1,13 @@
 # FeedRequestCategory
 
+## Example Usage
+
+```python
+from glean.api_client.models import FeedRequestCategory
+
+value = FeedRequestCategory.DOCUMENT_SUGGESTION
+```
+
 
 ## Values
 

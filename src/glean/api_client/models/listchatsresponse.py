@@ -11,6 +11,8 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 class ListChatsResponseTypedDict(TypedDict):
     chat_results: NotRequired[List[ChatMetadataResultTypedDict]]
+    cursor: NotRequired[str]
+    r"""An opaque cursor for fetching the next page of results. If empty, there are no more results."""
 
 
 class ListChatsResponse(BaseModel):
@@ -18,15 +20,18 @@ class ListChatsResponse(BaseModel):
         Optional[List[ChatMetadataResult]], pydantic.Field(alias="chatResults")
     ] = None
 
+    cursor: Optional[str] = None
+    r"""An opaque cursor for fetching the next page of results. If empty, there are no more results."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["chatResults"])
+        optional_fields = set(["chatResults", "cursor"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

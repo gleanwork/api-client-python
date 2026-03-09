@@ -2,6 +2,16 @@
 
 Reason for failed status.
 
+## Example Usage
+
+```python
+from glean.api_client.models import ChatFileFailureReason
+
+value = ChatFileFailureReason.PARSE_FAILED
+
+# Open enum: unrecognized values are captured as UnrecognizedStr
+```
+
 
 ## Values
 

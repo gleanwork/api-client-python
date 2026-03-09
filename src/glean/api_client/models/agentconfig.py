@@ -3,14 +3,15 @@
 from __future__ import annotations
 from .toolsets import ToolSets, ToolSetsTypedDict
 from enum import Enum
+from glean.api_client import models, utils
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
-from pydantic import model_serializer
+from pydantic import field_serializer, model_serializer
 from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class AgentEnum(str, Enum):
+class AgentEnum(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""Name of the agent."""
 
     # Integrates with your company's knowledge. This will soon be deprecated in favor of the FAST and ADVANCED `agent` values
@@ -27,7 +28,7 @@ class AgentEnum(str, Enum):
     AUTO = "AUTO"
 
 
-class Mode(str, Enum):
+class Mode(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""Top level modes to run GleanChat in."""
 
     # Used if no mode supplied.
@@ -66,6 +67,24 @@ class AgentConfig(BaseModel):
     ] = None
     r"""Whether the agent should create an image."""
 
+    @field_serializer("agent")
+    def serialize_agent(self, value):
+        if isinstance(value, str):
+            try:
+                return models.AgentEnum(value)
+            except ValueError:
+                return value
+        return value
+
+    @field_serializer("mode")
+    def serialize_mode(self, value):
+        if isinstance(value, str):
+            try:
+                return models.Mode(value)
+            except ValueError:
+                return value
+        return value
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(["agent", "toolSets", "mode", "useImageGeneration"])
@@ -74,7 +93,7 @@ class AgentConfig(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

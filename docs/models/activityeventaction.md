@@ -2,6 +2,14 @@
 
 The type of activity this represents.
 
+## Example Usage
+
+```python
+from glean.api_client.models import ActivityEventAction
+
+value = ActivityEventAction.VIEW
+```
+
 
 ## Values
 

@@ -2,6 +2,16 @@
 
 The per-user authorization status for a datasource.
 
+## Example Usage
+
+```python
+from glean.api_client.models import AuthStatus
+
+value = AuthStatus.DISABLED
+
+# Open enum: unrecognized values are captured as UnrecognizedStr
+```
+
 
 ## Values
 

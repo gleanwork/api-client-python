@@ -1,5 +1,13 @@
 # GetDocumentsRequestIncludeField
 
+## Example Usage
+
+```python
+from glean.api_client.models import GetDocumentsRequestIncludeField
+
+value = GetDocumentsRequestIncludeField.LAST_VIEWED_AT
+```
+
 
 ## Values
 

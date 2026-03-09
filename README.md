@@ -470,6 +470,11 @@ For more information on obtaining the appropriate token type, please contact you
 * [list](docs/sdks/clientverification/README.md#list) - List verifications
 * [verify](docs/sdks/clientverification/README.md#verify) - Update verification
 
+### [Datasources](docs/sdks/datasources/README.md)
+
+* [get_datasource_instance_configuration](docs/sdks/datasources/README.md#get_datasource_instance_configuration) - Get datasource instance configuration
+* [update_datasource_instance_configuration](docs/sdks/datasources/README.md#update_datasource_instance_configuration) - Update datasource instance configuration
+
 ### [Governance](docs/sdks/governance/README.md)
 
 * [createfindingsexport](docs/sdks/governance/README.md#createfindingsexport) - Creates findings export
@@ -486,10 +491,10 @@ For more information on obtaining the appropriate token type, please contact you
 * [status](docs/sdks/indexingdatasource/README.md#status) - Beta: Get datasource status
 
 
-### [Indexing.Datasources](docs/sdks/datasources/README.md)
+### [Indexing.Datasources](docs/sdks/indexingdatasources/README.md)
 
-* [add](docs/sdks/datasources/README.md#add) - Add or update datasource
-* [retrieve_config](docs/sdks/datasources/README.md#retrieve_config) - Get datasource config
+* [add](docs/sdks/indexingdatasources/README.md#add) - Add or update datasource
+* [retrieve_config](docs/sdks/indexingdatasources/README.md#retrieve_config) - Get datasource config
 
 ### [Indexing.Documents](docs/sdks/indexingdocuments/README.md)
 
@@ -512,7 +517,7 @@ For more information on obtaining the appropriate token type, please contact you
 
 * [~~count~~](docs/sdks/people/README.md#count) - Get user count :warning: **Deprecated**
 * [index](docs/sdks/people/README.md#index) - Index employee
-* [bulk_index](docs/sdks/people/README.md#bulk_index) - Bulk index employees
+* [~~bulk_index~~](docs/sdks/people/README.md#bulk_index) - Bulk index employees :warning: **Deprecated**
 * [process_all_employees_and_teams](docs/sdks/people/README.md#process_all_employees_and_teams) - Schedules the processing of uploaded employees and teams
 * [delete](docs/sdks/people/README.md#delete) - Delete employee
 * [index_team](docs/sdks/people/README.md#index_team) - Index team
@@ -744,33 +749,13 @@ By default, an API error will raise a errors.GleanError exception, which has the
 <!-- Start Server Selection [server] -->
 ## Server Selection
 
-### Server URL
+### Server Variables
 
-The recommended way to configure the Glean API server is to pass `server_url` when initializing the SDK client:
-
-```python
-from glean.api_client import Glean
-
-glean = Glean(
-    api_token="your-api-token",
-    server_url="https://mycompany-be.glean.com",
-)
-```
-
-Schemeless URLs (e.g., `"mycompany-be.glean.com"`) are also accepted — the SDK will automatically prepend `https://`.
-
-You can also configure the server URL via the `GLEAN_SERVER_URL` environment variable.
-
-### Server Variables (backwards compatible)
-
-For backwards compatibility, the SDK also supports the `instance` parameter, which constructs the server URL using the pattern `https://{instance}-be.glean.com`:
+The default server `https://{instance}-be.glean.com` contains variables and is set to `https://instance-name-be.glean.com` by default. To override default values, the following parameters are available when initializing the SDK client instance:
 
 | Variable   | Parameter       | Default           | Description                                                                                            |
 | ---------- | --------------- | ----------------- | ------------------------------------------------------------------------------------------------------ |
 | `instance` | `instance: str` | `"instance-name"` | The instance name (typically the email domain without the TLD) that determines the deployment backend. |
-
-> [!NOTE]
-> The `server_url` parameter is preferred over `instance`. If both are provided, `server_url` takes precedence.
 
 #### Example
 
@@ -781,7 +766,8 @@ import os
 
 
 with Glean(
-    server_url="https://mycompany-be.glean.com",
+    server_idx=0,
+    instance="instance-name",
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as glean:
 

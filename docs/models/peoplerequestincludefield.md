@@ -1,5 +1,13 @@
 # PeopleRequestIncludeField
 
+## Example Usage
+
+```python
+from glean.api_client.models import PeopleRequestIncludeField
+
+value = PeopleRequestIncludeField.BADGES
+```
+
 
 ## Values
 

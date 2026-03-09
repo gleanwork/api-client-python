@@ -2,6 +2,16 @@
 
 How this document relates to the including entity.
 
+## Example Usage
+
+```python
+from glean.api_client.models import Relation
+
+value = Relation.ATTACHMENT
+
+# Open enum: unrecognized values are captured as UnrecognizedStr
+```
+
 
 ## Values
 

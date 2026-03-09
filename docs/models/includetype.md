@@ -1,5 +1,13 @@
 # IncludeType
 
+## Example Usage
+
+```python
+from glean.api_client.models import IncludeType
+
+value = IncludeType.PEOPLE_WITHOUT_MANAGER
+```
+
 
 ## Values
 

@@ -2,6 +2,14 @@
 
 Type of the id in the incoming request.
 
+## Example Usage
+
+```python
+from glean.api_client.models import IDType
+
+value = IDType.CHANNEL_NAME
+```
+
 
 ## Values
 

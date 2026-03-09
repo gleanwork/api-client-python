@@ -3,9 +3,10 @@
 from __future__ import annotations
 from .dlpconfig import DlpConfig, DlpConfigTypedDict
 from .dlpfrequency import DlpFrequency
+from glean.api_client import models
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
-from pydantic import model_serializer
+from pydantic import field_serializer, model_serializer
 from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -36,6 +37,15 @@ class CreateDlpReportRequest(BaseModel):
     )
     r"""Controls whether the policy should hide documents with violations."""
 
+    @field_serializer("frequency")
+    def serialize_frequency(self, value):
+        if isinstance(value, str):
+            try:
+                return models.DlpFrequency(value)
+            except ValueError:
+                return value
+        return value
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(["name", "config", "frequency", "autoHideDocs"])
@@ -44,7 +54,7 @@ class CreateDlpReportRequest(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

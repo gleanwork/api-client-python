@@ -2,6 +2,16 @@
 
 The action for the activity
 
+## Example Usage
+
+```python
+from glean.api_client.models import UserActivityAction
+
+value = UserActivityAction.ADD
+
+# Open enum: unrecognized values are captured as UnrecognizedStr
+```
+
 
 ## Values
 

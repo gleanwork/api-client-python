@@ -19,8 +19,8 @@ type SearchResultSnippet struct {
 	URL *string `json:"url,omitempty"`
 	// A matching snippet from the document. Query term matches are marked by the unicode characters uE006 and uE007. Use 'text' field instead.
 	//
-	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
-	Snippet string `json:"snippet"`
+	// Deprecated: Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use 'text' field instead.
+	Snippet *string `json:"snippet,omitempty"`
 }
 
 func (s SearchResultSnippet) MarshalJSON() ([]byte, error) {
@@ -28,7 +28,7 @@ func (s SearchResultSnippet) MarshalJSON() ([]byte, error) {
 }
 
 func (s *SearchResultSnippet) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"snippet"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -69,9 +69,9 @@ func (o *SearchResultSnippet) GetURL() *string {
 	return o.URL
 }
 
-func (o *SearchResultSnippet) GetSnippet() string {
+func (o *SearchResultSnippet) GetSnippet() *string {
 	if o == nil {
-		return ""
+		return nil
 	}
 	return o.Snippet
 }

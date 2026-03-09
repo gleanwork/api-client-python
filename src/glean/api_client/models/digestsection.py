@@ -3,9 +3,10 @@
 from __future__ import annotations
 from .digestupdate import DigestUpdate, DigestUpdateTypedDict
 from .sectiontype import SectionType
+from glean.api_client import models
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
-from pydantic import model_serializer
+from pydantic import field_serializer, model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -60,6 +61,15 @@ class DigestSection(BaseModel):
     url: Optional[str] = None
     r"""Optional URL for the digest section. Should be populated only if the section is a CHANNEL type section."""
 
+    @field_serializer("type")
+    def serialize_type(self, value):
+        if isinstance(value, str):
+            try:
+                return models.SectionType(value)
+            except ValueError:
+                return value
+        return value
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -70,7 +80,7 @@ class DigestSection(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

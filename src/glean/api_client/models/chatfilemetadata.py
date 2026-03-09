@@ -3,9 +3,10 @@
 from __future__ import annotations
 from .chatfilefailurereason import ChatFileFailureReason
 from .chatfilestatus import ChatFileStatus
+from glean.api_client import models
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
-from pydantic import model_serializer
+from pydantic import field_serializer, model_serializer
 from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -47,6 +48,24 @@ class ChatFileMetadata(BaseModel):
     mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
     r"""MIME type of the file."""
 
+    @field_serializer("status")
+    def serialize_status(self, value):
+        if isinstance(value, str):
+            try:
+                return models.ChatFileStatus(value)
+            except ValueError:
+                return value
+        return value
+
+    @field_serializer("failure_reason")
+    def serialize_failure_reason(self, value):
+        if isinstance(value, str):
+            try:
+                return models.ChatFileFailureReason(value)
+            except ValueError:
+                return value
+        return value
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -57,7 +76,7 @@ class ChatFileMetadata(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

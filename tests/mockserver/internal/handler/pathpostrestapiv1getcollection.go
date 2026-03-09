@@ -335,7 +335,7 @@ func testGetcollectionGetcollection0(w http.ResponseWriter, req *http.Request) {
 										Snippets: []components.SearchResultSnippet{
 											components.SearchResultSnippet{
 												MimeType: types.String("mimeType"),
-												Snippet:  "snippet",
+												Snippet:  types.String("snippet"),
 											},
 										},
 									},

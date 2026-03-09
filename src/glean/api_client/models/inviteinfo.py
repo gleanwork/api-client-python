@@ -43,7 +43,7 @@ class InviteInfo(BaseModel):
     invite_time: Annotated[
         Optional[datetime],
         pydantic.Field(
-            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible.",
+            deprecated="warning: ** DEPRECATED ** - Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use ChannelInviteInfo instead.",
             alias="inviteTime",
         ),
     ] = None
@@ -52,7 +52,7 @@ class InviteInfo(BaseModel):
     reminder_time: Annotated[
         Optional[datetime],
         pydantic.Field(
-            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible.",
+            deprecated="warning: ** DEPRECATED ** - Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use ChannelInviteInfo instead.",
             alias="reminderTime",
         ),
     ] = None
@@ -68,7 +68,7 @@ class InviteInfo(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

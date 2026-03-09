@@ -3,14 +3,15 @@
 from __future__ import annotations
 from .possiblevalue import PossibleValue, PossibleValueTypedDict
 from enum import Enum
+from glean.api_client import models, utils
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
-from pydantic import model_serializer
+from pydantic import field_serializer, model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class WriteActionParameterType(str, Enum):
+class WriteActionParameterType(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""The type of the value (e.g., integer, string, boolean, etc.)"""
 
     UNKNOWN = "UNKNOWN"
@@ -55,6 +56,15 @@ class WriteActionParameter(BaseModel):
     ] = None
     r"""Possible values that the parameter can take."""
 
+    @field_serializer("type")
+    def serialize_type(self, value):
+        if isinstance(value, str):
+            try:
+                return models.WriteActionParameterType(value)
+            except ValueError:
+                return value
+        return value
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -72,7 +82,7 @@ class WriteActionParameter(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

@@ -3,14 +3,15 @@
 from __future__ import annotations
 from datetime import datetime
 from enum import Enum
+from glean.api_client import models, utils
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
-from pydantic import model_serializer
+from pydantic import field_serializer, model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class AuthConfigType(str, Enum):
+class AuthConfigType(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""The type of authentication being used.
     Use 'OAUTH_*' when Glean calls an external API (e.g., Jira) on behalf of a user to obtain an OAuth token.
     'OAUTH_ADMIN' utilizes an admin token for external API calls on behalf all users.
@@ -27,14 +28,14 @@ class AuthConfigType(str, Enum):
     DWD = "DWD"
 
 
-class GrantType(str, Enum):
+class GrantType(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""The type of grant type being used."""
 
     AUTH_CODE = "AUTH_CODE"
     CLIENT_CREDENTIALS = "CLIENT_CREDENTIALS"
 
 
-class AuthConfigStatus(str, Enum):
+class AuthConfigStatus(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""Auth status of the tool."""
 
     AWAITING_AUTH = "AWAITING_AUTH"
@@ -69,6 +70,8 @@ class AuthConfigTypedDict(TypedDict):
     r"""A list of strings denoting the different audience which can access the tool."""
     authorization_url: NotRequired[str]
     r"""The OAuth provider's endpoint, where access tokens are requested."""
+    resource: NotRequired[str]
+    r"""The OAuth 2.0 Resource Indicator (RFC 8707) for the protected resource. Discovered from Protected Resource Metadata (RFC 9728) during DCR. Included in authorization and token exchange requests when present."""
     last_authorized_at: NotRequired[datetime]
     r"""The time the tool was last authorized in ISO format (ISO 8601)."""
 
@@ -111,10 +114,40 @@ class AuthConfig(BaseModel):
     authorization_url: Optional[str] = None
     r"""The OAuth provider's endpoint, where access tokens are requested."""
 
+    resource: Optional[str] = None
+    r"""The OAuth 2.0 Resource Indicator (RFC 8707) for the protected resource. Discovered from Protected Resource Metadata (RFC 9728) during DCR. Included in authorization and token exchange requests when present."""
+
     last_authorized_at: Annotated[
         Optional[datetime], pydantic.Field(alias="lastAuthorizedAt")
     ] = None
     r"""The time the tool was last authorized in ISO format (ISO 8601)."""
+
+    @field_serializer("type")
+    def serialize_type(self, value):
+        if isinstance(value, str):
+            try:
+                return models.AuthConfigType(value)
+            except ValueError:
+                return value
+        return value
+
+    @field_serializer("grant_type")
+    def serialize_grant_type(self, value):
+        if isinstance(value, str):
+            try:
+                return models.GrantType(value)
+            except ValueError:
+                return value
+        return value
+
+    @field_serializer("status")
+    def serialize_status(self, value):
+        if isinstance(value, str):
+            try:
+                return models.AuthConfigStatus(value)
+            except ValueError:
+                return value
+        return value
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -129,6 +162,7 @@ class AuthConfig(BaseModel):
                 "scopes",
                 "audiences",
                 "authorization_url",
+                "resource",
                 "lastAuthorizedAt",
             ]
         )
@@ -137,7 +171,7 @@ class AuthConfig(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

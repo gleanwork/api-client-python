@@ -13,9 +13,6 @@ type ChatResponse struct {
 	BackendTimeMillis *int64 `json:"backendTimeMillis,omitempty"`
 	// A token that is used to track the session.
 	ChatSessionTrackingToken *string `json:"chatSessionTrackingToken,omitempty"`
-	// Datasource instances that could not be queried because the user has not completed or has expired per-user OAuth, aggregated across all tools invoked in this turn.
-	//
-	UnauthorizedDatasourceInstances []UnauthorizedDatasourceInstance `json:"unauthorizedDatasourceInstances,omitempty"`
 }
 
 func (o *ChatResponse) GetMessages() []ChatMessage {
@@ -51,11 +48,4 @@ func (o *ChatResponse) GetChatSessionTrackingToken() *string {
 		return nil
 	}
 	return o.ChatSessionTrackingToken
-}
-
-func (o *ChatResponse) GetUnauthorizedDatasourceInstances() []UnauthorizedDatasourceInstance {
-	if o == nil {
-		return nil
-	}
-	return o.UnauthorizedDatasourceInstances
 }

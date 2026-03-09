@@ -4,14 +4,15 @@ from __future__ import annotations
 from .countinfo import CountInfo, CountInfoTypedDict
 from .person import Person, PersonTypedDict
 from enum import Enum
+from glean.api_client import models, utils
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
-from pydantic import model_serializer
+from pydantic import field_serializer, model_serializer
 from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class ActivityEnum(str, Enum):
+class ActivityEnum(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""Activity e.g. search, home page visit or all."""
 
     ALL = "ALL"
@@ -47,6 +48,15 @@ class UserActivityInsight(BaseModel):
         Optional[CountInfo], pydantic.Field(alias="activeDayCount")
     ] = None
 
+    @field_serializer("activity")
+    def serialize_activity(self, value):
+        if isinstance(value, str):
+            try:
+                return models.ActivityEnum(value)
+            except ValueError:
+                return value
+        return value
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -57,7 +67,7 @@ class UserActivityInsight(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

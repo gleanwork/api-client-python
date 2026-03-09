@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 from enum import Enum
+from glean.api_client import utils
 
 
-class EventStrategyName(str, Enum):
+class EventStrategyName(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""The name of method used to surface relevant data for a given calendar event."""
 
     CUSTOMER_CARD = "customerCard"

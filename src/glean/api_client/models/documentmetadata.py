@@ -9,9 +9,10 @@ from .objectpermissions import ObjectPermissions, ObjectPermissionsTypedDict
 from .thumbnail import Thumbnail, ThumbnailTypedDict
 from .viewerinfo import ViewerInfo, ViewerInfoTypedDict
 from datetime import datetime
+from glean.api_client import models
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
-from pydantic import model_serializer
+from pydantic import field_serializer, model_serializer
 from typing import Dict, List, Optional, TYPE_CHECKING
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -228,6 +229,15 @@ class DocumentMetadata(BaseModel):
     ancestors: Optional[List["Document"]] = None
     r"""A list of documents that are ancestors of this document in the hierarchy of the document's datasource, for example parent folders or containers. Ancestors can be of different types and some may not be indexed. Higher level ancestors appear earlier in the list."""
 
+    @field_serializer("visibility")
+    def serialize_visibility(self, value):
+        if isinstance(value, str):
+            try:
+                return models.DocumentVisibility(value)
+            except ValueError:
+                return value
+        return value
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -279,7 +289,7 @@ class DocumentMetadata(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

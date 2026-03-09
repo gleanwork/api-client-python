@@ -1,5 +1,15 @@
 # UgcType
 
+## Example Usage
+
+```python
+from glean.api_client.models import UgcType
+
+value = UgcType.ANNOUNCEMENTS_TYPE
+
+# Open enum: unrecognized values are captured as UnrecognizedStr
+```
+
 
 ## Values
 

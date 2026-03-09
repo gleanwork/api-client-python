@@ -2,6 +2,16 @@
 
 The team member's relationship to the team. This defaults to MEMBER if not set.
 
+## Example Usage
+
+```python
+from glean.api_client.models import PersonTeamRelationship
+
+value = PersonTeamRelationship.MEMBER
+
+# Open enum: unrecognized values are captured as UnrecognizedStr
+```
+
 
 ## Values
 

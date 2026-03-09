@@ -2,14 +2,15 @@
 
 from __future__ import annotations
 from enum import Enum
+from glean.api_client import models, utils
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
-from pydantic import model_serializer
+from pydantic import field_serializer, model_serializer
 from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class DocumentVisibilityUpdateResultOverride(str, Enum):
+class DocumentVisibilityUpdateResultOverride(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""The visibility-override state of the document."""
 
     NONE = "NONE"
@@ -35,6 +36,15 @@ class DocumentVisibilityUpdateResult(BaseModel):
     success: Optional[bool] = None
     r"""Whether this document was successfully set to its desired visibility state."""
 
+    @field_serializer("override")
+    def serialize_override(self, value):
+        if isinstance(value, str):
+            try:
+                return models.DocumentVisibilityUpdateResultOverride(value)
+            except ValueError:
+                return value
+        return value
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(["docId", "override", "success"])
@@ -43,7 +53,7 @@ class DocumentVisibilityUpdateResult(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 from enum import Enum
+from glean.api_client import utils
 
 
-class AgentExecutionStatus(str, Enum):
+class AgentExecutionStatus(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""The status of the run. One of 'error', 'success'."""
 
     ERROR = "error"

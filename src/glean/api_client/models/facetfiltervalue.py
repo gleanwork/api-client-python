@@ -2,14 +2,15 @@
 
 from __future__ import annotations
 from enum import Enum
+from glean.api_client import models, utils
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
-from pydantic import model_serializer
+from pydantic import field_serializer, model_serializer
 from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class RelationType(str, Enum):
+class RelationType(str, Enum, metaclass=utils.OpenEnumMeta):
     # The value is equal to the specified value.
     EQUALS = "EQUALS"
     # The value is equal to the specified ID.
@@ -45,6 +46,15 @@ class FacetFilterValue(BaseModel):
     ] = None
     r"""DEPRECATED - please use relationType instead"""
 
+    @field_serializer("relation_type")
+    def serialize_relation_type(self, value):
+        if isinstance(value, str):
+            try:
+                return models.RelationType(value)
+            except ValueError:
+                return value
+        return value
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(["value", "relationType", "isNegated"])
@@ -53,7 +63,7 @@ class FacetFilterValue(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

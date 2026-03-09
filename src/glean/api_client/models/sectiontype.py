@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 from enum import Enum
+from glean.api_client import utils
 
 
-class SectionType(str, Enum):
+class SectionType(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""Type of the section. This defines how the section should be interpreted and rendered in the digest."""
 
     # A standard section for channel-based digests (e.g. from Slack, Teams).

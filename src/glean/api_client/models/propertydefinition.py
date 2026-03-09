@@ -2,14 +2,15 @@
 
 from __future__ import annotations
 from enum import Enum
+from glean.api_client import models, utils
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
-from pydantic import model_serializer
+from pydantic import field_serializer, model_serializer
 from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class PropertyType(str, Enum):
+class PropertyType(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""The type of custom property - this governs the search and faceting behavior. Note that MULTIPICKLIST is not yet supported."""
 
     TEXT = "TEXT"
@@ -21,7 +22,7 @@ class PropertyType(str, Enum):
     MULTIPICKLIST = "MULTIPICKLIST"
 
 
-class UIOptions(str, Enum):
+class UIOptions(str, Enum, metaclass=utils.OpenEnumMeta):
     NONE = "NONE"
     SEARCH_RESULT = "SEARCH_RESULT"
     DOC_HOVERCARD = "DOC_HOVERCARD"
@@ -82,6 +83,24 @@ class PropertyDefinition(BaseModel):
     group: Optional[str] = None
     r"""The unique identifier of the `PropertyGroup` to which this property belongs."""
 
+    @field_serializer("property_type")
+    def serialize_property_type(self, value):
+        if isinstance(value, str):
+            try:
+                return models.PropertyType(value)
+            except ValueError:
+                return value
+        return value
+
+    @field_serializer("ui_options")
+    def serialize_ui_options(self, value):
+        if isinstance(value, str):
+            try:
+                return models.UIOptions(value)
+            except ValueError:
+                return value
+        return value
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -102,7 +121,7 @@ class PropertyDefinition(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

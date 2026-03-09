@@ -2,6 +2,16 @@
 
 Semantically groups content of a certain type. It can be used for purposes such as differential UI treatment. USER authored messages should be of type CONTENT and do not need `messageType` specified.
 
+## Example Usage
+
+```python
+from glean.api_client.models import MessageType
+
+value = MessageType.UPDATE
+
+# Open enum: unrecognized values are captured as UnrecognizedStr
+```
+
 
 ## Values
 

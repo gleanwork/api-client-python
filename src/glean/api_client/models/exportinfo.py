@@ -4,14 +4,15 @@ from __future__ import annotations
 from .dlpfindingfilter import DlpFindingFilter, DlpFindingFilterTypedDict
 from .dlpperson import DlpPerson, DlpPersonTypedDict
 from enum import Enum
+from glean.api_client import models, utils
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
-from pydantic import model_serializer
+from pydantic import field_serializer, model_serializer
 from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class ExportInfoStatus(str, Enum):
+class ExportInfoStatus(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""The status of the export"""
 
     PENDING = "PENDING"
@@ -63,6 +64,15 @@ class ExportInfo(BaseModel):
     export_size: Annotated[Optional[int], pydantic.Field(alias="exportSize")] = None
     r"""The size of the exported file in bytes"""
 
+    @field_serializer("status")
+    def serialize_status(self, value):
+        if isinstance(value, str):
+            try:
+                return models.ExportInfoStatus(value)
+            except ValueError:
+                return value
+        return value
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -82,7 +92,7 @@ class ExportInfo(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

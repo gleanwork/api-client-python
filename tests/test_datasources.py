@@ -56,3 +56,39 @@ def test_datasources_post_api_index_v1_getdatasourceconfig():
 
         res = glean.indexing.datasources.retrieve_config(datasource="<value>")
         assert res is not None
+
+
+def test_datasources_get_datasource_instance_configuration():
+    test_http_client = create_test_http_client("getDatasourceInstanceConfiguration")
+
+    with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
+        client=test_http_client,
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+    ) as glean:
+        assert glean is not None
+
+        res = glean.datasources.get_datasource_instance_configuration(
+            datasource_id="o365sharepoint", instance_id="o365sharepoint_abc123"
+        )
+        assert res is not None
+
+
+def test_datasources_update_datasource_instance_configuration():
+    test_http_client = create_test_http_client("updateDatasourceInstanceConfiguration")
+
+    with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
+        client=test_http_client,
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+    ) as glean:
+        assert glean is not None
+
+        res = glean.datasources.update_datasource_instance_configuration(
+            datasource_id="o365sharepoint",
+            instance_id="o365sharepoint_abc123",
+            configuration={
+                "values": {},
+            },
+        )
+        assert res is not None

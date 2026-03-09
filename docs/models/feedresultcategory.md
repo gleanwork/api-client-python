@@ -2,6 +2,16 @@
 
 Category of the result, one of the requested categories in incoming request.
 
+## Example Usage
+
+```python
+from glean.api_client.models import FeedResultCategory
+
+value = FeedResultCategory.DOCUMENT_SUGGESTION
+
+# Open enum: unrecognized values are captured as UnrecognizedStr
+```
+
 
 ## Values
 
@@ -32,3 +42,7 @@ Category of the result, one of the requested categories in incoming request.
 | `ZERO_STATE_WORKFLOW_SUGGESTION`    | ZERO_STATE_WORKFLOW_SUGGESTION      |
 | `PERSONALIZED_CHAT_SUGGESTION`      | PERSONALIZED_CHAT_SUGGESTION        |
 | `DAILY_DIGEST`                      | DAILY_DIGEST                        |
+| `TASK`                              | TASK                                |
+| `PLAN_MY_DAY`                       | PLAN_MY_DAY                         |
+| `END_MY_DAY`                        | END_MY_DAY                          |
+| `STARTER_KIT`                       | STARTER_KIT                         |

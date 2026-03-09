@@ -134,6 +134,8 @@ type AuthConfig struct {
 	Audiences []string `json:"audiences,omitempty"`
 	// The OAuth provider's endpoint, where access tokens are requested.
 	AuthorizationURL *string `json:"authorization_url,omitempty"`
+	// The OAuth 2.0 Resource Indicator (RFC 8707) for the protected resource. Discovered from Protected Resource Metadata (RFC 9728) during DCR. Included in authorization and token exchange requests when present.
+	Resource *string `json:"resource,omitempty"`
 	// The time the tool was last authorized in ISO format (ISO 8601).
 	LastAuthorizedAt *time.Time `json:"lastAuthorizedAt,omitempty"`
 }
@@ -210,6 +212,13 @@ func (o *AuthConfig) GetAuthorizationURL() *string {
 		return nil
 	}
 	return o.AuthorizationURL
+}
+
+func (o *AuthConfig) GetResource() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Resource
 }
 
 func (o *AuthConfig) GetLastAuthorizedAt() *time.Time {

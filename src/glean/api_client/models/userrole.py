@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 from enum import Enum
+from glean.api_client import utils
 
 
-class UserRole(str, Enum):
+class UserRole(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""A user's role with respect to a specific document."""
 
     OWNER = "OWNER"
