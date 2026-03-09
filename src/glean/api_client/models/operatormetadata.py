@@ -3,14 +3,15 @@
 from __future__ import annotations
 from .operatorscope import OperatorScope, OperatorScopeTypedDict
 from enum import Enum
+from glean.api_client import models, utils
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
-from pydantic import model_serializer
+from pydantic import field_serializer, model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class OperatorType(str, Enum):
+class OperatorType(str, Enum, metaclass=utils.OpenEnumMeta):
     TEXT = "TEXT"
     DOUBLE = "DOUBLE"
     DATE = "DATE"
@@ -50,6 +51,15 @@ class OperatorMetadata(BaseModel):
     display_value: Annotated[Optional[str], pydantic.Field(alias="displayValue")] = None
     r"""Human readable value of the operator that can be shown to the user. Only applies when result is an operator value."""
 
+    @field_serializer("operator_type")
+    def serialize_operator_type(self, value):
+        if isinstance(value, str):
+            try:
+                return models.OperatorType(value)
+            except ValueError:
+                return value
+        return value
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -60,7 +70,7 @@ class OperatorMetadata(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

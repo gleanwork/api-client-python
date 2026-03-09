@@ -17,6 +17,7 @@ import weakref
 if TYPE_CHECKING:
     from glean.api_client.authentication import Authentication
     from glean.api_client.client import Client
+    from glean.api_client.datasources import Datasources
     from glean.api_client.governance import Governance
     from glean.api_client.indexing import Indexing
 
@@ -46,11 +47,14 @@ class Glean(BaseSDK):
     r"""Manage indexing API tokens."""
     indexing: "Indexing"
     governance: "Governance"
+    datasources: "Datasources"
+    r"""Manage datasources."""
     _sub_sdk_map = {
         "client": ("glean.api_client.client", "Client"),
         "authentication": ("glean.api_client.authentication", "Authentication"),
         "indexing": ("glean.api_client.indexing", "Indexing"),
         "governance": ("glean.api_client.governance", "Governance"),
+        "datasources": ("glean.api_client.datasources", "Datasources"),
     }
 
     def __init__(
@@ -58,8 +62,8 @@ class Glean(BaseSDK):
         api_token: Optional[Union[Optional[str], Callable[[], Optional[str]]]] = None,
         instance: Optional[str] = None,
         server_idx: Optional[int] = None,
-        server_url: Optional[str] = None,
         url_params: Optional[Dict[str, str]] = None,
+        server_url: Optional[str] = None,
         client: Optional[HttpClient] = None,
         async_client: Optional[AsyncHttpClient] = None,
         retry_config: OptionalNullable[RetryConfig] = UNSET,

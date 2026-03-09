@@ -4,14 +4,15 @@ from __future__ import annotations
 from .propertydefinition import PropertyDefinition, PropertyDefinitionTypedDict
 from .propertygroup import PropertyGroup, PropertyGroupTypedDict
 from enum import Enum
+from glean.api_client import models, utils
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
-from pydantic import model_serializer
+from pydantic import field_serializer, model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class DocCategory(str, Enum):
+class DocCategory(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""The document category of this object type."""
 
     UNCATEGORIZED = "UNCATEGORIZED"
@@ -76,6 +77,15 @@ class ObjectDefinition(BaseModel):
     summarizable: Optional[bool] = None
     r"""Whether or not the object is summarizable"""
 
+    @field_serializer("doc_category")
+    def serialize_doc_category(self, value):
+        if isinstance(value, str):
+            try:
+                return models.DocCategory(value)
+            except ValueError:
+                return value
+        return value
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -93,7 +103,7 @@ class ObjectDefinition(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

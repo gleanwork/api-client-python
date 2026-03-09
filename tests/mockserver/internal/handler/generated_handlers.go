@@ -14,10 +14,12 @@ func GeneratedHandlers(ctx context.Context, dir *logging.HTTPFileDirectory, rt *
 	return []*GeneratedHandler{
 		NewGeneratedHandler(ctx, http.MethodGet, "/rest/api/v1/agents/{agent_id}", pathGetRestAPIV1AgentsAgentID(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodGet, "/rest/api/v1/agents/{agent_id}/schemas", pathGetRestAPIV1AgentsAgentIDSchemas(dir, rt)),
+		NewGeneratedHandler(ctx, http.MethodGet, "/rest/api/v1/configure/datasources/{datasourceId}/instances/{instanceId}", pathGetRestAPIV1ConfigureDatasourcesDatasourceIDInstancesInstanceID(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodGet, "/rest/api/v1/governance/data/findings/exports", pathGetRestAPIV1GovernanceDataFindingsExports(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodGet, "/rest/api/v1/governance/data/policies", pathGetRestAPIV1GovernanceDataPolicies(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodGet, "/rest/api/v1/governance/data/policies/{id}", pathGetRestAPIV1GovernanceDataPoliciesID(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodGet, "/rest/api/v1/tools/list", pathGetRestAPIV1ToolsList(dir, rt)),
+		NewGeneratedHandler(ctx, http.MethodPatch, "/rest/api/v1/configure/datasources/{datasourceId}/instances/{instanceId}", pathPatchRestAPIV1ConfigureDatasourcesDatasourceIDInstancesInstanceID(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodPost, "/api/index/v1/adddatasource", pathPostAPIIndexV1Adddatasource(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodPost, "/api/index/v1/betausers", pathPostAPIIndexV1Betausers(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodPost, "/api/index/v1/bulkindexdocuments", pathPostAPIIndexV1Bulkindexdocuments(dir, rt)),

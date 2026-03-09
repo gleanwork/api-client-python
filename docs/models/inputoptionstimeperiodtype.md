@@ -2,6 +2,16 @@
 
 Type of time period for which to run the report/policy. PAST_DAY is deprecated.
 
+## Example Usage
+
+```python
+from glean.api_client.models import InputOptionsTimePeriodType
+
+value = InputOptionsTimePeriodType.ALL_TIME
+
+# Open enum: unrecognized values are captured as UnrecognizedStr
+```
+
 
 ## Values
 

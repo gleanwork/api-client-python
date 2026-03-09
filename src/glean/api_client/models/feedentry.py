@@ -20,9 +20,10 @@ from .thumbnail import Thumbnail, ThumbnailTypedDict
 from .useractivity import UserActivity, UserActivityTypedDict
 from .workflowresult import WorkflowResult, WorkflowResultTypedDict
 from enum import Enum
+from glean.api_client import models, utils
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
-from pydantic import model_serializer
+from pydantic import field_serializer, model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -57,7 +58,7 @@ class UIConfig(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -66,7 +67,7 @@ class UIConfig(BaseModel):
         return m
 
 
-class JustificationType(str, Enum):
+class JustificationType(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""Type of the justification."""
 
     FREQUENTLY_ACCESSED = "FREQUENTLY_ACCESSED"
@@ -103,6 +104,12 @@ class JustificationType(str, Enum):
     ZERO_STATE_AGENT_SUGGESTION = "ZERO_STATE_AGENT_SUGGESTION"
     PERSONALIZED_CHAT_SUGGESTION = "PERSONALIZED_CHAT_SUGGESTION"
     DAILY_DIGEST = "DAILY_DIGEST"
+    TASK = "TASK"
+    PLAN_MY_DAY = "PLAN_MY_DAY"
+    END_MY_DAY = "END_MY_DAY"
+    STARTER_KIT_EXTENSION = "STARTER_KIT_EXTENSION"
+    STARTER_KIT_ORG_CHART = "STARTER_KIT_ORG_CHART"
+    STARTER_KIT_ADD_DOC = "STARTER_KIT_ADD_DOC"
 
 
 class FeedEntryTypedDict(TypedDict):
@@ -201,6 +208,15 @@ class FeedEntry(BaseModel):
         Optional[CountInfo], pydantic.Field(alias="documentVisitorCount")
     ] = None
 
+    @field_serializer("justification_type")
+    def serialize_justification_type(self, value):
+        if isinstance(value, str):
+            try:
+                return models.JustificationType(value)
+            except ValueError:
+                return value
+        return value
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -233,7 +249,7 @@ class FeedEntry(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

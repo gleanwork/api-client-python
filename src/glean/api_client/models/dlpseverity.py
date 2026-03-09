@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 from enum import Enum
+from glean.api_client import utils
 
 
-class DlpSeverity(str, Enum):
+class DlpSeverity(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""Severity levels for DLP findings and analyses."""
 
     UNSPECIFIED = "UNSPECIFIED"

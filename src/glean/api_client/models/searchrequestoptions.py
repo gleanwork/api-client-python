@@ -7,6 +7,7 @@ from .facetfilter import FacetFilter, FacetFilterTypedDict
 from .facetfilterset import FacetFilterSet, FacetFilterSetTypedDict
 from .restrictionfilters import RestrictionFilters, RestrictionFiltersTypedDict
 from enum import Enum
+from glean.api_client import utils
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
 from pydantic import model_serializer
@@ -14,7 +15,7 @@ from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class ResponseHint(str, Enum):
+class ResponseHint(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""Hints for the response content."""
 
     # Return result counts for each result set which has non-zero results, even when the request itself is limited to a subset.
@@ -167,7 +168,7 @@ class SearchRequestOptions(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

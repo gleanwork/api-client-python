@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 from enum import Enum
+from glean.api_client import utils
 
 
-class ChatFileFailureReason(str, Enum):
+class ChatFileFailureReason(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""Reason for failed status."""
 
     PARSE_FAILED = "PARSE_FAILED"

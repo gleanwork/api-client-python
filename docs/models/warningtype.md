@@ -2,6 +2,16 @@
 
 The type of the warning.
 
+## Example Usage
+
+```python
+from glean.api_client.models import WarningType
+
+value = WarningType.LONG_QUERY
+
+# Open enum: unrecognized values are captured as UnrecognizedStr
+```
+
 
 ## Values
 

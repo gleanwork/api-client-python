@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 from enum import Enum
+from glean.api_client import utils
 
 
-class ScopeType(str, Enum):
+class ScopeType(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""Describes the scope for a ReadPermission, WritePermission, or GrantPermission object"""
 
     GLOBAL = "GLOBAL"

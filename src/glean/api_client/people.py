@@ -210,7 +210,7 @@ class People(BaseSDK):
         raise errors.GleanError("Unexpected response received", http_res)
 
     @deprecated(
-        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+        "warning: ** DEPRECATED ** - Deprecated on 2026-02-03, removal scheduled for 2026-10-15: Endpoint is deprecated."
     )
     def count(
         self,
@@ -303,7 +303,7 @@ class People(BaseSDK):
         raise errors.GleanError("Unexpected response received", http_res)
 
     @deprecated(
-        "warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+        "warning: ** DEPRECATED ** - Deprecated on 2026-02-03, removal scheduled for 2026-10-15: Endpoint is deprecated."
     )
     async def count_async(
         self,
@@ -579,6 +579,9 @@ class People(BaseSDK):
 
         raise errors.GleanError("Unexpected response received", http_res)
 
+    @deprecated(
+        "warning: ** DEPRECATED ** - Deprecated on 2026-02-03, removal scheduled for 2026-10-15: Endpoint is deprecated."
+    )
     def bulk_index(
         self,
         *,
@@ -686,6 +689,9 @@ class People(BaseSDK):
 
         raise errors.GleanError("Unexpected response received", http_res)
 
+    @deprecated(
+        "warning: ** DEPRECATED ** - Deprecated on 2026-02-03, removal scheduled for 2026-10-15: Endpoint is deprecated."
+    )
     async def bulk_index_async(
         self,
         *,

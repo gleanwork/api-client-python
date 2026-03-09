@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   version: 0.9.0
   title: Glean API
-  x-source-commit-sha: 56c08697ca3b6869022a262114e61f1385914425
+  x-source-commit-sha: 019fa78169e9b442a41ce6c77fc17a855db29347
   description: |
     # Introduction
     In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This is useful, for example, for doing permissions-aware search over content in internal tools that reside on-prem as well as for searching over applications that Glean does not currently support first class. In addition these APIs allow the customer to push organization data (people info, organization structure etc) into Glean.
@@ -22,7 +22,7 @@ info:
     These API clients provide type-safe, idiomatic interfaces for working with Glean IndexingAPIs in your language of choice.
   x-logo:
     url: https://app.glean.com/images/glean-text2.svg
-  x-open-api-commit-sha: daa8736a6f0763faffd2c1079da8a42345536ed7
+  x-open-api-commit-sha: b6a55d676d9794248f2cd49c3935feff817d05d7
   x-speakeasy-name: 'Glean API'
 servers:
   - url: https://{instance}-be.glean.com
@@ -30,8 +30,6 @@ servers:
       instance:
         default: instance-name
         description: The instance name (typically the email domain without the TLD) that determines the deployment backend.
-security:
-  - APIToken: []
 paths:
   /rest/api/v1/activity:
     post:
@@ -58,6 +56,8 @@ paths:
           description: Not Authorized
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-name-override: report
       x-speakeasy-group: client.activity
   /rest/api/v1/feedback:
@@ -91,6 +91,8 @@ paths:
           description: Not Authorized
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-group: client.activity
   /rest/api/v1/createannouncement:
     post:
@@ -124,6 +126,8 @@ paths:
           description: Not Authorized
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-name-override: create
       x-speakeasy-group: client.announcements
   /rest/api/v1/deleteannouncement:
@@ -154,6 +158,8 @@ paths:
           description: Not Authorized
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-name-override: delete
       x-speakeasy-group: client.announcements
   /rest/api/v1/updateannouncement:
@@ -188,6 +194,8 @@ paths:
           description: Not Authorized
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-name-override: update
       x-speakeasy-group: client.announcements
   /rest/api/v1/createanswer:
@@ -222,6 +230,8 @@ paths:
           description: Not Authorized
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-name-override: create
       x-speakeasy-group: client.answers
   /rest/api/v1/deleteanswer:
@@ -252,6 +262,8 @@ paths:
           description: Not Authorized
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-name-override: delete
       x-speakeasy-group: client.answers
   /rest/api/v1/editanswer:
@@ -286,6 +298,8 @@ paths:
           description: Not Authorized
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-name-override: update
       x-speakeasy-group: client.answers
   /rest/api/v1/getanswer:
@@ -320,6 +334,8 @@ paths:
           description: Not Authorized
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-name-override: retrieve
       x-speakeasy-group: client.answers
   /rest/api/v1/listanswers:
@@ -361,6 +377,8 @@ paths:
         message: Answer boards have been removed and this endpoint no longer serves a purpose
         removal: "2026-10-15"
       x-speakeasy-deprecation-message: "Deprecated on 2026-01-21, removal scheduled for 2026-10-15: Answer boards have been removed and this endpoint no longer serves a purpose"
+      security:
+        - APIToken: []
       x-speakeasy-name-override: list
       x-speakeasy-group: client.answers
   /rest/api/v1/checkdatasourceauth:
@@ -390,6 +408,8 @@ paths:
           description: Not Authorized
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
   /rest/api/v1/createauthtoken:
     post:
       tags:
@@ -417,6 +437,8 @@ paths:
           description: Not Authorized
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-name-override: createToken
       x-speakeasy-group: client.authentication
   /rest/api/v1/chat:
@@ -555,6 +577,8 @@ paths:
           description: Request Timeout
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-group: client.chat
       x-speakeasy-name-override: create
       x-speakeasy-usage-example: true
@@ -579,6 +603,8 @@ paths:
           description: Not Authorized
         "403":
           description: Forbidden
+      security:
+        - APIToken: []
       x-speakeasy-name-override: deleteAll
       x-speakeasy-group: client.chat
   /rest/api/v1/deletechats:
@@ -611,6 +637,8 @@ paths:
           description: Forbidden
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-name-override: delete
       x-speakeasy-group: client.chat
   /rest/api/v1/getchat:
@@ -647,6 +675,8 @@ paths:
           description: Forbidden
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-name-override: retrieve
       x-speakeasy-group: client.chat
   /rest/api/v1/listchats:
@@ -674,6 +704,8 @@ paths:
           description: Forbidden
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-name-override: list
       x-speakeasy-group: client.chat
   /rest/api/v1/getchatapplication:
@@ -708,6 +740,8 @@ paths:
           description: Not Authorized
         "403":
           description: Forbidden
+      security:
+        - APIToken: []
       x-speakeasy-name-override: retrieveApplication
       x-speakeasy-group: client.chat
   /rest/api/v1/uploadchatfiles:
@@ -743,6 +777,8 @@ paths:
           description: Forbidden
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-name-override: uploadFiles
       x-speakeasy-group: client.chat
   /rest/api/v1/getchatfiles:
@@ -778,6 +814,8 @@ paths:
           description: Forbidden
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-name-override: retrieveFiles
       x-speakeasy-group: client.chat
   /rest/api/v1/deletechatfiles:
@@ -808,6 +846,8 @@ paths:
           description: Forbidden
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-name-override: deleteFiles
       x-speakeasy-group: client.chat
   /rest/api/v1/agents/{agent_id}:
@@ -848,6 +888,8 @@ paths:
                 $ref: "#/components/schemas/ErrorResponse"
         "500":
           description: Internal server error
+      security:
+        - APIToken: []
       x-speakeasy-group: client.agents
       x-speakeasy-name-override: retrieve
   /rest/api/v1/agents/{agent_id}/schemas:
@@ -894,6 +936,8 @@ paths:
                 $ref: "#/components/schemas/ErrorResponse"
         "500":
           description: Internal server error
+      security:
+        - APIToken: []
       x-speakeasy-group: client.agents
       x-speakeasy-name-override: retrieveSchemas
   /rest/api/v1/agents/search:
@@ -935,6 +979,8 @@ paths:
                 $ref: "#/components/schemas/ErrorResponse"
         "500":
           description: Internal server error
+      security:
+        - APIToken: []
       x-speakeasy-group: client.agents
       x-speakeasy-name-override: list
   /rest/api/v1/agents/runs/stream:
@@ -999,6 +1045,8 @@ paths:
                 $ref: "#/components/schemas/ErrorResponse"
         "500":
           description: Internal server error
+      security:
+        - APIToken: []
       x-speakeasy-group: client.agents
       x-speakeasy-name-override: runStream
   /rest/api/v1/agents/runs/wait:
@@ -1034,6 +1082,8 @@ paths:
           description: Validation Error
         "500":
           description: Internal server error
+      security:
+        - APIToken: []
       x-speakeasy-group: client.agents
       x-speakeasy-name-override: run
   /rest/api/v1/addcollectionitems:
@@ -1068,6 +1118,8 @@ paths:
           description: Not Authorized
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-name-override: addItems
       x-speakeasy-group: client.collections
   /rest/api/v1/createcollection:
@@ -1108,6 +1160,8 @@ paths:
                 $ref: "#/components/schemas/CollectionError"
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-group: client.collections
       x-speakeasy-name-override: create
   /rest/api/v1/deletecollection:
@@ -1144,6 +1198,8 @@ paths:
                 $ref: "#/components/schemas/CollectionError"
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-name-override: delete
       x-speakeasy-group: client.collections
   /rest/api/v1/deletecollectionitem:
@@ -1180,6 +1236,8 @@ paths:
           description: Failed to save deletion
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-name-override: deleteItem
       x-speakeasy-group: client.collections
   /rest/api/v1/editcollection:
@@ -1220,6 +1278,8 @@ paths:
                 $ref: "#/components/schemas/CollectionError"
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-name-override: update
       x-speakeasy-group: client.collections
   /rest/api/v1/editcollectionitem:
@@ -1254,6 +1314,8 @@ paths:
           description: Not Authorized
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-name-override: updateItem
       x-speakeasy-group: client.collections
   /rest/api/v1/getcollection:
@@ -1288,6 +1350,8 @@ paths:
           description: Not Authorized
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-name-override: retrieve
       x-speakeasy-group: client.collections
   /rest/api/v1/listcollections:
@@ -1322,6 +1386,8 @@ paths:
           description: Not Authorized
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-name-override: list
       x-speakeasy-group: client.collections
   /rest/api/v1/getdocpermissions:
@@ -1358,6 +1424,8 @@ paths:
           description: Forbidden
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-name-override: retrievePermissions
       x-speakeasy-group: client.documents
   /rest/api/v1/getdocuments:
@@ -1392,6 +1460,8 @@ paths:
           description: Documents does not exist, or user cannot access documents.
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-name-override: retrieve
       x-speakeasy-group: client.documents
   /rest/api/v1/getdocumentsbyfacets:
@@ -1426,6 +1496,8 @@ paths:
           description: Not Found
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-name-override: retrieveByFacets
       x-speakeasy-group: client.documents
   /rest/api/v1/insights:
@@ -1460,6 +1532,8 @@ paths:
           description: Not Authorized
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-name-override: retrieve
       x-speakeasy-group: client.insights
   /rest/api/v1/messages:
@@ -1494,6 +1568,8 @@ paths:
           description: Not Authorized
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-name-override: retrieve
       x-speakeasy-group: client.messages
   /rest/api/v1/editpin:
@@ -1528,6 +1604,8 @@ paths:
           description: Not Authorized
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-name-override: update
       x-speakeasy-group: client.pins
   /rest/api/v1/getpin:
@@ -1562,6 +1640,8 @@ paths:
           description: Not Authorized
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-name-override: retrieve
       x-speakeasy-group: client.pins
   /rest/api/v1/listpins:
@@ -1596,6 +1676,8 @@ paths:
           description: Not Authorized
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-name-override: list
       x-speakeasy-group: client.pins
   /rest/api/v1/pin:
@@ -1630,6 +1712,8 @@ paths:
           description: Not Authorized
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-name-override: create
       x-speakeasy-group: client.pins
   /rest/api/v1/unpin:
@@ -1662,6 +1746,8 @@ paths:
           description: Forbidden from unpinning someone else's pin
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-name-override: remove
       x-speakeasy-group: client.pins
   /rest/api/v1/adminsearch:
@@ -1708,6 +1794,8 @@ paths:
                 $ref: "#/components/schemas/ErrorInfo"
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-group: client.search
       x-speakeasy-name-override: queryAsAdmin
   /rest/api/v1/autocomplete:
@@ -1742,6 +1830,8 @@ paths:
           description: Not Authorized
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-group: client.search
       x-speakeasy-name-override: autocomplete
   /rest/api/v1/feed:
@@ -1778,6 +1868,8 @@ paths:
           description: Request Timeout
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-name-override: retrieveFeed
       x-speakeasy-group: client.search
   /rest/api/v1/recommendations:
@@ -1818,6 +1910,8 @@ paths:
           description: Document does not exist or user cannot access document
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-group: client.search
       x-speakeasy-name-override: recommendations
   /rest/api/v1/search:
@@ -1866,6 +1960,8 @@ paths:
                 $ref: "#/components/schemas/ErrorInfo"
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-group: client.search
       x-speakeasy-name-override: query
   /rest/api/v1/listentities:
@@ -1900,6 +1996,8 @@ paths:
           description: Not Authorized
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-group: client.entities
       x-speakeasy-name-override: list
   /rest/api/v1/people:
@@ -1934,6 +2032,8 @@ paths:
           description: Not Authorized
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-name-override: readPeople
       x-speakeasy-group: client.entities
   /rest/api/v1/createshortcut:
@@ -1968,6 +2068,8 @@ paths:
           description: Not Authorized
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-name-override: create
       x-speakeasy-group: client.shortcuts
   /rest/api/v1/deleteshortcut:
@@ -1998,6 +2100,8 @@ paths:
           description: Not Authorized
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-name-override: delete
       x-speakeasy-group: client.shortcuts
   /rest/api/v1/getshortcut:
@@ -2032,6 +2136,8 @@ paths:
           description: Not Authorized
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-group: client.shortcuts
       x-speakeasy-name-override: retrieve
   /rest/api/v1/listshortcuts:
@@ -2066,6 +2172,8 @@ paths:
           description: Not Authorized
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-group: client.shortcuts
       x-speakeasy-name-override: list
   /rest/api/v1/updateshortcut:
@@ -2100,6 +2208,8 @@ paths:
           description: Not Authorized
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-group: client.shortcuts
       x-speakeasy-name-override: update
   /rest/api/v1/summarize:
@@ -2134,6 +2244,8 @@ paths:
           description: Not Authorized
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-name-override: summarize
       x-speakeasy-group: client.documents
   /rest/api/v1/addverificationreminder:
@@ -2170,6 +2282,8 @@ paths:
           description: Document does not exist, does not support verification or user cannot access document
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-name-override: addReminder
       x-speakeasy-group: client.verification
   /rest/api/v1/listverifications:
@@ -2202,6 +2316,8 @@ paths:
           description: Not Authorized
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-name-override: list
       x-speakeasy-group: client.verification
   /rest/api/v1/verify:
@@ -2238,6 +2354,8 @@ paths:
           description: Document does not exist, does not support verification or user cannot access document
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       x-speakeasy-name-override: verify
       x-speakeasy-group: client.verification
   /rest/api/v1/tools/list:
@@ -2271,6 +2389,8 @@ paths:
           description: Not Found
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       tags:
         - Tools
       x-speakeasy-name-override: list
@@ -2301,6 +2421,8 @@ paths:
           description: Not Found
         "429":
           description: Too Many Requests
+      security:
+        - APIToken: []
       tags:
         - Tools
       x-speakeasy-name-override: run
@@ -2311,6 +2433,8 @@ paths:
       description: Adds a document to the index or updates an existing document.
       tags:
         - Documents
+      security:
+        - APIToken: []
       requestBody:
         content:
           application/json:
@@ -2337,6 +2461,8 @@ paths:
       description: Adds or updates multiple documents in the index. Please refer to the [bulk indexing](https://developers.glean.com/indexing/documents/bulk-indexing/choosing-indexdocuments-vs-bulkindexdocuments) documentation for an explanation of when to use this endpoint.
       tags:
         - Documents
+      security:
+        - APIToken: []
       requestBody:
         content:
           application/json:
@@ -2363,6 +2489,8 @@ paths:
       description: Replaces the documents in a datasource using paginated batch API calls. Please refer to the [bulk indexing](https://developers.glean.com/indexing/documents/bulk-upload-model) documentation for an explanation of how to use bulk endpoints.
       tags:
         - Documents
+      security:
+        - APIToken: []
       requestBody:
         content:
           application/json:
@@ -2387,6 +2515,8 @@ paths:
       description: Updates the permissions for a given document without modifying document content.
       tags:
         - Documents
+      security:
+        - APIToken: []
       requestBody:
         content:
           application/json:
@@ -2424,6 +2554,8 @@ paths:
         For more frequent document processing, contact Glean support.
       tags:
         - Documents
+      security:
+        - APIToken: []
       requestBody:
         content:
           application/json:
@@ -2447,6 +2579,8 @@ paths:
       description: Deletes the specified document from the index. Succeeds if document is not present.
       tags:
         - Documents
+      security:
+        - APIToken: []
       requestBody:
         content:
           application/json:
@@ -2471,6 +2605,8 @@ paths:
       description: Adds a datasource user or updates an existing user.
       tags:
         - Permissions
+      security:
+        - APIToken: []
       requestBody:
         content:
           application/json:
@@ -2497,6 +2633,8 @@ paths:
         Note: Any users deleted from the existing set will have their associated memberships deleted as well.
       tags:
         - Permissions
+      security:
+        - APIToken: []
       requestBody:
         content:
           application/json:
@@ -2521,6 +2659,8 @@ paths:
       description: Add or update a group in the datasource.
       tags:
         - Permissions
+      security:
+        - APIToken: []
       requestBody:
         content:
           application/json:
@@ -2547,6 +2687,8 @@ paths:
         Note: Any groups deleted from the existing set will have their associated memberships deleted as well.
       tags:
         - Permissions
+      security:
+        - APIToken: []
       requestBody:
         content:
           application/json:
@@ -2571,6 +2713,8 @@ paths:
       description: Add the memberships of a group in the datasource.
       tags:
         - Permissions
+      security:
+        - APIToken: []
       requestBody:
         content:
           application/json:
@@ -2595,6 +2739,8 @@ paths:
       description: Replaces the memberships for a group in a datasource using paginated batch API calls. Please refer to the [bulk indexing](https://developers.glean.com/indexing/documents/bulk-upload-model) documentation for an explanation of how to use bulk endpoints.
       tags:
         - Permissions
+      security:
+        - APIToken: []
       requestBody:
         content:
           application/json:
@@ -2620,6 +2766,8 @@ paths:
         Schedules the immediate processing of all group memberships uploaded through the indexing API. By default the uploaded group memberships will be processed asynchronously but this API can be used to schedule processing of all memberships on demand.
       tags:
         - Permissions
+      security:
+        - APIToken: []
       requestBody:
         content:
           application/json:
@@ -2643,6 +2791,8 @@ paths:
         Note: All memberships associated with the deleted user will also be deleted.
       tags:
         - Permissions
+      security:
+        - APIToken: []
       requestBody:
         content:
           application/json:
@@ -2669,6 +2819,8 @@ paths:
         Note: All memberships associated with the deleted group will also be deleted.
       tags:
         - Permissions
+      security:
+        - APIToken: []
       requestBody:
         content:
           application/json:
@@ -2693,6 +2845,8 @@ paths:
       description: Delete membership to a group in the specified datasource. Silently succeeds if membership is not present.
       tags:
         - Permissions
+      security:
+        - APIToken: []
       requestBody:
         content:
           application/json:
@@ -2721,6 +2875,8 @@ paths:
         Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/indexing/debugging/datasource-config) for more information.
       tags:
         - Troubleshooting
+      security:
+        - APIToken: []
       parameters:
         - name: datasource
           in: path
@@ -2752,6 +2908,8 @@ paths:
         Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/indexing/debugging/datasource-config) for more information.
       tags:
         - Troubleshooting
+      security:
+        - APIToken: []
       parameters:
         - name: datasource
           in: path
@@ -2790,6 +2948,8 @@ paths:
         Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/indexing/debugging/datasource-config) for more information.
       tags:
         - Troubleshooting
+      security:
+        - APIToken: []
       parameters:
         - name: datasource
           in: path
@@ -2828,6 +2988,8 @@ paths:
         Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/indexing/debugging/datasource-config) for more information.
       tags:
         - Troubleshooting
+      security:
+        - APIToken: []
       parameters:
         - name: datasource
           in: path
@@ -2865,6 +3027,8 @@ paths:
         Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/indexing/debugging/datasource-config) for more information.
       tags:
         - Troubleshooting
+      security:
+        - APIToken: []
       requestBody:
         content:
           application/json:
@@ -2896,6 +3060,8 @@ paths:
         Tip: Use [/debug/{datasource}/document](https://developers.glean.com/indexing/debugging/datasource-document) for richer information.
       tags:
         - Troubleshooting
+      security:
+        - APIToken: []
       requestBody:
         content:
           application/json:
@@ -2917,6 +3083,12 @@ paths:
         "429":
           description: Too Many Requests
       deprecated: true
+      x-glean-deprecated:
+        id: 7eec0433-78fd-49f9-a34f-cca83640ec24
+        introduced: "2026-02-03"
+        message: Endpoint is deprecated
+        removal: "2026-10-15"
+      x-speakeasy-deprecation-message: "Deprecated on 2026-02-03, removal scheduled for 2026-10-15: Endpoint is deprecated"
       x-speakeasy-group: indexing.documents
       x-speakeasy-name-override: status
   /api/index/v1/getdocumentcount:
@@ -2928,6 +3100,8 @@ paths:
         Tip: Use [/debug/{datasource}/status](https://developers.glean.com/indexing/debugging/datasource-status) for richer information.
       tags:
         - Troubleshooting
+      security:
+        - APIToken: []
       requestBody:
         content:
           application/json:
@@ -2949,6 +3123,12 @@ paths:
         "409":
           description: Conflict
       deprecated: true
+      x-glean-deprecated:
+        id: c164089c-9412-4724-acf6-caf3b0d2a527
+        introduced: "2026-02-03"
+        message: Endpoint is deprecated
+        removal: "2026-10-15"
+      x-speakeasy-deprecation-message: "Deprecated on 2026-02-03, removal scheduled for 2026-10-15: Endpoint is deprecated"
       x-speakeasy-group: indexing.documents
       x-speakeasy-name-override: count
   /api/index/v1/getusercount:
@@ -2960,6 +3140,8 @@ paths:
         Tip: Use [/debug/{datasource}/status](https://developers.glean.com/indexing/debugging/datasource-status) for richer information.
       tags:
         - Troubleshooting
+      security:
+        - APIToken: []
       requestBody:
         content:
           application/json:
@@ -2981,6 +3163,12 @@ paths:
         "409":
           description: Conflict
       deprecated: true
+      x-glean-deprecated:
+        id: 4f5df873-385e-4539-8183-cb764b0f06b9
+        introduced: "2026-02-03"
+        message: Endpoint is deprecated
+        removal: "2026-10-15"
+      x-speakeasy-deprecation-message: "Deprecated on 2026-02-03, removal scheduled for 2026-10-15: Endpoint is deprecated"
       x-speakeasy-name-override: count
       x-speakeasy-group: indexing.people
   /api/index/v1/betausers:
@@ -2989,6 +3177,8 @@ paths:
       description: Allow the datasource be visible to the specified beta users. The default behaviour is datasource being visible to all users if it is enabled and not visible to any user if it is not enabled.
       tags:
         - Permissions
+      security:
+        - APIToken: []
       requestBody:
         content:
           application/json:
@@ -3013,6 +3203,8 @@ paths:
       description: Add or update a custom datasource and its schema.
       tags:
         - Datasources
+      security:
+        - APIToken: []
       requestBody:
         content:
           application/json:
@@ -3035,6 +3227,8 @@ paths:
       description: Fetches the datasource config for the specified custom datasource.
       tags:
         - Datasources
+      security:
+        - APIToken: []
       requestBody:
         content:
           application/json:
@@ -3063,6 +3257,8 @@ paths:
       description: Rotates the secret value inside the Indexing API token and returns the new raw secret. All other properties of the token are unchanged. In order to rotate the secret value, include the token as the bearer token in the `/rotatetoken` request. Please refer to [Token rotation](https://developers.glean.com/indexing/authentication/token-rotation) documentation for more information.
       tags:
         - Authentication
+      security:
+        - APIToken: []
       responses:
         "200":
           description: OK
@@ -3082,6 +3278,8 @@ paths:
       description: Adds an employee or updates information about an employee
       tags:
         - People
+      security:
+        - APIToken: []
       requestBody:
         content:
           application/json; charset=UTF-8:
@@ -3106,6 +3304,8 @@ paths:
       description: Replaces all the currently indexed employees using paginated batch API calls. Please refer to the [bulk indexing](https://developers.glean.com/indexing/documents/bulk-upload-model) documentation for an explanation of how to use bulk endpoints.
       tags:
         - People
+      security:
+        - APIToken: []
       requestBody:
         content:
           application/json; charset=UTF-8:
@@ -3122,6 +3322,13 @@ paths:
           description: Not Authorized
         "409":
           description: Conflict
+      deprecated: true
+      x-glean-deprecated:
+        id: ce596f49-55c4-465e-bf3c-5a3a33906e1f
+        introduced: "2026-02-03"
+        message: Endpoint is deprecated
+        removal: "2026-10-15"
+      x-speakeasy-deprecation-message: "Deprecated on 2026-02-03, removal scheduled for 2026-10-15: Endpoint is deprecated"
       x-speakeasy-name-override: bulkIndex
       x-speakeasy-group: indexing.people
   /api/index/v1/indexemployeelist: {}
@@ -3132,6 +3339,8 @@ paths:
         Schedules the immediate processing of employees and teams uploaded through the indexing API. By default all uploaded people data will be processed asynchronously but this API can be used to schedule its processing on demand.
       tags:
         - People
+      security:
+        - APIToken: []
       responses:
         "200":
           description: OK
@@ -3149,6 +3358,8 @@ paths:
       description: Delete an employee. Silently succeeds if employee is not present.
       tags:
         - People
+      security:
+        - APIToken: []
       requestBody:
         content:
           application/json; charset=UTF-8:
@@ -3173,6 +3384,8 @@ paths:
       description: Adds a team or updates information about a team
       tags:
         - People
+      security:
+        - APIToken: []
       requestBody:
         content:
           application/json; charset=UTF-8:
@@ -3197,6 +3410,8 @@ paths:
       description: Delete a team based on provided id.
       tags:
         - People
+      security:
+        - APIToken: []
       requestBody:
         content:
           application/json; charset=UTF-8:
@@ -3221,6 +3436,8 @@ paths:
       description: Replaces all the currently indexed teams using paginated batch API calls. Please refer to the [bulk indexing](https://developers.glean.com/indexing/documents/bulk-upload-model) documentation for an explanation of how to use bulk endpoints.
       tags:
         - People
+      security:
+        - APIToken: []
       requestBody:
         content:
           application/json; charset=UTF-8:
@@ -3245,6 +3462,8 @@ paths:
       description: Replaces all the currently indexed shortcuts using paginated batch API calls. Note that this endpoint is used for indexing shortcuts not hosted by Glean. If you want to upload shortcuts that would be hosted by Glean, please use the `/uploadshortcuts` endpoint. For information on what you can do with Golinks, which are Glean-hosted shortcuts, please refer to [this](https://help.glean.com/en/articles/5628838-how-go-links-work) page.
       tags:
         - Shortcuts
+      security:
+        - APIToken: []
       requestBody:
         content:
           application/json; charset=UTF-8:
@@ -3269,6 +3488,8 @@ paths:
       description: Creates glean shortcuts for uploaded shortcuts info. Glean would host the shortcuts, and they can be managed in the knowledge tab once uploaded.
       tags:
         - Shortcuts
+      security:
+        - APIToken: []
       requestBody:
         content:
           application/json; charset=UTF-8:
@@ -3294,6 +3515,8 @@ paths:
       description: Fetches the specified policy version, or the latest if no version is provided.
       tags:
         - Governance
+      security:
+        - APIToken: []
       parameters:
         - name: id
           in: path
@@ -3328,6 +3551,8 @@ paths:
       description: Updates an existing policy.
       tags:
         - Governance
+      security:
+        - APIToken: []
       parameters:
         - name: id
           in: path
@@ -3361,6 +3586,8 @@ paths:
       description: Lists policies with filtering.
       tags:
         - Governance
+      security:
+        - APIToken: []
       parameters:
         - name: autoHide
           in: query
@@ -3394,6 +3621,8 @@ paths:
       description: Creates a new policy with specified specifications and returns its id.
       tags:
         - Governance
+      security:
+        - APIToken: []
       requestBody:
         content:
           application/json; charset=UTF-8:
@@ -3421,6 +3650,8 @@ paths:
       description: Downloads CSV violations report for a specific policy id. This does not support continuous policies.
       tags:
         - Governance
+      security:
+        - APIToken: []
       parameters:
         - name: id
           in: path
@@ -3452,6 +3683,8 @@ paths:
       description: Creates a new one-time report and executes its batch job.
       tags:
         - Governance
+      security:
+        - APIToken: []
       requestBody:
         content:
           application/json; charset=UTF-8:
@@ -3479,6 +3712,8 @@ paths:
       description: Downloads CSV violations report for a specific report id.
       tags:
         - Governance
+      security:
+        - APIToken: []
       parameters:
         - name: id
           in: path
@@ -3508,6 +3743,8 @@ paths:
       description: Fetches the status of the run corresponding to the report-id.
       tags:
         - Governance
+      security:
+        - APIToken: []
       parameters:
         - name: id
           in: path
@@ -3536,6 +3773,8 @@ paths:
       description: Fetches the visibility override status of the documents passed.
       tags:
         - Governance
+      security:
+        - APIToken: []
       parameters:
         - name: docIds
           in: query
@@ -3564,6 +3803,8 @@ paths:
       description: Sets the visibility-override state of the documents specified, effectively hiding or un-hiding documents.
       tags:
         - Governance
+      security:
+        - APIToken: []
       requestBody:
         content:
           application/json; charset=UTF-8:
@@ -3591,6 +3832,8 @@ paths:
       description: Creates a new DLP findings export job.
       tags:
         - Governance
+      security:
+        - APIToken: []
       requestBody:
         content:
           application/json; charset=UTF-8:
@@ -3615,6 +3858,8 @@ paths:
       description: Lists all DLP findings exports.
       tags:
         - Governance
+      security:
+        - APIToken: []
       responses:
         "200":
           description: OK
@@ -3634,6 +3879,8 @@ paths:
       description: Downloads a DLP findings export as a CSV file.
       tags:
         - Governance
+      security:
+        - APIToken: []
       parameters:
         - name: id
           in: path
@@ -3660,6 +3907,8 @@ paths:
       description: Deletes a DLP findings export.
       tags:
         - Governance
+      security:
+        - APIToken: []
       parameters:
         - name: id
           in: path
@@ -3676,6 +3925,93 @@ paths:
         "500":
           description: Internal error
       x-visibility: Public
+  /rest/api/v1/configure/datasources/{datasourceId}/instances/{instanceId}:
+    get:
+      operationId: getDatasourceInstanceConfiguration
+      summary: Get datasource instance configuration
+      description: |
+        Gets the greenlisted configuration values for a datasource instance. Returns only configuration keys that are exposed via the public API greenlist.
+      tags:
+        - Datasources
+      security:
+        - APIToken: []
+      parameters:
+        - $ref: '#/components/parameters/datasourceId'
+        - $ref: '#/components/parameters/instanceId'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatasourceConfigurationResponse'
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "401":
+          description: Not authorized
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "404":
+          description: Datasource instance not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-visibility: Preview
+    patch:
+      operationId: updateDatasourceInstanceConfiguration
+      summary: Update datasource instance configuration
+      description: |
+        Updates the greenlisted configuration values for a datasource instance. Only configuration keys that are exposed via the public API greenlist may be set. Returns the full greenlisted configuration after the update is applied.
+      tags:
+        - Datasources
+      security:
+        - APIToken: []
+      parameters:
+        - $ref: '#/components/parameters/datasourceId'
+        - $ref: '#/components/parameters/instanceId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDatasourceConfigurationRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatasourceConfigurationResponse'
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "401":
+          description: Not authorized
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "404":
+          description: Datasource instance not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-visibility: Preview
   /rest/api/v1/chat#stream:
     post:
       tags:
@@ -5702,9 +6038,6 @@ components:
         target:
           $ref: "#/components/schemas/CollectionPinTarget"
     CollectionPinnedMetadata:
-      required:
-        - pinnedCategories
-        - eligibleCategoriesForPinning
       properties:
         existingPins:
           type: array
@@ -6222,8 +6555,6 @@ components:
         type:
           $ref: "#/components/schemas/EntityType"
     SearchResultSnippet:
-      required:
-        - snippet
       properties:
         mimeType:
           type: string
@@ -6246,6 +6577,12 @@ components:
           type: string
           deprecated: true
           description: A matching snippet from the document. Query term matches are marked by the unicode characters uE006 and uE007. Use 'text' field instead.
+          x-glean-deprecated:
+            id: e55ddf30-7c47-43a5-b775-d78f8b29411a
+            introduced: "2026-02-05"
+            message: Use 'text' field instead
+            removal: "2026-10-15"
+          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use 'text' field instead"
       example:
         snippet: snippet
         mimeType: mimeType
@@ -6547,16 +6884,34 @@ components:
           deprecated: true
           description: The person that invited this person.
           $ref: "#/components/schemas/Person"
+          x-glean-deprecated:
+            id: 1d3cd23f-9085-4378-b466-9bdc2e344a71
+            introduced: "2026-02-05"
+            message: Use ChannelInviteInfo instead
+            removal: "2026-10-15"
+          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use ChannelInviteInfo instead"
         inviteTime:
           deprecated: true
           type: string
           format: date-time
           description: The time this person was invited in ISO format (ISO 8601).
+          x-glean-deprecated:
+            id: 2dc3f572-cded-483d-af07-fc9fc7fd0ae4
+            introduced: "2026-02-05"
+            message: Use ChannelInviteInfo instead
+            removal: "2026-10-15"
+          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use ChannelInviteInfo instead"
         reminderTime:
           deprecated: true
           type: string
           format: date-time
           description: The time this person was reminded in ISO format (ISO 8601) if a reminder was sent.
+          x-glean-deprecated:
+            id: d02d58cf-eb90-45d0-ab90-f7a9d707ae3c
+            introduced: "2026-02-05"
+            message: Use ChannelInviteInfo instead
+            removal: "2026-10-15"
+          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use ChannelInviteInfo instead"
     ReadPermission:
       description: Describes the read permission level that a user has for a specific feature
       properties:
@@ -7610,6 +7965,10 @@ components:
           type: string
           format: url
           description: The OAuth provider's endpoint, where access tokens are requested.
+        resource:
+          type: string
+          format: url
+          description: The OAuth 2.0 Resource Indicator (RFC 8707) for the protected resource. Discovered from Protected Resource Metadata (RFC 9728) during DCR. Included in authorization and token exchange requests when present.
         lastAuthorizedAt:
           type: string
           format: date-time
@@ -7944,12 +8303,6 @@ components:
         chatSessionTrackingToken:
           type: string
           description: A token that is used to track the session.
-        unauthorizedDatasourceInstances:
-          type: array
-          description: |
-            Datasource instances that could not be queried because the user has not completed or has expired per-user OAuth, aggregated across all tools invoked in this turn.
-          items:
-            $ref: "#/components/schemas/UnauthorizedDatasourceInstance"
     DeleteChatsRequest:
       required:
         - ids
@@ -8007,6 +8360,9 @@ components:
           items:
             $ref: "#/components/schemas/ChatMetadataResult"
           x-includeEmpty: true
+        cursor:
+          type: string
+          description: An opaque cursor for fetching the next page of results. If empty, there are no more results.
     GetChatApplicationRequest:
       required:
         - id
@@ -8107,9 +8463,12 @@ components:
               description: Whether the agent supports streaming output. If true, you you can stream agent ouput. All agents currently support streaming.
           additionalProperties: true
     ErrorResponse:
-      type: string
-      title: ErrorResponse
-      description: Error message returned from the server
+      type: object
+      description: Error response returned for failed requests
+      properties:
+        message:
+          type: string
+          description: Client-facing error message describing what went wrong
     ActionSummary:
       type: object
       description: Represents a minimal summary of an action.
@@ -8123,6 +8482,31 @@ components:
         display_name:
           type: string
           description: The display name of the action.
+        type:
+          type: string
+          description: The type of tool - RETRIEVAL for read-only operations, ACTION for operations that modify data.
+        auth_type:
+          type: string
+          description: The authentication type required - OAUTH_USER, OAUTH_ADMIN, API_KEY, BASIC_AUTH, DWD (domain-wide delegation), or NONE.
+        write_action_type:
+          type: string
+          description: For write actions only - REDIRECT (client renders URL) or EXECUTION (external server call).
+        is_setup_finished:
+          type: boolean
+          description: Whether this action has been fully configured and validated.
+          x-includeEmpty: true
+        data_source:
+          type: string
+          description: |
+            Indicates the kind of knowledge a tool would access or modify.
+            Company knowledge:
+              - Glean search, and any native tools that derive from it (e.g., expert search, code search)
+              - Native federated tools to company data sources (e.g., outlook search)
+            World knowledge:
+              - Platform action like bravewebsearch, geminiwebsearch, etc
+            Neutral knowledge:
+              - Native tools that don't access or modify content via APIs (e.g., file analyst, think)
+              - Platform read or write tools (creator has to determine their knowledge implications)
     AgentSchemas:
       properties:
         agent_id:
@@ -9026,12 +9410,6 @@ components:
         federatedSearchRateLimitError:
           type: boolean
           description: Indicates the federated search results could not be fetched due to rate limiting.
-        unauthorizedDatasourceInstances:
-          type: array
-          description: |
-            Datasource instances that could not be queried because the user has not completed or has expired per-user OAuth.
-          items:
-            $ref: "#/components/schemas/UnauthorizedDatasourceInstance"
       x-speakeasy-name-override: GleanDataError
     ResultsResponse:
       properties:
@@ -10203,6 +10581,12 @@ components:
             - ZERO_STATE_AGENT_SUGGESTION
             - PERSONALIZED_CHAT_SUGGESTION
             - DAILY_DIGEST
+            - TASK
+            - PLAN_MY_DAY
+            - END_MY_DAY
+            - STARTER_KIT_EXTENSION
+            - STARTER_KIT_ORG_CHART
+            - STARTER_KIT_ADD_DOC
           description: Type of the justification.
         justification:
           type: string
@@ -10275,6 +10659,10 @@ components:
             - ZERO_STATE_WORKFLOW_SUGGESTION
             - PERSONALIZED_CHAT_SUGGESTION
             - DAILY_DIGEST
+            - TASK
+            - PLAN_MY_DAY
+            - END_MY_DAY
+            - STARTER_KIT
           description: Category of the result, one of the requested categories in incoming request.
         primaryEntry:
           $ref: "#/components/schemas/FeedEntry"
@@ -11700,12 +12088,12 @@ components:
           type: string
           description: The employee's location (city/office name etc).
           deprecated: true
-          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Field is deprecated"
           x-glean-deprecated:
             id: a7f6fbaa-0eaf-4c0c-a4f5-ab90347f73fd
             introduced: "2026-02-05"
             message: Field is deprecated
             removal: "2026-10-15"
+          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Field is deprecated"
         structuredLocation:
           $ref: '#/components/schemas/StructuredLocation'
           description: Detailed location with information about country, state, city etc.
@@ -12592,13 +12980,13 @@ components:
             - UNLIKELY
             - VERY_UNLIKELY
           deprecated: true
-          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Field is deprecated"
           x-glean-deprecated:
             - id: d45039ec-d6f6-47ba-93b7-ab2307b07f84
               introduced: "2026-02-05"
               kind: property
               message: Field is deprecated
               removal: "2026-10-15"
+          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Field is deprecated"
         infoType:
           type: string
           description: Text representation of an info-type to scan for.
@@ -12624,12 +13012,12 @@ components:
             type: string
           description: list of url regex matching documents excluded from report
           deprecated: true
-          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Field is deprecated"
           x-glean-deprecated:
             id: e022aaa5-56e6-4b57-bca3-b11943da76a0
             introduced: "2026-02-05"
             message: Field is deprecated
             removal: "2026-10-15"
+          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Field is deprecated"
         datasourcesType:
           type: string
           enum:
@@ -12642,12 +13030,12 @@ components:
             type: string
           description: List of datasources to consider for report. DEPRECATED - use datasourceInstances instead.
           deprecated: true
-          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use datasourceInstances instead"
           x-glean-deprecated:
             id: 97e35970-e0ed-4248-be13-2af8c22e7894
             introduced: "2026-02-05"
             message: Use datasourceInstances instead
             removal: "2026-10-15"
+          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use datasourceInstances instead"
         datasourceInstances:
           type: array
           items:
@@ -12675,12 +13063,12 @@ components:
         enabled:
           type: boolean
           deprecated: true
-          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Field is deprecated"
           x-glean-deprecated:
             id: e9260be6-209b-4ce2-a4b3-f7f22879dd86
             introduced: "2026-02-05"
             message: Field is deprecated
             removal: "2026-10-15"
+          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Field is deprecated"
         threshold:
           type: integer
           description: The minimum number of users the document is shared with.
@@ -12690,12 +13078,12 @@ components:
         anyoneWithLinkEnabled:
           type: boolean
           deprecated: true
-          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Field is deprecated"
           x-glean-deprecated:
             id: 30646ced-e0db-43ef-8412-64a67c5d0f53
             introduced: "2026-02-05"
             message: Field is deprecated
             removal: "2026-10-15"
+          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Field is deprecated"
         anyoneInternalEnabled:
           type: boolean
           description: Only users within the organization can access the document.
@@ -12720,12 +13108,12 @@ components:
             domainAccessEnabled:
               type: boolean
       deprecated: true
-      x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use broadSharingOptions instead"
       x-glean-deprecated:
         id: 7c9e4a1d-3f8b-4e2c-9a5d-6b0f1c8e2d4a
         introduced: "2026-02-05"
         message: Use broadSharingOptions instead
         removal: "2026-10-15"
+      x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use broadSharingOptions instead"
     HotwordProximity:
       properties:
         windowBefore:
@@ -12793,36 +13181,36 @@ components:
             $ref: '#/components/schemas/SensitiveInfoType'
           description: DEPRECATED - use 'customSensitiveExpressions' instead.
           deprecated: true
-          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use customSensitiveExpressions instead"
           x-glean-deprecated:
             id: 3497cb1c-f7aa-42d8-81b8-309c3adeed84
             introduced: "2026-02-05"
             message: Use customSensitiveExpressions instead
             removal: "2026-10-15"
+          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use customSensitiveExpressions instead"
         sensitiveTerms:
           type: array
           items:
             $ref: '#/components/schemas/SensitiveExpression'
           description: DEPRECATED - use 'customSensitiveExpressions' instead.
           deprecated: true
-          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use customSensitiveExpressions instead"
           x-glean-deprecated:
             id: b0713b37-472e-4c29-80ba-6f5d6f2b449c
             introduced: "2026-02-05"
             message: Use customSensitiveExpressions instead
             removal: "2026-10-15"
+          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use customSensitiveExpressions instead"
         sensitiveRegexes:
           type: array
           items:
             $ref: '#/components/schemas/SensitiveExpression'
           description: DEPRECATED - use 'customSensitiveExpressions' instead.
           deprecated: true
-          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use customSensitiveExpressions instead"
           x-glean-deprecated:
             id: a26e1920-36b6-4c0f-981f-57b09a9ebce3
             introduced: "2026-02-05"
             message: Use customSensitiveExpressions instead
             removal: "2026-10-15"
+          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use customSensitiveExpressions instead"
         customSensitiveExpressions:
           type: array
           items:
@@ -12871,12 +13259,12 @@ components:
             $ref: '#/components/schemas/SensitiveInfoType'
           description: DEPRECATED - use `sensitiveContentOptions` instead.
           deprecated: true
-          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use sensitiveContentOptions instead"
           x-glean-deprecated:
             id: 60d6d182-e9d0-448d-af75-137f68bbdcbf
             introduced: "2026-02-05"
             message: Use sensitiveContentOptions instead
             removal: "2026-10-15"
+          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use sensitiveContentOptions instead"
         inputOptions:
           $ref: '#/components/schemas/InputOptions'
           description: Options for documents to include or exclude in a report
@@ -12884,12 +13272,12 @@ components:
           $ref: '#/components/schemas/ExternalSharingOptions'
           description: DEPRECATED - use `broadSharingOptions` instead.
           deprecated: true
-          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use broadSharingOptions instead"
           x-glean-deprecated:
             id: 6484ec17-a133-4176-b2ce-28e25b0e9065
             introduced: "2026-02-05"
             message: Use broadSharingOptions instead
             removal: "2026-10-15"
+          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use broadSharingOptions instead"
         broadSharingOptions:
           $ref: '#/components/schemas/SharingOptions'
           description: Options for defining documents to scan for sensitive content.
@@ -13217,6 +13605,49 @@ components:
           items:
             type: string
           description: List of field names to exclude from the export
+    ConfigurationValue:
+      type: object
+      properties:
+        value:
+          type: string
+          description: The configuration value as a string. Only one of value or valueList should be populated.
+        valueList:
+          type: array
+          items:
+            type: string
+          description: The configuration value as a list of strings. Only one of value or valueList should be populated.
+      description: A single configuration value, either a scalar or a list
+    ConfigurationValues:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/ConfigurationValue'
+      description: A map from configuration key names to their values
+    DatasourceInstanceConfiguration:
+      type: object
+      properties:
+        values:
+          $ref: '#/components/schemas/ConfigurationValues'
+      required:
+        - values
+      description: Configuration for a datasource instance
+    DatasourceConfigurationResponse:
+      type: object
+      properties:
+        configuration:
+          $ref: '#/components/schemas/DatasourceInstanceConfiguration'
+      required:
+        - configuration
+      description: |
+        The greenlisted configuration values for a datasource instance. Only keys that are exposed via the public API greenlist are included.
+    UpdateDatasourceConfigurationRequest:
+      type: object
+      properties:
+        configuration:
+          $ref: '#/components/schemas/DatasourceInstanceConfiguration'
+      required:
+        - configuration
+      description: |
+        Request to update greenlisted configuration values for a datasource instance. Only keys that are exposed via the public API greenlist may be set.
     ChatRequestStream:
       required:
         - messages
@@ -13274,6 +13705,22 @@ components:
       description: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
       schema:
         type: integer
+    datasourceId:
+      name: datasourceId
+      in: path
+      description: The datasource type identifier (e.g. o365sharepoint)
+      required: true
+      schema:
+        type: string
+        example: o365sharepoint
+    instanceId:
+      name: instanceId
+      in: path
+      description: The datasource instance identifier
+      required: true
+      schema:
+        type: string
+        example: o365sharepoint_abc123
   responses:
     SuccessResponse:
       description: OK

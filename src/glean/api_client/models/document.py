@@ -4,9 +4,10 @@ from __future__ import annotations
 from .connectortype import ConnectorType
 from .documentcontent import DocumentContent, DocumentContentTypedDict
 from .documentsection import DocumentSection, DocumentSectionTypedDict
+from glean.api_client import models
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
-from pydantic import model_serializer
+from pydantic import field_serializer, model_serializer
 from typing import List, Optional, TYPE_CHECKING
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -71,6 +72,15 @@ class Document(BaseModel):
     sections: Optional[List[DocumentSection]] = None
     r"""A list of content sub-sections in the document, e.g. text blocks with different headings in a Drive doc or Confluence page."""
 
+    @field_serializer("connector_type")
+    def serialize_connector_type(self, value):
+        if isinstance(value, str):
+            try:
+                return models.ConnectorType(value)
+            except ValueError:
+                return value
+        return value
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -93,7 +103,7 @@ class Document(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

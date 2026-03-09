@@ -268,7 +268,7 @@ func testListverificationsListverifications0(w http.ResponseWriter, req *http.Re
 										Snippets: []components.SearchResultSnippet{
 											components.SearchResultSnippet{
 												MimeType: types.String("mimeType"),
-												Snippet:  "snippet",
+												Snippet:  types.String("snippet"),
 											},
 										},
 									},

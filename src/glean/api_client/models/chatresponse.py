@@ -2,10 +2,6 @@
 
 from __future__ import annotations
 from .chatmessage import ChatMessage, ChatMessageTypedDict
-from .unauthorizeddatasourceinstance import (
-    UnauthorizedDatasourceInstance,
-    UnauthorizedDatasourceInstanceTypedDict,
-)
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
 from pydantic import model_serializer
@@ -25,12 +21,6 @@ class ChatResponseTypedDict(TypedDict):
     r"""Time in milliseconds the backend took to respond to the request."""
     chat_session_tracking_token: NotRequired[str]
     r"""A token that is used to track the session."""
-    unauthorized_datasource_instances: NotRequired[
-        List[UnauthorizedDatasourceInstanceTypedDict]
-    ]
-    r"""Datasource instances that could not be queried because the user has not completed or has expired per-user OAuth, aggregated across all tools invoked in this turn.
-
-    """
 
 
 class ChatResponse(BaseModel):
@@ -56,14 +46,6 @@ class ChatResponse(BaseModel):
     ] = None
     r"""A token that is used to track the session."""
 
-    unauthorized_datasource_instances: Annotated[
-        Optional[List[UnauthorizedDatasourceInstance]],
-        pydantic.Field(alias="unauthorizedDatasourceInstances"),
-    ] = None
-    r"""Datasource instances that could not be queried because the user has not completed or has expired per-user OAuth, aggregated across all tools invoked in this turn.
-
-    """
-
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -73,7 +55,6 @@ class ChatResponse(BaseModel):
                 "followUpPrompts",
                 "backendTimeMillis",
                 "chatSessionTrackingToken",
-                "unauthorizedDatasourceInstances",
             ]
         )
         serialized = handler(self)
@@ -81,7 +62,7 @@ class ChatResponse(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

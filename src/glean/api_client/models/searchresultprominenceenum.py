@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 from enum import Enum
+from glean.api_client import utils
 
 
-class SearchResultProminenceEnum(str, Enum):
+class SearchResultProminenceEnum(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""The level of visual distinction that should be given to a result."""
 
     # A high-confidence result that should feature prominently on the page.

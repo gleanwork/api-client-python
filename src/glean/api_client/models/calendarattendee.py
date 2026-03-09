@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 from enum import Enum
+from glean.api_client import models, utils
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
-from pydantic import model_serializer
+from pydantic import field_serializer, model_serializer
 from typing import List, Optional, TYPE_CHECKING
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -12,7 +13,7 @@ if TYPE_CHECKING:
     from .person import Person, PersonTypedDict
 
 
-class ResponseStatus(str, Enum):
+class ResponseStatus(str, Enum, metaclass=utils.OpenEnumMeta):
     ACCEPTED = "ACCEPTED"
     DECLINED = "DECLINED"
     NO_RESPONSE = "NO_RESPONSE"
@@ -48,6 +49,15 @@ class CalendarAttendee(BaseModel):
         Optional[ResponseStatus], pydantic.Field(alias="responseStatus")
     ] = None
 
+    @field_serializer("response_status")
+    def serialize_response_status(self, value):
+        if isinstance(value, str):
+            try:
+                return models.ResponseStatus(value)
+            except ValueError:
+                return value
+        return value
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -58,7 +68,7 @@ class CalendarAttendee(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

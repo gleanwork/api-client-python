@@ -2,6 +2,16 @@
 
 The visibility-override state of the document.
 
+## Example Usage
+
+```python
+from glean.api_client.models import DocumentVisibilityUpdateResultOverride
+
+value = DocumentVisibilityUpdateResultOverride.NONE
+
+# Open enum: unrecognized values are captured as UnrecognizedStr
+```
+
 
 ## Values
 

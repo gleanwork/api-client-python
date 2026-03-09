@@ -8,6 +8,25 @@ type ActionSummary struct {
 	ToolID string `json:"tool_id"`
 	// The display name of the action.
 	DisplayName string `json:"display_name"`
+	// The type of tool - RETRIEVAL for read-only operations, ACTION for operations that modify data.
+	Type *string `json:"type,omitempty"`
+	// The authentication type required - OAUTH_USER, OAUTH_ADMIN, API_KEY, BASIC_AUTH, DWD (domain-wide delegation), or NONE.
+	AuthType *string `json:"auth_type,omitempty"`
+	// For write actions only - REDIRECT (client renders URL) or EXECUTION (external server call).
+	WriteActionType *string `json:"write_action_type,omitempty"`
+	// Whether this action has been fully configured and validated.
+	IsSetupFinished *bool `json:"is_setup_finished,omitempty"`
+	// Indicates the kind of knowledge a tool would access or modify.
+	// Company knowledge:
+	//   - Glean search, and any native tools that derive from it (e.g., expert search, code search)
+	//   - Native federated tools to company data sources (e.g., outlook search)
+	// World knowledge:
+	//   - Platform action like bravewebsearch, geminiwebsearch, etc
+	// Neutral knowledge:
+	//   - Native tools that don't access or modify content via APIs (e.g., file analyst, think)
+	//   - Platform read or write tools (creator has to determine their knowledge implications)
+	//
+	DataSource *string `json:"data_source,omitempty"`
 }
 
 func (o *ActionSummary) GetToolID() string {
@@ -22,4 +41,39 @@ func (o *ActionSummary) GetDisplayName() string {
 		return ""
 	}
 	return o.DisplayName
+}
+
+func (o *ActionSummary) GetType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Type
+}
+
+func (o *ActionSummary) GetAuthType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *ActionSummary) GetWriteActionType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.WriteActionType
+}
+
+func (o *ActionSummary) GetIsSetupFinished() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.IsSetupFinished
+}
+
+func (o *ActionSummary) GetDataSource() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DataSource
 }

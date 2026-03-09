@@ -63,7 +63,7 @@ func testMessagesMessages0(w http.ResponseWriter, req *http.Request) {
 					Snippets: []components.SearchResultSnippet{
 						components.SearchResultSnippet{
 							MimeType: types.String("mimeType"),
-							Snippet:  "snippet",
+							Snippet:  types.String("snippet"),
 						},
 					},
 				},
@@ -6603,7 +6603,7 @@ func testMessagesMessages0(w http.ResponseWriter, req *http.Request) {
 					},
 				},
 			},
-			GleanDataError: &components.GleanDataError{
+			ErrorInfo: &components.GleanDataError{
 				ErrorMessages: []components.ErrorMessage{
 					components.ErrorMessage{
 						Source:       types.String("gmail"),

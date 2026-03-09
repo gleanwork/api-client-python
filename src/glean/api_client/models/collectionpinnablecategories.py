@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 from enum import Enum
+from glean.api_client import utils
 
 
-class CollectionPinnableCategories(str, Enum):
+class CollectionPinnableCategories(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""Categories a Collection can be pinned to."""
 
     COMPANY_RESOURCE = "COMPANY_RESOURCE"

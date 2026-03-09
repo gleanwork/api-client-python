@@ -2,6 +2,16 @@
 
 Type of the justification.
 
+## Example Usage
+
+```python
+from glean.api_client.models import JustificationType
+
+value = JustificationType.FREQUENTLY_ACCESSED
+
+# Open enum: unrecognized values are captured as UnrecognizedStr
+```
+
 
 ## Values
 
@@ -41,3 +51,9 @@ Type of the justification.
 | `ZERO_STATE_AGENT_SUGGESTION`           | ZERO_STATE_AGENT_SUGGESTION             |
 | `PERSONALIZED_CHAT_SUGGESTION`          | PERSONALIZED_CHAT_SUGGESTION            |
 | `DAILY_DIGEST`                          | DAILY_DIGEST                            |
+| `TASK`                                  | TASK                                    |
+| `PLAN_MY_DAY`                           | PLAN_MY_DAY                             |
+| `END_MY_DAY`                            | END_MY_DAY                              |
+| `STARTER_KIT_EXTENSION`                 | STARTER_KIT_EXTENSION                   |
+| `STARTER_KIT_ORG_CHART`                 | STARTER_KIT_ORG_CHART                   |
+| `STARTER_KIT_ADD_DOC`                   | STARTER_KIT_ADD_DOC                     |

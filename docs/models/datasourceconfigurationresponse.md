@@ -1,0 +1,11 @@
+# DatasourceConfigurationResponse
+
+The greenlisted configuration values for a datasource instance. Only keys that are exposed via the public API greenlist are included.
+
+
+
+## Fields
+
+| Field                                                                                  | Type                                                                                   | Required                                                                               | Description                                                                            |
+| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `configuration`                                                                        | [models.DatasourceInstanceConfiguration](../models/datasourceinstanceconfiguration.md) | :heavy_check_mark:                                                                     | Configuration for a datasource instance                                                |

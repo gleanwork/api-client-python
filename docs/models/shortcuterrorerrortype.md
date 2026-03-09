@@ -1,5 +1,15 @@
 # ShortcutErrorErrorType
 
+## Example Usage
+
+```python
+from glean.api_client.models import ShortcutErrorErrorType
+
+value = ShortcutErrorErrorType.NO_PERMISSION
+
+# Open enum: unrecognized values are captured as UnrecognizedStr
+```
+
 
 ## Values
 

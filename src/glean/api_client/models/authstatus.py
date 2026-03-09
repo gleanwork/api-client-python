@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 from enum import Enum
+from glean.api_client import utils
 
 
-class AuthStatus(str, Enum):
+class AuthStatus(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""The per-user authorization status for a datasource."""
 
     DISABLED = "DISABLED"

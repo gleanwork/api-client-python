@@ -7,9 +7,10 @@ from .relatedobjectedge import RelatedObjectEdge, RelatedObjectEdgeTypedDict
 from .teamemail import TeamEmail, TeamEmailTypedDict
 from datetime import datetime
 from enum import Enum
+from glean.api_client import models, utils
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
-from pydantic import model_serializer
+from pydantic import field_serializer, model_serializer
 from typing import Dict, List, Optional, TYPE_CHECKING
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -21,7 +22,7 @@ if TYPE_CHECKING:
     )
 
 
-class TeamStatus(str, Enum):
+class TeamStatus(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""whether this team is fully processed or there are still unprocessed operations that'll affect it"""
 
     PROCESSED = "PROCESSED"
@@ -146,6 +147,15 @@ class Team(BaseModel):
     logging_id: Annotated[Optional[str], pydantic.Field(alias="loggingId")] = None
     r"""The logging id of the team used in scrubbed logs, client analytics, and metrics."""
 
+    @field_serializer("status")
+    def serialize_status(self, value):
+        if isinstance(value, str):
+            try:
+                return models.TeamStatus(value)
+            except ValueError:
+                return value
+        return value
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -176,7 +186,7 @@ class Team(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

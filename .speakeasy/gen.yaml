@@ -17,6 +17,7 @@ generation:
     securityFeb2025: true
     sharedErrorComponentsApr2025: true
     sharedNestedComponentsJan2026: false
+    nameOverrideFeb2026: false
   auth:
     oAuth2ClientCredentialsEnabled: false
     oAuth2PasswordEnabled: false
@@ -33,7 +34,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: true
 python:
-  version: 0.12.8
+  version: 0.12.9
   additionalDependencies:
     dev: {}
     main: {}

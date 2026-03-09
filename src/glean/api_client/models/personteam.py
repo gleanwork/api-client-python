@@ -3,14 +3,15 @@
 from __future__ import annotations
 from datetime import datetime
 from enum import Enum
+from glean.api_client import models, utils
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
-from pydantic import model_serializer
+from pydantic import field_serializer, model_serializer
 from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class PersonTeamRelationship(str, Enum):
+class PersonTeamRelationship(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""The team member's relationship to the team. This defaults to MEMBER if not set."""
 
     MEMBER = "MEMBER"
@@ -53,6 +54,15 @@ class PersonTeam(BaseModel):
     join_date: Annotated[Optional[datetime], pydantic.Field(alias="joinDate")] = None
     r"""The team member's start date"""
 
+    @field_serializer("relationship")
+    def serialize_relationship(self, value):
+        if isinstance(value, str):
+            try:
+                return models.PersonTeamRelationship(value)
+            except ValueError:
+                return value
+        return value
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -63,7 +73,7 @@ class PersonTeam(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

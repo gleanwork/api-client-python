@@ -11,9 +11,10 @@ from .socialnetwork import SocialNetwork, SocialNetworkTypedDict
 from .structuredlocation import StructuredLocation, StructuredLocationTypedDict
 from datetime import date, datetime
 from enum import Enum
+from glean.api_client import models, utils
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
-from pydantic import model_serializer
+from pydantic import field_serializer, model_serializer
 from typing import Dict, List, Optional, TYPE_CHECKING
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -24,7 +25,7 @@ if TYPE_CHECKING:
     from .querysuggestionlist import QuerySuggestionList, QuerySuggestionListTypedDict
 
 
-class PersonMetadataType(str, Enum):
+class PersonMetadataType(str, Enum, metaclass=utils.OpenEnumMeta):
     # The person is a current full-time employee of the company.
     FULL_TIME = "FULL_TIME"
     # The person is a current contractor of the company.
@@ -300,6 +301,15 @@ class PersonMetadata(BaseModel):
     is_org_root: Annotated[Optional[bool], pydantic.Field(alias="isOrgRoot")] = None
     r"""Whether this person is a \"root\" node in their organization's hierarchy."""
 
+    @field_serializer("type")
+    def serialize_type(self, value):
+        if isinstance(value, str):
+            try:
+                return models.PersonMetadataType(value)
+            except ValueError:
+                return value
+        return value
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -356,7 +366,7 @@ class PersonMetadata(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

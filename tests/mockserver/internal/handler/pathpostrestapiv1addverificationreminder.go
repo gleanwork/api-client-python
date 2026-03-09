@@ -284,7 +284,7 @@ func testAddverificationreminderAddverificationreminder0(w http.ResponseWriter, 
 								Snippets: []components.SearchResultSnippet{
 									components.SearchResultSnippet{
 										MimeType: types.String("mimeType"),
-										Snippet:  "snippet",
+										Snippet:  types.String("snippet"),
 									},
 								},
 							},

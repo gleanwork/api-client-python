@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 from enum import Enum
+from glean.api_client import utils
 
 
-class CustomSensitiveRuleType(str, Enum):
+class CustomSensitiveRuleType(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""Type of the custom sensitive rule."""
 
     REGEX = "REGEX"

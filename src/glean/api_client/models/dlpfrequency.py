@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 from enum import Enum
+from glean.api_client import utils
 
 
-class DlpFrequency(str, Enum):
+class DlpFrequency(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""Interval between scans. DAILY is deprecated."""
 
     ONCE = "ONCE"

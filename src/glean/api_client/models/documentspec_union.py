@@ -2,14 +2,15 @@
 
 from __future__ import annotations
 from enum import Enum
+from glean.api_client import models, utils
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
-from pydantic import model_serializer
+from pydantic import field_serializer, model_serializer
 from typing import Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-class DocumentSpecUgcType2(str, Enum):
+class DocumentSpecUgcType2(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""The type of the user generated content (UGC datasource)."""
 
     ANNOUNCEMENTS = "ANNOUNCEMENTS"
@@ -38,6 +39,15 @@ class DocumentSpec4(BaseModel):
     doc_type: Annotated[Optional[str], pydantic.Field(alias="docType")] = None
     r"""The specific type of the user generated content type."""
 
+    @field_serializer("ugc_type")
+    def serialize_ugc_type(self, value):
+        if isinstance(value, str):
+            try:
+                return models.DocumentSpecUgcType2(value)
+            except ValueError:
+                return value
+        return value
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(["docType"])
@@ -46,7 +56,7 @@ class DocumentSpec4(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -55,7 +65,7 @@ class DocumentSpec4(BaseModel):
         return m
 
 
-class DocumentSpecUgcType1(str, Enum):
+class DocumentSpecUgcType1(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""The type of the user generated content (UGC datasource)."""
 
     ANNOUNCEMENTS = "ANNOUNCEMENTS"
@@ -84,6 +94,15 @@ class DocumentSpec3(BaseModel):
     doc_type: Annotated[Optional[str], pydantic.Field(alias="docType")] = None
     r"""The specific type of the user generated content type."""
 
+    @field_serializer("ugc_type")
+    def serialize_ugc_type(self, value):
+        if isinstance(value, str):
+            try:
+                return models.DocumentSpecUgcType1(value)
+            except ValueError:
+                return value
+        return value
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(["docType"])
@@ -92,7 +111,7 @@ class DocumentSpec3(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

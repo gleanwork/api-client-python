@@ -6,21 +6,22 @@ from .objectpermissions import ObjectPermissions, ObjectPermissionsTypedDict
 from .personobject import PersonObject, PersonObjectTypedDict
 from datetime import datetime
 from enum import Enum
+from glean.api_client import models, utils
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
-from pydantic import model_serializer
+from pydantic import field_serializer, model_serializer
 from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class ToolMetadataType(str, Enum):
+class ToolMetadataType(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""The type of tool."""
 
     RETRIEVAL = "RETRIEVAL"
     ACTION = "ACTION"
 
 
-class KnowledgeType(str, Enum):
+class KnowledgeType(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""Indicates the kind of knowledge a tool would access or modify."""
 
     NEUTRAL_KNOWLEDGE = "NEUTRAL_KNOWLEDGE"
@@ -28,7 +29,7 @@ class KnowledgeType(str, Enum):
     WORLD_KNOWLEDGE = "WORLD_KNOWLEDGE"
 
 
-class WriteActionType(str, Enum):
+class WriteActionType(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""Valid only for write actions. Represents the type of write action. REDIRECT - The client renders the URL which contains information for carrying out the action. EXECUTION - Send a request to an external server and execute the action. MCP - Send a tools/call request to an MCP server to execute the action."""
 
     REDIRECT = "REDIRECT"
@@ -36,7 +37,7 @@ class WriteActionType(str, Enum):
     MCP = "MCP"
 
 
-class AuthType(str, Enum):
+class AuthType(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""The type of authentication being used.
     Use 'OAUTH_*' when Glean calls an external API (e.g., Jira) on behalf of a user to obtain an OAuth token.
     'OAUTH_ADMIN' utilizes an admin token for external API calls on behalf all users.
@@ -171,6 +172,42 @@ class ToolMetadata(BaseModel):
     ] = None
     r"""Whether this action has been fully configured and validated."""
 
+    @field_serializer("type")
+    def serialize_type(self, value):
+        if isinstance(value, str):
+            try:
+                return models.ToolMetadataType(value)
+            except ValueError:
+                return value
+        return value
+
+    @field_serializer("knowledge_type")
+    def serialize_knowledge_type(self, value):
+        if isinstance(value, str):
+            try:
+                return models.KnowledgeType(value)
+            except ValueError:
+                return value
+        return value
+
+    @field_serializer("write_action_type")
+    def serialize_write_action_type(self, value):
+        if isinstance(value, str):
+            try:
+                return models.WriteActionType(value)
+            except ValueError:
+                return value
+        return value
+
+    @field_serializer("auth_type")
+    def serialize_auth_type(self, value):
+        if isinstance(value, str):
+            try:
+                return models.AuthType(value)
+            except ValueError:
+                return value
+        return value
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -196,7 +233,7 @@ class ToolMetadata(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

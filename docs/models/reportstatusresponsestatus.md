@@ -1,5 +1,15 @@
 # ReportStatusResponseStatus
 
+## Example Usage
+
+```python
+from glean.api_client.models import ReportStatusResponseStatus
+
+value = ReportStatusResponseStatus.PENDING
+
+# Open enum: unrecognized values are captured as UnrecognizedStr
+```
+
 
 ## Values
 

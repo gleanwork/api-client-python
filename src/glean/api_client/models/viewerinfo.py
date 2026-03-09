@@ -3,9 +3,10 @@
 from __future__ import annotations
 from datetime import datetime
 from enum import Enum
+from glean.api_client import models, utils
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
-from pydantic import model_serializer
+from pydantic import field_serializer, model_serializer
 from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict, deprecated
 
@@ -13,7 +14,7 @@ from typing_extensions import Annotated, NotRequired, TypedDict, deprecated
 @deprecated(
     "warning: ** DEPRECATED ** - Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use permissions instead."
 )
-class Role(str, Enum):
+class Role(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""DEPRECATED - use permissions instead. Viewer's role on the specific document."""
 
     ANSWER_MODERATOR = "ANSWER_MODERATOR"
@@ -40,6 +41,15 @@ class ViewerInfo(BaseModel):
         Optional[datetime], pydantic.Field(alias="lastViewedTime")
     ] = None
 
+    @field_serializer("role")
+    def serialize_role(self, value):
+        if isinstance(value, str):
+            try:
+                return models.Role(value)
+            except ValueError:
+                return value
+        return value
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(["role", "lastViewedTime"])
@@ -48,7 +58,7 @@ class ViewerInfo(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

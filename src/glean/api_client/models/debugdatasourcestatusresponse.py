@@ -18,9 +18,10 @@ from .processinghistoryevent import (
     ProcessingHistoryEventTypedDict,
 )
 from enum import Enum
+from glean.api_client import models, utils
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
-from pydantic import model_serializer
+from pydantic import field_serializer, model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -51,7 +52,7 @@ class DebugDatasourceStatusResponseCounts(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -91,7 +92,7 @@ class Documents(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -129,7 +130,7 @@ class Identity(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:
@@ -138,7 +139,7 @@ class Identity(BaseModel):
         return m
 
 
-class DatasourceVisibility(str, Enum):
+class DatasourceVisibility(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""The visibility of the datasource, an enum of VISIBLE_TO_ALL, VISIBLE_TO_TEST_GROUP, NOT_VISIBLE"""
 
     ENABLED_FOR_ALL = "ENABLED_FOR_ALL"
@@ -167,6 +168,15 @@ class DebugDatasourceStatusResponse(BaseModel):
     ] = None
     r"""The visibility of the datasource, an enum of VISIBLE_TO_ALL, VISIBLE_TO_TEST_GROUP, NOT_VISIBLE"""
 
+    @field_serializer("datasource_visibility")
+    def serialize_datasource_visibility(self, value):
+        if isinstance(value, str):
+            try:
+                return models.DatasourceVisibility(value)
+            except ValueError:
+                return value
+        return value
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(["documents", "identity", "datasourceVisibility"])
@@ -175,7 +185,7 @@ class DebugDatasourceStatusResponse(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

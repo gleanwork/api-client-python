@@ -6,9 +6,10 @@ from .facetfilter import FacetFilter, FacetFilterTypedDict
 from .objectpermissions import ObjectPermissions, ObjectPermissionsTypedDict
 from datetime import datetime
 from enum import Enum
+from glean.api_client import models, utils
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
-from pydantic import model_serializer
+from pydantic import field_serializer, model_serializer
 from typing import List, Optional, TYPE_CHECKING
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -25,7 +26,7 @@ if TYPE_CHECKING:
     from .verification import Verification, VerificationTypedDict
 
 
-class AnswerSourceType(str, Enum):
+class AnswerSourceType(str, Enum, metaclass=utils.OpenEnumMeta):
     DOCUMENT = "DOCUMENT"
     ASSISTANT = "ASSISTANT"
 
@@ -157,6 +158,15 @@ class Answer(BaseModel):
         Optional["Document"], pydantic.Field(alias="sourceDocument")
     ] = None
 
+    @field_serializer("source_type")
+    def serialize_source_type(self, value):
+        if isinstance(value, str):
+            try:
+                return models.AnswerSourceType(value)
+            except ValueError:
+                return value
+        return value
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -190,7 +200,7 @@ class Answer(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

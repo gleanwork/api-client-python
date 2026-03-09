@@ -90,6 +90,12 @@ const (
 	JustificationTypeZeroStateAgentSuggestion          JustificationType = "ZERO_STATE_AGENT_SUGGESTION"
 	JustificationTypePersonalizedChatSuggestion        JustificationType = "PERSONALIZED_CHAT_SUGGESTION"
 	JustificationTypeDailyDigest                       JustificationType = "DAILY_DIGEST"
+	JustificationTypeTask                              JustificationType = "TASK"
+	JustificationTypePlanMyDay                         JustificationType = "PLAN_MY_DAY"
+	JustificationTypeEndMyDay                          JustificationType = "END_MY_DAY"
+	JustificationTypeStarterKitExtension               JustificationType = "STARTER_KIT_EXTENSION"
+	JustificationTypeStarterKitOrgChart                JustificationType = "STARTER_KIT_ORG_CHART"
+	JustificationTypeStarterKitAddDoc                  JustificationType = "STARTER_KIT_ADD_DOC"
 )
 
 func (e JustificationType) ToPointer() *JustificationType {
@@ -168,6 +174,18 @@ func (e *JustificationType) UnmarshalJSON(data []byte) error {
 	case "PERSONALIZED_CHAT_SUGGESTION":
 		fallthrough
 	case "DAILY_DIGEST":
+		fallthrough
+	case "TASK":
+		fallthrough
+	case "PLAN_MY_DAY":
+		fallthrough
+	case "END_MY_DAY":
+		fallthrough
+	case "STARTER_KIT_EXTENSION":
+		fallthrough
+	case "STARTER_KIT_ORG_CHART":
+		fallthrough
+	case "STARTER_KIT_ADD_DOC":
 		*e = JustificationType(v)
 		return nil
 	default:

@@ -8,14 +8,15 @@ from .canonicalizingregextype import (
 from .objectdefinition import ObjectDefinition, ObjectDefinitionTypedDict
 from .quicklink import Quicklink, QuicklinkTypedDict
 from enum import Enum
+from glean.api_client import models, utils
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
-from pydantic import model_serializer
+from pydantic import field_serializer, model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class DatasourceCategory(str, Enum):
+class DatasourceCategory(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""The type of this datasource. It is an important signal for relevance and must be specified and cannot be UNCATEGORIZED. Please refer to [this](https://developers.glean.com/docs/indexing_api_datasource_category/) for more details."""
 
     UNCATEGORIZED = "UNCATEGORIZED"
@@ -38,14 +39,14 @@ class DatasourceCategory(str, Enum):
     AGENTS = "AGENTS"
 
 
-class HideBuiltInFacet(str, Enum):
+class HideBuiltInFacet(str, Enum, metaclass=utils.OpenEnumMeta):
     TYPE = "TYPE"
     TAG = "TAG"
     AUTHOR = "AUTHOR"
     OWNER = "OWNER"
 
 
-class CustomDatasourceConfigConnectorType(str, Enum):
+class CustomDatasourceConfigConnectorType(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""The source from which document content was pulled, e.g. an API crawl or browser history"""
 
     API_CRAWL = "API_CRAWL"
@@ -238,6 +239,24 @@ class CustomDatasourceConfig(BaseModel):
     ] = False
     r"""True if this datasource will be used for testing purpose only. Documents from such a datasource wouldn't have any effect on search rankings."""
 
+    @field_serializer("datasource_category")
+    def serialize_datasource_category(self, value):
+        if isinstance(value, str):
+            try:
+                return models.DatasourceCategory(value)
+            except ValueError:
+                return value
+        return value
+
+    @field_serializer("connector_type")
+    def serialize_connector_type(self, value):
+        if isinstance(value, str):
+            try:
+                return models.CustomDatasourceConfigConnectorType(value)
+            except ValueError:
+                return value
+        return value
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -275,7 +294,7 @@ class CustomDatasourceConfig(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

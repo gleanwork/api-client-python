@@ -15,14 +15,15 @@ from .thumbnail import Thumbnail, ThumbnailTypedDict
 from .userrolespecification import UserRoleSpecification, UserRoleSpecificationTypedDict
 from datetime import datetime
 from enum import Enum
+from glean.api_client import models, utils
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
-from pydantic import model_serializer
+from pydantic import field_serializer, model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class EditCollectionResponseErrorCode(str, Enum):
+class EditCollectionResponseErrorCode(str, Enum, metaclass=utils.OpenEnumMeta):
     NAME_EXISTS = "NAME_EXISTS"
     NOT_FOUND = "NOT_FOUND"
     COLLECTION_PINNED = "COLLECTION_PINNED"
@@ -162,6 +163,15 @@ class EditCollectionResponse(BaseModel):
 
     error: Optional[CollectionError] = None
 
+    @field_serializer("error_code")
+    def serialize_error_code(self, value):
+        if isinstance(value, str):
+            try:
+                return models.EditCollectionResponseErrorCode(value)
+            except ValueError:
+                return value
+        return value
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -195,7 +205,7 @@ class EditCollectionResponse(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

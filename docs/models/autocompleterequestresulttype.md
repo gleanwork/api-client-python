@@ -1,5 +1,13 @@
 # AutocompleteRequestResultType
 
+## Example Usage
+
+```python
+from glean.api_client.models import AutocompleteRequestResultType
+
+value = AutocompleteRequestResultType.ADDITIONAL_DOCUMENT
+```
+
 
 ## Values
 

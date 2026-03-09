@@ -3,14 +3,15 @@
 from __future__ import annotations
 from .feedentry import FeedEntry, FeedEntryTypedDict
 from enum import Enum
+from glean.api_client import models, utils
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
-from pydantic import model_serializer
+from pydantic import field_serializer, model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class FeedResultCategory(str, Enum):
+class FeedResultCategory(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""Category of the result, one of the requested categories in incoming request."""
 
     DOCUMENT_SUGGESTION = "DOCUMENT_SUGGESTION"
@@ -38,6 +39,10 @@ class FeedResultCategory(str, Enum):
     ZERO_STATE_WORKFLOW_SUGGESTION = "ZERO_STATE_WORKFLOW_SUGGESTION"
     PERSONALIZED_CHAT_SUGGESTION = "PERSONALIZED_CHAT_SUGGESTION"
     DAILY_DIGEST = "DAILY_DIGEST"
+    TASK = "TASK"
+    PLAN_MY_DAY = "PLAN_MY_DAY"
+    END_MY_DAY = "END_MY_DAY"
+    STARTER_KIT = "STARTER_KIT"
 
 
 class FeedResultTypedDict(TypedDict):
@@ -64,6 +69,15 @@ class FeedResult(BaseModel):
     rank: Optional[int] = None
     r"""Rank of the result. Rank is suggested by server. Client side rank may differ."""
 
+    @field_serializer("category")
+    def serialize_category(self, value):
+        if isinstance(value, str):
+            try:
+                return models.FeedResultCategory(value)
+            except ValueError:
+                return value
+        return value
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(["secondaryEntries", "rank"])
@@ -72,7 +86,7 @@ class FeedResult(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

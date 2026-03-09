@@ -1,5 +1,13 @@
 # Issue
 
+## Example Usage
+
+```python
+from glean.api_client.models import Issue
+
+value = Issue.INACCURATE_RESPONSE
+```
+
 
 ## Values
 

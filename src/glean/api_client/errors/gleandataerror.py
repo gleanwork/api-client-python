@@ -6,7 +6,6 @@ from glean.api_client.errors import GleanBaseError
 from glean.api_client.models import (
     errormessage as models_errormessage,
     invalidoperatorvalueerror as models_invalidoperatorvalueerror,
-    unauthorizeddatasourceinstance as models_unauthorizeddatasourceinstance,
 )
 from glean.api_client.types import BaseModel
 import httpx
@@ -37,15 +36,6 @@ class GleanDataErrorData(BaseModel):
         Optional[bool], pydantic.Field(alias="federatedSearchRateLimitError")
     ] = None
     r"""Indicates the federated search results could not be fetched due to rate limiting."""
-    unauthorized_datasource_instances: Annotated[
-        Optional[
-            List[models_unauthorizeddatasourceinstance.UnauthorizedDatasourceInstance]
-        ],
-        pydantic.Field(alias="unauthorizedDatasourceInstances"),
-    ] = None
-    r"""Datasource instances that could not be queried because the user has not completed or has expired per-user OAuth.
-
-    """
 
 
 @dataclass(unsafe_hash=True)

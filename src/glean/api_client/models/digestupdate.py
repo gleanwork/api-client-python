@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 from .updatetype import UpdateType
+from glean.api_client import models
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
-from pydantic import model_serializer
+from pydantic import field_serializer, model_serializer
 from typing import List, Optional
 from typing_extensions import NotRequired, TypedDict
 
@@ -42,6 +43,15 @@ class DigestUpdate(BaseModel):
     type: Optional[UpdateType] = None
     r"""Optional type classification for the update."""
 
+    @field_serializer("type")
+    def serialize_type(self, value):
+        if isinstance(value, str):
+            try:
+                return models.UpdateType(value)
+            except ValueError:
+                return value
+        return value
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(["urls", "url", "title", "datasource", "summary", "type"])
@@ -50,7 +60,7 @@ class DigestUpdate(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

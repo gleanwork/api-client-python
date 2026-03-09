@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 from enum import Enum
+from glean.api_client import utils
 
 
-class DlpReportStatus(str, Enum):
+class DlpReportStatus(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""The status of the policy/report. Only ACTIVE status will be picked for scans."""
 
     ACTIVE = "ACTIVE"

@@ -2,6 +2,16 @@
 
 The current state of the upload, an enum of UNAVAILABLE, UPLOAD STARTED, UPLOAD IN PROGRESS, UPLOAD COMPLETED, DELETION PAUSED, INDEXING COMPLETED
 
+## Example Usage
+
+```python
+from glean.api_client.models import ProcessingState
+
+value = ProcessingState.UNAVAILABLE
+
+# Open enum: unrecognized values are captured as UnrecognizedStr
+```
+
 
 ## Values
 

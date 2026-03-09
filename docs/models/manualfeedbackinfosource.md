@@ -2,6 +2,14 @@
 
 The source associated with the Feedback.event.MANUAL_FEEDBACK event.
 
+## Example Usage
+
+```python
+from glean.api_client.models import ManualFeedbackInfoSource
+
+value = ManualFeedbackInfoSource.AUTOCOMPLETE
+```
+
 
 ## Values
 

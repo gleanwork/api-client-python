@@ -2,6 +2,16 @@
 
 The name of method used to surface relevant data for a given calendar event.
 
+## Example Usage
+
+```python
+from glean.api_client.models import EventStrategyName
+
+value = EventStrategyName.CUSTOMER_CARD
+
+# Open enum: unrecognized values are captured as UnrecognizedStr
+```
+
 
 ## Values
 

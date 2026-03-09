@@ -158449,3 +158449,48 @@ workflows:
               type: simple
       x-speakeasy-test-group: Authentication
       x-speakeasy-test-rebuild: true
+    - workflowId: getDatasourceInstanceConfiguration
+      steps:
+        - stepId: test
+          operationId: getDatasourceInstanceConfiguration
+          parameters:
+            - name: datasourceId
+              in: path
+              value: o365sharepoint
+            - name: instanceId
+              in: path
+              value: o365sharepoint_abc123
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"configuration":{"values":{"key":{}}}}
+              type: simple
+      x-speakeasy-test-group: Datasources
+      x-speakeasy-test-rebuild: true
+    - workflowId: updateDatasourceInstanceConfiguration
+      steps:
+        - stepId: test
+          operationId: updateDatasourceInstanceConfiguration
+          parameters:
+            - name: datasourceId
+              in: path
+              value: o365sharepoint
+            - name: instanceId
+              in: path
+              value: o365sharepoint_abc123
+          requestBody:
+            contentType: application/json
+            payload:
+                configuration:
+                    values: {}
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"configuration":{"values":{}}}
+              type: simple
+      x-speakeasy-test-group: Datasources
+      x-speakeasy-test-rebuild: true

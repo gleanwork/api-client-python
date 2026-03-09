@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 from enum import Enum
+from glean.api_client import utils
 
 
-class ConnectorType(str, Enum):
+class ConnectorType(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""The source from which document content was pulled, e.g. an API crawl or browser history"""
 
     API_CRAWL = "API_CRAWL"

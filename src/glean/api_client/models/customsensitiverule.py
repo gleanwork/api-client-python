@@ -3,14 +3,15 @@
 from __future__ import annotations
 from .customsensitiveruletype import CustomSensitiveRuleType
 from enum import Enum
+from glean.api_client import models, utils
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
-from pydantic import model_serializer
+from pydantic import field_serializer, model_serializer
 from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class CustomSensitiveRuleLikelihoodThreshold(str, Enum):
+class CustomSensitiveRuleLikelihoodThreshold(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""Likelihood threshold for BUILT_IN infotypes (e.g., LIKELY, VERY_LIKELY). Only applicable for BUILT_IN type."""
 
     LIKELY = "LIKELY"
@@ -47,6 +48,24 @@ class CustomSensitiveRule(BaseModel):
     ] = None
     r"""Likelihood threshold for BUILT_IN infotypes (e.g., LIKELY, VERY_LIKELY). Only applicable for BUILT_IN type."""
 
+    @field_serializer("type")
+    def serialize_type(self, value):
+        if isinstance(value, str):
+            try:
+                return models.CustomSensitiveRuleType(value)
+            except ValueError:
+                return value
+        return value
+
+    @field_serializer("likelihood_threshold")
+    def serialize_likelihood_threshold(self, value):
+        if isinstance(value, str):
+            try:
+                return models.CustomSensitiveRuleLikelihoodThreshold(value)
+            except ValueError:
+                return value
+        return value
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(["id", "value", "type", "likelihoodThreshold"])
@@ -55,7 +74,7 @@ class CustomSensitiveRule(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

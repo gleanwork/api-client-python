@@ -1,5 +1,15 @@
 # EditCollectionResponseErrorCode
 
+## Example Usage
+
+```python
+from glean.api_client.models import EditCollectionResponseErrorCode
+
+value = EditCollectionResponseErrorCode.NAME_EXISTS
+
+# Open enum: unrecognized values are captured as UnrecognizedStr
+```
+
 
 ## Values
 

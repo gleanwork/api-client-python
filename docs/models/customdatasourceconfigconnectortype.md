@@ -2,6 +2,16 @@
 
 The source from which document content was pulled, e.g. an API crawl or browser history
 
+## Example Usage
+
+```python
+from glean.api_client.models import CustomDatasourceConfigConnectorType
+
+value = CustomDatasourceConfigConnectorType.API_CRAWL
+
+# Open enum: unrecognized values are captured as UnrecognizedStr
+```
+
 
 ## Values
 

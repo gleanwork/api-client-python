@@ -2,14 +2,15 @@
 
 from __future__ import annotations
 from enum import Enum
+from glean.api_client import models, utils
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
-from pydantic import model_serializer
+from pydantic import field_serializer, model_serializer
 from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class ReportStatusResponseStatus(str, Enum):
+class ReportStatusResponseStatus(str, Enum, metaclass=utils.OpenEnumMeta):
     PENDING = "PENDING"
     SUCCESS = "SUCCESS"
     FAILURE = "FAILURE"
@@ -30,6 +31,15 @@ class ReportStatusResponse(BaseModel):
     start_time: Annotated[Optional[str], pydantic.Field(alias="startTime")] = None
     r"""The timestamp at which the report's run/scan began."""
 
+    @field_serializer("status")
+    def serialize_status(self, value):
+        if isinstance(value, str):
+            try:
+                return models.ReportStatusResponseStatus(value)
+            except ValueError:
+                return value
+        return value
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(["status", "startTime"])
@@ -38,7 +48,7 @@ class ReportStatusResponse(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

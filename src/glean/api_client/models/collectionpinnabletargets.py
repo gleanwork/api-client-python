@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 from enum import Enum
+from glean.api_client import utils
 
 
-class CollectionPinnableTargets(str, Enum):
+class CollectionPinnableTargets(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""What targets can a Collection be pinned to."""
 
     RESOURCE_CARD = "RESOURCE_CARD"

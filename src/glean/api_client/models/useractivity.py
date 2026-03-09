@@ -4,14 +4,15 @@ from __future__ import annotations
 from .countinfo import CountInfo, CountInfoTypedDict
 from .person import Person, PersonTypedDict
 from enum import Enum
+from glean.api_client import models, utils
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
-from pydantic import model_serializer
+from pydantic import field_serializer, model_serializer
 from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class UserActivityAction(str, Enum):
+class UserActivityAction(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""The action for the activity"""
 
     ADD = "ADD"
@@ -52,6 +53,15 @@ class UserActivity(BaseModel):
         Optional[CountInfo], pydantic.Field(alias="aggregateVisitCount")
     ] = None
 
+    @field_serializer("action")
+    def serialize_action(self, value):
+        if isinstance(value, str):
+            try:
+                return models.UserActivityAction(value)
+            except ValueError:
+                return value
+        return value
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(["actor", "timestamp", "action", "aggregateVisitCount"])
@@ -60,7 +70,7 @@ class UserActivity(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

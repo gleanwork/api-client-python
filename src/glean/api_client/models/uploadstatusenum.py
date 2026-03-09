@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 from enum import Enum
+from glean.api_client import utils
 
 
-class UploadStatusEnum(str, Enum):
+class UploadStatusEnum(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""Upload status, enum of NOT_UPLOADED, UPLOADED, STATUS_UNKNOWN"""
 
     UPLOADED = "UPLOADED"

@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 from enum import Enum
+from glean.api_client import models, utils
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
-from pydantic import model_serializer
+from pydantic import field_serializer, model_serializer
 from typing import Optional, TYPE_CHECKING
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -12,7 +13,7 @@ if TYPE_CHECKING:
     from .document import Document, DocumentTypedDict
 
 
-class TextRangeType(str, Enum):
+class TextRangeType(str, Enum, metaclass=utils.OpenEnumMeta):
     BOLD = "BOLD"
     CITATION = "CITATION"
     HIGHLIGHT = "HIGHLIGHT"
@@ -48,6 +49,15 @@ class TextRange(BaseModel):
 
     document: Optional["Document"] = None
 
+    @field_serializer("type")
+    def serialize_type(self, value):
+        if isinstance(value, str):
+            try:
+                return models.TextRangeType(value)
+            except ValueError:
+                return value
+        return value
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(["endIndex", "type", "url", "document"])
@@ -56,7 +66,7 @@ class TextRange(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

@@ -3,6 +3,7 @@
 from __future__ import annotations
 from .iconconfig import IconConfig, IconConfigTypedDict
 from enum import Enum
+from glean.api_client import utils
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
 from pydantic import model_serializer
@@ -10,7 +11,7 @@ from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class Scope(str, Enum):
+class Scope(str, Enum, metaclass=utils.OpenEnumMeta):
     APP_CARD = "APP_CARD"
     AUTOCOMPLETE_EXACT_MATCH = "AUTOCOMPLETE_EXACT_MATCH"
     AUTOCOMPLETE_FUZZY_MATCH = "AUTOCOMPLETE_FUZZY_MATCH"
@@ -68,7 +69,7 @@ class Quicklink(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

@@ -2,14 +2,15 @@
 
 from __future__ import annotations
 from enum import Enum
+from glean.api_client import models, utils
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
-from pydantic import model_serializer
+from pydantic import field_serializer, model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class WarningType(str, Enum):
+class WarningType(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""The type of the warning."""
 
     LONG_QUERY = "LONG_QUERY"
@@ -51,6 +52,15 @@ class SearchWarning(BaseModel):
     ] = None
     r"""A list of query terms that were ignored when generating search results, if any. For example, terms containing invalid filters such as \"updated:invalid_date\" will be ignored."""
 
+    @field_serializer("warning_type")
+    def serialize_warning_type(self, value):
+        if isinstance(value, str):
+            try:
+                return models.WarningType(value)
+            except ValueError:
+                return value
+        return value
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(["lastUsedTerm", "quotesIgnoredQuery", "ignoredTerms"])
@@ -59,7 +69,7 @@ class SearchWarning(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

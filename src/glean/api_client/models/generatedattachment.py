@@ -10,9 +10,10 @@ from .generatedattachmentcontent import (
 )
 from .person import Person, PersonTypedDict
 from .structuredlink import StructuredLink, StructuredLinkTypedDict
+from glean.api_client import models
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
-from pydantic import model_serializer
+from pydantic import field_serializer, model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -51,6 +52,15 @@ class GeneratedAttachment(BaseModel):
 
     content: Optional[List[GeneratedAttachmentContent]] = None
 
+    @field_serializer("strategy_name")
+    def serialize_strategy_name(self, value):
+        if isinstance(value, str):
+            try:
+                return models.EventStrategyName(value)
+            except ValueError:
+                return value
+        return value
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -68,7 +78,7 @@ class GeneratedAttachment(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

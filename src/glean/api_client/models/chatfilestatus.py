@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 from enum import Enum
+from glean.api_client import utils
 
 
-class ChatFileStatus(str, Enum):
+class ChatFileStatus(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""Current status of the file."""
 
     PROCESSING = "PROCESSING"

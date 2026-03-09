@@ -12,8 +12,6 @@ if TYPE_CHECKING:
 
 
 class SearchResultSnippetTypedDict(TypedDict):
-    snippet: str
-    r"""A matching snippet from the document. Query term matches are marked by the unicode characters uE006 and uE007. Use 'text' field instead."""
     mime_type: NotRequired[str]
     r"""The mime type of the snippets, currently either text/plain or text/html."""
     text: NotRequired[str]
@@ -24,17 +22,11 @@ class SearchResultSnippetTypedDict(TypedDict):
     r"""The bolded ranges within text."""
     url: NotRequired[str]
     r"""A URL, generated based on availability, that links to the position of the snippet text or to the nearest header above the snippet text."""
+    snippet: NotRequired[str]
+    r"""A matching snippet from the document. Query term matches are marked by the unicode characters uE006 and uE007. Use 'text' field instead."""
 
 
 class SearchResultSnippet(BaseModel):
-    snippet: Annotated[
-        str,
-        pydantic.Field(
-            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
-        ),
-    ]
-    r"""A matching snippet from the document. Query term matches are marked by the unicode characters uE006 and uE007. Use 'text' field instead."""
-
     mime_type: Annotated[Optional[str], pydantic.Field(alias="mimeType")] = None
     r"""The mime type of the snippets, currently either text/plain or text/html."""
 
@@ -52,17 +44,25 @@ class SearchResultSnippet(BaseModel):
     url: Optional[str] = None
     r"""A URL, generated based on availability, that links to the position of the snippet text or to the nearest header above the snippet text."""
 
+    snippet: Annotated[
+        Optional[str],
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use 'text' field instead."
+        ),
+    ] = None
+    r"""A matching snippet from the document. Query term matches are marked by the unicode characters uE006 and uE007. Use 'text' field instead."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["mimeType", "text", "snippetTextOrdering", "ranges", "url"]
+            ["mimeType", "text", "snippetTextOrdering", "ranges", "url", "snippet"]
         )
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

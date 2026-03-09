@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 from .grouptype import GroupType
+from glean.api_client import models
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
-from pydantic import model_serializer
+from pydantic import field_serializer, model_serializer
 from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -42,6 +43,15 @@ class Group(BaseModel):
     ] = None
     r"""identifier for greenlist provisioning, aka sciokey"""
 
+    @field_serializer("type")
+    def serialize_type(self, value):
+        if isinstance(value, str):
+            try:
+                return models.GroupType(value)
+            except ValueError:
+                return value
+        return value
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(["name", "datasourceInstance", "provisioningId"])
@@ -50,7 +60,7 @@ class Group(BaseModel):
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
-            val = serialized.get(k)
+            val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
                 if val is not None or k not in optional_fields:

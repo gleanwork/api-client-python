@@ -2,6 +2,16 @@
 
 The reason for inclusion of clusteredResults.
 
+## Example Usage
+
+```python
+from glean.api_client.models import ClusterTypeEnum
+
+value = ClusterTypeEnum.SIMILAR
+
+# Open enum: unrecognized values are captured as UnrecognizedStr
+```
+
 
 ## Values
 

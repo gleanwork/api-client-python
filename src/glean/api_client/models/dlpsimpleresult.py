@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 from enum import Enum
+from glean.api_client import utils
 
 
-class DlpSimpleResult(str, Enum):
+class DlpSimpleResult(str, Enum, metaclass=utils.OpenEnumMeta):
     SUCCESS = "SUCCESS"
     FAILURE = "FAILURE"

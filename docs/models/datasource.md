@@ -2,6 +2,14 @@
 
 The type of the data source.
 
+## Example Usage
+
+```python
+from glean.api_client.models import Datasource
+
+value = Datasource.SLACK
+```
+
 
 ## Values
 

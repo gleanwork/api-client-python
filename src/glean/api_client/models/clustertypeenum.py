@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 from enum import Enum
+from glean.api_client import utils
 
 
-class ClusterTypeEnum(str, Enum):
+class ClusterTypeEnum(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""The reason for inclusion of clusteredResults."""
 
     SIMILAR = "SIMILAR"
