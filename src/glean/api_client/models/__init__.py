@@ -175,6 +175,7 @@ if TYPE_CHECKING:
         AuthConfigType,
         AuthConfigTypedDict,
         GrantType,
+        TokenEndpointAuthMethod,
     )
     from .authstatus import AuthStatus
     from .authtoken import AuthToken, AuthTokenTypedDict
@@ -2453,6 +2454,7 @@ __all__ = [
     "TimeRangeFilterTimePeriodType",
     "TimeRangeFilterTypedDict",
     "TimeRangeTypedDict",
+    "TokenEndpointAuthMethod",
     "Tool",
     "ToolInfo",
     "ToolInfoTypedDict",
@@ -2658,6 +2660,7 @@ _dynamic_imports: dict[str, str] = {
     "AuthConfigType": ".authconfig",
     "AuthConfigTypedDict": ".authconfig",
     "GrantType": ".authconfig",
+    "TokenEndpointAuthMethod": ".authconfig",
     "AuthStatus": ".authstatus",
     "AuthToken": ".authtoken",
     "AuthTokenTypedDict": ".authtoken",

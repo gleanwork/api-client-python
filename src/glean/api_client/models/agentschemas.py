@@ -33,6 +33,8 @@ class AgentSchemasTypedDict(TypedDict):
     r"""The schema for the agent input. In JSON Schema format."""
     output_schema: OutputSchemaTypedDict
     r"""The schema for the agent output. In JSON Schema format."""
+    name: NotRequired[str]
+    r"""The name of the agent."""
     tools: NotRequired[List[ActionSummaryTypedDict]]
     r"""List of tools that the agent can invoke. Only included when include_tools query parameter is set to true."""
 
@@ -49,12 +51,15 @@ class AgentSchemas(BaseModel):
     output_schema: OutputSchema
     r"""The schema for the agent output. In JSON Schema format."""
 
+    name: Optional[str] = None
+    r"""The name of the agent."""
+
     tools: Optional[List[ActionSummary]] = None
     r"""List of tools that the agent can invoke. Only included when include_tools query parameter is set to true."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["tools"])
+        optional_fields = set(["name", "tools"])
         serialized = handler(self)
         m = {}
 
