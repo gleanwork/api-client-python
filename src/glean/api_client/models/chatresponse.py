@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 from .chatmessage import ChatMessage, ChatMessageTypedDict
+from .chatmetadata import ChatMetadata, ChatMetadataTypedDict
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
 from pydantic import model_serializer
@@ -15,6 +16,8 @@ class ChatResponseTypedDict(TypedDict):
     messages: NotRequired[List[ChatMessageTypedDict]]
     chat_id: NotRequired[str]
     r"""The id of the associated Chat the messages belong to, if one exists."""
+    chat: NotRequired[ChatMetadataTypedDict]
+    r"""Metadata of a Chat a user had with Glean Assistant. This contains no actual conversational content."""
     follow_up_prompts: NotRequired[List[str]]
     r"""Follow-up prompts for the user to potentially use"""
     backend_time_millis: NotRequired[int]
@@ -30,6 +33,9 @@ class ChatResponse(BaseModel):
 
     chat_id: Annotated[Optional[str], pydantic.Field(alias="chatId")] = None
     r"""The id of the associated Chat the messages belong to, if one exists."""
+
+    chat: Optional[ChatMetadata] = None
+    r"""Metadata of a Chat a user had with Glean Assistant. This contains no actual conversational content."""
 
     follow_up_prompts: Annotated[
         Optional[List[str]], pydantic.Field(alias="followUpPrompts")
@@ -52,6 +58,7 @@ class ChatResponse(BaseModel):
             [
                 "messages",
                 "chatId",
+                "chat",
                 "followUpPrompts",
                 "backendTimeMillis",
                 "chatSessionTrackingToken",

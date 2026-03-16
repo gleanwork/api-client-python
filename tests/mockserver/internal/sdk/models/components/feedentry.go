@@ -96,6 +96,10 @@ const (
 	JustificationTypeStarterKitExtension               JustificationType = "STARTER_KIT_EXTENSION"
 	JustificationTypeStarterKitOrgChart                JustificationType = "STARTER_KIT_ORG_CHART"
 	JustificationTypeStarterKitAddDoc                  JustificationType = "STARTER_KIT_ADD_DOC"
+	JustificationTypeMeetingRecap                      JustificationType = "MEETING_RECAP"
+	JustificationTypeActiveDiscussion                  JustificationType = "ACTIVE_DISCUSSION"
+	JustificationTypeMidDayCatchUp                     JustificationType = "MID_DAY_CATCH_UP"
+	JustificationTypeQuerySuggestion                   JustificationType = "QUERY_SUGGESTION"
 )
 
 func (e JustificationType) ToPointer() *JustificationType {
@@ -186,6 +190,14 @@ func (e *JustificationType) UnmarshalJSON(data []byte) error {
 	case "STARTER_KIT_ORG_CHART":
 		fallthrough
 	case "STARTER_KIT_ADD_DOC":
+		fallthrough
+	case "MEETING_RECAP":
+		fallthrough
+	case "ACTIVE_DISCUSSION":
+		fallthrough
+	case "MID_DAY_CATCH_UP":
+		fallthrough
+	case "QUERY_SUGGESTION":
 		*e = JustificationType(v)
 		return nil
 	default:

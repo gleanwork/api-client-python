@@ -35,6 +35,12 @@ const (
 	FeedRequestCategoryZeroStateWorkflowSuggestion  FeedRequestCategory = "ZERO_STATE_WORKFLOW_SUGGESTION"
 	FeedRequestCategoryPersonalizedChatSuggestion   FeedRequestCategory = "PERSONALIZED_CHAT_SUGGESTION"
 	FeedRequestCategoryDailyDigest                  FeedRequestCategory = "DAILY_DIGEST"
+	FeedRequestCategoryTask                         FeedRequestCategory = "TASK"
+	FeedRequestCategoryPlanMyDay                    FeedRequestCategory = "PLAN_MY_DAY"
+	FeedRequestCategoryEndMyDay                     FeedRequestCategory = "END_MY_DAY"
+	FeedRequestCategoryStarterKit                   FeedRequestCategory = "STARTER_KIT"
+	FeedRequestCategoryMidDayCatchUp                FeedRequestCategory = "MID_DAY_CATCH_UP"
+	FeedRequestCategoryQuerySuggestion              FeedRequestCategory = "QUERY_SUGGESTION"
 )
 
 func (e FeedRequestCategory) ToPointer() *FeedRequestCategory {
@@ -95,6 +101,18 @@ func (e *FeedRequestCategory) UnmarshalJSON(data []byte) error {
 	case "PERSONALIZED_CHAT_SUGGESTION":
 		fallthrough
 	case "DAILY_DIGEST":
+		fallthrough
+	case "TASK":
+		fallthrough
+	case "PLAN_MY_DAY":
+		fallthrough
+	case "END_MY_DAY":
+		fallthrough
+	case "STARTER_KIT":
+		fallthrough
+	case "MID_DAY_CATCH_UP":
+		fallthrough
+	case "QUERY_SUGGESTION":
 		*e = FeedRequestCategory(v)
 		return nil
 	default:
