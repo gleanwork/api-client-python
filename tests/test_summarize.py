@@ -18,11 +18,11 @@ def test_summarize_summarize():
         res = glean.client.documents.summarize(
             document_specs=[
                 {
-                    "ugc_type": models.DocumentSpecUgcType2.COLLECTIONS,
-                    "ugc_id": "<id>",
+                    "ugc_type": models.DocumentSpecUgcType1.COLLECTIONS,
+                    "content_id": 993975,
                 },
                 {
-                    "url": "https://necessary-dandelion.net",
+                    "id": "<id>",
                 },
             ]
         )
