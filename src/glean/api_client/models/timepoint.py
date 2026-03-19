@@ -12,7 +12,7 @@ class TimePointTypedDict(TypedDict):
     epoch_seconds: NotRequired[int]
     r"""Epoch seconds. Has precedence over daysFromNow."""
     days_from_now: NotRequired[int]
-    r"""The number of days from now. Specification relative to current time. Can be negative."""
+    r"""Number of days in the past, relative to the current date."""
 
 
 class TimePoint(BaseModel):
@@ -20,7 +20,7 @@ class TimePoint(BaseModel):
     r"""Epoch seconds. Has precedence over daysFromNow."""
 
     days_from_now: Annotated[Optional[int], pydantic.Field(alias="daysFromNow")] = None
-    r"""The number of days from now. Specification relative to current time. Can be negative."""
+    r"""Number of days in the past, relative to the current date."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
