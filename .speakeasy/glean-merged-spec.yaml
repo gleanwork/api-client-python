@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   version: 0.9.0
   title: Glean API
-  x-source-commit-sha: 1734098e8c292697aa81acbd73ade97b548b3ed8
+  x-source-commit-sha: b82cd7608fd801b317cf9df15ebfb73f83d9febc
   description: |
     # Introduction
     In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This is useful, for example, for doing permissions-aware search over content in internal tools that reside on-prem as well as for searching over applications that Glean does not currently support first class. In addition these APIs allow the customer to push organization data (people info, organization structure etc) into Glean.
@@ -22,7 +22,7 @@ info:
     These API clients provide type-safe, idiomatic interfaces for working with Glean IndexingAPIs in your language of choice.
   x-logo:
     url: https://app.glean.com/images/glean-text2.svg
-  x-open-api-commit-sha: d94e031ce5d7c5306a0f2f35f49b41733825cdb9
+  x-open-api-commit-sha: 0b2689b6010d15de5b45dc85490080ea14936ea6
   x-speakeasy-name: 'Glean API'
 servers:
   - url: https://{instance}-be.glean.com
@@ -5688,7 +5688,7 @@ components:
           description: Epoch seconds. Has precedence over daysFromNow.
         daysFromNow:
           type: integer
-          description: The number of days from now. Specification relative to current time. Can be negative.
+          description: Number of days in the past, relative to the current date.
     Period:
       properties:
         minDaysFromNow:

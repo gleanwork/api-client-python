@@ -9,7 +9,7 @@ import (
 type TimePoint struct {
 	// Epoch seconds. Has precedence over daysFromNow.
 	EpochSeconds *int64 `json:"epochSeconds,omitempty"`
-	// The number of days from now. Specification relative to current time. Can be negative.
+	// Number of days in the past, relative to the current date.
 	DaysFromNow *int64 `json:"daysFromNow,omitempty"`
 }
 
