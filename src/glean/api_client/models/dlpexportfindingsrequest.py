@@ -15,6 +15,7 @@ class ExportType(str, Enum):
 
     FINDINGS = "FINDINGS"
     DOCUMENTS = "DOCUMENTS"
+    ISSUES = "ISSUES"
 
 
 class FieldScope(str, Enum):

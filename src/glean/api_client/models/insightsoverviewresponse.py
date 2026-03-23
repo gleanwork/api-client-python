@@ -26,6 +26,9 @@ class InsightsOverviewResponseTypedDict(TypedDict):
     r"""Number of current signed up employees in the specified departments, according to the Org Chart."""
     search_summary: NotRequired[InsightsSearchSummaryTypedDict]
     chat_summary: NotRequired[InsightsChatSummaryTypedDict]
+    search_active_users: NotRequired[CurrentActiveUsersTypedDict]
+    assistant_active_users: NotRequired[CurrentActiveUsersTypedDict]
+    agents_active_users: NotRequired[CurrentActiveUsersTypedDict]
     extension_summary: NotRequired[CurrentActiveUsersTypedDict]
     ugc_summary: NotRequired[CurrentActiveUsersTypedDict]
     last_updated_ts: NotRequired[int]
@@ -83,6 +86,18 @@ class InsightsOverviewResponse(BaseModel):
 
     chat_summary: Annotated[
         Optional[InsightsChatSummary], pydantic.Field(alias="chatSummary")
+    ] = None
+
+    search_active_users: Annotated[
+        Optional[CurrentActiveUsers], pydantic.Field(alias="searchActiveUsers")
+    ] = None
+
+    assistant_active_users: Annotated[
+        Optional[CurrentActiveUsers], pydantic.Field(alias="assistantActiveUsers")
+    ] = None
+
+    agents_active_users: Annotated[
+        Optional[CurrentActiveUsers], pydantic.Field(alias="agentsActiveUsers")
     ] = None
 
     extension_summary: Annotated[
@@ -199,6 +214,9 @@ class InsightsOverviewResponse(BaseModel):
                 "totalSignups",
                 "searchSummary",
                 "chatSummary",
+                "searchActiveUsers",
+                "assistantActiveUsers",
+                "agentsActiveUsers",
                 "extensionSummary",
                 "ugcSummary",
                 "lastUpdatedTs",

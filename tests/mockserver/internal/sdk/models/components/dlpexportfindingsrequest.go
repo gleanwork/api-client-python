@@ -13,6 +13,7 @@ type ExportType string
 const (
 	ExportTypeFindings  ExportType = "FINDINGS"
 	ExportTypeDocuments ExportType = "DOCUMENTS"
+	ExportTypeIssues    ExportType = "ISSUES"
 )
 
 func (e ExportType) ToPointer() *ExportType {
@@ -27,6 +28,8 @@ func (e *ExportType) UnmarshalJSON(data []byte) error {
 	case "FINDINGS":
 		fallthrough
 	case "DOCUMENTS":
+		fallthrough
+	case "ISSUES":
 		*e = ExportType(v)
 		return nil
 	default:
