@@ -114,6 +114,7 @@ class JustificationType(str, Enum, metaclass=utils.OpenEnumMeta):
     ACTIVE_DISCUSSION = "ACTIVE_DISCUSSION"
     MID_DAY_CATCH_UP = "MID_DAY_CATCH_UP"
     QUERY_SUGGESTION = "QUERY_SUGGESTION"
+    WEEKLY_MEETINGS = "WEEKLY_MEETINGS"
 
 
 class FeedEntryTypedDict(TypedDict):

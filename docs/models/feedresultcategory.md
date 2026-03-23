@@ -48,3 +48,4 @@ value = FeedResultCategory.DOCUMENT_SUGGESTION
 | `STARTER_KIT`                       | STARTER_KIT                         |
 | `MID_DAY_CATCH_UP`                  | MID_DAY_CATCH_UP                    |
 | `QUERY_SUGGESTION`                  | QUERY_SUGGESTION                    |
+| `WEEKLY_MEETINGS`                   | WEEKLY_MEETINGS                     |

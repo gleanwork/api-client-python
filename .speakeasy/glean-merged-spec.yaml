@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   version: 0.9.0
   title: Glean API
-  x-source-commit-sha: db2b29749d4a1429e791a15f8dbdd6ad31abafa0
+  x-source-commit-sha: 7e68a849f9cb22fa3aad6a751bde84e61caaeecd
   description: |
     # Introduction
     In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This is useful, for example, for doing permissions-aware search over content in internal tools that reside on-prem as well as for searching over applications that Glean does not currently support first class. In addition these APIs allow the customer to push organization data (people info, organization structure etc) into Glean.
@@ -22,7 +22,7 @@ info:
     These API clients provide type-safe, idiomatic interfaces for working with Glean IndexingAPIs in your language of choice.
   x-logo:
     url: https://app.glean.com/images/glean-text2.svg
-  x-open-api-commit-sha: ab68eaa48c4b230715551d9eafa33e24d01e4b1d
+  x-open-api-commit-sha: 90e81e9efeba8e52cbef1cc075b188138649e5cd
   x-speakeasy-name: 'Glean API'
 servers:
   - url: https://{instance}-be.glean.com
@@ -10132,6 +10132,7 @@ components:
               - STARTER_KIT
               - MID_DAY_CATCH_UP
               - QUERY_SUGGESTION
+              - WEEKLY_MEETINGS
           description: Categories of content requested. An allowlist gives flexibility to request content separately or together.
         requestOptions:
           $ref: "#/components/schemas/FeedRequestOptions"
@@ -10632,6 +10633,7 @@ components:
             - ACTIVE_DISCUSSION
             - MID_DAY_CATCH_UP
             - QUERY_SUGGESTION
+            - WEEKLY_MEETINGS
           description: Type of the justification.
         justification:
           type: string
@@ -10710,6 +10712,7 @@ components:
             - STARTER_KIT
             - MID_DAY_CATCH_UP
             - QUERY_SUGGESTION
+            - WEEKLY_MEETINGS
           description: Category of the result, one of the requested categories in incoming request.
         primaryEntry:
           $ref: "#/components/schemas/FeedEntry"
