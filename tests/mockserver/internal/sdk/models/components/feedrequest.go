@@ -41,6 +41,7 @@ const (
 	FeedRequestCategoryStarterKit                   FeedRequestCategory = "STARTER_KIT"
 	FeedRequestCategoryMidDayCatchUp                FeedRequestCategory = "MID_DAY_CATCH_UP"
 	FeedRequestCategoryQuerySuggestion              FeedRequestCategory = "QUERY_SUGGESTION"
+	FeedRequestCategoryWeeklyMeetings               FeedRequestCategory = "WEEKLY_MEETINGS"
 )
 
 func (e FeedRequestCategory) ToPointer() *FeedRequestCategory {
@@ -113,6 +114,8 @@ func (e *FeedRequestCategory) UnmarshalJSON(data []byte) error {
 	case "MID_DAY_CATCH_UP":
 		fallthrough
 	case "QUERY_SUGGESTION":
+		fallthrough
+	case "WEEKLY_MEETINGS":
 		*e = FeedRequestCategory(v)
 		return nil
 	default:
