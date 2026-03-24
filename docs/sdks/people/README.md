@@ -106,7 +106,7 @@ with Glean(
 
 ## index
 
-Adds an employee or updates information about an employee
+Adds an employee or replaces the existing information about an employee.
 
 ### Example Usage
 
