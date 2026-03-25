@@ -409,7 +409,7 @@ class People(BaseSDK):
     ):
         r"""Index employee
 
-        Adds an employee or updates information about an employee
+        Adds an employee or replaces the existing information about an employee.
 
         :param employee: Describes employee info
         :param version: Version number for the employee object. If absent or 0 then no version checks are done
@@ -501,7 +501,7 @@ class People(BaseSDK):
     ):
         r"""Index employee
 
-        Adds an employee or updates information about an employee
+        Adds an employee or replaces the existing information about an employee.
 
         :param employee: Describes employee info
         :param version: Version number for the employee object. If absent or 0 then no version checks are done
