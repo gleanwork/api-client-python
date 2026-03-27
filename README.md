@@ -380,9 +380,9 @@ For more information on obtaining the appropriate token type, please contact you
 * [retrieve](docs/sdks/clientchat/README.md#retrieve) - Retrieves a Chat
 * [list](docs/sdks/clientchat/README.md#list) - Retrieves all saved Chats
 * [retrieve_application](docs/sdks/clientchat/README.md#retrieve_application) - Gets the metadata for a custom Chat application
-* [upload_files](docs/sdks/clientchat/README.md#upload_files) - Upload files for Chat.
-* [retrieve_files](docs/sdks/clientchat/README.md#retrieve_files) - Get files uploaded by a user for Chat.
-* [delete_files](docs/sdks/clientchat/README.md#delete_files) - Delete files uploaded by a user for chat.
+* [upload_files](docs/sdks/clientchat/README.md#upload_files) - Upload files for Chat
+* [retrieve_files](docs/sdks/clientchat/README.md#retrieve_files) - Get files uploaded by a user for Chat
+* [delete_files](docs/sdks/clientchat/README.md#delete_files) - Delete files uploaded by a user for chat
 * [create_stream](docs/sdks/clientchat/README.md#create_stream) - Chat
 
 ### [Client.Collections](docs/sdks/collections/README.md)

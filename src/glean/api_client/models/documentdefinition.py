@@ -70,6 +70,8 @@ class DocumentDefinitionTypedDict(TypedDict):
     status: NotRequired[str]
     additional_urls: NotRequired[List[str]]
     r"""Additional variations of the URL that this document points to."""
+    native_app_url: NotRequired[str]
+    r"""A deep link, if available, into the datasource's native application for the user's platform (e.g. slack://channel/message)."""
     comments: NotRequired[List[CommentDefinitionTypedDict]]
     r"""Comments associated with the document."""
     custom_properties: NotRequired[List[CustomPropertyTypedDict]]
@@ -152,6 +154,11 @@ class DocumentDefinition(BaseModel):
     ] = None
     r"""Additional variations of the URL that this document points to."""
 
+    native_app_url: Annotated[Optional[str], pydantic.Field(alias="nativeAppUrl")] = (
+        None
+    )
+    r"""A deep link, if available, into the datasource's native application for the user's platform (e.g. slack://channel/message)."""
+
     comments: Optional[List[CommentDefinition]] = None
     r"""Comments associated with the document."""
 
@@ -184,6 +191,7 @@ class DocumentDefinition(BaseModel):
                 "interactions",
                 "status",
                 "additionalUrls",
+                "nativeAppUrl",
                 "comments",
                 "customProperties",
             ]

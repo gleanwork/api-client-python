@@ -11,10 +11,11 @@ import (
 type ChatFileStatus string
 
 const (
-	ChatFileStatusProcessing ChatFileStatus = "PROCESSING"
-	ChatFileStatusProcessed  ChatFileStatus = "PROCESSED"
-	ChatFileStatusFailed     ChatFileStatus = "FAILED"
-	ChatFileStatusDeleted    ChatFileStatus = "DELETED"
+	ChatFileStatusProcessing         ChatFileStatus = "PROCESSING"
+	ChatFileStatusProcessed          ChatFileStatus = "PROCESSED"
+	ChatFileStatusPartiallyProcessed ChatFileStatus = "PARTIALLY_PROCESSED"
+	ChatFileStatusFailed             ChatFileStatus = "FAILED"
+	ChatFileStatusDeleted            ChatFileStatus = "DELETED"
 )
 
 func (e ChatFileStatus) ToPointer() *ChatFileStatus {
@@ -29,6 +30,8 @@ func (e *ChatFileStatus) UnmarshalJSON(data []byte) error {
 	case "PROCESSING":
 		fallthrough
 	case "PROCESSED":
+		fallthrough
+	case "PARTIALLY_PROCESSED":
 		fallthrough
 	case "FAILED":
 		fallthrough
