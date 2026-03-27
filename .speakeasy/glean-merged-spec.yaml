@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   version: 0.9.0
   title: Glean API
-  x-source-commit-sha: 7dfab98513e91afbfca673ee2a1f71cba51b38c2
+  x-source-commit-sha: 0962a428c0094dd8c0a2c12b828a1ee04b69ef00
   description: |
     # Introduction
     In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This is useful, for example, for doing permissions-aware search over content in internal tools that reside on-prem as well as for searching over applications that Glean does not currently support first class. In addition these APIs allow the customer to push organization data (people info, organization structure etc) into Glean.
@@ -22,7 +22,7 @@ info:
     These API clients provide type-safe, idiomatic interfaces for working with Glean IndexingAPIs in your language of choice.
   x-logo:
     url: https://app.glean.com/images/glean-text2.svg
-  x-open-api-commit-sha: f8e6b19f37fae9d74f0370dfb927dcb70b2e3eb0
+  x-open-api-commit-sha: da0ed02e776d66daccdd2defaabb872cd5b9cee4
   x-speakeasy-name: 'Glean API'
 servers:
   - url: https://{instance}-be.glean.com
@@ -748,7 +748,7 @@ paths:
     post:
       tags:
         - Chat
-      summary: Upload files for Chat.
+      summary: Upload files for Chat
       description: Upload files for Chat.
       operationId: uploadchatfiles
       x-visibility: Public
@@ -785,7 +785,7 @@ paths:
     post:
       tags:
         - Chat
-      summary: Get files uploaded by a user for Chat.
+      summary: Get files uploaded by a user for Chat
       description: Get files uploaded by a user for Chat.
       operationId: getchatfiles
       x-visibility: Public
@@ -822,7 +822,7 @@ paths:
     post:
       tags:
         - Chat
-      summary: Delete files uploaded by a user for chat.
+      summary: Delete files uploaded by a user for chat
       description: Delete files uploaded by a user for Chat.
       operationId: deletechatfiles
       x-visibility: Public
@@ -7805,6 +7805,7 @@ components:
       enum:
         - PROCESSING
         - PROCESSED
+        - PARTIALLY_PROCESSED
         - FAILED
         - DELETED
     ChatFileFailureReason:
@@ -11860,6 +11861,9 @@ components:
           items:
             type: string
           description: Additional variations of the URL that this document points to.
+        nativeAppUrl:
+          type: string
+          description: A deep link, if available, into the datasource's native application for the user's platform (e.g. slack://channel/message).
         comments:
           type: array
           items:

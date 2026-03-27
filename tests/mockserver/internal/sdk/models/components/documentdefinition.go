@@ -46,6 +46,8 @@ type DocumentDefinition struct {
 	Status       *string                         `json:"status,omitempty"`
 	// Additional variations of the URL that this document points to.
 	AdditionalUrls []string `json:"additionalUrls,omitempty"`
+	// A deep link, if available, into the datasource's native application for the user's platform (e.g. slack://channel/message).
+	NativeAppURL *string `json:"nativeAppUrl,omitempty"`
 	// Comments associated with the document.
 	Comments []CommentDefinition `json:"comments,omitempty"`
 	// Additional metadata properties of the document. These can surface as [facets and operators](https://developers.glean.com/indexing/datasource/custom-properties/operators_and_facets).
@@ -197,6 +199,13 @@ func (o *DocumentDefinition) GetAdditionalUrls() []string {
 		return nil
 	}
 	return o.AdditionalUrls
+}
+
+func (o *DocumentDefinition) GetNativeAppURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.NativeAppURL
 }
 
 func (o *DocumentDefinition) GetComments() []CommentDefinition {

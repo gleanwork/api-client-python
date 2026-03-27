@@ -10,5 +10,6 @@ class ChatFileStatus(str, Enum, metaclass=utils.OpenEnumMeta):
 
     PROCESSING = "PROCESSING"
     PROCESSED = "PROCESSED"
+    PARTIALLY_PROCESSED = "PARTIALLY_PROCESSED"
     FAILED = "FAILED"
     DELETED = "DELETED"

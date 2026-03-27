@@ -1237,7 +1237,7 @@ class ClientChat(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.UploadChatFilesResponse:
-        r"""Upload files for Chat.
+        r"""Upload files for Chat
 
         Upload files for Chat.
 
@@ -1336,7 +1336,7 @@ class ClientChat(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.UploadChatFilesResponse:
-        r"""Upload files for Chat.
+        r"""Upload files for Chat
 
         Upload files for Chat.
 
@@ -1435,7 +1435,7 @@ class ClientChat(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.GetChatFilesResponse:
-        r"""Get files uploaded by a user for Chat.
+        r"""Get files uploaded by a user for Chat
 
         Get files uploaded by a user for Chat.
 
@@ -1534,7 +1534,7 @@ class ClientChat(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ) -> models.GetChatFilesResponse:
-        r"""Get files uploaded by a user for Chat.
+        r"""Get files uploaded by a user for Chat
 
         Get files uploaded by a user for Chat.
 
@@ -1633,7 +1633,7 @@ class ClientChat(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ):
-        r"""Delete files uploaded by a user for chat.
+        r"""Delete files uploaded by a user for chat
 
         Delete files uploaded by a user for Chat.
 
@@ -1732,7 +1732,7 @@ class ClientChat(BaseSDK):
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
     ):
-        r"""Delete files uploaded by a user for chat.
+        r"""Delete files uploaded by a user for chat
 
         Delete files uploaded by a user for Chat.
 
