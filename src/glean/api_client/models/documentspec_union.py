@@ -15,6 +15,7 @@ class DocumentSpecUgcType2(str, Enum, metaclass=utils.OpenEnumMeta):
 
     ANNOUNCEMENTS = "ANNOUNCEMENTS"
     ANSWERS = "ANSWERS"
+    ARTIFACTS = "ARTIFACTS"
     COLLECTIONS = "COLLECTIONS"
     SHORTCUTS = "SHORTCUTS"
     CHATS = "CHATS"

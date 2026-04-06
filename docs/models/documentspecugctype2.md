@@ -19,6 +19,7 @@ value = DocumentSpecUgcType2.ANNOUNCEMENTS
 | --------------- | --------------- |
 | `ANNOUNCEMENTS` | ANNOUNCEMENTS   |
 | `ANSWERS`       | ANSWERS         |
+| `ARTIFACTS`     | ARTIFACTS       |
 | `COLLECTIONS`   | COLLECTIONS     |
 | `SHORTCUTS`     | SHORTCUTS       |
 | `CHATS`         | CHATS           |

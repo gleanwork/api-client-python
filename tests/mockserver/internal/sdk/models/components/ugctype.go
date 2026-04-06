@@ -22,6 +22,7 @@ const (
 	UgcTypePaperType           UgcType = "PAPER_TYPE"
 	UgcTypePrismViewsType      UgcType = "PRISM_VIEWS_TYPE"
 	UgcTypePromptTemplatesType UgcType = "PROMPT_TEMPLATES_TYPE"
+	UgcTypePinsType            UgcType = "PINS_TYPE"
 	UgcTypeScribesType         UgcType = "SCRIBES_TYPE"
 	UgcTypeShortcutsType       UgcType = "SHORTCUTS_TYPE"
 	UgcTypeSlideType           UgcType = "SLIDE_TYPE"
@@ -60,6 +61,8 @@ func (e *UgcType) UnmarshalJSON(data []byte) error {
 	case "PRISM_VIEWS_TYPE":
 		fallthrough
 	case "PROMPT_TEMPLATES_TYPE":
+		fallthrough
+	case "PINS_TYPE":
 		fallthrough
 	case "SCRIBES_TYPE":
 		fallthrough

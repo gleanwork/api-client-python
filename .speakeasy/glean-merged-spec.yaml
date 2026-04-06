@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   version: 0.9.0
   title: Glean API
-  x-source-commit-sha: 0962a428c0094dd8c0a2c12b828a1ee04b69ef00
+  x-source-commit-sha: 8a0e3a32d5d6639d10ef809d104942a79d54d1a0
   description: |
     # Introduction
     In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This is useful, for example, for doing permissions-aware search over content in internal tools that reside on-prem as well as for searching over applications that Glean does not currently support first class. In addition these APIs allow the customer to push organization data (people info, organization structure etc) into Glean.
@@ -22,7 +22,7 @@ info:
     These API clients provide type-safe, idiomatic interfaces for working with Glean IndexingAPIs in your language of choice.
   x-logo:
     url: https://app.glean.com/images/glean-text2.svg
-  x-open-api-commit-sha: da0ed02e776d66daccdd2defaabb872cd5b9cee4
+  x-open-api-commit-sha: f89c07f572daff630aa6a660c5c20e8aa3227322
   x-speakeasy-name: 'Glean API'
 servers:
   - url: https://{instance}-be.glean.com
@@ -2360,6 +2360,9 @@ paths:
       x-speakeasy-group: client.verification
   /rest/api/v1/tools/list:
     get:
+      tags:
+        - Tools
+        - Tools
       summary: List available tools
       description: Returns a filtered set of available tools based on optional tool name parameters. If no filters are provided, all available tools are returned.
       x-visibility: Preview
@@ -2391,12 +2394,13 @@ paths:
           description: Too Many Requests
       security:
         - APIToken: []
-      tags:
-        - Tools
       x-speakeasy-name-override: list
       x-speakeasy-group: client.tools
   /rest/api/v1/tools/call:
     post:
+      tags:
+        - Tools
+        - Tools
       summary: Execute the specified tool
       description: Execute the specified tool with provided parameters
       x-visibility: Preview
@@ -2423,8 +2427,6 @@ paths:
           description: Too Many Requests
       security:
         - APIToken: []
-      tags:
-        - Tools
       x-speakeasy-name-override: run
       x-speakeasy-group: client.tools
   /api/index/v1/indexdocument:
@@ -3459,7 +3461,7 @@ paths:
   /api/index/v1/bulkindexshortcuts:
     post:
       summary: Bulk index external shortcuts
-      description: Replaces all the currently indexed shortcuts using paginated batch API calls. Note that this endpoint is used for indexing shortcuts not hosted by Glean. If you want to upload shortcuts that would be hosted by Glean, please use the `/uploadshortcuts` endpoint. For information on what you can do with Golinks, which are Glean-hosted shortcuts, please refer to [this](https://help.glean.com/en/articles/5628838-how-go-links-work) page.
+      description: Replaces all the currently indexed shortcuts using paginated batch API calls. Note that this endpoint is used for indexing shortcuts not hosted by Glean. If you want to upload shortcuts that would be hosted by Glean, please use the `/uploadshortcuts` endpoint. For information on what you can do with Golinks, which are Glean-hosted shortcuts, please refer to [this](https://docs.glean.com/user-guide/knowledge/go-links/how-go-links-work) page.
       tags:
         - Shortcuts
       security:
@@ -4917,6 +4919,7 @@ components:
               enum:
                 - ANNOUNCEMENTS
                 - ANSWERS
+                - ARTIFACTS
                 - COLLECTIONS
                 - SHORTCUTS
                 - CHATS
@@ -6489,6 +6492,23 @@ components:
             - FROM
             - HIGHLIGHT
             - opportunity
+            - OPPORTUNITY
+            - RECENT
+            - SOURCE
+            - TICKET
+            - TRANSCRIPT
+            - WITH
+          x-enum-varnames:
+            - ATTACHMENT
+            - CANONICAL
+            - CASE
+            - CONTACT_LOWERCASE
+            - CONTACT
+            - CONVERSATION_MESSAGES
+            - EXPERT
+            - FROM
+            - HIGHLIGHT
+            - OPPORTUNITY_LOWERCASE
             - OPPORTUNITY
             - RECENT
             - SOURCE
@@ -10134,6 +10154,10 @@ components:
               - MID_DAY_CATCH_UP
               - QUERY_SUGGESTION
               - WEEKLY_MEETINGS
+              - FOLLOW_UP
+              - MILESTONE_TIMELINE_CHECK
+              - PROJECT_DISCUSSION_DIGEST
+              - PROJECT_NEXT_STEP
           description: Categories of content requested. An allowlist gives flexibility to request content separately or together.
         requestOptions:
           $ref: "#/components/schemas/FeedRequestOptions"
@@ -10465,6 +10489,7 @@ components:
         - PAPER_TYPE
         - PRISM_VIEWS_TYPE
         - PROMPT_TEMPLATES_TYPE
+        - PINS_TYPE
         - SCRIBES_TYPE
         - SHORTCUTS_TYPE
         - SLIDE_TYPE
@@ -10635,6 +10660,10 @@ components:
             - MID_DAY_CATCH_UP
             - QUERY_SUGGESTION
             - WEEKLY_MEETINGS
+            - FOLLOW_UP
+            - MILESTONE_TIMELINE_CHECK
+            - PROJECT_DISCUSSION_DIGEST
+            - PROJECT_NEXT_STEP
           description: Type of the justification.
         justification:
           type: string
@@ -10714,6 +10743,10 @@ components:
             - MID_DAY_CATCH_UP
             - QUERY_SUGGESTION
             - WEEKLY_MEETINGS
+            - FOLLOW_UP
+            - MILESTONE_TIMELINE_CHECK
+            - PROJECT_DISCUSSION_DIGEST
+            - PROJECT_NEXT_STEP
           description: Category of the result, one of the requested categories in incoming request.
         primaryEntry:
           $ref: "#/components/schemas/FeedEntry"
