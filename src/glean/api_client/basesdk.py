@@ -66,6 +66,7 @@ class BaseSDK:
         url_override: Optional[str] = None,
         http_headers: Optional[Mapping[str, str]] = None,
         allow_empty_value: Optional[List[str]] = None,
+        allowed_fields: Optional[List[str]] = None,
     ) -> httpx.Request:
         client = self.sdk_configuration.async_client
         return self._build_request_with_client(
@@ -87,6 +88,7 @@ class BaseSDK:
             url_override,
             http_headers,
             allow_empty_value,
+            allowed_fields,
         )
 
     def _build_request(
@@ -110,6 +112,7 @@ class BaseSDK:
         url_override: Optional[str] = None,
         http_headers: Optional[Mapping[str, str]] = None,
         allow_empty_value: Optional[List[str]] = None,
+        allowed_fields: Optional[List[str]] = None,
     ) -> httpx.Request:
         client = self.sdk_configuration.client
         return self._build_request_with_client(
@@ -131,6 +134,7 @@ class BaseSDK:
             url_override,
             http_headers,
             allow_empty_value,
+            allowed_fields,
         )
 
     def _build_request_with_client(
@@ -155,6 +159,7 @@ class BaseSDK:
         url_override: Optional[str] = None,
         http_headers: Optional[Mapping[str, str]] = None,
         allow_empty_value: Optional[List[str]] = None,
+        allowed_fields: Optional[List[str]] = None,
     ) -> httpx.Request:
         query_params = {}
 
@@ -188,7 +193,9 @@ class BaseSDK:
                 security = security()
         security = utils.get_security_from_env(security, models.Security)
         if security is not None:
-            security_headers, security_query_params = utils.get_security(security)
+            security_headers, security_query_params = utils.get_security(
+                security, allowed_fields
+            )
             headers = {**headers, **security_headers}
             query_params = {**query_params, **security_query_params}
 

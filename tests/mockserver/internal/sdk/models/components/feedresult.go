@@ -43,6 +43,10 @@ const (
 	FeedResultCategoryMidDayCatchUp                FeedResultCategory = "MID_DAY_CATCH_UP"
 	FeedResultCategoryQuerySuggestion              FeedResultCategory = "QUERY_SUGGESTION"
 	FeedResultCategoryWeeklyMeetings               FeedResultCategory = "WEEKLY_MEETINGS"
+	FeedResultCategoryFollowUp                     FeedResultCategory = "FOLLOW_UP"
+	FeedResultCategoryMilestoneTimelineCheck       FeedResultCategory = "MILESTONE_TIMELINE_CHECK"
+	FeedResultCategoryProjectDiscussionDigest      FeedResultCategory = "PROJECT_DISCUSSION_DIGEST"
+	FeedResultCategoryProjectNextStep              FeedResultCategory = "PROJECT_NEXT_STEP"
 )
 
 func (e FeedResultCategory) ToPointer() *FeedResultCategory {
@@ -117,6 +121,14 @@ func (e *FeedResultCategory) UnmarshalJSON(data []byte) error {
 	case "QUERY_SUGGESTION":
 		fallthrough
 	case "WEEKLY_MEETINGS":
+		fallthrough
+	case "FOLLOW_UP":
+		fallthrough
+	case "MILESTONE_TIMELINE_CHECK":
+		fallthrough
+	case "PROJECT_DISCUSSION_DIGEST":
+		fallthrough
+	case "PROJECT_NEXT_STEP":
 		*e = FeedResultCategory(v)
 		return nil
 	default:

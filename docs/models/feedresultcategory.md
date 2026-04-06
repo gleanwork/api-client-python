@@ -49,3 +49,7 @@ value = FeedResultCategory.DOCUMENT_SUGGESTION
 | `MID_DAY_CATCH_UP`                  | MID_DAY_CATCH_UP                    |
 | `QUERY_SUGGESTION`                  | QUERY_SUGGESTION                    |
 | `WEEKLY_MEETINGS`                   | WEEKLY_MEETINGS                     |
+| `FOLLOW_UP`                         | FOLLOW_UP                           |
+| `MILESTONE_TIMELINE_CHECK`          | MILESTONE_TIMELINE_CHECK            |
+| `PROJECT_DISCUSSION_DIGEST`         | PROJECT_DISCUSSION_DIGEST           |
+| `PROJECT_NEXT_STEP`                 | PROJECT_NEXT_STEP                   |

@@ -15,6 +15,7 @@ type DocumentSpecUgcType2 string
 const (
 	DocumentSpecUgcType2Announcements DocumentSpecUgcType2 = "ANNOUNCEMENTS"
 	DocumentSpecUgcType2Answers       DocumentSpecUgcType2 = "ANSWERS"
+	DocumentSpecUgcType2Artifacts     DocumentSpecUgcType2 = "ARTIFACTS"
 	DocumentSpecUgcType2Collections   DocumentSpecUgcType2 = "COLLECTIONS"
 	DocumentSpecUgcType2Shortcuts     DocumentSpecUgcType2 = "SHORTCUTS"
 	DocumentSpecUgcType2Chats         DocumentSpecUgcType2 = "CHATS"
@@ -32,6 +33,8 @@ func (e *DocumentSpecUgcType2) UnmarshalJSON(data []byte) error {
 	case "ANNOUNCEMENTS":
 		fallthrough
 	case "ANSWERS":
+		fallthrough
+	case "ARTIFACTS":
 		fallthrough
 	case "COLLECTIONS":
 		fallthrough
