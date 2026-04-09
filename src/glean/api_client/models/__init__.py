@@ -139,6 +139,10 @@ if TYPE_CHECKING:
         AgentsInsightsV2Response,
         AgentsInsightsV2ResponseTypedDict,
     )
+    from .agentstimesavedinsight import (
+        AgentsTimeSavedInsight,
+        AgentsTimeSavedInsightTypedDict,
+    )
     from .agentsusagebydepartmentinsight import (
         AgentsUsageByDepartmentInsight,
         AgentsUsageByDepartmentInsightTypedDict,
@@ -1480,6 +1484,8 @@ __all__ = [
     "AgentsInsightsV2RequestTypedDict",
     "AgentsInsightsV2Response",
     "AgentsInsightsV2ResponseTypedDict",
+    "AgentsTimeSavedInsight",
+    "AgentsTimeSavedInsightTypedDict",
     "AgentsUsageByDepartmentInsight",
     "AgentsUsageByDepartmentInsightTypedDict",
     "AllowlistOptions",
@@ -2631,6 +2637,8 @@ _dynamic_imports: dict[str, str] = {
     "AgentsInsightsV2RequestTypedDict": ".agentsinsightsv2request",
     "AgentsInsightsV2Response": ".agentsinsightsv2response",
     "AgentsInsightsV2ResponseTypedDict": ".agentsinsightsv2response",
+    "AgentsTimeSavedInsight": ".agentstimesavedinsight",
+    "AgentsTimeSavedInsightTypedDict": ".agentstimesavedinsight",
     "AgentsUsageByDepartmentInsight": ".agentsusagebydepartmentinsight",
     "AgentsUsageByDepartmentInsightTypedDict": ".agentsusagebydepartmentinsight",
     "AgentUsersInsight": ".agentusersinsight",

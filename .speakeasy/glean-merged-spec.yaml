@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   version: 0.9.0
   title: Glean API
-  x-source-commit-sha: 8a0e3a32d5d6639d10ef809d104942a79d54d1a0
+  x-source-commit-sha: 3301b0cde4a4bf6d9bb67d909bfbfc2d97c47ad8
   description: |
     # Introduction
     In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This is useful, for example, for doing permissions-aware search over content in internal tools that reside on-prem as well as for searching over applications that Glean does not currently support first class. In addition these APIs allow the customer to push organization data (people info, organization structure etc) into Glean.
@@ -22,7 +22,7 @@ info:
     These API clients provide type-safe, idiomatic interfaces for working with Glean IndexingAPIs in your language of choice.
   x-logo:
     url: https://app.glean.com/images/glean-text2.svg
-  x-open-api-commit-sha: f89c07f572daff630aa6a660c5c20e8aa3227322
+  x-open-api-commit-sha: f13962c9263237558900c5da6ccfa48ea4edb68c
   x-speakeasy-name: 'Glean API'
 servers:
   - url: https://{instance}-be.glean.com
@@ -9329,6 +9329,27 @@ components:
         runCount:
           type: integer
           description: Total number of agent runs for this user over the specified time period.
+    AgentsTimeSavedInsight:
+      properties:
+        agentId:
+          type: string
+          description: Agent ID
+        agentName:
+          type: string
+          description: Agent name
+        icon:
+          $ref: "#/components/schemas/IconConfig"
+          description: Agent icon configuration
+        isDeleted:
+          type: boolean
+          description: Indicates whether the agent has been deleted
+        runCount:
+          type: integer
+          description: Total number of runs for this agent over the specified time period.
+        minsPerRun:
+          type: number
+          format: float
+          description: Average minutes saved per run for this agent over the specified time period.
     AgentsInsightsV2Response:
       allOf:
         - $ref: "#/components/schemas/CurrentActiveUsers"
@@ -9355,7 +9376,18 @@ components:
               type: array
               items:
                 $ref: "#/components/schemas/AgentUsersInsight"
+            agentsTimeSavedInsights:
+              type: array
+              items:
+                $ref: "#/components/schemas/AgentsTimeSavedInsight"
+              description: Insights for agents time saved over the specified time period.
             dailyAgentRunsTimeseries:
+              $ref: "#/components/schemas/LabeledCountInfo"
+            successfulRunsTimeseries:
+              $ref: "#/components/schemas/LabeledCountInfo"
+            failedRunsTimeseries:
+              $ref: "#/components/schemas/LabeledCountInfo"
+            pausedRunsTimeseries:
               $ref: "#/components/schemas/LabeledCountInfo"
             upvotesTimeseries:
               $ref: "#/components/schemas/LabeledCountInfo"
@@ -10493,6 +10525,7 @@ components:
         - SCRIBES_TYPE
         - SHORTCUTS_TYPE
         - SLIDE_TYPE
+        - SPREADSHEET_TYPE
         - WORKFLOWS_TYPE
     FavoriteInfo:
       type: object

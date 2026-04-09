@@ -31,4 +31,5 @@ value = UgcType.AGENT_TYPE
 | `SCRIBES_TYPE`          | SCRIBES_TYPE            |
 | `SHORTCUTS_TYPE`        | SHORTCUTS_TYPE          |
 | `SLIDE_TYPE`            | SLIDE_TYPE              |
+| `SPREADSHEET_TYPE`      | SPREADSHEET_TYPE        |
 | `WORKFLOWS_TYPE`        | WORKFLOWS_TYPE          |
