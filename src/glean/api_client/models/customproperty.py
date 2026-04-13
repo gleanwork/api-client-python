@@ -12,7 +12,7 @@ class CustomPropertyTypedDict(TypedDict):
 
     name: NotRequired[str]
     value: NotRequired[Any]
-    r"""Must either be a string or an array of strings. An integer, boolean, etc. is not valid. When OpenAPI Generator supports `oneOf`, we can semantically enforce this."""
+    r"""Must be a string, a number (for INT properties), or an array of strings. A boolean is not valid. When OpenAPI Generator supports `oneOf`, we can semantically enforce this."""
 
 
 class CustomProperty(BaseModel):
@@ -21,7 +21,7 @@ class CustomProperty(BaseModel):
     name: Optional[str] = None
 
     value: Optional[Any] = None
-    r"""Must either be a string or an array of strings. An integer, boolean, etc. is not valid. When OpenAPI Generator supports `oneOf`, we can semantically enforce this."""
+    r"""Must be a string, a number (for INT properties), or an array of strings. A boolean is not valid. When OpenAPI Generator supports `oneOf`, we can semantically enforce this."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):

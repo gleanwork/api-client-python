@@ -562,6 +562,7 @@ if TYPE_CHECKING:
     )
     from .dlpfindingfilter import DlpFindingFilter, DlpFindingFilterTypedDict
     from .dlpfrequency import DlpFrequency
+    from .dlpissuestatus import DlpIssueStatus
     from .dlpperson import DlpPerson, DlpPersonTypedDict
     from .dlppersonmetadata import DlpPersonMetadata, DlpPersonMetadataTypedDict
     from .dlpreport import DlpReport, DlpReportTypedDict, LastScanStatus
@@ -1817,6 +1818,7 @@ __all__ = [
     "DlpFindingFilter",
     "DlpFindingFilterTypedDict",
     "DlpFrequency",
+    "DlpIssueStatus",
     "DlpPerson",
     "DlpPersonMetadata",
     "DlpPersonMetadataTypedDict",
@@ -2946,6 +2948,7 @@ _dynamic_imports: dict[str, str] = {
     "DlpFindingFilter": ".dlpfindingfilter",
     "DlpFindingFilterTypedDict": ".dlpfindingfilter",
     "DlpFrequency": ".dlpfrequency",
+    "DlpIssueStatus": ".dlpissuestatus",
     "DlpPerson": ".dlpperson",
     "DlpPersonTypedDict": ".dlpperson",
     "DlpPersonMetadata": ".dlppersonmetadata",

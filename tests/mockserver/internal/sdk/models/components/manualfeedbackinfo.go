@@ -97,17 +97,21 @@ func (e *ManualFeedbackInfoSource) UnmarshalJSON(data []byte) error {
 type Issue string
 
 const (
-	IssueInaccurateResponse    Issue = "INACCURATE_RESPONSE"
-	IssueIncompleteOrNoAnswer  Issue = "INCOMPLETE_OR_NO_ANSWER"
-	IssueIncorrectCitation     Issue = "INCORRECT_CITATION"
-	IssueMissingCitation       Issue = "MISSING_CITATION"
-	IssueOther                 Issue = "OTHER"
-	IssueOutdatedResponse      Issue = "OUTDATED_RESPONSE"
-	IssueResultMissing         Issue = "RESULT_MISSING"
-	IssueResultShouldNotAppear Issue = "RESULT_SHOULD_NOT_APPEAR"
-	IssueResultsHelpful        Issue = "RESULTS_HELPFUL"
-	IssueResultsPoorOrder      Issue = "RESULTS_POOR_ORDER"
-	IssueTooMuchOneKind        Issue = "TOO_MUCH_ONE_KIND"
+	IssueAgentCanvasFailed            Issue = "AGENT_CANVAS_FAILED"
+	IssueAgentClarifyingQuestions     Issue = "AGENT_CLARIFYING_QUESTIONS"
+	IssueAgentIntermediateStepsFailed Issue = "AGENT_INTERMEDIATE_STEPS_FAILED"
+	IssueAgentToolCallFailed          Issue = "AGENT_TOOL_CALL_FAILED"
+	IssueInaccurateResponse           Issue = "INACCURATE_RESPONSE"
+	IssueIncompleteOrNoAnswer         Issue = "INCOMPLETE_OR_NO_ANSWER"
+	IssueIncorrectCitation            Issue = "INCORRECT_CITATION"
+	IssueMissingCitation              Issue = "MISSING_CITATION"
+	IssueOther                        Issue = "OTHER"
+	IssueOutdatedResponse             Issue = "OUTDATED_RESPONSE"
+	IssueResultMissing                Issue = "RESULT_MISSING"
+	IssueResultShouldNotAppear        Issue = "RESULT_SHOULD_NOT_APPEAR"
+	IssueResultsHelpful               Issue = "RESULTS_HELPFUL"
+	IssueResultsPoorOrder             Issue = "RESULTS_POOR_ORDER"
+	IssueTooMuchOneKind               Issue = "TOO_MUCH_ONE_KIND"
 )
 
 func (e Issue) ToPointer() *Issue {
@@ -119,6 +123,14 @@ func (e *Issue) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	switch v {
+	case "AGENT_CANVAS_FAILED":
+		fallthrough
+	case "AGENT_CLARIFYING_QUESTIONS":
+		fallthrough
+	case "AGENT_INTERMEDIATE_STEPS_FAILED":
+		fallthrough
+	case "AGENT_TOOL_CALL_FAILED":
+		fallthrough
 	case "INACCURATE_RESPONSE":
 		fallthrough
 	case "INCOMPLETE_OR_NO_ANSWER":

@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   version: 0.9.0
   title: Glean API
-  x-source-commit-sha: 3301b0cde4a4bf6d9bb67d909bfbfc2d97c47ad8
+  x-source-commit-sha: 56c43aab30e05c50c9e3277f877d2ca261a345cf
   description: |
     # Introduction
     In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This is useful, for example, for doing permissions-aware search over content in internal tools that reside on-prem as well as for searching over applications that Glean does not currently support first class. In addition these APIs allow the customer to push organization data (people info, organization structure etc) into Glean.
@@ -22,7 +22,7 @@ info:
     These API clients provide type-safe, idiomatic interfaces for working with Glean IndexingAPIs in your language of choice.
   x-logo:
     url: https://app.glean.com/images/glean-text2.svg
-  x-open-api-commit-sha: f13962c9263237558900c5da6ccfa48ea4edb68c
+  x-open-api-commit-sha: 791388b111dd5bdcce38c309f76e984ebd268577
   x-speakeasy-name: 'Glean API'
 servers:
   - url: https://{instance}-be.glean.com
@@ -4348,6 +4348,10 @@ components:
           items:
             type: string
             enum:
+              - AGENT_CANVAS_FAILED
+              - AGENT_CLARIFYING_QUESTIONS
+              - AGENT_INTERMEDIATE_STEPS_FAILED
+              - AGENT_TOOL_CALL_FAILED
               - INACCURATE_RESPONSE
               - INCOMPLETE_OR_NO_ANSWER
               - INCORRECT_CITATION
@@ -10577,6 +10581,9 @@ components:
             lastUpdateTimestamp:
               type: integer
               description: Server Unix timestamp of the last update time.
+            lastDraftSavedAt:
+              type: integer
+              description: Server Unix timestamp of the last time the draft was saved.
             lastUpdatedBy:
               $ref: "#/components/schemas/Person"
     Workflow:
@@ -12071,7 +12078,7 @@ components:
         name:
           type: string
         value:
-          description: Must either be a string or an array of strings. An integer, boolean, etc. is not valid. When OpenAPI Generator supports `oneOf`, we can semantically enforce this.
+          description: Must be a string, a number (for INT properties), or an array of strings. A boolean is not valid. When OpenAPI Generator supports `oneOf`, we can semantically enforce this.
       description: Describes the custom properties of the object.
     DatasourceConfig:
       $ref: '#/components/schemas/SharedDatasourceConfig'
@@ -13622,6 +13629,15 @@ components:
         - HIGH
       description: Severity levels for DLP findings and analyses.
       x-include-enum-class-prefix: true
+    DlpIssueStatus:
+      type: string
+      enum:
+        - OPEN
+        - CLOSED
+        - IN_PROGRESS
+        - RESOLVED
+      description: Status of a DLP issue.
+      x-include-enum-class-prefix: true
     TimeRangeFilter:
       properties:
         timePeriodType:
@@ -13657,6 +13673,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/DlpSeverity'
+        statuses:
+          type: array
+          items:
+            $ref: '#/components/schemas/DlpIssueStatus'
         timeRange:
           $ref: '#/components/schemas/TimeRangeFilter'
         archived:
