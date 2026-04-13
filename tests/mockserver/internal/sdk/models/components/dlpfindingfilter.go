@@ -12,6 +12,7 @@ type DlpFindingFilter struct {
 	// Severity levels for DLP findings and analyses.
 	Severity         *DlpSeverity     `json:"severity,omitempty"`
 	DocumentSeverity []DlpSeverity    `json:"documentSeverity,omitempty"`
+	Statuses         []DlpIssueStatus `json:"statuses,omitempty"`
 	TimeRange        *TimeRangeFilter `json:"timeRange,omitempty"`
 	Archived         *bool            `json:"archived,omitempty"`
 }
@@ -70,6 +71,13 @@ func (o *DlpFindingFilter) GetDocumentSeverity() []DlpSeverity {
 		return nil
 	}
 	return o.DocumentSeverity
+}
+
+func (o *DlpFindingFilter) GetStatuses() []DlpIssueStatus {
+	if o == nil {
+		return nil
+	}
+	return o.Statuses
 }
 
 func (o *DlpFindingFilter) GetTimeRange() *TimeRangeFilter {

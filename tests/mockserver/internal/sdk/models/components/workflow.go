@@ -9,9 +9,11 @@ type Workflow struct {
 	// Server Unix timestamp of the creation time.
 	CreateTimestamp *int64 `json:"createTimestamp,omitempty"`
 	// Server Unix timestamp of the last update time.
-	LastUpdateTimestamp *int64             `json:"lastUpdateTimestamp,omitempty"`
-	LastUpdatedBy       *Person            `json:"lastUpdatedBy,omitempty"`
-	Permissions         *ObjectPermissions `json:"permissions,omitempty"`
+	LastUpdateTimestamp *int64 `json:"lastUpdateTimestamp,omitempty"`
+	// Server Unix timestamp of the last time the draft was saved.
+	LastDraftSavedAt *int64             `json:"lastDraftSavedAt,omitempty"`
+	LastUpdatedBy    *Person            `json:"lastUpdatedBy,omitempty"`
+	Permissions      *ObjectPermissions `json:"permissions,omitempty"`
 	// The ID of the workflow.
 	ID *string `json:"id,omitempty"`
 }
@@ -42,6 +44,13 @@ func (o *Workflow) GetLastUpdateTimestamp() *int64 {
 		return nil
 	}
 	return o.LastUpdateTimestamp
+}
+
+func (o *Workflow) GetLastDraftSavedAt() *int64 {
+	if o == nil {
+		return nil
+	}
+	return o.LastDraftSavedAt
 }
 
 func (o *Workflow) GetLastUpdatedBy() *Person {

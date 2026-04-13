@@ -5,7 +5,7 @@ package components
 // CustomProperty - Describes the custom properties of the object.
 type CustomProperty struct {
 	Name *string `json:"name,omitempty"`
-	// Must either be a string or an array of strings. An integer, boolean, etc. is not valid. When OpenAPI Generator supports `oneOf`, we can semantically enforce this.
+	// Must be a string, a number (for INT properties), or an array of strings. A boolean is not valid. When OpenAPI Generator supports `oneOf`, we can semantically enforce this.
 	Value any `json:"value,omitempty"`
 }
 

@@ -18,6 +18,8 @@ class WorkflowTypedDict(TypedDict):
     r"""Server Unix timestamp of the creation time."""
     last_update_timestamp: NotRequired[int]
     r"""Server Unix timestamp of the last update time."""
+    last_draft_saved_at: NotRequired[int]
+    r"""Server Unix timestamp of the last time the draft was saved."""
     last_updated_by: NotRequired[PersonTypedDict]
     permissions: NotRequired[ObjectPermissionsTypedDict]
     id: NotRequired[str]
@@ -40,6 +42,11 @@ class Workflow(BaseModel):
     ] = None
     r"""Server Unix timestamp of the last update time."""
 
+    last_draft_saved_at: Annotated[
+        Optional[int], pydantic.Field(alias="lastDraftSavedAt")
+    ] = None
+    r"""Server Unix timestamp of the last time the draft was saved."""
+
     last_updated_by: Annotated[
         Optional[Person], pydantic.Field(alias="lastUpdatedBy")
     ] = None
@@ -57,6 +64,7 @@ class Workflow(BaseModel):
                 "author",
                 "createTimestamp",
                 "lastUpdateTimestamp",
+                "lastDraftSavedAt",
                 "lastUpdatedBy",
                 "permissions",
                 "id",
