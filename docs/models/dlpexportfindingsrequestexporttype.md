@@ -1,13 +1,13 @@
-# ExportType
+# DlpExportFindingsRequestExportType
 
 The type of export to perform
 
 ## Example Usage
 
 ```python
-from glean.api_client.models import ExportType
+from glean.api_client.models import DlpExportFindingsRequestExportType
 
-value = ExportType.FINDINGS
+value = DlpExportFindingsRequestExportType.FINDINGS
 ```
 
 

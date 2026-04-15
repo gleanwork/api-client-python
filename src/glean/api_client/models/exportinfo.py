@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 from .dlpfindingfilter import DlpFindingFilter, DlpFindingFilterTypedDict
+from .dlpissuefilter import DlpIssueFilter, DlpIssueFilterTypedDict
 from .dlpperson import DlpPerson, DlpPersonTypedDict
 from enum import Enum
 from glean.api_client import models, utils
@@ -10,6 +11,14 @@ import pydantic
 from pydantic import field_serializer, model_serializer
 from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
+
+
+class ExportInfoExportType(str, Enum, metaclass=utils.OpenEnumMeta):
+    r"""The type of export to perform"""
+
+    FINDINGS = "FINDINGS"
+    DOCUMENTS = "DOCUMENTS"
+    ISSUES = "ISSUES"
 
 
 class ExportInfoStatus(str, Enum, metaclass=utils.OpenEnumMeta):
@@ -31,7 +40,11 @@ class ExportInfoTypedDict(TypedDict):
     r"""The ID of the export"""
     file_name: NotRequired[str]
     r"""The name of the file to export the findings to"""
+    export_type: NotRequired[ExportInfoExportType]
+    r"""The type of export to perform"""
     filter_: NotRequired[DlpFindingFilterTypedDict]
+    issue_filter: NotRequired[DlpIssueFilterTypedDict]
+    r"""Filter for DLP issues. Includes document-level filters and issue-specific filters."""
     status: NotRequired[ExportInfoStatus]
     r"""The status of the export"""
     export_size: NotRequired[int]
@@ -54,15 +67,34 @@ class ExportInfo(BaseModel):
     file_name: Annotated[Optional[str], pydantic.Field(alias="fileName")] = None
     r"""The name of the file to export the findings to"""
 
+    export_type: Annotated[
+        Optional[ExportInfoExportType], pydantic.Field(alias="exportType")
+    ] = None
+    r"""The type of export to perform"""
+
     filter_: Annotated[Optional[DlpFindingFilter], pydantic.Field(alias="filter")] = (
         None
     )
+
+    issue_filter: Annotated[
+        Optional[DlpIssueFilter], pydantic.Field(alias="issueFilter")
+    ] = None
+    r"""Filter for DLP issues. Includes document-level filters and issue-specific filters."""
 
     status: Optional[ExportInfoStatus] = None
     r"""The status of the export"""
 
     export_size: Annotated[Optional[int], pydantic.Field(alias="exportSize")] = None
     r"""The size of the exported file in bytes"""
+
+    @field_serializer("export_type")
+    def serialize_export_type(self, value):
+        if isinstance(value, str):
+            try:
+                return models.ExportInfoExportType(value)
+            except ValueError:
+                return value
+        return value
 
     @field_serializer("status")
     def serialize_status(self, value):
@@ -82,7 +114,9 @@ class ExportInfo(BaseModel):
                 "endTime",
                 "exportId",
                 "fileName",
+                "exportType",
                 "filter",
+                "issueFilter",
                 "status",
                 "exportSize",
             ]

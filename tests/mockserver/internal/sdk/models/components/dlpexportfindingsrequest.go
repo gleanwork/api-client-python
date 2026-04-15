@@ -7,19 +7,19 @@ import (
 	"fmt"
 )
 
-// ExportType - The type of export to perform
-type ExportType string
+// DlpExportFindingsRequestExportType - The type of export to perform
+type DlpExportFindingsRequestExportType string
 
 const (
-	ExportTypeFindings  ExportType = "FINDINGS"
-	ExportTypeDocuments ExportType = "DOCUMENTS"
-	ExportTypeIssues    ExportType = "ISSUES"
+	DlpExportFindingsRequestExportTypeFindings  DlpExportFindingsRequestExportType = "FINDINGS"
+	DlpExportFindingsRequestExportTypeDocuments DlpExportFindingsRequestExportType = "DOCUMENTS"
+	DlpExportFindingsRequestExportTypeIssues    DlpExportFindingsRequestExportType = "ISSUES"
 )
 
-func (e ExportType) ToPointer() *ExportType {
+func (e DlpExportFindingsRequestExportType) ToPointer() *DlpExportFindingsRequestExportType {
 	return &e
 }
-func (e *ExportType) UnmarshalJSON(data []byte) error {
+func (e *DlpExportFindingsRequestExportType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -30,10 +30,10 @@ func (e *ExportType) UnmarshalJSON(data []byte) error {
 	case "DOCUMENTS":
 		fallthrough
 	case "ISSUES":
-		*e = ExportType(v)
+		*e = DlpExportFindingsRequestExportType(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for ExportType: %v", v)
+		return fmt.Errorf("invalid value for DlpExportFindingsRequestExportType: %v", v)
 	}
 }
 
@@ -69,8 +69,10 @@ func (e *FieldScope) UnmarshalJSON(data []byte) error {
 
 type DlpExportFindingsRequest struct {
 	// The type of export to perform
-	ExportType *ExportType       `json:"exportType,omitempty"`
-	Filter     *DlpFindingFilter `json:"filter,omitempty"`
+	ExportType *DlpExportFindingsRequestExportType `json:"exportType,omitempty"`
+	Filter     *DlpFindingFilter                   `json:"filter,omitempty"`
+	// Filter for DLP issues. Includes document-level filters and issue-specific filters.
+	IssueFilter *DlpIssueFilter `json:"issueFilter,omitempty"`
 	// The name of the file to export the findings to
 	FileName *string `json:"fileName,omitempty"`
 	// Controls which fields to include in the export
@@ -79,7 +81,7 @@ type DlpExportFindingsRequest struct {
 	FieldsToExclude []string `json:"fieldsToExclude,omitempty"`
 }
 
-func (o *DlpExportFindingsRequest) GetExportType() *ExportType {
+func (o *DlpExportFindingsRequest) GetExportType() *DlpExportFindingsRequestExportType {
 	if o == nil {
 		return nil
 	}
@@ -91,6 +93,13 @@ func (o *DlpExportFindingsRequest) GetFilter() *DlpFindingFilter {
 		return nil
 	}
 	return o.Filter
+}
+
+func (o *DlpExportFindingsRequest) GetIssueFilter() *DlpIssueFilter {
+	if o == nil {
+		return nil
+	}
+	return o.IssueFilter
 }
 
 func (o *DlpExportFindingsRequest) GetFileName() *string {

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 from .dlpfindingfilter import DlpFindingFilter, DlpFindingFilterTypedDict
+from .dlpissuefilter import DlpIssueFilter, DlpIssueFilterTypedDict
 from enum import Enum
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
@@ -10,7 +11,7 @@ from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class ExportType(str, Enum):
+class DlpExportFindingsRequestExportType(str, Enum):
     r"""The type of export to perform"""
 
     FINDINGS = "FINDINGS"
@@ -27,9 +28,11 @@ class FieldScope(str, Enum):
 
 
 class DlpExportFindingsRequestTypedDict(TypedDict):
-    export_type: NotRequired[ExportType]
+    export_type: NotRequired[DlpExportFindingsRequestExportType]
     r"""The type of export to perform"""
     filter_: NotRequired[DlpFindingFilterTypedDict]
+    issue_filter: NotRequired[DlpIssueFilterTypedDict]
+    r"""Filter for DLP issues. Includes document-level filters and issue-specific filters."""
     file_name: NotRequired[str]
     r"""The name of the file to export the findings to"""
     field_scope: NotRequired[FieldScope]
@@ -39,14 +42,19 @@ class DlpExportFindingsRequestTypedDict(TypedDict):
 
 
 class DlpExportFindingsRequest(BaseModel):
-    export_type: Annotated[Optional[ExportType], pydantic.Field(alias="exportType")] = (
-        None
-    )
+    export_type: Annotated[
+        Optional[DlpExportFindingsRequestExportType], pydantic.Field(alias="exportType")
+    ] = None
     r"""The type of export to perform"""
 
     filter_: Annotated[Optional[DlpFindingFilter], pydantic.Field(alias="filter")] = (
         None
     )
+
+    issue_filter: Annotated[
+        Optional[DlpIssueFilter], pydantic.Field(alias="issueFilter")
+    ] = None
+    r"""Filter for DLP issues. Includes document-level filters and issue-specific filters."""
 
     file_name: Annotated[Optional[str], pydantic.Field(alias="fileName")] = None
     r"""The name of the file to export the findings to"""
@@ -64,7 +72,14 @@ class DlpExportFindingsRequest(BaseModel):
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["exportType", "filter", "fileName", "fieldScope", "fieldsToExclude"]
+            [
+                "exportType",
+                "filter",
+                "issueFilter",
+                "fileName",
+                "fieldScope",
+                "fieldsToExclude",
+            ]
         )
         serialized = handler(self)
         m = {}

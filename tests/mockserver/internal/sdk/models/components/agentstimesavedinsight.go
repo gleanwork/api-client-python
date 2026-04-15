@@ -15,6 +15,8 @@ type AgentsTimeSavedInsight struct {
 	RunCount *int64 `json:"runCount,omitempty"`
 	// Average minutes saved per run for this agent over the specified time period.
 	MinsPerRun *float32 `json:"minsPerRun,omitempty"`
+	// Total number of users who provided feedback on time saved for this agent over the specified time period.
+	FeedbackUserCount *int64 `json:"feedbackUserCount,omitempty"`
 }
 
 func (o *AgentsTimeSavedInsight) GetAgentID() *string {
@@ -57,4 +59,11 @@ func (o *AgentsTimeSavedInsight) GetMinsPerRun() *float32 {
 		return nil
 	}
 	return o.MinsPerRun
+}
+
+func (o *AgentsTimeSavedInsight) GetFeedbackUserCount() *int64 {
+	if o == nil {
+		return nil
+	}
+	return o.FeedbackUserCount
 }
