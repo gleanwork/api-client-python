@@ -13,9 +13,12 @@ class Governance(BaseSDK):
     def createfindingsexport(
         self,
         *,
-        export_type: Optional[models.ExportType] = None,
+        export_type: Optional[models.DlpExportFindingsRequestExportType] = None,
         filter_: Optional[
             Union[models.DlpFindingFilter, models.DlpFindingFilterTypedDict]
+        ] = None,
+        issue_filter: Optional[
+            Union[models.DlpIssueFilter, models.DlpIssueFilterTypedDict]
         ] = None,
         file_name: Optional[str] = None,
         field_scope: Optional[models.FieldScope] = None,
@@ -31,6 +34,7 @@ class Governance(BaseSDK):
 
         :param export_type: The type of export to perform
         :param filter_:
+        :param issue_filter: Filter for DLP issues. Includes document-level filters and issue-specific filters.
         :param file_name: The name of the file to export the findings to
         :param field_scope: Controls which fields to include in the export
         :param fields_to_exclude: List of field names to exclude from the export
@@ -53,6 +57,9 @@ class Governance(BaseSDK):
             export_type=export_type,
             filter_=utils.get_pydantic_model(
                 filter_, Optional[models.DlpFindingFilter]
+            ),
+            issue_filter=utils.get_pydantic_model(
+                issue_filter, Optional[models.DlpIssueFilter]
             ),
             file_name=file_name,
             field_scope=field_scope,
@@ -116,9 +123,12 @@ class Governance(BaseSDK):
     async def createfindingsexport_async(
         self,
         *,
-        export_type: Optional[models.ExportType] = None,
+        export_type: Optional[models.DlpExportFindingsRequestExportType] = None,
         filter_: Optional[
             Union[models.DlpFindingFilter, models.DlpFindingFilterTypedDict]
+        ] = None,
+        issue_filter: Optional[
+            Union[models.DlpIssueFilter, models.DlpIssueFilterTypedDict]
         ] = None,
         file_name: Optional[str] = None,
         field_scope: Optional[models.FieldScope] = None,
@@ -134,6 +144,7 @@ class Governance(BaseSDK):
 
         :param export_type: The type of export to perform
         :param filter_:
+        :param issue_filter: Filter for DLP issues. Includes document-level filters and issue-specific filters.
         :param file_name: The name of the file to export the findings to
         :param field_scope: Controls which fields to include in the export
         :param fields_to_exclude: List of field names to exclude from the export
@@ -156,6 +167,9 @@ class Governance(BaseSDK):
             export_type=export_type,
             filter_=utils.get_pydantic_model(
                 filter_, Optional[models.DlpFindingFilter]
+            ),
+            issue_filter=utils.get_pydantic_model(
+                issue_filter, Optional[models.DlpIssueFilter]
             ),
             file_name=file_name,
             field_scope=field_scope,

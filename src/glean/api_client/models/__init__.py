@@ -556,12 +556,13 @@ if TYPE_CHECKING:
     from .dlpconfig import DlpConfig, DlpConfigTypedDict
     from .dlpexportfindingsrequest import (
         DlpExportFindingsRequest,
+        DlpExportFindingsRequestExportType,
         DlpExportFindingsRequestTypedDict,
-        ExportType,
         FieldScope,
     )
     from .dlpfindingfilter import DlpFindingFilter, DlpFindingFilterTypedDict
     from .dlpfrequency import DlpFrequency
+    from .dlpissuefilter import DlpIssueFilter, DlpIssueFilterTypedDict
     from .dlpissuestatus import DlpIssueStatus
     from .dlpperson import DlpPerson, DlpPersonTypedDict
     from .dlppersonmetadata import DlpPersonMetadata, DlpPersonMetadataTypedDict
@@ -675,7 +676,12 @@ if TYPE_CHECKING:
     from .eventclassification import EventClassification, EventClassificationTypedDict
     from .eventclassificationname import EventClassificationName
     from .eventstrategyname import EventStrategyName
-    from .exportinfo import ExportInfo, ExportInfoStatus, ExportInfoTypedDict
+    from .exportinfo import (
+        ExportInfo,
+        ExportInfoExportType,
+        ExportInfoStatus,
+        ExportInfoTypedDict,
+    )
     from .externalsharingoptions import (
         ExternalSharingOptions,
         ExternalSharingOptionsTypedDict,
@@ -1814,10 +1820,13 @@ __all__ = [
     "DlpConfig",
     "DlpConfigTypedDict",
     "DlpExportFindingsRequest",
+    "DlpExportFindingsRequestExportType",
     "DlpExportFindingsRequestTypedDict",
     "DlpFindingFilter",
     "DlpFindingFilterTypedDict",
     "DlpFrequency",
+    "DlpIssueFilter",
+    "DlpIssueFilterTypedDict",
     "DlpIssueStatus",
     "DlpPerson",
     "DlpPersonMetadata",
@@ -1918,9 +1927,9 @@ __all__ = [
     "EventClassificationTypedDict",
     "EventStrategyName",
     "ExportInfo",
+    "ExportInfoExportType",
     "ExportInfoStatus",
     "ExportInfoTypedDict",
-    "ExportType",
     "ExternalSharingOptions",
     "ExternalSharingOptionsTypedDict",
     "ExternalShortcut",
@@ -2942,12 +2951,14 @@ _dynamic_imports: dict[str, str] = {
     "DlpConfig": ".dlpconfig",
     "DlpConfigTypedDict": ".dlpconfig",
     "DlpExportFindingsRequest": ".dlpexportfindingsrequest",
+    "DlpExportFindingsRequestExportType": ".dlpexportfindingsrequest",
     "DlpExportFindingsRequestTypedDict": ".dlpexportfindingsrequest",
-    "ExportType": ".dlpexportfindingsrequest",
     "FieldScope": ".dlpexportfindingsrequest",
     "DlpFindingFilter": ".dlpfindingfilter",
     "DlpFindingFilterTypedDict": ".dlpfindingfilter",
     "DlpFrequency": ".dlpfrequency",
+    "DlpIssueFilter": ".dlpissuefilter",
+    "DlpIssueFilterTypedDict": ".dlpissuefilter",
     "DlpIssueStatus": ".dlpissuestatus",
     "DlpPerson": ".dlpperson",
     "DlpPersonTypedDict": ".dlpperson",
@@ -3037,6 +3048,7 @@ _dynamic_imports: dict[str, str] = {
     "EventClassificationName": ".eventclassificationname",
     "EventStrategyName": ".eventstrategyname",
     "ExportInfo": ".exportinfo",
+    "ExportInfoExportType": ".exportinfo",
     "ExportInfoStatus": ".exportinfo",
     "ExportInfoTypedDict": ".exportinfo",
     "ExternalSharingOptions": ".externalsharingoptions",

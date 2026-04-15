@@ -22,6 +22,8 @@ class AgentsTimeSavedInsightTypedDict(TypedDict):
     r"""Total number of runs for this agent over the specified time period."""
     mins_per_run: NotRequired[float]
     r"""Average minutes saved per run for this agent over the specified time period."""
+    feedback_user_count: NotRequired[int]
+    r"""Total number of users who provided feedback on time saved for this agent over the specified time period."""
 
 
 class AgentsTimeSavedInsight(BaseModel):
@@ -43,10 +45,23 @@ class AgentsTimeSavedInsight(BaseModel):
     mins_per_run: Annotated[Optional[float], pydantic.Field(alias="minsPerRun")] = None
     r"""Average minutes saved per run for this agent over the specified time period."""
 
+    feedback_user_count: Annotated[
+        Optional[int], pydantic.Field(alias="feedbackUserCount")
+    ] = None
+    r"""Total number of users who provided feedback on time saved for this agent over the specified time period."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["agentId", "agentName", "icon", "isDeleted", "runCount", "minsPerRun"]
+            [
+                "agentId",
+                "agentName",
+                "icon",
+                "isDeleted",
+                "runCount",
+                "minsPerRun",
+                "feedbackUserCount",
+            ]
         )
         serialized = handler(self)
         m = {}

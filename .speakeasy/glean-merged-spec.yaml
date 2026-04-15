@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   version: 0.9.0
   title: Glean API
-  x-source-commit-sha: 56c43aab30e05c50c9e3277f877d2ca261a345cf
+  x-source-commit-sha: a9a6d4f331a3052d3347e7366e1166f483ff5cb7
   description: |
     # Introduction
     In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This is useful, for example, for doing permissions-aware search over content in internal tools that reside on-prem as well as for searching over applications that Glean does not currently support first class. In addition these APIs allow the customer to push organization data (people info, organization structure etc) into Glean.
@@ -22,7 +22,7 @@ info:
     These API clients provide type-safe, idiomatic interfaces for working with Glean IndexingAPIs in your language of choice.
   x-logo:
     url: https://app.glean.com/images/glean-text2.svg
-  x-open-api-commit-sha: 791388b111dd5bdcce38c309f76e984ebd268577
+  x-open-api-commit-sha: bee9d999e037d7c61bcd75eafa0755e05e88dba7
   x-speakeasy-name: 'Glean API'
 servers:
   - url: https://{instance}-be.glean.com
@@ -9354,6 +9354,9 @@ components:
           type: number
           format: float
           description: Average minutes saved per run for this agent over the specified time period.
+        feedbackUserCount:
+          type: integer
+          description: Total number of users who provided feedback on time saved for this agent over the specified time period.
     AgentsInsightsV2Response:
       allOf:
         - $ref: "#/components/schemas/CurrentActiveUsers"
@@ -13681,6 +13684,42 @@ components:
           $ref: '#/components/schemas/TimeRangeFilter'
         archived:
           type: boolean
+    DlpIssueFilter:
+      properties:
+        searchText:
+          type: string
+          description: Text to search for in issue fields.
+        statuses:
+          type: array
+          items:
+            $ref: '#/components/schemas/DlpIssueStatus'
+          description: Filter by one or more issue statuses.
+        assigneeId:
+          type: string
+          description: Filter by assignee user ID.
+        infoType:
+          type: string
+        regexId:
+          type: string
+        reportIds:
+          type: array
+          items:
+            type: string
+          description: Filter by one or more report/policy IDs.
+        docId:
+          type: string
+        datasource:
+          type: string
+        visibility:
+          type: string
+        severities:
+          type: array
+          items:
+            $ref: '#/components/schemas/DlpSeverity'
+          description: Filter by one or more severity levels.
+        timeRange:
+          $ref: '#/components/schemas/TimeRangeFilter'
+      description: Filter for DLP issues. Includes document-level filters and issue-specific filters.
     ExportInfo:
       properties:
         createdBy:
@@ -13700,9 +13739,19 @@ components:
         fileName:
           type: string
           description: The name of the file to export the findings to
+        exportType:
+          type: string
+          enum:
+            - FINDINGS
+            - DOCUMENTS
+            - ISSUES
+          description: The type of export to perform
         filter:
           $ref: '#/components/schemas/DlpFindingFilter'
-          description: The filters used to export the findings
+          description: The filters used to export the findings. Set for FINDINGS and DOCUMENTS exports.
+        issueFilter:
+          $ref: '#/components/schemas/DlpIssueFilter'
+          description: The filters used for ISSUES exports.
         status:
           type: string
           enum:
@@ -13731,6 +13780,9 @@ components:
           description: The type of export to perform
         filter:
           $ref: '#/components/schemas/DlpFindingFilter'
+        issueFilter:
+          $ref: '#/components/schemas/DlpIssueFilter'
+          description: Filter for ISSUE-level exports. Used when exportType is ISSUES.
         fileName:
           type: string
           description: The name of the file to export the findings to

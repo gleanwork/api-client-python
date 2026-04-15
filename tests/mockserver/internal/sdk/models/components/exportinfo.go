@@ -7,6 +7,36 @@ import (
 	"fmt"
 )
 
+// ExportInfoExportType - The type of export to perform
+type ExportInfoExportType string
+
+const (
+	ExportInfoExportTypeFindings  ExportInfoExportType = "FINDINGS"
+	ExportInfoExportTypeDocuments ExportInfoExportType = "DOCUMENTS"
+	ExportInfoExportTypeIssues    ExportInfoExportType = "ISSUES"
+)
+
+func (e ExportInfoExportType) ToPointer() *ExportInfoExportType {
+	return &e
+}
+func (e *ExportInfoExportType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "FINDINGS":
+		fallthrough
+	case "DOCUMENTS":
+		fallthrough
+	case "ISSUES":
+		*e = ExportInfoExportType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for ExportInfoExportType: %v", v)
+	}
+}
+
 // ExportInfoStatus - The status of the export
 type ExportInfoStatus string
 
@@ -47,8 +77,12 @@ type ExportInfo struct {
 	// The ID of the export
 	ExportID *string `json:"exportId,omitempty"`
 	// The name of the file to export the findings to
-	FileName *string           `json:"fileName,omitempty"`
-	Filter   *DlpFindingFilter `json:"filter,omitempty"`
+	FileName *string `json:"fileName,omitempty"`
+	// The type of export to perform
+	ExportType *ExportInfoExportType `json:"exportType,omitempty"`
+	Filter     *DlpFindingFilter     `json:"filter,omitempty"`
+	// Filter for DLP issues. Includes document-level filters and issue-specific filters.
+	IssueFilter *DlpIssueFilter `json:"issueFilter,omitempty"`
 	// The status of the export
 	Status *ExportInfoStatus `json:"status,omitempty"`
 	// The size of the exported file in bytes
@@ -90,11 +124,25 @@ func (o *ExportInfo) GetFileName() *string {
 	return o.FileName
 }
 
+func (o *ExportInfo) GetExportType() *ExportInfoExportType {
+	if o == nil {
+		return nil
+	}
+	return o.ExportType
+}
+
 func (o *ExportInfo) GetFilter() *DlpFindingFilter {
 	if o == nil {
 		return nil
 	}
 	return o.Filter
+}
+
+func (o *ExportInfo) GetIssueFilter() *DlpIssueFilter {
+	if o == nil {
+		return nil
+	}
+	return o.IssueFilter
 }
 
 func (o *ExportInfo) GetStatus() *ExportInfoStatus {
