@@ -5,15 +5,15 @@ management:
   docVersion: 0.9.0
   speakeasyVersion: 1.761.8
   generationVersion: 2.881.2
-  releaseVersion: 0.12.23
-  configChecksum: cd5fdec511096649530bb13c6e69caf5
+  releaseVersion: 0.12.24
+  configChecksum: 9cfd2ffe12f50ecc2330ef075db81617
   repoURL: https://github.com/gleanwork/api-client-python.git
   installationURL: https://github.com/gleanwork/api-client-python.git
   published: true
 persistentEdits:
-  generation_id: a3da4dc6-eb57-48cb-b4f8-8f17b4eaaf36
-  pristine_commit_hash: ab8527b36e130f9eae327b187b42dcb2995ed724
-  pristine_tree_hash: e450a6ae3a3fa344c851c7fe47a436354486836c
+  generation_id: 2fceeaae-a67f-43df-9b74-f48414e52c01
+  pristine_commit_hash: c650fdd3a03d0a61c49d1730c63b81dc0bc3df72
+  pristine_tree_hash: 100bd3bd2af8e452f6eb4efc38bb4ee68ef67acf
 features:
   python:
     additionalDependencies: 1.0.0
@@ -2787,8 +2787,8 @@ trackedFiles:
     pristine_git_object: e2fda7fe263c2a111e53872e3ad5bc324b4dccfe
   pyproject.toml:
     id: 5d07e7d72637
-    last_write_checksum: sha1:2279d65d6743cb8b14c0c347a21d39ed4202b868
-    pristine_git_object: 5666d98ad2ef279956ccf0f88a3bcbd0cb420225
+    last_write_checksum: sha1:1476c3b7e14a27c26723cc7f3a476a4cbc766cc5
+    pristine_git_object: 5f4520c8ae37f1be6e3b00f0fd53092c6f55a24e
   scripts/prepare_readme.py:
     id: e0c5957a6035
     last_write_checksum: sha1:c2c83f71dea61eb50c9e05da83b16d18b4da8794
@@ -2815,8 +2815,8 @@ trackedFiles:
     pristine_git_object: 58c4d70ac1797b86ff5c4237cafbc344c42d8f64
   src/glean/api_client/_version.py:
     id: 0ce22b26136b
-    last_write_checksum: sha1:30fda2e51481f51d4598a1e635237b2ef3ac616c
-    pristine_git_object: a5308bafa29cf876f921656ecf5cb7008d710de4
+    last_write_checksum: sha1:0538e65f8fdd1206a7d8eaa1e9cef772202c7596
+    pristine_git_object: f74aefe7e9cba3d88bfc95df27bbf172f41f3346
   src/glean/api_client/agents.py:
     id: b925701a9217
     last_write_checksum: sha1:e9608819a04566ba6e711f8f7cc9527d5dd095c9
@@ -5278,7 +5278,7 @@ trackedFiles:
   tests/mockserver/internal/handler/pathpostrestapiv1getanswer.go:
     last_write_checksum: sha1:80bc08894cebfd78f82d3d80f93fd85a11b55d45
   tests/mockserver/internal/handler/pathpostrestapiv1getchat.go:
-    last_write_checksum: sha1:b48e2313407814ee4f8ed181b8e5299a84960c44
+    last_write_checksum: sha1:2267292ba8173cf8df70ddbc6ac02ff3439cb879
   tests/mockserver/internal/handler/pathpostrestapiv1getchatapplication.go:
     last_write_checksum: sha1:7b81898137fdb3a89b4dcfa318b9b5b92e8860c0
   tests/mockserver/internal/handler/pathpostrestapiv1getchatfiles.go:
@@ -6601,8 +6601,8 @@ trackedFiles:
     pristine_git_object: 6cc8aeec3c52329d389081db0a27f10f53f214b9
   tests/test_messages.py:
     id: be23089b1f8b
-    last_write_checksum: sha1:2404e23964ef6a1f5ddc900402b34e597d2d9617
-    pristine_git_object: 132005ec7d1e35f805b6a8c28e07e043bce22f0a
+    last_write_checksum: sha1:5db8087e85104ab50b362638150fa1f6686a3c30
+    pristine_git_object: c0fd29dab7d365ef9d78c0c291b925e6b9fd7298
   tests/test_people.py:
     id: 37c243940039
     last_write_checksum: sha1:7c7268ffeebe48d81ed25e9b1cfc3a395abf5c1f
@@ -6625,8 +6625,8 @@ trackedFiles:
     pristine_git_object: df2944ebda36db652b2770dd1c23be83df90fc99
   tests/test_summarize.py:
     id: a255d8a6f627
-    last_write_checksum: sha1:a327189497f3a2b98c2e277757da4e4ba22cf768
-    pristine_git_object: 072b3207b89ff92c8a22b828c32ce23e2ae0ba88
+    last_write_checksum: sha1:367417f1b71aab34594032d6aa37244738fc66bc
+    pristine_git_object: 3999911609e0bd22b67ef8723b40302e7f0068a8
   tests/test_tools.py:
     id: 70889bdf7321
     last_write_checksum: sha1:3c0c220f8975b050c322f6475e95f7af4e65b995
