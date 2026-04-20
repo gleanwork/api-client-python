@@ -239,5 +239,27 @@ class TestXGleanHook:
         assert str(result.url) == "https://api.example.com/v1/search"
 
 
+    def test_handles_multipart_streaming_request(self):
+        """Should handle multipart requests without raising RequestNotRead.
+
+        Multipart file uploads use a streaming body. The previous implementation
+        reconstructed the request via httpx.Request(..., content=request.content),
+        which raised httpx.RequestNotRead on streaming bodies.
+        """
+        hook = XGlean()
+        request = httpx.Request(
+            "POST",
+            "https://example.com/rest/api/v1/uploadchatfiles",
+            data={"field": "value"},
+            files={"file": ("test.csv", b"a,b\n1,2", "text/csv")},
+        )
+        context = create_mock_context(include_experimental=True)
+
+        result = hook.before_request(context, request)
+
+        assert result.headers.get("X-Glean-Experimental") == "true"
+        assert result.method == "POST"
+
+
 if __name__ == "__main__":
     pytest.main([__file__])
