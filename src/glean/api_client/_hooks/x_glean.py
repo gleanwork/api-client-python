@@ -61,20 +61,10 @@ class XGlean(BeforeRequestHook):
             config_experimental,
         )
 
-        # Create new headers dict with existing headers
-        new_headers = dict(request.headers)
-
         if deprecated_value:
-            new_headers["X-Glean-Exclude-Deprecated-After"] = deprecated_value
+            request.headers["X-Glean-Exclude-Deprecated-After"] = deprecated_value
 
         if experimental_value:
-            new_headers["X-Glean-Experimental"] = experimental_value
+            request.headers["X-Glean-Experimental"] = experimental_value
 
-        # Return new request with updated headers
-        return httpx.Request(
-            method=request.method,
-            url=request.url,
-            headers=new_headers,
-            content=request.content,
-            extensions=request.extensions,
-        )
+        return request
