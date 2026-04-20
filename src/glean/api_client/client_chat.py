@@ -136,7 +136,7 @@ class ClientChat(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["400", "401", "408", "429", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -277,7 +277,7 @@ class ClientChat(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["400", "401", "408", "429", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -364,7 +364,7 @@ class ClientChat(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -451,7 +451,7 @@ class ClientChat(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -550,7 +550,7 @@ class ClientChat(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "429", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -649,7 +649,7 @@ class ClientChat(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "429", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -744,7 +744,7 @@ class ClientChat(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "429", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -839,7 +839,7 @@ class ClientChat(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "429", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -926,7 +926,7 @@ class ClientChat(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["401", "403", "429", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -1013,7 +1013,7 @@ class ClientChat(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["401", "403", "429", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -1112,7 +1112,7 @@ class ClientChat(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -1211,7 +1211,7 @@ class ClientChat(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -1310,7 +1310,7 @@ class ClientChat(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "429", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -1409,7 +1409,7 @@ class ClientChat(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "429", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -1508,7 +1508,7 @@ class ClientChat(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "429", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -1607,7 +1607,7 @@ class ClientChat(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "429", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -1706,7 +1706,7 @@ class ClientChat(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "429", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -1805,7 +1805,7 @@ class ClientChat(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["400", "401", "403", "429", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -1943,7 +1943,7 @@ class ClientChat(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["400", "401", "408", "429", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
@@ -2081,7 +2081,7 @@ class ClientChat(BaseSDK):
                 ),
             ),
             request=req,
-            error_status_codes=["400", "401", "408", "429", "4XX", "5XX"],
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
