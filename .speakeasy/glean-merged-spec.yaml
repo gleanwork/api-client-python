@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   version: 0.9.0
   title: Glean API
-  x-source-commit-sha: 0aa266469924048ad422bf6314104f79b477e46a
+  x-source-commit-sha: f92939fdba66a05a4e772c1baf450600181ccffd
   description: |
     # Introduction
     In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This is useful, for example, for doing permissions-aware search over content in internal tools that reside on-prem as well as for searching over applications that Glean does not currently support first class. In addition these APIs allow the customer to push organization data (people info, organization structure etc) into Glean.
@@ -22,7 +22,7 @@ info:
     These API clients provide type-safe, idiomatic interfaces for working with Glean IndexingAPIs in your language of choice.
   x-logo:
     url: https://app.glean.com/images/glean-text2.svg
-  x-open-api-commit-sha: 122e22b59935f3ed61845da28a7c607ebc115c9b
+  x-open-api-commit-sha: 647eaa38c051fec5593ab69cfdbc89e96fe5932f
   x-speakeasy-name: 'Glean API'
 servers:
   - url: https://{instance}-be.glean.com
@@ -850,6 +850,49 @@ paths:
         - APIToken: []
       x-speakeasy-name-override: deleteFiles
       x-speakeasy-group: client.chat
+  /rest/api/v1/chat-files/{fileId}:
+    get:
+      tags:
+        - Chat
+      summary: Download a chat file
+      description: |
+        Download the raw content of a file generated or uploaded during a chat session (for example, an image produced by the assistant). Returns the file bytes with a Content-Type header matching the file's MIME type.
+      operationId: getChatFile
+      x-visibility: Public
+      parameters:
+        - name: fileId
+          in: path
+          required: true
+          description: Identifier of the chat file to download.
+          schema:
+            type: string
+        - name: preview
+          in: query
+          required: false
+          description: |
+            When true and the file is a PDF, the response is served inline (Content-Disposition: inline) instead of as an attachment.
+          schema:
+            type: boolean
+      responses:
+        "200":
+          description: File content.
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        "400":
+          description: File ID missing from path.
+        "401":
+          description: Missing or invalid API token.
+        "403":
+          description: Caller does not have access to the file.
+        "404":
+          description: File not found.
+        "500":
+          description: Internal server error.
+      security:
+        - APIToken: []
   /rest/api/v1/agents/{agent_id}:
     get:
       tags:
@@ -892,6 +935,49 @@ paths:
         - APIToken: []
       x-speakeasy-group: client.agents
       x-speakeasy-name-override: retrieve
+    post:
+      tags:
+        - Agents
+      summary: Edit an agent
+      description: Creates a draft or publishes an [agent](https://developers.glean.com/agents/agents-api). Use `isDraft=true` to save a draft, or `isDraft=false` (or omit) to publish immediately. Only draft and publish modes are supported.
+      operationId: editAgent
+      x-visibility: Preview
+      parameters:
+        - $ref: "#/components/parameters/locale"
+        - $ref: "#/components/parameters/timezoneOffset"
+        - description: The ID of the agent.
+          required: true
+          schema:
+            type: string
+            title: Agent ID
+            description: The ID of the agent.
+          name: agent_id
+          in: path
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EditWorkflowRequest"
+      responses:
+        "200":
+          description: Success
+        "400":
+          description: Bad request
+        "401":
+          description: Not Authorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Internal server error
+      security:
+        - APIToken: []
   /rest/api/v1/agents/{agent_id}/schemas:
     get:
       tags:
@@ -2036,6 +2122,58 @@ paths:
         - APIToken: []
       x-speakeasy-name-override: readPeople
       x-speakeasy-group: client.entities
+  /rest/api/v1/people/{person_id}/photo:
+    get:
+      tags:
+        - Entities
+      summary: Get person photo
+      description: |
+        Returns the profile photo bytes for a person whose photo is stored in Glean (crawled from an identity source or user-uploaded via admin console). Photos hosted externally (e.g. Slack CDN) are not served by this endpoint; callers should follow the photoUrl from /people or /listentities directly. Responses include a Cache-Control header (max-age=3600) to reduce redundant fetches.
+      operationId: getPersonPhoto
+      x-visibility: Public
+      parameters:
+        - name: person_id
+          in: path
+          required: true
+          description: The obfuscated ID of the person whose photo to retrieve.
+          schema:
+            type: string
+        - name: ds
+          in: query
+          required: false
+          description: |
+            Optional datasource override for crawled photos (e.g. AZURE, GDRIVE, OKTA). When omitted, the datasource is derived from the person's stored photo URL or the deployment's primary person datasource.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Photo bytes returned successfully.
+          headers:
+            Cache-Control:
+              description: Caching directive for the photo response.
+              schema:
+                type: string
+                example: public, max-age=3600
+          content:
+            image/png:
+              schema:
+                type: string
+                format: binary
+            image/jpeg:
+              schema:
+                type: string
+                format: binary
+        "400":
+          description: Missing person_id parameter.
+        "401":
+          description: Not Authorized.
+        "404":
+          description: |
+            Person not found, person has no photo, or photo is not hosted by Glean (follow photoUrl from /people or /listentities directly).
+        "429":
+          description: Too Many Requests.
+      security:
+        - APIToken: []
   /rest/api/v1/createshortcut:
     post:
       tags:
@@ -2429,6 +2567,80 @@ paths:
         - APIToken: []
       x-speakeasy-name-override: run
       x-speakeasy-group: client.tools
+  /rest/api/v1/actions/actionpack/{actionPackId}/auth:
+    parameters:
+      - in: path
+        name: actionPackId
+        required: true
+        description: ID of the action pack to query or authorize.
+        schema:
+          type: string
+    get:
+      tags:
+        - Tools
+      summary: Get end-user authentication status for an action pack.
+      description: |
+        Reports whether the calling user is already authenticated against the third-party
+        tool backing the specified action pack. Intended for headless / server-driven clients
+        that render an "Authorize" prompt when the user has not yet consented to the tool.
+      operationId: getActionPackAuthStatus
+      x-visibility: Preview
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ActionPackAuthStatusResponse"
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Action pack not found
+        "429":
+          description: Too Many Requests
+      security:
+        - APIToken: []
+    post:
+      tags:
+        - Tools
+      summary: Start the OAuth authorization flow for an action pack.
+      description: |
+        Starts the third-party OAuth flow for the specified action pack and returns the
+        redirect URL that the client should navigate the end user to. After the OAuth
+        callback completes, the user's browser is redirected back to `returnUrl` with a
+        status query parameter (`?glean_action_auth=success|error&actionPackId=...`).
+
+        `returnUrl` must match the tenant's configured return URL allowlist; otherwise the
+        request is rejected with 400.
+      operationId: authorizeActionPack
+      x-visibility: Preview
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuthorizeActionPackRequest"
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthorizeActionPackResponse"
+        "400":
+          description: Invalid request (e.g. returnUrl not in allowlist, unsupported auth type)
+        "401":
+          description: Unauthorized
+        "403":
+          description: User not entitled to the action pack
+        "404":
+          description: Action pack not found
+        "429":
+          description: Too Many Requests
+      security:
+        - APIToken: []
   /api/index/v1/indexdocument:
     post:
       summary: Index document
@@ -3510,6 +3722,44 @@ paths:
           description: Conflict
       x-speakeasy-name-override: upload
       x-speakeasy-group: indexing.shortcuts
+  /api/index/v1/debug/{datasource}/document/events:
+    post:
+      summary: |
+        Beta: Get document lifecycle events
+      description: |
+        Retrieves lifecycle events for a specific document including upload time, index times and deletions. Rate limited to 1 request per minute per datasource. Currently in beta, might undergo breaking changes without prior notice.
+      tags:
+        - Troubleshooting
+      security:
+        - APIToken: []
+      parameters:
+        - name: datasource
+          in: path
+          description: The datasource to which the document belongs
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json; charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/DebugDocumentLifecycleRequest'
+        required: true
+        x-exportParamName: DebugDocumentLifecycleRequest
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json; charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/DebugDocumentLifecycleResponse'
+        "400":
+          description: Bad Request
+        "401":
+          description: Not Authorized
+        "429":
+          description: Too Many Requests
+      x-beta: true
   /rest/api/v1/governance/data/policies/{id}:
     get:
       operationId: getpolicy
@@ -3993,6 +4243,93 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DatasourceConfigurationResponse'
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "401":
+          description: Not authorized
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "404":
+          description: Datasource instance not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-visibility: Preview
+  /rest/api/v1/datasource/{datasourceInstanceId}/credentialstatus:
+    get:
+      operationId: getDatasourceCredentialStatus
+      summary: Get datasource instance credential status
+      description: |
+        Returns the current credential status for a datasource instance. Access is limited to callers with the ADMIN scope; the handler enforces this check.
+      tags:
+        - Datasources
+      security:
+        - APIToken: []
+      parameters:
+        - $ref: '#/components/parameters/datasourceInstanceId'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatasourceCredentialStatusResponse'
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "401":
+          description: Not authorized
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "404":
+          description: Datasource instance not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-visibility: Preview
+  /rest/api/v1/datasource/{datasourceInstanceId}/credentials:
+    post:
+      operationId: rotateDatasourceCredentials
+      summary: Rotate datasource instance credentials
+      description: |
+        Rotates the credentials that a datasource instance uses to connect to its upstream system. Replaces the active credential material with the supplied values and returns the credential status after rotation. Access is limited to callers with the ADMIN scope; the handler enforces this check.
+        Only keys recognized as credential material for the datasource type may be set in `credentials.values` (e.g. `clientSecret`, `apiToken`, `privateKey`, depending on the configured auth method). Unrecognized keys, or keys that correspond to non-credential configuration, cause a 400; other instance configuration must be updated via PATCH /configure/datasources/{datasourceId}/instances/{instanceId}.
+      tags:
+        - Datasources
+      security:
+        - APIToken: []
+      parameters:
+        - $ref: '#/components/parameters/datasourceInstanceId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RotateDatasourceCredentialsRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatasourceCredentialStatusResponse'
         "400":
           description: Invalid request
           content:
@@ -5636,6 +5973,12 @@ components:
           enum:
             - DOCUMENT
             - ASSISTANT
+    UgcTrackingSignals:
+      type: object
+      properties:
+        trackingToken:
+          type: string
+          description: An opaque token that represents this particular UGC. To be used for `/feedback` reporting.
     StructuredText:
       allOf:
         - $ref: "#/components/schemas/StructuredTextMutableProperties"
@@ -5920,6 +6263,7 @@ components:
       allOf:
         - $ref: "#/components/schemas/CollectionMutableProperties"
         - $ref: "#/components/schemas/PermissionedObject"
+        - $ref: "#/components/schemas/UgcTrackingSignals"
         - type: object
           required:
             - id
@@ -6062,6 +6406,7 @@ components:
         - $ref: "#/components/schemas/AnswerDocId"
         - $ref: "#/components/schemas/AnswerMutableProperties"
         - $ref: "#/components/schemas/PermissionedObject"
+        - $ref: "#/components/schemas/UgcTrackingSignals"
         - type: object
           required:
             - id
@@ -7571,6 +7916,7 @@ components:
         - $ref: "#/components/schemas/AnnouncementMutableProperties"
         - $ref: "#/components/schemas/DraftProperties"
         - $ref: "#/components/schemas/PermissionedObject"
+        - $ref: "#/components/schemas/UgcTrackingSignals"
         - type: object
           properties:
             id:
@@ -7681,7 +8027,14 @@ components:
           $ref: "#/components/schemas/Answer"
         trackingToken:
           type: string
-          description: An opaque token that represents this particular Answer. To be used for `/feedback` reporting.
+          description: Use `answer.trackingToken` instead.
+          deprecated: true
+          x-glean-deprecated:
+            id: 62de643b-f182-4d4d-a2fc-5e2cbfee7320
+            introduced: "2026-05-07"
+            message: Use `answer.trackingToken` instead.
+            removal: "2027-01-15"
+          x-speakeasy-deprecation-message: "Deprecated on 2026-05-07, removal scheduled for 2027-01-15: Use `answer.trackingToken` instead."
     GetAnswerError:
       properties:
         errorType:
@@ -8506,6 +8859,24 @@ components:
         message:
           type: string
           description: Client-facing error message describing what went wrong
+    WorkflowDraftableProperties:
+      properties:
+        name:
+          type: string
+          description: The name of the workflow.
+    WorkflowMutableProperties:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/WorkflowDraftableProperties"
+        - type: object
+    EditWorkflowRequest:
+      allOf:
+        - $ref: "#/components/schemas/WorkflowMutableProperties"
+        - type: object
+          properties:
+            id:
+              type: string
+              description: The workflow ID we want to update.
     ActionSummary:
       type: object
       description: Represents a minimal summary of an action.
@@ -8709,6 +9080,7 @@ components:
           type: string
           enum:
             - EXISTING_ITEM
+            - CORRUPT_ITEM
     AddCollectionItemsResponse:
       properties:
         collection:
@@ -8738,6 +9110,7 @@ components:
             - HEIGHT_VIOLATION
             - WIDTH_VIOLATION
             - NO_PERMISSIONS
+            - CORRUPT_ITEM
     CreateCollectionResponse:
       allOf:
         - type: object
@@ -8843,11 +9216,18 @@ components:
           $ref: "#/components/schemas/Collection"
         rootCollection:
           $ref: "#/components/schemas/Collection"
-        trackingToken:
-          type: string
-          description: An opaque token that represents this particular Collection. To be used for `/feedback` reporting.
         error:
           $ref: "#/components/schemas/CollectionError"
+        trackingToken:
+          type: string
+          description: Use `collection.trackingToken` instead.
+          deprecated: true
+          x-glean-deprecated:
+            id: 2d6ca3a7-4763-4137-9ebd-740568fe8300
+            introduced: "2026-05-07"
+            message: Use `collection.trackingToken` instead.
+            removal: "2027-01-15"
+          x-speakeasy-deprecation-message: "Deprecated on 2026-05-07, removal scheduled for 2027-01-15: Use `collection.trackingToken` instead."
     ListCollectionsRequest:
       properties:
         includeAudience:
@@ -8960,6 +9340,11 @@ components:
           items:
             type: string
           description: Departments for which Insights are requested.
+        managerEmails:
+          type: array
+          items:
+            type: string
+          description: Manager emails whose teams should be filtered for. Empty array means no filtering.
         dayRange:
           $ref: "#/components/schemas/Period"
           description: Time period for which Insights are requested.
@@ -8970,6 +9355,11 @@ components:
           items:
             type: string
           description: Departments for which Insights are requested.
+        managerEmails:
+          type: array
+          items:
+            type: string
+          description: Manager emails whose teams should be filtered for. Empty array means no filtering.
         dayRange:
           $ref: "#/components/schemas/Period"
           description: Time period for which Insights are requested.
@@ -8985,9 +9375,57 @@ components:
           items:
             type: string
           description: Departments for which Insights are requested.
+        managerEmails:
+          type: array
+          items:
+            type: string
+          description: Manager emails whose teams should be filtered for. Empty array means no filtering.
         dayRange:
           $ref: "#/components/schemas/Period"
           description: Time period for which Insights are requested.
+    McpBreakdownInsightsRequest:
+      properties:
+        departments:
+          type: array
+          items:
+            type: string
+          description: Departments for which Insights are requested.
+        managerIds:
+          type: array
+          items:
+            type: string
+          description: Manager user IDs whose teams should be filtered for. Empty array means no filtering.
+        managerEmails:
+          type: array
+          items:
+            type: string
+          description: Manager emails whose teams should be filtered for. Empty array means no filtering.
+        dayRange:
+          $ref: "#/components/schemas/Period"
+          description: Time period for which Insights are requested.
+        breakdownType:
+          type: string
+          enum:
+            - USERS
+            - HOST_APPLICATIONS
+            - TOOLS
+            - SERVERS
+          description: Type of breakdown to return.
+        hostApplications:
+          type: array
+          items:
+            type: string
+          description: Host applications to filter by. Empty array means all host applications.
+        tools:
+          type: array
+          items:
+            type: string
+          description: MCP tools to filter by. Empty array means all tools.
+        servers:
+          type: array
+          items:
+            type: string
+          description: MCP servers to filter by. Empty array means all servers.
     InsightsRequest:
       properties:
         overviewRequest:
@@ -9002,6 +9440,8 @@ components:
           $ref: "#/components/schemas/AgentsInsightsV2Request"
           x-visibility: Public
           description: If specified, will return data for the Agents section of the Insights Dashboard.
+        mcpBreakdownRequest:
+          $ref: "#/components/schemas/McpBreakdownInsightsRequest"
         disablePerUserInsights:
           type: boolean
           description: If true, suppresses the generation of per-user Insights in the response. Default is false.
@@ -9052,10 +9492,10 @@ components:
       properties:
         monthlyActiveUsers:
           type: integer
-          description: Number of current Monthly Active Users, in the specified departments.
+          description: Number of current Monthly Active Users.
         weeklyActiveUsers:
           type: integer
-          description: Number of current Weekly Active Users, in the specified departments.
+          description: Number of current Weekly Active Users.
     InsightsSearchSummary:
       allOf:
         - $ref: "#/components/schemas/CurrentActiveUsers"
@@ -9286,6 +9726,37 @@ components:
         downvoteCount:
           type: integer
           description: Total number of downvotes for this agent over the specified time period.
+        owner:
+          $ref: "#/components/schemas/Person"
+          description: |
+            The creator/owner of the agent. Absent if agent is deleted or owner is unknown.
+    AgentUseCaseInsight:
+      properties:
+        useCase:
+          type: string
+          description: Use case name
+        runCount:
+          type: integer
+          description: Total number of runs for this use case over the specified time period.
+        trend:
+          type: number
+          format: float
+          description: Percentage change in runs compared to the previous equivalent time period.
+        topDepartments:
+          type: string
+          description: Comma-separated list of the top departments using this use case.
+        topAgentId:
+          type: string
+          description: ID of the most-used agent for this use case.
+        topAgentName:
+          type: string
+          description: Name of the most-used agent for this use case.
+        topAgentIcon:
+          $ref: "#/components/schemas/IconConfig"
+          description: Icon of the most-used agent for this use case.
+        topAgentIsDeleted:
+          type: boolean
+          description: Indicates whether the top agent has been deleted.
     AgentsUsageByDepartmentInsight:
       properties:
         department:
@@ -9375,6 +9846,10 @@ components:
               type: array
               items:
                 $ref: "#/components/schemas/PerAgentInsight"
+            topUseCasesInsights:
+              type: array
+              items:
+                $ref: "#/components/schemas/AgentUseCaseInsight"
             agentsUsageByDepartmentInsights:
               type: array
               items:
@@ -10192,11 +10667,15 @@ components:
               - STARTER_KIT
               - MID_DAY_CATCH_UP
               - QUERY_SUGGESTION
+              - COWORK_CUJ_PROMO
               - WEEKLY_MEETINGS
               - FOLLOW_UP
               - MILESTONE_TIMELINE_CHECK
               - PROJECT_DISCUSSION_DIGEST
+              - PROJECT_FOCUS_BLOCK
               - PROJECT_NEXT_STEP
+              - DEMO_CARD
+              - OOO_PLANNER
           description: Categories of content requested. An allowlist gives flexibility to request content separately or together.
         requestOptions:
           $ref: "#/components/schemas/FeedRequestOptions"
@@ -10533,6 +11012,7 @@ components:
         - SHORTCUTS_TYPE
         - SLIDE_TYPE
         - SPREADSHEET_TYPE
+        - INLINE_HTML_TYPE
         - WORKFLOWS_TYPE
     FavoriteInfo:
       type: object
@@ -10562,16 +11042,6 @@ components:
         runCount:
           $ref: "#/components/schemas/CountInfo"
           description: This tracks how many times this prompt template was run. If user runs a prompt template after modifying the original one, it still counts as a run for the original template.
-    WorkflowDraftableProperties:
-      properties:
-        name:
-          type: string
-          description: The name of the workflow.
-    WorkflowMutableProperties:
-      type: object
-      allOf:
-        - $ref: "#/components/schemas/WorkflowDraftableProperties"
-        - type: object
     WorkflowMetadata:
       allOf:
         - type: object
@@ -10587,6 +11057,12 @@ components:
             lastDraftSavedAt:
               type: integer
               description: Server Unix timestamp of the last time the draft was saved.
+            lastDraftSavedBy:
+              description: The person who last saved the draft.
+              $ref: "#/components/schemas/Person"
+            lastDraftGitAuthorId:
+              type: string
+              description: ID of the VCS user (e.g. GitHub username) who last saved the draft. Set only by the draft save path via the external Git integration API.
             lastUpdatedBy:
               $ref: "#/components/schemas/Person"
     Workflow:
@@ -10702,11 +11178,15 @@ components:
             - ACTIVE_DISCUSSION
             - MID_DAY_CATCH_UP
             - QUERY_SUGGESTION
+            - COWORK_CUJ_PROMO
             - WEEKLY_MEETINGS
             - FOLLOW_UP
             - MILESTONE_TIMELINE_CHECK
             - PROJECT_DISCUSSION_DIGEST
+            - PROJECT_FOCUS_BLOCK
             - PROJECT_NEXT_STEP
+            - DEMO_CARD
+            - OOO_PLANNER
           description: Type of the justification.
         justification:
           type: string
@@ -10785,11 +11265,15 @@ components:
             - STARTER_KIT
             - MID_DAY_CATCH_UP
             - QUERY_SUGGESTION
+            - COWORK_CUJ_PROMO
             - WEEKLY_MEETINGS
             - FOLLOW_UP
             - MILESTONE_TIMELINE_CHECK
             - PROJECT_DISCUSSION_DIGEST
+            - PROJECT_FOCUS_BLOCK
             - PROJECT_NEXT_STEP
+            - DEMO_CARD
+            - OOO_PLANNER
           description: Category of the result, one of the requested categories in incoming request.
         primaryEntry:
           $ref: "#/components/schemas/FeedEntry"
@@ -11361,6 +11845,59 @@ components:
         error:
           type: string
           description: The error message if applicable
+    ActionAuthType:
+      type: string
+      description: |
+        Authentication mechanism used by an action pack.
+          - `AUTH_USER_OAUTH`: Requires per-user OAuth consent to the third-party tool.
+          - `AUTH_ADMIN`: Uses a service-account / admin-owned credential. End users do not authorize individually.
+          - `AUTH_NONE`: Action pack requires no authentication.
+      enum:
+        - AUTH_USER_OAUTH
+        - AUTH_ADMIN
+        - AUTH_NONE
+    ActionPackAuthStatus:
+      type: object
+      required:
+        - authenticated
+        - authType
+      properties:
+        authenticated:
+          type: boolean
+          description: Whether the calling user is already authenticated to the tool backing the action pack.
+        authType:
+          $ref: "#/components/schemas/ActionAuthType"
+    ActionPackAuthStatusResponse:
+      type: object
+      required:
+        - actionPack
+      properties:
+        actionPack:
+          $ref: "#/components/schemas/ActionPackAuthStatus"
+          description: |
+            Action-pack-scoped authentication status. Wrapped under `actionPack` so the response
+            shape clearly conveys that the status applies to the whole pack and leaves room to add
+            sibling fields (e.g. per-action status) later without a breaking change.
+    AuthorizeActionPackRequest:
+      type: object
+      required:
+        - returnUrl
+      properties:
+        returnUrl:
+          type: string
+          description: |
+            URL on the customer's domain to redirect the end user's browser back to after the third-party OAuth
+            callback completes. Must be present in the tenant's return URL allowlist.
+    AuthorizeActionPackResponse:
+      type: object
+      required:
+        - redirectUrl
+      properties:
+        redirectUrl:
+          type: string
+          description: |
+            URL that the customer UI should navigate the end user to in order to begin the third-party OAuth flow.
+            After the user consents, control returns to `returnUrl` from the request.
     IndexDocumentRequest:
       type: object
       properties:
@@ -13841,6 +14378,46 @@ components:
         - configuration
       description: |
         Request to update greenlisted configuration values for a datasource instance. Only keys that are exposed via the public API greenlist may be set.
+    DatasourceCredentialStatus:
+      type: string
+      enum:
+        - VALID
+        - VALID_WITH_WARNINGS
+        - VALIDATING
+        - INVALID
+        - MISSING
+      description: |
+        Lifecycle state of the credentials installed for a datasource instance. Mirrors the internal admin Status enum so the handler can surface the same health signals already tracked today. EXPIRING_SOON is represented as VALID_WITH_WARNINGS (with detail in `message`); EXPIRED is surfaced as INVALID plus a non-null `expiresAt` in the past.
+    DatasourceCredentialStatusResponse:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/DatasourceCredentialStatus'
+        lastRotatedAt:
+          type: string
+          format: date-time
+          description: When the credentials were last rotated. Omitted when not known.
+        expiresAt:
+          type: string
+          format: date-time
+          description: |
+            When the active credentials expire. Omitted when not known or not applicable to this credential type.
+        message:
+          type: string
+          description: Optional human-readable detail about the current credential status.
+      required:
+        - status
+      description: Status of the credentials currently installed for a datasource instance.
+    RotateDatasourceCredentialsRequest:
+      type: object
+      properties:
+        credentials:
+          $ref: '#/components/schemas/DatasourceInstanceConfiguration'
+      required:
+        - credentials
+      description: |
+        Request to rotate the credentials used by a datasource instance. Replaces the active credential material with the supplied values.
+        `credentials.values` must contain only keys recognized as credential material for the datasource type (for example `clientSecret` for OAuth, `apiToken` for API-token auth, `privateKey` for certificate auth). Unrecognized keys, or keys that correspond to non-credential configuration, cause a 400; use the configure endpoint to change non-credential config.
     ChatRequestStream:
       required:
         - messages
@@ -13910,6 +14487,14 @@ components:
       name: instanceId
       in: path
       description: The datasource instance identifier
+      required: true
+      schema:
+        type: string
+        example: o365sharepoint_abc123
+    datasourceInstanceId:
+      name: datasourceInstanceId
+      in: path
+      description: The full datasource instance identifier (e.g. o365sharepoint_abc123)
       required: true
       schema:
         type: string

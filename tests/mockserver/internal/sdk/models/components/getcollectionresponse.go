@@ -3,11 +3,13 @@
 package components
 
 type GetCollectionResponse struct {
-	Collection     *Collection `json:"collection,omitempty"`
-	RootCollection *Collection `json:"rootCollection,omitempty"`
-	// An opaque token that represents this particular Collection. To be used for `/feedback` reporting.
-	TrackingToken *string          `json:"trackingToken,omitempty"`
-	Error         *CollectionError `json:"error,omitempty"`
+	Collection     *Collection      `json:"collection,omitempty"`
+	RootCollection *Collection      `json:"rootCollection,omitempty"`
+	Error          *CollectionError `json:"error,omitempty"`
+	// Use `collection.trackingToken` instead.
+	//
+	// Deprecated: Deprecated on 2026-05-07, removal scheduled for 2027-01-15: Use `collection.trackingToken` instead..
+	TrackingToken *string `json:"trackingToken,omitempty"`
 }
 
 func (o *GetCollectionResponse) GetCollection() *Collection {
@@ -24,16 +26,16 @@ func (o *GetCollectionResponse) GetRootCollection() *Collection {
 	return o.RootCollection
 }
 
-func (o *GetCollectionResponse) GetTrackingToken() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TrackingToken
-}
-
 func (o *GetCollectionResponse) GetError() *CollectionError {
 	if o == nil {
 		return nil
 	}
 	return o.Error
+}
+
+func (o *GetCollectionResponse) GetTrackingToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TrackingToken
 }

@@ -91,6 +91,8 @@ class AnnouncementTypedDict(TypedDict):
     draft_id: NotRequired[int]
     r"""The opaque id of the associated draft."""
     permissions: NotRequired[ObjectPermissionsTypedDict]
+    tracking_token: NotRequired[str]
+    r"""An opaque token that represents this particular UGC. To be used for `/feedback` reporting."""
     id: NotRequired[int]
     r"""The opaque id of the announcement."""
     author: NotRequired[PersonTypedDict]
@@ -160,6 +162,11 @@ class Announcement(BaseModel):
 
     permissions: Optional[ObjectPermissions] = None
 
+    tracking_token: Annotated[Optional[str], pydantic.Field(alias="trackingToken")] = (
+        None
+    )
+    r"""An opaque token that represents this particular UGC. To be used for `/feedback` reporting."""
+
     id: Optional[int] = None
     r"""The opaque id of the announcement."""
 
@@ -226,6 +233,7 @@ class Announcement(BaseModel):
                 "viewUrl",
                 "draftId",
                 "permissions",
+                "trackingToken",
                 "id",
                 "author",
                 "createTimestamp",

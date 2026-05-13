@@ -3,7 +3,7 @@
 
 ## Fields
 
-| Field                                                                 | Type                                                                  | Required                                                              | Description                                                           |
-| --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| `monthly_active_users`                                                | *Optional[int]*                                                       | :heavy_minus_sign:                                                    | Number of current Monthly Active Users, in the specified departments. |
-| `weekly_active_users`                                                 | *Optional[int]*                                                       | :heavy_minus_sign:                                                    | Number of current Weekly Active Users, in the specified departments.  |
+| Field                                   | Type                                    | Required                                | Description                             |
+| --------------------------------------- | --------------------------------------- | --------------------------------------- | --------------------------------------- |
+| `monthly_active_users`                  | *Optional[int]*                         | :heavy_minus_sign:                      | Number of current Monthly Active Users. |
+| `weekly_active_users`                   | *Optional[int]*                         | :heavy_minus_sign:                      | Number of current Weekly Active Users.  |

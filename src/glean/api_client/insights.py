@@ -30,6 +30,12 @@ class Insights(BaseSDK):
                 models.AgentsInsightsV2Request, models.AgentsInsightsV2RequestTypedDict
             ]
         ] = None,
+        mcp_breakdown_request: Optional[
+            Union[
+                models.McpBreakdownInsightsRequest,
+                models.McpBreakdownInsightsRequestTypedDict,
+            ]
+        ] = None,
         disable_per_user_insights: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -44,6 +50,7 @@ class Insights(BaseSDK):
         :param overview_request:
         :param assistant_request:
         :param agents_request:
+        :param mcp_breakdown_request:
         :param disable_per_user_insights: If true, suppresses the generation of per-user Insights in the response. Default is false.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -71,6 +78,9 @@ class Insights(BaseSDK):
                 ),
                 agents_request=utils.get_pydantic_model(
                     agents_request, Optional[models.AgentsInsightsV2Request]
+                ),
+                mcp_breakdown_request=utils.get_pydantic_model(
+                    mcp_breakdown_request, Optional[models.McpBreakdownInsightsRequest]
                 ),
                 disable_per_user_insights=disable_per_user_insights,
             ),
@@ -150,6 +160,12 @@ class Insights(BaseSDK):
                 models.AgentsInsightsV2Request, models.AgentsInsightsV2RequestTypedDict
             ]
         ] = None,
+        mcp_breakdown_request: Optional[
+            Union[
+                models.McpBreakdownInsightsRequest,
+                models.McpBreakdownInsightsRequestTypedDict,
+            ]
+        ] = None,
         disable_per_user_insights: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -164,6 +180,7 @@ class Insights(BaseSDK):
         :param overview_request:
         :param assistant_request:
         :param agents_request:
+        :param mcp_breakdown_request:
         :param disable_per_user_insights: If true, suppresses the generation of per-user Insights in the response. Default is false.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -191,6 +208,9 @@ class Insights(BaseSDK):
                 ),
                 agents_request=utils.get_pydantic_model(
                     agents_request, Optional[models.AgentsInsightsV2Request]
+                ),
+                mcp_breakdown_request=utils.get_pydantic_model(
+                    mcp_breakdown_request, Optional[models.McpBreakdownInsightsRequest]
                 ),
                 disable_per_user_insights=disable_per_user_insights,
             ),

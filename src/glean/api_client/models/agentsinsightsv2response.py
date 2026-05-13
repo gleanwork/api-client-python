@@ -9,6 +9,7 @@ from .agentsusagebydepartmentinsight import (
     AgentsUsageByDepartmentInsight,
     AgentsUsageByDepartmentInsightTypedDict,
 )
+from .agentusecaseinsight import AgentUseCaseInsight, AgentUseCaseInsightTypedDict
 from .agentusersinsight import AgentUsersInsight, AgentUsersInsightTypedDict
 from .labeledcountinfo import LabeledCountInfo, LabeledCountInfoTypedDict
 from .peragentinsight import PerAgentInsight, PerAgentInsightTypedDict
@@ -21,15 +22,16 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 class AgentsInsightsV2ResponseTypedDict(TypedDict):
     monthly_active_users: NotRequired[int]
-    r"""Number of current Monthly Active Users, in the specified departments."""
+    r"""Number of current Monthly Active Users."""
     weekly_active_users: NotRequired[int]
-    r"""Number of current Weekly Active Users, in the specified departments."""
+    r"""Number of current Weekly Active Users."""
     monthly_active_user_timeseries: NotRequired[LabeledCountInfoTypedDict]
     weekly_active_user_timeseries: NotRequired[LabeledCountInfoTypedDict]
     daily_active_user_timeseries: NotRequired[LabeledCountInfoTypedDict]
     shared_agents_count: NotRequired[int]
     r"""Total number of shared agents."""
     top_agents_insights: NotRequired[List[PerAgentInsightTypedDict]]
+    top_use_cases_insights: NotRequired[List[AgentUseCaseInsightTypedDict]]
     agents_usage_by_department_insights: NotRequired[
         List[AgentsUsageByDepartmentInsightTypedDict]
     ]
@@ -48,12 +50,12 @@ class AgentsInsightsV2Response(BaseModel):
     monthly_active_users: Annotated[
         Optional[int], pydantic.Field(alias="monthlyActiveUsers")
     ] = None
-    r"""Number of current Monthly Active Users, in the specified departments."""
+    r"""Number of current Monthly Active Users."""
 
     weekly_active_users: Annotated[
         Optional[int], pydantic.Field(alias="weeklyActiveUsers")
     ] = None
-    r"""Number of current Weekly Active Users, in the specified departments."""
+    r"""Number of current Weekly Active Users."""
 
     monthly_active_user_timeseries: Annotated[
         Optional[LabeledCountInfo], pydantic.Field(alias="monthlyActiveUserTimeseries")
@@ -74,6 +76,10 @@ class AgentsInsightsV2Response(BaseModel):
 
     top_agents_insights: Annotated[
         Optional[List[PerAgentInsight]], pydantic.Field(alias="topAgentsInsights")
+    ] = None
+
+    top_use_cases_insights: Annotated[
+        Optional[List[AgentUseCaseInsight]], pydantic.Field(alias="topUseCasesInsights")
     ] = None
 
     agents_usage_by_department_insights: Annotated[
@@ -126,6 +132,7 @@ class AgentsInsightsV2Response(BaseModel):
                 "dailyActiveUserTimeseries",
                 "sharedAgentsCount",
                 "topAgentsInsights",
+                "topUseCasesInsights",
                 "agentsUsageByDepartmentInsights",
                 "agentUsersInsights",
                 "agentsTimeSavedInsights",

@@ -20,6 +20,9 @@ class WorkflowTypedDict(TypedDict):
     r"""Server Unix timestamp of the last update time."""
     last_draft_saved_at: NotRequired[int]
     r"""Server Unix timestamp of the last time the draft was saved."""
+    last_draft_saved_by: NotRequired[PersonTypedDict]
+    last_draft_git_author_id: NotRequired[str]
+    r"""ID of the VCS user (e.g. GitHub username) who last saved the draft. Set only by the draft save path via the external Git integration API."""
     last_updated_by: NotRequired[PersonTypedDict]
     permissions: NotRequired[ObjectPermissionsTypedDict]
     id: NotRequired[str]
@@ -47,6 +50,15 @@ class Workflow(BaseModel):
     ] = None
     r"""Server Unix timestamp of the last time the draft was saved."""
 
+    last_draft_saved_by: Annotated[
+        Optional[Person], pydantic.Field(alias="lastDraftSavedBy")
+    ] = None
+
+    last_draft_git_author_id: Annotated[
+        Optional[str], pydantic.Field(alias="lastDraftGitAuthorId")
+    ] = None
+    r"""ID of the VCS user (e.g. GitHub username) who last saved the draft. Set only by the draft save path via the external Git integration API."""
+
     last_updated_by: Annotated[
         Optional[Person], pydantic.Field(alias="lastUpdatedBy")
     ] = None
@@ -65,6 +77,8 @@ class Workflow(BaseModel):
                 "createTimestamp",
                 "lastUpdateTimestamp",
                 "lastDraftSavedAt",
+                "lastDraftSavedBy",
+                "lastDraftGitAuthorId",
                 "lastUpdatedBy",
                 "permissions",
                 "id",

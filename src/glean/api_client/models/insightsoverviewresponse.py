@@ -15,9 +15,9 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 class InsightsOverviewResponseTypedDict(TypedDict):
     monthly_active_users: NotRequired[int]
-    r"""Number of current Monthly Active Users, in the specified departments."""
+    r"""Number of current Monthly Active Users."""
     weekly_active_users: NotRequired[int]
-    r"""Number of current Weekly Active Users, in the specified departments."""
+    r"""Number of current Weekly Active Users."""
     departments: NotRequired[List[str]]
     r"""Department name(s)."""
     employee_count: NotRequired[int]
@@ -62,12 +62,12 @@ class InsightsOverviewResponse(BaseModel):
     monthly_active_users: Annotated[
         Optional[int], pydantic.Field(alias="monthlyActiveUsers")
     ] = None
-    r"""Number of current Monthly Active Users, in the specified departments."""
+    r"""Number of current Monthly Active Users."""
 
     weekly_active_users: Annotated[
         Optional[int], pydantic.Field(alias="weeklyActiveUsers")
     ] = None
-    r"""Number of current Weekly Active Users, in the specified departments."""
+    r"""Number of current Weekly Active Users."""
 
     departments: Optional[List[str]] = None
     r"""Department name(s)."""

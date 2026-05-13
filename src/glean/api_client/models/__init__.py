@@ -71,6 +71,15 @@ from typing import Any, TYPE_CHECKING
 from glean.api_client.utils.dynamic_imports import lazy_getattr, lazy_dir
 
 if TYPE_CHECKING:
+    from .actionauthtype import ActionAuthType
+    from .actionpackauthstatus import (
+        ActionPackAuthStatus,
+        ActionPackAuthStatusTypedDict,
+    )
+    from .actionpackauthstatusresponse import (
+        ActionPackAuthStatusResponse,
+        ActionPackAuthStatusResponseTypedDict,
+    )
     from .actionsummary import ActionSummary, ActionSummaryTypedDict
     from .activity import Activity, ActivityTypedDict
     from .activityevent import (
@@ -147,6 +156,7 @@ if TYPE_CHECKING:
         AgentsUsageByDepartmentInsight,
         AgentsUsageByDepartmentInsightTypedDict,
     )
+    from .agentusecaseinsight import AgentUseCaseInsight, AgentUseCaseInsightTypedDict
     from .agentusersinsight import AgentUsersInsight, AgentUsersInsightTypedDict
     from .allowlistoptions import AllowlistOptions, AllowlistOptionsTypedDict
     from .announcement import (
@@ -180,6 +190,18 @@ if TYPE_CHECKING:
         AuthConfigTypedDict,
         GrantType,
         TokenEndpointAuthMethod,
+    )
+    from .authorizeactionpackop import (
+        AuthorizeActionPackRequestRequest,
+        AuthorizeActionPackRequestRequestTypedDict,
+    )
+    from .authorizeactionpackrequest import (
+        AuthorizeActionPackRequest,
+        AuthorizeActionPackRequestTypedDict,
+    )
+    from .authorizeactionpackresponse import (
+        AuthorizeActionPackResponse,
+        AuthorizeActionPackResponseTypedDict,
     )
     from .authstatus import AuthStatus
     from .authtoken import AuthToken, AuthTokenTypedDict
@@ -411,6 +433,11 @@ if TYPE_CHECKING:
         DatasourceConfigurationResponse,
         DatasourceConfigurationResponseTypedDict,
     )
+    from .datasourcecredentialstatus import DatasourceCredentialStatus
+    from .datasourcecredentialstatusresponse import (
+        DatasourceCredentialStatusResponse,
+        DatasourceCredentialStatusResponseTypedDict,
+    )
     from .datasourcegroupdefinition import (
         DatasourceGroupDefinition,
         DatasourceGroupDefinitionTypedDict,
@@ -448,6 +475,14 @@ if TYPE_CHECKING:
         DocumentsTypedDict,
         Identity,
         IdentityTypedDict,
+    )
+    from .debugdocumentlifecyclerequest import (
+        DebugDocumentLifecycleRequest,
+        DebugDocumentLifecycleRequestTypedDict,
+    )
+    from .debugdocumentlifecycleresponse import (
+        DebugDocumentLifecycleResponse,
+        DebugDocumentLifecycleResponseTypedDict,
     )
     from .debugdocumentrequest import (
         DebugDocumentRequest,
@@ -628,6 +663,7 @@ if TYPE_CHECKING:
         DownloadreportcsvRequest,
         DownloadreportcsvRequestTypedDict,
     )
+    from .editagentop import EditAgentRequest, EditAgentRequestTypedDict
     from .editanswerop import (
         EditanswerRequestRequest,
         EditanswerRequestRequestTypedDict,
@@ -664,6 +700,7 @@ if TYPE_CHECKING:
     )
     from .editpinop import EditpinRequestRequest, EditpinRequestRequestTypedDict
     from .editpinrequest import EditPinRequest, EditPinRequestTypedDict
+    from .editworkflowrequest import EditWorkflowRequest, EditWorkflowRequestTypedDict
     from .employeeinfodefinition import (
         EmployeeInfoDefinition,
         EmployeeInfoDefinitionTypedDict,
@@ -700,10 +737,10 @@ if TYPE_CHECKING:
     from .facetvalue import FacetValue, FacetValueTypedDict
     from .favoriteinfo import FavoriteInfo, FavoriteInfoTypedDict
     from .feedback import (
-        Event,
         Feedback,
         FeedbackCategory,
         FeedbackChannel,
+        FeedbackEvent,
         FeedbackTypedDict,
     )
     from .feedbackchatexchange import (
@@ -741,6 +778,10 @@ if TYPE_CHECKING:
         GetRestAPIV1ToolsListRequest,
         GetRestAPIV1ToolsListRequestTypedDict,
     )
+    from .getactionpackauthstatusop import (
+        GetActionPackAuthStatusRequest,
+        GetActionPackAuthStatusRequestTypedDict,
+    )
     from .getagentop import GetAgentRequest, GetAgentRequestTypedDict
     from .getagentschemasop import (
         GetAgentSchemasRequest,
@@ -766,6 +807,7 @@ if TYPE_CHECKING:
         GetChatApplicationResponse,
         GetChatApplicationResponseTypedDict,
     )
+    from .getchatfileop import GetChatFileRequest, GetChatFileRequestTypedDict
     from .getchatfilesop import (
         GetchatfilesRequestRequest,
         GetchatfilesRequestRequestTypedDict,
@@ -793,6 +835,10 @@ if TYPE_CHECKING:
     from .getdatasourceconfigrequest import (
         GetDatasourceConfigRequest,
         GetDatasourceConfigRequestTypedDict,
+    )
+    from .getdatasourcecredentialstatusop import (
+        GetDatasourceCredentialStatusRequest,
+        GetDatasourceCredentialStatusRequestTypedDict,
     )
     from .getdatasourceinstanceconfigurationop import (
         GetDatasourceInstanceConfigurationRequest,
@@ -862,6 +908,14 @@ if TYPE_CHECKING:
     from .getdocvisibilityop import (
         GetdocvisibilityRequest,
         GetdocvisibilityRequestTypedDict,
+    )
+    from .getpersonphotoop import (
+        GetPersonPhotoRequest,
+        GetPersonPhotoRequestTypedDict,
+        GetPersonPhotoResponse,
+        GetPersonPhotoResponseResult,
+        GetPersonPhotoResponseResultTypedDict,
+        GetPersonPhotoResponseTypedDict,
     )
     from .getpinop import GetpinRequestRequest, GetpinRequestRequestTypedDict
     from .getpinrequest import GetPinRequest, GetPinRequestTypedDict
@@ -954,6 +1008,11 @@ if TYPE_CHECKING:
         InvalidOperatorValueErrorTypedDict,
     )
     from .labeledcountinfo import LabeledCountInfo, LabeledCountInfoTypedDict
+    from .lifecycleevent import (
+        LifeCycleEvent,
+        LifeCycleEventEvent,
+        LifeCycleEventTypedDict,
+    )
     from .listanswersop import (
         ListanswersRequestRequest,
         ListanswersRequestRequestTypedDict,
@@ -1032,6 +1091,11 @@ if TYPE_CHECKING:
         ManualFeedbackSideBySideInfoTypedDict,
         ManualFeedbackSideBySideInfoVote,
     )
+    from .mcpbreakdowninsightsrequest import (
+        BreakdownType,
+        McpBreakdownInsightsRequest,
+        McpBreakdownInsightsRequestTypedDict,
+    )
     from .message import (
         Message,
         MessageTextBlock,
@@ -1085,6 +1149,10 @@ if TYPE_CHECKING:
     from .pinop import PinRequestRequest, PinRequestRequestTypedDict
     from .pinrequest import PinRequest, PinRequestTypedDict
     from .possiblevalue import PossibleValue, PossibleValueTypedDict
+    from .post_api_index_v1_debug_datasource_document_eventsop import (
+        PostAPIIndexV1DebugDatasourceDocumentEventsRequest,
+        PostAPIIndexV1DebugDatasourceDocumentEventsRequestTypedDict,
+    )
     from .post_api_index_v1_debug_datasource_documentop import (
         PostAPIIndexV1DebugDatasourceDocumentRequest,
         PostAPIIndexV1DebugDatasourceDocumentRequestTypedDict,
@@ -1157,6 +1225,14 @@ if TYPE_CHECKING:
     from .resultsdescription import ResultsDescription, ResultsDescriptionTypedDict
     from .resultsresponse import ResultsResponse, ResultsResponseTypedDict
     from .resulttab import ResultTab, ResultTabTypedDict
+    from .rotatedatasourcecredentialsop import (
+        RotateDatasourceCredentialsRequestRequest,
+        RotateDatasourceCredentialsRequestRequestTypedDict,
+    )
+    from .rotatedatasourcecredentialsrequest import (
+        RotateDatasourceCredentialsRequest,
+        RotateDatasourceCredentialsRequestTypedDict,
+    )
     from .rotatetokenresponse import RotateTokenResponse, RotateTokenResponseTypedDict
     from .scopetype import ScopeType
     from .searchagentsrequest import SearchAgentsRequest, SearchAgentsRequestTypedDict
@@ -1442,6 +1518,11 @@ Reaction.model_rebuild()
 
 
 __all__ = [
+    "ActionAuthType",
+    "ActionPackAuthStatus",
+    "ActionPackAuthStatusResponse",
+    "ActionPackAuthStatusResponseTypedDict",
+    "ActionPackAuthStatusTypedDict",
     "ActionSummary",
     "ActionSummaryTypedDict",
     "Activity",
@@ -1485,6 +1566,8 @@ __all__ = [
     "AgentSchemas",
     "AgentSchemasTypedDict",
     "AgentTypedDict",
+    "AgentUseCaseInsight",
+    "AgentUseCaseInsightTypedDict",
     "AgentUsersInsight",
     "AgentUsersInsightTypedDict",
     "AgentsInsightsV2Request",
@@ -1531,6 +1614,12 @@ __all__ = [
     "AuthTokenTypedDict",
     "AuthType",
     "Author",
+    "AuthorizeActionPackRequest",
+    "AuthorizeActionPackRequestRequest",
+    "AuthorizeActionPackRequestRequestTypedDict",
+    "AuthorizeActionPackRequestTypedDict",
+    "AuthorizeActionPackResponse",
+    "AuthorizeActionPackResponseTypedDict",
     "AutocompleteRequest",
     "AutocompleteRequestRequest",
     "AutocompleteRequestRequestTypedDict",
@@ -1545,6 +1634,7 @@ __all__ = [
     "AutocompleteResultTypedDict",
     "Badge",
     "BadgeTypedDict",
+    "BreakdownType",
     "BulkIndexDocumentsRequest",
     "BulkIndexDocumentsRequestTypedDict",
     "BulkIndexEmployeesRequest",
@@ -1724,6 +1814,9 @@ __all__ = [
     "DatasourceCategory",
     "DatasourceConfigurationResponse",
     "DatasourceConfigurationResponseTypedDict",
+    "DatasourceCredentialStatus",
+    "DatasourceCredentialStatusResponse",
+    "DatasourceCredentialStatusResponseTypedDict",
     "DatasourceGroupDefinition",
     "DatasourceGroupDefinitionTypedDict",
     "DatasourceInstanceConfiguration",
@@ -1746,6 +1839,10 @@ __all__ = [
     "DebugDatasourceStatusResponseCounts",
     "DebugDatasourceStatusResponseCountsTypedDict",
     "DebugDatasourceStatusResponseTypedDict",
+    "DebugDocumentLifecycleRequest",
+    "DebugDocumentLifecycleRequestTypedDict",
+    "DebugDocumentLifecycleResponse",
+    "DebugDocumentLifecycleResponseTypedDict",
     "DebugDocumentRequest",
     "DebugDocumentRequestTypedDict",
     "DebugDocumentResponse",
@@ -1887,6 +1984,8 @@ __all__ = [
     "DownloadpolicycsvRequestTypedDict",
     "DownloadreportcsvRequest",
     "DownloadreportcsvRequestTypedDict",
+    "EditAgentRequest",
+    "EditAgentRequestTypedDict",
     "EditAnswerRequest",
     "EditAnswerRequestSourceType",
     "EditAnswerRequestTypedDict",
@@ -1901,6 +2000,8 @@ __all__ = [
     "EditCollectionResponseTypedDict",
     "EditPinRequest",
     "EditPinRequestTypedDict",
+    "EditWorkflowRequest",
+    "EditWorkflowRequestTypedDict",
     "EditanswerRequestRequest",
     "EditanswerRequestRequestTypedDict",
     "EditcollectionRequestRequest",
@@ -1921,7 +2022,6 @@ __all__ = [
     "ErrorMessage",
     "ErrorMessageTypedDict",
     "ErrorTypedDict",
-    "Event",
     "EventClassification",
     "EventClassificationName",
     "EventClassificationTypedDict",
@@ -1971,6 +2071,7 @@ __all__ = [
     "FeedbackChannel",
     "FeedbackChatExchange",
     "FeedbackChatExchangeTypedDict",
+    "FeedbackEvent",
     "FeedbackRequest",
     "FeedbackRequestTypedDict",
     "FeedbackTypedDict",
@@ -1987,6 +2088,8 @@ __all__ = [
     "GeneratedQna",
     "GeneratedQnaStatus",
     "GeneratedQnaTypedDict",
+    "GetActionPackAuthStatusRequest",
+    "GetActionPackAuthStatusRequestTypedDict",
     "GetAgentRequest",
     "GetAgentRequestTypedDict",
     "GetAgentSchemasRequest",
@@ -2002,6 +2105,8 @@ __all__ = [
     "GetChatApplicationRequestTypedDict",
     "GetChatApplicationResponse",
     "GetChatApplicationResponseTypedDict",
+    "GetChatFileRequest",
+    "GetChatFileRequestTypedDict",
     "GetChatFilesRequest",
     "GetChatFilesRequestTypedDict",
     "GetChatFilesResponse",
@@ -2016,6 +2121,8 @@ __all__ = [
     "GetCollectionResponseTypedDict",
     "GetDatasourceConfigRequest",
     "GetDatasourceConfigRequestTypedDict",
+    "GetDatasourceCredentialStatusRequest",
+    "GetDatasourceCredentialStatusRequestTypedDict",
     "GetDatasourceInstanceConfigurationRequest",
     "GetDatasourceInstanceConfigurationRequestTypedDict",
     "GetDlpReportResponse",
@@ -2043,6 +2150,12 @@ __all__ = [
     "GetDocumentsRequestTypedDict",
     "GetDocumentsResponse",
     "GetDocumentsResponseTypedDict",
+    "GetPersonPhotoRequest",
+    "GetPersonPhotoRequestTypedDict",
+    "GetPersonPhotoResponse",
+    "GetPersonPhotoResponseResult",
+    "GetPersonPhotoResponseResultTypedDict",
+    "GetPersonPhotoResponseTypedDict",
     "GetPinRequest",
     "GetPinRequestTypedDict",
     "GetPinResponse",
@@ -2158,6 +2271,9 @@ __all__ = [
     "LabeledCountInfo",
     "LabeledCountInfoTypedDict",
     "LastScanStatus",
+    "LifeCycleEvent",
+    "LifeCycleEventEvent",
+    "LifeCycleEventTypedDict",
     "ListAnswersRequest",
     "ListAnswersRequestTypedDict",
     "ListAnswersResponse",
@@ -2211,6 +2327,8 @@ __all__ = [
     "ManualFeedbackSideBySideInfoSource",
     "ManualFeedbackSideBySideInfoTypedDict",
     "ManualFeedbackSideBySideInfoVote",
+    "McpBreakdownInsightsRequest",
+    "McpBreakdownInsightsRequestTypedDict",
     "Meeting",
     "MeetingTypedDict",
     "Message",
@@ -2279,6 +2397,8 @@ __all__ = [
     "PinRequestTypedDict",
     "PossibleValue",
     "PossibleValueTypedDict",
+    "PostAPIIndexV1DebugDatasourceDocumentEventsRequest",
+    "PostAPIIndexV1DebugDatasourceDocumentEventsRequestTypedDict",
     "PostAPIIndexV1DebugDatasourceDocumentRequest",
     "PostAPIIndexV1DebugDatasourceDocumentRequestTypedDict",
     "PostAPIIndexV1DebugDatasourceDocumentsRequest",
@@ -2362,6 +2482,10 @@ __all__ = [
     "ResultsResponse",
     "ResultsResponseTypedDict",
     "Role",
+    "RotateDatasourceCredentialsRequest",
+    "RotateDatasourceCredentialsRequestRequest",
+    "RotateDatasourceCredentialsRequestRequestTypedDict",
+    "RotateDatasourceCredentialsRequestTypedDict",
     "RotateTokenResponse",
     "RotateTokenResponseTypedDict",
     "Scope",
@@ -2595,6 +2719,11 @@ __all__ = [
 ]
 
 _dynamic_imports: dict[str, str] = {
+    "ActionAuthType": ".actionauthtype",
+    "ActionPackAuthStatus": ".actionpackauthstatus",
+    "ActionPackAuthStatusTypedDict": ".actionpackauthstatus",
+    "ActionPackAuthStatusResponse": ".actionpackauthstatusresponse",
+    "ActionPackAuthStatusResponseTypedDict": ".actionpackauthstatusresponse",
     "ActionSummary": ".actionsummary",
     "ActionSummaryTypedDict": ".actionsummary",
     "Activity": ".activity",
@@ -2652,6 +2781,8 @@ _dynamic_imports: dict[str, str] = {
     "AgentsTimeSavedInsightTypedDict": ".agentstimesavedinsight",
     "AgentsUsageByDepartmentInsight": ".agentsusagebydepartmentinsight",
     "AgentsUsageByDepartmentInsightTypedDict": ".agentsusagebydepartmentinsight",
+    "AgentUseCaseInsight": ".agentusecaseinsight",
+    "AgentUseCaseInsightTypedDict": ".agentusecaseinsight",
     "AgentUsersInsight": ".agentusersinsight",
     "AgentUsersInsightTypedDict": ".agentusersinsight",
     "AllowlistOptions": ".allowlistoptions",
@@ -2680,6 +2811,12 @@ _dynamic_imports: dict[str, str] = {
     "AuthConfigTypedDict": ".authconfig",
     "GrantType": ".authconfig",
     "TokenEndpointAuthMethod": ".authconfig",
+    "AuthorizeActionPackRequestRequest": ".authorizeactionpackop",
+    "AuthorizeActionPackRequestRequestTypedDict": ".authorizeactionpackop",
+    "AuthorizeActionPackRequest": ".authorizeactionpackrequest",
+    "AuthorizeActionPackRequestTypedDict": ".authorizeactionpackrequest",
+    "AuthorizeActionPackResponse": ".authorizeactionpackresponse",
+    "AuthorizeActionPackResponseTypedDict": ".authorizeactionpackresponse",
     "AuthStatus": ".authstatus",
     "AuthToken": ".authtoken",
     "AuthTokenTypedDict": ".authtoken",
@@ -2853,6 +2990,9 @@ _dynamic_imports: dict[str, str] = {
     "DatasourceBulkMembershipDefinitionTypedDict": ".datasourcebulkmembershipdefinition",
     "DatasourceConfigurationResponse": ".datasourceconfigurationresponse",
     "DatasourceConfigurationResponseTypedDict": ".datasourceconfigurationresponse",
+    "DatasourceCredentialStatus": ".datasourcecredentialstatus",
+    "DatasourceCredentialStatusResponse": ".datasourcecredentialstatusresponse",
+    "DatasourceCredentialStatusResponseTypedDict": ".datasourcecredentialstatusresponse",
     "DatasourceGroupDefinition": ".datasourcegroupdefinition",
     "DatasourceGroupDefinitionTypedDict": ".datasourcegroupdefinition",
     "DatasourceInstanceConfiguration": ".datasourceinstanceconfiguration",
@@ -2878,6 +3018,10 @@ _dynamic_imports: dict[str, str] = {
     "DocumentsTypedDict": ".debugdatasourcestatusresponse",
     "Identity": ".debugdatasourcestatusresponse",
     "IdentityTypedDict": ".debugdatasourcestatusresponse",
+    "DebugDocumentLifecycleRequest": ".debugdocumentlifecyclerequest",
+    "DebugDocumentLifecycleRequestTypedDict": ".debugdocumentlifecyclerequest",
+    "DebugDocumentLifecycleResponse": ".debugdocumentlifecycleresponse",
+    "DebugDocumentLifecycleResponseTypedDict": ".debugdocumentlifecycleresponse",
     "DebugDocumentRequest": ".debugdocumentrequest",
     "DebugDocumentRequestTypedDict": ".debugdocumentrequest",
     "DebugDocumentResponse": ".debugdocumentresponse",
@@ -3011,6 +3155,8 @@ _dynamic_imports: dict[str, str] = {
     "DownloadpolicycsvRequestTypedDict": ".downloadpolicycsvop",
     "DownloadreportcsvRequest": ".downloadreportcsvop",
     "DownloadreportcsvRequestTypedDict": ".downloadreportcsvop",
+    "EditAgentRequest": ".editagentop",
+    "EditAgentRequestTypedDict": ".editagentop",
     "EditanswerRequestRequest": ".editanswerop",
     "EditanswerRequestRequestTypedDict": ".editanswerop",
     "EditAnswerRequest": ".editanswerrequest",
@@ -3033,6 +3179,8 @@ _dynamic_imports: dict[str, str] = {
     "EditpinRequestRequestTypedDict": ".editpinop",
     "EditPinRequest": ".editpinrequest",
     "EditPinRequestTypedDict": ".editpinrequest",
+    "EditWorkflowRequest": ".editworkflowrequest",
+    "EditWorkflowRequestTypedDict": ".editworkflowrequest",
     "EmployeeInfoDefinition": ".employeeinfodefinition",
     "EmployeeInfoDefinitionTypedDict": ".employeeinfodefinition",
     "EmployeeTeamInfo": ".employeeteaminfo",
@@ -3072,10 +3220,10 @@ _dynamic_imports: dict[str, str] = {
     "FacetValueTypedDict": ".facetvalue",
     "FavoriteInfo": ".favoriteinfo",
     "FavoriteInfoTypedDict": ".favoriteinfo",
-    "Event": ".feedback",
     "Feedback": ".feedback",
     "FeedbackCategory": ".feedback",
     "FeedbackChannel": ".feedback",
+    "FeedbackEvent": ".feedback",
     "FeedbackTypedDict": ".feedback",
     "FeedbackChatExchange": ".feedbackchatexchange",
     "FeedbackChatExchangeTypedDict": ".feedbackchatexchange",
@@ -3111,6 +3259,8 @@ _dynamic_imports: dict[str, str] = {
     "GeneratedAttachmentContentTypedDict": ".generatedattachmentcontent",
     "GetRestAPIV1ToolsListRequest": ".get_rest_api_v1_tools_listop",
     "GetRestAPIV1ToolsListRequestTypedDict": ".get_rest_api_v1_tools_listop",
+    "GetActionPackAuthStatusRequest": ".getactionpackauthstatusop",
+    "GetActionPackAuthStatusRequestTypedDict": ".getactionpackauthstatusop",
     "GetAgentRequest": ".getagentop",
     "GetAgentRequestTypedDict": ".getagentop",
     "GetAgentSchemasRequest": ".getagentschemasop",
@@ -3130,6 +3280,8 @@ _dynamic_imports: dict[str, str] = {
     "GetChatApplicationRequestTypedDict": ".getchatapplicationrequest",
     "GetChatApplicationResponse": ".getchatapplicationresponse",
     "GetChatApplicationResponseTypedDict": ".getchatapplicationresponse",
+    "GetChatFileRequest": ".getchatfileop",
+    "GetChatFileRequestTypedDict": ".getchatfileop",
     "GetchatfilesRequestRequest": ".getchatfilesop",
     "GetchatfilesRequestRequestTypedDict": ".getchatfilesop",
     "GetChatFilesRequest": ".getchatfilesrequest",
@@ -3150,6 +3302,8 @@ _dynamic_imports: dict[str, str] = {
     "GetCollectionResponseTypedDict": ".getcollectionresponse",
     "GetDatasourceConfigRequest": ".getdatasourceconfigrequest",
     "GetDatasourceConfigRequestTypedDict": ".getdatasourceconfigrequest",
+    "GetDatasourceCredentialStatusRequest": ".getdatasourcecredentialstatusop",
+    "GetDatasourceCredentialStatusRequestTypedDict": ".getdatasourcecredentialstatusop",
     "GetDatasourceInstanceConfigurationRequest": ".getdatasourceinstanceconfigurationop",
     "GetDatasourceInstanceConfigurationRequestTypedDict": ".getdatasourceinstanceconfigurationop",
     "GetDlpReportResponse": ".getdlpreportresponse",
@@ -3185,6 +3339,12 @@ _dynamic_imports: dict[str, str] = {
     "GetDocumentVisibilityOverridesResponseTypedDict": ".getdocumentvisibilityoverridesresponse",
     "GetdocvisibilityRequest": ".getdocvisibilityop",
     "GetdocvisibilityRequestTypedDict": ".getdocvisibilityop",
+    "GetPersonPhotoRequest": ".getpersonphotoop",
+    "GetPersonPhotoRequestTypedDict": ".getpersonphotoop",
+    "GetPersonPhotoResponse": ".getpersonphotoop",
+    "GetPersonPhotoResponseResult": ".getpersonphotoop",
+    "GetPersonPhotoResponseResultTypedDict": ".getpersonphotoop",
+    "GetPersonPhotoResponseTypedDict": ".getpersonphotoop",
     "GetpinRequestRequest": ".getpinop",
     "GetpinRequestRequestTypedDict": ".getpinop",
     "GetPinRequest": ".getpinrequest",
@@ -3267,6 +3427,9 @@ _dynamic_imports: dict[str, str] = {
     "InvalidOperatorValueErrorTypedDict": ".invalidoperatorvalueerror",
     "LabeledCountInfo": ".labeledcountinfo",
     "LabeledCountInfoTypedDict": ".labeledcountinfo",
+    "LifeCycleEvent": ".lifecycleevent",
+    "LifeCycleEventEvent": ".lifecycleevent",
+    "LifeCycleEventTypedDict": ".lifecycleevent",
     "ListanswersRequestRequest": ".listanswersop",
     "ListanswersRequestRequestTypedDict": ".listanswersop",
     "ListAnswersRequest": ".listanswersrequest",
@@ -3322,6 +3485,9 @@ _dynamic_imports: dict[str, str] = {
     "ManualFeedbackSideBySideInfoSource": ".manualfeedbacksidebysideinfo",
     "ManualFeedbackSideBySideInfoTypedDict": ".manualfeedbacksidebysideinfo",
     "ManualFeedbackSideBySideInfoVote": ".manualfeedbacksidebysideinfo",
+    "BreakdownType": ".mcpbreakdowninsightsrequest",
+    "McpBreakdownInsightsRequest": ".mcpbreakdowninsightsrequest",
+    "McpBreakdownInsightsRequestTypedDict": ".mcpbreakdowninsightsrequest",
     "Message": ".message",
     "MessageTextBlock": ".message",
     "MessageTextBlockTypedDict": ".message",
@@ -3378,6 +3544,8 @@ _dynamic_imports: dict[str, str] = {
     "PinRequestTypedDict": ".pinrequest",
     "PossibleValue": ".possiblevalue",
     "PossibleValueTypedDict": ".possiblevalue",
+    "PostAPIIndexV1DebugDatasourceDocumentEventsRequest": ".post_api_index_v1_debug_datasource_document_eventsop",
+    "PostAPIIndexV1DebugDatasourceDocumentEventsRequestTypedDict": ".post_api_index_v1_debug_datasource_document_eventsop",
     "PostAPIIndexV1DebugDatasourceDocumentRequest": ".post_api_index_v1_debug_datasource_documentop",
     "PostAPIIndexV1DebugDatasourceDocumentRequestTypedDict": ".post_api_index_v1_debug_datasource_documentop",
     "PostAPIIndexV1DebugDatasourceDocumentsRequest": ".post_api_index_v1_debug_datasource_documentsop",
@@ -3434,6 +3602,10 @@ _dynamic_imports: dict[str, str] = {
     "ResultsResponseTypedDict": ".resultsresponse",
     "ResultTab": ".resulttab",
     "ResultTabTypedDict": ".resulttab",
+    "RotateDatasourceCredentialsRequestRequest": ".rotatedatasourcecredentialsop",
+    "RotateDatasourceCredentialsRequestRequestTypedDict": ".rotatedatasourcecredentialsop",
+    "RotateDatasourceCredentialsRequest": ".rotatedatasourcecredentialsrequest",
+    "RotateDatasourceCredentialsRequestTypedDict": ".rotatedatasourcecredentialsrequest",
     "RotateTokenResponse": ".rotatetokenresponse",
     "RotateTokenResponseTypedDict": ".rotatetokenresponse",
     "ScopeType": ".scopetype",

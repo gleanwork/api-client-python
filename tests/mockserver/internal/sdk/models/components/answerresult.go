@@ -4,7 +4,9 @@ package components
 
 type AnswerResult struct {
 	Answer Answer `json:"answer"`
-	// An opaque token that represents this particular Answer. To be used for `/feedback` reporting.
+	// Use `answer.trackingToken` instead.
+	//
+	// Deprecated: Deprecated on 2026-05-07, removal scheduled for 2027-01-15: Use `answer.trackingToken` instead..
 	TrackingToken *string `json:"trackingToken,omitempty"`
 }
 
