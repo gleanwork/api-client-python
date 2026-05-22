@@ -3,9 +3,9 @@
 package components
 
 type InsightsOverviewResponse struct {
-	// Number of current Monthly Active Users, in the specified departments.
+	// Number of current Monthly Active Users.
 	MonthlyActiveUsers *int64 `json:"monthlyActiveUsers,omitempty"`
-	// Number of current Weekly Active Users, in the specified departments.
+	// Number of current Weekly Active Users.
 	WeeklyActiveUsers *int64 `json:"weeklyActiveUsers,omitempty"`
 	// Department name(s).
 	Departments []string `json:"departments,omitempty"`
@@ -18,11 +18,14 @@ type InsightsOverviewResponse struct {
 	SearchActiveUsers    *CurrentActiveUsers    `json:"searchActiveUsers,omitempty"`
 	AssistantActiveUsers *CurrentActiveUsers    `json:"assistantActiveUsers,omitempty"`
 	AgentsActiveUsers    *CurrentActiveUsers    `json:"agentsActiveUsers,omitempty"`
+	McpActiveUsers       *CurrentActiveUsers    `json:"mcpActiveUsers,omitempty"`
 	ExtensionSummary     *CurrentActiveUsers    `json:"extensionSummary,omitempty"`
 	UgcSummary           *CurrentActiveUsers    `json:"ugcSummary,omitempty"`
 	// Unix timestamp of the last update for the insights data in the response.
 	LastUpdatedTs *int64 `json:"lastUpdatedTs,omitempty"`
 	// Search session satisfaction rate, over the specified time period in the specified departments.
+	//
+	// Deprecated: Deprecated on 2026-05-13, removal scheduled for 2027-01-15: This property is no longer supported. Please contact Support for alternatives..
 	SearchSessionSatisfaction            *float32          `json:"searchSessionSatisfaction,omitempty"`
 	MonthlyActiveUserTimeseries          *LabeledCountInfo `json:"monthlyActiveUserTimeseries,omitempty"`
 	WeeklyActiveUserTimeseries           *LabeledCountInfo `json:"weeklyActiveUserTimeseries,omitempty"`
@@ -36,9 +39,13 @@ type InsightsOverviewResponse struct {
 	AgentsMonthlyActiveUserTimeseries    *LabeledCountInfo `json:"agentsMonthlyActiveUserTimeseries,omitempty"`
 	AgentsWeeklyActiveUserTimeseries     *LabeledCountInfo `json:"agentsWeeklyActiveUserTimeseries,omitempty"`
 	AgentsDailyActiveUserTimeseries      *LabeledCountInfo `json:"agentsDailyActiveUserTimeseries,omitempty"`
+	McpMonthlyActiveUserTimeseries       *LabeledCountInfo `json:"mcpMonthlyActiveUserTimeseries,omitempty"`
+	McpWeeklyActiveUserTimeseries        *LabeledCountInfo `json:"mcpWeeklyActiveUserTimeseries,omitempty"`
+	McpDailyActiveUserTimeseries         *LabeledCountInfo `json:"mcpDailyActiveUserTimeseries,omitempty"`
 	SearchesTimeseries                   *LabeledCountInfo `json:"searchesTimeseries,omitempty"`
 	AssistantInteractionsTimeseries      *LabeledCountInfo `json:"assistantInteractionsTimeseries,omitempty"`
 	AgentRunsTimeseries                  *LabeledCountInfo `json:"agentRunsTimeseries,omitempty"`
+	McpCallsTimeseries                   *LabeledCountInfo `json:"mcpCallsTimeseries,omitempty"`
 	// Counts of search result clicks, by datasource, over the specified time period in the specified departments.
 	SearchDatasourceCounts map[string]int64 `json:"searchDatasourceCounts,omitempty"`
 	// Counts of cited documents in chat, by datasource, over the specified time period in the specified departments.
@@ -115,6 +122,13 @@ func (o *InsightsOverviewResponse) GetAgentsActiveUsers() *CurrentActiveUsers {
 		return nil
 	}
 	return o.AgentsActiveUsers
+}
+
+func (o *InsightsOverviewResponse) GetMcpActiveUsers() *CurrentActiveUsers {
+	if o == nil {
+		return nil
+	}
+	return o.McpActiveUsers
 }
 
 func (o *InsightsOverviewResponse) GetExtensionSummary() *CurrentActiveUsers {
@@ -229,6 +243,27 @@ func (o *InsightsOverviewResponse) GetAgentsDailyActiveUserTimeseries() *Labeled
 	return o.AgentsDailyActiveUserTimeseries
 }
 
+func (o *InsightsOverviewResponse) GetMcpMonthlyActiveUserTimeseries() *LabeledCountInfo {
+	if o == nil {
+		return nil
+	}
+	return o.McpMonthlyActiveUserTimeseries
+}
+
+func (o *InsightsOverviewResponse) GetMcpWeeklyActiveUserTimeseries() *LabeledCountInfo {
+	if o == nil {
+		return nil
+	}
+	return o.McpWeeklyActiveUserTimeseries
+}
+
+func (o *InsightsOverviewResponse) GetMcpDailyActiveUserTimeseries() *LabeledCountInfo {
+	if o == nil {
+		return nil
+	}
+	return o.McpDailyActiveUserTimeseries
+}
+
 func (o *InsightsOverviewResponse) GetSearchesTimeseries() *LabeledCountInfo {
 	if o == nil {
 		return nil
@@ -248,6 +283,13 @@ func (o *InsightsOverviewResponse) GetAgentRunsTimeseries() *LabeledCountInfo {
 		return nil
 	}
 	return o.AgentRunsTimeseries
+}
+
+func (o *InsightsOverviewResponse) GetMcpCallsTimeseries() *LabeledCountInfo {
+	if o == nil {
+		return nil
+	}
+	return o.McpCallsTimeseries
 }
 
 func (o *InsightsOverviewResponse) GetSearchDatasourceCounts() map[string]int64 {

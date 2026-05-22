@@ -10,9 +10,9 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 class InsightsChatSummaryTypedDict(TypedDict):
     monthly_active_users: NotRequired[int]
-    r"""Number of current Monthly Active Users, in the specified departments."""
+    r"""Number of current Monthly Active Users."""
     weekly_active_users: NotRequired[int]
-    r"""Number of current Weekly Active Users, in the specified departments."""
+    r"""Number of current Weekly Active Users."""
     num_chats: NotRequired[int]
     r"""Total number of chats by users over the specified time period."""
     num_chat_users: NotRequired[int]
@@ -23,12 +23,12 @@ class InsightsChatSummary(BaseModel):
     monthly_active_users: Annotated[
         Optional[int], pydantic.Field(alias="monthlyActiveUsers")
     ] = None
-    r"""Number of current Monthly Active Users, in the specified departments."""
+    r"""Number of current Monthly Active Users."""
 
     weekly_active_users: Annotated[
         Optional[int], pydantic.Field(alias="weeklyActiveUsers")
     ] = None
-    r"""Number of current Weekly Active Users, in the specified departments."""
+    r"""Number of current Weekly Active Users."""
 
     num_chats: Annotated[Optional[int], pydantic.Field(alias="numChats")] = None
     r"""Total number of chats by users over the specified time period."""

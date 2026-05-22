@@ -16,6 +16,8 @@ value = FeedbackCategory.ANNOUNCEMENT
 | Name           | Value          |
 | -------------- | -------------- |
 | `ANNOUNCEMENT` | ANNOUNCEMENT   |
+| `ANSWERS`      | ANSWERS        |
+| `ARTIFACTS`    | ARTIFACTS      |
 | `AUTOCOMPLETE` | AUTOCOMPLETE   |
 | `COLLECTIONS`  | COLLECTIONS    |
 | `FEED`         | FEED           |

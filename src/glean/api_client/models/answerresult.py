@@ -12,16 +12,20 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 class AnswerResultTypedDict(TypedDict):
     answer: AnswerTypedDict
     tracking_token: NotRequired[str]
-    r"""An opaque token that represents this particular Answer. To be used for `/feedback` reporting."""
+    r"""Use `answer.trackingToken` instead."""
 
 
 class AnswerResult(BaseModel):
     answer: Answer
 
-    tracking_token: Annotated[Optional[str], pydantic.Field(alias="trackingToken")] = (
-        None
-    )
-    r"""An opaque token that represents this particular Answer. To be used for `/feedback` reporting."""
+    tracking_token: Annotated[
+        Optional[str],
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - Deprecated on 2026-05-07, removal scheduled for 2027-01-15: Use `answer.trackingToken` instead..",
+            alias="trackingToken",
+        ),
+    ] = None
+    r"""Use `answer.trackingToken` instead."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):

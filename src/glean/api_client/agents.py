@@ -6,28 +6,32 @@ from glean.api_client._hooks import HookContext
 from glean.api_client.types import OptionalNullable, UNSET
 from glean.api_client.utils import get_security_from_env
 from glean.api_client.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, Dict, List, Mapping, Optional, Union
+from typing import Any, Mapping, Optional
 
 
 class Agents(BaseSDK):
-    def retrieve(
+    def edit_agent(
         self,
         *,
         agent_id: str,
         locale: Optional[str] = None,
         timezone_offset: Optional[int] = None,
+        name: Optional[str] = None,
+        id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.Agent:
-        r"""Retrieve an agent
+    ):
+        r"""Edit an agent
 
-        Returns details of an [agent](https://developers.glean.com/agents/agents-api) created in the Agent Builder.
+        Creates a draft or publishes an [agent](https://developers.glean.com/agents/agents-api). Use `isDraft=true` to save a draft, or `isDraft=false` (or omit) to publish immediately. Only draft and publish modes are supported.
 
         :param agent_id: The ID of the agent.
         :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
+        :param name: The name of the workflow.
+        :param id: The workflow ID we want to update.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -43,25 +47,36 @@ class Agents(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.GetAgentRequest(
+        request = models.EditAgentRequest(
             locale=locale,
             timezone_offset=timezone_offset,
             agent_id=agent_id,
+            edit_workflow_request=models.EditWorkflowRequest(
+                name=name,
+                id=id,
+            ),
         )
 
         req = self._build_request(
-            method="GET",
+            method="POST",
             path="/rest/api/v1/agents/{agent_id}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=False,
+            request_body_required=True,
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.edit_workflow_request,
+                False,
+                False,
+                "json",
+                models.EditWorkflowRequest,
+            ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
@@ -78,7 +93,7 @@ class Agents(BaseSDK):
             hook_ctx=HookContext(
                 config=self.sdk_configuration,
                 base_url=base_url or "",
-                operation_id="getAgent",
+                operation_id="editAgent",
                 oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
@@ -90,12 +105,12 @@ class Agents(BaseSDK):
         )
 
         response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.Agent, http_res)
+        if utils.match_response(http_res, "200", "*"):
+            return
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(errors.ErrorResponseData, http_res)
             raise errors.ErrorResponse(response_data, http_res)
-        if utils.match_response(http_res, ["400", "403", "4XX"], "*"):
+        if utils.match_response(http_res, ["400", "401", "403", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, ["500", "5XX"], "*"):
@@ -104,24 +119,28 @@ class Agents(BaseSDK):
 
         raise errors.GleanError("Unexpected response received", http_res)
 
-    async def retrieve_async(
+    async def edit_agent_async(
         self,
         *,
         agent_id: str,
         locale: Optional[str] = None,
         timezone_offset: Optional[int] = None,
+        name: Optional[str] = None,
+        id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.Agent:
-        r"""Retrieve an agent
+    ):
+        r"""Edit an agent
 
-        Returns details of an [agent](https://developers.glean.com/agents/agents-api) created in the Agent Builder.
+        Creates a draft or publishes an [agent](https://developers.glean.com/agents/agents-api). Use `isDraft=true` to save a draft, or `isDraft=false` (or omit) to publish immediately. Only draft and publish modes are supported.
 
         :param agent_id: The ID of the agent.
         :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
+        :param name: The name of the workflow.
+        :param id: The workflow ID we want to update.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -137,25 +156,36 @@ class Agents(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.GetAgentRequest(
+        request = models.EditAgentRequest(
             locale=locale,
             timezone_offset=timezone_offset,
             agent_id=agent_id,
+            edit_workflow_request=models.EditWorkflowRequest(
+                name=name,
+                id=id,
+            ),
         )
 
         req = self._build_request_async(
-            method="GET",
+            method="POST",
             path="/rest/api/v1/agents/{agent_id}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
-            request_body_required=False,
+            request_body_required=True,
             request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.edit_workflow_request,
+                False,
+                False,
+                "json",
+                models.EditWorkflowRequest,
+            ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
@@ -172,7 +202,7 @@ class Agents(BaseSDK):
             hook_ctx=HookContext(
                 config=self.sdk_configuration,
                 base_url=base_url or "",
-                operation_id="getAgent",
+                operation_id="editAgent",
                 oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
@@ -184,786 +214,12 @@ class Agents(BaseSDK):
         )
 
         response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.Agent, http_res)
+        if utils.match_response(http_res, "200", "*"):
+            return
         if utils.match_response(http_res, "404", "application/json"):
             response_data = unmarshal_json_response(errors.ErrorResponseData, http_res)
             raise errors.ErrorResponse(response_data, http_res)
-        if utils.match_response(http_res, ["400", "403", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError("API error occurred", http_res, http_res_text)
-
-        raise errors.GleanError("Unexpected response received", http_res)
-
-    def retrieve_schemas(
-        self,
-        *,
-        agent_id: str,
-        locale: Optional[str] = None,
-        timezone_offset: Optional[int] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.AgentSchemas:
-        r"""List an agent's schemas
-
-        Return [agent](https://developers.glean.com/agents/agents-api)'s input and output schemas. You can use these schemas to detect changes to an agent's input or output structure.
-
-        :param agent_id: The ID of the agent.
-        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
-        :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.GetAgentSchemasRequest(
-            locale=locale,
-            timezone_offset=timezone_offset,
-            agent_id=agent_id,
-        )
-
-        req = self._build_request(
-            method="GET",
-            path="/rest/api/v1/agents/{agent_id}/schemas",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getAgentSchemas",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.AgentSchemas, http_res)
-        if utils.match_response(http_res, ["404", "422"], "application/json"):
-            response_data = unmarshal_json_response(errors.ErrorResponseData, http_res)
-            raise errors.ErrorResponse(response_data, http_res)
-        if utils.match_response(http_res, ["400", "403", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError("API error occurred", http_res, http_res_text)
-
-        raise errors.GleanError("Unexpected response received", http_res)
-
-    async def retrieve_schemas_async(
-        self,
-        *,
-        agent_id: str,
-        locale: Optional[str] = None,
-        timezone_offset: Optional[int] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.AgentSchemas:
-        r"""List an agent's schemas
-
-        Return [agent](https://developers.glean.com/agents/agents-api)'s input and output schemas. You can use these schemas to detect changes to an agent's input or output structure.
-
-        :param agent_id: The ID of the agent.
-        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
-        :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.GetAgentSchemasRequest(
-            locale=locale,
-            timezone_offset=timezone_offset,
-            agent_id=agent_id,
-        )
-
-        req = self._build_request_async(
-            method="GET",
-            path="/rest/api/v1/agents/{agent_id}/schemas",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=False,
-            request_has_path_params=True,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="getAgentSchemas",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.AgentSchemas, http_res)
-        if utils.match_response(http_res, ["404", "422"], "application/json"):
-            response_data = unmarshal_json_response(errors.ErrorResponseData, http_res)
-            raise errors.ErrorResponse(response_data, http_res)
-        if utils.match_response(http_res, ["400", "403", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError("API error occurred", http_res, http_res_text)
-
-        raise errors.GleanError("Unexpected response received", http_res)
-
-    def list(
-        self,
-        *,
-        name: Optional[str] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.SearchAgentsResponse:
-        r"""Search agents
-
-        Search for [agents](https://developers.glean.com/agents/agents-api) by agent name.
-
-        :param name: Filters on the name of the agent. The keyword search is case-insensitive. If search string is ommited or empty, acts as no filter.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.SearchAgentsRequest(
-            name=name,
-        )
-
-        req = self._build_request(
-            method="POST",
-            path="/rest/api/v1/agents/search",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=True,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.SearchAgentsRequest
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="searchAgents",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.SearchAgentsResponse, http_res)
-        if utils.match_response(http_res, ["404", "422"], "application/json"):
-            response_data = unmarshal_json_response(errors.ErrorResponseData, http_res)
-            raise errors.ErrorResponse(response_data, http_res)
-        if utils.match_response(http_res, ["400", "403", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError("API error occurred", http_res, http_res_text)
-
-        raise errors.GleanError("Unexpected response received", http_res)
-
-    async def list_async(
-        self,
-        *,
-        name: Optional[str] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.SearchAgentsResponse:
-        r"""Search agents
-
-        Search for [agents](https://developers.glean.com/agents/agents-api) by agent name.
-
-        :param name: Filters on the name of the agent. The keyword search is case-insensitive. If search string is ommited or empty, acts as no filter.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.SearchAgentsRequest(
-            name=name,
-        )
-
-        req = self._build_request_async(
-            method="POST",
-            path="/rest/api/v1/agents/search",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=True,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.SearchAgentsRequest
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="searchAgents",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.SearchAgentsResponse, http_res)
-        if utils.match_response(http_res, ["404", "422"], "application/json"):
-            response_data = unmarshal_json_response(errors.ErrorResponseData, http_res)
-            raise errors.ErrorResponse(response_data, http_res)
-        if utils.match_response(http_res, ["400", "403", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError("API error occurred", http_res, http_res_text)
-
-        raise errors.GleanError("Unexpected response received", http_res)
-
-    def run_stream(
-        self,
-        *,
-        agent_id: str,
-        input: Optional[Dict[str, Any]] = None,
-        messages: Optional[
-            Union[List[models.Message], List[models.MessageTypedDict]]
-        ] = None,
-        metadata: Optional[Dict[str, Any]] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> str:
-        r"""Create an agent run and stream the response
-
-        Executes an [agent](https://developers.glean.com/agents/agents-api) run and returns the result as a stream of server-sent events (SSE). **Note**: If the agent uses an input form trigger, all form fields (including optional fields) must be included in the `input` object.
-
-        :param agent_id: The ID of the agent to run.
-        :param input: The input to the agent. Required when the agent uses an input form trigger.
-        :param messages: The messages to pass an input to the agent.
-        :param metadata: The metadata to pass to the agent.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.AgentRunCreate(
-            agent_id=agent_id,
-            input=input,
-            messages=utils.get_pydantic_model(messages, Optional[List[models.Message]]),
-            metadata=metadata,
-        )
-
-        req = self._build_request(
-            method="POST",
-            path="/rest/api/v1/agents/runs/stream",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=True,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="text/event-stream",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.AgentRunCreate
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="createAndStreamRun",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "text/event-stream"):
-            return http_res.text
-        if utils.match_response(http_res, ["404", "409", "422"], "application/json"):
-            response_data = unmarshal_json_response(errors.ErrorResponseData, http_res)
-            raise errors.ErrorResponse(response_data, http_res)
-        if utils.match_response(http_res, ["400", "403", "4XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError("API error occurred", http_res, http_res_text)
-
-        raise errors.GleanError("Unexpected response received", http_res)
-
-    async def run_stream_async(
-        self,
-        *,
-        agent_id: str,
-        input: Optional[Dict[str, Any]] = None,
-        messages: Optional[
-            Union[List[models.Message], List[models.MessageTypedDict]]
-        ] = None,
-        metadata: Optional[Dict[str, Any]] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> str:
-        r"""Create an agent run and stream the response
-
-        Executes an [agent](https://developers.glean.com/agents/agents-api) run and returns the result as a stream of server-sent events (SSE). **Note**: If the agent uses an input form trigger, all form fields (including optional fields) must be included in the `input` object.
-
-        :param agent_id: The ID of the agent to run.
-        :param input: The input to the agent. Required when the agent uses an input form trigger.
-        :param messages: The messages to pass an input to the agent.
-        :param metadata: The metadata to pass to the agent.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.AgentRunCreate(
-            agent_id=agent_id,
-            input=input,
-            messages=utils.get_pydantic_model(messages, Optional[List[models.Message]]),
-            metadata=metadata,
-        )
-
-        req = self._build_request_async(
-            method="POST",
-            path="/rest/api/v1/agents/runs/stream",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=True,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="text/event-stream",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.AgentRunCreate
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="createAndStreamRun",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "text/event-stream"):
-            return http_res.text
-        if utils.match_response(http_res, ["404", "409", "422"], "application/json"):
-            response_data = unmarshal_json_response(errors.ErrorResponseData, http_res)
-            raise errors.ErrorResponse(response_data, http_res)
-        if utils.match_response(http_res, ["400", "403", "4XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError("API error occurred", http_res, http_res_text)
-
-        raise errors.GleanError("Unexpected response received", http_res)
-
-    def run(
-        self,
-        *,
-        agent_id: str,
-        input: Optional[Dict[str, Any]] = None,
-        messages: Optional[
-            Union[List[models.Message], List[models.MessageTypedDict]]
-        ] = None,
-        metadata: Optional[Dict[str, Any]] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.AgentRunWaitResponse:
-        r"""Create an agent run and wait for the response
-
-        Executes an [agent](https://developers.glean.com/agents/agents-api) run and returns the final response. **Note**: If the agent uses an input form trigger, all form fields (including optional fields) must be included in the `input` object.
-
-        :param agent_id: The ID of the agent to run.
-        :param input: The input to the agent. Required when the agent uses an input form trigger.
-        :param messages: The messages to pass an input to the agent.
-        :param metadata: The metadata to pass to the agent.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.AgentRunCreate(
-            agent_id=agent_id,
-            input=input,
-            messages=utils.get_pydantic_model(messages, Optional[List[models.Message]]),
-            metadata=metadata,
-        )
-
-        req = self._build_request(
-            method="POST",
-            path="/rest/api/v1/agents/runs/wait",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=True,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.AgentRunCreate
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="createAndWaitRun",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.AgentRunWaitResponse, http_res)
-        if utils.match_response(
-            http_res, ["400", "403", "404", "409", "422", "4XX"], "*"
-        ):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError("API error occurred", http_res, http_res_text)
-
-        raise errors.GleanError("Unexpected response received", http_res)
-
-    async def run_async(
-        self,
-        *,
-        agent_id: str,
-        input: Optional[Dict[str, Any]] = None,
-        messages: Optional[
-            Union[List[models.Message], List[models.MessageTypedDict]]
-        ] = None,
-        metadata: Optional[Dict[str, Any]] = None,
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.AgentRunWaitResponse:
-        r"""Create an agent run and wait for the response
-
-        Executes an [agent](https://developers.glean.com/agents/agents-api) run and returns the final response. **Note**: If the agent uses an input form trigger, all form fields (including optional fields) must be included in the `input` object.
-
-        :param agent_id: The ID of the agent to run.
-        :param input: The input to the agent. Required when the agent uses an input form trigger.
-        :param messages: The messages to pass an input to the agent.
-        :param metadata: The metadata to pass to the agent.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.AgentRunCreate(
-            agent_id=agent_id,
-            input=input,
-            messages=utils.get_pydantic_model(messages, Optional[List[models.Message]]),
-            metadata=metadata,
-        )
-
-        req = self._build_request_async(
-            method="POST",
-            path="/rest/api/v1/agents/runs/wait",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=True,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.AgentRunCreate
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="createAndWaitRun",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.AgentRunWaitResponse, http_res)
-        if utils.match_response(
-            http_res, ["400", "403", "404", "409", "422", "4XX"], "*"
-        ):
+        if utils.match_response(http_res, ["400", "401", "403", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, ["500", "5XX"], "*"):

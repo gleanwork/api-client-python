@@ -20,6 +20,6 @@ def test_activities_feedback():
                 "tracking_tokens": [
                     "trackingTokens",
                 ],
-                "event": models.Event.VIEW,
+                "event": models.FeedbackEvent.VIEW,
             }
         )

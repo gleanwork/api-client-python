@@ -13,9 +13,9 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 class GetCollectionResponseTypedDict(TypedDict):
     collection: NotRequired[CollectionTypedDict]
     root_collection: NotRequired[CollectionTypedDict]
-    tracking_token: NotRequired[str]
-    r"""An opaque token that represents this particular Collection. To be used for `/feedback` reporting."""
     error: NotRequired[CollectionErrorTypedDict]
+    tracking_token: NotRequired[str]
+    r"""Use `collection.trackingToken` instead."""
 
 
 class GetCollectionResponse(BaseModel):
@@ -25,17 +25,21 @@ class GetCollectionResponse(BaseModel):
         Optional[Collection], pydantic.Field(alias="rootCollection")
     ] = None
 
-    tracking_token: Annotated[Optional[str], pydantic.Field(alias="trackingToken")] = (
-        None
-    )
-    r"""An opaque token that represents this particular Collection. To be used for `/feedback` reporting."""
-
     error: Optional[CollectionError] = None
+
+    tracking_token: Annotated[
+        Optional[str],
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - Deprecated on 2026-05-07, removal scheduled for 2027-01-15: Use `collection.trackingToken` instead..",
+            alias="trackingToken",
+        ),
+    ] = None
+    r"""Use `collection.trackingToken` instead."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["collection", "rootCollection", "trackingToken", "error"]
+            ["collection", "rootCollection", "error", "trackingToken"]
         )
         serialized = handler(self)
         m = {}

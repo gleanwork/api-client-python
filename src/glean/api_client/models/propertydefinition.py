@@ -10,7 +10,7 @@ from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class PropertyType(str, Enum, metaclass=utils.OpenEnumMeta):
+class PropertyDefinitionPropertyType(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""The type of custom property - this governs the search and faceting behavior. Note that MULTIPICKLIST is not yet supported."""
 
     TEXT = "TEXT"
@@ -35,7 +35,7 @@ class PropertyDefinitionTypedDict(TypedDict):
     r"""The user friendly label for the property."""
     display_label_plural: NotRequired[str]
     r"""The user friendly label for the property that will be used if a plural context."""
-    property_type: NotRequired[PropertyType]
+    property_type: NotRequired[PropertyDefinitionPropertyType]
     r"""The type of custom property - this governs the search and faceting behavior. Note that MULTIPICKLIST is not yet supported."""
     ui_options: NotRequired[UIOptions]
     hide_ui_facet: NotRequired[bool]
@@ -61,7 +61,7 @@ class PropertyDefinition(BaseModel):
     r"""The user friendly label for the property that will be used if a plural context."""
 
     property_type: Annotated[
-        Optional[PropertyType], pydantic.Field(alias="propertyType")
+        Optional[PropertyDefinitionPropertyType], pydantic.Field(alias="propertyType")
     ] = None
     r"""The type of custom property - this governs the search and faceting behavior. Note that MULTIPICKLIST is not yet supported."""
 
@@ -87,7 +87,7 @@ class PropertyDefinition(BaseModel):
     def serialize_property_type(self, value):
         if isinstance(value, str):
             try:
-                return models.PropertyType(value)
+                return models.PropertyDefinitionPropertyType(value)
             except ValueError:
                 return value
         return value

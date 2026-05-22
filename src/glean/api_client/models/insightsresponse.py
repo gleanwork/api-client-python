@@ -17,6 +17,11 @@ from .insightsoverviewresponse import (
     InsightsOverviewResponse,
     InsightsOverviewResponseTypedDict,
 )
+from .mcpbreakdowninsightsresponse import (
+    McpBreakdownInsightsResponse,
+    McpBreakdownInsightsResponseTypedDict,
+)
+from .mcpinsightsresponse import McpInsightsResponse, McpInsightsResponseTypedDict
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
 from pydantic import model_serializer
@@ -29,6 +34,8 @@ class InsightsResponseTypedDict(TypedDict):
     overview_response: NotRequired[InsightsOverviewResponseTypedDict]
     assistant_response: NotRequired[AssistantInsightsResponseTypedDict]
     agents_response: NotRequired[AgentsInsightsV2ResponseTypedDict]
+    mcp_response: NotRequired[McpInsightsResponseTypedDict]
+    mcp_breakdown_response: NotRequired[McpBreakdownInsightsResponseTypedDict]
 
 
 class InsightsResponse(BaseModel):
@@ -48,10 +55,26 @@ class InsightsResponse(BaseModel):
         Optional[AgentsInsightsV2Response], pydantic.Field(alias="agentsResponse")
     ] = None
 
+    mcp_response: Annotated[
+        Optional[McpInsightsResponse], pydantic.Field(alias="mcpResponse")
+    ] = None
+
+    mcp_breakdown_response: Annotated[
+        Optional[McpBreakdownInsightsResponse],
+        pydantic.Field(alias="mcpBreakdownResponse"),
+    ] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["gleanAssist", "overviewResponse", "assistantResponse", "agentsResponse"]
+            [
+                "gleanAssist",
+                "overviewResponse",
+                "assistantResponse",
+                "agentsResponse",
+                "mcpResponse",
+                "mcpBreakdownResponse",
+            ]
         )
         serialized = handler(self)
         m = {}

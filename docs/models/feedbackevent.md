@@ -1,13 +1,13 @@
-# Event
+# FeedbackEvent
 
 The action the user took within a Glean client with respect to the object referred to by the given `trackingToken`.
 
 ## Example Usage
 
 ```python
-from glean.api_client.models import Event
+from glean.api_client.models import FeedbackEvent
 
-value = Event.CLICK
+value = FeedbackEvent.CLICK
 ```
 
 
