@@ -2,28 +2,41 @@
 
 from __future__ import annotations
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
+import pydantic
 from pydantic import model_serializer
-from typing import Optional
-from typing_extensions import NotRequired, TypedDict
+from typing import List, Optional
+from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class ChatSuggestionTypedDict(TypedDict):
     query: NotRequired[str]
     r"""The actionable chat query to run when the user selects this suggestion."""
+    cta: NotRequired[str]
+    r"""Button text to show for the suggestion action."""
     feature: NotRequired[str]
     r"""Targeted Glean Chat feature for the suggestion."""
+    source_document_ids: NotRequired[List[str]]
+    r"""Document IDs that grounded the suggestion."""
 
 
 class ChatSuggestion(BaseModel):
     query: Optional[str] = None
     r"""The actionable chat query to run when the user selects this suggestion."""
 
+    cta: Optional[str] = None
+    r"""Button text to show for the suggestion action."""
+
     feature: Optional[str] = None
     r"""Targeted Glean Chat feature for the suggestion."""
 
+    source_document_ids: Annotated[
+        Optional[List[str]], pydantic.Field(alias="sourceDocumentIds")
+    ] = None
+    r"""Document IDs that grounded the suggestion."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["query", "feature"])
+        optional_fields = set(["query", "cta", "feature", "sourceDocumentIds"])
         serialized = handler(self)
         m = {}
 
@@ -36,3 +49,9 @@ class ChatSuggestion(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    ChatSuggestion.model_rebuild()
+except NameError:
+    pass

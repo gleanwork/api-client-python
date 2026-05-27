@@ -11,11 +11,18 @@ type Workflow struct {
 	// Server Unix timestamp of the last update time.
 	LastUpdateTimestamp *int64 `json:"lastUpdateTimestamp,omitempty"`
 	// Server Unix timestamp of the last time the draft was saved.
-	LastDraftSavedAt *int64             `json:"lastDraftSavedAt,omitempty"`
-	LastUpdatedBy    *Person            `json:"lastUpdatedBy,omitempty"`
-	Permissions      *ObjectPermissions `json:"permissions,omitempty"`
+	LastDraftSavedAt *int64  `json:"lastDraftSavedAt,omitempty"`
+	LastDraftSavedBy *Person `json:"lastDraftSavedBy,omitempty"`
+	// ID of the VCS user (e.g. GitHub username) who last saved the draft. Set only by the draft save path via the external Git integration API.
+	LastDraftGitAuthorID *string            `json:"lastDraftGitAuthorId,omitempty"`
+	LastUpdatedBy        *Person            `json:"lastUpdatedBy,omitempty"`
+	Permissions          *ObjectPermissions `json:"permissions,omitempty"`
 	// The ID of the workflow.
 	ID *string `json:"id,omitempty"`
+	// When present, indicates this workflow is admin-verified. Set via the dedicated admin settings endpoint, not by regular edits.
+	Verified *bool `json:"verified,omitempty"`
+	// When true, displays organization name instead of author name in agent card. Set via the dedicated admin settings endpoint, not by regular edits.
+	ShowOrganizationAsAuthor *bool `json:"showOrganizationAsAuthor,omitempty"`
 }
 
 func (o *Workflow) GetName() *string {
@@ -53,6 +60,20 @@ func (o *Workflow) GetLastDraftSavedAt() *int64 {
 	return o.LastDraftSavedAt
 }
 
+func (o *Workflow) GetLastDraftSavedBy() *Person {
+	if o == nil {
+		return nil
+	}
+	return o.LastDraftSavedBy
+}
+
+func (o *Workflow) GetLastDraftGitAuthorID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LastDraftGitAuthorID
+}
+
 func (o *Workflow) GetLastUpdatedBy() *Person {
 	if o == nil {
 		return nil
@@ -72,4 +93,18 @@ func (o *Workflow) GetID() *string {
 		return nil
 	}
 	return o.ID
+}
+
+func (o *Workflow) GetVerified() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Verified
+}
+
+func (o *Workflow) GetShowOrganizationAsAuthor() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ShowOrganizationAsAuthor
 }

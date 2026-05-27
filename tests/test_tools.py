@@ -39,3 +39,33 @@ def test_tools_post_rest_api_v1_tools_call():
             },
         )
         assert res is not None
+
+
+def test_tools_get_action_pack_auth_status():
+    test_http_client = create_test_http_client("getActionPackAuthStatus")
+
+    with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
+        client=test_http_client,
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+    ) as glean:
+        assert glean is not None
+
+        res = glean.tools.get_action_pack_auth_status(action_pack_id="<id>")
+        assert res is not None
+
+
+def test_tools_authorize_action_pack():
+    test_http_client = create_test_http_client("authorizeActionPack")
+
+    with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
+        client=test_http_client,
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+    ) as glean:
+        assert glean is not None
+
+        res = glean.tools.authorize_action_pack(
+            action_pack_id="<id>", return_url="https://merry-allocation.org/"
+        )
+        assert res is not None

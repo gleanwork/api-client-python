@@ -20,10 +20,17 @@ class WorkflowTypedDict(TypedDict):
     r"""Server Unix timestamp of the last update time."""
     last_draft_saved_at: NotRequired[int]
     r"""Server Unix timestamp of the last time the draft was saved."""
+    last_draft_saved_by: NotRequired[PersonTypedDict]
+    last_draft_git_author_id: NotRequired[str]
+    r"""ID of the VCS user (e.g. GitHub username) who last saved the draft. Set only by the draft save path via the external Git integration API."""
     last_updated_by: NotRequired[PersonTypedDict]
     permissions: NotRequired[ObjectPermissionsTypedDict]
     id: NotRequired[str]
     r"""The ID of the workflow."""
+    verified: NotRequired[bool]
+    r"""When present, indicates this workflow is admin-verified. Set via the dedicated admin settings endpoint, not by regular edits."""
+    show_organization_as_author: NotRequired[bool]
+    r"""When true, displays organization name instead of author name in agent card. Set via the dedicated admin settings endpoint, not by regular edits."""
 
 
 class Workflow(BaseModel):
@@ -47,6 +54,15 @@ class Workflow(BaseModel):
     ] = None
     r"""Server Unix timestamp of the last time the draft was saved."""
 
+    last_draft_saved_by: Annotated[
+        Optional[Person], pydantic.Field(alias="lastDraftSavedBy")
+    ] = None
+
+    last_draft_git_author_id: Annotated[
+        Optional[str], pydantic.Field(alias="lastDraftGitAuthorId")
+    ] = None
+    r"""ID of the VCS user (e.g. GitHub username) who last saved the draft. Set only by the draft save path via the external Git integration API."""
+
     last_updated_by: Annotated[
         Optional[Person], pydantic.Field(alias="lastUpdatedBy")
     ] = None
@@ -55,6 +71,14 @@ class Workflow(BaseModel):
 
     id: Optional[str] = None
     r"""The ID of the workflow."""
+
+    verified: Optional[bool] = None
+    r"""When present, indicates this workflow is admin-verified. Set via the dedicated admin settings endpoint, not by regular edits."""
+
+    show_organization_as_author: Annotated[
+        Optional[bool], pydantic.Field(alias="showOrganizationAsAuthor")
+    ] = None
+    r"""When true, displays organization name instead of author name in agent card. Set via the dedicated admin settings endpoint, not by regular edits."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -65,9 +89,13 @@ class Workflow(BaseModel):
                 "createTimestamp",
                 "lastUpdateTimestamp",
                 "lastDraftSavedAt",
+                "lastDraftSavedBy",
+                "lastDraftGitAuthorId",
                 "lastUpdatedBy",
                 "permissions",
                 "id",
+                "verified",
+                "showOrganizationAsAuthor",
             ]
         )
         serialized = handler(self)

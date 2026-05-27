@@ -337,22 +337,30 @@ For more information on obtaining the appropriate token type, please contact you
 <details open>
 <summary>Available methods</summary>
 
+### [Agents](docs/sdks/agents/README.md)
+
+* [edit_agent](docs/sdks/agents/README.md#edit_agent) - Edit an agent
+
 ### [Authentication](docs/sdks/authentication/README.md)
 
 * [checkdatasourceauth](docs/sdks/authentication/README.md#checkdatasourceauth) - Check datasource authorization
+
+### [Chat](docs/sdks/chatsdk/README.md)
+
+* [get_chat_file](docs/sdks/chatsdk/README.md#get_chat_file) - Download a chat file
 
 ### [Client.Activity](docs/sdks/clientactivity/README.md)
 
 * [report](docs/sdks/clientactivity/README.md#report) - Report document activity
 * [feedback](docs/sdks/clientactivity/README.md#feedback) - Report client activity
 
-### [Client.Agents](docs/sdks/agents/README.md)
+### [Client.Agents](docs/sdks/clientagents/README.md)
 
-* [retrieve](docs/sdks/agents/README.md#retrieve) - Retrieve an agent
-* [retrieve_schemas](docs/sdks/agents/README.md#retrieve_schemas) - List an agent's schemas
-* [list](docs/sdks/agents/README.md#list) - Search agents
-* [run_stream](docs/sdks/agents/README.md#run_stream) - Create an agent run and stream the response
-* [run](docs/sdks/agents/README.md#run) - Create an agent run and wait for the response
+* [retrieve](docs/sdks/clientagents/README.md#retrieve) - Retrieve an agent
+* [retrieve_schemas](docs/sdks/clientagents/README.md#retrieve_schemas) - List an agent's schemas
+* [list](docs/sdks/clientagents/README.md#list) - Search agents
+* [run_stream](docs/sdks/clientagents/README.md#run_stream) - Create an agent run and stream the response
+* [run](docs/sdks/clientagents/README.md#run) - Create an agent run and wait for the response
 
 ### [Client.Announcements](docs/sdks/announcements/README.md)
 
@@ -403,10 +411,10 @@ For more information on obtaining the appropriate token type, please contact you
 * [retrieve_by_facets](docs/sdks/clientdocuments/README.md#retrieve_by_facets) - Read documents by facets
 * [summarize](docs/sdks/clientdocuments/README.md#summarize) - Summarize documents
 
-### [Client.Entities](docs/sdks/entities/README.md)
+### [Client.Entities](docs/sdks/cliententities/README.md)
 
-* [list](docs/sdks/entities/README.md#list) - List entities
-* [read_people](docs/sdks/entities/README.md#read_people) - Read people
+* [list](docs/sdks/cliententities/README.md#list) - List entities
+* [read_people](docs/sdks/cliententities/README.md#read_people) - Read people
 
 ### [Client.Governance.Data.Policies](docs/sdks/policies/README.md)
 
@@ -459,10 +467,10 @@ For more information on obtaining the appropriate token type, please contact you
 * [list](docs/sdks/clientshortcuts/README.md#list) - List shortcuts
 * [update](docs/sdks/clientshortcuts/README.md#update) - Update shortcut
 
-### [Client.Tools](docs/sdks/tools/README.md)
+### [Client.Tools](docs/sdks/clienttools/README.md)
 
-* [list](docs/sdks/tools/README.md#list) - List available tools
-* [run](docs/sdks/tools/README.md#run) - Execute the specified tool
+* [list](docs/sdks/clienttools/README.md#list) - List available tools
+* [run](docs/sdks/clienttools/README.md#run) - Execute the specified tool
 
 ### [Client.Verification](docs/sdks/clientverification/README.md)
 
@@ -474,6 +482,12 @@ For more information on obtaining the appropriate token type, please contact you
 
 * [get_datasource_instance_configuration](docs/sdks/datasources/README.md#get_datasource_instance_configuration) - Get datasource instance configuration
 * [update_datasource_instance_configuration](docs/sdks/datasources/README.md#update_datasource_instance_configuration) - Update datasource instance configuration
+* [get_datasource_credential_status](docs/sdks/datasources/README.md#get_datasource_credential_status) - Get datasource instance credential status
+* [rotate_datasource_credentials](docs/sdks/datasources/README.md#rotate_datasource_credentials) - Rotate datasource instance credentials
+
+### [Entities](docs/sdks/entities/README.md)
+
+* [get_person_photo](docs/sdks/entities/README.md#get_person_photo) - Get person photo
 
 ### [Governance](docs/sdks/governance/README.md)
 
@@ -485,6 +499,14 @@ For more information on obtaining the appropriate token type, please contact you
 ### [Indexing.Authentication](docs/sdks/indexingauthentication/README.md)
 
 * [rotate_token](docs/sdks/indexingauthentication/README.md#rotate_token) - Rotate token
+
+### [Indexing.CustomMetadata](docs/sdks/custommetadata/README.md)
+
+* [upsert](docs/sdks/custommetadata/README.md#upsert) - Add or update custom metadata
+* [delete](docs/sdks/custommetadata/README.md#delete) - Remove custom metadata
+* [get_schema](docs/sdks/custommetadata/README.md#get_schema) - Retrieve metadata schema
+* [upsert_schema](docs/sdks/custommetadata/README.md#upsert_schema) - Create or update metadata schema
+* [delete_schema](docs/sdks/custommetadata/README.md#delete_schema) - Remove metadata schema
 
 ### [Indexing.Datasource](docs/sdks/indexingdatasource/README.md)
 
@@ -543,6 +565,16 @@ For more information on obtaining the appropriate token type, please contact you
 
 * [bulk_index](docs/sdks/indexingshortcuts/README.md#bulk_index) - Bulk index external shortcuts
 * [upload](docs/sdks/indexingshortcuts/README.md#upload) - Upload shortcuts
+
+### [Tools](docs/sdks/tools/README.md)
+
+* [get_action_pack_auth_status](docs/sdks/tools/README.md#get_action_pack_auth_status) - Get end-user authentication status for an action pack.
+* [authorize_action_pack](docs/sdks/tools/README.md#authorize_action_pack) - Start the OAuth authorization flow for an action pack.
+
+### [Troubleshooting](docs/sdks/troubleshooting/README.md)
+
+* [post_api_index_v1_debug_datasource_document_events](docs/sdks/troubleshooting/README.md#post_api_index_v1_debug_datasource_document_events) - Beta: Get document lifecycle events
+
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
@@ -840,6 +872,25 @@ with Glean(
     ])
 
     # Use the SDK ...
+
+```
+
+### Override Server URL Per-Operation
+
+The server URL can also be overridden on a per-operation basis, provided a server list was specified for the operation. For example:
+```python
+from glean.api_client import Glean
+import os
+
+
+with Glean(
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+) as glean:
+
+    res = glean.indexing.custom_metadata.upsert(doc_id="<id>", group_name="<value>", custom_metadata=[], server_url="https://instance-name-be.glean.com")
+
+    # Handle response
+    print(res)
 
 ```
 <!-- End Server Selection [server] -->
