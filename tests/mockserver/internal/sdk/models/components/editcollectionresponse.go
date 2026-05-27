@@ -19,6 +19,7 @@ const (
 	EditCollectionResponseErrorCodeHeightViolation         EditCollectionResponseErrorCode = "HEIGHT_VIOLATION"
 	EditCollectionResponseErrorCodeWidthViolation          EditCollectionResponseErrorCode = "WIDTH_VIOLATION"
 	EditCollectionResponseErrorCodeNoPermissions           EditCollectionResponseErrorCode = "NO_PERMISSIONS"
+	EditCollectionResponseErrorCodeCorruptItem             EditCollectionResponseErrorCode = "CORRUPT_ITEM"
 )
 
 func (e EditCollectionResponseErrorCode) ToPointer() *EditCollectionResponseErrorCode {
@@ -43,6 +44,8 @@ func (e *EditCollectionResponseErrorCode) UnmarshalJSON(data []byte) error {
 	case "WIDTH_VIOLATION":
 		fallthrough
 	case "NO_PERMISSIONS":
+		fallthrough
+	case "CORRUPT_ITEM":
 		*e = EditCollectionResponseErrorCode(v)
 		return nil
 	default:
@@ -71,6 +74,8 @@ type EditCollectionResponse struct {
 	// The datasource type this Collection can hold.
 	AllowedDatasource *string            `json:"allowedDatasource,omitempty"`
 	Permissions       *ObjectPermissions `json:"permissions,omitempty"`
+	// An opaque token that represents this particular UGC. To be used for `/feedback` reporting.
+	TrackingToken *string `json:"trackingToken,omitempty"`
 	// The unique ID of the Collection.
 	ID         int64      `json:"id"`
 	CreateTime *time.Time `json:"createTime,omitempty"`
@@ -181,6 +186,13 @@ func (o *EditCollectionResponse) GetPermissions() *ObjectPermissions {
 		return nil
 	}
 	return o.Permissions
+}
+
+func (o *EditCollectionResponse) GetTrackingToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TrackingToken
 }
 
 func (o *EditCollectionResponse) GetID() int64 {

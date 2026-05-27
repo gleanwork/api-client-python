@@ -3,10 +3,12 @@
 package components
 
 type InsightsResponse struct {
-	GleanAssist       *GleanAssistInsightsResponse `json:"gleanAssist,omitempty"`
-	OverviewResponse  *InsightsOverviewResponse    `json:"overviewResponse,omitempty"`
-	AssistantResponse *AssistantInsightsResponse   `json:"assistantResponse,omitempty"`
-	AgentsResponse    *AgentsInsightsV2Response    `json:"agentsResponse,omitempty"`
+	GleanAssist          *GleanAssistInsightsResponse  `json:"gleanAssist,omitempty"`
+	OverviewResponse     *InsightsOverviewResponse     `json:"overviewResponse,omitempty"`
+	AssistantResponse    *AssistantInsightsResponse    `json:"assistantResponse,omitempty"`
+	AgentsResponse       *AgentsInsightsV2Response     `json:"agentsResponse,omitempty"`
+	McpResponse          *McpInsightsResponse          `json:"mcpResponse,omitempty"`
+	McpBreakdownResponse *McpBreakdownInsightsResponse `json:"mcpBreakdownResponse,omitempty"`
 }
 
 func (o *InsightsResponse) GetGleanAssist() *GleanAssistInsightsResponse {
@@ -35,4 +37,18 @@ func (o *InsightsResponse) GetAgentsResponse() *AgentsInsightsV2Response {
 		return nil
 	}
 	return o.AgentsResponse
+}
+
+func (o *InsightsResponse) GetMcpResponse() *McpInsightsResponse {
+	if o == nil {
+		return nil
+	}
+	return o.McpResponse
+}
+
+func (o *InsightsResponse) GetMcpBreakdownResponse() *McpBreakdownInsightsResponse {
+	if o == nil {
+		return nil
+	}
+	return o.McpBreakdownResponse
 }

@@ -2,23 +2,23 @@
 
 from .basesdk import BaseSDK
 from .sdkconfiguration import SDKConfiguration
-from glean.api_client.agents import Agents
 from glean.api_client.announcements import Announcements
 from glean.api_client.answers import Answers
 from glean.api_client.client_activity import ClientActivity
+from glean.api_client.client_agents import ClientAgents
 from glean.api_client.client_authentication import ClientAuthentication
 from glean.api_client.client_chat import ClientChat
 from glean.api_client.client_documents import ClientDocuments
+from glean.api_client.client_entities import ClientEntities
 from glean.api_client.client_governance import ClientGovernance
 from glean.api_client.client_shortcuts import ClientShortcuts
+from glean.api_client.client_tools import ClientTools
 from glean.api_client.client_verification import ClientVerification
 from glean.api_client.collections import Collections
-from glean.api_client.entities import Entities
 from glean.api_client.insights import Insights
 from glean.api_client.messages import Messages
 from glean.api_client.pins import Pins
 from glean.api_client.search import Search
-from glean.api_client.tools import Tools
 from typing import Optional
 
 
@@ -28,17 +28,17 @@ class Client(BaseSDK):
     answers: Answers
     authentication: ClientAuthentication
     chat: ClientChat
-    agents: Agents
+    agents: ClientAgents
     collections: Collections
     documents: ClientDocuments
     insights: Insights
     messages: Messages
     pins: Pins
     search: Search
-    entities: Entities
+    entities: ClientEntities
     shortcuts: ClientShortcuts
     verification: ClientVerification
-    tools: Tools
+    tools: ClientTools
     governance: ClientGovernance
 
     def __init__(
@@ -60,7 +60,7 @@ class Client(BaseSDK):
             self.sdk_configuration, parent_ref=self.parent_ref
         )
         self.chat = ClientChat(self.sdk_configuration, parent_ref=self.parent_ref)
-        self.agents = Agents(self.sdk_configuration, parent_ref=self.parent_ref)
+        self.agents = ClientAgents(self.sdk_configuration, parent_ref=self.parent_ref)
         self.collections = Collections(
             self.sdk_configuration, parent_ref=self.parent_ref
         )
@@ -71,14 +71,16 @@ class Client(BaseSDK):
         self.messages = Messages(self.sdk_configuration, parent_ref=self.parent_ref)
         self.pins = Pins(self.sdk_configuration, parent_ref=self.parent_ref)
         self.search = Search(self.sdk_configuration, parent_ref=self.parent_ref)
-        self.entities = Entities(self.sdk_configuration, parent_ref=self.parent_ref)
+        self.entities = ClientEntities(
+            self.sdk_configuration, parent_ref=self.parent_ref
+        )
         self.shortcuts = ClientShortcuts(
             self.sdk_configuration, parent_ref=self.parent_ref
         )
         self.verification = ClientVerification(
             self.sdk_configuration, parent_ref=self.parent_ref
         )
-        self.tools = Tools(self.sdk_configuration, parent_ref=self.parent_ref)
+        self.tools = ClientTools(self.sdk_configuration, parent_ref=self.parent_ref)
         self.governance = ClientGovernance(
             self.sdk_configuration, parent_ref=self.parent_ref
         )

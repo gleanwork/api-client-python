@@ -13,6 +13,11 @@ from .insightsoverviewrequest import (
     InsightsOverviewRequest,
     InsightsOverviewRequestTypedDict,
 )
+from .mcpbreakdowninsightsrequest import (
+    McpBreakdownInsightsRequest,
+    McpBreakdownInsightsRequestTypedDict,
+)
+from .mcpinsightsrequest import McpInsightsRequest, McpInsightsRequestTypedDict
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
 from pydantic import model_serializer
@@ -24,6 +29,8 @@ class InsightsRequestTypedDict(TypedDict):
     overview_request: NotRequired[InsightsOverviewRequestTypedDict]
     assistant_request: NotRequired[InsightsAssistantRequestTypedDict]
     agents_request: NotRequired[AgentsInsightsV2RequestTypedDict]
+    mcp_request: NotRequired[McpInsightsRequestTypedDict]
+    mcp_breakdown_request: NotRequired[McpBreakdownInsightsRequestTypedDict]
     disable_per_user_insights: NotRequired[bool]
     r"""If true, suppresses the generation of per-user Insights in the response. Default is false."""
 
@@ -41,6 +48,15 @@ class InsightsRequest(BaseModel):
         Optional[AgentsInsightsV2Request], pydantic.Field(alias="agentsRequest")
     ] = None
 
+    mcp_request: Annotated[
+        Optional[McpInsightsRequest], pydantic.Field(alias="mcpRequest")
+    ] = None
+
+    mcp_breakdown_request: Annotated[
+        Optional[McpBreakdownInsightsRequest],
+        pydantic.Field(alias="mcpBreakdownRequest"),
+    ] = None
+
     disable_per_user_insights: Annotated[
         Optional[bool], pydantic.Field(alias="disablePerUserInsights")
     ] = None
@@ -53,6 +69,8 @@ class InsightsRequest(BaseModel):
                 "overviewRequest",
                 "assistantRequest",
                 "agentsRequest",
+                "mcpRequest",
+                "mcpBreakdownRequest",
                 "disablePerUserInsights",
             ]
         )

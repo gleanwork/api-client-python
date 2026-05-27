@@ -3,9 +3,9 @@
 package components
 
 type InsightsChatSummary struct {
-	// Number of current Monthly Active Users, in the specified departments.
+	// Number of current Monthly Active Users.
 	MonthlyActiveUsers *int64 `json:"monthlyActiveUsers,omitempty"`
-	// Number of current Weekly Active Users, in the specified departments.
+	// Number of current Weekly Active Users.
 	WeeklyActiveUsers *int64 `json:"weeklyActiveUsers,omitempty"`
 	// Total number of chats by users over the specified time period.
 	NumChats *int64 `json:"numChats,omitempty"`

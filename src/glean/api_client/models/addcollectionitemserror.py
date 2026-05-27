@@ -2,15 +2,17 @@
 
 from __future__ import annotations
 from enum import Enum
+from glean.api_client import models, utils
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
-from pydantic import model_serializer
+from pydantic import field_serializer, model_serializer
 from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class AddCollectionItemsErrorErrorType(str, Enum):
+class AddCollectionItemsErrorErrorType(str, Enum, metaclass=utils.OpenEnumMeta):
     EXISTING_ITEM = "EXISTING_ITEM"
+    CORRUPT_ITEM = "CORRUPT_ITEM"
 
 
 class AddCollectionItemsErrorTypedDict(TypedDict):
@@ -21,6 +23,15 @@ class AddCollectionItemsError(BaseModel):
     error_type: Annotated[
         Optional[AddCollectionItemsErrorErrorType], pydantic.Field(alias="errorType")
     ] = None
+
+    @field_serializer("error_type")
+    def serialize_error_type(self, value):
+        if isinstance(value, str):
+            try:
+                return models.AddCollectionItemsErrorErrorType(value)
+            except ValueError:
+                return value
+        return value
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):

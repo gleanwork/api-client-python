@@ -15,9 +15,9 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 class InsightsOverviewResponseTypedDict(TypedDict):
     monthly_active_users: NotRequired[int]
-    r"""Number of current Monthly Active Users, in the specified departments."""
+    r"""Number of current Monthly Active Users."""
     weekly_active_users: NotRequired[int]
-    r"""Number of current Weekly Active Users, in the specified departments."""
+    r"""Number of current Weekly Active Users."""
     departments: NotRequired[List[str]]
     r"""Department name(s)."""
     employee_count: NotRequired[int]
@@ -29,6 +29,7 @@ class InsightsOverviewResponseTypedDict(TypedDict):
     search_active_users: NotRequired[CurrentActiveUsersTypedDict]
     assistant_active_users: NotRequired[CurrentActiveUsersTypedDict]
     agents_active_users: NotRequired[CurrentActiveUsersTypedDict]
+    mcp_active_users: NotRequired[CurrentActiveUsersTypedDict]
     extension_summary: NotRequired[CurrentActiveUsersTypedDict]
     ugc_summary: NotRequired[CurrentActiveUsersTypedDict]
     last_updated_ts: NotRequired[int]
@@ -47,9 +48,13 @@ class InsightsOverviewResponseTypedDict(TypedDict):
     agents_monthly_active_user_timeseries: NotRequired[LabeledCountInfoTypedDict]
     agents_weekly_active_user_timeseries: NotRequired[LabeledCountInfoTypedDict]
     agents_daily_active_user_timeseries: NotRequired[LabeledCountInfoTypedDict]
+    mcp_monthly_active_user_timeseries: NotRequired[LabeledCountInfoTypedDict]
+    mcp_weekly_active_user_timeseries: NotRequired[LabeledCountInfoTypedDict]
+    mcp_daily_active_user_timeseries: NotRequired[LabeledCountInfoTypedDict]
     searches_timeseries: NotRequired[LabeledCountInfoTypedDict]
     assistant_interactions_timeseries: NotRequired[LabeledCountInfoTypedDict]
     agent_runs_timeseries: NotRequired[LabeledCountInfoTypedDict]
+    mcp_calls_timeseries: NotRequired[LabeledCountInfoTypedDict]
     search_datasource_counts: NotRequired[Dict[str, int]]
     r"""Counts of search result clicks, by datasource, over the specified time period in the specified departments."""
     chat_datasource_counts: NotRequired[Dict[str, int]]
@@ -62,12 +67,12 @@ class InsightsOverviewResponse(BaseModel):
     monthly_active_users: Annotated[
         Optional[int], pydantic.Field(alias="monthlyActiveUsers")
     ] = None
-    r"""Number of current Monthly Active Users, in the specified departments."""
+    r"""Number of current Monthly Active Users."""
 
     weekly_active_users: Annotated[
         Optional[int], pydantic.Field(alias="weeklyActiveUsers")
     ] = None
-    r"""Number of current Weekly Active Users, in the specified departments."""
+    r"""Number of current Weekly Active Users."""
 
     departments: Optional[List[str]] = None
     r"""Department name(s)."""
@@ -100,6 +105,10 @@ class InsightsOverviewResponse(BaseModel):
         Optional[CurrentActiveUsers], pydantic.Field(alias="agentsActiveUsers")
     ] = None
 
+    mcp_active_users: Annotated[
+        Optional[CurrentActiveUsers], pydantic.Field(alias="mcpActiveUsers")
+    ] = None
+
     extension_summary: Annotated[
         Optional[CurrentActiveUsers], pydantic.Field(alias="extensionSummary")
     ] = None
@@ -114,7 +123,11 @@ class InsightsOverviewResponse(BaseModel):
     r"""Unix timestamp of the last update for the insights data in the response."""
 
     search_session_satisfaction: Annotated[
-        Optional[float], pydantic.Field(alias="searchSessionSatisfaction")
+        Optional[float],
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - Deprecated on 2026-05-13, removal scheduled for 2027-01-15: This property is no longer supported. Please contact Support for alternatives..",
+            alias="searchSessionSatisfaction",
+        ),
     ] = None
     r"""Search session satisfaction rate, over the specified time period in the specified departments."""
 
@@ -175,6 +188,20 @@ class InsightsOverviewResponse(BaseModel):
         pydantic.Field(alias="agentsDailyActiveUserTimeseries"),
     ] = None
 
+    mcp_monthly_active_user_timeseries: Annotated[
+        Optional[LabeledCountInfo],
+        pydantic.Field(alias="mcpMonthlyActiveUserTimeseries"),
+    ] = None
+
+    mcp_weekly_active_user_timeseries: Annotated[
+        Optional[LabeledCountInfo],
+        pydantic.Field(alias="mcpWeeklyActiveUserTimeseries"),
+    ] = None
+
+    mcp_daily_active_user_timeseries: Annotated[
+        Optional[LabeledCountInfo], pydantic.Field(alias="mcpDailyActiveUserTimeseries")
+    ] = None
+
     searches_timeseries: Annotated[
         Optional[LabeledCountInfo], pydantic.Field(alias="searchesTimeseries")
     ] = None
@@ -186,6 +213,10 @@ class InsightsOverviewResponse(BaseModel):
 
     agent_runs_timeseries: Annotated[
         Optional[LabeledCountInfo], pydantic.Field(alias="agentRunsTimeseries")
+    ] = None
+
+    mcp_calls_timeseries: Annotated[
+        Optional[LabeledCountInfo], pydantic.Field(alias="mcpCallsTimeseries")
     ] = None
 
     search_datasource_counts: Annotated[
@@ -217,6 +248,7 @@ class InsightsOverviewResponse(BaseModel):
                 "searchActiveUsers",
                 "assistantActiveUsers",
                 "agentsActiveUsers",
+                "mcpActiveUsers",
                 "extensionSummary",
                 "ugcSummary",
                 "lastUpdatedTs",
@@ -233,9 +265,13 @@ class InsightsOverviewResponse(BaseModel):
                 "agentsMonthlyActiveUserTimeseries",
                 "agentsWeeklyActiveUserTimeseries",
                 "agentsDailyActiveUserTimeseries",
+                "mcpMonthlyActiveUserTimeseries",
+                "mcpWeeklyActiveUserTimeseries",
+                "mcpDailyActiveUserTimeseries",
                 "searchesTimeseries",
                 "assistantInteractionsTimeseries",
                 "agentRunsTimeseries",
+                "mcpCallsTimeseries",
                 "searchDatasourceCounts",
                 "chatDatasourceCounts",
                 "perUserInsights",

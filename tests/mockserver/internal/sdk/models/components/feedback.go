@@ -14,6 +14,8 @@ type FeedbackCategory string
 
 const (
 	FeedbackCategoryAnnouncement FeedbackCategory = "ANNOUNCEMENT"
+	FeedbackCategoryAnswers      FeedbackCategory = "ANSWERS"
+	FeedbackCategoryArtifacts    FeedbackCategory = "ARTIFACTS"
 	FeedbackCategoryAutocomplete FeedbackCategory = "AUTOCOMPLETE"
 	FeedbackCategoryCollections  FeedbackCategory = "COLLECTIONS"
 	FeedbackCategoryFeed         FeedbackCategory = "FEED"
@@ -37,6 +39,10 @@ func (e *FeedbackCategory) UnmarshalJSON(data []byte) error {
 	}
 	switch v {
 	case "ANNOUNCEMENT":
+		fallthrough
+	case "ANSWERS":
+		fallthrough
+	case "ARTIFACTS":
 		fallthrough
 	case "AUTOCOMPLETE":
 		fallthrough
@@ -66,48 +72,48 @@ func (e *FeedbackCategory) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// Event - The action the user took within a Glean client with respect to the object referred to by the given `trackingToken`.
-type Event string
+// FeedbackEvent - The action the user took within a Glean client with respect to the object referred to by the given `trackingToken`.
+type FeedbackEvent string
 
 const (
-	EventClick                    Event = "CLICK"
-	EventContainerClick           Event = "CONTAINER_CLICK"
-	EventCopyLink                 Event = "COPY_LINK"
-	EventCreate                   Event = "CREATE"
-	EventDismiss                  Event = "DISMISS"
-	EventDownvote                 Event = "DOWNVOTE"
-	EventEmail                    Event = "EMAIL"
-	EventExecute                  Event = "EXECUTE"
-	EventFilter                   Event = "FILTER"
-	EventFirstToken               Event = "FIRST_TOKEN"
-	EventFocusIn                  Event = "FOCUS_IN"
-	EventLastToken                Event = "LAST_TOKEN"
-	EventManualFeedback           Event = "MANUAL_FEEDBACK"
-	EventManualFeedbackSideBySide Event = "MANUAL_FEEDBACK_SIDE_BY_SIDE"
-	EventFeedbackTimeSaved        Event = "FEEDBACK_TIME_SAVED"
-	EventMarkAsRead               Event = "MARK_AS_READ"
-	EventMessage                  Event = "MESSAGE"
-	EventMiddleClick              Event = "MIDDLE_CLICK"
-	EventPageBlur                 Event = "PAGE_BLUR"
-	EventPageFocus                Event = "PAGE_FOCUS"
-	EventPageLeave                Event = "PAGE_LEAVE"
-	EventPreview                  Event = "PREVIEW"
-	EventRelatedClick             Event = "RELATED_CLICK"
-	EventRightClick               Event = "RIGHT_CLICK"
-	EventSectionClick             Event = "SECTION_CLICK"
-	EventSeen                     Event = "SEEN"
-	EventSelect                   Event = "SELECT"
-	EventShare                    Event = "SHARE"
-	EventShowMore                 Event = "SHOW_MORE"
-	EventUpvote                   Event = "UPVOTE"
-	EventView                     Event = "VIEW"
-	EventVisible                  Event = "VISIBLE"
+	FeedbackEventClick                    FeedbackEvent = "CLICK"
+	FeedbackEventContainerClick           FeedbackEvent = "CONTAINER_CLICK"
+	FeedbackEventCopyLink                 FeedbackEvent = "COPY_LINK"
+	FeedbackEventCreate                   FeedbackEvent = "CREATE"
+	FeedbackEventDismiss                  FeedbackEvent = "DISMISS"
+	FeedbackEventDownvote                 FeedbackEvent = "DOWNVOTE"
+	FeedbackEventEmail                    FeedbackEvent = "EMAIL"
+	FeedbackEventExecute                  FeedbackEvent = "EXECUTE"
+	FeedbackEventFilter                   FeedbackEvent = "FILTER"
+	FeedbackEventFirstToken               FeedbackEvent = "FIRST_TOKEN"
+	FeedbackEventFocusIn                  FeedbackEvent = "FOCUS_IN"
+	FeedbackEventLastToken                FeedbackEvent = "LAST_TOKEN"
+	FeedbackEventManualFeedback           FeedbackEvent = "MANUAL_FEEDBACK"
+	FeedbackEventManualFeedbackSideBySide FeedbackEvent = "MANUAL_FEEDBACK_SIDE_BY_SIDE"
+	FeedbackEventFeedbackTimeSaved        FeedbackEvent = "FEEDBACK_TIME_SAVED"
+	FeedbackEventMarkAsRead               FeedbackEvent = "MARK_AS_READ"
+	FeedbackEventMessage                  FeedbackEvent = "MESSAGE"
+	FeedbackEventMiddleClick              FeedbackEvent = "MIDDLE_CLICK"
+	FeedbackEventPageBlur                 FeedbackEvent = "PAGE_BLUR"
+	FeedbackEventPageFocus                FeedbackEvent = "PAGE_FOCUS"
+	FeedbackEventPageLeave                FeedbackEvent = "PAGE_LEAVE"
+	FeedbackEventPreview                  FeedbackEvent = "PREVIEW"
+	FeedbackEventRelatedClick             FeedbackEvent = "RELATED_CLICK"
+	FeedbackEventRightClick               FeedbackEvent = "RIGHT_CLICK"
+	FeedbackEventSectionClick             FeedbackEvent = "SECTION_CLICK"
+	FeedbackEventSeen                     FeedbackEvent = "SEEN"
+	FeedbackEventSelect                   FeedbackEvent = "SELECT"
+	FeedbackEventShare                    FeedbackEvent = "SHARE"
+	FeedbackEventShowMore                 FeedbackEvent = "SHOW_MORE"
+	FeedbackEventUpvote                   FeedbackEvent = "UPVOTE"
+	FeedbackEventView                     FeedbackEvent = "VIEW"
+	FeedbackEventVisible                  FeedbackEvent = "VISIBLE"
 )
 
-func (e Event) ToPointer() *Event {
+func (e FeedbackEvent) ToPointer() *FeedbackEvent {
 	return &e
 }
-func (e *Event) UnmarshalJSON(data []byte) error {
+func (e *FeedbackEvent) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -176,10 +182,10 @@ func (e *Event) UnmarshalJSON(data []byte) error {
 	case "VIEW":
 		fallthrough
 	case "VISIBLE":
-		*e = Event(v)
+		*e = FeedbackEvent(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for Event: %v", v)
+		return fmt.Errorf("invalid value for FeedbackEvent: %v", v)
 	}
 }
 
@@ -217,7 +223,7 @@ type Feedback struct {
 	// A list of server-generated trackingTokens to which this event applies.
 	TrackingTokens []string `json:"trackingTokens"`
 	// The action the user took within a Glean client with respect to the object referred to by the given `trackingToken`.
-	Event Event `json:"event"`
+	Event FeedbackEvent `json:"event"`
 	// Position of the element in the case that the client controls order (such as feed and autocomplete).
 	Position *int64 `json:"position,omitempty"`
 	// For type MANUAL_FEEDBACK, contains string of user feedback. For autocomplete, partial query string. For feed, string of user feedback in addition to manual feedback signals extracted from all suggested content.
@@ -279,9 +285,9 @@ func (o *Feedback) GetTrackingTokens() []string {
 	return o.TrackingTokens
 }
 
-func (o *Feedback) GetEvent() Event {
+func (o *Feedback) GetEvent() FeedbackEvent {
 	if o == nil {
-		return Event("")
+		return FeedbackEvent("")
 	}
 	return o.Event
 }

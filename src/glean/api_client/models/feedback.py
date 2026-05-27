@@ -24,6 +24,8 @@ class FeedbackCategory(str, Enum):
     r"""The feature category to which the feedback applies. These should be broad product areas such as Announcements, Answers, Search, etc. rather than specific components or UI treatments within those areas."""
 
     ANNOUNCEMENT = "ANNOUNCEMENT"
+    ANSWERS = "ANSWERS"
+    ARTIFACTS = "ARTIFACTS"
     AUTOCOMPLETE = "AUTOCOMPLETE"
     COLLECTIONS = "COLLECTIONS"
     FEED = "FEED"
@@ -37,7 +39,7 @@ class FeedbackCategory(str, Enum):
     PROMPTS = "PROMPTS"
 
 
-class Event(str, Enum):
+class FeedbackEvent(str, Enum):
     r"""The action the user took within a Glean client with respect to the object referred to by the given `trackingToken`."""
 
     # The object's primary link was clicked with the intent to view its full representation. Depending on the object type, this may imply an external navigation or navigating to a new page or view within the Glean app.
@@ -113,7 +115,7 @@ class FeedbackChannel(str, Enum):
 class FeedbackTypedDict(TypedDict):
     tracking_tokens: List[str]
     r"""A list of server-generated trackingTokens to which this event applies."""
-    event: Event
+    event: FeedbackEvent
     r"""The action the user took within a Glean client with respect to the object referred to by the given `trackingToken`."""
     id: NotRequired[str]
     r"""Universally unique identifier of the event. To allow for reliable retransmission, only the earliest received event of a given UUID is considered valid by the server and subsequent are ignored."""
@@ -154,7 +156,7 @@ class Feedback(BaseModel):
     tracking_tokens: Annotated[List[str], pydantic.Field(alias="trackingTokens")]
     r"""A list of server-generated trackingTokens to which this event applies."""
 
-    event: Event
+    event: FeedbackEvent
     r"""The action the user took within a Glean client with respect to the object referred to by the given `trackingToken`."""
 
     id: Optional[str] = None
