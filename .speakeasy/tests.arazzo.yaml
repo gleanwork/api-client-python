@@ -158494,3 +158494,214 @@ workflows:
               type: simple
       x-speakeasy-test-group: Datasources
       x-speakeasy-test-rebuild: true
+    - workflowId: getChatFile
+      steps:
+        - stepId: test
+          operationId: getChatFile
+          parameters:
+            - name: fileId
+              in: path
+              value: <id>
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/octet-stream
+            - context: $response.body
+              condition: |
+                "x-file: example.file"
+              type: simple
+      x-speakeasy-test-group: Chat_SDK
+      x-speakeasy-test-rebuild: true
+    - workflowId: getPersonPhoto
+      steps:
+        - stepId: test
+          operationId: getPersonPhoto
+          parameters:
+            - name: person_id
+              in: path
+              value: <id>
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == image/png
+            - context: $response.body
+              condition: |
+                "x-file: example.file"
+              type: simple
+      x-speakeasy-test-group: Entities
+      x-speakeasy-test-rebuild: true
+    - workflowId: getActionPackAuthStatus
+      steps:
+        - stepId: test
+          operationId: getActionPackAuthStatus
+          parameters:
+            - name: actionPackId
+              in: path
+              value: <id>
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"actionPack":{"authenticated":true,"authType":"AUTH_USER_OAUTH"}}
+              type: simple
+      x-speakeasy-test-group: Tools
+      x-speakeasy-test-rebuild: true
+    - workflowId: authorizeActionPack
+      steps:
+        - stepId: test
+          operationId: authorizeActionPack
+          parameters:
+            - name: actionPackId
+              in: path
+              value: <id>
+          requestBody:
+            contentType: application/json
+            payload:
+                returnUrl: https://merry-allocation.org/
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"redirectUrl":"https://unconscious-diversity.net"}
+              type: simple
+      x-speakeasy-test-group: Tools
+      x-speakeasy-test-rebuild: true
+    - workflowId: put_/rest/api/index/document/{docId}/custom-metadata/{groupName}
+      steps:
+        - stepId: test
+          operationId: put_/rest/api/index/document/{docId}/custom-metadata/{groupName}
+          parameters:
+            - name: docId
+              in: path
+              value: <id>
+            - name: groupName
+              in: path
+              value: <value>
+          requestBody:
+            contentType: application/json
+            payload:
+                customMetadata: []
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"success":true}
+              type: simple
+      x-speakeasy-test-group: customMetadata
+      x-speakeasy-test-rebuild: true
+    - workflowId: delete_/rest/api/index/document/{docId}/custom-metadata/{groupName}
+      steps:
+        - stepId: test
+          operationId: delete_/rest/api/index/document/{docId}/custom-metadata/{groupName}
+          parameters:
+            - name: docId
+              in: path
+              value: <id>
+            - name: groupName
+              in: path
+              value: <value>
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"success":true}
+              type: simple
+      x-speakeasy-test-group: customMetadata
+      x-speakeasy-test-rebuild: true
+    - workflowId: get_/rest/api/index/custom-metadata/schema/{groupName}
+      steps:
+        - stepId: test
+          operationId: get_/rest/api/index/custom-metadata/schema/{groupName}
+          parameters:
+            - name: groupName
+              in: path
+              value: <value>
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"metadataKeys":[]}
+              type: simple
+      x-speakeasy-test-group: customMetadata
+      x-speakeasy-test-rebuild: true
+    - workflowId: put_/rest/api/index/custom-metadata/schema/{groupName}
+      steps:
+        - stepId: test
+          operationId: put_/rest/api/index/custom-metadata/schema/{groupName}
+          parameters:
+            - name: groupName
+              in: path
+              value: <value>
+          requestBody:
+            contentType: application/json
+            payload:
+                metadataKeys: []
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"success":true}
+              type: simple
+      x-speakeasy-test-group: customMetadata
+      x-speakeasy-test-rebuild: true
+    - workflowId: delete_/rest/api/index/custom-metadata/schema/{groupName}
+      steps:
+        - stepId: test
+          operationId: delete_/rest/api/index/custom-metadata/schema/{groupName}
+          parameters:
+            - name: groupName
+              in: path
+              value: <value>
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"success":true}
+              type: simple
+      x-speakeasy-test-group: customMetadata
+      x-speakeasy-test-rebuild: true
+    - workflowId: getDatasourceCredentialStatus
+      steps:
+        - stepId: test
+          operationId: getDatasourceCredentialStatus
+          parameters:
+            - name: datasourceInstanceId
+              in: path
+              value: o365sharepoint_abc123
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"status":"VALID"}
+              type: simple
+      x-speakeasy-test-group: Datasources
+      x-speakeasy-test-rebuild: true
+    - workflowId: rotateDatasourceCredentials
+      steps:
+        - stepId: test
+          operationId: rotateDatasourceCredentials
+          parameters:
+            - name: datasourceInstanceId
+              in: path
+              value: o365sharepoint_abc123
+          requestBody:
+            contentType: application/json
+            payload:
+                credentials:
+                    values:
+                        key: {}
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"status":"MISSING"}
+              type: simple
+      x-speakeasy-test-group: Datasources
+      x-speakeasy-test-rebuild: true

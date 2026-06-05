@@ -1,0 +1,11 @@
+# McpBreakdownInsightsResponse
+
+
+## Fields
+
+| Field                                                                                | Type                                                                                 | Required                                                                             | Description                                                                          |
+| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
+| `users_breakdown`                                                                    | List[[models.McpUserBreakdown](../models/mcpuserbreakdown.md)]                       | :heavy_minus_sign:                                                                   | N/A                                                                                  |
+| `host_applications_breakdown`                                                        | List[[models.McpHostApplicationBreakdown](../models/mcphostapplicationbreakdown.md)] | :heavy_minus_sign:                                                                   | N/A                                                                                  |
+| `tools_breakdown`                                                                    | List[[models.McpToolBreakdown](../models/mcptoolbreakdown.md)]                       | :heavy_minus_sign:                                                                   | N/A                                                                                  |
+| `servers_breakdown`                                                                  | List[[models.McpServerBreakdown](../models/mcpserverbreakdown.md)]                   | :heavy_minus_sign:                                                                   | N/A                                                                                  |

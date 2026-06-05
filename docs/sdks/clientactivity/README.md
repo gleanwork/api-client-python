@@ -86,7 +86,7 @@ with Glean(
         "tracking_tokens": [
             "trackingTokens",
         ],
-        "event": models.Event.VIEW,
+        "event": models.FeedbackEvent.VIEW,
     })
 
     # Use the SDK ...

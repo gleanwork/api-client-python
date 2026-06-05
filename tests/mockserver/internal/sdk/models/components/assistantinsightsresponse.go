@@ -3,9 +3,9 @@
 package components
 
 type AssistantInsightsResponse struct {
-	// Number of current Monthly Active Users, in the specified departments.
+	// Number of current Monthly Active Users.
 	MonthlyActiveUsers *int64 `json:"monthlyActiveUsers,omitempty"`
-	// Number of current Weekly Active Users, in the specified departments.
+	// Number of current Weekly Active Users.
 	WeeklyActiveUsers *int64 `json:"weeklyActiveUsers,omitempty"`
 	// Unix timestamp of the last update for the insights data in the response.
 	LastUpdatedTs               *int64            `json:"lastUpdatedTs,omitempty"`

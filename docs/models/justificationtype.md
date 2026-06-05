@@ -61,8 +61,13 @@ value = JustificationType.FREQUENTLY_ACCESSED
 | `ACTIVE_DISCUSSION`                     | ACTIVE_DISCUSSION                       |
 | `MID_DAY_CATCH_UP`                      | MID_DAY_CATCH_UP                        |
 | `QUERY_SUGGESTION`                      | QUERY_SUGGESTION                        |
+| `COWORK_CUJ_PROMO`                      | COWORK_CUJ_PROMO                        |
 | `WEEKLY_MEETINGS`                       | WEEKLY_MEETINGS                         |
 | `FOLLOW_UP`                             | FOLLOW_UP                               |
 | `MILESTONE_TIMELINE_CHECK`              | MILESTONE_TIMELINE_CHECK                |
 | `PROJECT_DISCUSSION_DIGEST`             | PROJECT_DISCUSSION_DIGEST               |
+| `PROJECT_FOCUS_BLOCK`                   | PROJECT_FOCUS_BLOCK                     |
 | `PROJECT_NEXT_STEP`                     | PROJECT_NEXT_STEP                       |
+| `DEMO_CARD`                             | DEMO_CARD                               |
+| `OOO_PLANNER`                           | OOO_PLANNER                             |
+| `OOO_CATCH_UP`                          | OOO_CATCH_UP                            |

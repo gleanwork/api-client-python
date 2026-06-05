@@ -31,6 +31,7 @@ class EditCollectionResponseErrorCode(str, Enum, metaclass=utils.OpenEnumMeta):
     HEIGHT_VIOLATION = "HEIGHT_VIOLATION"
     WIDTH_VIOLATION = "WIDTH_VIOLATION"
     NO_PERMISSIONS = "NO_PERMISSIONS"
+    CORRUPT_ITEM = "CORRUPT_ITEM"
 
 
 class EditCollectionResponseTypedDict(TypedDict):
@@ -57,6 +58,8 @@ class EditCollectionResponseTypedDict(TypedDict):
     allowed_datasource: NotRequired[str]
     r"""The datasource type this Collection can hold."""
     permissions: NotRequired[ObjectPermissionsTypedDict]
+    tracking_token: NotRequired[str]
+    r"""An opaque token that represents this particular UGC. To be used for `/feedback` reporting."""
     create_time: NotRequired[datetime]
     update_time: NotRequired[datetime]
     creator: NotRequired[PersonTypedDict]
@@ -125,6 +128,11 @@ class EditCollectionResponse(BaseModel):
 
     permissions: Optional[ObjectPermissions] = None
 
+    tracking_token: Annotated[Optional[str], pydantic.Field(alias="trackingToken")] = (
+        None
+    )
+    r"""An opaque token that represents this particular UGC. To be used for `/feedback` reporting."""
+
     create_time: Annotated[Optional[datetime], pydantic.Field(alias="createTime")] = (
         None
     )
@@ -185,6 +193,7 @@ class EditCollectionResponse(BaseModel):
                 "thumbnail",
                 "allowedDatasource",
                 "permissions",
+                "trackingToken",
                 "createTime",
                 "updateTime",
                 "creator",

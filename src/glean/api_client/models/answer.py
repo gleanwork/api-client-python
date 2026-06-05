@@ -54,6 +54,8 @@ class AnswerTypedDict(TypedDict):
     source_document_spec: NotRequired[DocumentSpecUnionTypedDict]
     source_type: NotRequired[AnswerSourceType]
     permissions: NotRequired[ObjectPermissionsTypedDict]
+    tracking_token: NotRequired[str]
+    r"""An opaque token that represents this particular UGC. To be used for `/feedback` reporting."""
     combined_answer_text: NotRequired["StructuredTextTypedDict"]
     likes: NotRequired["AnswerLikesTypedDict"]
     author: NotRequired["PersonTypedDict"]
@@ -124,6 +126,11 @@ class Answer(BaseModel):
 
     permissions: Optional[ObjectPermissions] = None
 
+    tracking_token: Annotated[Optional[str], pydantic.Field(alias="trackingToken")] = (
+        None
+    )
+    r"""An opaque token that represents this particular UGC. To be used for `/feedback` reporting."""
+
     combined_answer_text: Annotated[
         Optional["StructuredText"], pydantic.Field(alias="combinedAnswerText")
     ] = None
@@ -183,6 +190,7 @@ class Answer(BaseModel):
                 "sourceDocumentSpec",
                 "sourceType",
                 "permissions",
+                "trackingToken",
                 "combinedAnswerText",
                 "likes",
                 "author",

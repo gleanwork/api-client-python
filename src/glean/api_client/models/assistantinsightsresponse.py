@@ -15,9 +15,9 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 class AssistantInsightsResponseTypedDict(TypedDict):
     monthly_active_users: NotRequired[int]
-    r"""Number of current Monthly Active Users, in the specified departments."""
+    r"""Number of current Monthly Active Users."""
     weekly_active_users: NotRequired[int]
-    r"""Number of current Weekly Active Users, in the specified departments."""
+    r"""Number of current Weekly Active Users."""
     last_updated_ts: NotRequired[int]
     r"""Unix timestamp of the last update for the insights data in the response."""
     monthly_active_user_timeseries: NotRequired[LabeledCountInfoTypedDict]
@@ -38,12 +38,12 @@ class AssistantInsightsResponse(BaseModel):
     monthly_active_users: Annotated[
         Optional[int], pydantic.Field(alias="monthlyActiveUsers")
     ] = None
-    r"""Number of current Monthly Active Users, in the specified departments."""
+    r"""Number of current Monthly Active Users."""
 
     weekly_active_users: Annotated[
         Optional[int], pydantic.Field(alias="weeklyActiveUsers")
     ] = None
-    r"""Number of current Weekly Active Users, in the specified departments."""
+    r"""Number of current Weekly Active Users."""
 
     last_updated_ts: Annotated[Optional[int], pydantic.Field(alias="lastUpdatedTs")] = (
         None

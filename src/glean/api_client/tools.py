@@ -6,24 +6,27 @@ from glean.api_client._hooks import HookContext
 from glean.api_client.types import OptionalNullable, UNSET
 from glean.api_client.utils import get_security_from_env
 from glean.api_client.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Dict, List, Mapping, Optional, Union
+from typing import Mapping, Optional
 
 
 class Tools(BaseSDK):
-    def list(
+    def get_action_pack_auth_status(
         self,
         *,
-        tool_names: Optional[List[str]] = None,
+        action_pack_id: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.ToolsListResponse:
-        r"""List available tools
+    ) -> models.ActionPackAuthStatusResponse:
+        r"""Get end-user authentication status for an action pack.
 
-        Returns a filtered set of available tools based on optional tool name parameters. If no filters are provided, all available tools are returned.
+        Reports whether the calling user is already authenticated against the third-party
+        tool backing the specified action pack. Intended for headless / server-driven clients
+        that render an \"Authorize\" prompt when the user has not yet consented to the tool.
 
-        :param tool_names: Optional array of tool names to filter by
+
+        :param action_pack_id: ID of the action pack to query or authorize.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -39,18 +42,18 @@ class Tools(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.GetRestAPIV1ToolsListRequest(
-            tool_names=tool_names,
+        request = models.GetActionPackAuthStatusRequest(
+            action_pack_id=action_pack_id,
         )
 
         req = self._build_request(
             method="GET",
-            path="/rest/api/v1/tools/list",
+            path="/rest/api/v1/actions/actionpack/{actionPackId}/auth",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
             request_body_required=False,
-            request_has_path_params=False,
+            request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
@@ -72,7 +75,7 @@ class Tools(BaseSDK):
             hook_ctx=HookContext(
                 config=self.sdk_configuration,
                 base_url=base_url or "",
-                operation_id="get_/rest/api/v1/tools/list",
+                operation_id="getActionPackAuthStatus",
                 oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
@@ -84,7 +87,9 @@ class Tools(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.ToolsListResponse, http_res)
+            return unmarshal_json_response(
+                models.ActionPackAuthStatusResponse, http_res
+            )
         if utils.match_response(http_res, ["400", "401", "404", "429", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.GleanError("API error occurred", http_res, http_res_text)
@@ -94,20 +99,23 @@ class Tools(BaseSDK):
 
         raise errors.GleanError("Unexpected response received", http_res)
 
-    async def list_async(
+    async def get_action_pack_auth_status_async(
         self,
         *,
-        tool_names: Optional[List[str]] = None,
+        action_pack_id: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.ToolsListResponse:
-        r"""List available tools
+    ) -> models.ActionPackAuthStatusResponse:
+        r"""Get end-user authentication status for an action pack.
 
-        Returns a filtered set of available tools based on optional tool name parameters. If no filters are provided, all available tools are returned.
+        Reports whether the calling user is already authenticated against the third-party
+        tool backing the specified action pack. Intended for headless / server-driven clients
+        that render an \"Authorize\" prompt when the user has not yet consented to the tool.
 
-        :param tool_names: Optional array of tool names to filter by
+
+        :param action_pack_id: ID of the action pack to query or authorize.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -123,18 +131,18 @@ class Tools(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.GetRestAPIV1ToolsListRequest(
-            tool_names=tool_names,
+        request = models.GetActionPackAuthStatusRequest(
+            action_pack_id=action_pack_id,
         )
 
         req = self._build_request_async(
             method="GET",
-            path="/rest/api/v1/tools/list",
+            path="/rest/api/v1/actions/actionpack/{actionPackId}/auth",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
             request_body_required=False,
-            request_has_path_params=False,
+            request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
@@ -156,7 +164,7 @@ class Tools(BaseSDK):
             hook_ctx=HookContext(
                 config=self.sdk_configuration,
                 base_url=base_url or "",
-                operation_id="get_/rest/api/v1/tools/list",
+                operation_id="getActionPackAuthStatus",
                 oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
@@ -168,7 +176,9 @@ class Tools(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.ToolsListResponse, http_res)
+            return unmarshal_json_response(
+                models.ActionPackAuthStatusResponse, http_res
+            )
         if utils.match_response(http_res, ["400", "401", "404", "429", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.GleanError("API error occurred", http_res, http_res_text)
@@ -178,25 +188,31 @@ class Tools(BaseSDK):
 
         raise errors.GleanError("Unexpected response received", http_res)
 
-    def run(
+    def authorize_action_pack(
         self,
         *,
-        name: str,
-        parameters: Union[
-            Dict[str, models.ToolsCallParameter],
-            Dict[str, models.ToolsCallParameterTypedDict],
-        ],
+        action_pack_id: str,
+        return_url: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.ToolsCallResponse:
-        r"""Execute the specified tool
+    ) -> models.AuthorizeActionPackResponse:
+        r"""Start the OAuth authorization flow for an action pack.
 
-        Execute the specified tool with provided parameters
+        Starts the third-party OAuth flow for the specified action pack and returns the
+        redirect URL that the client should navigate the end user to. After the OAuth
+        callback completes, the user's browser is redirected back to `returnUrl` with a
+        status query parameter (`?glean_action_auth=success|error&actionPackId=...`).
 
-        :param name: Required name of the tool to execute
-        :param parameters: The parameters for the tool. Each key is the name of the parameter and the value is the parameter object.
+        `returnUrl` must match the tenant's configured return URL allowlist; otherwise the
+        request is rejected with 400.
+
+
+        :param action_pack_id: ID of the action pack to query or authorize.
+        :param return_url: URL on the customer's domain to redirect the end user's browser back to after the third-party OAuth
+            callback completes. Must be present in the tenant's return URL allowlist.
+
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -212,28 +228,32 @@ class Tools(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.ToolsCallRequest(
-            name=name,
-            parameters=utils.get_pydantic_model(
-                parameters, Dict[str, models.ToolsCallParameter]
+        request = models.AuthorizeActionPackRequestRequest(
+            action_pack_id=action_pack_id,
+            authorize_action_pack_request=models.AuthorizeActionPackRequest(
+                return_url=return_url,
             ),
         )
 
         req = self._build_request(
             method="POST",
-            path="/rest/api/v1/tools/call",
+            path="/rest/api/v1/actions/actionpack/{actionPackId}/auth",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
             request_body_required=True,
-            request_has_path_params=False,
+            request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.ToolsCallRequest
+                request.authorize_action_pack_request,
+                False,
+                False,
+                "json",
+                models.AuthorizeActionPackRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -251,7 +271,7 @@ class Tools(BaseSDK):
             hook_ctx=HookContext(
                 config=self.sdk_configuration,
                 base_url=base_url or "",
-                operation_id="post_/rest/api/v1/tools/call",
+                operation_id="authorizeActionPack",
                 oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
@@ -263,8 +283,10 @@ class Tools(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.ToolsCallResponse, http_res)
-        if utils.match_response(http_res, ["400", "401", "404", "429", "4XX"], "*"):
+            return unmarshal_json_response(models.AuthorizeActionPackResponse, http_res)
+        if utils.match_response(
+            http_res, ["400", "401", "403", "404", "429", "4XX"], "*"
+        ):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
@@ -273,25 +295,31 @@ class Tools(BaseSDK):
 
         raise errors.GleanError("Unexpected response received", http_res)
 
-    async def run_async(
+    async def authorize_action_pack_async(
         self,
         *,
-        name: str,
-        parameters: Union[
-            Dict[str, models.ToolsCallParameter],
-            Dict[str, models.ToolsCallParameterTypedDict],
-        ],
+        action_pack_id: str,
+        return_url: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.ToolsCallResponse:
-        r"""Execute the specified tool
+    ) -> models.AuthorizeActionPackResponse:
+        r"""Start the OAuth authorization flow for an action pack.
 
-        Execute the specified tool with provided parameters
+        Starts the third-party OAuth flow for the specified action pack and returns the
+        redirect URL that the client should navigate the end user to. After the OAuth
+        callback completes, the user's browser is redirected back to `returnUrl` with a
+        status query parameter (`?glean_action_auth=success|error&actionPackId=...`).
 
-        :param name: Required name of the tool to execute
-        :param parameters: The parameters for the tool. Each key is the name of the parameter and the value is the parameter object.
+        `returnUrl` must match the tenant's configured return URL allowlist; otherwise the
+        request is rejected with 400.
+
+
+        :param action_pack_id: ID of the action pack to query or authorize.
+        :param return_url: URL on the customer's domain to redirect the end user's browser back to after the third-party OAuth
+            callback completes. Must be present in the tenant's return URL allowlist.
+
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -307,28 +335,32 @@ class Tools(BaseSDK):
         else:
             base_url = self._get_url(base_url, url_variables)
 
-        request = models.ToolsCallRequest(
-            name=name,
-            parameters=utils.get_pydantic_model(
-                parameters, Dict[str, models.ToolsCallParameter]
+        request = models.AuthorizeActionPackRequestRequest(
+            action_pack_id=action_pack_id,
+            authorize_action_pack_request=models.AuthorizeActionPackRequest(
+                return_url=return_url,
             ),
         )
 
         req = self._build_request_async(
             method="POST",
-            path="/rest/api/v1/tools/call",
+            path="/rest/api/v1/actions/actionpack/{actionPackId}/auth",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
             request_body_required=True,
-            request_has_path_params=False,
+            request_has_path_params=True,
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
             get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.ToolsCallRequest
+                request.authorize_action_pack_request,
+                False,
+                False,
+                "json",
+                models.AuthorizeActionPackRequest,
             ),
             allow_empty_value=None,
             timeout_ms=timeout_ms,
@@ -346,7 +378,7 @@ class Tools(BaseSDK):
             hook_ctx=HookContext(
                 config=self.sdk_configuration,
                 base_url=base_url or "",
-                operation_id="post_/rest/api/v1/tools/call",
+                operation_id="authorizeActionPack",
                 oauth2_scopes=None,
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
@@ -358,8 +390,10 @@ class Tools(BaseSDK):
         )
 
         if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.ToolsCallResponse, http_res)
-        if utils.match_response(http_res, ["400", "401", "404", "429", "4XX"], "*"):
+            return unmarshal_json_response(models.AuthorizeActionPackResponse, http_res)
+        if utils.match_response(
+            http_res, ["400", "401", "403", "404", "429", "4XX"], "*"
+        ):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):

@@ -22,8 +22,8 @@ def test_summarize_summarize():
                     "ugc_id": "<id>",
                 },
                 {
-                    "ugc_type": models.DocumentSpecUgcType2.ANNOUNCEMENTS,
-                    "ugc_id": "<id>",
+                    "ugc_type": models.DocumentSpecUgcType1.COLLECTIONS,
+                    "content_id": 885812,
                 },
             ]
         )

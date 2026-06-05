@@ -12,12 +12,19 @@ import (
 // GeneratedHandlers returns all generated handlers.
 func GeneratedHandlers(ctx context.Context, dir *logging.HTTPFileDirectory, rt *tracking.RequestTracker) []*GeneratedHandler {
 	return []*GeneratedHandler{
+		NewGeneratedHandler(ctx, http.MethodDelete, "/rest/api/index/custom-metadata/schema/{groupName}", pathDeleteRestAPIIndexCustomMetadataSchemaGroupName(dir, rt)),
+		NewGeneratedHandler(ctx, http.MethodDelete, "/rest/api/index/document/{docId}/custom-metadata/{groupName}", pathDeleteRestAPIIndexDocumentDocIDCustomMetadataGroupName(dir, rt)),
+		NewGeneratedHandler(ctx, http.MethodGet, "/rest/api/index/custom-metadata/schema/{groupName}", pathGetRestAPIIndexCustomMetadataSchemaGroupName(dir, rt)),
+		NewGeneratedHandler(ctx, http.MethodGet, "/rest/api/v1/actions/actionpack/{actionPackId}/auth", pathGetRestAPIV1ActionsActionpackActionPackIDAuth(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodGet, "/rest/api/v1/agents/{agent_id}", pathGetRestAPIV1AgentsAgentID(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodGet, "/rest/api/v1/agents/{agent_id}/schemas", pathGetRestAPIV1AgentsAgentIDSchemas(dir, rt)),
+		NewGeneratedHandler(ctx, http.MethodGet, "/rest/api/v1/chat-files/{fileId}", pathGetRestAPIV1ChatFilesFileID(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodGet, "/rest/api/v1/configure/datasources/{datasourceId}/instances/{instanceId}", pathGetRestAPIV1ConfigureDatasourcesDatasourceIDInstancesInstanceID(dir, rt)),
+		NewGeneratedHandler(ctx, http.MethodGet, "/rest/api/v1/datasource/{datasourceInstanceId}/credentialstatus", pathGetRestAPIV1DatasourceDatasourceInstanceIDCredentialstatus(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodGet, "/rest/api/v1/governance/data/findings/exports", pathGetRestAPIV1GovernanceDataFindingsExports(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodGet, "/rest/api/v1/governance/data/policies", pathGetRestAPIV1GovernanceDataPolicies(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodGet, "/rest/api/v1/governance/data/policies/{id}", pathGetRestAPIV1GovernanceDataPoliciesID(dir, rt)),
+		NewGeneratedHandler(ctx, http.MethodGet, "/rest/api/v1/people/{person_id}/photo", pathGetRestAPIV1PeoplePersonIDPhoto(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodGet, "/rest/api/v1/tools/list", pathGetRestAPIV1ToolsList(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodPatch, "/rest/api/v1/configure/datasources/{datasourceId}/instances/{instanceId}", pathPatchRestAPIV1ConfigureDatasourcesDatasourceIDInstancesInstanceID(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodPost, "/api/index/v1/adddatasource", pathPostAPIIndexV1Adddatasource(dir, rt)),
@@ -45,6 +52,7 @@ func GeneratedHandlers(ctx context.Context, dir *logging.HTTPFileDirectory, rt *
 		NewGeneratedHandler(ctx, http.MethodPost, "/api/index/v1/processallmemberships", pathPostAPIIndexV1Processallmemberships(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodPost, "/api/index/v1/rotatetoken", pathPostAPIIndexV1Rotatetoken(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodPost, "/api/index/v1/updatepermissions", pathPostAPIIndexV1Updatepermissions(dir, rt)),
+		NewGeneratedHandler(ctx, http.MethodPost, "/rest/api/v1/actions/actionpack/{actionPackId}/auth", pathPostRestAPIV1ActionsActionpackActionPackIDAuth(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodPost, "/rest/api/v1/activity", pathPostRestAPIV1Activity(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodPost, "/rest/api/v1/addcollectionitems", pathPostRestAPIV1Addcollectionitems(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodPost, "/rest/api/v1/addverificationreminder", pathPostRestAPIV1Addverificationreminder(dir, rt)),
@@ -57,6 +65,7 @@ func GeneratedHandlers(ctx context.Context, dir *logging.HTTPFileDirectory, rt *
 		NewGeneratedHandler(ctx, http.MethodPost, "/rest/api/v1/createauthtoken", pathPostRestAPIV1Createauthtoken(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodPost, "/rest/api/v1/createcollection", pathPostRestAPIV1Createcollection(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodPost, "/rest/api/v1/createshortcut", pathPostRestAPIV1Createshortcut(dir, rt)),
+		NewGeneratedHandler(ctx, http.MethodPost, "/rest/api/v1/datasource/{datasourceInstanceId}/credentials", pathPostRestAPIV1DatasourceDatasourceInstanceIDCredentials(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodPost, "/rest/api/v1/deleteallchats", pathPostRestAPIV1Deleteallchats(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodPost, "/rest/api/v1/deleteannouncement", pathPostRestAPIV1Deleteannouncement(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodPost, "/rest/api/v1/deleteanswer", pathPostRestAPIV1Deleteanswer(dir, rt)),
@@ -100,5 +109,7 @@ func GeneratedHandlers(ctx context.Context, dir *logging.HTTPFileDirectory, rt *
 		NewGeneratedHandler(ctx, http.MethodPost, "/rest/api/v1/updateannouncement", pathPostRestAPIV1Updateannouncement(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodPost, "/rest/api/v1/updateshortcut", pathPostRestAPIV1Updateshortcut(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodPost, "/rest/api/v1/verify", pathPostRestAPIV1Verify(dir, rt)),
+		NewGeneratedHandler(ctx, http.MethodPut, "/rest/api/index/custom-metadata/schema/{groupName}", pathPutRestAPIIndexCustomMetadataSchemaGroupName(dir, rt)),
+		NewGeneratedHandler(ctx, http.MethodPut, "/rest/api/index/document/{docId}/custom-metadata/{groupName}", pathPutRestAPIIndexDocumentDocIDCustomMetadataGroupName(dir, rt)),
 	}
 }

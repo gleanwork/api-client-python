@@ -18,6 +18,7 @@ const (
 	CollectionErrorErrorCodeHeightViolation         CollectionErrorErrorCode = "HEIGHT_VIOLATION"
 	CollectionErrorErrorCodeWidthViolation          CollectionErrorErrorCode = "WIDTH_VIOLATION"
 	CollectionErrorErrorCodeNoPermissions           CollectionErrorErrorCode = "NO_PERMISSIONS"
+	CollectionErrorErrorCodeCorruptItem             CollectionErrorErrorCode = "CORRUPT_ITEM"
 )
 
 func (e CollectionErrorErrorCode) ToPointer() *CollectionErrorErrorCode {
@@ -42,6 +43,8 @@ func (e *CollectionErrorErrorCode) UnmarshalJSON(data []byte) error {
 	case "WIDTH_VIOLATION":
 		fallthrough
 	case "NO_PERMISSIONS":
+		fallthrough
+	case "CORRUPT_ITEM":
 		*e = CollectionErrorErrorCode(v)
 		return nil
 	default:

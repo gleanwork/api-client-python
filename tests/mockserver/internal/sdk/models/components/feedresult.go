@@ -42,11 +42,16 @@ const (
 	FeedResultCategoryStarterKit                   FeedResultCategory = "STARTER_KIT"
 	FeedResultCategoryMidDayCatchUp                FeedResultCategory = "MID_DAY_CATCH_UP"
 	FeedResultCategoryQuerySuggestion              FeedResultCategory = "QUERY_SUGGESTION"
+	FeedResultCategoryCoworkCujPromo               FeedResultCategory = "COWORK_CUJ_PROMO"
 	FeedResultCategoryWeeklyMeetings               FeedResultCategory = "WEEKLY_MEETINGS"
 	FeedResultCategoryFollowUp                     FeedResultCategory = "FOLLOW_UP"
 	FeedResultCategoryMilestoneTimelineCheck       FeedResultCategory = "MILESTONE_TIMELINE_CHECK"
 	FeedResultCategoryProjectDiscussionDigest      FeedResultCategory = "PROJECT_DISCUSSION_DIGEST"
+	FeedResultCategoryProjectFocusBlock            FeedResultCategory = "PROJECT_FOCUS_BLOCK"
 	FeedResultCategoryProjectNextStep              FeedResultCategory = "PROJECT_NEXT_STEP"
+	FeedResultCategoryDemoCard                     FeedResultCategory = "DEMO_CARD"
+	FeedResultCategoryOooPlanner                   FeedResultCategory = "OOO_PLANNER"
+	FeedResultCategoryOooCatchUp                   FeedResultCategory = "OOO_CATCH_UP"
 )
 
 func (e FeedResultCategory) ToPointer() *FeedResultCategory {
@@ -120,6 +125,8 @@ func (e *FeedResultCategory) UnmarshalJSON(data []byte) error {
 		fallthrough
 	case "QUERY_SUGGESTION":
 		fallthrough
+	case "COWORK_CUJ_PROMO":
+		fallthrough
 	case "WEEKLY_MEETINGS":
 		fallthrough
 	case "FOLLOW_UP":
@@ -128,7 +135,15 @@ func (e *FeedResultCategory) UnmarshalJSON(data []byte) error {
 		fallthrough
 	case "PROJECT_DISCUSSION_DIGEST":
 		fallthrough
+	case "PROJECT_FOCUS_BLOCK":
+		fallthrough
 	case "PROJECT_NEXT_STEP":
+		fallthrough
+	case "DEMO_CARD":
+		fallthrough
+	case "OOO_PLANNER":
+		fallthrough
+	case "OOO_CATCH_UP":
 		*e = FeedResultCategory(v)
 		return nil
 	default:
