@@ -92,3 +92,40 @@ def test_datasources_update_datasource_instance_configuration():
             },
         )
         assert res is not None
+
+
+def test_datasources_get_datasource_credential_status():
+    test_http_client = create_test_http_client("getDatasourceCredentialStatus")
+
+    with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
+        client=test_http_client,
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+    ) as glean:
+        assert glean is not None
+
+        res = glean.datasources.get_datasource_credential_status(
+            datasource_instance_id="o365sharepoint_abc123"
+        )
+        assert res is not None
+
+
+def test_datasources_rotate_datasource_credentials():
+    test_http_client = create_test_http_client("rotateDatasourceCredentials")
+
+    with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
+        client=test_http_client,
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+    ) as glean:
+        assert glean is not None
+
+        res = glean.datasources.rotate_datasource_credentials(
+            datasource_instance_id="o365sharepoint_abc123",
+            credentials={
+                "values": {
+                    "key": {},
+                },
+            },
+        )
+        assert res is not None

@@ -100,11 +100,16 @@ const (
 	JustificationTypeActiveDiscussion                  JustificationType = "ACTIVE_DISCUSSION"
 	JustificationTypeMidDayCatchUp                     JustificationType = "MID_DAY_CATCH_UP"
 	JustificationTypeQuerySuggestion                   JustificationType = "QUERY_SUGGESTION"
+	JustificationTypeCoworkCujPromo                    JustificationType = "COWORK_CUJ_PROMO"
 	JustificationTypeWeeklyMeetings                    JustificationType = "WEEKLY_MEETINGS"
 	JustificationTypeFollowUp                          JustificationType = "FOLLOW_UP"
 	JustificationTypeMilestoneTimelineCheck            JustificationType = "MILESTONE_TIMELINE_CHECK"
 	JustificationTypeProjectDiscussionDigest           JustificationType = "PROJECT_DISCUSSION_DIGEST"
+	JustificationTypeProjectFocusBlock                 JustificationType = "PROJECT_FOCUS_BLOCK"
 	JustificationTypeProjectNextStep                   JustificationType = "PROJECT_NEXT_STEP"
+	JustificationTypeDemoCard                          JustificationType = "DEMO_CARD"
+	JustificationTypeOooPlanner                        JustificationType = "OOO_PLANNER"
+	JustificationTypeOooCatchUp                        JustificationType = "OOO_CATCH_UP"
 )
 
 func (e JustificationType) ToPointer() *JustificationType {
@@ -204,6 +209,8 @@ func (e *JustificationType) UnmarshalJSON(data []byte) error {
 		fallthrough
 	case "QUERY_SUGGESTION":
 		fallthrough
+	case "COWORK_CUJ_PROMO":
+		fallthrough
 	case "WEEKLY_MEETINGS":
 		fallthrough
 	case "FOLLOW_UP":
@@ -212,7 +219,15 @@ func (e *JustificationType) UnmarshalJSON(data []byte) error {
 		fallthrough
 	case "PROJECT_DISCUSSION_DIGEST":
 		fallthrough
+	case "PROJECT_FOCUS_BLOCK":
+		fallthrough
 	case "PROJECT_NEXT_STEP":
+		fallthrough
+	case "DEMO_CARD":
+		fallthrough
+	case "OOO_PLANNER":
+		fallthrough
+	case "OOO_CATCH_UP":
 		*e = JustificationType(v)
 		return nil
 	default:

@@ -14,6 +14,8 @@ class AgentsInsightsV2RequestTypedDict(TypedDict):
     r"""IDs of the Agents for which Insights should be returned. An empty array signifies all."""
     departments: NotRequired[List[str]]
     r"""Departments for which Insights are requested."""
+    manager_emails: NotRequired[List[str]]
+    r"""Manager emails whose teams should be filtered for. Empty array means no filtering."""
     day_range: NotRequired[PeriodTypedDict]
 
 
@@ -24,11 +26,16 @@ class AgentsInsightsV2Request(BaseModel):
     departments: Optional[List[str]] = None
     r"""Departments for which Insights are requested."""
 
+    manager_emails: Annotated[
+        Optional[List[str]], pydantic.Field(alias="managerEmails")
+    ] = None
+    r"""Manager emails whose teams should be filtered for. Empty array means no filtering."""
+
     day_range: Annotated[Optional[Period], pydantic.Field(alias="dayRange")] = None
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["agentIds", "departments", "dayRange"])
+        optional_fields = set(["agentIds", "departments", "managerEmails", "dayRange"])
         serialized = handler(self)
         m = {}
 

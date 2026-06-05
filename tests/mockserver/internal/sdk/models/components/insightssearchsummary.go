@@ -3,9 +3,9 @@
 package components
 
 type InsightsSearchSummary struct {
-	// Number of current Monthly Active Users, in the specified departments.
+	// Number of current Monthly Active Users.
 	MonthlyActiveUsers *int64 `json:"monthlyActiveUsers,omitempty"`
-	// Number of current Weekly Active Users, in the specified departments.
+	// Number of current Weekly Active Users.
 	WeeklyActiveUsers *int64 `json:"weeklyActiveUsers,omitempty"`
 	// Total number of searches by users over the specified time period.
 	NumSearches *int64 `json:"numSearches,omitempty"`

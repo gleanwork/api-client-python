@@ -2,6 +2,7 @@
 
 from .basesdk import BaseSDK
 from .sdkconfiguration import SDKConfiguration
+from glean.api_client.custommetadata import CustomMetadata
 from glean.api_client.indexing_authentication import IndexingAuthentication
 from glean.api_client.indexing_datasource import IndexingDatasource
 from glean.api_client.indexing_datasources import IndexingDatasources
@@ -20,6 +21,7 @@ class Indexing(BaseSDK):
     datasources: IndexingDatasources
     authentication: IndexingAuthentication
     shortcuts: IndexingShortcuts
+    custom_metadata: CustomMetadata
 
     def __init__(
         self, sdk_config: SDKConfiguration, parent_ref: Optional[object] = None
@@ -46,5 +48,8 @@ class Indexing(BaseSDK):
             self.sdk_configuration, parent_ref=self.parent_ref
         )
         self.shortcuts = IndexingShortcuts(
+            self.sdk_configuration, parent_ref=self.parent_ref
+        )
+        self.custom_metadata = CustomMetadata(
             self.sdk_configuration, parent_ref=self.parent_ref
         )

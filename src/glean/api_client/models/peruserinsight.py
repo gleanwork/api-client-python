@@ -27,6 +27,8 @@ class PerUserInsightTypedDict(TypedDict):
     r"""Total number of AI Answers interacted with by this user over the specified time period."""
     num_agent_runs: NotRequired[int]
     r"""Total number of agent runs for this user over the specified time period."""
+    num_mcp_calls: NotRequired[int]
+    r"""Total number of MCP calls for this user over the specified time period."""
 
 
 class PerUserInsight(BaseModel):
@@ -68,6 +70,9 @@ class PerUserInsight(BaseModel):
     )
     r"""Total number of agent runs for this user over the specified time period."""
 
+    num_mcp_calls: Annotated[Optional[int], pydantic.Field(alias="numMcpCalls")] = None
+    r"""Total number of MCP calls for this user over the specified time period."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -81,6 +86,7 @@ class PerUserInsight(BaseModel):
                 "numSummarizations",
                 "numAiAnswers",
                 "numAgentRuns",
+                "numMcpCalls",
             ]
         )
         serialized = handler(self)

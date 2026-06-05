@@ -18,7 +18,8 @@ type PerAgentInsight struct {
 	// Total number of upvotes for this agent over the specified time period.
 	UpvoteCount *int64 `json:"upvoteCount,omitempty"`
 	// Total number of downvotes for this agent over the specified time period.
-	DownvoteCount *int64 `json:"downvoteCount,omitempty"`
+	DownvoteCount *int64  `json:"downvoteCount,omitempty"`
+	Owner         *Person `json:"owner,omitempty"`
 }
 
 func (o *PerAgentInsight) GetAgentID() *string {
@@ -75,4 +76,11 @@ func (o *PerAgentInsight) GetDownvoteCount() *int64 {
 		return nil
 	}
 	return o.DownvoteCount
+}
+
+func (o *PerAgentInsight) GetOwner() *Person {
+	if o == nil {
+		return nil
+	}
+	return o.Owner
 }
