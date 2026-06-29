@@ -5,7 +5,7 @@ from glean.api_client import errors, models, utils
 from glean.api_client._hooks import HookContext
 from glean.api_client.types import OptionalNullable, UNSET
 from glean.api_client.utils import get_security_from_env
-from typing import List, Mapping, Optional, Union
+from typing import Iterable, List, Mapping, Optional, Union
 
 
 class IndexingShortcuts(BaseSDK):
@@ -14,7 +14,8 @@ class IndexingShortcuts(BaseSDK):
         *,
         upload_id: str,
         shortcuts: Union[
-            List[models.ExternalShortcut], List[models.ExternalShortcutTypedDict]
+            Iterable[models.ExternalShortcut],
+            Iterable[models.ExternalShortcutTypedDict],
         ],
         is_first_page: Optional[bool] = None,
         is_last_page: Optional[bool] = None,
@@ -95,6 +96,8 @@ class IndexingShortcuts(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Shortcuts"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -117,7 +120,8 @@ class IndexingShortcuts(BaseSDK):
         *,
         upload_id: str,
         shortcuts: Union[
-            List[models.ExternalShortcut], List[models.ExternalShortcutTypedDict]
+            Iterable[models.ExternalShortcut],
+            Iterable[models.ExternalShortcutTypedDict],
         ],
         is_first_page: Optional[bool] = None,
         is_last_page: Optional[bool] = None,
@@ -198,6 +202,8 @@ class IndexingShortcuts(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Shortcuts"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -220,7 +226,8 @@ class IndexingShortcuts(BaseSDK):
         *,
         upload_id: str,
         shortcuts: Union[
-            List[models.IndexingShortcut], List[models.IndexingShortcutTypedDict]
+            Iterable[models.IndexingShortcut],
+            Iterable[models.IndexingShortcutTypedDict],
         ],
         is_first_page: Optional[bool] = None,
         is_last_page: Optional[bool] = None,
@@ -301,6 +308,8 @@ class IndexingShortcuts(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Shortcuts"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -323,7 +332,8 @@ class IndexingShortcuts(BaseSDK):
         *,
         upload_id: str,
         shortcuts: Union[
-            List[models.IndexingShortcut], List[models.IndexingShortcutTypedDict]
+            Iterable[models.IndexingShortcut],
+            Iterable[models.IndexingShortcutTypedDict],
         ],
         is_first_page: Optional[bool] = None,
         is_last_page: Optional[bool] = None,
@@ -404,6 +414,8 @@ class IndexingShortcuts(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Shortcuts"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

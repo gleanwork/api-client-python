@@ -6,7 +6,7 @@ from glean.api_client._hooks import HookContext
 from glean.api_client.types import OptionalNullable, UNSET
 from glean.api_client.utils import get_security_from_env
 from glean.api_client.utils.unmarshal_json_response import unmarshal_json_response
-from typing import List, Mapping, Optional, Union
+from typing import Iterable, List, Mapping, Optional, Union
 from typing_extensions import deprecated
 
 
@@ -90,6 +90,11 @@ class Answers(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Answers"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -186,6 +191,11 @@ class Answers(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Answers"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -285,6 +295,11 @@ class Answers(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Answers"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -384,6 +399,11 @@ class Answers(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Answers"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -408,36 +428,36 @@ class Answers(BaseSDK):
         locale: Optional[str] = None,
         doc_id: Optional[str] = None,
         question: Optional[str] = None,
-        question_variations: Optional[List[str]] = None,
+        question_variations: Optional[Iterable[str]] = None,
         body_text: Optional[str] = None,
         board_id: Optional[int] = None,
         audience_filters: Optional[
-            Union[List[models.FacetFilter], List[models.FacetFilterTypedDict]]
+            Union[Iterable[models.FacetFilter], Iterable[models.FacetFilterTypedDict]]
         ] = None,
         added_roles: Optional[
             Union[
-                List[models.UserRoleSpecification],
-                List[models.UserRoleSpecificationTypedDict],
+                Iterable[models.UserRoleSpecification],
+                Iterable[models.UserRoleSpecificationTypedDict],
             ]
         ] = None,
         removed_roles: Optional[
             Union[
-                List[models.UserRoleSpecification],
-                List[models.UserRoleSpecificationTypedDict],
+                Iterable[models.UserRoleSpecification],
+                Iterable[models.UserRoleSpecificationTypedDict],
             ]
         ] = None,
         roles: Optional[
             Union[
-                List[models.UserRoleSpecification],
-                List[models.UserRoleSpecificationTypedDict],
+                Iterable[models.UserRoleSpecification],
+                Iterable[models.UserRoleSpecificationTypedDict],
             ]
         ] = None,
         source_document_spec: Optional[
             Union[models.DocumentSpecUnion, models.DocumentSpecUnionTypedDict]
         ] = None,
         source_type: Optional[models.EditAnswerRequestSourceType] = None,
-        added_collections: Optional[List[int]] = None,
-        removed_collections: Optional[List[int]] = None,
+        added_collections: Optional[Iterable[int]] = None,
+        removed_collections: Optional[Iterable[int]] = None,
         combined_answer_text: Optional[
             Union[
                 models.StructuredTextMutableProperties,
@@ -490,7 +510,9 @@ class Answers(BaseSDK):
                 id=id,
                 doc_id=doc_id,
                 question=question,
-                question_variations=question_variations,
+                question_variations=utils.unmarshal(
+                    question_variations, Optional[List[str]]
+                ),
                 body_text=body_text,
                 board_id=board_id,
                 audience_filters=utils.get_pydantic_model(
@@ -509,8 +531,12 @@ class Answers(BaseSDK):
                     source_document_spec, Optional[models.DocumentSpecUnion]
                 ),
                 source_type=source_type,
-                added_collections=added_collections,
-                removed_collections=removed_collections,
+                added_collections=utils.unmarshal(
+                    added_collections, Optional[List[int]]
+                ),
+                removed_collections=utils.unmarshal(
+                    removed_collections, Optional[List[int]]
+                ),
                 combined_answer_text=utils.get_pydantic_model(
                     combined_answer_text,
                     Optional[models.StructuredTextMutableProperties],
@@ -559,6 +585,11 @@ class Answers(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Answers"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -583,36 +614,36 @@ class Answers(BaseSDK):
         locale: Optional[str] = None,
         doc_id: Optional[str] = None,
         question: Optional[str] = None,
-        question_variations: Optional[List[str]] = None,
+        question_variations: Optional[Iterable[str]] = None,
         body_text: Optional[str] = None,
         board_id: Optional[int] = None,
         audience_filters: Optional[
-            Union[List[models.FacetFilter], List[models.FacetFilterTypedDict]]
+            Union[Iterable[models.FacetFilter], Iterable[models.FacetFilterTypedDict]]
         ] = None,
         added_roles: Optional[
             Union[
-                List[models.UserRoleSpecification],
-                List[models.UserRoleSpecificationTypedDict],
+                Iterable[models.UserRoleSpecification],
+                Iterable[models.UserRoleSpecificationTypedDict],
             ]
         ] = None,
         removed_roles: Optional[
             Union[
-                List[models.UserRoleSpecification],
-                List[models.UserRoleSpecificationTypedDict],
+                Iterable[models.UserRoleSpecification],
+                Iterable[models.UserRoleSpecificationTypedDict],
             ]
         ] = None,
         roles: Optional[
             Union[
-                List[models.UserRoleSpecification],
-                List[models.UserRoleSpecificationTypedDict],
+                Iterable[models.UserRoleSpecification],
+                Iterable[models.UserRoleSpecificationTypedDict],
             ]
         ] = None,
         source_document_spec: Optional[
             Union[models.DocumentSpecUnion, models.DocumentSpecUnionTypedDict]
         ] = None,
         source_type: Optional[models.EditAnswerRequestSourceType] = None,
-        added_collections: Optional[List[int]] = None,
-        removed_collections: Optional[List[int]] = None,
+        added_collections: Optional[Iterable[int]] = None,
+        removed_collections: Optional[Iterable[int]] = None,
         combined_answer_text: Optional[
             Union[
                 models.StructuredTextMutableProperties,
@@ -665,7 +696,9 @@ class Answers(BaseSDK):
                 id=id,
                 doc_id=doc_id,
                 question=question,
-                question_variations=question_variations,
+                question_variations=utils.unmarshal(
+                    question_variations, Optional[List[str]]
+                ),
                 body_text=body_text,
                 board_id=board_id,
                 audience_filters=utils.get_pydantic_model(
@@ -684,8 +717,12 @@ class Answers(BaseSDK):
                     source_document_spec, Optional[models.DocumentSpecUnion]
                 ),
                 source_type=source_type,
-                added_collections=added_collections,
-                removed_collections=removed_collections,
+                added_collections=utils.unmarshal(
+                    added_collections, Optional[List[int]]
+                ),
+                removed_collections=utils.unmarshal(
+                    removed_collections, Optional[List[int]]
+                ),
                 combined_answer_text=utils.get_pydantic_model(
                     combined_answer_text,
                     Optional[models.StructuredTextMutableProperties],
@@ -734,6 +771,11 @@ class Answers(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Answers"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -833,6 +875,11 @@ class Answers(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Answers"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -932,6 +979,11 @@ class Answers(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Answers"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1031,6 +1083,17 @@ class Answers(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Answers"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-glean-deprecated": {
+                        "id": "4c0923bd-64c7-45b9-99a5-b36f2705e618",
+                        "introduced": "2026-01-21",
+                        "message": "Answer boards have been removed and this endpoint no longer serves a purpose",
+                        "removal": "2026-10-15",
+                    },
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1130,6 +1193,17 @@ class Answers(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Answers"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-glean-deprecated": {
+                        "id": "4c0923bd-64c7-45b9-99a5-b36f2705e618",
+                        "introduced": "2026-01-21",
+                        "message": "Answer boards have been removed and this endpoint no longer serves a purpose",
+                        "removal": "2026-10-15",
+                    },
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

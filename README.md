@@ -339,6 +339,7 @@ For more information on obtaining the appropriate token type, please contact you
 
 ### [Agents](docs/sdks/agents/README.md)
 
+* [create_agent](docs/sdks/agents/README.md#create_agent) - Create an agent
 * [edit_agent](docs/sdks/agents/README.md#edit_agent) - Edit an agent
 
 ### [Authentication](docs/sdks/authentication/README.md)

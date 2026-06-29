@@ -11,14 +11,15 @@ import (
 type GroupType string
 
 const (
-	GroupTypeDepartment    GroupType = "DEPARTMENT"
-	GroupTypeAll           GroupType = "ALL"
-	GroupTypeTeam          GroupType = "TEAM"
-	GroupTypeJobTitle      GroupType = "JOB_TITLE"
-	GroupTypeRoleType      GroupType = "ROLE_TYPE"
-	GroupTypeLocation      GroupType = "LOCATION"
-	GroupTypeRegion        GroupType = "REGION"
-	GroupTypeExternalGroup GroupType = "EXTERNAL_GROUP"
+	GroupTypeDepartment         GroupType = "DEPARTMENT"
+	GroupTypeAll                GroupType = "ALL"
+	GroupTypeTeam               GroupType = "TEAM"
+	GroupTypeJobTitle           GroupType = "JOB_TITLE"
+	GroupTypeRoleType           GroupType = "ROLE_TYPE"
+	GroupTypeLocation           GroupType = "LOCATION"
+	GroupTypeRegion             GroupType = "REGION"
+	GroupTypeExternalGroup      GroupType = "EXTERNAL_GROUP"
+	GroupTypeCollectionAudience GroupType = "COLLECTION_AUDIENCE"
 )
 
 func (e GroupType) ToPointer() *GroupType {
@@ -45,6 +46,8 @@ func (e *GroupType) UnmarshalJSON(data []byte) error {
 	case "REGION":
 		fallthrough
 	case "EXTERNAL_GROUP":
+		fallthrough
+	case "COLLECTION_AUDIENCE":
 		*e = GroupType(v)
 		return nil
 	default:

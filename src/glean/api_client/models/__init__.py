@@ -342,6 +342,7 @@ if TYPE_CHECKING:
     from .contentdefinition import ContentDefinition, ContentDefinitionTypedDict
     from .contenttype import ContentType
     from .countinfo import CountInfo, CountInfoTypedDict
+    from .createagentop import CreateAgentRequest, CreateAgentRequestTypedDict
     from .createannouncementop import (
         CreateannouncementRequestRequest,
         CreateannouncementRequestRequestTypedDict,
@@ -394,6 +395,10 @@ if TYPE_CHECKING:
     from .createshortcutresponse import (
         CreateShortcutResponse,
         CreateShortcutResponseTypedDict,
+    )
+    from .createworkflowrequest import (
+        CreateWorkflowRequest,
+        CreateWorkflowRequestTypedDict,
     )
     from .currentactiveusers import CurrentActiveUsers, CurrentActiveUsersTypedDict
     from .customdatasourceconfig import (
@@ -790,7 +795,12 @@ if TYPE_CHECKING:
         FeedRequestOptionsTypedDict,
     )
     from .feedresponse import FeedResponse, FeedResponseTypedDict
-    from .feedresult import FeedResult, FeedResultCategory, FeedResultTypedDict
+    from .feedresult import (
+        FeedResult,
+        FeedResultCategory,
+        FeedResultTypedDict,
+        PlacementReason,
+    )
     from .followupaction import FollowupAction, FollowupActionTypedDict
     from .generatedattachment import GeneratedAttachment, GeneratedAttachmentTypedDict
     from .generatedattachmentcontent import (
@@ -1799,6 +1809,8 @@ __all__ = [
     "ContentType",
     "CountInfo",
     "CountInfoTypedDict",
+    "CreateAgentRequest",
+    "CreateAgentRequestTypedDict",
     "CreateAnnouncementRequest",
     "CreateAnnouncementRequestChannel",
     "CreateAnnouncementRequestPostType",
@@ -1817,6 +1829,8 @@ __all__ = [
     "CreateShortcutRequestTypedDict",
     "CreateShortcutResponse",
     "CreateShortcutResponseTypedDict",
+    "CreateWorkflowRequest",
+    "CreateWorkflowRequestTypedDict",
     "CreateannouncementRequestRequest",
     "CreateannouncementRequestRequestTypedDict",
     "CreateanswerRequestRequest",
@@ -2479,6 +2493,7 @@ __all__ = [
     "PinRequestRequest",
     "PinRequestRequestTypedDict",
     "PinRequestTypedDict",
+    "PlacementReason",
     "PossibleValue",
     "PossibleValueTypedDict",
     "PostAPIIndexV1DebugDatasourceDocumentEventsRequest",
@@ -3019,6 +3034,8 @@ _dynamic_imports: dict[str, str] = {
     "ContentType": ".contenttype",
     "CountInfo": ".countinfo",
     "CountInfoTypedDict": ".countinfo",
+    "CreateAgentRequest": ".createagentop",
+    "CreateAgentRequestTypedDict": ".createagentop",
     "CreateannouncementRequestRequest": ".createannouncementop",
     "CreateannouncementRequestRequestTypedDict": ".createannouncementop",
     "CreateAnnouncementRequest": ".createannouncementrequest",
@@ -3051,6 +3068,8 @@ _dynamic_imports: dict[str, str] = {
     "CreateShortcutRequestTypedDict": ".createshortcutrequest",
     "CreateShortcutResponse": ".createshortcutresponse",
     "CreateShortcutResponseTypedDict": ".createshortcutresponse",
+    "CreateWorkflowRequest": ".createworkflowrequest",
+    "CreateWorkflowRequestTypedDict": ".createworkflowrequest",
     "CurrentActiveUsers": ".currentactiveusers",
     "CurrentActiveUsersTypedDict": ".currentactiveusers",
     "CustomDatasourceConfig": ".customdatasourceconfig",
@@ -3354,6 +3373,7 @@ _dynamic_imports: dict[str, str] = {
     "FeedResult": ".feedresult",
     "FeedResultCategory": ".feedresult",
     "FeedResultTypedDict": ".feedresult",
+    "PlacementReason": ".feedresult",
     "FollowupAction": ".followupaction",
     "FollowupActionTypedDict": ".followupaction",
     "GeneratedAttachment": ".generatedattachment",

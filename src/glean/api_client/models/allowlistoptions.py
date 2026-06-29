@@ -8,21 +8,26 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class AllowlistOptionsTypedDict(TypedDict):
-    r"""Terms that are allow-listed during the scans. If any finding picked up by a rule exactly matches a term in the allow-list, it will not be counted as a violation."""
+    r"""Terms and regexes that are allow-listed during the scans. If any finding picked up by a rule exactly matches a term, or matches a regex, in the allow-list, it will not be counted as a violation."""
 
     terms: NotRequired[List[str]]
     r"""list of words and phrases to consider as whitelisted content"""
+    regexes: NotRequired[List[str]]
+    r"""list of regular expressions whose matches are considered whitelisted content"""
 
 
 class AllowlistOptions(BaseModel):
-    r"""Terms that are allow-listed during the scans. If any finding picked up by a rule exactly matches a term in the allow-list, it will not be counted as a violation."""
+    r"""Terms and regexes that are allow-listed during the scans. If any finding picked up by a rule exactly matches a term, or matches a regex, in the allow-list, it will not be counted as a violation."""
 
     terms: Optional[List[str]] = None
     r"""list of words and phrases to consider as whitelisted content"""
 
+    regexes: Optional[List[str]] = None
+    r"""list of regular expressions whose matches are considered whitelisted content"""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["terms"])
+        optional_fields = set(["terms", "regexes"])
         serialized = handler(self)
         m = {}
 

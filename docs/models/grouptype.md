@@ -15,13 +15,14 @@ value = GroupType.DEPARTMENT
 
 ## Values
 
-| Name             | Value            |
-| ---------------- | ---------------- |
-| `DEPARTMENT`     | DEPARTMENT       |
-| `ALL`            | ALL              |
-| `TEAM`           | TEAM             |
-| `JOB_TITLE`      | JOB_TITLE        |
-| `ROLE_TYPE`      | ROLE_TYPE        |
-| `LOCATION`       | LOCATION         |
-| `REGION`         | REGION           |
-| `EXTERNAL_GROUP` | EXTERNAL_GROUP   |
+| Name                  | Value                 |
+| --------------------- | --------------------- |
+| `DEPARTMENT`          | DEPARTMENT            |
+| `ALL`                 | ALL                   |
+| `TEAM`                | TEAM                  |
+| `JOB_TITLE`           | JOB_TITLE             |
+| `ROLE_TYPE`           | ROLE_TYPE             |
+| `LOCATION`            | LOCATION              |
+| `REGION`              | REGION                |
+| `EXTERNAL_GROUP`      | EXTERNAL_GROUP        |
+| `COLLECTION_AUDIENCE` | COLLECTION_AUDIENCE   |

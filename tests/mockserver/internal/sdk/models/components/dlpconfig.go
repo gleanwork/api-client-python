@@ -29,7 +29,7 @@ type DlpConfig struct {
 	RedactQuote *bool `json:"redactQuote,omitempty"`
 	// auto hide documents with findings in the report
 	AutoHideDocs *bool `json:"autoHideDocs,omitempty"`
-	// Terms that are allow-listed during the scans. If any finding picked up by a rule exactly matches a term in the allow-list, it will not be counted as a violation.
+	// Terms and regexes that are allow-listed during the scans. If any finding picked up by a rule exactly matches a term, or matches a regex, in the allow-list, it will not be counted as a violation.
 	AllowlistOptions *AllowlistOptions `json:"allowlistOptions,omitempty"`
 }
 

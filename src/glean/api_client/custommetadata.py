@@ -6,7 +6,7 @@ from glean.api_client._hooks import HookContext
 from glean.api_client.types import OptionalNullable, UNSET
 from glean.api_client.utils import get_security_from_env
 from glean.api_client.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, List, Mapping, Optional, Union
+from typing import Any, Iterable, List, Mapping, Optional, Union
 
 
 class CustomMetadata(BaseSDK):
@@ -16,7 +16,7 @@ class CustomMetadata(BaseSDK):
         doc_id: str,
         group_name: str,
         custom_metadata: Union[
-            List[models.CustomProperty], List[models.CustomPropertyTypedDict]
+            Iterable[models.CustomProperty], Iterable[models.CustomPropertyTypedDict]
         ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -101,6 +101,8 @@ class CustomMetadata(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Custom Metadata"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -137,7 +139,7 @@ class CustomMetadata(BaseSDK):
         doc_id: str,
         group_name: str,
         custom_metadata: Union[
-            List[models.CustomProperty], List[models.CustomPropertyTypedDict]
+            Iterable[models.CustomProperty], Iterable[models.CustomPropertyTypedDict]
         ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -222,6 +224,8 @@ class CustomMetadata(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Custom Metadata"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -327,6 +331,8 @@ class CustomMetadata(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Custom Metadata"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -432,6 +438,8 @@ class CustomMetadata(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Custom Metadata"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -536,6 +544,8 @@ class CustomMetadata(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Custom Metadata"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -638,6 +648,8 @@ class CustomMetadata(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Custom Metadata"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -671,8 +683,8 @@ class CustomMetadata(BaseSDK):
         *,
         group_name: str,
         metadata_keys: Union[
-            List[models.CustomMetadataPropertyDefinition],
-            List[models.CustomMetadataPropertyDefinitionTypedDict],
+            Iterable[models.CustomMetadataPropertyDefinition],
+            Iterable[models.CustomMetadataPropertyDefinitionTypedDict],
         ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -757,6 +769,8 @@ class CustomMetadata(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Custom Metadata"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -792,8 +806,8 @@ class CustomMetadata(BaseSDK):
         *,
         group_name: str,
         metadata_keys: Union[
-            List[models.CustomMetadataPropertyDefinition],
-            List[models.CustomMetadataPropertyDefinitionTypedDict],
+            Iterable[models.CustomMetadataPropertyDefinition],
+            Iterable[models.CustomMetadataPropertyDefinitionTypedDict],
         ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -878,6 +892,8 @@ class CustomMetadata(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Custom Metadata"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -980,6 +996,8 @@ class CustomMetadata(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Custom Metadata"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1082,6 +1100,8 @@ class CustomMetadata(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Custom Metadata"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

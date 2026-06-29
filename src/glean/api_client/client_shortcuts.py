@@ -6,7 +6,7 @@ from glean.api_client._hooks import HookContext
 from glean.api_client.types import OptionalNullable, UNSET
 from glean.api_client.utils import get_security_from_env
 from glean.api_client.utils.unmarshal_json_response import unmarshal_json_response
-from typing import List, Mapping, Optional, Union
+from typing import Iterable, List, Mapping, Optional, Union
 
 
 class ClientShortcuts(BaseSDK):
@@ -91,6 +91,11 @@ class ClientShortcuts(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Shortcuts"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -189,6 +194,11 @@ class ClientShortcuts(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Shortcuts"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -285,6 +295,11 @@ class ClientShortcuts(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Shortcuts"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -381,6 +396,11 @@ class ClientShortcuts(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Shortcuts"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -479,6 +499,11 @@ class ClientShortcuts(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Shortcuts"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -577,6 +602,11 @@ class ClientShortcuts(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Shortcuts"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -600,11 +630,11 @@ class ClientShortcuts(BaseSDK):
         page_size: int,
         locale: Optional[str] = None,
         include_fields: Optional[
-            List[models.ListShortcutsPaginatedRequestIncludeField]
+            Iterable[models.ListShortcutsPaginatedRequestIncludeField]
         ] = None,
         cursor: Optional[str] = None,
         filters: Optional[
-            Union[List[models.FacetFilter], List[models.FacetFilterTypedDict]]
+            Union[Iterable[models.FacetFilter], Iterable[models.FacetFilterTypedDict]]
         ] = None,
         sort: Optional[Union[models.SortOptions, models.SortOptionsTypedDict]] = None,
         query: Optional[str] = None,
@@ -642,7 +672,10 @@ class ClientShortcuts(BaseSDK):
         request = models.ListshortcutsRequest(
             locale=locale,
             list_shortcuts_paginated_request=models.ListShortcutsPaginatedRequest(
-                include_fields=include_fields,
+                include_fields=utils.unmarshal(
+                    include_fields,
+                    Optional[List[models.ListShortcutsPaginatedRequestIncludeField]],
+                ),
                 page_size=page_size,
                 cursor=cursor,
                 filters=utils.get_pydantic_model(
@@ -694,6 +727,11 @@ class ClientShortcuts(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Shortcuts"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -719,11 +757,11 @@ class ClientShortcuts(BaseSDK):
         page_size: int,
         locale: Optional[str] = None,
         include_fields: Optional[
-            List[models.ListShortcutsPaginatedRequestIncludeField]
+            Iterable[models.ListShortcutsPaginatedRequestIncludeField]
         ] = None,
         cursor: Optional[str] = None,
         filters: Optional[
-            Union[List[models.FacetFilter], List[models.FacetFilterTypedDict]]
+            Union[Iterable[models.FacetFilter], Iterable[models.FacetFilterTypedDict]]
         ] = None,
         sort: Optional[Union[models.SortOptions, models.SortOptionsTypedDict]] = None,
         query: Optional[str] = None,
@@ -761,7 +799,10 @@ class ClientShortcuts(BaseSDK):
         request = models.ListshortcutsRequest(
             locale=locale,
             list_shortcuts_paginated_request=models.ListShortcutsPaginatedRequest(
-                include_fields=include_fields,
+                include_fields=utils.unmarshal(
+                    include_fields,
+                    Optional[List[models.ListShortcutsPaginatedRequestIncludeField]],
+                ),
                 page_size=page_size,
                 cursor=cursor,
                 filters=utils.get_pydantic_model(
@@ -813,6 +854,11 @@ class ClientShortcuts(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Shortcuts"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -845,14 +891,14 @@ class ClientShortcuts(BaseSDK):
         url_template: Optional[str] = None,
         added_roles: Optional[
             Union[
-                List[models.UserRoleSpecification],
-                List[models.UserRoleSpecificationTypedDict],
+                Iterable[models.UserRoleSpecification],
+                Iterable[models.UserRoleSpecificationTypedDict],
             ]
         ] = None,
         removed_roles: Optional[
             Union[
-                List[models.UserRoleSpecification],
-                List[models.UserRoleSpecificationTypedDict],
+                Iterable[models.UserRoleSpecification],
+                Iterable[models.UserRoleSpecificationTypedDict],
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -949,6 +995,11 @@ class ClientShortcuts(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Shortcuts"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -979,14 +1030,14 @@ class ClientShortcuts(BaseSDK):
         url_template: Optional[str] = None,
         added_roles: Optional[
             Union[
-                List[models.UserRoleSpecification],
-                List[models.UserRoleSpecificationTypedDict],
+                Iterable[models.UserRoleSpecification],
+                Iterable[models.UserRoleSpecificationTypedDict],
             ]
         ] = None,
         removed_roles: Optional[
             Union[
-                List[models.UserRoleSpecification],
-                List[models.UserRoleSpecificationTypedDict],
+                Iterable[models.UserRoleSpecification],
+                Iterable[models.UserRoleSpecificationTypedDict],
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1083,6 +1134,11 @@ class ClientShortcuts(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Shortcuts"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

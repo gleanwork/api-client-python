@@ -62,6 +62,7 @@ value = JustificationType.FREQUENTLY_ACCESSED
 | `MID_DAY_CATCH_UP`                      | MID_DAY_CATCH_UP                        |
 | `QUERY_SUGGESTION`                      | QUERY_SUGGESTION                        |
 | `COWORK_CUJ_PROMO`                      | COWORK_CUJ_PROMO                        |
+| `CARD_STACK_PROMO`                      | CARD_STACK_PROMO                        |
 | `WEEKLY_MEETINGS`                       | WEEKLY_MEETINGS                         |
 | `FOLLOW_UP`                             | FOLLOW_UP                               |
 | `MILESTONE_TIMELINE_CHECK`              | MILESTONE_TIMELINE_CHECK                |

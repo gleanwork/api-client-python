@@ -46,6 +46,7 @@ class FeedResultCategory(str, Enum, metaclass=utils.OpenEnumMeta):
     MID_DAY_CATCH_UP = "MID_DAY_CATCH_UP"
     QUERY_SUGGESTION = "QUERY_SUGGESTION"
     COWORK_CUJ_PROMO = "COWORK_CUJ_PROMO"
+    CARD_STACK_PROMO = "CARD_STACK_PROMO"
     WEEKLY_MEETINGS = "WEEKLY_MEETINGS"
     FOLLOW_UP = "FOLLOW_UP"
     MILESTONE_TIMELINE_CHECK = "MILESTONE_TIMELINE_CHECK"
@@ -57,6 +58,13 @@ class FeedResultCategory(str, Enum, metaclass=utils.OpenEnumMeta):
     OOO_CATCH_UP = "OOO_CATCH_UP"
 
 
+class PlacementReason(str, Enum, metaclass=utils.OpenEnumMeta):
+    r"""Placement source for ranked feed results. ORGANIC means the card was emitted by normal feed ranking. PROMO means the card was inserted by the homepage cards promo framework."""
+
+    ORGANIC = "ORGANIC"
+    PROMO = "PROMO"
+
+
 class FeedResultTypedDict(TypedDict):
     category: FeedResultCategory
     r"""Category of the result, one of the requested categories in incoming request."""
@@ -65,6 +73,8 @@ class FeedResultTypedDict(TypedDict):
     r"""Secondary entries for the result e.g. suggested docs for the calendar, carousel."""
     rank: NotRequired[int]
     r"""Rank of the result. Rank is suggested by server. Client side rank may differ."""
+    placement_reason: NotRequired[PlacementReason]
+    r"""Placement source for ranked feed results. ORGANIC means the card was emitted by normal feed ranking. PROMO means the card was inserted by the homepage cards promo framework."""
 
 
 class FeedResult(BaseModel):
@@ -81,6 +91,11 @@ class FeedResult(BaseModel):
     rank: Optional[int] = None
     r"""Rank of the result. Rank is suggested by server. Client side rank may differ."""
 
+    placement_reason: Annotated[
+        Optional[PlacementReason], pydantic.Field(alias="placementReason")
+    ] = None
+    r"""Placement source for ranked feed results. ORGANIC means the card was emitted by normal feed ranking. PROMO means the card was inserted by the homepage cards promo framework."""
+
     @field_serializer("category")
     def serialize_category(self, value):
         if isinstance(value, str):
@@ -90,9 +105,18 @@ class FeedResult(BaseModel):
                 return value
         return value
 
+    @field_serializer("placement_reason")
+    def serialize_placement_reason(self, value):
+        if isinstance(value, str):
+            try:
+                return models.PlacementReason(value)
+            except ValueError:
+                return value
+        return value
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["secondaryEntries", "rank"])
+        optional_fields = set(["secondaryEntries", "rank", "placementReason"])
         serialized = handler(self)
         m = {}
 

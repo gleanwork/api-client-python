@@ -57,6 +57,7 @@ func GeneratedHandlers(ctx context.Context, dir *logging.HTTPFileDirectory, rt *
 		NewGeneratedHandler(ctx, http.MethodPost, "/rest/api/v1/addcollectionitems", pathPostRestAPIV1Addcollectionitems(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodPost, "/rest/api/v1/addverificationreminder", pathPostRestAPIV1Addverificationreminder(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodPost, "/rest/api/v1/adminsearch", pathPostRestAPIV1Adminsearch(dir, rt)),
+		NewGeneratedHandler(ctx, http.MethodPost, "/rest/api/v1/agents", pathPostRestAPIV1Agents(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodPost, "/rest/api/v1/autocomplete", pathPostRestAPIV1Autocomplete(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodPost, "/rest/api/v1/chat", pathPostRestAPIV1Chat(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodPost, "/rest/api/v1/checkdatasourceauth", pathPostRestAPIV1Checkdatasourceauth(dir, rt)),

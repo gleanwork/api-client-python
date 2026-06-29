@@ -47,7 +47,7 @@ class DlpConfigTypedDict(TypedDict):
     auto_hide_docs: NotRequired[bool]
     r"""auto hide documents with findings in the report"""
     allowlist_options: NotRequired[AllowlistOptionsTypedDict]
-    r"""Terms that are allow-listed during the scans. If any finding picked up by a rule exactly matches a term in the allow-list, it will not be counted as a violation."""
+    r"""Terms and regexes that are allow-listed during the scans. If any finding picked up by a rule exactly matches a term, or matches a regex, in the allow-list, it will not be counted as a violation."""
 
 
 class DlpConfig(BaseModel):
@@ -111,7 +111,7 @@ class DlpConfig(BaseModel):
     allowlist_options: Annotated[
         Optional[AllowlistOptions], pydantic.Field(alias="allowlistOptions")
     ] = None
-    r"""Terms that are allow-listed during the scans. If any finding picked up by a rule exactly matches a term in the allow-list, it will not be counted as a violation."""
+    r"""Terms and regexes that are allow-listed during the scans. If any finding picked up by a rule exactly matches a term, or matches a regex, in the allow-list, it will not be counted as a violation."""
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):

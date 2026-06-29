@@ -6,7 +6,7 @@ from glean.api_client._hooks import HookContext
 from glean.api_client.types import OptionalNullable, UNSET
 from glean.api_client.utils import get_security_from_env
 from glean.api_client.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, List, Mapping, Optional, Union
+from typing import Any, Iterable, List, Mapping, Optional, Union
 
 
 class Collections(BaseSDK):
@@ -17,8 +17,8 @@ class Collections(BaseSDK):
         locale: Optional[str] = None,
         added_collection_item_descriptors: Optional[
             Union[
-                List[models.CollectionItemDescriptor],
-                List[models.CollectionItemDescriptorTypedDict],
+                Iterable[models.CollectionItemDescriptor],
+                Iterable[models.CollectionItemDescriptorTypedDict],
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -100,6 +100,11 @@ class Collections(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Collections"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -124,8 +129,8 @@ class Collections(BaseSDK):
         locale: Optional[str] = None,
         added_collection_item_descriptors: Optional[
             Union[
-                List[models.CollectionItemDescriptor],
-                List[models.CollectionItemDescriptorTypedDict],
+                Iterable[models.CollectionItemDescriptor],
+                Iterable[models.CollectionItemDescriptorTypedDict],
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -207,6 +212,11 @@ class Collections(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Collections"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -232,18 +242,18 @@ class Collections(BaseSDK):
         description: Optional[str] = None,
         added_roles: Optional[
             Union[
-                List[models.UserRoleSpecification],
-                List[models.UserRoleSpecificationTypedDict],
+                Iterable[models.UserRoleSpecification],
+                Iterable[models.UserRoleSpecificationTypedDict],
             ]
         ] = None,
         removed_roles: Optional[
             Union[
-                List[models.UserRoleSpecification],
-                List[models.UserRoleSpecificationTypedDict],
+                Iterable[models.UserRoleSpecification],
+                Iterable[models.UserRoleSpecificationTypedDict],
             ]
         ] = None,
         audience_filters: Optional[
-            Union[List[models.FacetFilter], List[models.FacetFilterTypedDict]]
+            Union[Iterable[models.FacetFilter], Iterable[models.FacetFilterTypedDict]]
         ] = None,
         icon: Optional[str] = None,
         admin_locked: Optional[bool] = None,
@@ -353,6 +363,11 @@ class Collections(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Collections"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -384,18 +399,18 @@ class Collections(BaseSDK):
         description: Optional[str] = None,
         added_roles: Optional[
             Union[
-                List[models.UserRoleSpecification],
-                List[models.UserRoleSpecificationTypedDict],
+                Iterable[models.UserRoleSpecification],
+                Iterable[models.UserRoleSpecificationTypedDict],
             ]
         ] = None,
         removed_roles: Optional[
             Union[
-                List[models.UserRoleSpecification],
-                List[models.UserRoleSpecificationTypedDict],
+                Iterable[models.UserRoleSpecification],
+                Iterable[models.UserRoleSpecificationTypedDict],
             ]
         ] = None,
         audience_filters: Optional[
-            Union[List[models.FacetFilter], List[models.FacetFilterTypedDict]]
+            Union[Iterable[models.FacetFilter], Iterable[models.FacetFilterTypedDict]]
         ] = None,
         icon: Optional[str] = None,
         admin_locked: Optional[bool] = None,
@@ -505,6 +520,11 @@ class Collections(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Collections"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -531,7 +551,7 @@ class Collections(BaseSDK):
     def delete(
         self,
         *,
-        ids: List[int],
+        ids: Iterable[int],
         locale: Optional[str] = None,
         allowed_datasource: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -564,7 +584,7 @@ class Collections(BaseSDK):
         request = models.DeletecollectionRequestRequest(
             locale=locale,
             delete_collection_request=models.DeleteCollectionRequest(
-                ids=ids,
+                ids=utils.unmarshal(ids, List[int]),
                 allowed_datasource=allowed_datasource,
             ),
         )
@@ -610,6 +630,11 @@ class Collections(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Collections"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -636,7 +661,7 @@ class Collections(BaseSDK):
     async def delete_async(
         self,
         *,
-        ids: List[int],
+        ids: Iterable[int],
         locale: Optional[str] = None,
         allowed_datasource: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -669,7 +694,7 @@ class Collections(BaseSDK):
         request = models.DeletecollectionRequestRequest(
             locale=locale,
             delete_collection_request=models.DeleteCollectionRequest(
-                ids=ids,
+                ids=utils.unmarshal(ids, List[int]),
                 allowed_datasource=allowed_datasource,
             ),
         )
@@ -715,6 +740,11 @@ class Collections(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Collections"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -823,6 +853,11 @@ class Collections(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Collections"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -927,6 +962,11 @@ class Collections(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Collections"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -955,18 +995,18 @@ class Collections(BaseSDK):
         description: Optional[str] = None,
         added_roles: Optional[
             Union[
-                List[models.UserRoleSpecification],
-                List[models.UserRoleSpecificationTypedDict],
+                Iterable[models.UserRoleSpecification],
+                Iterable[models.UserRoleSpecificationTypedDict],
             ]
         ] = None,
         removed_roles: Optional[
             Union[
-                List[models.UserRoleSpecification],
-                List[models.UserRoleSpecificationTypedDict],
+                Iterable[models.UserRoleSpecification],
+                Iterable[models.UserRoleSpecificationTypedDict],
             ]
         ] = None,
         audience_filters: Optional[
-            Union[List[models.FacetFilter], List[models.FacetFilterTypedDict]]
+            Union[Iterable[models.FacetFilter], Iterable[models.FacetFilterTypedDict]]
         ] = None,
         icon: Optional[str] = None,
         admin_locked: Optional[bool] = None,
@@ -1075,6 +1115,11 @@ class Collections(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Collections"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1107,18 +1152,18 @@ class Collections(BaseSDK):
         description: Optional[str] = None,
         added_roles: Optional[
             Union[
-                List[models.UserRoleSpecification],
-                List[models.UserRoleSpecificationTypedDict],
+                Iterable[models.UserRoleSpecification],
+                Iterable[models.UserRoleSpecificationTypedDict],
             ]
         ] = None,
         removed_roles: Optional[
             Union[
-                List[models.UserRoleSpecification],
-                List[models.UserRoleSpecificationTypedDict],
+                Iterable[models.UserRoleSpecification],
+                Iterable[models.UserRoleSpecificationTypedDict],
             ]
         ] = None,
         audience_filters: Optional[
-            Union[List[models.FacetFilter], List[models.FacetFilterTypedDict]]
+            Union[Iterable[models.FacetFilter], Iterable[models.FacetFilterTypedDict]]
         ] = None,
         icon: Optional[str] = None,
         admin_locked: Optional[bool] = None,
@@ -1227,6 +1272,11 @@ class Collections(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Collections"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1341,6 +1391,11 @@ class Collections(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Collections"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1449,6 +1504,11 @@ class Collections(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Collections"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1554,6 +1614,11 @@ class Collections(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Collections"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Preview",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1659,6 +1724,11 @@ class Collections(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Collections"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Preview",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1762,6 +1832,11 @@ class Collections(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Collections"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1865,6 +1940,11 @@ class Collections(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Collections"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

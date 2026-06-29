@@ -7,7 +7,7 @@ from glean.api_client._hooks import HookContext
 from glean.api_client.types import OptionalNullable, UNSET
 from glean.api_client.utils import get_security_from_env
 from glean.api_client.utils.unmarshal_json_response import unmarshal_json_response
-from typing import List, Mapping, Optional, Union
+from typing import Iterable, List, Mapping, Optional, Union
 
 
 class Announcements(BaseSDK):
@@ -25,7 +25,7 @@ class Announcements(BaseSDK):
         thumbnail: Optional[Union[models.Thumbnail, models.ThumbnailTypedDict]] = None,
         banner: Optional[Union[models.Thumbnail, models.ThumbnailTypedDict]] = None,
         audience_filters: Optional[
-            Union[List[models.FacetFilter], List[models.FacetFilterTypedDict]]
+            Union[Iterable[models.FacetFilter], Iterable[models.FacetFilterTypedDict]]
         ] = None,
         source_document_id: Optional[str] = None,
         hide_attribution: Optional[bool] = None,
@@ -137,6 +137,11 @@ class Announcements(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Announcements"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -168,7 +173,7 @@ class Announcements(BaseSDK):
         thumbnail: Optional[Union[models.Thumbnail, models.ThumbnailTypedDict]] = None,
         banner: Optional[Union[models.Thumbnail, models.ThumbnailTypedDict]] = None,
         audience_filters: Optional[
-            Union[List[models.FacetFilter], List[models.FacetFilterTypedDict]]
+            Union[Iterable[models.FacetFilter], Iterable[models.FacetFilterTypedDict]]
         ] = None,
         source_document_id: Optional[str] = None,
         hide_attribution: Optional[bool] = None,
@@ -280,6 +285,11 @@ class Announcements(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Announcements"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -376,6 +386,11 @@ class Announcements(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Announcements"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -472,6 +487,11 @@ class Announcements(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Announcements"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -504,7 +524,7 @@ class Announcements(BaseSDK):
         thumbnail: Optional[Union[models.Thumbnail, models.ThumbnailTypedDict]] = None,
         banner: Optional[Union[models.Thumbnail, models.ThumbnailTypedDict]] = None,
         audience_filters: Optional[
-            Union[List[models.FacetFilter], List[models.FacetFilterTypedDict]]
+            Union[Iterable[models.FacetFilter], Iterable[models.FacetFilterTypedDict]]
         ] = None,
         source_document_id: Optional[str] = None,
         hide_attribution: Optional[bool] = None,
@@ -618,6 +638,11 @@ class Announcements(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Announcements"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -650,7 +675,7 @@ class Announcements(BaseSDK):
         thumbnail: Optional[Union[models.Thumbnail, models.ThumbnailTypedDict]] = None,
         banner: Optional[Union[models.Thumbnail, models.ThumbnailTypedDict]] = None,
         audience_filters: Optional[
-            Union[List[models.FacetFilter], List[models.FacetFilterTypedDict]]
+            Union[Iterable[models.FacetFilter], Iterable[models.FacetFilterTypedDict]]
         ] = None,
         source_document_id: Optional[str] = None,
         hide_attribution: Optional[bool] = None,
@@ -764,6 +789,11 @@ class Announcements(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Announcements"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
