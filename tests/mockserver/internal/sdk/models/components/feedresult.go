@@ -43,6 +43,7 @@ const (
 	FeedResultCategoryMidDayCatchUp                FeedResultCategory = "MID_DAY_CATCH_UP"
 	FeedResultCategoryQuerySuggestion              FeedResultCategory = "QUERY_SUGGESTION"
 	FeedResultCategoryCoworkCujPromo               FeedResultCategory = "COWORK_CUJ_PROMO"
+	FeedResultCategoryCardStackPromo               FeedResultCategory = "CARD_STACK_PROMO"
 	FeedResultCategoryWeeklyMeetings               FeedResultCategory = "WEEKLY_MEETINGS"
 	FeedResultCategoryFollowUp                     FeedResultCategory = "FOLLOW_UP"
 	FeedResultCategoryMilestoneTimelineCheck       FeedResultCategory = "MILESTONE_TIMELINE_CHECK"
@@ -127,6 +128,8 @@ func (e *FeedResultCategory) UnmarshalJSON(data []byte) error {
 		fallthrough
 	case "COWORK_CUJ_PROMO":
 		fallthrough
+	case "CARD_STACK_PROMO":
+		fallthrough
 	case "WEEKLY_MEETINGS":
 		fallthrough
 	case "FOLLOW_UP":
@@ -151,6 +154,33 @@ func (e *FeedResultCategory) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// PlacementReason - Placement source for ranked feed results. ORGANIC means the card was emitted by normal feed ranking. PROMO means the card was inserted by the homepage cards promo framework.
+type PlacementReason string
+
+const (
+	PlacementReasonOrganic PlacementReason = "ORGANIC"
+	PlacementReasonPromo   PlacementReason = "PROMO"
+)
+
+func (e PlacementReason) ToPointer() *PlacementReason {
+	return &e
+}
+func (e *PlacementReason) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "ORGANIC":
+		fallthrough
+	case "PROMO":
+		*e = PlacementReason(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for PlacementReason: %v", v)
+	}
+}
+
 type FeedResult struct {
 	// Category of the result, one of the requested categories in incoming request.
 	Category     FeedResultCategory `json:"category"`
@@ -159,6 +189,8 @@ type FeedResult struct {
 	SecondaryEntries []FeedEntry `json:"secondaryEntries,omitempty"`
 	// Rank of the result. Rank is suggested by server. Client side rank may differ.
 	Rank *int64 `json:"rank,omitempty"`
+	// Placement source for ranked feed results. ORGANIC means the card was emitted by normal feed ranking. PROMO means the card was inserted by the homepage cards promo framework.
+	PlacementReason *PlacementReason `json:"placementReason,omitempty"`
 }
 
 func (o *FeedResult) GetCategory() FeedResultCategory {
@@ -187,4 +219,11 @@ func (o *FeedResult) GetRank() *int64 {
 		return nil
 	}
 	return o.Rank
+}
+
+func (o *FeedResult) GetPlacementReason() *PlacementReason {
+	if o == nil {
+		return nil
+	}
+	return o.PlacementReason
 }

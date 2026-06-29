@@ -6,7 +6,7 @@ from glean.api_client._hooks import HookContext
 from glean.api_client.types import OptionalNullable, UNSET
 from glean.api_client.utils import get_security_from_env
 from glean.api_client.utils.unmarshal_json_response import unmarshal_json_response
-from typing import List, Mapping, Optional, Union
+from typing import Iterable, List, Mapping, Optional, Union
 
 
 class ClientEntities(BaseSDK):
@@ -15,17 +15,19 @@ class ClientEntities(BaseSDK):
         *,
         locale: Optional[str] = None,
         filter_: Optional[
-            Union[List[models.FacetFilter], List[models.FacetFilterTypedDict]]
+            Union[Iterable[models.FacetFilter], Iterable[models.FacetFilterTypedDict]]
         ] = None,
         sort: Optional[
-            Union[List[models.SortOptions], List[models.SortOptionsTypedDict]]
+            Union[Iterable[models.SortOptions], Iterable[models.SortOptionsTypedDict]]
         ] = None,
         entity_type: Optional[
             models.ListEntitiesRequestEntityType
         ] = models.ListEntitiesRequestEntityType.PEOPLE,
         datasource: Optional[str] = None,
         query: Optional[str] = None,
-        include_fields: Optional[List[models.ListEntitiesRequestIncludeField]] = None,
+        include_fields: Optional[
+            Iterable[models.ListEntitiesRequestIncludeField]
+        ] = None,
         page_size: Optional[int] = None,
         cursor: Optional[str] = None,
         source: Optional[str] = None,
@@ -75,7 +77,10 @@ class ClientEntities(BaseSDK):
                 entity_type=entity_type,
                 datasource=datasource,
                 query=query,
-                include_fields=include_fields,
+                include_fields=utils.unmarshal(
+                    include_fields,
+                    Optional[List[models.ListEntitiesRequestIncludeField]],
+                ),
                 page_size=page_size,
                 cursor=cursor,
                 source=source,
@@ -124,6 +129,11 @@ class ClientEntities(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Entities"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -146,17 +156,19 @@ class ClientEntities(BaseSDK):
         *,
         locale: Optional[str] = None,
         filter_: Optional[
-            Union[List[models.FacetFilter], List[models.FacetFilterTypedDict]]
+            Union[Iterable[models.FacetFilter], Iterable[models.FacetFilterTypedDict]]
         ] = None,
         sort: Optional[
-            Union[List[models.SortOptions], List[models.SortOptionsTypedDict]]
+            Union[Iterable[models.SortOptions], Iterable[models.SortOptionsTypedDict]]
         ] = None,
         entity_type: Optional[
             models.ListEntitiesRequestEntityType
         ] = models.ListEntitiesRequestEntityType.PEOPLE,
         datasource: Optional[str] = None,
         query: Optional[str] = None,
-        include_fields: Optional[List[models.ListEntitiesRequestIncludeField]] = None,
+        include_fields: Optional[
+            Iterable[models.ListEntitiesRequestIncludeField]
+        ] = None,
         page_size: Optional[int] = None,
         cursor: Optional[str] = None,
         source: Optional[str] = None,
@@ -206,7 +218,10 @@ class ClientEntities(BaseSDK):
                 entity_type=entity_type,
                 datasource=datasource,
                 query=query,
-                include_fields=include_fields,
+                include_fields=utils.unmarshal(
+                    include_fields,
+                    Optional[List[models.ListEntitiesRequestIncludeField]],
+                ),
                 page_size=page_size,
                 cursor=cursor,
                 source=source,
@@ -255,6 +270,11 @@ class ClientEntities(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Entities"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -277,10 +297,10 @@ class ClientEntities(BaseSDK):
         *,
         locale: Optional[str] = None,
         timezone_offset: Optional[int] = None,
-        obfuscated_ids: Optional[List[str]] = None,
-        email_ids: Optional[List[str]] = None,
-        include_fields: Optional[List[models.PeopleRequestIncludeField]] = None,
-        include_types: Optional[List[models.IncludeType]] = None,
+        obfuscated_ids: Optional[Iterable[str]] = None,
+        email_ids: Optional[Iterable[str]] = None,
+        include_fields: Optional[Iterable[models.PeopleRequestIncludeField]] = None,
+        include_types: Optional[Iterable[models.IncludeType]] = None,
         source: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -317,10 +337,14 @@ class ClientEntities(BaseSDK):
             locale=locale,
             people_request=models.PeopleRequest(
                 timezone_offset=timezone_offset,
-                obfuscated_ids=obfuscated_ids,
-                email_ids=email_ids,
-                include_fields=include_fields,
-                include_types=include_types,
+                obfuscated_ids=utils.unmarshal(obfuscated_ids, Optional[List[str]]),
+                email_ids=utils.unmarshal(email_ids, Optional[List[str]]),
+                include_fields=utils.unmarshal(
+                    include_fields, Optional[List[models.PeopleRequestIncludeField]]
+                ),
+                include_types=utils.unmarshal(
+                    include_types, Optional[List[models.IncludeType]]
+                ),
                 source=source,
             ),
         )
@@ -362,6 +386,11 @@ class ClientEntities(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Entities"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -384,10 +413,10 @@ class ClientEntities(BaseSDK):
         *,
         locale: Optional[str] = None,
         timezone_offset: Optional[int] = None,
-        obfuscated_ids: Optional[List[str]] = None,
-        email_ids: Optional[List[str]] = None,
-        include_fields: Optional[List[models.PeopleRequestIncludeField]] = None,
-        include_types: Optional[List[models.IncludeType]] = None,
+        obfuscated_ids: Optional[Iterable[str]] = None,
+        email_ids: Optional[Iterable[str]] = None,
+        include_fields: Optional[Iterable[models.PeopleRequestIncludeField]] = None,
+        include_types: Optional[Iterable[models.IncludeType]] = None,
         source: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -424,10 +453,14 @@ class ClientEntities(BaseSDK):
             locale=locale,
             people_request=models.PeopleRequest(
                 timezone_offset=timezone_offset,
-                obfuscated_ids=obfuscated_ids,
-                email_ids=email_ids,
-                include_fields=include_fields,
-                include_types=include_types,
+                obfuscated_ids=utils.unmarshal(obfuscated_ids, Optional[List[str]]),
+                email_ids=utils.unmarshal(email_ids, Optional[List[str]]),
+                include_fields=utils.unmarshal(
+                    include_fields, Optional[List[models.PeopleRequestIncludeField]]
+                ),
+                include_types=utils.unmarshal(
+                    include_types, Optional[List[models.IncludeType]]
+                ),
                 source=source,
             ),
         )
@@ -469,6 +502,11 @@ class ClientEntities(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Entities"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

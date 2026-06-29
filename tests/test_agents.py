@@ -74,3 +74,17 @@ def test_agents_create_and_stream_run():
 )
 def test_agents_create_and_wait_run():
     pass
+
+
+def test_agents_create_agent():
+    test_http_client = create_test_http_client("createAgent")
+
+    with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
+        client=test_http_client,
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+    ) as glean:
+        assert glean is not None
+
+        res = glean.agents.create_agent()
+        assert res is not None

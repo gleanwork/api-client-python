@@ -7,7 +7,7 @@ from glean.api_client._hooks import HookContext
 from glean.api_client.types import OptionalNullable, UNSET
 from glean.api_client.utils import get_security_from_env
 from glean.api_client.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, List, Mapping, Optional, Union
+from typing import Any, Iterable, List, Mapping, Optional, Union
 
 
 class Search(BaseSDK):
@@ -27,7 +27,7 @@ class Search(BaseSDK):
         page_size: Optional[int] = None,
         max_snippet_size: Optional[int] = None,
         cursor: Optional[str] = None,
-        result_tab_ids: Optional[List[str]] = None,
+        result_tab_ids: Optional[Iterable[str]] = None,
         input_details: Optional[
             Union[
                 models.SearchRequestInputDetails,
@@ -92,7 +92,7 @@ class Search(BaseSDK):
                 max_snippet_size=max_snippet_size,
                 query=query,
                 cursor=cursor,
-                result_tab_ids=result_tab_ids,
+                result_tab_ids=utils.unmarshal(result_tab_ids, Optional[List[str]]),
                 input_details=utils.get_pydantic_model(
                     input_details, Optional[models.SearchRequestInputDetails]
                 ),
@@ -141,6 +141,11 @@ class Search(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Search"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Preview",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -178,7 +183,7 @@ class Search(BaseSDK):
         page_size: Optional[int] = None,
         max_snippet_size: Optional[int] = None,
         cursor: Optional[str] = None,
-        result_tab_ids: Optional[List[str]] = None,
+        result_tab_ids: Optional[Iterable[str]] = None,
         input_details: Optional[
             Union[
                 models.SearchRequestInputDetails,
@@ -243,7 +248,7 @@ class Search(BaseSDK):
                 max_snippet_size=max_snippet_size,
                 query=query,
                 cursor=cursor,
-                result_tab_ids=result_tab_ids,
+                result_tab_ids=utils.unmarshal(result_tab_ids, Optional[List[str]]),
                 input_details=utils.get_pydantic_model(
                     input_details, Optional[models.SearchRequestInputDetails]
                 ),
@@ -292,6 +297,11 @@ class Search(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Search"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Preview",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -322,12 +332,12 @@ class Search(BaseSDK):
             Union[models.SessionInfo, models.SessionInfoTypedDict]
         ] = None,
         query: Optional[str] = None,
-        datasources_filter: Optional[List[str]] = None,
+        datasources_filter: Optional[Iterable[str]] = None,
         datasource: Optional[str] = None,
-        result_types: Optional[List[models.AutocompleteRequestResultType]] = None,
+        result_types: Optional[Iterable[models.AutocompleteRequestResultType]] = None,
         result_size: Optional[int] = None,
         auth_tokens: Optional[
-            Union[List[models.AuthToken], List[models.AuthTokenTypedDict]]
+            Union[Iterable[models.AuthToken], Iterable[models.AuthTokenTypedDict]]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -371,9 +381,13 @@ class Search(BaseSDK):
                     session_info, Optional[models.SessionInfo]
                 ),
                 query=query,
-                datasources_filter=datasources_filter,
+                datasources_filter=utils.unmarshal(
+                    datasources_filter, Optional[List[str]]
+                ),
                 datasource=datasource,
-                result_types=result_types,
+                result_types=utils.unmarshal(
+                    result_types, Optional[List[models.AutocompleteRequestResultType]]
+                ),
                 result_size=result_size,
                 auth_tokens=utils.get_pydantic_model(
                     auth_tokens, Optional[List[models.AuthToken]]
@@ -422,6 +436,11 @@ class Search(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Search"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -448,12 +467,12 @@ class Search(BaseSDK):
             Union[models.SessionInfo, models.SessionInfoTypedDict]
         ] = None,
         query: Optional[str] = None,
-        datasources_filter: Optional[List[str]] = None,
+        datasources_filter: Optional[Iterable[str]] = None,
         datasource: Optional[str] = None,
-        result_types: Optional[List[models.AutocompleteRequestResultType]] = None,
+        result_types: Optional[Iterable[models.AutocompleteRequestResultType]] = None,
         result_size: Optional[int] = None,
         auth_tokens: Optional[
-            Union[List[models.AuthToken], List[models.AuthTokenTypedDict]]
+            Union[Iterable[models.AuthToken], Iterable[models.AuthTokenTypedDict]]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -497,9 +516,13 @@ class Search(BaseSDK):
                     session_info, Optional[models.SessionInfo]
                 ),
                 query=query,
-                datasources_filter=datasources_filter,
+                datasources_filter=utils.unmarshal(
+                    datasources_filter, Optional[List[str]]
+                ),
                 datasource=datasource,
-                result_types=result_types,
+                result_types=utils.unmarshal(
+                    result_types, Optional[List[models.AutocompleteRequestResultType]]
+                ),
                 result_size=result_size,
                 auth_tokens=utils.get_pydantic_model(
                     auth_tokens, Optional[List[models.AuthToken]]
@@ -548,6 +571,11 @@ class Search(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Search"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -569,7 +597,7 @@ class Search(BaseSDK):
         self,
         *,
         locale: Optional[str] = None,
-        categories: Optional[List[models.FeedRequestCategory]] = None,
+        categories: Optional[Iterable[models.FeedRequestCategory]] = None,
         request_options: Optional[
             Union[models.FeedRequestOptions, models.FeedRequestOptionsTypedDict]
         ] = None,
@@ -609,7 +637,9 @@ class Search(BaseSDK):
         request = models.FeedRequestRequest(
             locale=locale,
             feed_request=models.FeedRequest(
-                categories=categories,
+                categories=utils.unmarshal(
+                    categories, Optional[List[models.FeedRequestCategory]]
+                ),
                 request_options=utils.get_pydantic_model(
                     request_options, Optional[models.FeedRequestOptions]
                 ),
@@ -657,6 +687,11 @@ class Search(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Search"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -678,7 +713,7 @@ class Search(BaseSDK):
         self,
         *,
         locale: Optional[str] = None,
-        categories: Optional[List[models.FeedRequestCategory]] = None,
+        categories: Optional[Iterable[models.FeedRequestCategory]] = None,
         request_options: Optional[
             Union[models.FeedRequestOptions, models.FeedRequestOptionsTypedDict]
         ] = None,
@@ -718,7 +753,9 @@ class Search(BaseSDK):
         request = models.FeedRequestRequest(
             locale=locale,
             feed_request=models.FeedRequest(
-                categories=categories,
+                categories=utils.unmarshal(
+                    categories, Optional[List[models.FeedRequestCategory]]
+                ),
                 request_options=utils.get_pydantic_model(
                     request_options, Optional[models.FeedRequestOptions]
                 ),
@@ -766,6 +803,11 @@ class Search(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Search"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -902,6 +944,11 @@ class Search(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Search"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Preview",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1040,6 +1087,11 @@ class Search(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Search"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Preview",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1075,7 +1127,7 @@ class Search(BaseSDK):
         page_size: Optional[int] = None,
         max_snippet_size: Optional[int] = None,
         cursor: Optional[str] = None,
-        result_tab_ids: Optional[List[str]] = None,
+        result_tab_ids: Optional[Iterable[str]] = None,
         input_details: Optional[
             Union[
                 models.SearchRequestInputDetails,
@@ -1140,7 +1192,7 @@ class Search(BaseSDK):
                 max_snippet_size=max_snippet_size,
                 query=query,
                 cursor=cursor,
-                result_tab_ids=result_tab_ids,
+                result_tab_ids=utils.unmarshal(result_tab_ids, Optional[List[str]]),
                 input_details=utils.get_pydantic_model(
                     input_details, Optional[models.SearchRequestInputDetails]
                 ),
@@ -1189,6 +1241,11 @@ class Search(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Search"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1226,7 +1283,7 @@ class Search(BaseSDK):
         page_size: Optional[int] = None,
         max_snippet_size: Optional[int] = None,
         cursor: Optional[str] = None,
-        result_tab_ids: Optional[List[str]] = None,
+        result_tab_ids: Optional[Iterable[str]] = None,
         input_details: Optional[
             Union[
                 models.SearchRequestInputDetails,
@@ -1291,7 +1348,7 @@ class Search(BaseSDK):
                 max_snippet_size=max_snippet_size,
                 query=query,
                 cursor=cursor,
-                result_tab_ids=result_tab_ids,
+                result_tab_ids=utils.unmarshal(result_tab_ids, Optional[List[str]]),
                 input_details=utils.get_pydantic_model(
                     input_details, Optional[models.SearchRequestInputDetails]
                 ),
@@ -1340,6 +1397,11 @@ class Search(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Search"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

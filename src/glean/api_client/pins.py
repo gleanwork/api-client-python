@@ -6,7 +6,7 @@ from glean.api_client._hooks import HookContext
 from glean.api_client.types import OptionalNullable, UNSET
 from glean.api_client.utils import get_security_from_env
 from glean.api_client.utils.unmarshal_json_response import unmarshal_json_response
-from typing import List, Mapping, Optional, Union
+from typing import Iterable, List, Mapping, Optional, Union
 
 
 class Pins(BaseSDK):
@@ -14,9 +14,9 @@ class Pins(BaseSDK):
         self,
         *,
         locale: Optional[str] = None,
-        queries: Optional[List[str]] = None,
+        queries: Optional[Iterable[str]] = None,
         audience_filters: Optional[
-            Union[List[models.FacetFilter], List[models.FacetFilterTypedDict]]
+            Union[Iterable[models.FacetFilter], Iterable[models.FacetFilterTypedDict]]
         ] = None,
         id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -50,7 +50,7 @@ class Pins(BaseSDK):
         request = models.EditpinRequestRequest(
             locale=locale,
             edit_pin_request=models.EditPinRequest(
-                queries=queries,
+                queries=utils.unmarshal(queries, Optional[List[str]]),
                 audience_filters=utils.get_pydantic_model(
                     audience_filters, Optional[List[models.FacetFilter]]
                 ),
@@ -95,6 +95,11 @@ class Pins(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Pins"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -116,9 +121,9 @@ class Pins(BaseSDK):
         self,
         *,
         locale: Optional[str] = None,
-        queries: Optional[List[str]] = None,
+        queries: Optional[Iterable[str]] = None,
         audience_filters: Optional[
-            Union[List[models.FacetFilter], List[models.FacetFilterTypedDict]]
+            Union[Iterable[models.FacetFilter], Iterable[models.FacetFilterTypedDict]]
         ] = None,
         id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -152,7 +157,7 @@ class Pins(BaseSDK):
         request = models.EditpinRequestRequest(
             locale=locale,
             edit_pin_request=models.EditPinRequest(
-                queries=queries,
+                queries=utils.unmarshal(queries, Optional[List[str]]),
                 audience_filters=utils.get_pydantic_model(
                     audience_filters, Optional[List[models.FacetFilter]]
                 ),
@@ -197,6 +202,11 @@ class Pins(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Pins"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -289,6 +299,11 @@ class Pins(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Pins"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -381,6 +396,11 @@ class Pins(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Pins"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -475,6 +495,11 @@ class Pins(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Pins"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -569,6 +594,11 @@ class Pins(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Pins"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -590,9 +620,9 @@ class Pins(BaseSDK):
         self,
         *,
         locale: Optional[str] = None,
-        queries: Optional[List[str]] = None,
+        queries: Optional[Iterable[str]] = None,
         audience_filters: Optional[
-            Union[List[models.FacetFilter], List[models.FacetFilterTypedDict]]
+            Union[Iterable[models.FacetFilter], Iterable[models.FacetFilterTypedDict]]
         ] = None,
         document_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -626,7 +656,7 @@ class Pins(BaseSDK):
         request = models.PinRequestRequest(
             locale=locale,
             pin_request=models.PinRequest(
-                queries=queries,
+                queries=utils.unmarshal(queries, Optional[List[str]]),
                 audience_filters=utils.get_pydantic_model(
                     audience_filters, Optional[List[models.FacetFilter]]
                 ),
@@ -671,6 +701,11 @@ class Pins(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Pins"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -692,9 +727,9 @@ class Pins(BaseSDK):
         self,
         *,
         locale: Optional[str] = None,
-        queries: Optional[List[str]] = None,
+        queries: Optional[Iterable[str]] = None,
         audience_filters: Optional[
-            Union[List[models.FacetFilter], List[models.FacetFilterTypedDict]]
+            Union[Iterable[models.FacetFilter], Iterable[models.FacetFilterTypedDict]]
         ] = None,
         document_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -728,7 +763,7 @@ class Pins(BaseSDK):
         request = models.PinRequestRequest(
             locale=locale,
             pin_request=models.PinRequest(
-                queries=queries,
+                queries=utils.unmarshal(queries, Optional[List[str]]),
                 audience_filters=utils.get_pydantic_model(
                     audience_filters, Optional[List[models.FacetFilter]]
                 ),
@@ -773,6 +808,11 @@ class Pins(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Pins"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -865,6 +905,11 @@ class Pins(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Pins"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -957,6 +1002,11 @@ class Pins(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Pins"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

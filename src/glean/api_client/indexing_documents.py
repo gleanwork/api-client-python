@@ -6,7 +6,7 @@ from glean.api_client._hooks import HookContext
 from glean.api_client.types import BaseModel, OptionalNullable, UNSET
 from glean.api_client.utils import get_security_from_env
 from glean.api_client.utils.unmarshal_json_response import unmarshal_json_response
-from typing import List, Mapping, Optional, Union, cast
+from typing import Iterable, List, Mapping, Optional, Union, cast
 from typing_extensions import deprecated
 
 
@@ -84,6 +84,8 @@ class IndexingDocuments(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Documents"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -174,6 +176,8 @@ class IndexingDocuments(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Documents"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -196,7 +200,8 @@ class IndexingDocuments(BaseSDK):
         *,
         datasource: str,
         documents: Union[
-            List[models.DocumentDefinition], List[models.DocumentDefinitionTypedDict]
+            Iterable[models.DocumentDefinition],
+            Iterable[models.DocumentDefinitionTypedDict],
         ],
         upload_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -271,6 +276,8 @@ class IndexingDocuments(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Documents"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -293,7 +300,8 @@ class IndexingDocuments(BaseSDK):
         *,
         datasource: str,
         documents: Union[
-            List[models.DocumentDefinition], List[models.DocumentDefinitionTypedDict]
+            Iterable[models.DocumentDefinition],
+            Iterable[models.DocumentDefinitionTypedDict],
         ],
         upload_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -368,6 +376,8 @@ class IndexingDocuments(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Documents"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -391,7 +401,8 @@ class IndexingDocuments(BaseSDK):
         upload_id: str,
         datasource: str,
         documents: Union[
-            List[models.DocumentDefinition], List[models.DocumentDefinitionTypedDict]
+            Iterable[models.DocumentDefinition],
+            Iterable[models.DocumentDefinitionTypedDict],
         ],
         is_first_page: Optional[bool] = None,
         is_last_page: Optional[bool] = None,
@@ -477,6 +488,8 @@ class IndexingDocuments(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Documents"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -500,7 +513,8 @@ class IndexingDocuments(BaseSDK):
         upload_id: str,
         datasource: str,
         documents: Union[
-            List[models.DocumentDefinition], List[models.DocumentDefinitionTypedDict]
+            Iterable[models.DocumentDefinition],
+            Iterable[models.DocumentDefinitionTypedDict],
         ],
         is_first_page: Optional[bool] = None,
         is_last_page: Optional[bool] = None,
@@ -586,6 +600,8 @@ class IndexingDocuments(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Documents"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -695,6 +711,8 @@ class IndexingDocuments(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Documents"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -804,6 +822,8 @@ class IndexingDocuments(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Documents"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -900,6 +920,8 @@ class IndexingDocuments(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Documents"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -996,6 +1018,8 @@ class IndexingDocuments(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Documents"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1098,6 +1122,8 @@ class IndexingDocuments(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Troubleshooting"],
+                extensions={"x-beta": True},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1200,6 +1226,8 @@ class IndexingDocuments(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Troubleshooting"],
+                extensions={"x-beta": True},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1222,8 +1250,8 @@ class IndexingDocuments(BaseSDK):
         *,
         datasource: str,
         debug_documents: Union[
-            List[models.DebugDocumentRequest],
-            List[models.DebugDocumentRequestTypedDict],
+            Iterable[models.DebugDocumentRequest],
+            Iterable[models.DebugDocumentRequestTypedDict],
         ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1304,6 +1332,8 @@ class IndexingDocuments(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Troubleshooting"],
+                extensions={"x-beta": True},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1326,8 +1356,8 @@ class IndexingDocuments(BaseSDK):
         *,
         datasource: str,
         debug_documents: Union[
-            List[models.DebugDocumentRequest],
-            List[models.DebugDocumentRequestTypedDict],
+            Iterable[models.DebugDocumentRequest],
+            Iterable[models.DebugDocumentRequestTypedDict],
         ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1408,6 +1438,8 @@ class IndexingDocuments(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Troubleshooting"],
+                extensions={"x-beta": True},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1507,6 +1539,8 @@ class IndexingDocuments(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Troubleshooting"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1606,6 +1640,8 @@ class IndexingDocuments(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Troubleshooting"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1705,6 +1741,15 @@ class IndexingDocuments(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Troubleshooting"],
+                extensions={
+                    "x-glean-deprecated": {
+                        "id": "7eec0433-78fd-49f9-a34f-cca83640ec24",
+                        "introduced": "2026-02-03",
+                        "message": "Endpoint is deprecated",
+                        "removal": "2026-10-15",
+                    }
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1804,6 +1849,15 @@ class IndexingDocuments(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Troubleshooting"],
+                extensions={
+                    "x-glean-deprecated": {
+                        "id": "7eec0433-78fd-49f9-a34f-cca83640ec24",
+                        "introduced": "2026-02-03",
+                        "message": "Endpoint is deprecated",
+                        "removal": "2026-10-15",
+                    }
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1897,6 +1951,15 @@ class IndexingDocuments(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Troubleshooting"],
+                extensions={
+                    "x-glean-deprecated": {
+                        "id": "c164089c-9412-4724-acf6-caf3b0d2a527",
+                        "introduced": "2026-02-03",
+                        "message": "Endpoint is deprecated",
+                        "removal": "2026-10-15",
+                    }
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1990,6 +2053,15 @@ class IndexingDocuments(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Troubleshooting"],
+                extensions={
+                    "x-glean-deprecated": {
+                        "id": "c164089c-9412-4724-acf6-caf3b0d2a527",
+                        "introduced": "2026-02-03",
+                        "message": "Endpoint is deprecated",
+                        "removal": "2026-10-15",
+                    }
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

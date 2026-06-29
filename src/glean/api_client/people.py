@@ -6,7 +6,7 @@ from glean.api_client._hooks import HookContext
 from glean.api_client.types import OptionalNullable, UNSET
 from glean.api_client.utils import get_security_from_env
 from glean.api_client.utils.unmarshal_json_response import unmarshal_json_response
-from typing import List, Mapping, Optional, Union
+from typing import Iterable, List, Mapping, Optional, Union
 from typing_extensions import deprecated
 
 
@@ -93,6 +93,8 @@ class People(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Troubleshooting"],
+                extensions={"x-beta": True},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -192,6 +194,8 @@ class People(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Troubleshooting"],
+                extensions={"x-beta": True},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -285,6 +289,15 @@ class People(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Troubleshooting"],
+                extensions={
+                    "x-glean-deprecated": {
+                        "id": "4f5df873-385e-4539-8183-cb764b0f06b9",
+                        "introduced": "2026-02-03",
+                        "message": "Endpoint is deprecated",
+                        "removal": "2026-10-15",
+                    }
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -378,6 +391,15 @@ class People(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Troubleshooting"],
+                extensions={
+                    "x-glean-deprecated": {
+                        "id": "4f5df873-385e-4539-8183-cb764b0f06b9",
+                        "introduced": "2026-02-03",
+                        "message": "Endpoint is deprecated",
+                        "removal": "2026-10-15",
+                    }
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -470,6 +492,8 @@ class People(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["People"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -562,6 +586,8 @@ class People(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["People"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -587,8 +613,8 @@ class People(BaseSDK):
         *,
         upload_id: str,
         employees: Union[
-            List[models.EmployeeInfoDefinition],
-            List[models.EmployeeInfoDefinitionTypedDict],
+            Iterable[models.EmployeeInfoDefinition],
+            Iterable[models.EmployeeInfoDefinitionTypedDict],
         ],
         is_first_page: Optional[bool] = None,
         is_last_page: Optional[bool] = None,
@@ -672,6 +698,15 @@ class People(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["People"],
+                extensions={
+                    "x-glean-deprecated": {
+                        "id": "ce596f49-55c4-465e-bf3c-5a3a33906e1f",
+                        "introduced": "2026-02-03",
+                        "message": "Endpoint is deprecated",
+                        "removal": "2026-10-15",
+                    }
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -697,8 +732,8 @@ class People(BaseSDK):
         *,
         upload_id: str,
         employees: Union[
-            List[models.EmployeeInfoDefinition],
-            List[models.EmployeeInfoDefinitionTypedDict],
+            Iterable[models.EmployeeInfoDefinition],
+            Iterable[models.EmployeeInfoDefinitionTypedDict],
         ],
         is_first_page: Optional[bool] = None,
         is_last_page: Optional[bool] = None,
@@ -782,6 +817,15 @@ class People(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["People"],
+                extensions={
+                    "x-glean-deprecated": {
+                        "id": "ce596f49-55c4-465e-bf3c-5a3a33906e1f",
+                        "introduced": "2026-02-03",
+                        "message": "Endpoint is deprecated",
+                        "removal": "2026-10-15",
+                    }
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -860,6 +904,8 @@ class People(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["People"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -938,6 +984,8 @@ class People(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["People"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1028,6 +1076,8 @@ class People(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["People"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1118,6 +1168,8 @@ class People(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["People"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1208,6 +1260,8 @@ class People(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["People"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1298,6 +1352,8 @@ class People(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["People"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1385,6 +1441,8 @@ class People(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["People"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1472,6 +1530,8 @@ class People(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["People"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1494,7 +1554,8 @@ class People(BaseSDK):
         *,
         upload_id: str,
         teams: Union[
-            List[models.TeamInfoDefinition], List[models.TeamInfoDefinitionTypedDict]
+            Iterable[models.TeamInfoDefinition],
+            Iterable[models.TeamInfoDefinitionTypedDict],
         ],
         is_first_page: Optional[bool] = None,
         is_last_page: Optional[bool] = None,
@@ -1573,6 +1634,8 @@ class People(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["People"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1595,7 +1658,8 @@ class People(BaseSDK):
         *,
         upload_id: str,
         teams: Union[
-            List[models.TeamInfoDefinition], List[models.TeamInfoDefinitionTypedDict]
+            Iterable[models.TeamInfoDefinition],
+            Iterable[models.TeamInfoDefinitionTypedDict],
         ],
         is_first_page: Optional[bool] = None,
         is_last_page: Optional[bool] = None,
@@ -1674,6 +1738,8 @@ class People(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["People"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

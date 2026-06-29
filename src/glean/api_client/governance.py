@@ -6,7 +6,7 @@ from glean.api_client._hooks import HookContext
 from glean.api_client.types import OptionalNullable, UNSET
 from glean.api_client.utils import get_security_from_env
 from glean.api_client.utils.unmarshal_json_response import unmarshal_json_response
-from typing import List, Mapping, Optional, Union
+from typing import Iterable, List, Mapping, Optional, Union
 
 
 class Governance(BaseSDK):
@@ -22,7 +22,7 @@ class Governance(BaseSDK):
         ] = None,
         file_name: Optional[str] = None,
         field_scope: Optional[models.FieldScope] = None,
-        fields_to_exclude: Optional[List[str]] = None,
+        fields_to_exclude: Optional[Iterable[str]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -63,7 +63,7 @@ class Governance(BaseSDK):
             ),
             file_name=file_name,
             field_scope=field_scope,
-            fields_to_exclude=fields_to_exclude,
+            fields_to_exclude=utils.unmarshal(fields_to_exclude, Optional[List[str]]),
         )
 
         req = self._build_request(
@@ -103,6 +103,8 @@ class Governance(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Governance"],
+                extensions={"x-visibility": "Public"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -132,7 +134,7 @@ class Governance(BaseSDK):
         ] = None,
         file_name: Optional[str] = None,
         field_scope: Optional[models.FieldScope] = None,
-        fields_to_exclude: Optional[List[str]] = None,
+        fields_to_exclude: Optional[Iterable[str]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -173,7 +175,7 @@ class Governance(BaseSDK):
             ),
             file_name=file_name,
             field_scope=field_scope,
-            fields_to_exclude=fields_to_exclude,
+            fields_to_exclude=utils.unmarshal(fields_to_exclude, Optional[List[str]]),
         )
 
         req = self._build_request_async(
@@ -213,6 +215,8 @@ class Governance(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Governance"],
+                extensions={"x-visibility": "Public"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -290,6 +294,8 @@ class Governance(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Governance"],
+                extensions={"x-visibility": "Public"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -369,6 +375,8 @@ class Governance(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Governance"],
+                extensions={"x-visibility": "Public"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -455,6 +463,8 @@ class Governance(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Governance"],
+                extensions={"x-visibility": "Public"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -539,6 +549,8 @@ class Governance(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Governance"],
+                extensions={"x-visibility": "Public"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -623,6 +635,8 @@ class Governance(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Governance"],
+                extensions={"x-visibility": "Public"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -707,6 +721,8 @@ class Governance(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Governance"],
+                extensions={"x-visibility": "Public"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

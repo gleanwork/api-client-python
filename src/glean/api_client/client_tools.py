@@ -6,14 +6,14 @@ from glean.api_client._hooks import HookContext
 from glean.api_client.types import OptionalNullable, UNSET
 from glean.api_client.utils import get_security_from_env
 from glean.api_client.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Dict, List, Mapping, Optional, Union
+from typing import Dict, Iterable, List, Mapping, Optional, Union
 
 
 class ClientTools(BaseSDK):
     def list(
         self,
         *,
-        tool_names: Optional[List[str]] = None,
+        tool_names: Optional[Iterable[str]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -40,7 +40,7 @@ class ClientTools(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetRestAPIV1ToolsListRequest(
-            tool_names=tool_names,
+            tool_names=utils.unmarshal(tool_names, Optional[List[str]]),
         )
 
         req = self._build_request(
@@ -77,6 +77,8 @@ class ClientTools(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Tools", "Tools"],
+                extensions={"x-visibility": "Preview"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -97,7 +99,7 @@ class ClientTools(BaseSDK):
     async def list_async(
         self,
         *,
-        tool_names: Optional[List[str]] = None,
+        tool_names: Optional[Iterable[str]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -124,7 +126,7 @@ class ClientTools(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetRestAPIV1ToolsListRequest(
-            tool_names=tool_names,
+            tool_names=utils.unmarshal(tool_names, Optional[List[str]]),
         )
 
         req = self._build_request_async(
@@ -161,6 +163,8 @@ class ClientTools(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Tools", "Tools"],
+                extensions={"x-visibility": "Preview"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -183,8 +187,8 @@ class ClientTools(BaseSDK):
         *,
         name: str,
         parameters: Union[
-            Dict[str, models.ToolsCallParameter],
-            Dict[str, models.ToolsCallParameterTypedDict],
+            Mapping[str, models.ToolsCallParameter],
+            Mapping[str, models.ToolsCallParameterTypedDict],
         ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -256,6 +260,8 @@ class ClientTools(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Tools", "Tools"],
+                extensions={"x-visibility": "Preview"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -278,8 +284,8 @@ class ClientTools(BaseSDK):
         *,
         name: str,
         parameters: Union[
-            Dict[str, models.ToolsCallParameter],
-            Dict[str, models.ToolsCallParameterTypedDict],
+            Mapping[str, models.ToolsCallParameter],
+            Mapping[str, models.ToolsCallParameterTypedDict],
         ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -351,6 +357,8 @@ class ClientTools(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Tools", "Tools"],
+                extensions={"x-visibility": "Preview"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

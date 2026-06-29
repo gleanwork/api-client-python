@@ -158705,3 +158705,19 @@ workflows:
               type: simple
       x-speakeasy-test-group: Datasources
       x-speakeasy-test-rebuild: true
+    - workflowId: createAgent
+      steps:
+        - stepId: test
+          operationId: createAgent
+          requestBody:
+            contentType: application/json
+            payload: {}
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"workflow":{"author":{"name":"George Clooney","obfuscatedId":"abc123"},"lastDraftSavedBy":{"name":"George Clooney","obfuscatedId":"abc123"},"lastUpdatedBy":{"name":"George Clooney","obfuscatedId":"abc123"}}}
+              type: simple
+      x-speakeasy-test-group: Agents
+      x-speakeasy-test-rebuild: true

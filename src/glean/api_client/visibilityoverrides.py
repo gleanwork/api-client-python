@@ -6,14 +6,14 @@ from glean.api_client._hooks import HookContext
 from glean.api_client.types import OptionalNullable, UNSET
 from glean.api_client.utils import get_security_from_env
 from glean.api_client.utils.unmarshal_json_response import unmarshal_json_response
-from typing import List, Mapping, Optional, Union
+from typing import Iterable, List, Mapping, Optional, Union
 
 
 class Visibilityoverrides(BaseSDK):
     def list(
         self,
         *,
-        doc_ids: Optional[List[str]] = None,
+        doc_ids: Optional[Iterable[str]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -40,7 +40,7 @@ class Visibilityoverrides(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetdocvisibilityRequest(
-            doc_ids=doc_ids,
+            doc_ids=utils.unmarshal(doc_ids, Optional[List[str]]),
         )
 
         req = self._build_request(
@@ -77,6 +77,8 @@ class Visibilityoverrides(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Governance"],
+                extensions={"x-visibility": "Public"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -99,7 +101,7 @@ class Visibilityoverrides(BaseSDK):
     async def list_async(
         self,
         *,
-        doc_ids: Optional[List[str]] = None,
+        doc_ids: Optional[Iterable[str]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -126,7 +128,7 @@ class Visibilityoverrides(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = models.GetdocvisibilityRequest(
-            doc_ids=doc_ids,
+            doc_ids=utils.unmarshal(doc_ids, Optional[List[str]]),
         )
 
         req = self._build_request_async(
@@ -163,6 +165,8 @@ class Visibilityoverrides(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Governance"],
+                extensions={"x-visibility": "Public"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -187,8 +191,8 @@ class Visibilityoverrides(BaseSDK):
         *,
         visibility_overrides: Optional[
             Union[
-                List[models.DocumentVisibilityOverride],
-                List[models.DocumentVisibilityOverrideTypedDict],
+                Iterable[models.DocumentVisibilityOverride],
+                Iterable[models.DocumentVisibilityOverrideTypedDict],
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -263,6 +267,8 @@ class Visibilityoverrides(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Governance"],
+                extensions={"x-visibility": "Public"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -287,8 +293,8 @@ class Visibilityoverrides(BaseSDK):
         *,
         visibility_overrides: Optional[
             Union[
-                List[models.DocumentVisibilityOverride],
-                List[models.DocumentVisibilityOverrideTypedDict],
+                Iterable[models.DocumentVisibilityOverride],
+                Iterable[models.DocumentVisibilityOverrideTypedDict],
             ]
         ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -363,6 +369,8 @@ class Visibilityoverrides(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Governance"],
+                extensions={"x-visibility": "Public"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

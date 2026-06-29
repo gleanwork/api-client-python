@@ -5,7 +5,7 @@ from glean.api_client import errors, models, utils
 from glean.api_client._hooks import HookContext
 from glean.api_client.types import BaseModel, OptionalNullable, UNSET
 from glean.api_client.utils import get_security_from_env
-from typing import List, Mapping, Optional, Union, cast
+from typing import Iterable, List, Mapping, Optional, Union, cast
 
 
 class IndexingPermissions(BaseSDK):
@@ -97,6 +97,8 @@ class IndexingPermissions(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Documents"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -202,6 +204,8 @@ class IndexingPermissions(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Documents"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -297,6 +301,8 @@ class IndexingPermissions(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Permissions"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -392,6 +398,8 @@ class IndexingPermissions(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Permissions"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -415,8 +423,8 @@ class IndexingPermissions(BaseSDK):
         upload_id: str,
         datasource: str,
         users: Union[
-            List[models.DatasourceUserDefinition],
-            List[models.DatasourceUserDefinitionTypedDict],
+            Iterable[models.DatasourceUserDefinition],
+            Iterable[models.DatasourceUserDefinitionTypedDict],
         ],
         is_first_page: Optional[bool] = None,
         is_last_page: Optional[bool] = None,
@@ -504,6 +512,8 @@ class IndexingPermissions(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Permissions"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -527,8 +537,8 @@ class IndexingPermissions(BaseSDK):
         upload_id: str,
         datasource: str,
         users: Union[
-            List[models.DatasourceUserDefinition],
-            List[models.DatasourceUserDefinitionTypedDict],
+            Iterable[models.DatasourceUserDefinition],
+            Iterable[models.DatasourceUserDefinitionTypedDict],
         ],
         is_first_page: Optional[bool] = None,
         is_last_page: Optional[bool] = None,
@@ -616,6 +626,8 @@ class IndexingPermissions(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Permissions"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -711,6 +723,8 @@ class IndexingPermissions(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Permissions"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -806,6 +820,8 @@ class IndexingPermissions(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Permissions"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -829,8 +845,8 @@ class IndexingPermissions(BaseSDK):
         upload_id: str,
         datasource: str,
         groups: Union[
-            List[models.DatasourceGroupDefinition],
-            List[models.DatasourceGroupDefinitionTypedDict],
+            Iterable[models.DatasourceGroupDefinition],
+            Iterable[models.DatasourceGroupDefinitionTypedDict],
         ],
         is_first_page: Optional[bool] = None,
         is_last_page: Optional[bool] = None,
@@ -918,6 +934,8 @@ class IndexingPermissions(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Permissions"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -941,8 +959,8 @@ class IndexingPermissions(BaseSDK):
         upload_id: str,
         datasource: str,
         groups: Union[
-            List[models.DatasourceGroupDefinition],
-            List[models.DatasourceGroupDefinitionTypedDict],
+            Iterable[models.DatasourceGroupDefinition],
+            Iterable[models.DatasourceGroupDefinitionTypedDict],
         ],
         is_first_page: Optional[bool] = None,
         is_last_page: Optional[bool] = None,
@@ -1030,6 +1048,8 @@ class IndexingPermissions(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Permissions"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1128,6 +1148,8 @@ class IndexingPermissions(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Permissions"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1226,6 +1248,8 @@ class IndexingPermissions(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Permissions"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1249,8 +1273,8 @@ class IndexingPermissions(BaseSDK):
         upload_id: str,
         datasource: str,
         memberships: Union[
-            List[models.DatasourceBulkMembershipDefinition],
-            List[models.DatasourceBulkMembershipDefinitionTypedDict],
+            Iterable[models.DatasourceBulkMembershipDefinition],
+            Iterable[models.DatasourceBulkMembershipDefinitionTypedDict],
         ],
         is_first_page: Optional[bool] = None,
         is_last_page: Optional[bool] = None,
@@ -1336,6 +1360,8 @@ class IndexingPermissions(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Permissions"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1359,8 +1385,8 @@ class IndexingPermissions(BaseSDK):
         upload_id: str,
         datasource: str,
         memberships: Union[
-            List[models.DatasourceBulkMembershipDefinition],
-            List[models.DatasourceBulkMembershipDefinitionTypedDict],
+            Iterable[models.DatasourceBulkMembershipDefinition],
+            Iterable[models.DatasourceBulkMembershipDefinitionTypedDict],
         ],
         is_first_page: Optional[bool] = None,
         is_last_page: Optional[bool] = None,
@@ -1446,6 +1472,8 @@ class IndexingPermissions(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Permissions"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1545,6 +1573,8 @@ class IndexingPermissions(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Permissions"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1644,6 +1674,8 @@ class IndexingPermissions(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Permissions"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1739,6 +1771,8 @@ class IndexingPermissions(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Permissions"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1834,6 +1868,8 @@ class IndexingPermissions(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Permissions"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1929,6 +1965,8 @@ class IndexingPermissions(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Permissions"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2024,6 +2062,8 @@ class IndexingPermissions(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Permissions"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2122,6 +2162,8 @@ class IndexingPermissions(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Permissions"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2220,6 +2262,8 @@ class IndexingPermissions(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Permissions"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2241,7 +2285,7 @@ class IndexingPermissions(BaseSDK):
         self,
         *,
         datasource: str,
-        emails: List[str],
+        emails: Iterable[str],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -2270,7 +2314,7 @@ class IndexingPermissions(BaseSDK):
 
         request = models.GreenlistUsersRequest(
             datasource=datasource,
-            emails=emails,
+            emails=utils.unmarshal(emails, List[str]),
         )
 
         req = self._build_request(
@@ -2310,6 +2354,8 @@ class IndexingPermissions(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Permissions"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -2331,7 +2377,7 @@ class IndexingPermissions(BaseSDK):
         self,
         *,
         datasource: str,
-        emails: List[str],
+        emails: Iterable[str],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -2360,7 +2406,7 @@ class IndexingPermissions(BaseSDK):
 
         request = models.GreenlistUsersRequest(
             datasource=datasource,
-            emails=emails,
+            emails=utils.unmarshal(emails, List[str]),
         )
 
         req = self._build_request_async(
@@ -2400,6 +2446,8 @@ class IndexingPermissions(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Permissions"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

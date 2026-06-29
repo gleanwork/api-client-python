@@ -6,7 +6,7 @@ from glean.api_client._hooks import HookContext
 from glean.api_client.types import OptionalNullable, UNSET
 from glean.api_client.utils import get_security_from_env
 from glean.api_client.utils.unmarshal_json_response import unmarshal_json_response
-from typing import List, Mapping, Optional, Union
+from typing import Iterable, List, Mapping, Optional, Union
 
 
 class IndexingDatasources(BaseSDK):
@@ -21,32 +21,35 @@ class IndexingDatasources(BaseSDK):
         url_regex: Optional[str] = None,
         icon_url: Optional[str] = None,
         object_definitions: Optional[
-            Union[List[models.ObjectDefinition], List[models.ObjectDefinitionTypedDict]]
+            Union[
+                Iterable[models.ObjectDefinition],
+                Iterable[models.ObjectDefinitionTypedDict],
+            ]
         ] = None,
         suggestion_text: Optional[str] = None,
         home_url: Optional[str] = None,
-        crawler_seed_urls: Optional[List[str]] = None,
+        crawler_seed_urls: Optional[Iterable[str]] = None,
         icon_dark_url: Optional[str] = None,
-        hide_built_in_facets: Optional[List[models.HideBuiltInFacet]] = None,
+        hide_built_in_facets: Optional[Iterable[models.HideBuiltInFacet]] = None,
         canonicalizing_url_regex: Optional[
             Union[
-                List[models.CanonicalizingRegexType],
-                List[models.CanonicalizingRegexTypeTypedDict],
+                Iterable[models.CanonicalizingRegexType],
+                Iterable[models.CanonicalizingRegexTypeTypedDict],
             ]
         ] = None,
         canonicalizing_title_regex: Optional[
             Union[
-                List[models.CanonicalizingRegexType],
-                List[models.CanonicalizingRegexTypeTypedDict],
+                Iterable[models.CanonicalizingRegexType],
+                Iterable[models.CanonicalizingRegexTypeTypedDict],
             ]
         ] = None,
         redlist_title_regex: Optional[str] = None,
         connector_type: Optional[models.CustomDatasourceConfigConnectorType] = None,
         quicklinks: Optional[
-            Union[List[models.Quicklink], List[models.QuicklinkTypedDict]]
+            Union[Iterable[models.Quicklink], Iterable[models.QuicklinkTypedDict]]
         ] = None,
         render_config_preset: Optional[str] = None,
-        aliases: Optional[List[str]] = None,
+        aliases: Optional[Iterable[str]] = None,
         is_on_prem: Optional[bool] = None,
         trust_url_regex_for_view_activity: Optional[bool] = True,
         include_utm_source: Optional[bool] = None,
@@ -118,9 +121,11 @@ class IndexingDatasources(BaseSDK):
             ),
             suggestion_text=suggestion_text,
             home_url=home_url,
-            crawler_seed_urls=crawler_seed_urls,
+            crawler_seed_urls=utils.unmarshal(crawler_seed_urls, Optional[List[str]]),
             icon_dark_url=icon_dark_url,
-            hide_built_in_facets=hide_built_in_facets,
+            hide_built_in_facets=utils.unmarshal(
+                hide_built_in_facets, Optional[List[models.HideBuiltInFacet]]
+            ),
             canonicalizing_url_regex=utils.get_pydantic_model(
                 canonicalizing_url_regex, Optional[List[models.CanonicalizingRegexType]]
             ),
@@ -134,7 +139,7 @@ class IndexingDatasources(BaseSDK):
                 quicklinks, Optional[List[models.Quicklink]]
             ),
             render_config_preset=render_config_preset,
-            aliases=aliases,
+            aliases=utils.unmarshal(aliases, Optional[List[str]]),
             is_on_prem=is_on_prem,
             trust_url_regex_for_view_activity=trust_url_regex_for_view_activity,
             include_utm_source=include_utm_source,
@@ -183,6 +188,8 @@ class IndexingDatasources(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Datasources"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -211,32 +218,35 @@ class IndexingDatasources(BaseSDK):
         url_regex: Optional[str] = None,
         icon_url: Optional[str] = None,
         object_definitions: Optional[
-            Union[List[models.ObjectDefinition], List[models.ObjectDefinitionTypedDict]]
+            Union[
+                Iterable[models.ObjectDefinition],
+                Iterable[models.ObjectDefinitionTypedDict],
+            ]
         ] = None,
         suggestion_text: Optional[str] = None,
         home_url: Optional[str] = None,
-        crawler_seed_urls: Optional[List[str]] = None,
+        crawler_seed_urls: Optional[Iterable[str]] = None,
         icon_dark_url: Optional[str] = None,
-        hide_built_in_facets: Optional[List[models.HideBuiltInFacet]] = None,
+        hide_built_in_facets: Optional[Iterable[models.HideBuiltInFacet]] = None,
         canonicalizing_url_regex: Optional[
             Union[
-                List[models.CanonicalizingRegexType],
-                List[models.CanonicalizingRegexTypeTypedDict],
+                Iterable[models.CanonicalizingRegexType],
+                Iterable[models.CanonicalizingRegexTypeTypedDict],
             ]
         ] = None,
         canonicalizing_title_regex: Optional[
             Union[
-                List[models.CanonicalizingRegexType],
-                List[models.CanonicalizingRegexTypeTypedDict],
+                Iterable[models.CanonicalizingRegexType],
+                Iterable[models.CanonicalizingRegexTypeTypedDict],
             ]
         ] = None,
         redlist_title_regex: Optional[str] = None,
         connector_type: Optional[models.CustomDatasourceConfigConnectorType] = None,
         quicklinks: Optional[
-            Union[List[models.Quicklink], List[models.QuicklinkTypedDict]]
+            Union[Iterable[models.Quicklink], Iterable[models.QuicklinkTypedDict]]
         ] = None,
         render_config_preset: Optional[str] = None,
-        aliases: Optional[List[str]] = None,
+        aliases: Optional[Iterable[str]] = None,
         is_on_prem: Optional[bool] = None,
         trust_url_regex_for_view_activity: Optional[bool] = True,
         include_utm_source: Optional[bool] = None,
@@ -308,9 +318,11 @@ class IndexingDatasources(BaseSDK):
             ),
             suggestion_text=suggestion_text,
             home_url=home_url,
-            crawler_seed_urls=crawler_seed_urls,
+            crawler_seed_urls=utils.unmarshal(crawler_seed_urls, Optional[List[str]]),
             icon_dark_url=icon_dark_url,
-            hide_built_in_facets=hide_built_in_facets,
+            hide_built_in_facets=utils.unmarshal(
+                hide_built_in_facets, Optional[List[models.HideBuiltInFacet]]
+            ),
             canonicalizing_url_regex=utils.get_pydantic_model(
                 canonicalizing_url_regex, Optional[List[models.CanonicalizingRegexType]]
             ),
@@ -324,7 +336,7 @@ class IndexingDatasources(BaseSDK):
                 quicklinks, Optional[List[models.Quicklink]]
             ),
             render_config_preset=render_config_preset,
-            aliases=aliases,
+            aliases=utils.unmarshal(aliases, Optional[List[str]]),
             is_on_prem=is_on_prem,
             trust_url_regex_for_view_activity=trust_url_regex_for_view_activity,
             include_utm_source=include_utm_source,
@@ -373,6 +385,8 @@ class IndexingDatasources(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Datasources"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -460,6 +474,8 @@ class IndexingDatasources(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Datasources"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -547,6 +563,8 @@ class IndexingDatasources(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Datasources"],
+                extensions=None,
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

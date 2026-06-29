@@ -16,3 +16,5 @@ class GroupType(str, Enum, metaclass=utils.OpenEnumMeta):
     LOCATION = "LOCATION"
     REGION = "REGION"
     EXTERNAL_GROUP = "EXTERNAL_GROUP"
+    # Refers to any viewers of the Collection.
+    COLLECTION_AUDIENCE = "COLLECTION_AUDIENCE"

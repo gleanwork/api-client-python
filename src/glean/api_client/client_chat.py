@@ -6,14 +6,16 @@ from glean.api_client._hooks import HookContext
 from glean.api_client.types import OptionalNullable, UNSET
 from glean.api_client.utils import get_security_from_env
 from glean.api_client.utils.unmarshal_json_response import unmarshal_json_response
-from typing import List, Mapping, Optional, Union
+from typing import Iterable, List, Mapping, Optional, Union
 
 
 class ClientChat(BaseSDK):
     def create(
         self,
         *,
-        messages: Union[List[models.ChatMessage], List[models.ChatMessageTypedDict]],
+        messages: Union[
+            Iterable[models.ChatMessage], Iterable[models.ChatMessageTypedDict]
+        ],
         locale: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         session_info: Optional[
@@ -134,13 +136,18 @@ class ClientChat(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Chat"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
+        if utils.match_response(http_res, ["200", "202"], "application/json"):
             return unmarshal_json_response(models.ChatResponse, http_res)
         if utils.match_response(http_res, ["400", "401", "408", "429", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
@@ -154,7 +161,9 @@ class ClientChat(BaseSDK):
     async def create_async(
         self,
         *,
-        messages: Union[List[models.ChatMessage], List[models.ChatMessageTypedDict]],
+        messages: Union[
+            Iterable[models.ChatMessage], Iterable[models.ChatMessageTypedDict]
+        ],
         locale: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         session_info: Optional[
@@ -275,13 +284,18 @@ class ClientChat(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Chat"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
             retry_config=retry_config,
         )
 
-        if utils.match_response(http_res, "200", "application/json"):
+        if utils.match_response(http_res, ["200", "202"], "application/json"):
             return unmarshal_json_response(models.ChatResponse, http_res)
         if utils.match_response(http_res, ["400", "401", "408", "429", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
@@ -362,6 +376,11 @@ class ClientChat(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Chat"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -449,6 +468,11 @@ class ClientChat(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Chat"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -469,7 +493,7 @@ class ClientChat(BaseSDK):
     def delete(
         self,
         *,
-        ids: List[str],
+        ids: Iterable[str],
         locale: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -503,7 +527,7 @@ class ClientChat(BaseSDK):
             locale=locale,
             timezone_offset=timezone_offset,
             delete_chats_request=models.DeleteChatsRequest(
-                ids=ids,
+                ids=utils.unmarshal(ids, List[str]),
             ),
         )
 
@@ -548,6 +572,11 @@ class ClientChat(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Chat"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -568,7 +597,7 @@ class ClientChat(BaseSDK):
     async def delete_async(
         self,
         *,
-        ids: List[str],
+        ids: Iterable[str],
         locale: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -602,7 +631,7 @@ class ClientChat(BaseSDK):
             locale=locale,
             timezone_offset=timezone_offset,
             delete_chats_request=models.DeleteChatsRequest(
-                ids=ids,
+                ids=utils.unmarshal(ids, List[str]),
             ),
         )
 
@@ -647,6 +676,11 @@ class ClientChat(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Chat"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -742,6 +776,11 @@ class ClientChat(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Chat"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -837,6 +876,11 @@ class ClientChat(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Chat"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -924,6 +968,11 @@ class ClientChat(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Chat"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1011,6 +1060,11 @@ class ClientChat(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Chat"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1110,6 +1164,11 @@ class ClientChat(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Chat"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Preview",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1209,6 +1268,11 @@ class ClientChat(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Chat"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Preview",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1229,7 +1293,7 @@ class ClientChat(BaseSDK):
     def upload_files(
         self,
         *,
-        files: Union[List[models.File], List[models.FileTypedDict]],
+        files: Union[Iterable[models.File], Iterable[models.FileTypedDict]],
         locale: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1308,6 +1372,8 @@ class ClientChat(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Chat"],
+                extensions={"x-visibility": "Public"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1328,7 +1394,7 @@ class ClientChat(BaseSDK):
     async def upload_files_async(
         self,
         *,
-        files: Union[List[models.File], List[models.FileTypedDict]],
+        files: Union[Iterable[models.File], Iterable[models.FileTypedDict]],
         locale: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1407,6 +1473,8 @@ class ClientChat(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Chat"],
+                extensions={"x-visibility": "Public"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1427,7 +1495,7 @@ class ClientChat(BaseSDK):
     def retrieve_files(
         self,
         *,
-        file_ids: List[str],
+        file_ids: Iterable[str],
         locale: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1461,7 +1529,7 @@ class ClientChat(BaseSDK):
             locale=locale,
             timezone_offset=timezone_offset,
             get_chat_files_request=models.GetChatFilesRequest(
-                file_ids=file_ids,
+                file_ids=utils.unmarshal(file_ids, List[str]),
             ),
         )
 
@@ -1506,6 +1574,8 @@ class ClientChat(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Chat"],
+                extensions={"x-visibility": "Public"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1526,7 +1596,7 @@ class ClientChat(BaseSDK):
     async def retrieve_files_async(
         self,
         *,
-        file_ids: List[str],
+        file_ids: Iterable[str],
         locale: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1560,7 +1630,7 @@ class ClientChat(BaseSDK):
             locale=locale,
             timezone_offset=timezone_offset,
             get_chat_files_request=models.GetChatFilesRequest(
-                file_ids=file_ids,
+                file_ids=utils.unmarshal(file_ids, List[str]),
             ),
         )
 
@@ -1605,6 +1675,8 @@ class ClientChat(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Chat"],
+                extensions={"x-visibility": "Public"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1625,7 +1697,7 @@ class ClientChat(BaseSDK):
     def delete_files(
         self,
         *,
-        file_ids: List[str],
+        file_ids: Iterable[str],
         locale: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1659,7 +1731,7 @@ class ClientChat(BaseSDK):
             locale=locale,
             timezone_offset=timezone_offset,
             delete_chat_files_request=models.DeleteChatFilesRequest(
-                file_ids=file_ids,
+                file_ids=utils.unmarshal(file_ids, List[str]),
             ),
         )
 
@@ -1704,6 +1776,8 @@ class ClientChat(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Chat"],
+                extensions={"x-visibility": "Public"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1724,7 +1798,7 @@ class ClientChat(BaseSDK):
     async def delete_files_async(
         self,
         *,
-        file_ids: List[str],
+        file_ids: Iterable[str],
         locale: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1758,7 +1832,7 @@ class ClientChat(BaseSDK):
             locale=locale,
             timezone_offset=timezone_offset,
             delete_chat_files_request=models.DeleteChatFilesRequest(
-                file_ids=file_ids,
+                file_ids=utils.unmarshal(file_ids, List[str]),
             ),
         )
 
@@ -1803,6 +1877,8 @@ class ClientChat(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Chat"],
+                extensions={"x-visibility": "Public"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1823,7 +1899,9 @@ class ClientChat(BaseSDK):
     def create_stream(
         self,
         *,
-        messages: Union[List[models.ChatMessage], List[models.ChatMessageTypedDict]],
+        messages: Union[
+            Iterable[models.ChatMessage], Iterable[models.ChatMessageTypedDict]
+        ],
         timezone_offset: Optional[int] = None,
         session_info: Optional[
             Union[models.SessionInfo, models.SessionInfoTypedDict]
@@ -1941,6 +2019,11 @@ class ClientChat(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Chat"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1961,7 +2044,9 @@ class ClientChat(BaseSDK):
     async def create_stream_async(
         self,
         *,
-        messages: Union[List[models.ChatMessage], List[models.ChatMessageTypedDict]],
+        messages: Union[
+            Iterable[models.ChatMessage], Iterable[models.ChatMessageTypedDict]
+        ],
         timezone_offset: Optional[int] = None,
         session_info: Optional[
             Union[models.SessionInfo, models.SessionInfoTypedDict]
@@ -2079,6 +2164,11 @@ class ClientChat(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Chat"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

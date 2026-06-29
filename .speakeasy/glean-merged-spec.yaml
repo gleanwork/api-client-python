@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   version: 0.9.0
   title: Glean API
-  x-source-commit-sha: deacbe1e0fd0b5074c1b1445f05b4a5df529f487
+  x-source-commit-sha: 52a3263df71e58b10c98865e6b4a6f9a29f293db
   description: |
     # Introduction
     In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This is useful, for example, for doing permissions-aware search over content in internal tools that reside on-prem as well as for searching over applications that Glean does not currently support first class. In addition these APIs allow the customer to push organization data (people info, organization structure etc) into Glean.
@@ -22,7 +22,7 @@ info:
     These API clients provide type-safe, idiomatic interfaces for working with Glean IndexingAPIs in your language of choice.
   x-logo:
     url: https://app.glean.com/images/glean-text2.svg
-  x-open-api-commit-sha: 7de1c5956c93a8bdd7b4a2c6a4c6fd98b0c4df70
+  x-open-api-commit-sha: d3cdeccde1b5f13944a9e3958f651e8f61c667d6
   x-speakeasy-name: 'Glean API'
 servers:
   - url: https://{instance}-be.glean.com
@@ -569,6 +569,23 @@ paths:
                                     startIndex: 0
                                     endIndex: 12
                                     type: CITATION
+        "202":
+          description: |
+            Request accepted but not yet processed. Returned when another
+            in-flight request is already running for the same chat session;
+            the body's `queuedRequestId` identifies the deferred run and
+            output will be persisted to the chat session referenced by
+            `chatId`.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ChatResponse"
+              examples:
+                queuedExample:
+                  value:
+                    chatId: abc123
+                    queuedRequestId: qr-xyz
+                    isSavedToChatHistory: true
         "400":
           description: Invalid request
         "401":
@@ -893,6 +910,40 @@ paths:
           description: Internal server error.
       security:
         - APIToken: []
+  /rest/api/v1/agents:
+    post:
+      tags:
+        - Agents
+      summary: Create an agent
+      description: Create an agent.
+      operationId: createAgent
+      x-visibility: Preview
+      parameters:
+        - $ref: "#/components/parameters/locale"
+        - $ref: "#/components/parameters/timezoneOffset"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateWorkflowRequest"
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateWorkflowResponse"
+        "400":
+          description: Bad request
+        "401":
+          description: Not Authorized
+        "403":
+          description: Forbidden
+        "500":
+          description: Internal server error
+      security:
+        - APIToken: []
   /rest/api/v1/agents/{agent_id}:
     get:
       tags:
@@ -1090,7 +1141,7 @@ paths:
             text/event-stream:
               schema:
                 type: string
-                description: The server will send a stream of events in server-sent events (SSE) format.
+                description: The server will send a stream of events in server-sent events (SSE) format. If execution fails after the stream has started, the stream may terminate with an error message in a normal `message` event.
                 example: |
                   id: 1
                   event: message
@@ -4658,6 +4709,8 @@ components:
     APIToken:
       scheme: bearer
       type: http
+      description: >-
+        HTTP bearer token. Accepts a Glean-issued API token, an OAuth access token from the Glean OAuth Authorization Server (including Dynamic Client Registration clients), or an OAuth access token issued by an external identity provider. External-IdP OAuth tokens must also include the `X-Glean-Auth-Type: OAUTH` request header. OAuth is supported on the Client API only; the Indexing API requires a Glean-issued token.
   schemas:
     ActivityEventParams:
       properties:
@@ -6002,6 +6055,8 @@ components:
     GroupType:
       type: string
       description: The type of user group
+      x-enumDescriptions:
+        COLLECTION_AUDIENCE: Refers to any viewers of the Collection.
       enum:
         - DEPARTMENT
         - ALL
@@ -6011,6 +6066,9 @@ components:
         - LOCATION
         - REGION
         - EXTERNAL_GROUP
+        - COLLECTION_AUDIENCE
+      x-speakeasy-enum-descriptions:
+        COLLECTION_AUDIENCE: Refers to any viewers of the Collection.
     Group:
       required:
         - type
@@ -8973,6 +9031,80 @@ components:
           items:
             type: string
           description: IDs of files to delete.
+    WorkflowDraftableProperties:
+      properties:
+        name:
+          type: string
+          description: The name of the workflow.
+    WorkflowMutableProperties:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/WorkflowDraftableProperties"
+        - type: object
+    CreateWorkflowRequest:
+      allOf:
+        - $ref: "#/components/schemas/WorkflowMutableProperties"
+        - type: object
+          properties:
+            transient:
+              type: boolean
+              description: Used to create a transient workflow.
+            parentWorkflowId:
+              type: string
+              description: id of the parent workflow for transient workflows
+    WorkflowMetadata:
+      allOf:
+        - type: object
+          properties:
+            author:
+              $ref: "#/components/schemas/Person"
+            createTimestamp:
+              type: integer
+              description: Server Unix timestamp of the creation time.
+            lastUpdateTimestamp:
+              type: integer
+              description: Server Unix timestamp of the last update time.
+            lastDraftSavedAt:
+              type: integer
+              description: Server Unix timestamp of the last time the draft was saved.
+            lastDraftSavedBy:
+              description: The person who last saved the draft.
+              $ref: "#/components/schemas/Person"
+            lastDraftGitAuthorId:
+              type: string
+              description: ID of the VCS user (e.g. GitHub username) who last saved the draft. Set only by the draft save path via the external Git integration API.
+            lastUpdatedBy:
+              $ref: "#/components/schemas/Person"
+    AttributionProperties: {}
+    Workflow:
+      allOf:
+        - $ref: "#/components/schemas/PermissionedObject"
+        - $ref: "#/components/schemas/WorkflowMutableProperties"
+        - $ref: "#/components/schemas/WorkflowMetadata"
+        - $ref: "#/components/schemas/AttributionProperties"
+        - type: object
+          properties:
+            id:
+              type: string
+              description: The ID of the workflow.
+            verified:
+              type: boolean
+              readOnly: true
+              description: When present, indicates this workflow is admin-verified. Set via the dedicated admin settings endpoint, not by regular edits.
+            showOrganizationAsAuthor:
+              type: boolean
+              readOnly: true
+              description: When true, displays organization name instead of author name in agent card. Set via the dedicated admin settings endpoint, not by regular edits.
+    WorkflowResult:
+      type: object
+      required:
+        - workflow
+      properties:
+        workflow:
+          $ref: "#/components/schemas/Workflow"
+    CreateWorkflowResponse:
+      allOf:
+        - $ref: "#/components/schemas/WorkflowResult"
     Agent:
       title: Agent
       type: object
@@ -9025,16 +9157,6 @@ components:
         message:
           type: string
           description: Client-facing error message describing what went wrong
-    WorkflowDraftableProperties:
-      properties:
-        name:
-          type: string
-          description: The name of the workflow.
-    WorkflowMutableProperties:
-      type: object
-      allOf:
-        - $ref: "#/components/schemas/WorkflowDraftableProperties"
-        - type: object
     EditWorkflowRequest:
       allOf:
         - $ref: "#/components/schemas/WorkflowMutableProperties"
@@ -10985,6 +11107,7 @@ components:
               - MID_DAY_CATCH_UP
               - QUERY_SUGGESTION
               - COWORK_CUJ_PROMO
+              - CARD_STACK_PROMO
               - WEEKLY_MEETINGS
               - FOLLOW_UP
               - MILESTONE_TIMELINE_CHECK
@@ -11293,7 +11416,6 @@ components:
           description: A list of removed user roles for the Workflow.
           items:
             $ref: "#/components/schemas/UserRoleSpecification"
-    AttributionProperties: {}
     PromptTemplate:
       allOf:
         - $ref: "#/components/schemas/PromptTemplateMutableProperties"
@@ -11369,55 +11491,6 @@ components:
         runCount:
           $ref: "#/components/schemas/CountInfo"
           description: This tracks how many times this prompt template was run. If user runs a prompt template after modifying the original one, it still counts as a run for the original template.
-    WorkflowMetadata:
-      allOf:
-        - type: object
-          properties:
-            author:
-              $ref: "#/components/schemas/Person"
-            createTimestamp:
-              type: integer
-              description: Server Unix timestamp of the creation time.
-            lastUpdateTimestamp:
-              type: integer
-              description: Server Unix timestamp of the last update time.
-            lastDraftSavedAt:
-              type: integer
-              description: Server Unix timestamp of the last time the draft was saved.
-            lastDraftSavedBy:
-              description: The person who last saved the draft.
-              $ref: "#/components/schemas/Person"
-            lastDraftGitAuthorId:
-              type: string
-              description: ID of the VCS user (e.g. GitHub username) who last saved the draft. Set only by the draft save path via the external Git integration API.
-            lastUpdatedBy:
-              $ref: "#/components/schemas/Person"
-    Workflow:
-      allOf:
-        - $ref: "#/components/schemas/PermissionedObject"
-        - $ref: "#/components/schemas/WorkflowMutableProperties"
-        - $ref: "#/components/schemas/WorkflowMetadata"
-        - $ref: "#/components/schemas/AttributionProperties"
-        - type: object
-          properties:
-            id:
-              type: string
-              description: The ID of the workflow.
-            verified:
-              type: boolean
-              readOnly: true
-              description: When present, indicates this workflow is admin-verified. Set via the dedicated admin settings endpoint, not by regular edits.
-            showOrganizationAsAuthor:
-              type: boolean
-              readOnly: true
-              description: When true, displays organization name instead of author name in agent card. Set via the dedicated admin settings endpoint, not by regular edits.
-    WorkflowResult:
-      type: object
-      required:
-        - workflow
-      properties:
-        workflow:
-          $ref: "#/components/schemas/Workflow"
     UserActivity:
       properties:
         actor:
@@ -11514,6 +11587,7 @@ components:
             - MID_DAY_CATCH_UP
             - QUERY_SUGGESTION
             - COWORK_CUJ_PROMO
+            - CARD_STACK_PROMO
             - WEEKLY_MEETINGS
             - FOLLOW_UP
             - MILESTONE_TIMELINE_CHECK
@@ -11602,6 +11676,7 @@ components:
             - MID_DAY_CATCH_UP
             - QUERY_SUGGESTION
             - COWORK_CUJ_PROMO
+            - CARD_STACK_PROMO
             - WEEKLY_MEETINGS
             - FOLLOW_UP
             - MILESTONE_TIMELINE_CHECK
@@ -11622,6 +11697,12 @@ components:
         rank:
           type: integer
           description: Rank of the result. Rank is suggested by server. Client side rank may differ.
+        placementReason:
+          type: string
+          enum:
+            - ORGANIC
+            - PROMO
+          description: Placement source for ranked feed results. ORGANIC means the card was emitted by normal feed ranking. PROMO means the card was inserted by the homepage cards promo framework.
     FeedResponse:
       required:
         - serverTimestamp
@@ -14272,7 +14353,12 @@ components:
           items:
             type: string
           description: list of words and phrases to consider as whitelisted content
-      description: Terms that are allow-listed during the scans. If any finding picked up by a rule exactly matches a term in the allow-list, it will not be counted as a violation.
+        regexes:
+          type: array
+          items:
+            type: string
+          description: list of regular expressions whose matches are considered whitelisted content
+      description: Terms and regexes that are allow-listed during the scans. If any finding picked up by a rule exactly matches a term, or matches a regex, in the allow-list, it will not be counted as a violation.
     DlpConfig:
       properties:
         version:

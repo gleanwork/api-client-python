@@ -6,7 +6,7 @@ from glean.api_client._hooks import HookContext
 from glean.api_client.types import OptionalNullable, UNSET
 from glean.api_client.utils import get_security_from_env
 from glean.api_client.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, Dict, List, Mapping, Optional, Union
+from typing import Any, Dict, Iterable, List, Mapping, Optional, Union
 
 
 class ClientAgents(BaseSDK):
@@ -83,6 +83,8 @@ class ClientAgents(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Agents"],
+                extensions={"x-visibility": "Preview"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -177,6 +179,8 @@ class ClientAgents(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Agents"],
+                extensions={"x-visibility": "Preview"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -271,6 +275,8 @@ class ClientAgents(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Agents"],
+                extensions={"x-visibility": "Preview"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -365,6 +371,8 @@ class ClientAgents(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Agents"],
+                extensions={"x-visibility": "Preview"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -456,6 +464,8 @@ class ClientAgents(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Agents"],
+                extensions={"x-visibility": "Preview"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -547,6 +557,8 @@ class ClientAgents(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Agents"],
+                extensions={"x-visibility": "Preview"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -572,11 +584,11 @@ class ClientAgents(BaseSDK):
         self,
         *,
         agent_id: str,
-        input: Optional[Dict[str, Any]] = None,
+        input: Optional[Mapping[str, Any]] = None,
         messages: Optional[
-            Union[List[models.Message], List[models.MessageTypedDict]]
+            Union[Iterable[models.Message], Iterable[models.MessageTypedDict]]
         ] = None,
-        metadata: Optional[Dict[str, Any]] = None,
+        metadata: Optional[Mapping[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -607,9 +619,9 @@ class ClientAgents(BaseSDK):
 
         request = models.AgentRunCreate(
             agent_id=agent_id,
-            input=input,
+            input=utils.unmarshal(input, Optional[Dict[str, Any]]),
             messages=utils.get_pydantic_model(messages, Optional[List[models.Message]]),
-            metadata=metadata,
+            metadata=utils.unmarshal(metadata, Optional[Dict[str, Any]]),
         )
 
         req = self._build_request(
@@ -649,6 +661,8 @@ class ClientAgents(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Agents"],
+                extensions={"x-visibility": "Preview"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -674,11 +688,11 @@ class ClientAgents(BaseSDK):
         self,
         *,
         agent_id: str,
-        input: Optional[Dict[str, Any]] = None,
+        input: Optional[Mapping[str, Any]] = None,
         messages: Optional[
-            Union[List[models.Message], List[models.MessageTypedDict]]
+            Union[Iterable[models.Message], Iterable[models.MessageTypedDict]]
         ] = None,
-        metadata: Optional[Dict[str, Any]] = None,
+        metadata: Optional[Mapping[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -709,9 +723,9 @@ class ClientAgents(BaseSDK):
 
         request = models.AgentRunCreate(
             agent_id=agent_id,
-            input=input,
+            input=utils.unmarshal(input, Optional[Dict[str, Any]]),
             messages=utils.get_pydantic_model(messages, Optional[List[models.Message]]),
-            metadata=metadata,
+            metadata=utils.unmarshal(metadata, Optional[Dict[str, Any]]),
         )
 
         req = self._build_request_async(
@@ -751,6 +765,8 @@ class ClientAgents(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Agents"],
+                extensions={"x-visibility": "Preview"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -776,11 +792,11 @@ class ClientAgents(BaseSDK):
         self,
         *,
         agent_id: str,
-        input: Optional[Dict[str, Any]] = None,
+        input: Optional[Mapping[str, Any]] = None,
         messages: Optional[
-            Union[List[models.Message], List[models.MessageTypedDict]]
+            Union[Iterable[models.Message], Iterable[models.MessageTypedDict]]
         ] = None,
-        metadata: Optional[Dict[str, Any]] = None,
+        metadata: Optional[Mapping[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -811,9 +827,9 @@ class ClientAgents(BaseSDK):
 
         request = models.AgentRunCreate(
             agent_id=agent_id,
-            input=input,
+            input=utils.unmarshal(input, Optional[Dict[str, Any]]),
             messages=utils.get_pydantic_model(messages, Optional[List[models.Message]]),
-            metadata=metadata,
+            metadata=utils.unmarshal(metadata, Optional[Dict[str, Any]]),
         )
 
         req = self._build_request(
@@ -853,6 +869,8 @@ class ClientAgents(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Agents"],
+                extensions={"x-visibility": "Preview"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -876,11 +894,11 @@ class ClientAgents(BaseSDK):
         self,
         *,
         agent_id: str,
-        input: Optional[Dict[str, Any]] = None,
+        input: Optional[Mapping[str, Any]] = None,
         messages: Optional[
-            Union[List[models.Message], List[models.MessageTypedDict]]
+            Union[Iterable[models.Message], Iterable[models.MessageTypedDict]]
         ] = None,
-        metadata: Optional[Dict[str, Any]] = None,
+        metadata: Optional[Mapping[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -911,9 +929,9 @@ class ClientAgents(BaseSDK):
 
         request = models.AgentRunCreate(
             agent_id=agent_id,
-            input=input,
+            input=utils.unmarshal(input, Optional[Dict[str, Any]]),
             messages=utils.get_pydantic_model(messages, Optional[List[models.Message]]),
-            metadata=metadata,
+            metadata=utils.unmarshal(metadata, Optional[Dict[str, Any]]),
         )
 
         req = self._build_request_async(
@@ -953,6 +971,8 @@ class ClientAgents(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Agents"],
+                extensions={"x-visibility": "Preview"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

@@ -7,7 +7,7 @@ from glean.api_client._hooks import HookContext
 from glean.api_client.types import OptionalNullable, UNSET
 from glean.api_client.utils import get_security_from_env
 from glean.api_client.utils.unmarshal_json_response import unmarshal_json_response
-from typing import List, Mapping, Optional, Union
+from typing import Iterable, List, Mapping, Optional, Union
 
 
 class ClientDocuments(BaseSDK):
@@ -90,6 +90,11 @@ class ClientDocuments(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Documents"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Preview",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -186,6 +191,11 @@ class ClientDocuments(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Documents"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Preview",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -284,6 +294,11 @@ class ClientDocuments(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Documents"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -382,6 +397,11 @@ class ClientDocuments(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Documents"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -486,6 +506,11 @@ class ClientDocuments(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Documents"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Preview",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -592,6 +617,11 @@ class ClientDocuments(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Documents"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Preview",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -615,7 +645,8 @@ class ClientDocuments(BaseSDK):
         self,
         *,
         document_specs: Union[
-            List[models.DocumentSpecUnion], List[models.DocumentSpecUnionTypedDict]
+            Iterable[models.DocumentSpecUnion],
+            Iterable[models.DocumentSpecUnionTypedDict],
         ],
         locale: Optional[str] = None,
         timestamp: Optional[datetime] = None,
@@ -702,6 +733,11 @@ class ClientDocuments(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Summarize"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -723,7 +759,8 @@ class ClientDocuments(BaseSDK):
         self,
         *,
         document_specs: Union[
-            List[models.DocumentSpecUnion], List[models.DocumentSpecUnionTypedDict]
+            Iterable[models.DocumentSpecUnion],
+            Iterable[models.DocumentSpecUnionTypedDict],
         ],
         locale: Optional[str] = None,
         timestamp: Optional[datetime] = None,
@@ -810,6 +847,11 @@ class ClientDocuments(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
+                tags=["Summarize"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

@@ -101,6 +101,7 @@ const (
 	JustificationTypeMidDayCatchUp                     JustificationType = "MID_DAY_CATCH_UP"
 	JustificationTypeQuerySuggestion                   JustificationType = "QUERY_SUGGESTION"
 	JustificationTypeCoworkCujPromo                    JustificationType = "COWORK_CUJ_PROMO"
+	JustificationTypeCardStackPromo                    JustificationType = "CARD_STACK_PROMO"
 	JustificationTypeWeeklyMeetings                    JustificationType = "WEEKLY_MEETINGS"
 	JustificationTypeFollowUp                          JustificationType = "FOLLOW_UP"
 	JustificationTypeMilestoneTimelineCheck            JustificationType = "MILESTONE_TIMELINE_CHECK"
@@ -210,6 +211,8 @@ func (e *JustificationType) UnmarshalJSON(data []byte) error {
 	case "QUERY_SUGGESTION":
 		fallthrough
 	case "COWORK_CUJ_PROMO":
+		fallthrough
+	case "CARD_STACK_PROMO":
 		fallthrough
 	case "WEEKLY_MEETINGS":
 		fallthrough
