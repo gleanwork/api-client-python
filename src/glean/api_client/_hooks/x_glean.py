@@ -5,6 +5,14 @@ from typing import Optional, Union
 import httpx
 from glean.api_client._hooks.types import BeforeRequestContext, BeforeRequestHook
 
+# Header names
+EXCLUDE_DEPRECATED_AFTER_HEADER = "X-Glean-Exclude-Deprecated-After"
+INCLUDE_EXPERIMENTAL_HEADER = "X-Glean-Include-Experimental"
+
+# Environment variable names
+EXCLUDE_DEPRECATED_AFTER_ENV_VAR = "X_GLEAN_EXCLUDE_DEPRECATED_AFTER"
+INCLUDE_EXPERIMENTAL_ENV_VAR = "X_GLEAN_INCLUDE_EXPERIMENTAL"
+
 
 def _get_first_value(
     env_value: Optional[str],
@@ -48,7 +56,7 @@ class XGlean(BeforeRequestHook):
         """
         # Get deprecated value - env var takes precedence
         deprecated_value = _get_first_value(
-            os.environ.get("X_GLEAN_EXCLUDE_DEPRECATED_AFTER"),
+            os.environ.get(EXCLUDE_DEPRECATED_AFTER_ENV_VAR),
             getattr(hook_ctx.config, "exclude_deprecated_after", None),
         )
 
@@ -57,14 +65,14 @@ class XGlean(BeforeRequestHook):
             "true" if getattr(hook_ctx.config, "include_experimental", None) is True else None
         )
         experimental_value = _get_first_value(
-            os.environ.get("X_GLEAN_INCLUDE_EXPERIMENTAL"),
+            os.environ.get(INCLUDE_EXPERIMENTAL_ENV_VAR),
             config_experimental,
         )
 
         if deprecated_value:
-            request.headers["X-Glean-Exclude-Deprecated-After"] = deprecated_value
+            request.headers[EXCLUDE_DEPRECATED_AFTER_HEADER] = deprecated_value
 
         if experimental_value:
-            request.headers["X-Glean-Include-Experimental"] = experimental_value
+            request.headers[INCLUDE_EXPERIMENTAL_HEADER] = experimental_value
 
         return request

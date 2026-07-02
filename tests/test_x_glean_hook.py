@@ -6,7 +6,13 @@ from unittest.mock import Mock
 import httpx
 import pytest
 
-from src.glean.api_client._hooks.x_glean import XGlean
+from src.glean.api_client._hooks.x_glean import (
+    XGlean,
+    EXCLUDE_DEPRECATED_AFTER_HEADER,
+    INCLUDE_EXPERIMENTAL_HEADER,
+    EXCLUDE_DEPRECATED_AFTER_ENV_VAR,
+    INCLUDE_EXPERIMENTAL_ENV_VAR,
+)
 from src.glean.api_client._hooks.types import BeforeRequestContext, HookContext
 from src.glean.api_client.sdkconfiguration import SDKConfiguration
 
@@ -43,25 +49,25 @@ class TestXGleanHook:
     def clear_env_vars(self):
         """Clear X-Glean environment variables before and after each test."""
         # Store original values
-        original_deprecated = os.environ.get("X_GLEAN_EXCLUDE_DEPRECATED_AFTER")
-        original_experimental = os.environ.get("X_GLEAN_INCLUDE_EXPERIMENTAL")
+        original_deprecated = os.environ.get(EXCLUDE_DEPRECATED_AFTER_ENV_VAR)
+        original_experimental = os.environ.get(INCLUDE_EXPERIMENTAL_ENV_VAR)
 
         # Clear for test
-        os.environ.pop("X_GLEAN_EXCLUDE_DEPRECATED_AFTER", None)
-        os.environ.pop("X_GLEAN_INCLUDE_EXPERIMENTAL", None)
+        os.environ.pop(EXCLUDE_DEPRECATED_AFTER_ENV_VAR, None)
+        os.environ.pop(INCLUDE_EXPERIMENTAL_ENV_VAR, None)
 
         yield
 
         # Restore original values
         if original_deprecated is not None:
-            os.environ["X_GLEAN_EXCLUDE_DEPRECATED_AFTER"] = original_deprecated
+            os.environ[EXCLUDE_DEPRECATED_AFTER_ENV_VAR] = original_deprecated
         else:
-            os.environ.pop("X_GLEAN_EXCLUDE_DEPRECATED_AFTER", None)
+            os.environ.pop(EXCLUDE_DEPRECATED_AFTER_ENV_VAR, None)
 
         if original_experimental is not None:
-            os.environ["X_GLEAN_INCLUDE_EXPERIMENTAL"] = original_experimental
+            os.environ[INCLUDE_EXPERIMENTAL_ENV_VAR] = original_experimental
         else:
-            os.environ.pop("X_GLEAN_INCLUDE_EXPERIMENTAL", None)
+            os.environ.pop(INCLUDE_EXPERIMENTAL_ENV_VAR, None)
 
     def test_no_headers_when_neither_options_nor_env_vars_set(self):
         """Should not set any X-Glean headers when nothing is configured."""
@@ -71,8 +77,8 @@ class TestXGleanHook:
 
         result = hook.before_request(context, request)
 
-        assert "X-Glean-Exclude-Deprecated-After" not in result.headers
-        assert "X-Glean-Include-Experimental" not in result.headers
+        assert EXCLUDE_DEPRECATED_AFTER_HEADER not in result.headers
+        assert INCLUDE_EXPERIMENTAL_HEADER not in result.headers
 
     def test_sets_deprecated_header_from_sdk_option(self):
         """Should set X-Glean-Exclude-Deprecated-After header from SDK option."""
@@ -82,7 +88,7 @@ class TestXGleanHook:
 
         result = hook.before_request(context, request)
 
-        assert result.headers.get("X-Glean-Exclude-Deprecated-After") == "2026-10-15"
+        assert result.headers.get(EXCLUDE_DEPRECATED_AFTER_HEADER) == "2026-10-15"
 
     def test_sets_experimental_header_when_include_experimental_is_true(self):
         """Should set X-Glean-Include-Experimental header when includeExperimental is True."""
@@ -92,7 +98,7 @@ class TestXGleanHook:
 
         result = hook.before_request(context, request)
 
-        assert result.headers.get("X-Glean-Include-Experimental") == "true"
+        assert result.headers.get(INCLUDE_EXPERIMENTAL_HEADER) == "true"
 
     def test_no_experimental_header_when_include_experimental_is_false(self):
         """Should not set X-Glean-Include-Experimental header when includeExperimental is False."""
@@ -102,7 +108,7 @@ class TestXGleanHook:
 
         result = hook.before_request(context, request)
 
-        assert "X-Glean-Include-Experimental" not in result.headers
+        assert INCLUDE_EXPERIMENTAL_HEADER not in result.headers
 
     def test_sets_both_headers_when_both_options_provided(self):
         """Should set both headers when both options are provided."""
@@ -115,12 +121,12 @@ class TestXGleanHook:
 
         result = hook.before_request(context, request)
 
-        assert result.headers.get("X-Glean-Exclude-Deprecated-After") == "2026-10-15"
-        assert result.headers.get("X-Glean-Include-Experimental") == "true"
+        assert result.headers.get(EXCLUDE_DEPRECATED_AFTER_HEADER) == "2026-10-15"
+        assert result.headers.get(INCLUDE_EXPERIMENTAL_HEADER) == "true"
 
     def test_sets_deprecated_header_from_env_var(self):
         """Should set X-Glean-Exclude-Deprecated-After header from environment variable."""
-        os.environ["X_GLEAN_EXCLUDE_DEPRECATED_AFTER"] = "2027-01-01"
+        os.environ[EXCLUDE_DEPRECATED_AFTER_ENV_VAR] = "2027-01-01"
 
         hook = XGlean()
         request = create_mock_request()
@@ -128,11 +134,11 @@ class TestXGleanHook:
 
         result = hook.before_request(context, request)
 
-        assert result.headers.get("X-Glean-Exclude-Deprecated-After") == "2027-01-01"
+        assert result.headers.get(EXCLUDE_DEPRECATED_AFTER_HEADER) == "2027-01-01"
 
     def test_sets_experimental_header_from_env_var(self):
         """Should set X-Glean-Include-Experimental header from environment variable."""
-        os.environ["X_GLEAN_INCLUDE_EXPERIMENTAL"] = "true"
+        os.environ[INCLUDE_EXPERIMENTAL_ENV_VAR] = "true"
 
         hook = XGlean()
         request = create_mock_request()
@@ -140,12 +146,12 @@ class TestXGleanHook:
 
         result = hook.before_request(context, request)
 
-        assert result.headers.get("X-Glean-Include-Experimental") == "true"
+        assert result.headers.get(INCLUDE_EXPERIMENTAL_HEADER) == "true"
 
     def test_sets_both_headers_from_env_vars(self):
         """Should set both headers from environment variables."""
-        os.environ["X_GLEAN_EXCLUDE_DEPRECATED_AFTER"] = "2027-06-15"
-        os.environ["X_GLEAN_INCLUDE_EXPERIMENTAL"] = "true"
+        os.environ[EXCLUDE_DEPRECATED_AFTER_ENV_VAR] = "2027-06-15"
+        os.environ[INCLUDE_EXPERIMENTAL_ENV_VAR] = "true"
 
         hook = XGlean()
         request = create_mock_request()
@@ -153,12 +159,12 @@ class TestXGleanHook:
 
         result = hook.before_request(context, request)
 
-        assert result.headers.get("X-Glean-Exclude-Deprecated-After") == "2027-06-15"
-        assert result.headers.get("X-Glean-Include-Experimental") == "true"
+        assert result.headers.get(EXCLUDE_DEPRECATED_AFTER_HEADER) == "2027-06-15"
+        assert result.headers.get(INCLUDE_EXPERIMENTAL_HEADER) == "true"
 
     def test_env_var_takes_precedence_for_deprecated(self):
         """Environment variable should take precedence over SDK option for deprecated."""
-        os.environ["X_GLEAN_EXCLUDE_DEPRECATED_AFTER"] = "2027-12-31"
+        os.environ[EXCLUDE_DEPRECATED_AFTER_ENV_VAR] = "2027-12-31"
 
         hook = XGlean()
         request = create_mock_request()
@@ -166,11 +172,11 @@ class TestXGleanHook:
 
         result = hook.before_request(context, request)
 
-        assert result.headers.get("X-Glean-Exclude-Deprecated-After") == "2027-12-31"
+        assert result.headers.get(EXCLUDE_DEPRECATED_AFTER_HEADER) == "2027-12-31"
 
     def test_env_var_takes_precedence_for_experimental(self):
         """Environment variable should take precedence over SDK option for experimental."""
-        os.environ["X_GLEAN_INCLUDE_EXPERIMENTAL"] = "true"
+        os.environ[INCLUDE_EXPERIMENTAL_ENV_VAR] = "true"
 
         hook = XGlean()
         request = create_mock_request()
@@ -178,12 +184,12 @@ class TestXGleanHook:
 
         result = hook.before_request(context, request)
 
-        assert result.headers.get("X-Glean-Include-Experimental") == "true"
+        assert result.headers.get(INCLUDE_EXPERIMENTAL_HEADER) == "true"
 
     def test_env_vars_take_precedence_for_both_headers(self):
         """Environment variables should take precedence for both headers when all are set."""
-        os.environ["X_GLEAN_EXCLUDE_DEPRECATED_AFTER"] = "2028-01-01"
-        os.environ["X_GLEAN_INCLUDE_EXPERIMENTAL"] = "true"
+        os.environ[EXCLUDE_DEPRECATED_AFTER_ENV_VAR] = "2028-01-01"
+        os.environ[INCLUDE_EXPERIMENTAL_ENV_VAR] = "true"
 
         hook = XGlean()
         request = create_mock_request()
@@ -194,8 +200,8 @@ class TestXGleanHook:
 
         result = hook.before_request(context, request)
 
-        assert result.headers.get("X-Glean-Exclude-Deprecated-After") == "2028-01-01"
-        assert result.headers.get("X-Glean-Include-Experimental") == "true"
+        assert result.headers.get(EXCLUDE_DEPRECATED_AFTER_HEADER) == "2028-01-01"
+        assert result.headers.get(INCLUDE_EXPERIMENTAL_HEADER) == "true"
 
     def test_preserves_existing_headers(self):
         """Should preserve existing headers when adding X-Glean headers."""
@@ -214,8 +220,8 @@ class TestXGleanHook:
 
         assert result.headers.get("Authorization") == "Bearer token"
         assert result.headers.get("Content-Type") == "application/json"
-        assert result.headers.get("X-Glean-Exclude-Deprecated-After") == "2026-10-15"
-        assert result.headers.get("X-Glean-Include-Experimental") == "true"
+        assert result.headers.get(EXCLUDE_DEPRECATED_AFTER_HEADER) == "2026-10-15"
+        assert result.headers.get(INCLUDE_EXPERIMENTAL_HEADER) == "true"
 
     def test_returns_httpx_request_instance(self):
         """Should return an httpx.Request instance."""
@@ -257,7 +263,7 @@ class TestXGleanHook:
 
         result = hook.before_request(context, request)
 
-        assert result.headers.get("X-Glean-Include-Experimental") == "true"
+        assert result.headers.get(INCLUDE_EXPERIMENTAL_HEADER) == "true"
         assert result.method == "POST"
 
 
