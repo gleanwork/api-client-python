@@ -13,6 +13,7 @@
 * [upload_files](#upload_files) - Upload files for Chat
 * [retrieve_files](#retrieve_files) - Get files uploaded by a user for Chat
 * [delete_files](#delete_files) - Delete files uploaded by a user for chat
+* [retrieve_file](#retrieve_file) - Download a chat file
 * [create_stream](#create_stream) - Chat
 
 ## create
@@ -475,6 +476,48 @@ with Glean(
 | `locale`                                                                                                                                                                                            | *Optional[str]*                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                  | The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`. |
 | `timezone_offset`                                                                                                                                                                                   | *Optional[int]*                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                  | The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.                                                                                          |
 | `retries`                                                                                                                                                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                  | Configuration to override the default retry behavior of the client.                                                                                                                                 |
+
+### Errors
+
+| Error Type        | Status Code       | Content Type      |
+| ----------------- | ----------------- | ----------------- |
+| errors.GleanError | 4XX, 5XX          | \*/\*             |
+
+## retrieve_file
+
+Download the raw content of a file generated or uploaded during a chat session (for example, an image produced by the assistant). Returns the file bytes with a Content-Type header matching the file's MIME type.
+
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="getChatFile" method="get" path="/rest/api/v1/chat-files/{fileId}" -->
+```python
+from glean.api_client import Glean
+import os
+
+
+with Glean(
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+) as glean:
+
+    res = glean.client.chat.retrieve_file(file_id="<id>")
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                                                                  | Type                                                                                                                       | Required                                                                                                                   | Description                                                                                                                |
+| -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `file_id`                                                                                                                  | *str*                                                                                                                      | :heavy_check_mark:                                                                                                         | Identifier of the chat file to download.                                                                                   |
+| `preview`                                                                                                                  | *Optional[bool]*                                                                                                           | :heavy_minus_sign:                                                                                                         | When true and the file is a PDF, the response is served inline (Content-Disposition: inline) instead of as an attachment.<br/> |
+| `retries`                                                                                                                  | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                           | :heavy_minus_sign:                                                                                                         | Configuration to override the default retry behavior of the client.                                                        |
+
+### Response
+
+**[httpx.Response](../../models/.md)**
 
 ### Errors
 

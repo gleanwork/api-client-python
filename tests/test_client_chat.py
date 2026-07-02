@@ -9128,3 +9128,17 @@ def test_client_chat_chat_stream_citation_response():
             timeout_millis=30000,
         )
         assert res is not None
+
+
+def test_client_chat_get_chat_file():
+    test_http_client = create_test_http_client("getChatFile")
+
+    with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
+        client=test_http_client,
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+    ) as glean:
+        assert glean is not None
+
+        res = glean.client.chat.retrieve_file(file_id="<id>")
+        assert res is not None

@@ -18,12 +18,12 @@ def test_summarize_summarize():
         res = glean.client.documents.summarize(
             document_specs=[
                 {
-                    "ugc_type": models.DocumentSpecUgcType2.ANNOUNCEMENTS,
+                    "ugc_type": models.DocumentSpecUgcType2.SHORTCUTS,
                     "ugc_id": "<id>",
                 },
                 {
-                    "ugc_type": models.DocumentSpecUgcType1.COLLECTIONS,
-                    "content_id": 885812,
+                    "ugc_type": models.DocumentSpecUgcType2.SHORTCUTS,
+                    "ugc_id": "<id>",
                 },
             ]
         )

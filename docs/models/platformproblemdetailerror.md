@@ -1,0 +1,12 @@
+# PlatformProblemDetailError
+
+Field-level validation problem for a single offending field.
+
+
+## Fields
+
+| Field                                                                                | Type                                                                                 | Required                                                                             | Description                                                                          | Example                                                                              |
+| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
+| `pointer`                                                                            | *str*                                                                                | :heavy_check_mark:                                                                   | RFC 6901 JSON Pointer to the offending field.                                        | /messages/0/role                                                                     |
+| `detail`                                                                             | *str*                                                                                | :heavy_check_mark:                                                                   | Human-readable explanation for this field.                                           | Must be one of: USER, GLEAN_AI.                                                      |
+| `code`                                                                               | [Optional[models.PlatformProblemDetailCode]](../models/platformproblemdetailcode.md) | :heavy_minus_sign:                                                                   | Stable machine-readable error code.                                                  | invalid_cursor                                                                       |

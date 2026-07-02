@@ -1,0 +1,12 @@
+# PlatformAgentRun
+
+
+## Fields
+
+| Field                                                                            | Type                                                                             | Required                                                                         | Description                                                                      |
+| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `agent_id`                                                                       | *str*                                                                            | :heavy_check_mark:                                                               | ID of the agent being run.                                                       |
+| `input`                                                                          | Dict[str, *Any*]                                                                 | :heavy_minus_sign:                                                               | Input fields for an input-form triggered agent.                                  |
+| `messages`                                                                       | List[[models.PlatformMessage](../models/platformmessage.md)]                     | :heavy_minus_sign:                                                               | Messages passed to the agent.                                                    |
+| `metadata`                                                                       | Dict[str, *Any*]                                                                 | :heavy_minus_sign:                                                               | Metadata passed to the agent.                                                    |
+| `status`                                                                         | [models.PlatformAgentExecutionStatus](../models/platformagentexecutionstatus.md) | :heavy_check_mark:                                                               | Status of the agent run.                                                         |
