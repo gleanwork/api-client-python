@@ -27,7 +27,7 @@ class XGlean(BeforeRequestHook):
 
     This hook adds the following headers when configured:
     - X-Glean-Exclude-Deprecated-After: Excludes API endpoints deprecated after this date
-    - X-Glean-Experimental: Enables experimental API features
+    - X-Glean-Include-Experimental: Enables experimental API features
 
     Configuration can be done via environment variables or SDK constructor options.
     Environment variables take precedence over SDK constructor options.
@@ -65,6 +65,6 @@ class XGlean(BeforeRequestHook):
             request.headers["X-Glean-Exclude-Deprecated-After"] = deprecated_value
 
         if experimental_value:
-            request.headers["X-Glean-Experimental"] = experimental_value
+            request.headers["X-Glean-Include-Experimental"] = experimental_value
 
         return request
