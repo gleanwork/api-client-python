@@ -2,6 +2,7 @@
 
 from .basesdk import BaseSDK
 from .sdkconfiguration import SDKConfiguration
+from glean.api_client.findings import Findings
 from glean.api_client.policies import Policies
 from glean.api_client.reports import Reports
 from typing import Optional
@@ -10,6 +11,7 @@ from typing import Optional
 class Data(BaseSDK):
     policies: Policies
     reports: Reports
+    findings: Findings
 
     def __init__(
         self, sdk_config: SDKConfiguration, parent_ref: Optional[object] = None
@@ -21,3 +23,4 @@ class Data(BaseSDK):
     def _init_sdks(self):
         self.policies = Policies(self.sdk_configuration, parent_ref=self.parent_ref)
         self.reports = Reports(self.sdk_configuration, parent_ref=self.parent_ref)
+        self.findings = Findings(self.sdk_configuration, parent_ref=self.parent_ref)

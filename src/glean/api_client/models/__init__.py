@@ -1199,6 +1199,83 @@ if TYPE_CHECKING:
     from .peruserinsight import PerUserInsight, PerUserInsightTypedDict
     from .pinop import PinRequestRequest, PinRequestRequestTypedDict
     from .pinrequest import PinRequest, PinRequestTypedDict
+    from .platform_agents_create_runop import (
+        PlatformAgentsCreateRunRequest,
+        PlatformAgentsCreateRunRequestTypedDict,
+        PlatformAgentsCreateRunResponse,
+        PlatformAgentsCreateRunResponseTypedDict,
+    )
+    from .platform_agents_get_schemasop import (
+        PlatformAgentsGetSchemasRequest,
+        PlatformAgentsGetSchemasRequestTypedDict,
+    )
+    from .platform_agents_getop import (
+        PlatformAgentsGetRequest,
+        PlatformAgentsGetRequestTypedDict,
+    )
+    from .platformactionsummary import (
+        PlatformActionSummary,
+        PlatformActionSummaryTypedDict,
+    )
+    from .platformagent import PlatformAgent, PlatformAgentTypedDict
+    from .platformagentcapabilities import (
+        PlatformAgentCapabilities,
+        PlatformAgentCapabilitiesTypedDict,
+    )
+    from .platformagentexecutionstatus import PlatformAgentExecutionStatus
+    from .platformagentgetresponse import (
+        PlatformAgentGetResponse,
+        PlatformAgentGetResponseTypedDict,
+    )
+    from .platformagentrun import PlatformAgentRun, PlatformAgentRunTypedDict
+    from .platformagentruncreaterequest import (
+        PlatformAgentRunCreateRequest,
+        PlatformAgentRunCreateRequestTypedDict,
+    )
+    from .platformagentrunwaitresponse import (
+        PlatformAgentRunWaitResponse,
+        PlatformAgentRunWaitResponseTypedDict,
+    )
+    from .platformagentschemasresponse import (
+        PlatformAgentSchemasResponse,
+        PlatformAgentSchemasResponseTypedDict,
+    )
+    from .platformagentssearchrequest import (
+        PlatformAgentsSearchRequest,
+        PlatformAgentsSearchRequestTypedDict,
+    )
+    from .platformagentssearchresponse import (
+        PlatformAgentsSearchResponse,
+        PlatformAgentsSearchResponseTypedDict,
+    )
+    from .platformcontenttype import PlatformContentType
+    from .platformfilter import PlatformFilter, PlatformFilterTypedDict
+    from .platformfilteroperator import PlatformFilterOperator
+    from .platformmessage import PlatformMessage, PlatformMessageTypedDict
+    from .platformmessagerole import PlatformMessageRole
+    from .platformmessagetextblock import (
+        PlatformMessageTextBlock,
+        PlatformMessageTextBlockTypedDict,
+    )
+    from .platformpersonreference import (
+        PlatformPersonReference,
+        PlatformPersonReferenceTypedDict,
+    )
+    from .platformproblemdetailcode import PlatformProblemDetailCode
+    from .platformproblemdetailerror import (
+        PlatformProblemDetailError,
+        PlatformProblemDetailErrorTypedDict,
+    )
+    from .platformresult import PlatformResult, PlatformResultTypedDict
+    from .platformsearchrequest import (
+        PlatformSearchRequest,
+        PlatformSearchRequestTypedDict,
+    )
+    from .platformsearchresponse import (
+        PlatformSearchResponse,
+        PlatformSearchResponseTypedDict,
+    )
+    from .platformtimerange import PlatformTimeRange, PlatformTimeRangeTypedDict
     from .possiblevalue import PossibleValue, PossibleValueTypedDict
     from .post_api_index_v1_debug_datasource_document_eventsop import (
         PostAPIIndexV1DebugDatasourceDocumentEventsRequest,
@@ -2494,6 +2571,57 @@ __all__ = [
     "PinRequestRequestTypedDict",
     "PinRequestTypedDict",
     "PlacementReason",
+    "PlatformActionSummary",
+    "PlatformActionSummaryTypedDict",
+    "PlatformAgent",
+    "PlatformAgentCapabilities",
+    "PlatformAgentCapabilitiesTypedDict",
+    "PlatformAgentExecutionStatus",
+    "PlatformAgentGetResponse",
+    "PlatformAgentGetResponseTypedDict",
+    "PlatformAgentRun",
+    "PlatformAgentRunCreateRequest",
+    "PlatformAgentRunCreateRequestTypedDict",
+    "PlatformAgentRunTypedDict",
+    "PlatformAgentRunWaitResponse",
+    "PlatformAgentRunWaitResponseTypedDict",
+    "PlatformAgentSchemasResponse",
+    "PlatformAgentSchemasResponseTypedDict",
+    "PlatformAgentTypedDict",
+    "PlatformAgentsCreateRunRequest",
+    "PlatformAgentsCreateRunRequestTypedDict",
+    "PlatformAgentsCreateRunResponse",
+    "PlatformAgentsCreateRunResponseTypedDict",
+    "PlatformAgentsGetRequest",
+    "PlatformAgentsGetRequestTypedDict",
+    "PlatformAgentsGetSchemasRequest",
+    "PlatformAgentsGetSchemasRequestTypedDict",
+    "PlatformAgentsSearchRequest",
+    "PlatformAgentsSearchRequestTypedDict",
+    "PlatformAgentsSearchResponse",
+    "PlatformAgentsSearchResponseTypedDict",
+    "PlatformContentType",
+    "PlatformFilter",
+    "PlatformFilterOperator",
+    "PlatformFilterTypedDict",
+    "PlatformMessage",
+    "PlatformMessageRole",
+    "PlatformMessageTextBlock",
+    "PlatformMessageTextBlockTypedDict",
+    "PlatformMessageTypedDict",
+    "PlatformPersonReference",
+    "PlatformPersonReferenceTypedDict",
+    "PlatformProblemDetailCode",
+    "PlatformProblemDetailError",
+    "PlatformProblemDetailErrorTypedDict",
+    "PlatformResult",
+    "PlatformResultTypedDict",
+    "PlatformSearchRequest",
+    "PlatformSearchRequestTypedDict",
+    "PlatformSearchResponse",
+    "PlatformSearchResponseTypedDict",
+    "PlatformTimeRange",
+    "PlatformTimeRangeTypedDict",
     "PossibleValue",
     "PossibleValueTypedDict",
     "PostAPIIndexV1DebugDatasourceDocumentEventsRequest",
@@ -3682,6 +3810,57 @@ _dynamic_imports: dict[str, str] = {
     "PinRequestRequestTypedDict": ".pinop",
     "PinRequest": ".pinrequest",
     "PinRequestTypedDict": ".pinrequest",
+    "PlatformAgentsCreateRunRequest": ".platform_agents_create_runop",
+    "PlatformAgentsCreateRunRequestTypedDict": ".platform_agents_create_runop",
+    "PlatformAgentsCreateRunResponse": ".platform_agents_create_runop",
+    "PlatformAgentsCreateRunResponseTypedDict": ".platform_agents_create_runop",
+    "PlatformAgentsGetSchemasRequest": ".platform_agents_get_schemasop",
+    "PlatformAgentsGetSchemasRequestTypedDict": ".platform_agents_get_schemasop",
+    "PlatformAgentsGetRequest": ".platform_agents_getop",
+    "PlatformAgentsGetRequestTypedDict": ".platform_agents_getop",
+    "PlatformActionSummary": ".platformactionsummary",
+    "PlatformActionSummaryTypedDict": ".platformactionsummary",
+    "PlatformAgent": ".platformagent",
+    "PlatformAgentTypedDict": ".platformagent",
+    "PlatformAgentCapabilities": ".platformagentcapabilities",
+    "PlatformAgentCapabilitiesTypedDict": ".platformagentcapabilities",
+    "PlatformAgentExecutionStatus": ".platformagentexecutionstatus",
+    "PlatformAgentGetResponse": ".platformagentgetresponse",
+    "PlatformAgentGetResponseTypedDict": ".platformagentgetresponse",
+    "PlatformAgentRun": ".platformagentrun",
+    "PlatformAgentRunTypedDict": ".platformagentrun",
+    "PlatformAgentRunCreateRequest": ".platformagentruncreaterequest",
+    "PlatformAgentRunCreateRequestTypedDict": ".platformagentruncreaterequest",
+    "PlatformAgentRunWaitResponse": ".platformagentrunwaitresponse",
+    "PlatformAgentRunWaitResponseTypedDict": ".platformagentrunwaitresponse",
+    "PlatformAgentSchemasResponse": ".platformagentschemasresponse",
+    "PlatformAgentSchemasResponseTypedDict": ".platformagentschemasresponse",
+    "PlatformAgentsSearchRequest": ".platformagentssearchrequest",
+    "PlatformAgentsSearchRequestTypedDict": ".platformagentssearchrequest",
+    "PlatformAgentsSearchResponse": ".platformagentssearchresponse",
+    "PlatformAgentsSearchResponseTypedDict": ".platformagentssearchresponse",
+    "PlatformContentType": ".platformcontenttype",
+    "PlatformFilter": ".platformfilter",
+    "PlatformFilterTypedDict": ".platformfilter",
+    "PlatformFilterOperator": ".platformfilteroperator",
+    "PlatformMessage": ".platformmessage",
+    "PlatformMessageTypedDict": ".platformmessage",
+    "PlatformMessageRole": ".platformmessagerole",
+    "PlatformMessageTextBlock": ".platformmessagetextblock",
+    "PlatformMessageTextBlockTypedDict": ".platformmessagetextblock",
+    "PlatformPersonReference": ".platformpersonreference",
+    "PlatformPersonReferenceTypedDict": ".platformpersonreference",
+    "PlatformProblemDetailCode": ".platformproblemdetailcode",
+    "PlatformProblemDetailError": ".platformproblemdetailerror",
+    "PlatformProblemDetailErrorTypedDict": ".platformproblemdetailerror",
+    "PlatformResult": ".platformresult",
+    "PlatformResultTypedDict": ".platformresult",
+    "PlatformSearchRequest": ".platformsearchrequest",
+    "PlatformSearchRequestTypedDict": ".platformsearchrequest",
+    "PlatformSearchResponse": ".platformsearchresponse",
+    "PlatformSearchResponseTypedDict": ".platformsearchresponse",
+    "PlatformTimeRange": ".platformtimerange",
+    "PlatformTimeRangeTypedDict": ".platformtimerange",
     "PossibleValue": ".possiblevalue",
     "PossibleValueTypedDict": ".possiblevalue",
     "PostAPIIndexV1DebugDatasourceDocumentEventsRequest": ".post_api_index_v1_debug_datasource_document_eventsop",

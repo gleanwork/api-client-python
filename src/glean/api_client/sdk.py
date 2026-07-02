@@ -16,15 +16,9 @@ import weakref
 
 if TYPE_CHECKING:
     from glean.api_client.agents import Agents
-    from glean.api_client.authentication import Authentication
-    from glean.api_client.chat_sdk import ChatSDK
     from glean.api_client.client import Client
-    from glean.api_client.datasources import Datasources
-    from glean.api_client.entities import Entities
-    from glean.api_client.governance import Governance
     from glean.api_client.indexing import Indexing
-    from glean.api_client.tools import Tools
-    from glean.api_client.troubleshooting import Troubleshooting
+    from glean.api_client.search import Search
 
 
 class Glean(BaseSDK):
@@ -47,29 +41,15 @@ class Glean(BaseSDK):
 
     """
 
-    client: "Client"
-    authentication: "Authentication"
-    r"""Manage indexing API tokens."""
-    chat: "ChatSDK"
     agents: "Agents"
-    entities: "Entities"
-    tools: "Tools"
+    search: "Search"
+    client: "Client"
     indexing: "Indexing"
-    troubleshooting: "Troubleshooting"
-    governance: "Governance"
-    datasources: "Datasources"
-    r"""Manage datasources."""
     _sub_sdk_map = {
-        "client": ("glean.api_client.client", "Client"),
-        "authentication": ("glean.api_client.authentication", "Authentication"),
-        "chat": ("glean.api_client.chat_sdk", "ChatSDK"),
         "agents": ("glean.api_client.agents", "Agents"),
-        "entities": ("glean.api_client.entities", "Entities"),
-        "tools": ("glean.api_client.tools", "Tools"),
+        "search": ("glean.api_client.search", "Search"),
+        "client": ("glean.api_client.client", "Client"),
         "indexing": ("glean.api_client.indexing", "Indexing"),
-        "troubleshooting": ("glean.api_client.troubleshooting", "Troubleshooting"),
-        "governance": ("glean.api_client.governance", "Governance"),
-        "datasources": ("glean.api_client.datasources", "Datasources"),
     }
 
     def __init__(

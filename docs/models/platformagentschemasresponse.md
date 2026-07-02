@@ -1,0 +1,13 @@
+# PlatformAgentSchemasResponse
+
+
+## Fields
+
+| Field                                                                    | Type                                                                     | Required                                                                 | Description                                                              |
+| ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
+| `agent_id`                                                               | *str*                                                                    | :heavy_check_mark:                                                       | ID of the agent.                                                         |
+| `name`                                                                   | *Optional[str]*                                                          | :heavy_minus_sign:                                                       | Name of the agent.                                                       |
+| `input_schema`                                                           | Dict[str, *Any*]                                                         | :heavy_check_mark:                                                       | Agent input schema in JSON Schema format.                                |
+| `output_schema`                                                          | Dict[str, *Any*]                                                         | :heavy_check_mark:                                                       | Agent output schema in JSON Schema format.                               |
+| `tools`                                                                  | List[[models.PlatformActionSummary](../models/platformactionsummary.md)] | :heavy_minus_sign:                                                       | Tools that the agent can invoke, when requested.                         |
+| `request_id`                                                             | *str*                                                                    | :heavy_check_mark:                                                       | Platform-generated request ID for support correlation.                   |

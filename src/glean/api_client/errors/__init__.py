@@ -12,6 +12,10 @@ if TYPE_CHECKING:
     from .gleandataerror import GleanDataError, GleanDataErrorData
     from .gleanerror import GleanError
     from .no_response_error import NoResponseError
+    from .platformproblemdetail_error import (
+        PlatformProblemDetailError,
+        PlatformProblemDetailErrorData,
+    )
     from .responsevalidationerror import ResponseValidationError
 
 __all__ = [
@@ -26,6 +30,8 @@ __all__ = [
     "GleanDataErrorData",
     "GleanError",
     "NoResponseError",
+    "PlatformProblemDetailError",
+    "PlatformProblemDetailErrorData",
     "ResponseValidationError",
 ]
 
@@ -40,6 +46,8 @@ _dynamic_imports: dict[str, str] = {
     "GleanDataErrorData": ".gleandataerror",
     "GleanError": ".gleanerror",
     "NoResponseError": ".no_response_error",
+    "PlatformProblemDetailError": ".platformproblemdetail_error",
+    "PlatformProblemDetailErrorData": ".platformproblemdetail_error",
     "ResponseValidationError": ".responsevalidationerror",
 }
 

@@ -263,8 +263,7 @@ This SDK supports the following security scheme globally:
 
 To authenticate with the API the `api_token` parameter must be set when initializing the SDK client instance. For example:
 ```python
-from glean.api_client import Glean, models
-from glean.api_client.utils import parse_datetime
+from glean.api_client import Glean
 import os
 
 
@@ -272,32 +271,10 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as glean:
 
-    glean.client.activity.report(events=[
-        {
-            "action": models.ActivityEventAction.HISTORICAL_VIEW,
-            "timestamp": parse_datetime("2000-01-23T04:56:07.000Z"),
-            "url": "https://example.com/",
-        },
-        {
-            "action": models.ActivityEventAction.SEARCH,
-            "params": {
-                "query": "query",
-            },
-            "timestamp": parse_datetime("2000-01-23T04:56:07.000Z"),
-            "url": "https://example.com/search?q=query",
-        },
-        {
-            "action": models.ActivityEventAction.VIEW,
-            "params": {
-                "duration": 20,
-                "referrer": "https://example.com/document",
-            },
-            "timestamp": parse_datetime("2000-01-23T04:56:07.000Z"),
-            "url": "https://example.com/",
-        },
-    ])
+    res = glean.agents.search(name="HR Policy Agent")
 
-    # Use the SDK ...
+    # Handle response
+    print(res)
 
 ```
 <!-- End Authentication [security] -->
@@ -339,16 +316,10 @@ For more information on obtaining the appropriate token type, please contact you
 
 ### [Agents](docs/sdks/agents/README.md)
 
-* [create_agent](docs/sdks/agents/README.md#create_agent) - Create an agent
-* [edit_agent](docs/sdks/agents/README.md#edit_agent) - Edit an agent
-
-### [Authentication](docs/sdks/authentication/README.md)
-
-* [checkdatasourceauth](docs/sdks/authentication/README.md#checkdatasourceauth) - Check datasource authorization
-
-### [Chat](docs/sdks/chatsdk/README.md)
-
-* [get_chat_file](docs/sdks/chatsdk/README.md#get_chat_file) - Download a chat file
+* [search](docs/sdks/agents/README.md#search) - Search agents
+* [get](docs/sdks/agents/README.md#get) - Get agent
+* [get_schemas](docs/sdks/agents/README.md#get_schemas) - Get agent schemas
+* [create_run](docs/sdks/agents/README.md#create_run) - Create agent run
 
 ### [Client.Activity](docs/sdks/clientactivity/README.md)
 
@@ -357,7 +328,9 @@ For more information on obtaining the appropriate token type, please contact you
 
 ### [Client.Agents](docs/sdks/clientagents/README.md)
 
+* [create](docs/sdks/clientagents/README.md#create) - Create an agent
 * [retrieve](docs/sdks/clientagents/README.md#retrieve) - Retrieve an agent
+* [update](docs/sdks/clientagents/README.md#update) - Edit an agent
 * [retrieve_schemas](docs/sdks/clientagents/README.md#retrieve_schemas) - List an agent's schemas
 * [list](docs/sdks/clientagents/README.md#list) - Search agents
 * [run_stream](docs/sdks/clientagents/README.md#run_stream) - Create an agent run and stream the response
@@ -379,6 +352,7 @@ For more information on obtaining the appropriate token type, please contact you
 
 ### [Client.Authentication](docs/sdks/clientauthentication/README.md)
 
+* [check_datasource_auth](docs/sdks/clientauthentication/README.md#check_datasource_auth) - Check datasource authorization
 * [create_token](docs/sdks/clientauthentication/README.md#create_token) - Create authentication token
 
 ### [Client.Chat](docs/sdks/clientchat/README.md)
@@ -392,6 +366,7 @@ For more information on obtaining the appropriate token type, please contact you
 * [upload_files](docs/sdks/clientchat/README.md#upload_files) - Upload files for Chat
 * [retrieve_files](docs/sdks/clientchat/README.md#retrieve_files) - Get files uploaded by a user for Chat
 * [delete_files](docs/sdks/clientchat/README.md#delete_files) - Delete files uploaded by a user for chat
+* [retrieve_file](docs/sdks/clientchat/README.md#retrieve_file) - Download a chat file
 * [create_stream](docs/sdks/clientchat/README.md#create_stream) - Chat
 
 ### [Client.Collections](docs/sdks/collections/README.md)
@@ -405,6 +380,13 @@ For more information on obtaining the appropriate token type, please contact you
 * [retrieve](docs/sdks/collections/README.md#retrieve) - Read Collection
 * [list](docs/sdks/collections/README.md#list) - List Collections
 
+### [Client.Datasources](docs/sdks/clientdatasources/README.md)
+
+* [retrieve_configuration](docs/sdks/clientdatasources/README.md#retrieve_configuration) - Get datasource instance configuration
+* [update_configuration](docs/sdks/clientdatasources/README.md#update_configuration) - Update datasource instance configuration
+* [retrieve_credential_status](docs/sdks/clientdatasources/README.md#retrieve_credential_status) - Get datasource instance credential status
+* [rotate_credentials](docs/sdks/clientdatasources/README.md#rotate_credentials) - Rotate datasource instance credentials
+
 ### [Client.Documents](docs/sdks/clientdocuments/README.md)
 
 * [retrieve_permissions](docs/sdks/clientdocuments/README.md#retrieve_permissions) - Read document permissions
@@ -412,10 +394,18 @@ For more information on obtaining the appropriate token type, please contact you
 * [retrieve_by_facets](docs/sdks/clientdocuments/README.md#retrieve_by_facets) - Read documents by facets
 * [summarize](docs/sdks/clientdocuments/README.md#summarize) - Summarize documents
 
-### [Client.Entities](docs/sdks/cliententities/README.md)
+### [Client.Entities](docs/sdks/entities/README.md)
 
-* [list](docs/sdks/cliententities/README.md#list) - List entities
-* [read_people](docs/sdks/cliententities/README.md#read_people) - Read people
+* [list](docs/sdks/entities/README.md#list) - List entities
+* [read_people](docs/sdks/entities/README.md#read_people) - Read people
+* [retrieve_person_photo](docs/sdks/entities/README.md#retrieve_person_photo) - Get person photo
+
+### [Client.Governance.Data.Findings](docs/sdks/findings/README.md)
+
+* [create](docs/sdks/findings/README.md#create) - Creates findings export
+* [list](docs/sdks/findings/README.md#list) - Lists findings exports
+* [download](docs/sdks/findings/README.md#download) - Downloads findings export
+* [delete](docs/sdks/findings/README.md#delete) - Deletes findings export
 
 ### [Client.Governance.Data.Policies](docs/sdks/policies/README.md)
 
@@ -452,13 +442,13 @@ For more information on obtaining the appropriate token type, please contact you
 * [create](docs/sdks/pins/README.md#create) - Create pin
 * [remove](docs/sdks/pins/README.md#remove) - Delete pin
 
-### [Client.Search](docs/sdks/search/README.md)
+### [Client.Search](docs/sdks/clientsearch/README.md)
 
-* [query_as_admin](docs/sdks/search/README.md#query_as_admin) - Search the index (admin)
-* [autocomplete](docs/sdks/search/README.md#autocomplete) - Autocomplete
-* [retrieve_feed](docs/sdks/search/README.md#retrieve_feed) - Feed of documents and events
-* [recommendations](docs/sdks/search/README.md#recommendations) - Recommend documents
-* [query](docs/sdks/search/README.md#query) - Search
+* [query_as_admin](docs/sdks/clientsearch/README.md#query_as_admin) - Search the index (admin)
+* [autocomplete](docs/sdks/clientsearch/README.md#autocomplete) - Autocomplete
+* [retrieve_feed](docs/sdks/clientsearch/README.md#retrieve_feed) - Feed of documents and events
+* [recommendations](docs/sdks/clientsearch/README.md#recommendations) - Recommend documents
+* [query](docs/sdks/clientsearch/README.md#query) - Search
 
 ### [Client.Shortcuts](docs/sdks/clientshortcuts/README.md)
 
@@ -468,34 +458,18 @@ For more information on obtaining the appropriate token type, please contact you
 * [list](docs/sdks/clientshortcuts/README.md#list) - List shortcuts
 * [update](docs/sdks/clientshortcuts/README.md#update) - Update shortcut
 
-### [Client.Tools](docs/sdks/clienttools/README.md)
+### [Client.Tools](docs/sdks/tools/README.md)
 
-* [list](docs/sdks/clienttools/README.md#list) - List available tools
-* [run](docs/sdks/clienttools/README.md#run) - Execute the specified tool
+* [list](docs/sdks/tools/README.md#list) - List available tools
+* [run](docs/sdks/tools/README.md#run) - Execute the specified tool
+* [retrieve_action_pack_auth_status](docs/sdks/tools/README.md#retrieve_action_pack_auth_status) - Get end-user authentication status for an action pack.
+* [authorize_action_pack](docs/sdks/tools/README.md#authorize_action_pack) - Start the OAuth authorization flow for an action pack.
 
 ### [Client.Verification](docs/sdks/clientverification/README.md)
 
 * [add_reminder](docs/sdks/clientverification/README.md#add_reminder) - Create verification
 * [list](docs/sdks/clientverification/README.md#list) - List verifications
 * [verify](docs/sdks/clientverification/README.md#verify) - Update verification
-
-### [Datasources](docs/sdks/datasources/README.md)
-
-* [get_datasource_instance_configuration](docs/sdks/datasources/README.md#get_datasource_instance_configuration) - Get datasource instance configuration
-* [update_datasource_instance_configuration](docs/sdks/datasources/README.md#update_datasource_instance_configuration) - Update datasource instance configuration
-* [get_datasource_credential_status](docs/sdks/datasources/README.md#get_datasource_credential_status) - Get datasource instance credential status
-* [rotate_datasource_credentials](docs/sdks/datasources/README.md#rotate_datasource_credentials) - Rotate datasource instance credentials
-
-### [Entities](docs/sdks/entities/README.md)
-
-* [get_person_photo](docs/sdks/entities/README.md#get_person_photo) - Get person photo
-
-### [Governance](docs/sdks/governance/README.md)
-
-* [createfindingsexport](docs/sdks/governance/README.md#createfindingsexport) - Creates findings export
-* [listfindingsexports](docs/sdks/governance/README.md#listfindingsexports) - Lists findings exports
-* [downloadfindingsexport](docs/sdks/governance/README.md#downloadfindingsexport) - Downloads findings export
-* [deletefindingsexport](docs/sdks/governance/README.md#deletefindingsexport) - Deletes findings export
 
 ### [Indexing.Authentication](docs/sdks/indexingauthentication/README.md)
 
@@ -533,6 +507,8 @@ For more information on obtaining the appropriate token type, please contact you
 * [check_access](docs/sdks/indexingdocuments/README.md#check_access) - Check document access
 * [~~status~~](docs/sdks/indexingdocuments/README.md#status) - Get document upload and indexing status :warning: **Deprecated**
 * [~~count~~](docs/sdks/indexingdocuments/README.md#count) - Get document count :warning: **Deprecated**
+* [debug_events](docs/sdks/indexingdocuments/README.md#debug_events) - Beta: Get document lifecycle events
+
 
 ### [Indexing.People](docs/sdks/people/README.md)
 
@@ -567,15 +543,9 @@ For more information on obtaining the appropriate token type, please contact you
 * [bulk_index](docs/sdks/indexingshortcuts/README.md#bulk_index) - Bulk index external shortcuts
 * [upload](docs/sdks/indexingshortcuts/README.md#upload) - Upload shortcuts
 
-### [Tools](docs/sdks/tools/README.md)
+### [Search](docs/sdks/search/README.md)
 
-* [get_action_pack_auth_status](docs/sdks/tools/README.md#get_action_pack_auth_status) - Get end-user authentication status for an action pack.
-* [authorize_action_pack](docs/sdks/tools/README.md#authorize_action_pack) - Start the OAuth authorization flow for an action pack.
-
-### [Troubleshooting](docs/sdks/troubleshooting/README.md)
-
-* [post_api_index_v1_debug_datasource_document_events](docs/sdks/troubleshooting/README.md#post_api_index_v1_debug_datasource_document_events) - Beta: Get document lifecycle events
-
+* [query](docs/sdks/search/README.md#query) - Search
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
@@ -614,8 +584,8 @@ Some of the endpoints in this SDK support retries. If you use the SDK without an
 
 To change the default retry strategy for a single API call, simply provide a `RetryConfig` object to the call:
 ```python
-from glean.api_client import Glean, models
-from glean.api_client.utils import BackoffStrategy, RetryConfig, parse_datetime
+from glean.api_client import Glean
+from glean.api_client.utils import BackoffStrategy, RetryConfig
 import os
 
 
@@ -623,40 +593,18 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as glean:
 
-    glean.client.activity.report(events=[
-        {
-            "action": models.ActivityEventAction.HISTORICAL_VIEW,
-            "timestamp": parse_datetime("2000-01-23T04:56:07.000Z"),
-            "url": "https://example.com/",
-        },
-        {
-            "action": models.ActivityEventAction.SEARCH,
-            "params": {
-                "query": "query",
-            },
-            "timestamp": parse_datetime("2000-01-23T04:56:07.000Z"),
-            "url": "https://example.com/search?q=query",
-        },
-        {
-            "action": models.ActivityEventAction.VIEW,
-            "params": {
-                "duration": 20,
-                "referrer": "https://example.com/document",
-            },
-            "timestamp": parse_datetime("2000-01-23T04:56:07.000Z"),
-            "url": "https://example.com/",
-        },
-    ],
+    res = glean.agents.search(name="HR Policy Agent",
         RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False))
 
-    # Use the SDK ...
+    # Handle response
+    print(res)
 
 ```
 
 If you'd like to override the default retry strategy for all operations that support retries, you can use the `retry_config` optional parameter when initializing the SDK:
 ```python
-from glean.api_client import Glean, models
-from glean.api_client.utils import BackoffStrategy, RetryConfig, parse_datetime
+from glean.api_client import Glean
+from glean.api_client.utils import BackoffStrategy, RetryConfig
 import os
 
 
@@ -665,32 +613,10 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as glean:
 
-    glean.client.activity.report(events=[
-        {
-            "action": models.ActivityEventAction.HISTORICAL_VIEW,
-            "timestamp": parse_datetime("2000-01-23T04:56:07.000Z"),
-            "url": "https://example.com/",
-        },
-        {
-            "action": models.ActivityEventAction.SEARCH,
-            "params": {
-                "query": "query",
-            },
-            "timestamp": parse_datetime("2000-01-23T04:56:07.000Z"),
-            "url": "https://example.com/search?q=query",
-        },
-        {
-            "action": models.ActivityEventAction.VIEW,
-            "params": {
-                "duration": 20,
-                "referrer": "https://example.com/document",
-            },
-            "timestamp": parse_datetime("2000-01-23T04:56:07.000Z"),
-            "url": "https://example.com/",
-        },
-    ])
+    res = glean.agents.search(name="HR Policy Agent")
 
-    # Use the SDK ...
+    # Handle response
+    print(res)
 
 ```
 <!-- End Retries [retries] -->
@@ -793,8 +719,7 @@ The default server `https://{instance}-be.glean.com` contains variables and is s
 #### Example
 
 ```python
-from glean.api_client import Glean, models
-from glean.api_client.utils import parse_datetime
+from glean.api_client import Glean
 import os
 
 
@@ -804,32 +729,10 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as glean:
 
-    glean.client.activity.report(events=[
-        {
-            "action": models.ActivityEventAction.HISTORICAL_VIEW,
-            "timestamp": parse_datetime("2000-01-23T04:56:07.000Z"),
-            "url": "https://example.com/",
-        },
-        {
-            "action": models.ActivityEventAction.SEARCH,
-            "params": {
-                "query": "query",
-            },
-            "timestamp": parse_datetime("2000-01-23T04:56:07.000Z"),
-            "url": "https://example.com/search?q=query",
-        },
-        {
-            "action": models.ActivityEventAction.VIEW,
-            "params": {
-                "duration": 20,
-                "referrer": "https://example.com/document",
-            },
-            "timestamp": parse_datetime("2000-01-23T04:56:07.000Z"),
-            "url": "https://example.com/",
-        },
-    ])
+    res = glean.agents.search(name="HR Policy Agent")
 
-    # Use the SDK ...
+    # Handle response
+    print(res)
 
 ```
 
@@ -837,8 +740,7 @@ with Glean(
 
 The default server can be overridden globally by passing a URL to the `server_url: str` optional parameter when initializing the SDK client instance. For example:
 ```python
-from glean.api_client import Glean, models
-from glean.api_client.utils import parse_datetime
+from glean.api_client import Glean
 import os
 
 
@@ -847,32 +749,10 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as glean:
 
-    glean.client.activity.report(events=[
-        {
-            "action": models.ActivityEventAction.HISTORICAL_VIEW,
-            "timestamp": parse_datetime("2000-01-23T04:56:07.000Z"),
-            "url": "https://example.com/",
-        },
-        {
-            "action": models.ActivityEventAction.SEARCH,
-            "params": {
-                "query": "query",
-            },
-            "timestamp": parse_datetime("2000-01-23T04:56:07.000Z"),
-            "url": "https://example.com/search?q=query",
-        },
-        {
-            "action": models.ActivityEventAction.VIEW,
-            "params": {
-                "duration": 20,
-                "referrer": "https://example.com/document",
-            },
-            "timestamp": parse_datetime("2000-01-23T04:56:07.000Z"),
-            "url": "https://example.com/",
-        },
-    ])
+    res = glean.agents.search(name="HR Policy Agent")
 
-    # Use the SDK ...
+    # Handle response
+    print(res)
 
 ```
 

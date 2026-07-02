@@ -2204,3 +2204,37 @@ def test_search_search():
             timeout_millis=5000,
         )
         assert res is not None
+
+
+def test_search_platform_search():
+    test_http_client = create_test_http_client("platform-search")
+
+    with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
+        client=test_http_client,
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+    ) as glean:
+        assert glean is not None
+
+        res = glean.search.query(
+            query="quarterly planning 2026",
+            page_size=10,
+            datasources=[
+                "confluence",
+                "google_drive",
+            ],
+            datasource_instances=[
+                "slack_acme",
+                "slack_eu",
+            ],
+            filters=[
+                {
+                    "field": "type",
+                    "values": [
+                        "spreadsheet",
+                        "presentation",
+                    ],
+                },
+            ],
+        )
+        assert res is not None

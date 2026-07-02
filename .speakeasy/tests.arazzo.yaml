@@ -158417,7 +158417,7 @@ workflows:
               condition: |
                 {}
               type: simple
-      x-speakeasy-test-group: Governance
+      x-speakeasy-test-group: findings
       x-speakeasy-test-rebuild: true
     - workflowId: downloadfindingsexport
       steps:
@@ -158434,7 +158434,7 @@ workflows:
               condition: |
                 "<value>"
               type: simple
-      x-speakeasy-test-group: Governance
+      x-speakeasy-test-group: findings
       x-speakeasy-test-rebuild: true
     - workflowId: checkdatasourceauth
       steps:
@@ -158447,7 +158447,7 @@ workflows:
               condition: |
                 {"unauthorizedDatasourceInstances":[{"datasourceInstance":"slack_0","displayName":"Slack"}]}
               type: simple
-      x-speakeasy-test-group: Authentication
+      x-speakeasy-test-group: client_authentication
       x-speakeasy-test-rebuild: true
     - workflowId: getDatasourceInstanceConfiguration
       steps:
@@ -158467,7 +158467,7 @@ workflows:
               condition: |
                 {"configuration":{"values":{"key":{}}}}
               type: simple
-      x-speakeasy-test-group: Datasources
+      x-speakeasy-test-group: client_datasources
       x-speakeasy-test-rebuild: true
     - workflowId: updateDatasourceInstanceConfiguration
       steps:
@@ -158492,7 +158492,7 @@ workflows:
               condition: |
                 {"configuration":{"values":{}}}
               type: simple
-      x-speakeasy-test-group: Datasources
+      x-speakeasy-test-group: client_datasources
       x-speakeasy-test-rebuild: true
     - workflowId: getChatFile
       steps:
@@ -158509,7 +158509,7 @@ workflows:
               condition: |
                 "x-file: example.file"
               type: simple
-      x-speakeasy-test-group: Chat_SDK
+      x-speakeasy-test-group: client_chat
       x-speakeasy-test-rebuild: true
     - workflowId: getPersonPhoto
       steps:
@@ -158526,7 +158526,7 @@ workflows:
               condition: |
                 "x-file: example.file"
               type: simple
-      x-speakeasy-test-group: Entities
+      x-speakeasy-test-group: entities
       x-speakeasy-test-rebuild: true
     - workflowId: getActionPackAuthStatus
       steps:
@@ -158543,7 +158543,7 @@ workflows:
               condition: |
                 {"actionPack":{"authenticated":true,"authType":"AUTH_USER_OAUTH"}}
               type: simple
-      x-speakeasy-test-group: Tools
+      x-speakeasy-test-group: tools
       x-speakeasy-test-rebuild: true
     - workflowId: authorizeActionPack
       steps:
@@ -158564,7 +158564,7 @@ workflows:
               condition: |
                 {"redirectUrl":"https://unconscious-diversity.net"}
               type: simple
-      x-speakeasy-test-group: Tools
+      x-speakeasy-test-group: tools
       x-speakeasy-test-rebuild: true
     - workflowId: put_/rest/api/index/document/{docId}/custom-metadata/{groupName}
       steps:
@@ -158680,7 +158680,7 @@ workflows:
               condition: |
                 {"status":"VALID"}
               type: simple
-      x-speakeasy-test-group: Datasources
+      x-speakeasy-test-group: client_datasources
       x-speakeasy-test-rebuild: true
     - workflowId: rotateDatasourceCredentials
       steps:
@@ -158703,7 +158703,7 @@ workflows:
               condition: |
                 {"status":"MISSING"}
               type: simple
-      x-speakeasy-test-group: Datasources
+      x-speakeasy-test-group: client_datasources
       x-speakeasy-test-rebuild: true
     - workflowId: createAgent
       steps:
@@ -158719,5 +158719,112 @@ workflows:
               condition: |
                 {"workflow":{"author":{"name":"George Clooney","obfuscatedId":"abc123"},"lastDraftSavedBy":{"name":"George Clooney","obfuscatedId":"abc123"},"lastUpdatedBy":{"name":"George Clooney","obfuscatedId":"abc123"}}}
               type: simple
-      x-speakeasy-test-group: Agents
+      x-speakeasy-test-group: client_agents
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-agents-search
+      steps:
+        - stepId: test
+          operationId: platform-agents-search
+          requestBody:
+            contentType: application/json
+            payload:
+                name: HR Policy Agent
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"agents":[],"request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: agents
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-agents-get
+      steps:
+        - stepId: test
+          operationId: platform-agents-get
+          parameters:
+            - name: agent_id
+              in: path
+              value: <id>
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"agent":{"agent_id":"mho4lwzylcozgoc2","name":"HR Policy Agent","capabilities":{}},"request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: agents
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-agents-get-schemas
+      steps:
+        - stepId: test
+          operationId: platform-agents-get-schemas
+          parameters:
+            - name: agent_id
+              in: path
+              value: <id>
+            - name: include_tools
+              in: query
+              value: false
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"agent_id":"<id>","input_schema":{},"output_schema":{"key":"<value>","key1":"<value>","key2":"<value>"},"request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: agents
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-agents-create-run
+      steps:
+        - stepId: test
+          operationId: platform-agents-create-run
+          parameters:
+            - name: agent_id
+              in: path
+              value: <id>
+          requestBody:
+            contentType: application/json
+            payload:
+                messages:
+                    - content: []
+                      role: USER
+                stream: false
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"run":{"agent_id":"<id>","messages":[{"role":"USER","content":[]}],"status":"error"},"messages":[{"role":"USER","content":[]}],"request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: agents
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-search
+      steps:
+        - stepId: test
+          operationId: platform-search
+          requestBody:
+            contentType: application/json
+            payload:
+                datasource_instances:
+                    - slack_acme
+                    - slack_eu
+                datasources:
+                    - confluence
+                    - google_drive
+                filters:
+                    - field: type
+                      values:
+                        - spreadsheet
+                        - presentation
+                page_size: 10
+                query: quarterly planning 2026
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"results":[],"has_more":false,"next_cursor":"<value>","request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: search
       x-speakeasy-test-rebuild: true

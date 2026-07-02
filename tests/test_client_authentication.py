@@ -25,3 +25,17 @@ def test_client_authentication_createauthtoken():
 
         res = glean.client.authentication.create_token()
         assert res is not None
+
+
+def test_client_authentication_checkdatasourceauth():
+    test_http_client = create_test_http_client("checkdatasourceauth")
+
+    with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
+        client=test_http_client,
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+    ) as glean:
+        assert glean is not None
+
+        res = glean.client.authentication.check_datasource_auth()
+        assert res is not None

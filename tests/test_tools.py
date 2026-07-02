@@ -51,7 +51,7 @@ def test_tools_get_action_pack_auth_status():
     ) as glean:
         assert glean is not None
 
-        res = glean.tools.get_action_pack_auth_status(action_pack_id="<id>")
+        res = glean.client.tools.retrieve_action_pack_auth_status(action_pack_id="<id>")
         assert res is not None
 
 
@@ -65,7 +65,7 @@ def test_tools_authorize_action_pack():
     ) as glean:
         assert glean is not None
 
-        res = glean.tools.authorize_action_pack(
+        res = glean.client.tools.authorize_action_pack(
             action_pack_id="<id>", return_url="https://merry-allocation.org/"
         )
         assert res is not None
