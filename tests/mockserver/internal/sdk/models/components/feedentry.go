@@ -90,6 +90,7 @@ const (
 	JustificationTypeZeroStateAgentSuggestion          JustificationType = "ZERO_STATE_AGENT_SUGGESTION"
 	JustificationTypePersonalizedChatSuggestion        JustificationType = "PERSONALIZED_CHAT_SUGGESTION"
 	JustificationTypeDailyDigest                       JustificationType = "DAILY_DIGEST"
+	JustificationTypePodcast                           JustificationType = "PODCAST"
 	JustificationTypeTask                              JustificationType = "TASK"
 	JustificationTypePlanMyDay                         JustificationType = "PLAN_MY_DAY"
 	JustificationTypeEndMyDay                          JustificationType = "END_MY_DAY"
@@ -189,6 +190,8 @@ func (e *JustificationType) UnmarshalJSON(data []byte) error {
 	case "PERSONALIZED_CHAT_SUGGESTION":
 		fallthrough
 	case "DAILY_DIGEST":
+		fallthrough
+	case "PODCAST":
 		fallthrough
 	case "TASK":
 		fallthrough

@@ -7,7 +7,8 @@ type AnswerResult struct {
 	// Use `answer.trackingToken` instead.
 	//
 	// Deprecated: Deprecated on 2026-05-07, removal scheduled for 2027-01-15: Use `answer.trackingToken` instead..
-	TrackingToken *string `json:"trackingToken,omitempty"`
+	TrackingToken *string       `json:"trackingToken,omitempty"`
+	FavoriteInfo  *FavoriteInfo `json:"favoriteInfo,omitempty"`
 }
 
 func (o *AnswerResult) GetAnswer() Answer {
@@ -22,4 +23,11 @@ func (o *AnswerResult) GetTrackingToken() *string {
 		return nil
 	}
 	return o.TrackingToken
+}
+
+func (o *AnswerResult) GetFavoriteInfo() *FavoriteInfo {
+	if o == nil {
+		return nil
+	}
+	return o.FavoriteInfo
 }

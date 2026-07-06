@@ -94,10 +94,11 @@ type EditCollectionResponse struct {
 	// The children Collections of this Collection.
 	Children []Collection `json:"children,omitempty"`
 	// A list of user roles for the Collection.
-	Roles      []UserRoleSpecification         `json:"roles,omitempty"`
-	ErrorCode  EditCollectionResponseErrorCode `json:"errorCode"`
-	Collection *Collection                     `json:"collection,omitempty"`
-	Error      *CollectionError                `json:"error,omitempty"`
+	Roles        []UserRoleSpecification         `json:"roles,omitempty"`
+	FavoriteInfo *FavoriteInfo                   `json:"favoriteInfo,omitempty"`
+	ErrorCode    EditCollectionResponseErrorCode `json:"errorCode"`
+	Collection   *Collection                     `json:"collection,omitempty"`
+	Error        *CollectionError                `json:"error,omitempty"`
 }
 
 func (e EditCollectionResponse) MarshalJSON() ([]byte, error) {
@@ -277,6 +278,13 @@ func (o *EditCollectionResponse) GetRoles() []UserRoleSpecification {
 		return nil
 	}
 	return o.Roles
+}
+
+func (o *EditCollectionResponse) GetFavoriteInfo() *FavoriteInfo {
+	if o == nil {
+		return nil
+	}
+	return o.FavoriteInfo
 }
 
 func (o *EditCollectionResponse) GetErrorCode() EditCollectionResponseErrorCode {

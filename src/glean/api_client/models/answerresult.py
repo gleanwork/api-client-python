@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 from .answer import Answer, AnswerTypedDict
+from .favoriteinfo import FavoriteInfo, FavoriteInfoTypedDict
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
 from pydantic import model_serializer
@@ -13,6 +14,7 @@ class AnswerResultTypedDict(TypedDict):
     answer: AnswerTypedDict
     tracking_token: NotRequired[str]
     r"""Use `answer.trackingToken` instead."""
+    favorite_info: NotRequired[FavoriteInfoTypedDict]
 
 
 class AnswerResult(BaseModel):
@@ -27,9 +29,13 @@ class AnswerResult(BaseModel):
     ] = None
     r"""Use `answer.trackingToken` instead."""
 
+    favorite_info: Annotated[
+        Optional[FavoriteInfo], pydantic.Field(alias="favoriteInfo")
+    ] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["trackingToken"])
+        optional_fields = set(["trackingToken", "favoriteInfo"])
         serialized = handler(self)
         m = {}
 

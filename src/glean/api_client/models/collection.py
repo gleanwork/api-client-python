@@ -6,6 +6,7 @@ from .collectionpinnedmetadata import (
     CollectionPinnedMetadataTypedDict,
 )
 from .facetfilter import FacetFilter, FacetFilterTypedDict
+from .favoriteinfo import FavoriteInfo, FavoriteInfoTypedDict
 from .objectpermissions import ObjectPermissions, ObjectPermissionsTypedDict
 from .thumbnail import Thumbnail, ThumbnailTypedDict
 from datetime import datetime
@@ -66,6 +67,7 @@ class CollectionTypedDict(TypedDict):
     r"""The children Collections of this Collection."""
     roles: NotRequired[List["UserRoleSpecificationTypedDict"]]
     r"""A list of user roles for the Collection."""
+    favorite_info: NotRequired[FavoriteInfoTypedDict]
 
 
 class Collection(BaseModel):
@@ -150,6 +152,10 @@ class Collection(BaseModel):
     roles: Optional[List["UserRoleSpecification"]] = None
     r"""A list of user roles for the Collection."""
 
+    favorite_info: Annotated[
+        Optional[FavoriteInfo], pydantic.Field(alias="favoriteInfo")
+    ] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -175,6 +181,7 @@ class Collection(BaseModel):
                 "shortcuts",
                 "children",
                 "roles",
+                "favoriteInfo",
             ]
         )
         serialized = handler(self)

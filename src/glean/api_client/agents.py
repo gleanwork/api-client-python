@@ -109,7 +109,7 @@ class Agents(BaseSDK):
             )
         if utils.match_response(
             http_res,
-            ["400", "401", "403", "404", "408", "429"],
+            ["400", "401", "403", "404", "408", "413", "429"],
             "application/problem+json",
         ):
             response_data = unmarshal_json_response(
@@ -223,7 +223,7 @@ class Agents(BaseSDK):
             )
         if utils.match_response(
             http_res,
-            ["400", "401", "403", "404", "408", "429"],
+            ["400", "401", "403", "404", "408", "413", "429"],
             "application/problem+json",
         ):
             response_data = unmarshal_json_response(
@@ -811,7 +811,7 @@ class Agents(BaseSDK):
             return http_res.text
         if utils.match_response(
             http_res,
-            ["400", "401", "403", "404", "408", "409", "429"],
+            ["400", "401", "403", "404", "408", "409", "413", "429"],
             "application/problem+json",
         ):
             response_data = unmarshal_json_response(
@@ -957,7 +957,7 @@ class Agents(BaseSDK):
             return http_res.text
         if utils.match_response(
             http_res,
-            ["400", "401", "403", "404", "408", "409", "429"],
+            ["400", "401", "403", "404", "408", "409", "413", "429"],
             "application/problem+json",
         ):
             response_data = unmarshal_json_response(
