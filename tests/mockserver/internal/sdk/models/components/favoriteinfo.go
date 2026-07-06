@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type FavoriteInfo struct {
 	UgcType *UgcType `json:"ugcType,omitempty"`
 	// Opaque id of the UGC.
@@ -10,6 +14,17 @@ type FavoriteInfo struct {
 	Count *int64 `json:"count,omitempty"`
 	// If the requesting user has favorited this object.
 	FavoritedByUser *bool `json:"favoritedByUser,omitempty"`
+}
+
+func (f FavoriteInfo) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(f, "", false)
+}
+
+func (f *FavoriteInfo) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *FavoriteInfo) GetUgcType() *UgcType {

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 from .facetfilter import FacetFilter, FacetFilterTypedDict
+from .favoriteinfo import FavoriteInfo, FavoriteInfoTypedDict
 from datetime import datetime
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 import pydantic
@@ -26,6 +27,7 @@ class PinDocumentTypedDict(TypedDict):
     updated_by: NotRequired["PersonTypedDict"]
     create_time: NotRequired[datetime]
     update_time: NotRequired[datetime]
+    favorite_info: NotRequired[FavoriteInfoTypedDict]
 
 
 class PinDocument(BaseModel):
@@ -55,6 +57,10 @@ class PinDocument(BaseModel):
         None
     )
 
+    favorite_info: Annotated[
+        Optional[FavoriteInfo], pydantic.Field(alias="favoriteInfo")
+    ] = None
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -66,6 +72,7 @@ class PinDocument(BaseModel):
                 "updatedBy",
                 "createTime",
                 "updateTime",
+                "favoriteInfo",
             ]
         )
         serialized = handler(self)

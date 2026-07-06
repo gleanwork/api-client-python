@@ -9,6 +9,7 @@ from .collectionpinnedmetadata import (
     CollectionPinnedMetadataTypedDict,
 )
 from .facetfilter import FacetFilter, FacetFilterTypedDict
+from .favoriteinfo import FavoriteInfo, FavoriteInfoTypedDict
 from .objectpermissions import ObjectPermissions, ObjectPermissionsTypedDict
 from .person import Person, PersonTypedDict
 from .thumbnail import Thumbnail, ThumbnailTypedDict
@@ -77,6 +78,7 @@ class EditCollectionResponseTypedDict(TypedDict):
     r"""The children Collections of this Collection."""
     roles: NotRequired[List[UserRoleSpecificationTypedDict]]
     r"""A list of user roles for the Collection."""
+    favorite_info: NotRequired[FavoriteInfoTypedDict]
     collection: NotRequired[CollectionTypedDict]
     error: NotRequired[CollectionErrorTypedDict]
 
@@ -167,6 +169,10 @@ class EditCollectionResponse(BaseModel):
     roles: Optional[List[UserRoleSpecification]] = None
     r"""A list of user roles for the Collection."""
 
+    favorite_info: Annotated[
+        Optional[FavoriteInfo], pydantic.Field(alias="favoriteInfo")
+    ] = None
+
     collection: Optional[Collection] = None
 
     error: Optional[CollectionError] = None
@@ -205,6 +211,7 @@ class EditCollectionResponse(BaseModel):
                 "shortcuts",
                 "children",
                 "roles",
+                "favoriteInfo",
                 "collection",
                 "error",
             ]

@@ -15,11 +15,12 @@ type PinDocument struct {
 	// The opaque id of the pin.
 	ID *string `json:"id,omitempty"`
 	// The document which should be a pinned result.
-	DocumentID  string     `json:"documentId"`
-	Attribution *Person    `json:"attribution,omitempty"`
-	UpdatedBy   *Person    `json:"updatedBy,omitempty"`
-	CreateTime  *time.Time `json:"createTime,omitempty"`
-	UpdateTime  *time.Time `json:"updateTime,omitempty"`
+	DocumentID   string        `json:"documentId"`
+	Attribution  *Person       `json:"attribution,omitempty"`
+	UpdatedBy    *Person       `json:"updatedBy,omitempty"`
+	CreateTime   *time.Time    `json:"createTime,omitempty"`
+	UpdateTime   *time.Time    `json:"updateTime,omitempty"`
+	FavoriteInfo *FavoriteInfo `json:"favoriteInfo,omitempty"`
 }
 
 func (p PinDocument) MarshalJSON() ([]byte, error) {
@@ -87,4 +88,11 @@ func (o *PinDocument) GetUpdateTime() *time.Time {
 		return nil
 	}
 	return o.UpdateTime
+}
+
+func (o *PinDocument) GetFavoriteInfo() *FavoriteInfo {
+	if o == nil {
+		return nil
+	}
+	return o.FavoriteInfo
 }

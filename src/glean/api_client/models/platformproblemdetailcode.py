@@ -21,6 +21,7 @@ class PlatformProblemDetailCode(str, Enum, metaclass=utils.OpenEnumMeta):
     RESOURCE_NOT_FOUND = "resource_not_found"
     METHOD_NOT_ALLOWED = "method_not_allowed"
     REQUEST_TIMEOUT = "request_timeout"
+    REQUEST_TOO_LARGE = "request_too_large"
     CONFLICT = "conflict"
     GONE = "gone"
     UNPROCESSABLE_QUERY = "unprocessable_query"

@@ -3,6 +3,7 @@
 from __future__ import annotations
 from .document import Document, DocumentTypedDict
 from .facetfilter import FacetFilter, FacetFilterTypedDict
+from .favoriteinfo import FavoriteInfo, FavoriteInfoTypedDict
 from .objectpermissions import ObjectPermissions, ObjectPermissionsTypedDict
 from .person import Person, PersonTypedDict
 from .structuredtext import StructuredText, StructuredTextTypedDict
@@ -105,6 +106,7 @@ class AnnouncementTypedDict(TypedDict):
     source_document: NotRequired[DocumentTypedDict]
     is_published: NotRequired[bool]
     r"""Whether or not the announcement is published."""
+    favorite_info: NotRequired[FavoriteInfoTypedDict]
 
 
 class Announcement(BaseModel):
@@ -195,6 +197,10 @@ class Announcement(BaseModel):
     is_published: Annotated[Optional[bool], pydantic.Field(alias="isPublished")] = None
     r"""Whether or not the announcement is published."""
 
+    favorite_info: Annotated[
+        Optional[FavoriteInfo], pydantic.Field(alias="favoriteInfo")
+    ] = None
+
     @field_serializer("channel")
     def serialize_channel(self, value):
         if isinstance(value, str):
@@ -242,6 +248,7 @@ class Announcement(BaseModel):
                 "viewerInfo",
                 "sourceDocument",
                 "isPublished",
+                "favoriteInfo",
             ]
         )
         serialized = handler(self)

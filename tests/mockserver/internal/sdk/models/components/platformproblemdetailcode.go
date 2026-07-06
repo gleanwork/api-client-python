@@ -24,6 +24,7 @@ const (
 	PlatformProblemDetailCodeResourceNotFound        PlatformProblemDetailCode = "resource_not_found"
 	PlatformProblemDetailCodeMethodNotAllowed        PlatformProblemDetailCode = "method_not_allowed"
 	PlatformProblemDetailCodeRequestTimeout          PlatformProblemDetailCode = "request_timeout"
+	PlatformProblemDetailCodeRequestTooLarge         PlatformProblemDetailCode = "request_too_large"
 	PlatformProblemDetailCodeConflict                PlatformProblemDetailCode = "conflict"
 	PlatformProblemDetailCodeGone                    PlatformProblemDetailCode = "gone"
 	PlatformProblemDetailCodeUnprocessableQuery      PlatformProblemDetailCode = "unprocessable_query"
@@ -66,6 +67,8 @@ func (e *PlatformProblemDetailCode) UnmarshalJSON(data []byte) error {
 	case "method_not_allowed":
 		fallthrough
 	case "request_timeout":
+		fallthrough
+	case "request_too_large":
 		fallthrough
 	case "conflict":
 		fallthrough

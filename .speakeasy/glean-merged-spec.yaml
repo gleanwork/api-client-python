@@ -2,8 +2,8 @@ openapi: 3.0.0
 info:
   version: "0.9.0"
   title: Glean API
-  x-source-commit-sha: 750ec3e4db6f2877f191460b47bff807273c68d8
-  x-open-api-commit-sha: 5130487252df59e5fe21a96c4e758609933045da
+  x-source-commit-sha: 33bf057cf0f948a83126e81582717aebdb622bfa
+  x-open-api-commit-sha: 4f3a4abf8f003a4edc5522021b22184c76d051ad
   description: |
     # Introduction
     In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This is useful, for example, for doing permissions-aware search over content in internal tools that reside on-prem as well as for searching over applications that Glean does not currently support first class. In addition these APIs allow the customer to push organization data (people info, organization structure etc) into Glean.
@@ -67,6 +67,8 @@ paths:
           $ref: "#/components/responses/PlatformNotFound"
         "408":
           $ref: "#/components/responses/PlatformRequestTimeout"
+        "413":
+          $ref: "#/components/responses/PlatformRequestTooLarge"
         "429":
           $ref: "#/components/responses/PlatformTooManyRequests"
         "500":
@@ -236,6 +238,8 @@ paths:
           $ref: "#/components/responses/PlatformRequestTimeout"
         "409":
           $ref: "#/components/responses/PlatformConflict"
+        "413":
+          $ref: "#/components/responses/PlatformRequestTooLarge"
         "429":
           $ref: "#/components/responses/PlatformTooManyRequests"
         "500":
@@ -282,6 +286,8 @@ paths:
           $ref: "#/components/responses/PlatformNotFound"
         "408":
           $ref: "#/components/responses/PlatformRequestTimeout"
+        "413":
+          $ref: "#/components/responses/PlatformRequestTooLarge"
         "429":
           $ref: "#/components/responses/PlatformTooManyRequests"
         "500":
@@ -5078,6 +5084,7 @@ components:
         - resource_not_found
         - method_not_allowed
         - request_timeout
+        - request_too_large
         - conflict
         - gone
         - unprocessable_query
@@ -5248,6 +5255,7 @@ components:
           $ref: "#/components/schemas/PlatformMessageRole"
         content:
           type: array
+          minItems: 1
           description: Content blocks in the message.
           items:
             $ref: "#/components/schemas/PlatformMessageTextBlock"
@@ -7260,6 +7268,44 @@ components:
         editUrl:
           type: string
           description: The URL using which the user can access the edit page of the shortcut.
+    UgcType:
+      enum:
+        - AGENT_TYPE
+        - ANNOUNCEMENTS_TYPE
+        - ANSWERS_TYPE
+        - CHATS_TYPE
+        - COLLECTIONS_TYPE
+        - EMAIL_TYPE
+        - HTML_CODE_TYPE
+        - IMAGE_TYPE
+        - MESSAGE_TYPE
+        - PAPER_TYPE
+        - PRISM_VIEWS_TYPE
+        - PROMPT_TEMPLATES_TYPE
+        - PINS_TYPE
+        - SCRIBES_TYPE
+        - SHORTCUTS_TYPE
+        - SLIDE_TYPE
+        - SPREADSHEET_TYPE
+        - INLINE_HTML_TYPE
+        - PODCAST_TYPE
+        - WORKFLOWS_TYPE
+    FavoriteInfo:
+      type: object
+      properties:
+        ugcType:
+          $ref: '#/components/schemas/UgcType'
+        id:
+          type: string
+          description: Opaque id of the UGC.
+        count:
+          type: integer
+          description: Number of users this object has been favorited by.
+          x-includeEmpty: true
+        favoritedByUser:
+          type: boolean
+          description: If the requesting user has favorited this object.
+          x-includeEmpty: true
     Shortcut:
       allOf:
         - $ref: '#/components/schemas/UserGeneratedContentId'
@@ -7279,6 +7325,8 @@ components:
               items:
                 $ref: '#/components/schemas/UserRoleSpecification'
               description: A list of user roles for the Go Link.
+            favoriteInfo:
+              $ref: '#/components/schemas/FavoriteInfo'
           required:
             - inputAlias
     Collection:
@@ -7330,6 +7378,8 @@ components:
               items:
                 $ref: '#/components/schemas/UserRoleSpecification'
               description: A list of user roles for the Collection.
+            favoriteInfo:
+              $ref: '#/components/schemas/FavoriteInfo'
           required:
             - id
             - description
@@ -8144,6 +8194,8 @@ components:
             updateTime:
               type: string
               format: date-time
+            favoriteInfo:
+              $ref: '#/components/schemas/FavoriteInfo'
           required:
             - documentId
     PersonTeam:
@@ -8969,6 +9021,8 @@ components:
             isPublished:
               type: boolean
               description: Whether or not the announcement is published.
+            favoriteInfo:
+              $ref: '#/components/schemas/FavoriteInfo'
     DeleteAnnouncementRequest:
       properties:
         id:
@@ -9055,6 +9109,8 @@ components:
             message: Use `answer.trackingToken` instead.
             removal: "2027-01-15"
           x-speakeasy-deprecation-message: "Deprecated on 2026-05-07, removal scheduled for 2027-01-15: Use `answer.trackingToken` instead."
+        favoriteInfo:
+          $ref: '#/components/schemas/FavoriteInfo'
       required:
         - answer
     GetAnswerError:
@@ -11896,6 +11952,7 @@ components:
               - ZERO_STATE_WORKFLOW_SUGGESTION
               - PERSONALIZED_CHAT_SUGGESTION
               - DAILY_DIGEST
+              - PODCAST
               - TASK
               - PLAN_MY_DAY
               - END_MY_DAY
@@ -12239,44 +12296,6 @@ components:
               items:
                 $ref: '#/components/schemas/UserRoleSpecification'
               description: A list of roles for this prompt template explicitly granted.
-    UgcType:
-      enum:
-        - AGENT_TYPE
-        - ANNOUNCEMENTS_TYPE
-        - ANSWERS_TYPE
-        - CHATS_TYPE
-        - COLLECTIONS_TYPE
-        - EMAIL_TYPE
-        - HTML_CODE_TYPE
-        - IMAGE_TYPE
-        - MESSAGE_TYPE
-        - PAPER_TYPE
-        - PRISM_VIEWS_TYPE
-        - PROMPT_TEMPLATES_TYPE
-        - PINS_TYPE
-        - SCRIBES_TYPE
-        - SHORTCUTS_TYPE
-        - SLIDE_TYPE
-        - SPREADSHEET_TYPE
-        - INLINE_HTML_TYPE
-        - PODCAST_TYPE
-        - WORKFLOWS_TYPE
-    FavoriteInfo:
-      type: object
-      properties:
-        ugcType:
-          $ref: '#/components/schemas/UgcType'
-        id:
-          type: string
-          description: Opaque id of the UGC.
-        count:
-          type: integer
-          description: Number of users this object has been favorited by.
-          x-includeEmpty: true
-        favoritedByUser:
-          type: boolean
-          description: If the requesting user has favorited this object.
-          x-includeEmpty: true
     PromptTemplateResult:
       properties:
         promptTemplate:
@@ -12372,6 +12391,7 @@ components:
             - ZERO_STATE_AGENT_SUGGESTION
             - PERSONALIZED_CHAT_SUGGESTION
             - DAILY_DIGEST
+            - PODCAST
             - TASK
             - PLAN_MY_DAY
             - END_MY_DAY
@@ -12464,6 +12484,7 @@ components:
             - ZERO_STATE_WORKFLOW_SUGGESTION
             - PERSONALIZED_CHAT_SUGGESTION
             - DAILY_DIGEST
+            - PODCAST
             - TASK
             - PLAN_MY_DAY
             - END_MY_DAY
@@ -15752,6 +15773,12 @@ components:
             $ref: "#/components/schemas/PlatformProblemDetail"
     PlatformRequestTimeout:
       description: Backend did not respond within the timeout window.
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/PlatformProblemDetail"
+    PlatformRequestTooLarge:
+      description: Request body exceeds the maximum allowed size.
       content:
         application/problem+json:
           schema:

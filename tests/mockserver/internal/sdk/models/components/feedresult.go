@@ -36,6 +36,7 @@ const (
 	FeedResultCategoryZeroStateWorkflowSuggestion  FeedResultCategory = "ZERO_STATE_WORKFLOW_SUGGESTION"
 	FeedResultCategoryPersonalizedChatSuggestion   FeedResultCategory = "PERSONALIZED_CHAT_SUGGESTION"
 	FeedResultCategoryDailyDigest                  FeedResultCategory = "DAILY_DIGEST"
+	FeedResultCategoryPodcast                      FeedResultCategory = "PODCAST"
 	FeedResultCategoryTask                         FeedResultCategory = "TASK"
 	FeedResultCategoryPlanMyDay                    FeedResultCategory = "PLAN_MY_DAY"
 	FeedResultCategoryEndMyDay                     FeedResultCategory = "END_MY_DAY"
@@ -113,6 +114,8 @@ func (e *FeedResultCategory) UnmarshalJSON(data []byte) error {
 	case "PERSONALIZED_CHAT_SUGGESTION":
 		fallthrough
 	case "DAILY_DIGEST":
+		fallthrough
+	case "PODCAST":
 		fallthrough
 	case "TASK":
 		fallthrough
