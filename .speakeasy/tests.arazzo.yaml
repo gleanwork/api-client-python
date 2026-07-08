@@ -158828,3 +158828,41 @@ workflows:
               type: simple
       x-speakeasy-test-group: search
       x-speakeasy-test-rebuild: true
+    - workflowId: getToolServerAuthStatus
+      steps:
+        - stepId: test
+          operationId: getToolServerAuthStatus
+          parameters:
+            - name: serverId
+              in: path
+              value: <id>
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"authStatus":"AUTHORIZED","authType":"AUTH_NONE"}
+              type: simple
+      x-speakeasy-test-group: tools
+      x-speakeasy-test-rebuild: true
+    - workflowId: authorizeToolServer
+      steps:
+        - stepId: test
+          operationId: authorizeToolServer
+          parameters:
+            - name: serverId
+              in: path
+              value: <id>
+          requestBody:
+            contentType: application/json
+            payload:
+                returnUrl: https://lucky-disadvantage.com
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"authorizationUrl":"https://shocked-casket.name/"}
+              type: simple
+      x-speakeasy-test-group: tools
+      x-speakeasy-test-rebuild: true

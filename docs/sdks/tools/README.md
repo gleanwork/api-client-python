@@ -8,6 +8,8 @@
 * [run](#run) - Execute the specified tool
 * [retrieve_action_pack_auth_status](#retrieve_action_pack_auth_status) - Get end-user authentication status for an action pack.
 * [authorize_action_pack](#authorize_action_pack) - Start the OAuth authorization flow for an action pack.
+* [retrieve_tool_server_auth_status](#retrieve_tool_server_auth_status) - Get end-user authentication status for a tool server.
+* [authorize_tool_server](#authorize_tool_server) - Start the OAuth authorization flow for a tool server.
 
 ## list
 
@@ -176,6 +178,96 @@ with Glean(
 ### Response
 
 **[models.AuthorizeActionPackResponse](../../models/authorizeactionpackresponse.md)**
+
+### Errors
+
+| Error Type        | Status Code       | Content Type      |
+| ----------------- | ----------------- | ----------------- |
+| errors.GleanError | 4XX, 5XX          | \*/\*             |
+
+## retrieve_tool_server_auth_status
+
+Returns display information and the calling user's current authentication status
+for the specified tool server.
+
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="getToolServerAuthStatus" method="get" path="/rest/api/v1/tool-servers/{serverId}/auth" -->
+```python
+from glean.api_client import Glean
+import os
+
+
+with Glean(
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+) as glean:
+
+    res = glean.client.tools.retrieve_tool_server_auth_status(server_id="<id>")
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `server_id`                                                         | *str*                                                               | :heavy_check_mark:                                                  | Unique identifier of the tool server.                               |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Response
+
+**[models.ToolServerAuthStatusResponse](../../models/toolserverauthstatusresponse.md)**
+
+### Errors
+
+| Error Type        | Status Code       | Content Type      |
+| ----------------- | ----------------- | ----------------- |
+| errors.GleanError | 4XX, 5XX          | \*/\*             |
+
+## authorize_tool_server
+
+Initiates the third-party OAuth flow for the specified tool server and returns the
+authorization URL that the client should navigate the end user to. After the OAuth
+callback completes, the user's browser is redirected back to `returnUrl` with query
+parameters indicating the result.
+
+`returnUrl` must match the tenant's configured return URL allowlist; otherwise the
+request is rejected with 400.
+
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="authorizeToolServer" method="post" path="/rest/api/v1/tool-servers/{serverId}/auth" -->
+```python
+from glean.api_client import Glean
+import os
+
+
+with Glean(
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+) as glean:
+
+    res = glean.client.tools.authorize_tool_server(server_id="<id>", return_url="https://lucky-disadvantage.com")
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                                                                                        | Type                                                                                                                                             | Required                                                                                                                                         | Description                                                                                                                                      |
+| ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `server_id`                                                                                                                                      | *str*                                                                                                                                            | :heavy_check_mark:                                                                                                                               | Unique identifier of the tool server.                                                                                                            |
+| `return_url`                                                                                                                                     | *str*                                                                                                                                            | :heavy_check_mark:                                                                                                                               | URL to redirect the end user's browser back to after the OAuth flow completes.<br/>Must be present in the tenant's configured return URL allowlist.<br/> |
+| `retries`                                                                                                                                        | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                 | :heavy_minus_sign:                                                                                                                               | Configuration to override the default retry behavior of the client.                                                                              |
+
+### Response
+
+**[models.AuthorizeToolServerResponse](../../models/authorizetoolserverresponse.md)**
 
 ### Errors
 

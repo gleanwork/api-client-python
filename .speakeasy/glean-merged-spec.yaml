@@ -2,8 +2,8 @@ openapi: 3.0.0
 info:
   version: "0.9.0"
   title: Glean API
-  x-source-commit-sha: 33bf057cf0f948a83126e81582717aebdb622bfa
-  x-open-api-commit-sha: 4f3a4abf8f003a4edc5522021b22184c76d051ad
+  x-source-commit-sha: 1ccc408fdb2c210e136239b5b42a53c7b9b4abe5
+  x-open-api-commit-sha: 1bf9887187c8200b2881b1768fc50ae4fae41796
   description: |
     # Introduction
     In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This is useful, for example, for doing permissions-aware search over content in internal tools that reside on-prem as well as for searching over applications that Glean does not currently support first class. In addition these APIs allow the customer to push organization data (people info, organization structure etc) into Glean.
@@ -2973,6 +2973,89 @@ paths:
         required: true
         schema:
           type: string
+  /rest/api/v1/tool-servers/{serverId}/auth:
+    get:
+      operationId: getToolServerAuthStatus
+      summary: Get end-user authentication status for a tool server.
+      description: |
+        Returns display information and the calling user's current authentication status
+        for the specified tool server.
+      tags:
+        - Tools
+      security:
+        - APIToken: []
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ToolServerAuthStatusResponse'
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "404":
+          description: Tool server not found
+        "429":
+          description: Too Many Requests
+      x-visibility: Preview
+      x-glean-experimental:
+        id: 52fde6ec-c18b-4de6-b761-f82008542ae7
+        introduced: "2026-07-02"
+      x-speakeasy-name-override: retrieveToolServerAuthStatus
+      x-speakeasy-group: client.tools
+    post:
+      operationId: authorizeToolServer
+      summary: Start the OAuth authorization flow for a tool server.
+      description: |
+        Initiates the third-party OAuth flow for the specified tool server and returns the
+        authorization URL that the client should navigate the end user to. After the OAuth
+        callback completes, the user's browser is redirected back to `returnUrl` with query
+        parameters indicating the result.
+
+        `returnUrl` must match the tenant's configured return URL allowlist; otherwise the
+        request is rejected with 400.
+      tags:
+        - Tools
+      security:
+        - APIToken: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthorizeToolServerRequest'
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthorizeToolServerResponse'
+        "400":
+          description: Invalid request (e.g. returnUrl not in allowlist, unsupported auth type)
+        "401":
+          description: Unauthorized
+        "403":
+          description: User not entitled to the tool server
+        "404":
+          description: Tool server not found
+        "429":
+          description: Too Many Requests
+      x-visibility: Preview
+      x-glean-experimental:
+        id: 1935476e-ecaf-4c1f-a9fd-1e768cf68f30
+        introduced: "2026-07-02"
+      x-speakeasy-name-override: authorizeToolServer
+      x-speakeasy-group: client.tools
+    parameters:
+      - name: serverId
+        in: path
+        description: Unique identifier of the tool server.
+        required: true
+        schema:
+          type: string
   /api/index/v1/indexdocument:
     post:
       summary: Index document
@@ -5091,6 +5174,67 @@ components:
         - rate_limit_exceeded
         - internal_error
         - service_unavailable
+      x-glean-problem-detail-codes:
+        invalid_request:
+          status: 400
+          title: Invalid Request
+        missing_required_field:
+          status: 400
+          title: Missing Required Field
+        invalid_parameter:
+          status: 400
+          title: Invalid Parameter
+        invalid_cursor:
+          status: 400
+          title: Invalid Pagination Cursor
+        expired_cursor:
+          status: 400
+          title: Expired Pagination Cursor
+        invalid_filter:
+          status: 400
+          title: Invalid Filter
+        invalid_datasource:
+          status: 400
+          title: Invalid Datasource
+        authentication_required:
+          status: 401
+          title: Authentication Required
+        token_expired:
+          status: 401
+          title: Token Expired
+        insufficient_permissions:
+          status: 403
+          title: Insufficient Permissions
+        resource_not_found:
+          status: 404
+          title: Resource Not Found
+        method_not_allowed:
+          status: 405
+          title: Method Not Allowed
+        request_timeout:
+          status: 408
+          title: Request Timeout
+        request_too_large:
+          status: 413
+          title: Request Too Large
+        conflict:
+          status: 409
+          title: Conflict
+        gone:
+          status: 410
+          title: Gone
+        unprocessable_query:
+          status: 422
+          title: Unprocessable Query
+        rate_limit_exceeded:
+          status: 429
+          title: Rate Limit Exceeded
+        internal_error:
+          status: 500
+          title: Internal Error
+        service_unavailable:
+          status: 503
+          title: Service Unavailable
       example: invalid_cursor
     PlatformProblemDetailError:
       type: object
@@ -5125,7 +5269,7 @@ components:
           type: string
           format: uri
           description: URI identifying the error type.
-          example: https://developer.glean.com/errors/invalid-cursor
+          example: https://developers.glean.com/errors/invalid-cursor
         title:
           type: string
           description: Short, human-readable summary of the error.
@@ -5145,7 +5289,7 @@ components:
           type: string
           format: uri
           description: Direct URL to documentation for this error code.
-          example: https://developer.glean.com/errors/invalid-cursor
+          example: https://developers.glean.com/errors/invalid-cursor
         request_id:
           type: string
           description: Platform-generated request ID for support correlation.
@@ -11970,6 +12114,7 @@ components:
               - DEMO_CARD
               - OOO_PLANNER
               - OOO_CATCH_UP
+              - ADMIN_HEALTH_CENTER
           description: Categories of content requested. An allowlist gives flexibility to request content separately or together.
         requestOptions:
           $ref: '#/components/schemas/FeedRequestOptions'
@@ -12413,6 +12558,7 @@ components:
             - DEMO_CARD
             - OOO_PLANNER
             - OOO_CATCH_UP
+            - ADMIN_HEALTH_CENTER
           description: Type of the justification.
         justification:
           type: string
@@ -12502,6 +12648,7 @@ components:
             - DEMO_CARD
             - OOO_PLANNER
             - OOO_CATCH_UP
+            - ADMIN_HEALTH_CENTER
           description: Category of the result, one of the requested categories in incoming request.
         primaryEntry:
           $ref: '#/components/schemas/FeedEntry'
@@ -13135,6 +13282,51 @@ components:
             After the user consents, control returns to `returnUrl` from the request.
       required:
         - redirectUrl
+    ToolServerAuthStatus:
+      type: string
+      enum:
+        - AWAITING_AUTH
+        - AUTHORIZED
+      description: Authentication status for the calling user.
+    ToolServerAuthStatusResponse:
+      type: object
+      properties:
+        displayName:
+          type: string
+          description: Human-readable name of the tool server.
+        logoUrl:
+          type: string
+          description: Logo URL for the tool server.
+        description:
+          type: string
+          description: Brief description of the tool server.
+        authStatus:
+          $ref: '#/components/schemas/ToolServerAuthStatus'
+        authType:
+          $ref: '#/components/schemas/ActionAuthType'
+      required:
+        - authStatus
+        - authType
+    AuthorizeToolServerRequest:
+      type: object
+      properties:
+        returnUrl:
+          type: string
+          description: |
+            URL to redirect the end user's browser back to after the OAuth flow completes.
+            Must be present in the tenant's configured return URL allowlist.
+      required:
+        - returnUrl
+    AuthorizeToolServerResponse:
+      type: object
+      properties:
+        authorizationUrl:
+          type: string
+          description: |
+            URL that the client should navigate the end user to in order to begin the OAuth flow.
+            After the user consents, control returns to `returnUrl` from the request.
+      required:
+        - authorizationUrl
     IndexDocumentRequest:
       type: object
       properties:
