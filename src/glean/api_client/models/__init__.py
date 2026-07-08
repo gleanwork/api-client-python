@@ -203,6 +203,18 @@ if TYPE_CHECKING:
         AuthorizeActionPackResponse,
         AuthorizeActionPackResponseTypedDict,
     )
+    from .authorizetoolserverop import (
+        AuthorizeToolServerRequestRequest,
+        AuthorizeToolServerRequestRequestTypedDict,
+    )
+    from .authorizetoolserverrequest import (
+        AuthorizeToolServerRequest,
+        AuthorizeToolServerRequestTypedDict,
+    )
+    from .authorizetoolserverresponse import (
+        AuthorizeToolServerResponse,
+        AuthorizeToolServerResponseTypedDict,
+    )
     from .authstatus import AuthStatus
     from .authtoken import AuthToken, AuthTokenTypedDict
     from .autocompleteop import (
@@ -974,6 +986,10 @@ if TYPE_CHECKING:
         GetShortcutRequestTypedDict,
     )
     from .getshortcutresponse import GetShortcutResponse, GetShortcutResponseTypedDict
+    from .gettoolserverauthstatusop import (
+        GetToolServerAuthStatusRequest,
+        GetToolServerAuthStatusRequestTypedDict,
+    )
     from .getusercountrequest import GetUserCountRequest, GetUserCountRequestTypedDict
     from .getusercountresponse import (
         GetUserCountResponse,
@@ -1479,6 +1495,11 @@ if TYPE_CHECKING:
     from .toolscallparameter import ToolsCallParameter, ToolsCallParameterTypedDict
     from .toolscallrequest import ToolsCallRequest, ToolsCallRequestTypedDict
     from .toolscallresponse import ToolsCallResponse, ToolsCallResponseTypedDict
+    from .toolserverauthstatus import ToolServerAuthStatus
+    from .toolserverauthstatusresponse import (
+        ToolServerAuthStatusResponse,
+        ToolServerAuthStatusResponseTypedDict,
+    )
     from .toolsets import ToolSets, ToolSetsTypedDict
     from .toolslistresponse import ToolsListResponse, ToolsListResponseTypedDict
     from .ugctype import UgcType
@@ -1759,6 +1780,12 @@ __all__ = [
     "AuthorizeActionPackRequestTypedDict",
     "AuthorizeActionPackResponse",
     "AuthorizeActionPackResponseTypedDict",
+    "AuthorizeToolServerRequest",
+    "AuthorizeToolServerRequestRequest",
+    "AuthorizeToolServerRequestRequestTypedDict",
+    "AuthorizeToolServerRequestTypedDict",
+    "AuthorizeToolServerResponse",
+    "AuthorizeToolServerResponseTypedDict",
     "AutocompleteRequest",
     "AutocompleteRequestRequest",
     "AutocompleteRequestRequestTypedDict",
@@ -2327,6 +2354,8 @@ __all__ = [
     "GetShortcutRequestTypedDict",
     "GetShortcutResponse",
     "GetShortcutResponseTypedDict",
+    "GetToolServerAuthStatusRequest",
+    "GetToolServerAuthStatusRequestTypedDict",
     "GetUserCountRequest",
     "GetUserCountRequestTypedDict",
     "GetUserCountResponse",
@@ -2838,6 +2867,9 @@ __all__ = [
     "ToolParameter",
     "ToolParameterType",
     "ToolParameterTypedDict",
+    "ToolServerAuthStatus",
+    "ToolServerAuthStatusResponse",
+    "ToolServerAuthStatusResponseTypedDict",
     "ToolSets",
     "ToolSetsTypedDict",
     "ToolType",
@@ -3050,6 +3082,12 @@ _dynamic_imports: dict[str, str] = {
     "AuthorizeActionPackRequestTypedDict": ".authorizeactionpackrequest",
     "AuthorizeActionPackResponse": ".authorizeactionpackresponse",
     "AuthorizeActionPackResponseTypedDict": ".authorizeactionpackresponse",
+    "AuthorizeToolServerRequestRequest": ".authorizetoolserverop",
+    "AuthorizeToolServerRequestRequestTypedDict": ".authorizetoolserverop",
+    "AuthorizeToolServerRequest": ".authorizetoolserverrequest",
+    "AuthorizeToolServerRequestTypedDict": ".authorizetoolserverrequest",
+    "AuthorizeToolServerResponse": ".authorizetoolserverresponse",
+    "AuthorizeToolServerResponseTypedDict": ".authorizetoolserverresponse",
     "AuthStatus": ".authstatus",
     "AuthToken": ".authtoken",
     "AuthTokenTypedDict": ".authtoken",
@@ -3617,6 +3655,8 @@ _dynamic_imports: dict[str, str] = {
     "GetShortcutRequestTypedDict": ".getshortcutrequest",
     "GetShortcutResponse": ".getshortcutresponse",
     "GetShortcutResponseTypedDict": ".getshortcutresponse",
+    "GetToolServerAuthStatusRequest": ".gettoolserverauthstatusop",
+    "GetToolServerAuthStatusRequestTypedDict": ".gettoolserverauthstatusop",
     "GetUserCountRequest": ".getusercountrequest",
     "GetUserCountRequestTypedDict": ".getusercountrequest",
     "GetUserCountResponse": ".getusercountresponse",
@@ -4046,6 +4086,9 @@ _dynamic_imports: dict[str, str] = {
     "ToolsCallRequestTypedDict": ".toolscallrequest",
     "ToolsCallResponse": ".toolscallresponse",
     "ToolsCallResponseTypedDict": ".toolscallresponse",
+    "ToolServerAuthStatus": ".toolserverauthstatus",
+    "ToolServerAuthStatusResponse": ".toolserverauthstatusresponse",
+    "ToolServerAuthStatusResponseTypedDict": ".toolserverauthstatusresponse",
     "ToolSets": ".toolsets",
     "ToolSetsTypedDict": ".toolsets",
     "ToolsListResponse": ".toolslistresponse",

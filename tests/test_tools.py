@@ -69,3 +69,33 @@ def test_tools_authorize_action_pack():
             action_pack_id="<id>", return_url="https://merry-allocation.org/"
         )
         assert res is not None
+
+
+def test_tools_get_tool_server_auth_status():
+    test_http_client = create_test_http_client("getToolServerAuthStatus")
+
+    with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
+        client=test_http_client,
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+    ) as glean:
+        assert glean is not None
+
+        res = glean.client.tools.retrieve_tool_server_auth_status(server_id="<id>")
+        assert res is not None
+
+
+def test_tools_authorize_tool_server():
+    test_http_client = create_test_http_client("authorizeToolServer")
+
+    with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
+        client=test_http_client,
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+    ) as glean:
+        assert glean is not None
+
+        res = glean.client.tools.authorize_tool_server(
+            server_id="<id>", return_url="https://lucky-disadvantage.com"
+        )
+        assert res is not None

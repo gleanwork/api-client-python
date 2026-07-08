@@ -464,6 +464,8 @@ For more information on obtaining the appropriate token type, please contact you
 * [run](docs/sdks/tools/README.md#run) - Execute the specified tool
 * [retrieve_action_pack_auth_status](docs/sdks/tools/README.md#retrieve_action_pack_auth_status) - Get end-user authentication status for an action pack.
 * [authorize_action_pack](docs/sdks/tools/README.md#authorize_action_pack) - Start the OAuth authorization flow for an action pack.
+* [retrieve_tool_server_auth_status](docs/sdks/tools/README.md#retrieve_tool_server_auth_status) - Get end-user authentication status for a tool server.
+* [authorize_tool_server](docs/sdks/tools/README.md#authorize_tool_server) - Start the OAuth authorization flow for a tool server.
 
 ### [Client.Verification](docs/sdks/clientverification/README.md)
 
