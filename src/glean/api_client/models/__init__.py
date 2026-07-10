@@ -80,6 +80,7 @@ if TYPE_CHECKING:
         ActionPackAuthStatusResponse,
         ActionPackAuthStatusResponseTypedDict,
     )
+    from .actionpreview import ActionPreview, ActionPreviewTypedDict
     from .actionsummary import ActionSummary, ActionSummaryTypedDict
     from .activity import Activity, ActivityTypedDict
     from .activityevent import (
@@ -191,6 +192,7 @@ if TYPE_CHECKING:
         GrantType,
         TokenEndpointAuthMethod,
     )
+    from .authcontext import AuthContext, AuthContextTypedDict
     from .authorizeactionpackop import (
         AuthorizeActionPackRequestRequest,
         AuthorizeActionPackRequestRequestTypedDict,
@@ -1103,8 +1105,8 @@ if TYPE_CHECKING:
         ListEntitiesRequest,
         ListEntitiesRequestEntityType,
         ListEntitiesRequestIncludeField,
+        ListEntitiesRequestRequestType,
         ListEntitiesRequestTypedDict,
-        RequestType,
     )
     from .listentitiesresponse import (
         ListEntitiesResponse,
@@ -1426,6 +1428,17 @@ if TYPE_CHECKING:
         SensitiveInfoTypeLikelihoodThreshold,
         SensitiveInfoTypeTypedDict,
     )
+    from .servertoolrequest import (
+        ServerToolRequest,
+        ServerToolRequestRequestType,
+        ServerToolRequestTypedDict,
+    )
+    from .servertoolresponse import (
+        GrantScope,
+        ServerToolResponse,
+        ServerToolResponseRequestType,
+        ServerToolResponseTypedDict,
+    )
     from .sessioninfo import SessionInfo, SessionInfoTypedDict
     from .sharingoptions import SharingOptions, SharingOptionsTypedDict
     from .shortcuterror import (
@@ -1683,6 +1696,8 @@ __all__ = [
     "ActionPackAuthStatusResponse",
     "ActionPackAuthStatusResponseTypedDict",
     "ActionPackAuthStatusTypedDict",
+    "ActionPreview",
+    "ActionPreviewTypedDict",
     "ActionSummary",
     "ActionSummaryTypedDict",
     "Activity",
@@ -1769,6 +1784,8 @@ __all__ = [
     "AuthConfigStatus",
     "AuthConfigType",
     "AuthConfigTypedDict",
+    "AuthContext",
+    "AuthContextTypedDict",
     "AuthStatus",
     "AuthToken",
     "AuthTokenTypedDict",
@@ -2392,6 +2409,7 @@ __all__ = [
     "GleanDataErrorTypedDict",
     "GrantPermission",
     "GrantPermissionTypedDict",
+    "GrantScope",
     "GrantType",
     "GreenlistUsersRequest",
     "GreenlistUsersRequestTypedDict",
@@ -2479,6 +2497,7 @@ __all__ = [
     "ListEntitiesRequest",
     "ListEntitiesRequestEntityType",
     "ListEntitiesRequestIncludeField",
+    "ListEntitiesRequestRequestType",
     "ListEntitiesRequestTypedDict",
     "ListEntitiesResponse",
     "ListEntitiesResponseTypedDict",
@@ -2722,7 +2741,6 @@ __all__ = [
     "ReportStatusResponse",
     "ReportStatusResponseStatus",
     "ReportStatusResponseTypedDict",
-    "RequestType",
     "ResponseBody1",
     "ResponseBody1TypedDict",
     "ResponseBody2",
@@ -2787,6 +2805,12 @@ __all__ = [
     "SensitiveInfoType",
     "SensitiveInfoTypeLikelihoodThreshold",
     "SensitiveInfoTypeTypedDict",
+    "ServerToolRequest",
+    "ServerToolRequestRequestType",
+    "ServerToolRequestTypedDict",
+    "ServerToolResponse",
+    "ServerToolResponseRequestType",
+    "ServerToolResponseTypedDict",
     "SessionInfo",
     "SessionInfoTypedDict",
     "Share",
@@ -2989,6 +3013,8 @@ _dynamic_imports: dict[str, str] = {
     "ActionPackAuthStatusTypedDict": ".actionpackauthstatus",
     "ActionPackAuthStatusResponse": ".actionpackauthstatusresponse",
     "ActionPackAuthStatusResponseTypedDict": ".actionpackauthstatusresponse",
+    "ActionPreview": ".actionpreview",
+    "ActionPreviewTypedDict": ".actionpreview",
     "ActionSummary": ".actionsummary",
     "ActionSummaryTypedDict": ".actionsummary",
     "Activity": ".activity",
@@ -3076,6 +3102,8 @@ _dynamic_imports: dict[str, str] = {
     "AuthConfigTypedDict": ".authconfig",
     "GrantType": ".authconfig",
     "TokenEndpointAuthMethod": ".authconfig",
+    "AuthContext": ".authcontext",
+    "AuthContextTypedDict": ".authcontext",
     "AuthorizeActionPackRequestRequest": ".authorizeactionpackop",
     "AuthorizeActionPackRequestRequestTypedDict": ".authorizeactionpackop",
     "AuthorizeActionPackRequest": ".authorizeactionpackrequest",
@@ -3749,8 +3777,8 @@ _dynamic_imports: dict[str, str] = {
     "ListEntitiesRequest": ".listentitiesrequest",
     "ListEntitiesRequestEntityType": ".listentitiesrequest",
     "ListEntitiesRequestIncludeField": ".listentitiesrequest",
+    "ListEntitiesRequestRequestType": ".listentitiesrequest",
     "ListEntitiesRequestTypedDict": ".listentitiesrequest",
-    "RequestType": ".listentitiesrequest",
     "ListEntitiesResponse": ".listentitiesresponse",
     "ListEntitiesResponseTypedDict": ".listentitiesresponse",
     "ListpinsRequest": ".listpinsop",
@@ -4009,6 +4037,13 @@ _dynamic_imports: dict[str, str] = {
     "SensitiveInfoType": ".sensitiveinfotype",
     "SensitiveInfoTypeLikelihoodThreshold": ".sensitiveinfotype",
     "SensitiveInfoTypeTypedDict": ".sensitiveinfotype",
+    "ServerToolRequest": ".servertoolrequest",
+    "ServerToolRequestRequestType": ".servertoolrequest",
+    "ServerToolRequestTypedDict": ".servertoolrequest",
+    "GrantScope": ".servertoolresponse",
+    "ServerToolResponse": ".servertoolresponse",
+    "ServerToolResponseRequestType": ".servertoolresponse",
+    "ServerToolResponseTypedDict": ".servertoolresponse",
     "SessionInfo": ".sessioninfo",
     "SessionInfoTypedDict": ".sessioninfo",
     "SharingOptions": ".sharingoptions",

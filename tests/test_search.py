@@ -2223,10 +2223,6 @@ def test_search_platform_search():
                 "confluence",
                 "google_drive",
             ],
-            datasource_instances=[
-                "slack_acme",
-                "slack_eu",
-            ],
             filters=[
                 {
                     "field": "type",

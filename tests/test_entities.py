@@ -35,7 +35,7 @@ def test_entities_listentities():
             ],
             entity_type=models.ListEntitiesRequestEntityType.PEOPLE,
             page_size=100,
-            request_type=models.RequestType.STANDARD,
+            request_type=models.ListEntitiesRequestRequestType.STANDARD,
         )
         assert res is not None
 

@@ -1,13 +1,13 @@
-# RequestType
+# ListEntitiesRequestRequestType
 
 The type of request being made.
 
 ## Example Usage
 
 ```python
-from glean.api_client.models import RequestType
+from glean.api_client.models import ListEntitiesRequestRequestType
 
-value = RequestType.STANDARD
+value = ListEntitiesRequestRequestType.STANDARD
 ```
 
 

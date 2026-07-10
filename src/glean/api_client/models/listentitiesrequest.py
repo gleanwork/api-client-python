@@ -29,7 +29,7 @@ class ListEntitiesRequestIncludeField(str, Enum):
     UNPROCESSED_TEAMS = "UNPROCESSED_TEAMS"
 
 
-class RequestType(str, Enum):
+class ListEntitiesRequestRequestType(str, Enum):
     r"""The type of request being made."""
 
     # Used by default for all requests and satisfies all standard use cases for list requests. Limited to 10000 entities.
@@ -55,7 +55,7 @@ class ListEntitiesRequestTypedDict(TypedDict):
     r"""Pagination cursor. A previously received opaque token representing the position in the overall results at which to start."""
     source: NotRequired[str]
     r"""A string denoting the search surface from which the endpoint is called."""
-    request_type: NotRequired[RequestType]
+    request_type: NotRequired[ListEntitiesRequestRequestType]
     r"""The type of request being made."""
 
 
@@ -93,8 +93,8 @@ class ListEntitiesRequest(BaseModel):
     r"""A string denoting the search surface from which the endpoint is called."""
 
     request_type: Annotated[
-        Optional[RequestType], pydantic.Field(alias="requestType")
-    ] = RequestType.STANDARD
+        Optional[ListEntitiesRequestRequestType], pydantic.Field(alias="requestType")
+    ] = ListEntitiesRequestRequestType.STANDARD
     r"""The type of request being made."""
 
     @model_serializer(mode="wrap")
