@@ -37,7 +37,9 @@ class Entities(BaseSDK):
         page_size: Optional[int] = None,
         cursor: Optional[str] = None,
         source: Optional[str] = None,
-        request_type: Optional[models.RequestType] = models.RequestType.STANDARD,
+        request_type: Optional[
+            models.ListEntitiesRequestRequestType
+        ] = models.ListEntitiesRequestRequestType.STANDARD,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -178,7 +180,9 @@ class Entities(BaseSDK):
         page_size: Optional[int] = None,
         cursor: Optional[str] = None,
         source: Optional[str] = None,
-        request_type: Optional[models.RequestType] = models.RequestType.STANDARD,
+        request_type: Optional[
+            models.ListEntitiesRequestRequestType
+        ] = models.ListEntitiesRequestRequestType.STANDARD,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,

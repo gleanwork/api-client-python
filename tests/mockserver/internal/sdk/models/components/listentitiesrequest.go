@@ -84,18 +84,18 @@ func (e *ListEntitiesRequestIncludeField) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// RequestType - The type of request being made.
-type RequestType string
+// ListEntitiesRequestRequestType - The type of request being made.
+type ListEntitiesRequestRequestType string
 
 const (
-	RequestTypeStandard      RequestType = "STANDARD"
-	RequestTypeFullDirectory RequestType = "FULL_DIRECTORY"
+	ListEntitiesRequestRequestTypeStandard      ListEntitiesRequestRequestType = "STANDARD"
+	ListEntitiesRequestRequestTypeFullDirectory ListEntitiesRequestRequestType = "FULL_DIRECTORY"
 )
 
-func (e RequestType) ToPointer() *RequestType {
+func (e ListEntitiesRequestRequestType) ToPointer() *ListEntitiesRequestRequestType {
 	return &e
 }
-func (e *RequestType) UnmarshalJSON(data []byte) error {
+func (e *ListEntitiesRequestRequestType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -104,10 +104,10 @@ func (e *RequestType) UnmarshalJSON(data []byte) error {
 	case "STANDARD":
 		fallthrough
 	case "FULL_DIRECTORY":
-		*e = RequestType(v)
+		*e = ListEntitiesRequestRequestType(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for RequestType: %v", v)
+		return fmt.Errorf("invalid value for ListEntitiesRequestRequestType: %v", v)
 	}
 }
 
@@ -129,7 +129,7 @@ type ListEntitiesRequest struct {
 	// A string denoting the search surface from which the endpoint is called.
 	Source *string `json:"source,omitempty"`
 	// The type of request being made.
-	RequestType *RequestType `default:"STANDARD" json:"requestType"`
+	RequestType *ListEntitiesRequestRequestType `default:"STANDARD" json:"requestType"`
 }
 
 func (l ListEntitiesRequest) MarshalJSON() ([]byte, error) {
@@ -206,7 +206,7 @@ func (o *ListEntitiesRequest) GetSource() *string {
 	return o.Source
 }
 
-func (o *ListEntitiesRequest) GetRequestType() *RequestType {
+func (o *ListEntitiesRequest) GetRequestType() *ListEntitiesRequestRequestType {
 	if o == nil {
 		return nil
 	}

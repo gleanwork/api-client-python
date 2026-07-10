@@ -4,6 +4,8 @@ from __future__ import annotations
 from .chatfile import ChatFile, ChatFileTypedDict
 from .chatmessagecitation import ChatMessageCitation, ChatMessageCitationTypedDict
 from .querysuggestion import QuerySuggestion, QuerySuggestionTypedDict
+from .servertoolrequest import ServerToolRequest, ServerToolRequestTypedDict
+from .servertoolresponse import ServerToolResponse, ServerToolResponseTypedDict
 from .structuredresult import StructuredResult, StructuredResultTypedDict
 from .toolinfo import ToolInfo, ToolInfoTypedDict
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
@@ -27,6 +29,23 @@ class ChatMessageFragmentTypedDict(TypedDict):
     action: NotRequired[ToolInfoTypedDict]
     citation: NotRequired[ChatMessageCitationTypedDict]
     r"""Information about the source for a ChatMessage."""
+    server_tool_request: NotRequired[ServerToolRequestTypedDict]
+    server_tool_response: NotRequired[ServerToolResponseTypedDict]
+    r"""Response to a server tool request. The applicable fields depend on requestType:
+
+    For EXECUTION requests:
+    - isGranted: whether tool execution is approved
+    - reason: optional explanation
+
+    For AUTHENTICATION_SUGGESTION requests:
+    - isGranted: whether auth completed successfully (true=connected, false=skipped)
+    - authContext: contains serverId or actionPackId for identifying the authenticated entity
+    - reason: optional explanation for skip
+
+    For VOTE_SUGGESTION requests:
+    - voted: whether the user voted for this tool
+
+    """
 
 
 class ChatMessageFragment(BaseModel):
@@ -56,6 +75,29 @@ class ChatMessageFragment(BaseModel):
     citation: Optional[ChatMessageCitation] = None
     r"""Information about the source for a ChatMessage."""
 
+    server_tool_request: Annotated[
+        Optional[ServerToolRequest], pydantic.Field(alias="serverToolRequest")
+    ] = None
+
+    server_tool_response: Annotated[
+        Optional[ServerToolResponse], pydantic.Field(alias="serverToolResponse")
+    ] = None
+    r"""Response to a server tool request. The applicable fields depend on requestType:
+
+    For EXECUTION requests:
+    - isGranted: whether tool execution is approved
+    - reason: optional explanation
+
+    For AUTHENTICATION_SUGGESTION requests:
+    - isGranted: whether auth completed successfully (true=connected, false=skipped)
+    - authContext: contains serverId or actionPackId for identifying the authenticated entity
+    - reason: optional explanation for skip
+
+    For VOTE_SUGGESTION requests:
+    - voted: whether the user voted for this tool
+
+    """
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -67,6 +109,8 @@ class ChatMessageFragment(BaseModel):
                 "file",
                 "action",
                 "citation",
+                "serverToolRequest",
+                "serverToolResponse",
             ]
         )
         serialized = handler(self)

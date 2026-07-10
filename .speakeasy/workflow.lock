@@ -1,9 +1,9 @@
-speakeasyVersion: 1.789.0
+speakeasyVersion: 1.789.2
 sources:
     Glean API:
         sourceNamespace: glean-api-specs
-        sourceRevisionDigest: sha256:38135f10206267ef24935fe6f997edba535c1d95313a1bfd30066f791e2f692b
-        sourceBlobDigest: sha256:cabd9d3d8eb34d9f7324632354255e5b224c05443dd6f8f27094c47cd4839d01
+        sourceRevisionDigest: sha256:145236c33451e6e87cf1507a4d8829678b0df02af59afc9341330627e33ed760
+        sourceBlobDigest: sha256:862b1370a65d146eac83f86c6fbd2d787f04ea93c2cf28259af5ded934f9fb3b
         tags:
             - latest
     Glean Client API:
@@ -16,10 +16,10 @@ targets:
     glean:
         source: Glean API
         sourceNamespace: glean-api-specs
-        sourceRevisionDigest: sha256:38135f10206267ef24935fe6f997edba535c1d95313a1bfd30066f791e2f692b
-        sourceBlobDigest: sha256:cabd9d3d8eb34d9f7324632354255e5b224c05443dd6f8f27094c47cd4839d01
+        sourceRevisionDigest: sha256:145236c33451e6e87cf1507a4d8829678b0df02af59afc9341330627e33ed760
+        sourceBlobDigest: sha256:862b1370a65d146eac83f86c6fbd2d787f04ea93c2cf28259af5ded934f9fb3b
         codeSamplesNamespace: glean-api-specs-python-code-samples
-        codeSamplesRevisionDigest: sha256:0c2ffb1bbb551c0718176c53dd5fdd322c6c78ec6ab0979f9469cfef459b051e
+        codeSamplesRevisionDigest: sha256:4a0a1ec3489f36483dc6080dacec4d40157b2e8d34be15e06417ddfc2e4f090a
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest

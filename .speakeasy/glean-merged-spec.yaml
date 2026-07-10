@@ -2,8 +2,8 @@ openapi: 3.0.0
 info:
   version: "0.9.0"
   title: Glean API
-  x-source-commit-sha: 1ccc408fdb2c210e136239b5b42a53c7b9b4abe5
-  x-open-api-commit-sha: 1bf9887187c8200b2881b1768fc50ae4fae41796
+  x-source-commit-sha: 270b693d49bac2f68e751b2345bac0c267741119
+  x-open-api-commit-sha: 592aec2b4913505edb8161645eaf9a72b5286f20
   description: |
     # Introduction
     In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This is useful, for example, for doing permissions-aware search over content in internal tools that reside on-prem as well as for searching over applications that Glean does not currently support first class. In addition these APIs allow the customer to push organization data (people info, organization structure etc) into Glean.
@@ -5533,12 +5533,21 @@ components:
       additionalProperties: false
       required:
         - query
+      example:
+        query: quarterly planning 2026
+        datasources:
+          - confluence
+          - google_drive
+        filters:
+          - field: type
+            values:
+              - spreadsheet
+              - presentation
       properties:
         query:
           type: string
           description: |
             The search query string. Supports inline operators such as `from:jane type:document app:confluence`. Inline operators are AND'd with structured `filters`.
-          example: quarterly planning 2026
         page_size:
           type: integer
           minimum: 1
@@ -5556,18 +5565,12 @@ components:
             type: string
           description: |
             Restrict results to specific datasources. Requests must not specify both `datasources` and `datasource_instances`.
-          example:
-            - confluence
-            - google_drive
         datasource_instances:
           type: array
           items:
             type: string
           description: |
             Restrict results to specific datasource instances. Values are datasource instance identifiers returned by `GET /api/search/filters`. Requests must not specify both `datasources` and `datasource_instances`.
-          example:
-            - slack_acme
-            - slack_eu
         filters:
           type: array
           items:
@@ -9713,6 +9716,127 @@ components:
           additionalProperties:
             $ref: '#/components/schemas/WriteActionParameter'
           description: Parameters supported by the tool.
+    ServerToolBase:
+      type: object
+      properties:
+        requestType:
+          type: string
+          enum:
+            - EXECUTION
+            - AUTHENTICATION_SUGGESTION
+            - VOTE_SUGGESTION
+          description: The type of request made to the user.
+          x-enumDescriptions:
+            EXECUTION: Request for approving execution of the tool.
+            AUTHENTICATION_SUGGESTION: Request for authenticating to a tool, provided as a (tool) suggestion.
+            VOTE_SUGGESTION: Suggestion to vote for enabling an available-but-not-enabled tool.
+          x-speakeasy-enum-descriptions:
+            EXECUTION: Request for approving execution of the tool.
+            AUTHENTICATION_SUGGESTION: Request for authenticating to a tool, provided as a (tool) suggestion.
+            VOTE_SUGGESTION: Suggestion to vote for enabling an available-but-not-enabled tool.
+        requestId:
+          type: string
+          description: Unique identifier for this request.
+      required:
+        - toolType
+        - requestType
+        - requestId
+      x-visibility: Preview
+      x-glean-experimental:
+        id: 4e3ee791-45e0-4125-845f-4b7701aa983c
+        introduced: "2026-07-02"
+    ActionPreview:
+      properties:
+        markdown:
+          type: string
+          description: Markdown preview describing what the action will do.
+        description:
+          type: string
+          description: Short summary of what this specific tool invocation will do.
+      description: Preview information for an action being executed.
+    ServerToolRequest:
+      allOf:
+        - $ref: '#/components/schemas/ServerToolBase'
+        - type: object
+          properties:
+            toolDisplayName:
+              type: string
+              description: Human-readable display name for the tool.
+            serverId:
+              type: string
+              description: |
+                Unique identifier of the tool server. Use with GET /tool-servers/{serverId}/auth
+                to resolve display information and authentication status.
+            toolCta:
+              type: string
+              description: Custom call-to-action (CTA) verb for the approval button (e.g., "Create", "Update", "Send").
+            actionPreview:
+              $ref: '#/components/schemas/ActionPreview'
+              description: Preview information for this tool request.
+          required:
+            - toolName
+      x-visibility: Preview
+      x-glean-experimental:
+        id: 8544e887-4569-4b14-bde0-d1be9e90dbc3
+        introduced: "2026-07-02"
+    AuthContext:
+      type: object
+      properties:
+        serverId:
+          type: string
+          description: ID of the MCP server (populated when toolType is MCP).
+      description: |
+        Context for authentication responses, containing identifiers for the entity being authenticated.
+      x-visibility: Preview
+      x-glean-experimental:
+        id: a7c1d3e5-9f42-4b8a-b6e0-2d4f8a1c3e5b
+        introduced: "2026-07-09"
+    ServerToolResponse:
+      allOf:
+        - $ref: '#/components/schemas/ServerToolBase'
+        - type: object
+          properties:
+            isGranted:
+              type: boolean
+              description: Whether tool request is granted (indicates approval for execution, or completion for auth).
+            grantScope:
+              type: string
+              enum:
+                - CURRENT_REQUEST
+                - CURRENT_SESSION
+                - ALWAYS
+              description: |
+                Scope of the approval grant. Only applicable when isGranted is true and requestType is EXECUTION.
+              default: CURRENT_REQUEST
+              x-enumDescriptions:
+                CURRENT_REQUEST: Approve only the current tool request. Future tool execution requests still require approval.
+                CURRENT_SESSION: Approve the current tool request and auto-approve all future same tool requests in this chat session.
+                ALWAYS: Approve the current tool request and auto-approve all future same tool requests across all chat sessions.
+              x-speakeasy-enum-descriptions:
+                CURRENT_REQUEST: Approve only the current tool request. Future tool execution requests still require approval.
+                CURRENT_SESSION: Approve the current tool request and auto-approve all future same tool requests in this chat session.
+                ALWAYS: Approve the current tool request and auto-approve all future same tool requests across all chat sessions.
+            authContext:
+              $ref: '#/components/schemas/AuthContext'
+              description: Context for AUTHENTICATION_SUGGESTION responses. Required when requestType is AUTHENTICATION_SUGGESTION.
+      description: |
+        Response to a server tool request. The applicable fields depend on requestType:
+
+        For EXECUTION requests:
+        - isGranted: whether tool execution is approved
+        - reason: optional explanation
+
+        For AUTHENTICATION_SUGGESTION requests:
+        - isGranted: whether auth completed successfully (true=connected, false=skipped)
+        - authContext: contains serverId or actionPackId for identifying the authenticated entity
+        - reason: optional explanation for skip
+
+        For VOTE_SUGGESTION requests:
+        - voted: whether the user voted for this tool
+      x-visibility: Preview
+      x-glean-experimental:
+        id: 3eae3ee7-2c06-4027-be14-98260a3ce608
+        introduced: "2026-07-02"
     ChatMessageFragment:
       allOf:
         - $ref: '#/components/schemas/Result'
@@ -9732,6 +9856,12 @@ components:
             citation:
               $ref: '#/components/schemas/ChatMessageCitation'
               description: Inline citation.
+            serverToolRequest:
+              $ref: '#/components/schemas/ServerToolRequest'
+              description: request to run a tool on server.
+            serverToolResponse:
+              $ref: '#/components/schemas/ServerToolResponse'
+              description: response corresponding to the server tool request.
       description: Represents a part of a ChatMessage that originates from a single action/tool. It is designed to support rich data formats beyond simple text, allowing for a more dynamic and interactive chat experience. Each fragment can include various types of content, such as text, search queries, action information, and more. Also, each ChatMessageFragment should only have one of structuredResults, querySuggestion, writeAction, followupAction, agentRecommendation, followupRoutingSuggestion or file.
     ChatMessage:
       properties:
