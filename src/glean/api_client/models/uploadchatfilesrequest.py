@@ -10,13 +10,13 @@ from typing import IO, List, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class FileTypedDict(TypedDict):
+class UploadChatFilesRequestFileTypedDict(TypedDict):
     file_name: str
     content: Union[bytes, IO[bytes], io.IOBase]
     content_type: NotRequired[str]
 
 
-class File(BaseModel):
+class UploadChatFilesRequestFile(BaseModel):
     file_name: Annotated[
         str, pydantic.Field(alias="fileName"), FieldMetadata(multipart=True)
     ]
@@ -51,12 +51,13 @@ class File(BaseModel):
 
 
 class UploadChatFilesRequestTypedDict(TypedDict):
-    files: List[FileTypedDict]
+    files: List[UploadChatFilesRequestFileTypedDict]
     r"""Raw files to be uploaded for chat in binary format."""
 
 
 class UploadChatFilesRequest(BaseModel):
     files: Annotated[
-        List[File], FieldMetadata(multipart=MultipartFormMetadata(file=True))
+        List[UploadChatFilesRequestFile],
+        FieldMetadata(multipart=MultipartFormMetadata(file=True)),
     ]
     r"""Raw files to be uploaded for chat in binary format."""

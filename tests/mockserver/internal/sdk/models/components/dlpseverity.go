@@ -7,14 +7,15 @@ import (
 	"fmt"
 )
 
-// DlpSeverity - Severity levels for DLP findings and analyses.
+// DlpSeverity - Severity levels for DLP findings and analyses. FALSE_POSITIVE ranks below LOW and marks analyses that concluded every flagged entity is a detector false positive.
 type DlpSeverity string
 
 const (
-	DlpSeverityUnspecified DlpSeverity = "UNSPECIFIED"
-	DlpSeverityLow         DlpSeverity = "LOW"
-	DlpSeverityMedium      DlpSeverity = "MEDIUM"
-	DlpSeverityHigh        DlpSeverity = "HIGH"
+	DlpSeverityUnspecified   DlpSeverity = "UNSPECIFIED"
+	DlpSeverityLow           DlpSeverity = "LOW"
+	DlpSeverityMedium        DlpSeverity = "MEDIUM"
+	DlpSeverityHigh          DlpSeverity = "HIGH"
+	DlpSeverityFalsePositive DlpSeverity = "FALSE_POSITIVE"
 )
 
 func (e DlpSeverity) ToPointer() *DlpSeverity {
@@ -33,6 +34,8 @@ func (e *DlpSeverity) UnmarshalJSON(data []byte) error {
 	case "MEDIUM":
 		fallthrough
 	case "HIGH":
+		fallthrough
+	case "FALSE_POSITIVE":
 		*e = DlpSeverity(v)
 		return nil
 	default:

@@ -20,7 +20,7 @@ class DlpFindingFilterTypedDict(TypedDict):
     visibility: NotRequired[str]
     document_ids: NotRequired[List[str]]
     severity: NotRequired[DlpSeverity]
-    r"""Severity levels for DLP findings and analyses."""
+    r"""Severity levels for DLP findings and analyses. FALSE_POSITIVE ranks below LOW and marks analyses that concluded every flagged entity is a detector false positive."""
     document_severity: NotRequired[List[DlpSeverity]]
     statuses: NotRequired[List[DlpIssueStatus]]
     time_range: NotRequired[TimeRangeFilterTypedDict]
@@ -43,7 +43,7 @@ class DlpFindingFilter(BaseModel):
     ] = None
 
     severity: Optional[DlpSeverity] = None
-    r"""Severity levels for DLP findings and analyses."""
+    r"""Severity levels for DLP findings and analyses. FALSE_POSITIVE ranks below LOW and marks analyses that concluded every flagged entity is a detector false positive."""
 
     document_severity: Annotated[
         Optional[List[DlpSeverity]], pydantic.Field(alias="documentSeverity")

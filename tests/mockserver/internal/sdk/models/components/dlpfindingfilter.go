@@ -9,7 +9,7 @@ type DlpFindingFilter struct {
 	Datasource  *string  `json:"datasource,omitempty"`
 	Visibility  *string  `json:"visibility,omitempty"`
 	DocumentIds []string `json:"documentIds,omitempty"`
-	// Severity levels for DLP findings and analyses.
+	// Severity levels for DLP findings and analyses. FALSE_POSITIVE ranks below LOW and marks analyses that concluded every flagged entity is a detector false positive.
 	Severity         *DlpSeverity     `json:"severity,omitempty"`
 	DocumentSeverity []DlpSeverity    `json:"documentSeverity,omitempty"`
 	Statuses         []DlpIssueStatus `json:"statuses,omitempty"`

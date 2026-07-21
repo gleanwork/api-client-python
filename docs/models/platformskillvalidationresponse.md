@@ -1,0 +1,11 @@
+# PlatformSkillValidationResponse
+
+
+## Fields
+
+| Field                                                                                      | Type                                                                                       | Required                                                                                   | Description                                                                                |
+| ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
+| `metadata`                                                                                 | [models.PlatformSkillValidationMetadata](../models/platformskillvalidationmetadata.md)     | :heavy_check_mark:                                                                         | N/A                                                                                        |
+| `files`                                                                                    | List[[models.PlatformSkillValidationFile](../models/platformskillvalidationfile.md)]       | :heavy_check_mark:                                                                         | Normalized files in the bundle after stripping an optional single root folder.             |
+| `warnings`                                                                                 | List[[models.PlatformSkillValidationWarning](../models/platformskillvalidationwarning.md)] | :heavy_check_mark:                                                                         | Non-blocking validation warnings.                                                          |
+| `request_id`                                                                               | *str*                                                                                      | :heavy_check_mark:                                                                         | Platform-generated request ID for support correlation.                                     |

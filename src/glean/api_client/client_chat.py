@@ -1294,7 +1294,10 @@ class ClientChat(BaseSDK):
     def upload_files(
         self,
         *,
-        files: Union[Iterable[models.File], Iterable[models.FileTypedDict]],
+        files: Union[
+            Iterable[models.UploadChatFilesRequestFile],
+            Iterable[models.UploadChatFilesRequestFileTypedDict],
+        ],
         locale: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1328,7 +1331,9 @@ class ClientChat(BaseSDK):
             locale=locale,
             timezone_offset=timezone_offset,
             upload_chat_files_request=models.UploadChatFilesRequest(
-                files=utils.get_pydantic_model(files, List[models.File]),
+                files=utils.get_pydantic_model(
+                    files, List[models.UploadChatFilesRequestFile]
+                ),
             ),
         )
 
@@ -1395,7 +1400,10 @@ class ClientChat(BaseSDK):
     async def upload_files_async(
         self,
         *,
-        files: Union[Iterable[models.File], Iterable[models.FileTypedDict]],
+        files: Union[
+            Iterable[models.UploadChatFilesRequestFile],
+            Iterable[models.UploadChatFilesRequestFileTypedDict],
+        ],
         locale: Optional[str] = None,
         timezone_offset: Optional[int] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1429,7 +1437,9 @@ class ClientChat(BaseSDK):
             locale=locale,
             timezone_offset=timezone_offset,
             upload_chat_files_request=models.UploadChatFilesRequest(
-                files=utils.get_pydantic_model(files, List[models.File]),
+                files=utils.get_pydantic_model(
+                    files, List[models.UploadChatFilesRequestFile]
+                ),
             ),
         )
 

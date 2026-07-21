@@ -158863,3 +158863,188 @@ workflows:
               type: simple
       x-speakeasy-test-group: tools
       x-speakeasy-test-rebuild: true
+    - workflowId: platform-skills-create
+      steps:
+        - stepId: test
+          operationId: platform-skills-create
+          requestBody:
+            contentType: multipart/form-data
+            payload:
+                file: 'x-file: example.file'
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"skill":{"id":"<id>","display_name":"Merl18","description":"rural ugh unexpectedly excepting livid","latest_version":504149,"latest_minor_version":106110,"status":"DISABLED","origin":"CUSTOM","owner":{"name":"<value>"},"created_at":"2025-01-04T03:16:16.951Z","updated_at":"2025-09-10T16:05:46.046Z"},"request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: skills
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-skills-list
+      steps:
+        - stepId: test
+          operationId: platform-skills-list
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"skills":[],"has_more":true,"next_cursor":"<value>","request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: skills
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-skills-validate
+      steps:
+        - stepId: test
+          operationId: platform-skills-validate
+          requestBody:
+            contentType: multipart/form-data
+            payload:
+                file: 'x-file: example.file'
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"metadata":{"display_name":"Hattie10","description":"overburden actual impact"},"files":[],"warnings":[],"request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: skills
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-skills-get
+      steps:
+        - stepId: test
+          operationId: platform-skills-get
+          parameters:
+            - name: skill_id
+              in: path
+              value: <id>
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"skill":{"id":"<id>","display_name":"Chad_Herzog","description":"whenever up aha controvert","latest_version":151495,"latest_minor_version":170771,"status":"DISABLED","origin":"CUSTOM","owner":{"name":"<value>"},"created_at":"2024-12-25T16:41:00.099Z","updated_at":"2026-12-07T21:59:59.375Z"},"request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: skills
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-skills-get-content
+      steps:
+        - stepId: test
+          operationId: platform-skills-get-content
+          parameters:
+            - name: skill_id
+              in: path
+              value: <id>
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/octet-stream
+            - context: $response.body
+              condition: |
+                "x-file: example.file"
+              type: simple
+      x-speakeasy-test-group: skills
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-skills-create-version
+      steps:
+        - stepId: test
+          operationId: platform-skills-create-version
+          parameters:
+            - name: skill_id
+              in: path
+              value: <id>
+          requestBody:
+            contentType: multipart/form-data
+            payload:
+                file: 'x-file: example.file'
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"version":{"skill_id":"<id>","version":375506,"minor_version":600322,"is_latest":false,"created_by":{"name":"<value>"},"created_at":"2026-09-27T14:37:09.109Z","updated_at":"2024-05-30T08:59:58.715Z"},"request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: skills
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-skills-list-versions
+      steps:
+        - stepId: test
+          operationId: platform-skills-list-versions
+          parameters:
+            - name: skill_id
+              in: path
+              value: <id>
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"versions":[],"has_more":false,"next_cursor":"<value>","request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: skills
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-skills-get-version
+      steps:
+        - stepId: test
+          operationId: platform-skills-get-version
+          parameters:
+            - name: skill_id
+              in: path
+              value: <id>
+            - name: version
+              in: path
+              value: 495658
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"version":{"skill_id":"<id>","version":81632,"minor_version":646412,"is_latest":false,"created_by":{"name":"<value>"},"created_at":"2025-02-17T18:47:57.025Z","updated_at":"2024-12-19T03:10:35.770Z"},"request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: skills
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-skills-get-version-content
+      steps:
+        - stepId: test
+          operationId: platform-skills-get-version-content
+          parameters:
+            - name: skill_id
+              in: path
+              value: <id>
+            - name: version
+              in: path
+              value: 117760
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/octet-stream
+            - context: $response.body
+              condition: |
+                "x-file: example.file"
+              type: simple
+      x-speakeasy-test-group: skills
+      x-speakeasy-test-rebuild: true
+    - workflowId: post_/rest/api/index/submissions/{datasourceInstance}/{type}
+      steps:
+        - stepId: test
+          operationId: post_/rest/api/index/submissions/{datasourceInstance}/{type}
+          parameters:
+            - name: datasourceInstance
+              in: path
+              value: <value>
+            - name: type
+              in: path
+              value: <value>
+          requestBody:
+            contentType: application/json
+            payload:
+                key: <value>
+                key1: <value>
+                key2: <value>
+          successCriteria:
+            - condition: $statusCode == 202
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"requestId":"<id>"}
+              type: simple
+      x-speakeasy-test-group: indexing_datasources
+      x-speakeasy-test-rebuild: true

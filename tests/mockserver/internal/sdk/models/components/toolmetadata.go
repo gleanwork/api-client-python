@@ -96,6 +96,46 @@ func (e *WriteActionType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// ActionTypeSource - Analytics-only signal (product snapshot) describing WHERE the action's
+// read/write determination came from. Complementary to the effective
+// read/write value (the tool's ToolType, which drives HITL): the value says
+// read-or-write, this says how confident that is. MCP_ANNOTATION = from the
+// tool's read-only/destructive hints; ADMIN_OVERRIDE = an admin set it;
+// NONE = no usable hint (the effective value then defaults to write);
+// NATIVE_TOOL_DEFINITION = from a curated native tool (snapshot-derived).
+// Does not affect runtime behavior.
+type ActionTypeSource string
+
+const (
+	ActionTypeSourceMcpAnnotation        ActionTypeSource = "MCP_ANNOTATION"
+	ActionTypeSourceAdminOverride        ActionTypeSource = "ADMIN_OVERRIDE"
+	ActionTypeSourceNone                 ActionTypeSource = "NONE"
+	ActionTypeSourceNativeToolDefinition ActionTypeSource = "NATIVE_TOOL_DEFINITION"
+)
+
+func (e ActionTypeSource) ToPointer() *ActionTypeSource {
+	return &e
+}
+func (e *ActionTypeSource) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "MCP_ANNOTATION":
+		fallthrough
+	case "ADMIN_OVERRIDE":
+		fallthrough
+	case "NONE":
+		fallthrough
+	case "NATIVE_TOOL_DEFINITION":
+		*e = ActionTypeSource(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for ActionTypeSource: %v", v)
+	}
+}
+
 // AuthType - The type of authentication being used.
 // Use 'OAUTH_*' when Glean calls an external API (e.g., Jira) on behalf of a user to obtain an OAuth token.
 // 'OAUTH_ADMIN' utilizes an admin token for external API calls on behalf all users.
@@ -165,6 +205,16 @@ type ToolMetadata struct {
 	LastUpdatedAt *time.Time `json:"lastUpdatedAt,omitempty"`
 	// Valid only for write actions. Represents the type of write action. REDIRECT - The client renders the URL which contains information for carrying out the action. EXECUTION - Send a request to an external server and execute the action. MCP - Send a tools/call request to an MCP server to execute the action.
 	WriteActionType *WriteActionType `json:"writeActionType,omitempty"`
+	// Analytics-only signal (product snapshot) describing WHERE the action's
+	// read/write determination came from. Complementary to the effective
+	// read/write value (the tool's ToolType, which drives HITL): the value says
+	// read-or-write, this says how confident that is. MCP_ANNOTATION = from the
+	// tool's read-only/destructive hints; ADMIN_OVERRIDE = an admin set it;
+	// NONE = no usable hint (the effective value then defaults to write);
+	// NATIVE_TOOL_DEFINITION = from a curated native tool (snapshot-derived).
+	// Does not affect runtime behavior.
+	//
+	ActionTypeSource *ActionTypeSource `json:"actionTypeSource,omitempty"`
 	// The type of authentication being used.
 	// Use 'OAUTH_*' when Glean calls an external API (e.g., Jira) on behalf of a user to obtain an OAuth token.
 	// 'OAUTH_ADMIN' utilizes an admin token for external API calls on behalf all users.
@@ -281,6 +331,13 @@ func (o *ToolMetadata) GetWriteActionType() *WriteActionType {
 		return nil
 	}
 	return o.WriteActionType
+}
+
+func (o *ToolMetadata) GetActionTypeSource() *ActionTypeSource {
+	if o == nil {
+		return nil
+	}
+	return o.ActionTypeSource
 }
 
 func (o *ToolMetadata) GetAuthType() *AuthType {

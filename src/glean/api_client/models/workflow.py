@@ -31,6 +31,10 @@ class WorkflowTypedDict(TypedDict):
     r"""When present, indicates this workflow is admin-verified. Set via the dedicated admin settings endpoint, not by regular edits."""
     show_organization_as_author: NotRequired[bool]
     r"""When true, displays organization name instead of author name in agent card. Set via the dedicated admin settings endpoint, not by regular edits."""
+    webhook_url: NotRequired[str]
+    r"""For a CUSTOM_WEBHOOK-triggered agent, the full inbound webhook URL (.../webhooks/custom/<token>) minted for the agent. Empty for other trigger types.
+
+    """
 
 
 class Workflow(BaseModel):
@@ -80,6 +84,11 @@ class Workflow(BaseModel):
     ] = None
     r"""When true, displays organization name instead of author name in agent card. Set via the dedicated admin settings endpoint, not by regular edits."""
 
+    webhook_url: Annotated[Optional[str], pydantic.Field(alias="webhookUrl")] = None
+    r"""For a CUSTOM_WEBHOOK-triggered agent, the full inbound webhook URL (.../webhooks/custom/<token>) minted for the agent. Empty for other trigger types.
+
+    """
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -96,6 +105,7 @@ class Workflow(BaseModel):
                 "id",
                 "verified",
                 "showOrganizationAsAuthor",
+                "webhookUrl",
             ]
         )
         serialized = handler(self)

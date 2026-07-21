@@ -6,19 +6,19 @@ import (
 	"io"
 )
 
-type File struct {
+type UploadChatFilesRequestFile struct {
 	FileName string    `multipartForm:"name=fileName"`
 	Content  io.Reader `multipartForm:"content"`
 }
 
-func (o *File) GetFileName() string {
+func (o *UploadChatFilesRequestFile) GetFileName() string {
 	if o == nil {
 		return ""
 	}
 	return o.FileName
 }
 
-func (o *File) GetContent() io.Reader {
+func (o *UploadChatFilesRequestFile) GetContent() io.Reader {
 	if o == nil {
 		return nil
 	}
@@ -27,12 +27,12 @@ func (o *File) GetContent() io.Reader {
 
 type UploadChatFilesRequest struct {
 	// Raw files to be uploaded for chat in binary format.
-	Files []File `multipartForm:"file,name=files"`
+	Files []UploadChatFilesRequestFile `multipartForm:"file,name=files"`
 }
 
-func (o *UploadChatFilesRequest) GetFiles() []File {
+func (o *UploadChatFilesRequest) GetFiles() []UploadChatFilesRequestFile {
 	if o == nil {
-		return []File{}
+		return []UploadChatFilesRequestFile{}
 	}
 	return o.Files
 }

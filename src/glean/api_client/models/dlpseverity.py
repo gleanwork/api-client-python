@@ -6,9 +6,10 @@ from glean.api_client import utils
 
 
 class DlpSeverity(str, Enum, metaclass=utils.OpenEnumMeta):
-    r"""Severity levels for DLP findings and analyses."""
+    r"""Severity levels for DLP findings and analyses. FALSE_POSITIVE ranks below LOW and marks analyses that concluded every flagged entity is a detector false positive."""
 
     UNSPECIFIED = "UNSPECIFIED"
     LOW = "LOW"
     MEDIUM = "MEDIUM"
     HIGH = "HIGH"
+    FALSE_POSITIVE = "FALSE_POSITIVE"
