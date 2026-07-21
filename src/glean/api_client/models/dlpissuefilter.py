@@ -19,13 +19,24 @@ class DlpIssueFilterTypedDict(TypedDict):
     statuses: NotRequired[List[DlpIssueStatus]]
     r"""Filter by one or more issue statuses."""
     assignee_id: NotRequired[str]
-    r"""Filter by assignee user ID."""
+    r"""Filter by a single assignee user ID. Deprecated; use assigneeIds."""
+    assignee_ids: NotRequired[List[str]]
+    r"""Filter by one or more assignee user IDs. Use the sentinel value \"UNASSIGNED\" to match issues with no assignee."""
     info_type: NotRequired[str]
+    r"""Filter by a single built-in info type. Deprecated; use infoTypes."""
+    info_types: NotRequired[List[str]]
+    r"""Filter by one or more built-in info types."""
     regex_id: NotRequired[str]
+    r"""Filter by a single regex rule ID. Deprecated; use regexIds."""
+    regex_ids: NotRequired[List[str]]
+    r"""Filter by one or more regex rule IDs."""
     report_ids: NotRequired[List[str]]
     r"""Filter by one or more report/policy IDs."""
     doc_id: NotRequired[str]
     datasource: NotRequired[str]
+    r"""Filter by a single datasource. Deprecated; use datasources."""
+    datasources: NotRequired[List[str]]
+    r"""Filter by one or more datasources."""
     visibility: NotRequired[str]
     severities: NotRequired[List[DlpSeverity]]
     r"""Filter by one or more severity levels."""
@@ -41,19 +52,59 @@ class DlpIssueFilter(BaseModel):
     statuses: Optional[List[DlpIssueStatus]] = None
     r"""Filter by one or more issue statuses."""
 
-    assignee_id: Annotated[Optional[str], pydantic.Field(alias="assigneeId")] = None
-    r"""Filter by assignee user ID."""
+    assignee_id: Annotated[
+        Optional[str],
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible.",
+            alias="assigneeId",
+        ),
+    ] = None
+    r"""Filter by a single assignee user ID. Deprecated; use assigneeIds."""
 
-    info_type: Annotated[Optional[str], pydantic.Field(alias="infoType")] = None
+    assignee_ids: Annotated[
+        Optional[List[str]], pydantic.Field(alias="assigneeIds")
+    ] = None
+    r"""Filter by one or more assignee user IDs. Use the sentinel value \"UNASSIGNED\" to match issues with no assignee."""
 
-    regex_id: Annotated[Optional[str], pydantic.Field(alias="regexId")] = None
+    info_type: Annotated[
+        Optional[str],
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible.",
+            alias="infoType",
+        ),
+    ] = None
+    r"""Filter by a single built-in info type. Deprecated; use infoTypes."""
+
+    info_types: Annotated[Optional[List[str]], pydantic.Field(alias="infoTypes")] = None
+    r"""Filter by one or more built-in info types."""
+
+    regex_id: Annotated[
+        Optional[str],
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible.",
+            alias="regexId",
+        ),
+    ] = None
+    r"""Filter by a single regex rule ID. Deprecated; use regexIds."""
+
+    regex_ids: Annotated[Optional[List[str]], pydantic.Field(alias="regexIds")] = None
+    r"""Filter by one or more regex rule IDs."""
 
     report_ids: Annotated[Optional[List[str]], pydantic.Field(alias="reportIds")] = None
     r"""Filter by one or more report/policy IDs."""
 
     doc_id: Annotated[Optional[str], pydantic.Field(alias="docId")] = None
 
-    datasource: Optional[str] = None
+    datasource: Annotated[
+        Optional[str],
+        pydantic.Field(
+            deprecated="warning: ** DEPRECATED ** - This will be removed in a future release, please migrate away from it as soon as possible."
+        ),
+    ] = None
+    r"""Filter by a single datasource. Deprecated; use datasources."""
+
+    datasources: Optional[List[str]] = None
+    r"""Filter by one or more datasources."""
 
     visibility: Optional[str] = None
 
@@ -71,11 +122,15 @@ class DlpIssueFilter(BaseModel):
                 "searchText",
                 "statuses",
                 "assigneeId",
+                "assigneeIds",
                 "infoType",
+                "infoTypes",
                 "regexId",
+                "regexIds",
                 "reportIds",
                 "docId",
                 "datasource",
+                "datasources",
                 "visibility",
                 "severities",
                 "timeRange",

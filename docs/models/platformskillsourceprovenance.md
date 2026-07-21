@@ -1,0 +1,13 @@
+# PlatformSkillSourceProvenance
+
+
+## Fields
+
+| Field                                                                             | Type                                                                              | Required                                                                          | Description                                                                       |
+| --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| `source_url`                                                                      | *Optional[str]*                                                                   | :heavy_minus_sign:                                                                | URL of the external source the skill was imported from.                           |
+| `commit_sha`                                                                      | *Optional[str]*                                                                   | :heavy_minus_sign:                                                                | Source commit SHA for the imported skill.                                         |
+| `imported_at`                                                                     | [date](https://docs.python.org/3/library/datetime.html#date-objects)              | :heavy_minus_sign:                                                                | Time the skill was imported.                                                      |
+| `last_synced_at`                                                                  | [date](https://docs.python.org/3/library/datetime.html#date-objects)              | :heavy_minus_sign:                                                                | Time the skill was last synced from its source.                                   |
+| `sync_status`                                                                     | [Optional[models.PlatformSkillSyncStatus]](../models/platformskillsyncstatus.md)  | :heavy_minus_sign:                                                                | Current external-source sync status.                                              |
+| `sync_error`                                                                      | *Optional[str]*                                                                   | :heavy_minus_sign:                                                                | Human-readable sync failure reason, present only when sync_status is SYNC_FAILED. |

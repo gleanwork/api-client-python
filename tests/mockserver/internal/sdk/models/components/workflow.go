@@ -23,6 +23,9 @@ type Workflow struct {
 	Verified *bool `json:"verified,omitempty"`
 	// When true, displays organization name instead of author name in agent card. Set via the dedicated admin settings endpoint, not by regular edits.
 	ShowOrganizationAsAuthor *bool `json:"showOrganizationAsAuthor,omitempty"`
+	// For a CUSTOM_WEBHOOK-triggered agent, the full inbound webhook URL (.../webhooks/custom/<token>) minted for the agent. Empty for other trigger types.
+	//
+	WebhookURL *string `json:"webhookUrl,omitempty"`
 }
 
 func (o *Workflow) GetName() *string {
@@ -107,4 +110,11 @@ func (o *Workflow) GetShowOrganizationAsAuthor() *bool {
 		return nil
 	}
 	return o.ShowOrganizationAsAuthor
+}
+
+func (o *Workflow) GetWebhookURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.WebhookURL
 }

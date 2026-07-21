@@ -494,6 +494,7 @@ For more information on obtaining the appropriate token type, please contact you
 
 * [add](docs/sdks/indexingdatasources/README.md#add) - Add or update datasource
 * [retrieve_config](docs/sdks/indexingdatasources/README.md#retrieve_config) - Get datasource config
+* [submit](docs/sdks/indexingdatasources/README.md#submit) - Submit datasource data
 
 ### [Indexing.Documents](docs/sdks/indexingdocuments/README.md)
 
@@ -549,6 +550,18 @@ For more information on obtaining the appropriate token type, please contact you
 
 * [query](docs/sdks/search/README.md#query) - Search
 
+### [Skills](docs/sdks/skills/README.md)
+
+* [create](docs/sdks/skills/README.md#create) - Create skill
+* [list](docs/sdks/skills/README.md#list) - List skills
+* [validate](docs/sdks/skills/README.md#validate) - Validate skill bundle
+* [retrieve](docs/sdks/skills/README.md#retrieve) - Retrieve skill
+* [retrieve_content](docs/sdks/skills/README.md#retrieve_content) - Download skill content
+* [create_version](docs/sdks/skills/README.md#create_version) - Create skill version
+* [list_versions](docs/sdks/skills/README.md#list_versions) - List skill versions
+* [retrieve_version](docs/sdks/skills/README.md#retrieve_version) - Retrieve skill version
+* [retrieve_version_content](docs/sdks/skills/README.md#retrieve_version_content) - Download skill version content
+
 </details>
 <!-- End Available Resources and Operations [operations] -->
 
@@ -571,7 +584,10 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as glean:
 
-    res = glean.client.chat.upload_files(files=[])
+    res = glean.skills.create(file={
+        "file_name": "example.file",
+        "content": open("example.file", "rb"),
+    })
 
     # Handle response
     print(res)
@@ -770,7 +786,11 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as glean:
 
-    res = glean.indexing.custom_metadata.upsert(doc_id="<id>", group_name="<value>", custom_metadata=[], server_url="https://instance-name-be.glean.com")
+    res = glean.indexing.datasources.submit(datasource_instance="<value>", type_="<value>", request_body={
+        "key": "<value>",
+        "key1": "<value>",
+        "key2": "<value>",
+    }, server_url="https://instance-name-be.glean.com")
 
     # Handle response
     print(res)

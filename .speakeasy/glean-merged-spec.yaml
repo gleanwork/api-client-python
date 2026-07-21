@@ -2,8 +2,8 @@ openapi: 3.0.0
 info:
   version: "0.9.0"
   title: Glean API
-  x-source-commit-sha: 270b693d49bac2f68e751b2345bac0c267741119
-  x-open-api-commit-sha: 592aec2b4913505edb8161645eaf9a72b5286f20
+  x-source-commit-sha: 2822daae55430107c738db822cbeeb5a6bef463b
+  x-open-api-commit-sha: 0bdefe83a21f917592624e6f1dbaa180e89d5224
   description: |
     # Introduction
     In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This is useful, for example, for doing permissions-aware search over content in internal tools that reside on-prem as well as for searching over applications that Glean does not currently support first class. In addition these APIs allow the customer to push organization data (people info, organization structure etc) into Glean.
@@ -248,6 +248,489 @@ paths:
           $ref: "#/components/responses/PlatformServiceUnavailable"
       x-speakeasy-group: agents
       x-speakeasy-name-override: createRun
+      security:
+        - APIToken: []
+  /api/skills:
+    post:
+      tags:
+        - Skills
+      summary: Create skill
+      description: |
+        Create a skill from an uploaded SKILL.md, .zip, or .skill bundle. If the authenticated user already has a skill with the same name, the existing skill is superseded with a new version.
+      operationId: platform-skills-create
+      x-visibility: Public
+      x-glean-experimental:
+        id: 3cd55572-0d5c-4898-9ecf-1b86c520d1c7
+        introduced: "2026-06-24"
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/PlatformSkillCreateRequest"
+        x-codegen-request-body-name: request
+      responses:
+        "200":
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlatformSkillCreateResponse"
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+        "413":
+          $ref: "#/components/responses/PlatformRequestTooLarge"
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+      x-speakeasy-group: skills
+      x-speakeasy-name-override: create
+      security:
+        - APIToken: []
+    get:
+      tags:
+        - Skills
+      summary: List skills
+      description: |
+        List skills available to the authenticated user.
+      operationId: platform-skills-list
+      x-visibility: Public
+      x-glean-experimental:
+        id: 3eb65937-03a3-472b-9a00-be713f302b5f
+        introduced: "2026-06-23"
+      parameters:
+        - in: query
+          name: page_size
+          description: Maximum number of skills to return.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+        - in: query
+          name: cursor
+          description: Opaque pagination cursor from a previous response.
+          required: false
+          schema:
+            type: string
+            minLength: 1
+      responses:
+        "200":
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlatformSkillsListResponse"
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+      x-speakeasy-group: skills
+      x-speakeasy-name-override: list
+      security:
+        - APIToken: []
+  /api/skills/validation:
+    post:
+      tags:
+        - Skills
+      summary: Validate skill bundle
+      description: |
+        Validate a skill bundle without persisting it. Accepts a SKILL.md, .zip, or .skill upload and returns parsed metadata plus the normalized file layout.
+      operationId: platform-skills-validate
+      x-visibility: Public
+      x-glean-experimental:
+        id: 0b086fa6-30f8-4279-8d11-10ab0059c14a
+        introduced: "2026-06-24"
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/PlatformSkillValidationRequest"
+        x-codegen-request-body-name: request
+      responses:
+        "200":
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlatformSkillValidationResponse"
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+        "413":
+          $ref: "#/components/responses/PlatformRequestTooLarge"
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+      x-speakeasy-group: skills
+      x-speakeasy-name-override: validate
+      security:
+        - APIToken: []
+  /api/skills/{skill_id}:
+    get:
+      tags:
+        - Skills
+      summary: Retrieve skill
+      description: |
+        Retrieve metadata for a skill available to the authenticated user.
+      operationId: platform-skills-get
+      x-visibility: Public
+      x-glean-experimental:
+        id: 8f8d1c92-a484-4769-9903-200613dc8a72
+        introduced: "2026-06-23"
+      parameters:
+        - name: skill_id
+          in: path
+          required: true
+          description: Glean skill ID.
+          schema:
+            type: string
+            minLength: 1
+      responses:
+        "200":
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlatformSkillGetResponse"
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+      x-speakeasy-group: skills
+      x-speakeasy-name-override: retrieve
+      security:
+        - APIToken: []
+  /api/skills/{skill_id}/content:
+    get:
+      tags:
+        - Skills
+      summary: Download skill content
+      description: |
+        Download the latest installable bundle for a skill available to the authenticated user.
+      operationId: platform-skills-get-content
+      x-visibility: Public
+      x-glean-experimental:
+        id: fd6908d8-f230-4cd5-bf45-f71e69266b1d
+        introduced: "2026-06-24"
+      parameters:
+        - name: skill_id
+          in: path
+          required: true
+          description: Glean skill ID.
+          schema:
+            type: string
+            minLength: 1
+      responses:
+        "200":
+          description: Successful response.
+          headers:
+            Content-Disposition:
+              description: Attachment filename for the skill bundle.
+              schema:
+                type: string
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+      x-speakeasy-group: skills
+      x-speakeasy-name-override: retrieveContent
+      security:
+        - APIToken: []
+  /api/skills/{skill_id}/versions:
+    post:
+      tags:
+        - Skills
+      summary: Create skill version
+      description: |
+        Create a new immutable version for an existing caller-managed skill from an uploaded SKILL.md, .zip, or .skill bundle.
+      operationId: platform-skills-create-version
+      x-visibility: Public
+      x-glean-experimental:
+        id: 0d5e48e2-7a41-4d54-b3aa-5026f0dd65df
+        introduced: "2026-06-24"
+      parameters:
+        - name: skill_id
+          in: path
+          required: true
+          description: Glean skill ID.
+          schema:
+            type: string
+            minLength: 1
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/PlatformSkillVersionCreateRequest"
+        x-codegen-request-body-name: request
+      responses:
+        "200":
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlatformSkillVersionCreateResponse"
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+        "409":
+          $ref: "#/components/responses/PlatformConflict"
+        "413":
+          $ref: "#/components/responses/PlatformRequestTooLarge"
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+      x-speakeasy-group: skills
+      x-speakeasy-name-override: createVersion
+      security:
+        - APIToken: []
+    get:
+      tags:
+        - Skills
+      summary: List skill versions
+      description: |
+        List versions for a skill available to the authenticated user.
+      operationId: platform-skills-list-versions
+      x-visibility: Public
+      x-glean-experimental:
+        id: 9efbb8a3-d546-4304-a653-09bb427e3681
+        introduced: "2026-06-24"
+      parameters:
+        - name: skill_id
+          in: path
+          required: true
+          description: Glean skill ID.
+          schema:
+            type: string
+            minLength: 1
+        - in: query
+          name: page_size
+          description: Maximum number of versions to return.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+        - in: query
+          name: cursor
+          description: Opaque pagination cursor from a previous response.
+          required: false
+          schema:
+            type: string
+            minLength: 1
+      responses:
+        "200":
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlatformSkillVersionsListResponse"
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+      x-speakeasy-group: skills
+      x-speakeasy-name-override: listVersions
+      security:
+        - APIToken: []
+  /api/skills/{skill_id}/versions/{version}:
+    get:
+      tags:
+        - Skills
+      summary: Retrieve skill version
+      description: |
+        Retrieve metadata for a skill version available to the authenticated user.
+      operationId: platform-skills-get-version
+      x-visibility: Public
+      x-glean-experimental:
+        id: d70986b1-ad80-48dd-8e52-f294e7251dda
+        introduced: "2026-06-24"
+      parameters:
+        - name: skill_id
+          in: path
+          required: true
+          description: Glean skill ID.
+          schema:
+            type: string
+            minLength: 1
+        - name: version
+          in: path
+          required: true
+          description: Major version number.
+          schema:
+            type: integer
+            minimum: 1
+      responses:
+        "200":
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlatformSkillVersionGetResponse"
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+      x-speakeasy-group: skills
+      x-speakeasy-name-override: retrieveVersion
+      security:
+        - APIToken: []
+  /api/skills/{skill_id}/versions/{version}/content:
+    get:
+      tags:
+        - Skills
+      summary: Download skill version content
+      description: |
+        Download the installable bundle for a skill version available to the authenticated user.
+      operationId: platform-skills-get-version-content
+      x-visibility: Public
+      x-glean-experimental:
+        id: 70c85692-7042-403a-a3a5-5b315576432a
+        introduced: "2026-06-24"
+      parameters:
+        - name: skill_id
+          in: path
+          required: true
+          description: Glean skill ID.
+          schema:
+            type: string
+            minLength: 1
+        - name: version
+          in: path
+          required: true
+          description: Major version number.
+          schema:
+            type: integer
+            minimum: 1
+      responses:
+        "200":
+          description: Successful response.
+          headers:
+            Content-Disposition:
+              description: Attachment filename for the skill bundle.
+              schema:
+                type: string
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+      x-speakeasy-group: skills
+      x-speakeasy-name-override: retrieveVersionContent
       security:
         - APIToken: []
   /api/search:
@@ -4177,6 +4660,69 @@ paths:
       x-beta: true
       x-speakeasy-group: indexing.documents
       x-speakeasy-name-override: debugEvents
+  /rest/api/index/submissions/{datasourceInstance}/{type}:
+    post:
+      summary: Submit datasource data
+      description: Validates and asynchronously processes a datasource-specific submission.
+      tags:
+        - Datasources
+      security:
+        - APIToken: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+        required: true
+        x-exportParamName: SubmissionRequest
+      responses:
+        "202":
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  requestId:
+                    type: string
+                required:
+                  - requestId
+        "400":
+          $ref: '#/components/responses/BadRequestError'
+        "401":
+          $ref: '#/components/responses/UnauthorizedError'
+        "404":
+          $ref: '#/components/responses/NotFoundError'
+        "405":
+          description: Method Not Allowed
+        "413":
+          description: Payload Too Large
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+        "503":
+          description: Service Unavailable
+      x-speakeasy-name-override: submit
+      x-speakeasy-group: indexing.datasources
+    servers:
+      - url: https://{instance}-be.glean.com
+        variables:
+          instance:
+            default: instance-name
+            description: The instance name (typically the email domain without the TLD) that determines the deployment backend.
+    parameters:
+      - name: datasourceInstance
+        in: path
+        description: Datasource instance that should process the submission
+        required: true
+        schema:
+          type: string
+      - name: type
+        in: path
+        description: Submission type registered for the datasource
+        required: true
+        schema:
+          type: string
   /rest/api/index/document/{docId}/custom-metadata/{groupName}:
     put:
       summary: Add or update custom metadata
@@ -5479,6 +6025,322 @@ components:
         request_id:
           type: string
           description: Platform-generated request ID for support correlation.
+    PlatformSkillStatus:
+      type: string
+      enum:
+        - DRAFT
+        - ENABLED
+        - DISABLED
+      description: Current skill status.
+    PlatformSkillOrigin:
+      type: string
+      enum:
+        - CUSTOM
+      description: Source category for the skill.
+    PlatformSkillSyncStatus:
+      type: string
+      enum:
+        - UP_TO_DATE
+        - UPDATE_AVAILABLE
+        - SYNC_FAILED
+      description: Current external-source sync status.
+    PlatformSkillSourceProvenance:
+      type: object
+      properties:
+        source_url:
+          type: string
+          description: URL of the external source the skill was imported from.
+        commit_sha:
+          type: string
+          description: Source commit SHA for the imported skill.
+        imported_at:
+          type: string
+          format: date-time
+          description: Time the skill was imported.
+        last_synced_at:
+          type: string
+          format: date-time
+          description: Time the skill was last synced from its source.
+        sync_status:
+          $ref: "#/components/schemas/PlatformSkillSyncStatus"
+        sync_error:
+          type: string
+          description: Human-readable sync failure reason, present only when sync_status is SYNC_FAILED.
+    PlatformPersonReference:
+      type: object
+      description: A lightweight reference to a person, used where a payload merely points at someone.
+      required:
+        - name
+      properties:
+        id:
+          type: string
+          description: Opaque Glean person ID.
+        name:
+          type: string
+          description: Display name.
+    PlatformSkill:
+      type: object
+      required:
+        - id
+        - display_name
+        - description
+        - latest_version
+        - latest_minor_version
+        - status
+        - origin
+        - owner
+        - created_at
+        - updated_at
+      properties:
+        id:
+          type: string
+          description: Glean skill ID.
+        display_name:
+          type: string
+          description: Human-readable skill name.
+        description:
+          type: string
+          description: Human-readable skill description.
+        latest_version:
+          type: integer
+          description: Latest major version number for the skill.
+        latest_minor_version:
+          type: integer
+          description: Latest minor version number for the skill.
+        status:
+          $ref: "#/components/schemas/PlatformSkillStatus"
+        origin:
+          $ref: "#/components/schemas/PlatformSkillOrigin"
+        source_provenance:
+          $ref: "#/components/schemas/PlatformSkillSourceProvenance"
+        owner:
+          $ref: "#/components/schemas/PlatformPersonReference"
+        created_at:
+          type: string
+          format: date-time
+          description: Time the skill was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: Time the skill was last updated.
+    PlatformSkillsListResponse:
+      type: object
+      required:
+        - skills
+        - has_more
+        - next_cursor
+        - request_id
+      properties:
+        skills:
+          type: array
+          description: Skills available to the user.
+          items:
+            $ref: "#/components/schemas/PlatformSkill"
+        has_more:
+          type: boolean
+          description: Whether additional results are available.
+        next_cursor:
+          type: string
+          nullable: true
+          description: Cursor for the next page, or null when no more results are available.
+        request_id:
+          type: string
+          description: Platform-generated request ID for support correlation.
+    PlatformSkillCreateRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - file
+      properties:
+        file:
+          type: string
+          format: binary
+          description: SKILL.md, .zip, or .skill bundle to create.
+    PlatformSkillCreateResponse:
+      type: object
+      required:
+        - skill
+        - request_id
+      properties:
+        skill:
+          $ref: "#/components/schemas/PlatformSkill"
+        request_id:
+          type: string
+          description: Platform-generated request ID for support correlation.
+    PlatformSkillValidationRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - file
+      properties:
+        file:
+          type: string
+          format: binary
+          description: SKILL.md, .zip, or .skill bundle to validate.
+    PlatformSkillValidationMetadata:
+      type: object
+      required:
+        - display_name
+        - description
+      properties:
+        display_name:
+          type: string
+          description: Skill name parsed from SKILL.md frontmatter.
+        description:
+          type: string
+          description: Skill description parsed from SKILL.md frontmatter.
+    PlatformSkillValidationFile:
+      type: object
+      required:
+        - path
+        - size_bytes
+        - is_manifest
+      properties:
+        path:
+          type: string
+          description: Normalized relative path in the skill bundle.
+        size_bytes:
+          type: integer
+          description: File size in bytes.
+        is_manifest:
+          type: boolean
+          description: Whether this file is the skill manifest.
+    PlatformSkillValidationWarning:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+          description: Stable warning code.
+        message:
+          type: string
+          description: Human-readable warning message.
+    PlatformSkillValidationResponse:
+      type: object
+      required:
+        - metadata
+        - files
+        - warnings
+        - request_id
+      properties:
+        metadata:
+          $ref: "#/components/schemas/PlatformSkillValidationMetadata"
+        files:
+          type: array
+          description: Normalized files in the bundle after stripping an optional single root folder.
+          items:
+            $ref: "#/components/schemas/PlatformSkillValidationFile"
+        warnings:
+          type: array
+          description: Non-blocking validation warnings.
+          items:
+            $ref: "#/components/schemas/PlatformSkillValidationWarning"
+        request_id:
+          type: string
+          description: Platform-generated request ID for support correlation.
+    PlatformSkillGetResponse:
+      type: object
+      required:
+        - skill
+        - request_id
+      properties:
+        skill:
+          $ref: "#/components/schemas/PlatformSkill"
+        request_id:
+          type: string
+          description: Platform-generated request ID for support correlation.
+    PlatformSkillVersion:
+      type: object
+      required:
+        - skill_id
+        - version
+        - minor_version
+        - is_latest
+        - created_by
+        - created_at
+        - updated_at
+      properties:
+        skill_id:
+          type: string
+          description: Glean skill ID.
+        version:
+          type: integer
+          description: Major version number.
+        minor_version:
+          type: integer
+          description: Minor version number.
+        is_latest:
+          type: boolean
+          description: Whether this is the latest version of the skill.
+        created_by:
+          $ref: "#/components/schemas/PlatformPersonReference"
+        created_at:
+          type: string
+          format: date-time
+          description: Time this version was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: Time this version was last updated.
+        source_provenance:
+          $ref: "#/components/schemas/PlatformSkillSourceProvenance"
+    PlatformSkillVersionsListResponse:
+      type: object
+      required:
+        - versions
+        - has_more
+        - next_cursor
+        - request_id
+      properties:
+        versions:
+          type: array
+          description: Versions available for the skill.
+          items:
+            $ref: "#/components/schemas/PlatformSkillVersion"
+        has_more:
+          type: boolean
+          description: Whether additional results are available.
+        next_cursor:
+          type: string
+          nullable: true
+          description: Cursor for the next page, or null when no more results are available.
+        request_id:
+          type: string
+          description: Platform-generated request ID for support correlation.
+    PlatformSkillVersionCreateRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - file
+      properties:
+        file:
+          type: string
+          format: binary
+          description: SKILL.md, .zip, or .skill bundle to store as a new version.
+    PlatformSkillVersionCreateResponse:
+      type: object
+      required:
+        - version
+        - request_id
+      properties:
+        version:
+          $ref: "#/components/schemas/PlatformSkillVersion"
+        request_id:
+          type: string
+          description: Platform-generated request ID for support correlation.
+    PlatformSkillVersionGetResponse:
+      type: object
+      required:
+        - version
+        - request_id
+      properties:
+        version:
+          $ref: "#/components/schemas/PlatformSkillVersion"
+        request_id:
+          type: string
+          description: Platform-generated request ID for support correlation.
     PlatformFilterOperator:
       type: string
       description: Supported filter operator.
@@ -5579,18 +6441,6 @@ components:
             Structured filters applied to search results. Equality operators OR multiple values within a filter. Multiple filters are AND'd together, including range filters on the same field. Filters are AND'd with any inline operators in `query`. Note that conflicting constraints on the same field (e.g., `type:document` in the query and `type: spreadsheet` in a filter) produce an empty result set.
         time_range:
           $ref: "#/components/schemas/PlatformTimeRange"
-    PlatformPersonReference:
-      type: object
-      description: A lightweight reference to a person, used where a payload merely points at someone.
-      required:
-        - name
-      properties:
-        id:
-          type: string
-          description: Opaque Glean person ID.
-        name:
-          type: string
-          description: Display name.
     PlatformResult:
       type: object
       required:
@@ -9635,6 +10485,22 @@ components:
             - EXECUTION
             - MCP
           description: Valid only for write actions. Represents the type of write action. REDIRECT - The client renders the URL which contains information for carrying out the action. EXECUTION - Send a request to an external server and execute the action. MCP - Send a tools/call request to an MCP server to execute the action.
+        actionTypeSource:
+          type: string
+          enum:
+            - MCP_ANNOTATION
+            - ADMIN_OVERRIDE
+            - NONE
+            - NATIVE_TOOL_DEFINITION
+          description: |
+            Analytics-only signal (product snapshot) describing WHERE the action's
+            read/write determination came from. Complementary to the effective
+            read/write value (the tool's ToolType, which drives HITL): the value says
+            read-or-write, this says how confident that is. MCP_ANNOTATION = from the
+            tool's read-only/destructive hints; ADMIN_OVERRIDE = an admin set it;
+            NONE = no usable hint (the effective value then defaults to write);
+            NATIVE_TOOL_DEFINITION = from a curated native tool (snapshot-derived).
+            Does not affect runtime behavior.
         authType:
           type: string
           enum:
@@ -10222,6 +11088,11 @@ components:
             showOrganizationAsAuthor:
               type: boolean
               description: When true, displays organization name instead of author name in agent card. Set via the dedicated admin settings endpoint, not by regular edits.
+              readOnly: true
+            webhookUrl:
+              type: string
+              description: |
+                For a CUSTOM_WEBHOOK-triggered agent, the full inbound webhook URL (.../webhooks/custom/<token>) minted for the agent. Empty for other trigger types.
               readOnly: true
     WorkflowResult:
       type: object
@@ -15753,7 +16624,8 @@ components:
         - LOW
         - MEDIUM
         - HIGH
-      description: Severity levels for DLP findings and analyses.
+        - FALSE_POSITIVE
+      description: Severity levels for DLP findings and analyses. FALSE_POSITIVE ranks below LOW and marks analyses that concluded every flagged entity is a detector false positive.
       x-include-enum-class-prefix: true
     DlpIssueStatus:
       type: string
@@ -15819,11 +16691,31 @@ components:
           description: Filter by one or more issue statuses.
         assigneeId:
           type: string
-          description: Filter by assignee user ID.
+          description: Filter by a single assignee user ID. Deprecated; use assigneeIds.
+          deprecated: true
+        assigneeIds:
+          type: array
+          items:
+            type: string
+          description: Filter by one or more assignee user IDs. Use the sentinel value "UNASSIGNED" to match issues with no assignee.
         infoType:
           type: string
+          description: Filter by a single built-in info type. Deprecated; use infoTypes.
+          deprecated: true
+        infoTypes:
+          type: array
+          items:
+            type: string
+          description: Filter by one or more built-in info types.
         regexId:
           type: string
+          description: Filter by a single regex rule ID. Deprecated; use regexIds.
+          deprecated: true
+        regexIds:
+          type: array
+          items:
+            type: string
+          description: Filter by one or more regex rule IDs.
         reportIds:
           type: array
           items:
@@ -15833,6 +16725,13 @@ components:
           type: string
         datasource:
           type: string
+          description: Filter by a single datasource. Deprecated; use datasources.
+          deprecated: true
+        datasources:
+          type: array
+          items:
+            type: string
+          description: Filter by one or more datasources.
         visibility:
           type: string
         severities:

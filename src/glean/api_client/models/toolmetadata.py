@@ -37,6 +37,24 @@ class WriteActionType(str, Enum, metaclass=utils.OpenEnumMeta):
     MCP = "MCP"
 
 
+class ActionTypeSource(str, Enum, metaclass=utils.OpenEnumMeta):
+    r"""Analytics-only signal (product snapshot) describing WHERE the action's
+    read/write determination came from. Complementary to the effective
+    read/write value (the tool's ToolType, which drives HITL): the value says
+    read-or-write, this says how confident that is. MCP_ANNOTATION = from the
+    tool's read-only/destructive hints; ADMIN_OVERRIDE = an admin set it;
+    NONE = no usable hint (the effective value then defaults to write);
+    NATIVE_TOOL_DEFINITION = from a curated native tool (snapshot-derived).
+    Does not affect runtime behavior.
+
+    """
+
+    MCP_ANNOTATION = "MCP_ANNOTATION"
+    ADMIN_OVERRIDE = "ADMIN_OVERRIDE"
+    NONE = "NONE"
+    NATIVE_TOOL_DEFINITION = "NATIVE_TOOL_DEFINITION"
+
+
 class AuthType(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""The type of authentication being used.
     Use 'OAUTH_*' when Glean calls an external API (e.g., Jira) on behalf of a user to obtain an OAuth token.
@@ -81,6 +99,17 @@ class ToolMetadataTypedDict(TypedDict):
     r"""The time the tool was last updated in ISO format (ISO 8601)"""
     write_action_type: NotRequired[WriteActionType]
     r"""Valid only for write actions. Represents the type of write action. REDIRECT - The client renders the URL which contains information for carrying out the action. EXECUTION - Send a request to an external server and execute the action. MCP - Send a tools/call request to an MCP server to execute the action."""
+    action_type_source: NotRequired[ActionTypeSource]
+    r"""Analytics-only signal (product snapshot) describing WHERE the action's
+    read/write determination came from. Complementary to the effective
+    read/write value (the tool's ToolType, which drives HITL): the value says
+    read-or-write, this says how confident that is. MCP_ANNOTATION = from the
+    tool's read-only/destructive hints; ADMIN_OVERRIDE = an admin set it;
+    NONE = no usable hint (the effective value then defaults to write);
+    NATIVE_TOOL_DEFINITION = from a curated native tool (snapshot-derived).
+    Does not affect runtime behavior.
+
+    """
     auth_type: NotRequired[AuthType]
     r"""The type of authentication being used.
     Use 'OAUTH_*' when Glean calls an external API (e.g., Jira) on behalf of a user to obtain an OAuth token.
@@ -148,6 +177,20 @@ class ToolMetadata(BaseModel):
     ] = None
     r"""Valid only for write actions. Represents the type of write action. REDIRECT - The client renders the URL which contains information for carrying out the action. EXECUTION - Send a request to an external server and execute the action. MCP - Send a tools/call request to an MCP server to execute the action."""
 
+    action_type_source: Annotated[
+        Optional[ActionTypeSource], pydantic.Field(alias="actionTypeSource")
+    ] = None
+    r"""Analytics-only signal (product snapshot) describing WHERE the action's
+    read/write determination came from. Complementary to the effective
+    read/write value (the tool's ToolType, which drives HITL): the value says
+    read-or-write, this says how confident that is. MCP_ANNOTATION = from the
+    tool's read-only/destructive hints; ADMIN_OVERRIDE = an admin set it;
+    NONE = no usable hint (the effective value then defaults to write);
+    NATIVE_TOOL_DEFINITION = from a curated native tool (snapshot-derived).
+    Does not affect runtime behavior.
+
+    """
+
     auth_type: Annotated[Optional[AuthType], pydantic.Field(alias="authType")] = None
     r"""The type of authentication being used.
     Use 'OAUTH_*' when Glean calls an external API (e.g., Jira) on behalf of a user to obtain an OAuth token.
@@ -199,6 +242,15 @@ class ToolMetadata(BaseModel):
                 return value
         return value
 
+    @field_serializer("action_type_source")
+    def serialize_action_type_source(self, value):
+        if isinstance(value, str):
+            try:
+                return models.ActionTypeSource(value)
+            except ValueError:
+                return value
+        return value
+
     @field_serializer("auth_type")
     def serialize_auth_type(self, value):
         if isinstance(value, str):
@@ -221,6 +273,7 @@ class ToolMetadata(BaseModel):
                 "createdAt",
                 "lastUpdatedAt",
                 "writeActionType",
+                "actionTypeSource",
                 "authType",
                 "auth",
                 "permissions",

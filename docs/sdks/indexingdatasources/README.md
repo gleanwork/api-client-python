@@ -6,6 +6,7 @@
 
 * [add](#add) - Add or update datasource
 * [retrieve_config](#retrieve_config) - Get datasource config
+* [submit](#submit) - Submit datasource data
 
 ## add
 
@@ -116,3 +117,52 @@ with Glean(
 | Error Type        | Status Code       | Content Type      |
 | ----------------- | ----------------- | ----------------- |
 | errors.GleanError | 4XX, 5XX          | \*/\*             |
+
+## submit
+
+Validates and asynchronously processes a datasource-specific submission.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="post_/rest/api/index/submissions/{datasourceInstance}/{type}" method="post" path="/rest/api/index/submissions/{datasourceInstance}/{type}" -->
+```python
+from glean.api_client import Glean
+import os
+
+
+with Glean(
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+) as glean:
+
+    res = glean.indexing.datasources.submit(datasource_instance="<value>", type_="<value>", request_body={
+        "key": "<value>",
+        "key1": "<value>",
+        "key2": "<value>",
+    })
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `datasource_instance`                                               | *str*                                                               | :heavy_check_mark:                                                  | Datasource instance that should process the submission              |
+| `type`                                                              | *str*                                                               | :heavy_check_mark:                                                  | Submission type registered for the datasource                       |
+| `request_body`                                                      | Dict[str, *Any*]                                                    | :heavy_check_mark:                                                  | N/A                                                                 |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+| `server_url`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | An optional server URL to use.                                      |
+
+### Response
+
+**[models.PostRestAPIIndexSubmissionsDatasourceInstanceTypeResponse](../../models/postrestapiindexsubmissionsdatasourceinstancetyperesponse.md)**
+
+### Errors
+
+| Error Type               | Status Code              | Content Type             |
+| ------------------------ | ------------------------ | ------------------------ |
+| errors.ErrorInfoResponse | 400, 401, 404            | application/json         |
+| errors.ErrorInfoResponse | 500                      | application/json         |
+| errors.GleanError        | 4XX, 5XX                 | \*/\*                    |

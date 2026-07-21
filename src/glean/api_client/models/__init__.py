@@ -1231,6 +1231,38 @@ if TYPE_CHECKING:
         PlatformAgentsGetRequest,
         PlatformAgentsGetRequestTypedDict,
     )
+    from .platform_skills_create_versionop import (
+        PlatformSkillsCreateVersionRequest,
+        PlatformSkillsCreateVersionRequestTypedDict,
+    )
+    from .platform_skills_get_contentop import (
+        PlatformSkillsGetContentRequest,
+        PlatformSkillsGetContentRequestTypedDict,
+        PlatformSkillsGetContentResponse,
+        PlatformSkillsGetContentResponseTypedDict,
+    )
+    from .platform_skills_get_version_contentop import (
+        PlatformSkillsGetVersionContentRequest,
+        PlatformSkillsGetVersionContentRequestTypedDict,
+        PlatformSkillsGetVersionContentResponse,
+        PlatformSkillsGetVersionContentResponseTypedDict,
+    )
+    from .platform_skills_get_versionop import (
+        PlatformSkillsGetVersionRequest,
+        PlatformSkillsGetVersionRequestTypedDict,
+    )
+    from .platform_skills_getop import (
+        PlatformSkillsGetRequest,
+        PlatformSkillsGetRequestTypedDict,
+    )
+    from .platform_skills_list_versionsop import (
+        PlatformSkillsListVersionsRequest,
+        PlatformSkillsListVersionsRequestTypedDict,
+    )
+    from .platform_skills_listop import (
+        PlatformSkillsListRequest,
+        PlatformSkillsListRequestTypedDict,
+    )
     from .platformactionsummary import (
         PlatformActionSummary,
         PlatformActionSummaryTypedDict,
@@ -1293,6 +1325,76 @@ if TYPE_CHECKING:
         PlatformSearchResponse,
         PlatformSearchResponseTypedDict,
     )
+    from .platformskill import PlatformSkill, PlatformSkillTypedDict
+    from .platformskillcreaterequest import (
+        PlatformSkillCreateRequest,
+        PlatformSkillCreateRequestFile,
+        PlatformSkillCreateRequestFileTypedDict,
+        PlatformSkillCreateRequestTypedDict,
+    )
+    from .platformskillcreateresponse import (
+        PlatformSkillCreateResponse,
+        PlatformSkillCreateResponseTypedDict,
+    )
+    from .platformskillgetresponse import (
+        PlatformSkillGetResponse,
+        PlatformSkillGetResponseTypedDict,
+    )
+    from .platformskillorigin import PlatformSkillOrigin
+    from .platformskillslistresponse import (
+        PlatformSkillsListResponse,
+        PlatformSkillsListResponseTypedDict,
+    )
+    from .platformskillsourceprovenance import (
+        PlatformSkillSourceProvenance,
+        PlatformSkillSourceProvenanceTypedDict,
+    )
+    from .platformskillstatus import PlatformSkillStatus
+    from .platformskillsyncstatus import PlatformSkillSyncStatus
+    from .platformskillvalidationfile import (
+        PlatformSkillValidationFile,
+        PlatformSkillValidationFileTypedDict,
+    )
+    from .platformskillvalidationmetadata import (
+        PlatformSkillValidationMetadata,
+        PlatformSkillValidationMetadataTypedDict,
+    )
+    from .platformskillvalidationrequest import (
+        PlatformSkillValidationRequest,
+        PlatformSkillValidationRequestFile,
+        PlatformSkillValidationRequestFileTypedDict,
+        PlatformSkillValidationRequestTypedDict,
+    )
+    from .platformskillvalidationresponse import (
+        PlatformSkillValidationResponse,
+        PlatformSkillValidationResponseTypedDict,
+    )
+    from .platformskillvalidationwarning import (
+        PlatformSkillValidationWarning,
+        PlatformSkillValidationWarningTypedDict,
+    )
+    from .platformskillversion import (
+        PlatformSkillVersion,
+        PlatformSkillVersionTypedDict,
+    )
+    from .platformskillversioncreaterequest import (
+        PlatformSkillVersionCreateRequest,
+        PlatformSkillVersionCreateRequestFile,
+        PlatformSkillVersionCreateRequestFileTypedDict,
+        PlatformSkillVersionCreateRequestTypedDict,
+    )
+    from .platformskillversioncreateresponse import (
+        PlatformSkillVersionCreateResponse,
+        PlatformSkillVersionCreateResponseTypedDict,
+    )
+    from .platformskillversiongetresponse import (
+        PlatformSkillVersionGetResponse,
+        PlatformSkillVersionGetResponseTypedDict,
+    )
+    from .platformskillversionslistresponse import (
+        PlatformSkillVersionsListResponse,
+        PlatformSkillVersionsListResponseTypedDict,
+    )
     from .platformtimerange import PlatformTimeRange, PlatformTimeRangeTypedDict
     from .possiblevalue import PossibleValue, PossibleValueTypedDict
     from .post_api_index_v1_debug_datasource_document_eventsop import (
@@ -1314,6 +1416,13 @@ if TYPE_CHECKING:
     from .post_api_index_v1_debug_datasource_userop import (
         PostAPIIndexV1DebugDatasourceUserRequest,
         PostAPIIndexV1DebugDatasourceUserRequestTypedDict,
+    )
+    from .post_rest_api_index_submissions_datasourceinstance_type_op import (
+        POST_REST_API_INDEX_SUBMISSIONS_DATASOURCE_INSTANCE_TYPE_OP_SERVERS,
+        PostRestAPIIndexSubmissionsDatasourceInstanceTypeRequest,
+        PostRestAPIIndexSubmissionsDatasourceInstanceTypeRequestTypedDict,
+        PostRestAPIIndexSubmissionsDatasourceInstanceTypeResponse,
+        PostRestAPIIndexSubmissionsDatasourceInstanceTypeResponseTypedDict,
     )
     from .processalldocumentsrequest import (
         ProcessAllDocumentsRequest,
@@ -1497,6 +1606,7 @@ if TYPE_CHECKING:
     from .tool import Tool, ToolType, ToolTypedDict
     from .toolinfo import ToolInfo, ToolInfoTypedDict
     from .toolmetadata import (
+        ActionTypeSource,
         AuthType,
         KnowledgeType,
         ToolMetadata,
@@ -1587,9 +1697,9 @@ if TYPE_CHECKING:
         UploadchatfilesRequestRequestTypedDict,
     )
     from .uploadchatfilesrequest import (
-        File,
-        FileTypedDict,
         UploadChatFilesRequest,
+        UploadChatFilesRequestFile,
+        UploadChatFilesRequestFileTypedDict,
         UploadChatFilesRequestTypedDict,
     )
     from .uploadchatfilesresponse import (
@@ -1700,6 +1810,7 @@ __all__ = [
     "ActionPreviewTypedDict",
     "ActionSummary",
     "ActionSummaryTypedDict",
+    "ActionTypeSource",
     "Activity",
     "ActivityEnum",
     "ActivityEvent",
@@ -2276,8 +2387,6 @@ __all__ = [
     "FeedbackRequestTypedDict",
     "FeedbackTypedDict",
     "FieldScope",
-    "File",
-    "FileTypedDict",
     "FollowupAction",
     "FollowupActionTypedDict",
     "Format",
@@ -2576,6 +2685,7 @@ __all__ = [
     "OrderBy",
     "OutputSchema",
     "OutputSchemaTypedDict",
+    "POST_REST_API_INDEX_SUBMISSIONS_DATASOURCE_INSTANCE_TYPE_OP_SERVERS",
     "PUT_REST_API_INDEX_CUSTOM_METADATA_SCHEMA_GROUP_NAME_OP_SERVERS",
     "PUT_REST_API_INDEX_DOCUMENT_DOC_ID_CUSTOM_METADATA_GROUP_NAME_OP_SERVERS",
     "PeopleRequest",
@@ -2668,6 +2778,65 @@ __all__ = [
     "PlatformSearchRequestTypedDict",
     "PlatformSearchResponse",
     "PlatformSearchResponseTypedDict",
+    "PlatformSkill",
+    "PlatformSkillCreateRequest",
+    "PlatformSkillCreateRequestFile",
+    "PlatformSkillCreateRequestFileTypedDict",
+    "PlatformSkillCreateRequestTypedDict",
+    "PlatformSkillCreateResponse",
+    "PlatformSkillCreateResponseTypedDict",
+    "PlatformSkillGetResponse",
+    "PlatformSkillGetResponseTypedDict",
+    "PlatformSkillOrigin",
+    "PlatformSkillSourceProvenance",
+    "PlatformSkillSourceProvenanceTypedDict",
+    "PlatformSkillStatus",
+    "PlatformSkillSyncStatus",
+    "PlatformSkillTypedDict",
+    "PlatformSkillValidationFile",
+    "PlatformSkillValidationFileTypedDict",
+    "PlatformSkillValidationMetadata",
+    "PlatformSkillValidationMetadataTypedDict",
+    "PlatformSkillValidationRequest",
+    "PlatformSkillValidationRequestFile",
+    "PlatformSkillValidationRequestFileTypedDict",
+    "PlatformSkillValidationRequestTypedDict",
+    "PlatformSkillValidationResponse",
+    "PlatformSkillValidationResponseTypedDict",
+    "PlatformSkillValidationWarning",
+    "PlatformSkillValidationWarningTypedDict",
+    "PlatformSkillVersion",
+    "PlatformSkillVersionCreateRequest",
+    "PlatformSkillVersionCreateRequestFile",
+    "PlatformSkillVersionCreateRequestFileTypedDict",
+    "PlatformSkillVersionCreateRequestTypedDict",
+    "PlatformSkillVersionCreateResponse",
+    "PlatformSkillVersionCreateResponseTypedDict",
+    "PlatformSkillVersionGetResponse",
+    "PlatformSkillVersionGetResponseTypedDict",
+    "PlatformSkillVersionTypedDict",
+    "PlatformSkillVersionsListResponse",
+    "PlatformSkillVersionsListResponseTypedDict",
+    "PlatformSkillsCreateVersionRequest",
+    "PlatformSkillsCreateVersionRequestTypedDict",
+    "PlatformSkillsGetContentRequest",
+    "PlatformSkillsGetContentRequestTypedDict",
+    "PlatformSkillsGetContentResponse",
+    "PlatformSkillsGetContentResponseTypedDict",
+    "PlatformSkillsGetRequest",
+    "PlatformSkillsGetRequestTypedDict",
+    "PlatformSkillsGetVersionContentRequest",
+    "PlatformSkillsGetVersionContentRequestTypedDict",
+    "PlatformSkillsGetVersionContentResponse",
+    "PlatformSkillsGetVersionContentResponseTypedDict",
+    "PlatformSkillsGetVersionRequest",
+    "PlatformSkillsGetVersionRequestTypedDict",
+    "PlatformSkillsListRequest",
+    "PlatformSkillsListRequestTypedDict",
+    "PlatformSkillsListResponse",
+    "PlatformSkillsListResponseTypedDict",
+    "PlatformSkillsListVersionsRequest",
+    "PlatformSkillsListVersionsRequestTypedDict",
     "PlatformTimeRange",
     "PlatformTimeRangeTypedDict",
     "PossibleValue",
@@ -2682,6 +2851,10 @@ __all__ = [
     "PostAPIIndexV1DebugDatasourceStatusRequestTypedDict",
     "PostAPIIndexV1DebugDatasourceUserRequest",
     "PostAPIIndexV1DebugDatasourceUserRequestTypedDict",
+    "PostRestAPIIndexSubmissionsDatasourceInstanceTypeRequest",
+    "PostRestAPIIndexSubmissionsDatasourceInstanceTypeRequestTypedDict",
+    "PostRestAPIIndexSubmissionsDatasourceInstanceTypeResponse",
+    "PostRestAPIIndexSubmissionsDatasourceInstanceTypeResponseTypedDict",
     "ProcessAllDocumentsRequest",
     "ProcessAllDocumentsRequestTypedDict",
     "ProcessAllMembershipsRequest",
@@ -2950,6 +3123,8 @@ __all__ = [
     "UpdateshortcutRequestRequest",
     "UpdateshortcutRequestRequestTypedDict",
     "UploadChatFilesRequest",
+    "UploadChatFilesRequestFile",
+    "UploadChatFilesRequestFileTypedDict",
     "UploadChatFilesRequestTypedDict",
     "UploadChatFilesResponse",
     "UploadChatFilesResponseTypedDict",
@@ -3886,6 +4061,24 @@ _dynamic_imports: dict[str, str] = {
     "PlatformAgentsGetSchemasRequestTypedDict": ".platform_agents_get_schemasop",
     "PlatformAgentsGetRequest": ".platform_agents_getop",
     "PlatformAgentsGetRequestTypedDict": ".platform_agents_getop",
+    "PlatformSkillsCreateVersionRequest": ".platform_skills_create_versionop",
+    "PlatformSkillsCreateVersionRequestTypedDict": ".platform_skills_create_versionop",
+    "PlatformSkillsGetContentRequest": ".platform_skills_get_contentop",
+    "PlatformSkillsGetContentRequestTypedDict": ".platform_skills_get_contentop",
+    "PlatformSkillsGetContentResponse": ".platform_skills_get_contentop",
+    "PlatformSkillsGetContentResponseTypedDict": ".platform_skills_get_contentop",
+    "PlatformSkillsGetVersionContentRequest": ".platform_skills_get_version_contentop",
+    "PlatformSkillsGetVersionContentRequestTypedDict": ".platform_skills_get_version_contentop",
+    "PlatformSkillsGetVersionContentResponse": ".platform_skills_get_version_contentop",
+    "PlatformSkillsGetVersionContentResponseTypedDict": ".platform_skills_get_version_contentop",
+    "PlatformSkillsGetVersionRequest": ".platform_skills_get_versionop",
+    "PlatformSkillsGetVersionRequestTypedDict": ".platform_skills_get_versionop",
+    "PlatformSkillsGetRequest": ".platform_skills_getop",
+    "PlatformSkillsGetRequestTypedDict": ".platform_skills_getop",
+    "PlatformSkillsListVersionsRequest": ".platform_skills_list_versionsop",
+    "PlatformSkillsListVersionsRequestTypedDict": ".platform_skills_list_versionsop",
+    "PlatformSkillsListRequest": ".platform_skills_listop",
+    "PlatformSkillsListRequestTypedDict": ".platform_skills_listop",
     "PlatformActionSummary": ".platformactionsummary",
     "PlatformActionSummaryTypedDict": ".platformactionsummary",
     "PlatformAgent": ".platformagent",
@@ -3927,6 +4120,47 @@ _dynamic_imports: dict[str, str] = {
     "PlatformSearchRequestTypedDict": ".platformsearchrequest",
     "PlatformSearchResponse": ".platformsearchresponse",
     "PlatformSearchResponseTypedDict": ".platformsearchresponse",
+    "PlatformSkill": ".platformskill",
+    "PlatformSkillTypedDict": ".platformskill",
+    "PlatformSkillCreateRequest": ".platformskillcreaterequest",
+    "PlatformSkillCreateRequestFile": ".platformskillcreaterequest",
+    "PlatformSkillCreateRequestFileTypedDict": ".platformskillcreaterequest",
+    "PlatformSkillCreateRequestTypedDict": ".platformskillcreaterequest",
+    "PlatformSkillCreateResponse": ".platformskillcreateresponse",
+    "PlatformSkillCreateResponseTypedDict": ".platformskillcreateresponse",
+    "PlatformSkillGetResponse": ".platformskillgetresponse",
+    "PlatformSkillGetResponseTypedDict": ".platformskillgetresponse",
+    "PlatformSkillOrigin": ".platformskillorigin",
+    "PlatformSkillsListResponse": ".platformskillslistresponse",
+    "PlatformSkillsListResponseTypedDict": ".platformskillslistresponse",
+    "PlatformSkillSourceProvenance": ".platformskillsourceprovenance",
+    "PlatformSkillSourceProvenanceTypedDict": ".platformskillsourceprovenance",
+    "PlatformSkillStatus": ".platformskillstatus",
+    "PlatformSkillSyncStatus": ".platformskillsyncstatus",
+    "PlatformSkillValidationFile": ".platformskillvalidationfile",
+    "PlatformSkillValidationFileTypedDict": ".platformskillvalidationfile",
+    "PlatformSkillValidationMetadata": ".platformskillvalidationmetadata",
+    "PlatformSkillValidationMetadataTypedDict": ".platformskillvalidationmetadata",
+    "PlatformSkillValidationRequest": ".platformskillvalidationrequest",
+    "PlatformSkillValidationRequestFile": ".platformskillvalidationrequest",
+    "PlatformSkillValidationRequestFileTypedDict": ".platformskillvalidationrequest",
+    "PlatformSkillValidationRequestTypedDict": ".platformskillvalidationrequest",
+    "PlatformSkillValidationResponse": ".platformskillvalidationresponse",
+    "PlatformSkillValidationResponseTypedDict": ".platformskillvalidationresponse",
+    "PlatformSkillValidationWarning": ".platformskillvalidationwarning",
+    "PlatformSkillValidationWarningTypedDict": ".platformskillvalidationwarning",
+    "PlatformSkillVersion": ".platformskillversion",
+    "PlatformSkillVersionTypedDict": ".platformskillversion",
+    "PlatformSkillVersionCreateRequest": ".platformskillversioncreaterequest",
+    "PlatformSkillVersionCreateRequestFile": ".platformskillversioncreaterequest",
+    "PlatformSkillVersionCreateRequestFileTypedDict": ".platformskillversioncreaterequest",
+    "PlatformSkillVersionCreateRequestTypedDict": ".platformskillversioncreaterequest",
+    "PlatformSkillVersionCreateResponse": ".platformskillversioncreateresponse",
+    "PlatformSkillVersionCreateResponseTypedDict": ".platformskillversioncreateresponse",
+    "PlatformSkillVersionGetResponse": ".platformskillversiongetresponse",
+    "PlatformSkillVersionGetResponseTypedDict": ".platformskillversiongetresponse",
+    "PlatformSkillVersionsListResponse": ".platformskillversionslistresponse",
+    "PlatformSkillVersionsListResponseTypedDict": ".platformskillversionslistresponse",
     "PlatformTimeRange": ".platformtimerange",
     "PlatformTimeRangeTypedDict": ".platformtimerange",
     "PossibleValue": ".possiblevalue",
@@ -3941,6 +4175,11 @@ _dynamic_imports: dict[str, str] = {
     "PostAPIIndexV1DebugDatasourceStatusRequestTypedDict": ".post_api_index_v1_debug_datasource_statusop",
     "PostAPIIndexV1DebugDatasourceUserRequest": ".post_api_index_v1_debug_datasource_userop",
     "PostAPIIndexV1DebugDatasourceUserRequestTypedDict": ".post_api_index_v1_debug_datasource_userop",
+    "POST_REST_API_INDEX_SUBMISSIONS_DATASOURCE_INSTANCE_TYPE_OP_SERVERS": ".post_rest_api_index_submissions_datasourceinstance_type_op",
+    "PostRestAPIIndexSubmissionsDatasourceInstanceTypeRequest": ".post_rest_api_index_submissions_datasourceinstance_type_op",
+    "PostRestAPIIndexSubmissionsDatasourceInstanceTypeRequestTypedDict": ".post_rest_api_index_submissions_datasourceinstance_type_op",
+    "PostRestAPIIndexSubmissionsDatasourceInstanceTypeResponse": ".post_rest_api_index_submissions_datasourceinstance_type_op",
+    "PostRestAPIIndexSubmissionsDatasourceInstanceTypeResponseTypedDict": ".post_rest_api_index_submissions_datasourceinstance_type_op",
     "ProcessAllDocumentsRequest": ".processalldocumentsrequest",
     "ProcessAllDocumentsRequestTypedDict": ".processalldocumentsrequest",
     "ProcessAllMembershipsRequest": ".processallmembershipsrequest",
@@ -4106,6 +4345,7 @@ _dynamic_imports: dict[str, str] = {
     "ToolTypedDict": ".tool",
     "ToolInfo": ".toolinfo",
     "ToolInfoTypedDict": ".toolinfo",
+    "ActionTypeSource": ".toolmetadata",
     "AuthType": ".toolmetadata",
     "KnowledgeType": ".toolmetadata",
     "ToolMetadata": ".toolmetadata",
@@ -4170,9 +4410,9 @@ _dynamic_imports: dict[str, str] = {
     "UpdateType": ".updatetype",
     "UploadchatfilesRequestRequest": ".uploadchatfilesop",
     "UploadchatfilesRequestRequestTypedDict": ".uploadchatfilesop",
-    "File": ".uploadchatfilesrequest",
-    "FileTypedDict": ".uploadchatfilesrequest",
     "UploadChatFilesRequest": ".uploadchatfilesrequest",
+    "UploadChatFilesRequestFile": ".uploadchatfilesrequest",
+    "UploadChatFilesRequestFileTypedDict": ".uploadchatfilesrequest",
     "UploadChatFilesRequestTypedDict": ".uploadchatfilesrequest",
     "UploadChatFilesResponse": ".uploadchatfilesresponse",
     "UploadChatFilesResponseTypedDict": ".uploadchatfilesresponse",
