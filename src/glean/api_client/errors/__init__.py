@@ -6,6 +6,10 @@ from typing import Any, TYPE_CHECKING
 from glean.api_client.utils.dynamic_imports import lazy_getattr, lazy_dir
 
 if TYPE_CHECKING:
+    from .accessrequestpermissiondeniedresponse_error import (
+        AccessRequestPermissionDeniedResponseError,
+        AccessRequestPermissionDeniedResponseErrorData,
+    )
     from .collectionerror import CollectionError, CollectionErrorData
     from .errorinforesponse import ErrorInfoResponse, ErrorInfoResponseData
     from .errorresponse import ErrorResponse, ErrorResponseData
@@ -19,6 +23,8 @@ if TYPE_CHECKING:
     from .responsevalidationerror import ResponseValidationError
 
 __all__ = [
+    "AccessRequestPermissionDeniedResponseError",
+    "AccessRequestPermissionDeniedResponseErrorData",
     "CollectionError",
     "CollectionErrorData",
     "ErrorInfoResponse",
@@ -36,6 +42,8 @@ __all__ = [
 ]
 
 _dynamic_imports: dict[str, str] = {
+    "AccessRequestPermissionDeniedResponseError": ".accessrequestpermissiondeniedresponse_error",
+    "AccessRequestPermissionDeniedResponseErrorData": ".accessrequestpermissiondeniedresponse_error",
     "CollectionError": ".collectionerror",
     "CollectionErrorData": ".collectionerror",
     "ErrorInfoResponse": ".errorinforesponse",

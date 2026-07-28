@@ -549,12 +549,14 @@ For more information on obtaining the appropriate token type, please contact you
 ### [Search](docs/sdks/search/README.md)
 
 * [query](docs/sdks/search/README.md#query) - Search
+* [list_filters](docs/sdks/search/README.md#list_filters) - List search filters
 
 ### [Skills](docs/sdks/skills/README.md)
 
 * [create](docs/sdks/skills/README.md#create) - Create skill
 * [list](docs/sdks/skills/README.md#list) - List skills
 * [validate](docs/sdks/skills/README.md#validate) - Validate skill bundle
+* [update](docs/sdks/skills/README.md#update) - Update skill
 * [retrieve](docs/sdks/skills/README.md#retrieve) - Retrieve skill
 * [retrieve_content](docs/sdks/skills/README.md#retrieve_content) - Download skill content
 * [create_version](docs/sdks/skills/README.md#create_version) - Create skill version

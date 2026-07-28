@@ -158821,7 +158821,7 @@ workflows:
             - condition: $response.header.Content-Type == application/json
             - context: $response.body
               condition: |
-                {"results":[],"has_more":false,"next_cursor":"<value>","request_id":"<id>"}
+                {"results":[],"has_more":false,"next_cursor":"<value>","request_id":"<id>","warnings":[]}
               type: simple
       x-speakeasy-test-group: search
       x-speakeasy-test-rebuild: true
@@ -159047,4 +159047,38 @@ workflows:
                 {"requestId":"<id>"}
               type: simple
       x-speakeasy-test-group: indexing_datasources
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-skills-update
+      steps:
+        - stepId: test
+          operationId: platform-skills-update
+          parameters:
+            - name: skill_id
+              in: path
+              value: <id>
+          requestBody:
+            contentType: application/json
+            payload:
+                status: DISABLED
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"skill":{"id":"<id>","display_name":"Afton14","description":"taut netsuke duh sonata boastfully elegantly management come","latest_version":425795,"latest_minor_version":741364,"status":"DISABLED","origin":"CUSTOM","owner":{"name":"<value>"},"created_at":"2024-12-20T01:31:39.364Z","updated_at":"2025-12-04T02:59:37.124Z"},"request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: skills
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-search-filters
+      steps:
+        - stepId: test
+          operationId: platform-search-filters
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"datasources":[],"request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: search
       x-speakeasy-test-rebuild: true

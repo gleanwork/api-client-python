@@ -2,8 +2,8 @@ openapi: 3.0.0
 info:
   version: "0.9.0"
   title: Glean API
-  x-source-commit-sha: 2822daae55430107c738db822cbeeb5a6bef463b
-  x-open-api-commit-sha: 0bdefe83a21f917592624e6f1dbaa180e89d5224
+  x-source-commit-sha: 860049c07d7cf63702141018bb5e0835aca4138d
+  x-open-api-commit-sha: fa9716bbc4d0f87cbdb9934899702103adf0aff3
   description: |
     # Introduction
     In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This is useful, for example, for doing permissions-aware search over content in internal tools that reside on-prem as well as for searching over applications that Glean does not currently support first class. In addition these APIs allow the customer to push organization data (people info, organization structure etc) into Glean.
@@ -401,6 +401,63 @@ paths:
       security:
         - APIToken: []
   /api/skills/{skill_id}:
+    patch:
+      tags:
+        - Skills
+      summary: Update skill
+      description: |
+        Update mutable metadata for a skill. V1 supports enabling or disabling a skill without changing its content.
+      operationId: platform-skills-update
+      x-visibility: Public
+      x-glean-experimental:
+        id: 262e1f6b-6c2d-4d6d-943b-fc251d2fb38b
+        introduced: "2026-07-20"
+      parameters:
+        - name: skill_id
+          in: path
+          required: true
+          description: Glean skill ID.
+          schema:
+            type: string
+            minLength: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PlatformSkillUpdateRequest"
+        x-codegen-request-body-name: request
+      responses:
+        "200":
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlatformSkillUpdateResponse"
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+        "409":
+          $ref: "#/components/responses/PlatformConflict"
+        "413":
+          $ref: "#/components/responses/PlatformRequestTooLarge"
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+      x-speakeasy-group: skills
+      x-speakeasy-name-override: update
+      security:
+        - APIToken: []
     get:
       tags:
         - Skills
@@ -739,7 +796,8 @@ paths:
         - Search
       summary: Search
       description: |
-        Execute a search query and retrieve ranked results. This is the data retrieval variant of the search API and returns only results and pagination state.
+        Search your organization's connected content and return ranked document results with cursor pagination. Use `GET /api/search/filters` to discover datasource identifiers and common filter fields. Built-in filter names are validated; other field names are accepted as custom filters and behavior depends on your Glean configuration and connected sources.
+        Errors: HTTP 422 `unprocessable_query` returns no `results` or `next_cursor`. See `warnings` on the response for non-blocking issues such as partially available results. Not every query issue produces a warning or error.
       operationId: platform-search
       x-visibility: Public
       x-glean-experimental:
@@ -754,7 +812,7 @@ paths:
               $ref: "#/components/schemas/PlatformSearchRequest"
       responses:
         "200":
-          description: Successful search.
+          description: Successful response.
           content:
             application/json:
               schema:
@@ -771,6 +829,8 @@ paths:
           $ref: "#/components/responses/PlatformRequestTimeout"
         "413":
           $ref: "#/components/responses/PlatformRequestTooLarge"
+        "422":
+          $ref: "#/components/responses/PlatformUnprocessableEntity"
         "429":
           $ref: "#/components/responses/PlatformTooManyRequests"
         "500":
@@ -779,6 +839,73 @@ paths:
           $ref: "#/components/responses/PlatformServiceUnavailable"
       x-speakeasy-group: search
       x-speakeasy-name-override: query
+      security:
+        - APIToken: []
+  /api/search/filters:
+    get:
+      tags:
+        - Search
+      summary: List search filters
+      description: |
+        List datasources and common built-in filter fields visible to the authenticated user. This is a best-effort catalog, not an exhaustive list of every filter search accepts.
+        Without `query`, returns field metadata only and does not run a search. With a nonblank `query`, provide exactly one `datasources` value to request suggested filter values for that query; no documents are returned and this endpoint does not include warning objects. See `FilterFieldInfo.values` for limitations on suggested values. Rate-limited requests return HTTP 429 with `Retry-After`; temporary backend unavailability returns HTTP 503.
+      operationId: platform-search-filters
+      x-visibility: Public
+      x-glean-experimental:
+        id: 0b585621-13fb-4544-bf20-5e1c99452735
+        introduced: "2026-05-12"
+      parameters:
+        - in: query
+          name: datasources
+          description: |
+            Restrict metadata to one or more datasource identifiers as returned by this endpoint (for example, `jira`). With a nonblank `query`, exactly one datasource is required. Unknown or inaccessible identifiers return `invalid_datasource`.
+          required: false
+          schema:
+            type: array
+            minItems: 1
+            items:
+              type: string
+              minLength: 1
+        - in: query
+          name: query
+          description: |
+            Optional search query that requests suggested filter values for the selected datasource. Must be nonblank when present. Triggers a search for facet values only; does not return documents.
+          required: false
+          schema:
+            type: string
+            minLength: 1
+      responses:
+        "200":
+          description: Successful response.
+          headers:
+            Cache-Control:
+              description: |
+                Present as `no-store` for query-backed discovery responses. Catalog-only responses omit this endpoint-specific override.
+              schema:
+                type: string
+                example: no-store
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlatformSearchFiltersResponse"
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+      x-speakeasy-group: search
+      x-speakeasy-name-override: listFilters
       security:
         - APIToken: []
   /rest/api/v1/activity:
@@ -1442,6 +1569,10 @@ paths:
           description: Not Authorized
         "403":
           description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessRequestPermissionDeniedResponse'
         "429":
           description: Too Many Requests
       x-visibility: Public
@@ -5640,6 +5771,24 @@ components:
       description: >-
         HTTP bearer token. Accepts a Glean-issued API token, an OAuth access token from the Glean OAuth Authorization Server (including Dynamic Client Registration clients), or an OAuth access token issued by an external identity provider. External-IdP OAuth tokens must also include the `X-Glean-Auth-Type: OAUTH` request header. OAuth is supported on the Client API only; the Indexing API requires a Glean-issued token.
   schemas:
+    PlatformWarning:
+      type: object
+      additionalProperties: false
+      required:
+        - code
+        - message
+      description: Non-blocking warning attached to a successful Platform response.
+      properties:
+        code:
+          type: string
+          minLength: 1
+          description: |
+            Open snake_case warning code. Clients must tolerate unknown values; the set of codes is not a closed enum.
+          example: results_incomplete
+        message:
+          type: string
+          minLength: 1
+          description: Human-readable warning message.
     PlatformAgentsSearchRequest:
       type: object
       additionalProperties: false
@@ -6205,18 +6354,6 @@ components:
         is_manifest:
           type: boolean
           description: Whether this file is the skill manifest.
-    PlatformSkillValidationWarning:
-      type: object
-      required:
-        - code
-        - message
-      properties:
-        code:
-          type: string
-          description: Stable warning code.
-        message:
-          type: string
-          description: Human-readable warning message.
     PlatformSkillValidationResponse:
       type: object
       required:
@@ -6236,11 +6373,36 @@ components:
           type: array
           description: Non-blocking validation warnings.
           items:
-            $ref: "#/components/schemas/PlatformSkillValidationWarning"
+            $ref: "#/components/schemas/PlatformWarning"
         request_id:
           type: string
           description: Platform-generated request ID for support correlation.
     PlatformSkillGetResponse:
+      type: object
+      required:
+        - skill
+        - request_id
+      properties:
+        skill:
+          $ref: "#/components/schemas/PlatformSkill"
+        request_id:
+          type: string
+          description: Platform-generated request ID for support correlation.
+    PlatformSkillUpdateStatus:
+      type: string
+      enum:
+        - ENABLED
+        - DISABLED
+      description: New status for the skill.
+    PlatformSkillUpdateRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - status
+      properties:
+        status:
+          $ref: "#/components/schemas/PlatformSkillUpdateStatus"
+    PlatformSkillUpdateResponse:
       type: object
       required:
         - skill
@@ -6353,23 +6515,27 @@ components:
         - LTE
     PlatformFilter:
       type: object
+      additionalProperties: false
       required:
         - field
         - values
       description: |
-        A single filter criterion. For `EQUALS`, multiple values within a filter are OR'd. For `NOT_EQUALS`, multiple values exclude all listed values. Filters are AND'd with each other and with any inline query operators.
+        A single filter criterion. For `EQUALS`, multiple values within a filter are OR'd; for `NOT_EQUALS`, listed values are excluded. Separate filters are AND'd with each other and with inline operators in `query`. Repeated same-field `EQUALS` filters are rejected.
       properties:
         field:
           type: string
+          minLength: 1
           description: |
-            The field to filter on. Accepts built-in filter field names such as `type`, `owner`, `from`, `author`, `channel`, `status`, `assignee`, `reporter`, `component`, `mentions`, and `collection`, plus custom datasource property names.
+            Filter field name. Built-in names (case-sensitive, lowercase only): `type`, `owner`, `from`, `author`, `channel`, `status`, `assignee`, `reporter`, `component`, `mentions`, and `collection`. Built-ins accept only `EQUALS` and `NOT_EQUALS`. Any other nonblank name is accepted as a custom filter without spelling, existence, or type checks; behavior depends on your connected sources.
           example: type
         values:
           type: array
           minItems: 1
           items:
             type: string
-          description: One or more values to match.
+            minLength: 1
+          description: |
+            One or more values to match. Prefer values returned by filter discovery unchanged. For people (`USER`) fields, values may be email addresses or display names.
           example:
             - spreadsheet
             - presentation
@@ -6377,9 +6543,10 @@ components:
           allOf:
             - $ref: "#/components/schemas/PlatformFilterOperator"
           description: |
-            Comparison operator to apply to this filter. Defaults to `EQUALS`. `GT`, `GTE`, `LT`, and `LTE` range operators require exactly one value; express bounded ranges with multiple filters on the same field.
+            Comparison operator. Defaults to `EQUALS`. Built-in fields support only `EQUALS` and `NOT_EQUALS`. Range operators (`GT`, `GTE`, `LT`, `LTE`) require exactly one value; express ranges with multiple filters on the same field. Custom fields may support different operators depending on the data source.
     PlatformTimeRange:
       type: object
+      additionalProperties: false
       description: Filter results to those last updated within this range.
       properties:
         start:
@@ -6408,6 +6575,7 @@ components:
       properties:
         query:
           type: string
+          minLength: 1
           description: |
             The search query string. Supports inline operators such as `from:jane type:document app:confluence`. Inline operators are AND'd with structured `filters`.
         page_size:
@@ -6423,26 +6591,24 @@ components:
             Opaque pagination token from a previous response's `next_cursor` field. Omit on the first request.
         datasources:
           type: array
+          minItems: 1
           items:
             type: string
+            minLength: 1
           description: |
-            Restrict results to specific datasources. Requests must not specify both `datasources` and `datasource_instances`.
-        datasource_instances:
-          type: array
-          items:
-            type: string
-          description: |
-            Restrict results to specific datasource instances. Values are datasource instance identifiers returned by `GET /api/search/filters`. Requests must not specify both `datasources` and `datasource_instances`.
+            Restrict results to specific datasource identifiers returned by `GET /api/search/filters`. Scopes by datasource type and may include results from multiple instances of that type.
         filters:
           type: array
+          minItems: 1
           items:
             $ref: "#/components/schemas/PlatformFilter"
           description: |
-            Structured filters applied to search results. Equality operators OR multiple values within a filter. Multiple filters are AND'd together, including range filters on the same field. Filters are AND'd with any inline operators in `query`. Note that conflicting constraints on the same field (e.g., `type:document` in the query and `type: spreadsheet` in a filter) produce an empty result set.
+            Structured filters applied to search results. Multiple values within a filter with `EQUALS` are OR'd; separate filters are AND'd. Conflicting constraints on the same field (for example, `type:document` in `query` and `type:spreadsheet` in a filter) return an empty result set. See `Filter.field` for built-in field names and operators. Other nonblank field names are accepted as custom filters without validation; behavior depends on your connected sources.
         time_range:
           $ref: "#/components/schemas/PlatformTimeRange"
     PlatformResult:
       type: object
+      additionalProperties: false
       required:
         - url
         - title
@@ -6451,31 +6617,31 @@ components:
         url:
           type: string
           format: uri
+          minLength: 1
           description: Canonical URL of the result.
           example: https://company.atlassian.net/wiki/spaces/ENG/pages/12345
         title:
           type: string
+          minLength: 1
           description: Result title.
           example: Q2 2026 Platform Roadmap
         snippets:
           type: array
           items:
             type: string
+            minLength: 1
           description: Query-relevant plain-text excerpts from the result body.
           example:
             - The platform team will focus on API stability and...
         datasource:
           type: string
+          minLength: 1
           description: The datasource this result originates from.
           example: confluence
-        datasource_instance:
-          type: string
-          nullable: true
-          description: The datasource instance this result originates from, if known.
-          example: confluence_acme
         document_type:
           type: string
           nullable: true
+          minLength: 1
           description: The document type within the datasource.
           example: page
         creator:
@@ -6494,17 +6660,20 @@ components:
           description: When the result was created.
     PlatformSearchResponse:
       type: object
+      additionalProperties: false
       required:
         - results
         - has_more
         - next_cursor
         - request_id
+        - warnings
       properties:
         results:
           type: array
           items:
             $ref: "#/components/schemas/PlatformResult"
-          description: Ordered list of search results.
+          description: |
+            Ordered list of ranked document results. People cards, Q&A blocks, and other UI-only result types are not included.
         has_more:
           type: boolean
           description: Indicates whether additional pages of results are available.
@@ -6514,6 +6683,82 @@ components:
           description: Opaque token to pass as `cursor` in the next request.
         request_id:
           type: string
+          minLength: 1
+          description: Platform-generated request ID for support correlation.
+        warnings:
+          type: array
+          description: |
+            Non-blocking warnings for this response. Required; use `[]` when there are none. Clients must tolerate unknown warning codes. `results_incomplete` means some results may be unavailable for the requested datasource scope while `results`, `has_more`, and `next_cursor` remain present. Warning messages are generic and do not include query text or internal identifiers.
+          items:
+            $ref: "#/components/schemas/PlatformWarning"
+    PlatformFilterFieldInfo:
+      type: object
+      additionalProperties: false
+      required:
+        - field
+        - type
+        - operators
+      properties:
+        field:
+          type: string
+          minLength: 1
+          description: Field name usable in the `filters` array for `POST /api/search`.
+          example: status
+        type:
+          type: string
+          minLength: 1
+          description: |
+            Open field-type string. Current values are `STRING` for text and keyword fields and `USER` for people fields (`owner`, `from`, `author`, `assignee`, `reporter`, `mentions`). Clients must tolerate unknown values.
+          example: STRING
+        operators:
+          type: array
+          minItems: 1
+          description: |
+            Comparison operators supported for this field. Built-in fields expose `EQUALS` and `NOT_EQUALS`.
+          items:
+            $ref: "#/components/schemas/PlatformFilterOperator"
+        values:
+          type: array
+          description: |
+            Suggested filter values observed for the supplied `query`. Omitted in catalog-only responses. Present as an array, including `[]`, when `query` is provided. Values are a bounded, non-exhaustive sample in search-provider order and may include duplicates; blank values are omitted. No additional endpoint-specific truncation is applied. Grouping in the search UI is not preserved; each value applies to the field broadly. An empty array does not mean no valid value exists. Availability varies by data source; federated and MCP integrations may return page-derived values or none at all. Reusing a suggested value in `POST /api/search` does not guarantee matching results or identical filter behavior. For `USER` fields, values may be email addresses or display names.
+          items:
+            type: string
+            minLength: 1
+    PlatformDatasourceFilterInfo:
+      type: object
+      additionalProperties: false
+      required:
+        - datasource
+        - filters
+      properties:
+        datasource:
+          type: string
+          minLength: 1
+          description: |
+            Datasource identifier usable in `POST /api/search` `datasources`.
+          example: jira
+        filters:
+          type: array
+          description: |
+            Common built-in filter fields for this datasource. May be empty. A built-in omitted here can still be valid in `POST /api/search`; see `Filter.field` for the full built-in name list.
+          items:
+            $ref: "#/components/schemas/PlatformFilterFieldInfo"
+    PlatformSearchFiltersResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - datasources
+        - request_id
+      properties:
+        datasources:
+          type: array
+          description: |
+            Datasources visible to the authenticated user. Each `datasource` is an identifier you can pass to `POST /api/search` `datasources`. An empty array means no visible datasources.
+          items:
+            $ref: "#/components/schemas/PlatformDatasourceFilterInfo"
+        request_id:
+          type: string
+          minLength: 1
           description: Platform-generated request ID for support correlation.
     ActivityEventParams:
       properties:
@@ -10430,7 +10675,8 @@ components:
             - client_secret_post
             - client_secret_basic
             - none
-          description: The OAuth 2.0 token endpoint authentication method (RFC 7591). Determines how the client authenticates when exchanging an authorization code for a token. client_secret_post sends credentials as form fields, client_secret_basic sends them via Authorization header, none omits client secret and relies on PKCE only. Values use lowercase to match the OAuth 2.0 wire format (RFC 7591 Section 2).
+            - private_key_jwt
+          description: The OAuth 2.0 token endpoint authentication method (RFC 7591). Determines how the client authenticates when exchanging an authorization code for a token. client_secret_post sends credentials as form fields, client_secret_basic sends them via Authorization header, none omits client secret and relies on PKCE only, and private_key_jwt authenticates with a JWT client assertion signed by the client's private key (RFC 7523 Section 2.2 / OIDC Core Section 9). Values use lowercase to match the OAuth 2.0 wire format (RFC 7591 Section 2).
         lastAuthorizedAt:
           type: string
           format: date-time
@@ -10954,6 +11200,26 @@ components:
       properties:
         chatResult:
           $ref: '#/components/schemas/ChatResult'
+    AccessRequestPermissionDeniedResponse:
+      type: object
+      properties:
+        errorType:
+          type: string
+          enum:
+            - PERMISSION_DENIED
+        createdBy:
+          $ref: '#/components/schemas/Person'
+        requestableRoles:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserRole'
+        hasPendingRequest:
+          type: boolean
+      required:
+        - errorType
+        - createdBy
+        - requestableRoles
+        - hasPendingRequest
     ChatMetadataResult:
       properties:
         chat:
@@ -15845,6 +16111,8 @@ components:
             - ENTITY
             - CALENDAR
             - AGENTS
+            - AI_CONVERSATION
+            - AI_ARTIFACT
           description: The document category of this object type.
         propertyDefinitions:
           type: array
@@ -15898,6 +16166,8 @@ components:
             - ENTITY
             - CALENDAR
             - AGENTS
+            - AI_CONVERSATION
+            - AI_ARTIFACT
           description: The type of this datasource. It is an important signal for relevance and must be specified and cannot be UNCATEGORIZED. Please refer to [this](https://developers.glean.com/docs/indexing_api_datasource_category/) for more details.
           default: UNCATEGORIZED
         urlRegex:
@@ -17024,6 +17294,12 @@ components:
             $ref: "#/components/schemas/PlatformProblemDetail"
     PlatformConflict:
       description: Request conflicts with current state of the resource.
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/PlatformProblemDetail"
+    PlatformUnprocessableEntity:
+      description: Syntactically valid but semantically incorrect request.
       content:
         application/problem+json:
           schema:

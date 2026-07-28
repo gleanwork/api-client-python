@@ -7,6 +7,7 @@
 * [create](#create) - Create skill
 * [list](#list) - List skills
 * [validate](#validate) - Validate skill bundle
+* [update](#update) - Update skill
 * [retrieve](#retrieve) - Retrieve skill
 * [retrieve_content](#retrieve_content) - Download skill content
 * [create_version](#create_version) - Create skill version
@@ -149,6 +150,50 @@ with Glean(
 | errors.PlatformProblemDetailError | 400, 401, 403, 404, 408, 413, 429 | application/problem+json          |
 | errors.PlatformProblemDetailError | 500, 503                          | application/problem+json          |
 | errors.GleanError                 | 4XX, 5XX                          | \*/\*                             |
+
+## update
+
+Update mutable metadata for a skill. V1 supports enabling or disabling a skill without changing its content.
+
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="platform-skills-update" method="patch" path="/api/skills/{skill_id}" -->
+```python
+from glean.api_client import Glean, models
+import os
+
+
+with Glean(
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+) as glean:
+
+    res = glean.skills.update(skill_id="<id>", status=models.PlatformSkillUpdateStatus.DISABLED)
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                     | Type                                                                          | Required                                                                      | Description                                                                   |
+| ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| `skill_id`                                                                    | *str*                                                                         | :heavy_check_mark:                                                            | Glean skill ID.                                                               |
+| `status`                                                                      | [models.PlatformSkillUpdateStatus](../../models/platformskillupdatestatus.md) | :heavy_check_mark:                                                            | New status for the skill.                                                     |
+| `retries`                                                                     | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)              | :heavy_minus_sign:                                                            | Configuration to override the default retry behavior of the client.           |
+
+### Response
+
+**[models.PlatformSkillUpdateResponse](../../models/platformskillupdateresponse.md)**
+
+### Errors
+
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.PlatformProblemDetailError      | 400, 401, 403, 404, 408, 409, 413, 429 | application/problem+json               |
+| errors.PlatformProblemDetailError      | 500, 503                               | application/problem+json               |
+| errors.GleanError                      | 4XX, 5XX                               | \*/\*                                  |
 
 ## retrieve
 

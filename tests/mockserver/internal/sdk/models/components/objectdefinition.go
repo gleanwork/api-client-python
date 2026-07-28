@@ -29,6 +29,8 @@ const (
 	DocCategoryEntity               DocCategory = "ENTITY"
 	DocCategoryCalendar             DocCategory = "CALENDAR"
 	DocCategoryAgents               DocCategory = "AGENTS"
+	DocCategoryAiConversation       DocCategory = "AI_CONVERSATION"
+	DocCategoryAiArtifact           DocCategory = "AI_ARTIFACT"
 )
 
 func (e DocCategory) ToPointer() *DocCategory {
@@ -75,6 +77,10 @@ func (e *DocCategory) UnmarshalJSON(data []byte) error {
 	case "CALENDAR":
 		fallthrough
 	case "AGENTS":
+		fallthrough
+	case "AI_CONVERSATION":
+		fallthrough
+	case "AI_ARTIFACT":
 		*e = DocCategory(v)
 		return nil
 	default:

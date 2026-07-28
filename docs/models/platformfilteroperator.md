@@ -8,6 +8,8 @@ Supported filter operator.
 from glean.api_client.models import PlatformFilterOperator
 
 value = PlatformFilterOperator.EQUALS
+
+# Open enum: unrecognized values are captured as UnrecognizedStr
 ```
 
 

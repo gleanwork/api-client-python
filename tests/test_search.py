@@ -2234,3 +2234,17 @@ def test_search_platform_search():
             ],
         )
         assert res is not None
+
+
+def test_search_platform_search_filters():
+    test_http_client = create_test_http_client("platform-search-filters")
+
+    with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
+        client=test_http_client,
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+    ) as glean:
+        assert glean is not None
+
+        res = glean.search.list_filters()
+        assert res is not None

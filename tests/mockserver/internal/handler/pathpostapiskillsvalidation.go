@@ -56,7 +56,7 @@ func testPlatformSkillsValidatePlatformSkillsValidate0(w http.ResponseWriter, re
 			Description: "overburden actual impact",
 		},
 		Files:     []components.PlatformSkillValidationFile{},
-		Warnings:  []components.PlatformSkillValidationWarning{},
+		Warnings:  []components.PlatformWarning{},
 		RequestID: "<id>",
 	}
 	respBodyBytes, err := utils.MarshalJSON(respBody, "", true)

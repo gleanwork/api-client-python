@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 from enum import Enum
+from glean.api_client import utils
 
 
-class PlatformFilterOperator(str, Enum):
+class PlatformFilterOperator(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""Supported filter operator."""
 
     EQUALS = "EQUALS"

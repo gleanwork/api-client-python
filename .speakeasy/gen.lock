@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 3e3290ca-0ee8-4981-b1bc-14536048fa63
 management:
-  docChecksum: 586f40e432b9bb469fad89ebabfbc480
+  docChecksum: 9f987ced41f4b65f14473466564f0101
   docVersion: 0.9.0
-  speakeasyVersion: 1.790.3
-  generationVersion: 2.918.4
-  releaseVersion: 0.15.4
-  configChecksum: 0f7f272cfbc1986b8c5a32550c674049
+  speakeasyVersion: 1.791.0
+  generationVersion: 2.924.0
+  releaseVersion: 0.15.5
+  configChecksum: 2d7eb6b1e296b48ffc7d66cf6e6b21cd
   repoURL: https://github.com/gleanwork/api-client-python.git
   installationURL: https://github.com/gleanwork/api-client-python.git
   published: true
 persistentEdits:
-  generation_id: f115e84c-5118-4c26-a87b-9d23d8f7c5d0
-  pristine_commit_hash: 570840404722046c131de65886065b4f1a47b4a6
-  pristine_tree_hash: 0bcc83861a2d536b8c3b107a001e5201fabac01a
+  generation_id: 2db56ca0-878e-4e54-9cbb-36cd14ed7e8c
+  pristine_commit_hash: 66d1c6d1c9bc2eb7dfc7d8730872742234e88ab3
+  pristine_tree_hash: c2485c8996a9514e91ce61a7215c6b7dabb466de
 features:
   python:
     acceptHeaders: 3.0.0
@@ -73,6 +73,10 @@ trackedFiles:
     id: 3aed33ce6e6f
     last_write_checksum: sha1:8e83346b5645b6bef8a2423f0dbc9a6365b5bd46
     pristine_git_object: 13f153fada6e805e20d596947edc7b0bc9351317
+  docs/errors/accessrequestpermissiondeniedresponseerror.md:
+    id: ef4760b1057f
+    last_write_checksum: sha1:bc4a2392e4e46ce5b32fdbd3f70121cb0598e803
+    pristine_git_object: 057362704954f0b059084ef5cf8b5451e0310d0d
   docs/errors/collectionerror.md:
     id: 3d0bc04308fd
     last_write_checksum: sha1:b0c6864817dbdc3bde8fee4a1e142d51e89f781c
@@ -93,6 +97,10 @@ trackedFiles:
     id: e92c15ace3bc
     last_write_checksum: sha1:5208ac53c3ccef42decf04d32f2e415299bc7ac6
     pristine_git_object: d5a6d0abd3cce2307eafb570c8d03387a73f809f
+  docs/models/accessrequestpermissiondeniedresponseerrortype.md:
+    id: cf10b3c05fce
+    last_write_checksum: sha1:f7cd44ff9d027f0aca17dfbf6e52360b16ae38f6
+    pristine_git_object: 2c42a6041e901e954535b0b33fb856d255695bf0
   docs/models/actionauthtype.md:
     id: f6c3ce39f190
     last_write_checksum: sha1:6fe1004cc273d5e15dff5ba82f42bd218774a83b
@@ -299,8 +307,8 @@ trackedFiles:
     pristine_git_object: d5cc0973f8bced08083dc8ad0ce7ff501668cedb
   docs/models/authconfig.md:
     id: fbdae66f0362
-    last_write_checksum: sha1:c565685e22f3411d4c4e50f089be513b3ba98187
-    pristine_git_object: e28f87707e1a35b32887f571b7fe43c2903a4d9d
+    last_write_checksum: sha1:70141f13f98b4605003f36aed90c1874d3c7228b
+    pristine_git_object: c10e9a2526c4d998d1f5a0fb477d89de81ac6a8e
   docs/models/authconfigstatus.md:
     id: faed76680e4f
     last_write_checksum: sha1:b4337cf080b32707bf4d897552f3433ecd409f5b
@@ -807,8 +815,8 @@ trackedFiles:
     pristine_git_object: 8445ecad49bc3bbd7b064649b72e824713db1ae7
   docs/models/datasourcecategory.md:
     id: 0480a1f35070
-    last_write_checksum: sha1:015d56c41be98ea2c521890e16153d81d293e77a
-    pristine_git_object: eccdbdeb57567caebb4ae64d7f8a263ed38a989a
+    last_write_checksum: sha1:221e5a4f881063f398b9881d36d622747d3ede52
+    pristine_git_object: c7a5d3c3182c0a7820f14cd6395fc9a7690aa4fb
   docs/models/datasourceconfigurationresponse.md:
     id: 7c6f38290f96
     last_write_checksum: sha1:10c0068be581150ab5915785029e610bdf472ab5
@@ -1083,8 +1091,8 @@ trackedFiles:
     pristine_git_object: 52a18a1148721667dfc7a24e9858cfba774d5c78
   docs/models/doccategory.md:
     id: 821ad62d2df6
-    last_write_checksum: sha1:dde799e6eb1d7b4b1515d636c07939219b3cfa0f
-    pristine_git_object: 3560e89449148b672eebef4ff2dbd84ca47d7b25
+    last_write_checksum: sha1:1ec7a9915ac0698a53f2f01edb122cb6e14b76ef
+    pristine_git_object: 0e883592d7c11977a24a16657452e4a11b53c2a1
   docs/models/document.md:
     id: cd1d2a444370
     last_write_checksum: sha1:3c58b1bee296890b3ad00d72b32647ab4ae67bd4
@@ -2213,14 +2221,22 @@ trackedFiles:
     id: a9175ad4799d
     last_write_checksum: sha1:abb012a639cead86824ed11e596bda3632e2fddb
     pristine_git_object: 1b46526d54ef25a1d018d2cfd3bbafde48fba72a
+  docs/models/platformdatasourcefilterinfo.md:
+    id: 61ae1a6d6454
+    last_write_checksum: sha1:41734266d612f710490590c79d1104b15e165291
+    pristine_git_object: 8119fc5d60b5afc43b6fa6c91205061bbd9a9b3b
   docs/models/platformfilter.md:
     id: 4e97760ae8b9
-    last_write_checksum: sha1:d78122b73a8014e7103935402b9167728bcaec34
-    pristine_git_object: b3e8b651de43912c7092a7cb624cda0b3f9ea48a
+    last_write_checksum: sha1:c331962f750f8e583ea3f50d70027a2a23225ad3
+    pristine_git_object: b13127363cc92f9425c6af95318b53ce2e398c41
+  docs/models/platformfilterfieldinfo.md:
+    id: 9a7fa851c702
+    last_write_checksum: sha1:e3712cf98275e049b47ab544eb8e8c2a28c05c5b
+    pristine_git_object: 8908111829612f9a67a7da3c9f18dc524d785ca8
   docs/models/platformfilteroperator.md:
     id: 459d8f60cd58
-    last_write_checksum: sha1:909a73760255616436ed2c71e3aeb5895e03dd68
-    pristine_git_object: f814671e353534b461511918a4b553733635b691
+    last_write_checksum: sha1:98575b0dfa32c14f341fc95490c0e2c5cace9fe8
+    pristine_git_object: d97b6753e2056405bec741b206680b230891c331
   docs/models/platformmessage.md:
     id: ea30c4fdad14
     last_write_checksum: sha1:890468283cb6b47c68edf4b7b241dec096699d95
@@ -2247,16 +2263,28 @@ trackedFiles:
     pristine_git_object: 169944d5c3ce0c14a23f82a9c5ac30efdec24533
   docs/models/platformresult.md:
     id: 0fe3fed8d508
-    last_write_checksum: sha1:3a4ba99a8923e7504e9f1606eca7a2ab7277e746
-    pristine_git_object: e9b2cd6a291372feb2023cc2896f9aad75c400a6
+    last_write_checksum: sha1:00c06fea69f19c8deedd7c27aa8fa735d1b04612
+    pristine_git_object: 330039872116266288ec6bb54841328449f04759
+  docs/models/platformsearchfiltersrequest.md:
+    id: 8bbc53cc30ee
+    last_write_checksum: sha1:e72c60e81d9b005abde6716e7036d8937aad2615
+    pristine_git_object: 001723a502745d7ff5f80201dd8b432453e56ee3
+  docs/models/platformsearchfiltersresponse.md:
+    id: 9ea2f0a45c78
+    last_write_checksum: sha1:6a9d79d2ce163618620bc33f94b7409290195a66
+    pristine_git_object: ee35d03324d6180936e9f0851d7516c641255b29
+  docs/models/platformsearchfiltersresponseresponse.md:
+    id: 6296f0269b3a
+    last_write_checksum: sha1:fa863a1edcde689e9ce84e803c024f0db6ed4ff4
+    pristine_git_object: dc35339f57048b4a4f944d31159cae21f09d4f32
   docs/models/platformsearchrequest.md:
     id: 9f3be4029289
-    last_write_checksum: sha1:5a163a68ccc04dd0a7f8fb8e75c41e39eceef100
-    pristine_git_object: 30ff66c03c2b88bb2ec72e7a7f4dfa135d21d8f6
+    last_write_checksum: sha1:b690be7d344311de3865bb4e19c32de3c2e1e470
+    pristine_git_object: 1972bc5104d040207fa34c6e87b6346b707c9c2f
   docs/models/platformsearchresponse.md:
     id: b20c8f7128fc
-    last_write_checksum: sha1:958639d5fa5b446156df39fd5f69b6c57265f13a
-    pristine_git_object: 219a923e48c2a8cb9333d211f51a87df045a8002
+    last_write_checksum: sha1:2a830bd20b46e9d3079e7445a39122c9a2457320
+    pristine_git_object: 74045b8a6ae5e046bacdfb861ababddb3d770f5c
   docs/models/platformskill.md:
     id: 83c575f92901
     last_write_checksum: sha1:6b749a33dc64251968dac815aec5189373449b3e
@@ -2329,10 +2357,26 @@ trackedFiles:
     id: 33c93e7414d6
     last_write_checksum: sha1:7012661e93710994b8dc2a827b82bdb7da8bbb5f
     pristine_git_object: 566f1092589cad8787c57dd7042e2f2c71ea49b4
+  docs/models/platformskillsupdaterequest.md:
+    id: f8592c4371a6
+    last_write_checksum: sha1:32c122889d11396f07aef39f80135d7c15880d70
+    pristine_git_object: 3ea30e833501442e500b5572098b632d97d0f7ab
   docs/models/platformskillsyncstatus.md:
     id: c12e6da882a8
     last_write_checksum: sha1:ddca3bc0c472815cbf35240dc3ce2f17c6fc87e2
     pristine_git_object: 36b3ddd907f7ed42f42bfb7983afdb9f4dfb2b42
+  docs/models/platformskillupdaterequest.md:
+    id: 6203e2a98d33
+    last_write_checksum: sha1:593dd3b031c30c8fae572763aae685c552f22f03
+    pristine_git_object: 1d94bb0a434f77403b9f6c4109e6beb9c71fa6a4
+  docs/models/platformskillupdateresponse.md:
+    id: de4f570e9a3d
+    last_write_checksum: sha1:da13ed5450b210d4064056c72a712b270e6fe718
+    pristine_git_object: ae42e1d6a8e34603f2e157126f6eb8e733f6c3ff
+  docs/models/platformskillupdatestatus.md:
+    id: bbf036925440
+    last_write_checksum: sha1:21c6edca9d3ba5ae257ae975d4fe66dfd707f6f6
+    pristine_git_object: 898c434f2864d96532b529d80076e2b5cb20d68a
   docs/models/platformskillvalidationfile.md:
     id: ec82528a1836
     last_write_checksum: sha1:f4f4f45aeabf5eb63cf40ce57edc939fe13a8d17
@@ -2351,12 +2395,8 @@ trackedFiles:
     pristine_git_object: 6802ab6379b6bd6cca97269c82fd78e88d29973a
   docs/models/platformskillvalidationresponse.md:
     id: 0c84081113d2
-    last_write_checksum: sha1:24738d3981badb8640a6d34cc45c19ae7262aa87
-    pristine_git_object: e1b24bc3160837a6f0dbed3b0f0bc6b843c51c22
-  docs/models/platformskillvalidationwarning.md:
-    id: 7bf3eccb6607
-    last_write_checksum: sha1:8cf24326d5c8bd98dd20bb1ef79141536a7511d8
-    pristine_git_object: 128a3f9f17c6636717f4293ce9e0b08b74665b4d
+    last_write_checksum: sha1:5c2e270d4d9137ac55be2caeb0a2fb16de8bce23
+    pristine_git_object: 9f8ab67f1fb03205ea3c9ef3ddc0002fe2622a1f
   docs/models/platformskillversion.md:
     id: b42042487614
     last_write_checksum: sha1:e137b5b43e787f547287317e56776c0375a21c5d
@@ -2385,6 +2425,10 @@ trackedFiles:
     id: c37b2e815a8d
     last_write_checksum: sha1:31db2f83dba4ccb6d0a5e7b80edbeff356529101
     pristine_git_object: ff19123b19a2dd81301974a38d793afff935e9aa
+  docs/models/platformwarning.md:
+    id: 458ffec7aa61
+    last_write_checksum: sha1:b70d5a767413fd7559601eb8e1e9728ad8b15773
+    pristine_git_object: f0a2b5fa43037837c25040988cf8135560a30bb1
   docs/models/possiblevalue.md:
     id: 630387aebbc5
     last_write_checksum: sha1:490f03fc39621ae0f816bb16d2922e1a8042cdb1
@@ -2863,8 +2907,8 @@ trackedFiles:
     pristine_git_object: 64f1bba3aefec45ea846c103a9c666f9149e868e
   docs/models/tokenendpointauthmethod.md:
     id: ecc9be73734a
-    last_write_checksum: sha1:e4f508af54804043c21b96405f33cf17c1186b67
-    pristine_git_object: 292a955adca4baebcc7fec90e4cd745ed26489da
+    last_write_checksum: sha1:befcae42cda8d552df979f3c2de0be9b23a4a77d
+    pristine_git_object: a0c4ca6b9187642502e307cb07a16e5eaa2b1aad
   docs/models/tool.md:
     id: 8966139dbeed
     last_write_checksum: sha1:e49814f5bc36e497d901a65b3a4aa64261f8a1a6
@@ -3179,8 +3223,8 @@ trackedFiles:
     pristine_git_object: 7d4827b24625995a7f7a98ae5e4c8342f3b91737
   docs/sdks/clientchat/README.md:
     id: baf998e3d238
-    last_write_checksum: sha1:91ab649827afc96a3f2267b2036cf2c479cd4927
-    pristine_git_object: 03c5db9223b2ab55d2ce09df519ceeb6d2f6a861
+    last_write_checksum: sha1:c0231ad351e101ad0f74e70c3b19e474eb510183
+    pristine_git_object: dae29ba811afe3aa3d17759779e0542e88048754
   docs/sdks/clientdatasources/README.md:
     id: 0d629dc3ac5b
     last_write_checksum: sha1:05eb42287569bb139f48e0908139d6cde0c04dad
@@ -3267,12 +3311,12 @@ trackedFiles:
     pristine_git_object: 5dd26e03b79389a3e71e90f9a3ce29b7fa384dd9
   docs/sdks/search/README.md:
     id: 5c534716244c
-    last_write_checksum: sha1:4d8def390ef8fa9ed86c89d16d54283263f18849
-    pristine_git_object: 04d61f7683d46497cb5eb0c511aa5c31f524a95d
+    last_write_checksum: sha1:4e2148cb7fce20b3afd277cd417a1711eb4299c9
+    pristine_git_object: e8db7383c463ca50b1521dbe4ce637697dba67de
   docs/sdks/skills/README.md:
     id: 3a14a5c90791
-    last_write_checksum: sha1:3cb350a1e984cde5decdeb8ede7517e879d5859d
-    pristine_git_object: 600669451fee894dc9ed8e129fb68d6aaa0b4c5e
+    last_write_checksum: sha1:547e30c0bf5d7e91663c28f0d67e279f8a15a5f9
+    pristine_git_object: 1dbca57b6fe723c272b9c22f5e96de2cbc823882
   docs/sdks/tools/README.md:
     id: 044286549bac
     last_write_checksum: sha1:a4916d6065377693c59cfbe6ff5072e83f204965
@@ -3295,8 +3339,8 @@ trackedFiles:
     pristine_git_object: 79e388be87446ab6a4064b372bad0e8376d0cb5e
   pyproject.toml:
     id: 5d07e7d72637
-    last_write_checksum: sha1:b617fe03b7f525d4c97e00541628a66356f87480
-    pristine_git_object: 932a174501a63a80b6e36b4a4f632bfabf71ab6e
+    last_write_checksum: sha1:9c2b7ba7389ced3c8053a72c448e7469e100b356
+    pristine_git_object: 117283a08d360c54cbcf8ad95bfd2636e2a05f7c
   scripts/prepare_readme.py:
     id: e0c5957a6035
     last_write_checksum: sha1:c2c83f71dea61eb50c9e05da83b16d18b4da8794
@@ -3323,8 +3367,8 @@ trackedFiles:
     pristine_git_object: 55f23c1feabfedeb7e8cd5bea8b910f0ae0b77d9
   src/glean/api_client/_version.py:
     id: 0ce22b26136b
-    last_write_checksum: sha1:47ebac8e1284fcf058927aabaf133ae74192f2cc
-    pristine_git_object: 97481002c2cb88d9f0c3e363f7008bd1d15c041a
+    last_write_checksum: sha1:96e7adc86bf5475da69fce120a6b7478a6b08979
+    pristine_git_object: 9d117cd72ad91c02742d7fdaa440533aa0a0e08e
   src/glean/api_client/agents.py:
     id: b925701a9217
     last_write_checksum: sha1:d80196ac5b252a938055308b99efa4830a763ea6
@@ -3359,8 +3403,8 @@ trackedFiles:
     pristine_git_object: 9cd4f878de6dc1a2e29fe9456824cb66fc6a3c4b
   src/glean/api_client/client_chat.py:
     id: 42cbb9b5acf3
-    last_write_checksum: sha1:e52cc7941cf114197baf25b9b3318f489c26bcea
-    pristine_git_object: afc4f4ebd64176258e264b8cb615b5a4bca1f723
+    last_write_checksum: sha1:7449407ee74f9c6b86f1858622805b4ebe235ac2
+    pristine_git_object: 1095d5f14af723e97da53e1f1de33d8f6322ad6b
   src/glean/api_client/client_datasources.py:
     id: 75635d40099f
     last_write_checksum: sha1:c07b4e9aecede3c49184b2929475c05d675430ea
@@ -3399,8 +3443,12 @@ trackedFiles:
     pristine_git_object: adc08d2771a312d55750096248b0f1a82d0432d0
   src/glean/api_client/errors/__init__.py:
     id: 88bbd5450191
-    last_write_checksum: sha1:14e809dc56f3433b9234d42efe82ade97f2b59de
-    pristine_git_object: 56e241a90910d510b0f3e6723840d5b27af43f2d
+    last_write_checksum: sha1:a269fc9bcc8b5df041a49fa0daedc3bdb49f22bd
+    pristine_git_object: dc145c23fcc3f1a43cfa52271ab2fdd6a571cb92
+  src/glean/api_client/errors/accessrequestpermissiondeniedresponse_error.py:
+    id: 9cefe206b2ef
+    last_write_checksum: sha1:20d1fd5c5ed1fc0eaf5d9d1238a3df4dea0f2d50
+    pristine_git_object: 45d07ad01c29719a13c35083a5d4049e19439b93
   src/glean/api_client/errors/collectionerror.py:
     id: c0932ce3ae9f
     last_write_checksum: sha1:0b5f08e5372726fe70cd721719c386d0e21d0dcc
@@ -3491,8 +3539,12 @@ trackedFiles:
     pristine_git_object: 77016bfff6209866592fd8b42f2f3527f900992b
   src/glean/api_client/models/__init__.py:
     id: d5f6ea5efcbe
-    last_write_checksum: sha1:6af0f67725b1b578fb9ef172e24132d5f0545721
-    pristine_git_object: 029adafef7bdd43fd2244cfe2d899ff71ae63f47
+    last_write_checksum: sha1:63db32c600a1676f3cd7e83df43832dda106e46d
+    pristine_git_object: ab82843b7cbeac766003f4844c7bdfcf6d2a9206
+  src/glean/api_client/models/accessrequestpermissiondeniedresponse_error.py:
+    id: 22a2fa0d5899
+    last_write_checksum: sha1:f7dd6f906a4dd7433992f77395f9fb491fa5ac5c
+    pristine_git_object: 52b5d073dba6f0af5579253ca43171617c89a36c
   src/glean/api_client/models/actionauthtype.py:
     id: c7402f35092d
     last_write_checksum: sha1:7aaa5d1c11b105d0d7265e2a83cb005aafa89645
@@ -3647,8 +3699,8 @@ trackedFiles:
     pristine_git_object: 47e9bf2fa2edbe605d30359bca3dbfebda8ed27b
   src/glean/api_client/models/authconfig.py:
     id: 9e88a246ee36
-    last_write_checksum: sha1:e25f69a5ddae03308bdbc2391ce3449de236b4ed
-    pristine_git_object: f01e07f8513fdb529c333b6bccf6d5114ee80cc0
+    last_write_checksum: sha1:9e6fe94df321f74f3db52e2e095208a3cd53e7b7
+    pristine_git_object: 3cb1e7c843299061cce99f7034e4ab400929dc0d
   src/glean/api_client/models/authcontext.py:
     id: e5ed1f25d2ff
     last_write_checksum: sha1:666912fbc5907c277024f56996d0b1e7511299f1
@@ -3995,8 +4047,8 @@ trackedFiles:
     pristine_git_object: 1236b65335edafb09cc59136ce8049c614a1a289
   src/glean/api_client/models/customdatasourceconfig.py:
     id: fb9b6a1441c1
-    last_write_checksum: sha1:61fd17497a8f0eb3a2eeccd8eec68a2a30cc548a
-    pristine_git_object: 635c888a5958270b094a87b594bc345964b09f20
+    last_write_checksum: sha1:61cefdb4a183e04e426c1166056354a466c6380d
+    pristine_git_object: 0b728d6fc411a1f8d83643b518af6e5502ee51d0
   src/glean/api_client/models/customdatavalue.py:
     id: 956eba94ae1a
     last_write_checksum: sha1:76c80857d8b125cc75d3da0da1d2f489dc9847e4
@@ -5047,8 +5099,8 @@ trackedFiles:
     pristine_git_object: d68228bc28c443824b2b73ff1c899053769a56b9
   src/glean/api_client/models/objectdefinition.py:
     id: 96d425234754
-    last_write_checksum: sha1:bbf4d288df6ccc0bed076dbbc0f6a0ee6dba9d3f
-    pristine_git_object: f9c359d3f7be386a2e9b6a7d9af5fed1613c4c1a
+    last_write_checksum: sha1:b63817fa6c300a10905043a49f23466ff583ff98
+    pristine_git_object: 65f80f05226193a90eda813741acac28ba772f90
   src/glean/api_client/models/objectpermissions.py:
     id: 6a2561118579
     last_write_checksum: sha1:e3d51c6afdf467afe6559222130ac627a2331625
@@ -5145,6 +5197,10 @@ trackedFiles:
     id: 606568a4c8fc
     last_write_checksum: sha1:58370e345df87a242670e2cfdb26800caa6a00ce
     pristine_git_object: 880c65c1e74dd49543d650516f29141c6cdd486d
+  src/glean/api_client/models/platform_search_filtersop.py:
+    id: 3876ec8f6e5b
+    last_write_checksum: sha1:0551a1836339a7b0f5dea4cf8946e001384d3146
+    pristine_git_object: 2120898eda5b77bff898692d2bff7c90a74513ae
   src/glean/api_client/models/platform_skills_create_versionop.py:
     id: c107217b99a3
     last_write_checksum: sha1:03372f5d66b5644281f59d46b1e34f414ba75da9
@@ -5173,6 +5229,10 @@ trackedFiles:
     id: 2172706b6858
     last_write_checksum: sha1:7e9d92bd23b8072d38fc787c08d2c1d11afee1dd
     pristine_git_object: 3f77419309047da04a558921ae77b447bf465d40
+  src/glean/api_client/models/platform_skills_updateop.py:
+    id: 48967688f399
+    last_write_checksum: sha1:f68e7c13d27210e6b53530e94b24408540d4314c
+    pristine_git_object: 42e0aca116a2efe4c5677df642857a6d87ea33b8
   src/glean/api_client/models/platformactionsummary.py:
     id: 00069b22d246
     last_write_checksum: sha1:f714e076c3e0c86ded17dd732ba304dfc7d5526e
@@ -5221,14 +5281,22 @@ trackedFiles:
     id: 87e6bc168e08
     last_write_checksum: sha1:97548628abf68b0b2727ba126ce363000e8d2882
     pristine_git_object: c327d0ce5243c8fce910468c09d681a8d254ae1a
+  src/glean/api_client/models/platformdatasourcefilterinfo.py:
+    id: 30d2d116afc7
+    last_write_checksum: sha1:fe1bb6ad44d39ce794c56869d659333ac4fe5ade
+    pristine_git_object: cd2ba67fa39dab5eb8b2490daa3872fcff56719e
   src/glean/api_client/models/platformfilter.py:
     id: e0719ea40cc5
-    last_write_checksum: sha1:cdedb8731ce215c98444464e4e852b60e519e669
-    pristine_git_object: 40c1e357d26b23063b2d1d71062c5c67eb12a330
+    last_write_checksum: sha1:a56bda496c9eb473d9aaa08426e077e2694216d9
+    pristine_git_object: 2243c5535a3e7a8a76c0e7845a496dea1d97ad81
+  src/glean/api_client/models/platformfilterfieldinfo.py:
+    id: 5be6062efbd8
+    last_write_checksum: sha1:ad8f52a53b9839f63ac0f4eabc4e3cffcd6a5790
+    pristine_git_object: 755b03c792d7ef713fb86ef6d119e19c8b27f116
   src/glean/api_client/models/platformfilteroperator.py:
     id: f7d7bf136596
-    last_write_checksum: sha1:843173c8116781c6b5eba46db3896f3cd55126ce
-    pristine_git_object: 1ac40ef8de6ff847c54ade940beb6ea97704999c
+    last_write_checksum: sha1:542dab71eb37501311f1457ef804f2486cc12d69
+    pristine_git_object: f0185fb9ecc077306220bae51217c1eb86018aec
   src/glean/api_client/models/platformmessage.py:
     id: 5124dae40c5d
     last_write_checksum: sha1:e86beb4e210ed500ab72011ef90bb97b909a39e8
@@ -5255,16 +5323,20 @@ trackedFiles:
     pristine_git_object: 336efdc33bfb762c3b0ddfc706b8d089da3cc23f
   src/glean/api_client/models/platformresult.py:
     id: 65de4ed5c1b3
-    last_write_checksum: sha1:d4635567744c3c488806d4a1ba5235d2d9e6ca40
-    pristine_git_object: 08c36e88c8f88d7b63173530501d35326bd32de1
+    last_write_checksum: sha1:b4b820992eaa454f9ac072e152204c6289e2a314
+    pristine_git_object: 167efcae3bc5bd648b92288a284109f367803d2d
+  src/glean/api_client/models/platformsearchfiltersresponse.py:
+    id: 743edd99f7aa
+    last_write_checksum: sha1:9c6e81390c3f1665bc2d26c2e3c5face283f759d
+    pristine_git_object: 1d8aa68908c3e182cbc926542d39bfc45d585be3
   src/glean/api_client/models/platformsearchrequest.py:
     id: f2376466383f
-    last_write_checksum: sha1:30d48da0462fead00d34a7ad3cb5687b4fbeb8ba
-    pristine_git_object: 8f37fa7d2d319a465a977c83718f6e7e10fab908
+    last_write_checksum: sha1:0255eb2414fa128be1d2369af61a6f9b9aa0fa53
+    pristine_git_object: 8a3cd9bc7053b60f71b536f9f8e3593355bf5579
   src/glean/api_client/models/platformsearchresponse.py:
     id: 7ee9ec06e00c
-    last_write_checksum: sha1:9ed8c951be31629e50f797c8e4bd59a1ef494eef
-    pristine_git_object: d98c78d622564a3fc35ed6d5d543866f64f76704
+    last_write_checksum: sha1:ffcd075eb5fc0308760c1ac2065ad4915cc94642
+    pristine_git_object: ff13d204ece88b150c32fb69c65e266c7756b1af
   src/glean/api_client/models/platformskill.py:
     id: 10e1f311015c
     last_write_checksum: sha1:c0225f37738625dbb6cab763be77cf5e40beafeb
@@ -5301,6 +5373,18 @@ trackedFiles:
     id: 4603ae41cbb9
     last_write_checksum: sha1:911e9731ed66a257df85158125499d212a37f995
     pristine_git_object: 13fb6bcf5a11934ae1c8e1cd100715fd8aaaedf6
+  src/glean/api_client/models/platformskillupdaterequest.py:
+    id: 02dbc059a73d
+    last_write_checksum: sha1:84dd229a9a3f9cf61b6be86a544bece3187b5c22
+    pristine_git_object: 0d87a591d2b5c92c347c166731dced9c89da0330
+  src/glean/api_client/models/platformskillupdateresponse.py:
+    id: 4a7d3fa0c78f
+    last_write_checksum: sha1:ea15b9e50758327fe3bb81eeae59c81f226dcc6f
+    pristine_git_object: b508a52fe52301ac4c371126c3ea8f09d411b6a8
+  src/glean/api_client/models/platformskillupdatestatus.py:
+    id: a1d6763af4bf
+    last_write_checksum: sha1:3655d3529f2bad31a7424a908deaa69afc46782b
+    pristine_git_object: ede7b308d849e5253a989fd75bd3485b16bed70e
   src/glean/api_client/models/platformskillvalidationfile.py:
     id: 840ce4c25e59
     last_write_checksum: sha1:a179e1a787bba71733234145ad88e9dd3350cd5a
@@ -5315,12 +5399,8 @@ trackedFiles:
     pristine_git_object: d0a3a2b4d53d722ee63fde843f4e83b695f0ba62
   src/glean/api_client/models/platformskillvalidationresponse.py:
     id: 9ce3b88a9cc1
-    last_write_checksum: sha1:efe29e74dba840e7eca2d0219face8eaaab14793
-    pristine_git_object: 70624e36ac8b7651e9873d3e5273fad7c8caf11e
-  src/glean/api_client/models/platformskillvalidationwarning.py:
-    id: f5af64c67dfd
-    last_write_checksum: sha1:b90b0e91caa4d9d375d4f602f245a717bdae2870
-    pristine_git_object: dfd939ef42d4c30171ae289be5b78192d36980a3
+    last_write_checksum: sha1:40595cbd0cb6e9e4ea8621266432b8a99967e865
+    pristine_git_object: 76af15759b1cf333367ba3f25496adae56ab0fdc
   src/glean/api_client/models/platformskillversion.py:
     id: a9b3f54c0ef8
     last_write_checksum: sha1:507ac67246f4d360aef9c77bc6eed79d11d82e9a
@@ -5345,6 +5425,10 @@ trackedFiles:
     id: bf2b03e84949
     last_write_checksum: sha1:645217a3827cd2a7455b88277f1ba2dcd4a5daf1
     pristine_git_object: 0a5acb2a9110e33b96db4e36aa09c1bf36ab1cbf
+  src/glean/api_client/models/platformwarning.py:
+    id: b99ca6ee1c74
+    last_write_checksum: sha1:4e82a608e924c72338481e61b2e51fec9e447605
+    pristine_git_object: 3f5ea79c0debd518f17935277fe3e3bd3e6870b1
   src/glean/api_client/models/possiblevalue.py:
     id: 6046129b9c7d
     last_write_checksum: sha1:4495a1288f312de877f9bcaa547f35178119ca59
@@ -5971,12 +6055,12 @@ trackedFiles:
     pristine_git_object: 22e0a4eab0ef8e54dcfd986084d01c14a56f47a6
   src/glean/api_client/search.py:
     id: a3b404a8b402
-    last_write_checksum: sha1:d89f2b24da1d3355e321bf802841bc17cdde30a4
-    pristine_git_object: 571fc8909a3c8be6c852a995894ac61c9d743a6f
+    last_write_checksum: sha1:a46e1a0aca2fcf75971fdb1f6eb3b72529394c25
+    pristine_git_object: 91ea57d2012c5dda71fb1a4b5d420173d7c357b5
   src/glean/api_client/skills.py:
     id: 79f3c37e1b5a
-    last_write_checksum: sha1:48b915741fc9f81623772efe099a5a83c70c9ccc
-    pristine_git_object: 094194c4dfde7aa5a6a4895635f568b6b045c404
+    last_write_checksum: sha1:0dab0e09c97067b370df8af95915eca39e30cf7a
+    pristine_git_object: 3246eab4b990c28aab7522666327b57205c953a6
   src/glean/api_client/tools.py:
     id: 3ea40147c1cc
     last_write_checksum: sha1:9c353defdddf1c89f58a4b7d7cb8b22e4cb0be1d
@@ -6131,8 +6215,8 @@ trackedFiles:
     pristine_git_object: 929558ef2e1165f7e09da6d0a64f016c90971655
   tests/mockserver/internal/handler/generated_handlers.go:
     id: 61ac4f7cce9e
-    last_write_checksum: sha1:b5ecf7362e796b0cd3a2a23be481325a311469df
-    pristine_git_object: f24dcff889d5e223019b522e6bc725bf20c21bea
+    last_write_checksum: sha1:62e91b23671ab6e7bad0f2bbf70c2bbab8817e9c
+    pristine_git_object: ff3dc8846756a1b9d0b744b66b04e9b49006e405
   tests/mockserver/internal/handler/pathdeleterestapiindexcustommetadataschemagroupname.go:
     id: 979e4583765b
     last_write_checksum: sha1:b1d4edb259d907c7a88b634bf16f0cf152321693
@@ -6149,6 +6233,10 @@ trackedFiles:
     id: a3a921765081
     last_write_checksum: sha1:41dfbc3d70153e24cc2a898336d7d2a9c6e3d3df
     pristine_git_object: a9212f1d5de9d8b40e73ea4b410feb26921c35cb
+  tests/mockserver/internal/handler/pathgetapisearchfilters.go:
+    id: 2a805587fc23
+    last_write_checksum: sha1:9579545a91c3b5e5a204ede2f630f1e0e738b872
+    pristine_git_object: 61dfb292ca694340fd9796a891113cfb07aa8a32
   tests/mockserver/internal/handler/pathgetapiskills.go:
     id: a1697453079c
     last_write_checksum: sha1:1608120c2f9ce748fdd2d373e576b6a0758092c1
@@ -6225,6 +6313,10 @@ trackedFiles:
     id: 1598fa297cf6
     last_write_checksum: sha1:8b0d26cd221009e78396ed0c573e78c0ac719e36
     pristine_git_object: 163466cb44aa1a16439b3bd65ab52f00aeeff427
+  tests/mockserver/internal/handler/pathpatchapiskillsskillid.go:
+    id: e09721a8879b
+    last_write_checksum: sha1:90c425f15814afd0ac42817b7ad6a056b6efc278
+    pristine_git_object: 2b4d9db548fd58503a768732db17aca59d354d25
   tests/mockserver/internal/handler/pathpatchrestapiv1configuredatasourcesdatasourceidinstancesinstanceid.go:
     id: 24dd79d2c474
     last_write_checksum: sha1:14d3e93a3f37b61145188a9e6544398fcfc200e4
@@ -6339,8 +6431,8 @@ trackedFiles:
     pristine_git_object: 9bb5d5769dfb3a4e78676950e8a2706f119bfc5c
   tests/mockserver/internal/handler/pathpostapisearch.go:
     id: 53e6a34b5b4b
-    last_write_checksum: sha1:503df322e00b6cb1cb9cc80d7aa30d63c96df86f
-    pristine_git_object: 1575aab3ac4539db059de358acc56ecc7f90ff07
+    last_write_checksum: sha1:5c878b42ee0ffe08f9ad98c3e1f1c9c20ce4d21a
+    pristine_git_object: 1e3fe6a9bed655ba32d7c59fe577f41beac69da8
   tests/mockserver/internal/handler/pathpostapiskills.go:
     id: 8ed490cc6d95
     last_write_checksum: sha1:5749c3cbb8d3cc90c75ead5cd6547775e97d1ef4
@@ -6351,8 +6443,8 @@ trackedFiles:
     pristine_git_object: 1f3d1fde1c6e5db9a85a116b88255e61a451fab4
   tests/mockserver/internal/handler/pathpostapiskillsvalidation.go:
     id: eaa6c1478b34
-    last_write_checksum: sha1:af5dfe71ae16b04fb1b676f82b0c0ba99016103d
-    pristine_git_object: 0fee34fc2b49e9120fcb4bdd12158e350b392dd3
+    last_write_checksum: sha1:cc8f959924866fdf5febe729b5d5819ff7e53173
+    pristine_git_object: 2048ae91e6f81a6ecb4bb9281ef60ce287330724
   tests/mockserver/internal/handler/pathpostrestapiindexsubmissionsdatasourceinstancetype.go:
     id: 1a5daf7874ce
     last_write_checksum: sha1:b5b37f0b5a7b4d9a4c69ab523e831f1702301118
@@ -6407,8 +6499,8 @@ trackedFiles:
     pristine_git_object: ab9263d43404e8e6f07af222a3e785aca2fbf35f
   tests/mockserver/internal/handler/pathpostrestapiv1createcollection.go:
     id: 3fb93a419933
-    last_write_checksum: sha1:14b4a1d98dd55ce2b487ae1aaab4a7dece08df25
-    pristine_git_object: 371b90231fcd7bd77fd6d9566156605af1712d9a
+    last_write_checksum: sha1:f9f4c718408bddadbdf826194f07970bb111e57e
+    pristine_git_object: 5c99a0ada5302c8f64c0e5da5683fa8bd9e9975d
   tests/mockserver/internal/handler/pathpostrestapiv1createshortcut.go:
     id: 8d9d3abb0c34
     last_write_checksum: sha1:dcdf684a85e20db1aee571db9a54a3ee259d71d5
@@ -6637,6 +6729,10 @@ trackedFiles:
     id: f49866e79383
     last_write_checksum: sha1:1ec2244b5fc171dfe7e4e339420b2b17f0df48c9
     pristine_git_object: beb05908cf58a7b8b46d739ee51a5aba54c5bf7c
+  tests/mockserver/internal/sdk/models/components/accessrequestpermissiondeniedresponseerror.go:
+    id: bfda76349972
+    last_write_checksum: sha1:e32d7171635a47a47a09980f63a968d8d3c67499
+    pristine_git_object: bd5d24e4229ac2c9b013cdcc1124b4cbe6c5f82a
   tests/mockserver/internal/sdk/models/components/actionauthtype.go:
     id: 4ff9feaab0f7
     last_write_checksum: sha1:bd904943895ea34005f594e13f12481f96c11286
@@ -6779,8 +6875,8 @@ trackedFiles:
     pristine_git_object: 34f0d2d2c20aafadf823810520d67558e3ccb386
   tests/mockserver/internal/sdk/models/components/authconfig.go:
     id: 450c27df20a3
-    last_write_checksum: sha1:e9e386e4a0c3ea918f1a2b332f91a129d77ac307
-    pristine_git_object: 483958ea708faa6e36081ef83b4c528441313815
+    last_write_checksum: sha1:d58c769d3d72f54cb03426a533c32a13a9f0a36b
+    pristine_git_object: 9bc8e68e3eb6ad66cf17b558a2f8eb1f96ba24a2
   tests/mockserver/internal/sdk/models/components/authcontext.go:
     id: 563a8dbb8e8c
     last_write_checksum: sha1:72fc3805afb81247d0f04899dcec35e9e3710803
@@ -7087,8 +7183,8 @@ trackedFiles:
     pristine_git_object: c1398b9642555e881ef73a4fa8fe66d01ee9e8d1
   tests/mockserver/internal/sdk/models/components/customdatasourceconfig.go:
     id: 67f505cc5524
-    last_write_checksum: sha1:5cb7123d955c9782fec8f8c70570d77a0712d08d
-    pristine_git_object: 070e9e3590a58bb245c0569f512f2298abbbcf3b
+    last_write_checksum: sha1:4885800f11a0bed0b0d97459193fe50aed95cdb2
+    pristine_git_object: 4316d060b299a480cc59608a812458defd2b0229
   tests/mockserver/internal/sdk/models/components/customdatavalue.go:
     id: 37ac657fead8
     last_write_checksum: sha1:e2d63d9372dd1858f8d3524ca247d0f5a0e5db3a
@@ -7927,8 +8023,8 @@ trackedFiles:
     pristine_git_object: 6d8bb0637e98328c014db61a92fcb9f65f378d1c
   tests/mockserver/internal/sdk/models/components/objectdefinition.go:
     id: b31a249b0ab6
-    last_write_checksum: sha1:bb870ed291515df1134057b714064b863884817f
-    pristine_git_object: 9a9c55c638ac132d7ebe9f06b13a49c80be29fd0
+    last_write_checksum: sha1:4fb46c6216a0cfcc06a2eba090a8a54565eab685
+    pristine_git_object: 32a3df40aae636faa61ffef31c606bc1e5e44ed6
   tests/mockserver/internal/sdk/models/components/objectpermissions.go:
     id: ccc6831e9a89
     last_write_checksum: sha1:a182302021d92910af1f940b60a5fd78f0288bac
@@ -8053,10 +8149,18 @@ trackedFiles:
     id: d1a02baa3621
     last_write_checksum: sha1:b552f26421544664b54a4423c8335c90b09480c6
     pristine_git_object: e96a7c7850d7a0c456dd61d706232dd7c06cd0db
+  tests/mockserver/internal/sdk/models/components/platformdatasourcefilterinfo.go:
+    id: a1eb3b7148bf
+    last_write_checksum: sha1:094bff06100193f57b6766f2f42139c2e5bcd8b8
+    pristine_git_object: e577fb7f7b9c911e698ec560181abbe596be0416
   tests/mockserver/internal/sdk/models/components/platformfilter.go:
     id: 1762bf95c464
-    last_write_checksum: sha1:4dc71d2576cddd00f93dfda6c2f584f9bff9ebcb
-    pristine_git_object: b8a9ea1a0663c345fd2a4bc04f3343c17409b868
+    last_write_checksum: sha1:9a4357e8b4ccf75dd97072960321efb36dcf13a1
+    pristine_git_object: c1ab5360ebdb5dda06e190b31faaca26b4d054f7
+  tests/mockserver/internal/sdk/models/components/platformfilterfieldinfo.go:
+    id: c22bd1d66163
+    last_write_checksum: sha1:be6276937481e3ff27ea4339a888496edbc85fc9
+    pristine_git_object: 5b3272e0dd3464f9ee2f480dac80127bcdd499c4
   tests/mockserver/internal/sdk/models/components/platformfilteroperator.go:
     id: 7daac12f5ae7
     last_write_checksum: sha1:49fd1240cf9eb9d2259465f79e0c481d711ec37d
@@ -8087,16 +8191,20 @@ trackedFiles:
     pristine_git_object: 058f5e62bda5173fed3b24fff078d7540a1378f7
   tests/mockserver/internal/sdk/models/components/platformresult.go:
     id: dd777258615b
-    last_write_checksum: sha1:d3e76064cc9fa1c7431e3ecb6bb07b47b08a08c7
-    pristine_git_object: 441ea968bfe1ee6d8c9eecac245f9ad48621f02c
+    last_write_checksum: sha1:4343640607d8d0421164c0dc16daf5718d65e848
+    pristine_git_object: f09289f87429f1cb7b7aced37ac349ebbd88e746
+  tests/mockserver/internal/sdk/models/components/platformsearchfiltersresponse.go:
+    id: c6e01fb5cff1
+    last_write_checksum: sha1:94caa146dcfafb521d396d19e5358da8c598faab
+    pristine_git_object: 51409a03c73a593fdad3d7b479a4e0c95d3b91a3
   tests/mockserver/internal/sdk/models/components/platformsearchrequest.go:
     id: 4da7625f1c35
-    last_write_checksum: sha1:33a8686e5aa62e2e090685ba89dae0bd0d4af5b9
-    pristine_git_object: 108bab415b41d89047fba91239b362d2abba960d
+    last_write_checksum: sha1:1ca1f5c466206edca83b513db2e1179229e2f8cb
+    pristine_git_object: 83c3c79dedae573f3ee3185856fd12360918ce9b
   tests/mockserver/internal/sdk/models/components/platformsearchresponse.go:
     id: a58f32052764
-    last_write_checksum: sha1:6db9bd73c6fd7cc1c8bf28c2b1ee96cc77d7236a
-    pristine_git_object: e8243de2c4e8582ed42736e75e4aa715a6a376bc
+    last_write_checksum: sha1:c2aea70c85fe71f160f527055a91f378caf3e6f9
+    pristine_git_object: 3eed4668d26f9212f864b7e486d75dbbf920b68d
   tests/mockserver/internal/sdk/models/components/platformskill.go:
     id: a97a51039ff5
     last_write_checksum: sha1:8871b58924c180a5565b43c91b58ed79212739bb
@@ -8133,6 +8241,18 @@ trackedFiles:
     id: a172da0d9d4d
     last_write_checksum: sha1:66e29681184c77fbbff593cc30e33023a3b39c81
     pristine_git_object: 0582664c1c7451d505bc18ea138e299db160c5a6
+  tests/mockserver/internal/sdk/models/components/platformskillupdaterequest.go:
+    id: 77853bf3d285
+    last_write_checksum: sha1:b327107396570bb07844005756dcbcc502c99030
+    pristine_git_object: 16b5b62569411c6e73675a6e4322a5ad993994d6
+  tests/mockserver/internal/sdk/models/components/platformskillupdateresponse.go:
+    id: 505fbacea4bd
+    last_write_checksum: sha1:2ef06dfd496e4209ccbdcf6bf246a31b97c23e46
+    pristine_git_object: 99256154b7dc79f111888a4dff8e90127090bd1f
+  tests/mockserver/internal/sdk/models/components/platformskillupdatestatus.go:
+    id: "511258017192"
+    last_write_checksum: sha1:b430910b34dda5f1fa8b12d36ad9d40681664464
+    pristine_git_object: d40a5b9ff289b22e47722564782e863c1ad983db
   tests/mockserver/internal/sdk/models/components/platformskillvalidationfile.go:
     id: 4c3718b26406
     last_write_checksum: sha1:fda63f0276f5a36dca1e5b81fdc3e7b1e7766034
@@ -8147,12 +8267,8 @@ trackedFiles:
     pristine_git_object: 2f644ff648b531896643d65ebdc1122058f87527
   tests/mockserver/internal/sdk/models/components/platformskillvalidationresponse.go:
     id: a886263018af
-    last_write_checksum: sha1:bd007dfb6d327b66b84f82206a4d92408db1aa55
-    pristine_git_object: 55c51a4089110bf60bf88afcc4bce7c41704a11c
-  tests/mockserver/internal/sdk/models/components/platformskillvalidationwarning.go:
-    id: 43a47d51c9dc
-    last_write_checksum: sha1:d89836327a8138f2649f2610322c391088b71491
-    pristine_git_object: 10a5ba75853164b246fbc7f2b7b41ac42ba05f4b
+    last_write_checksum: sha1:2dfde216c6f86cb10dc8514d7bdcdefa86eb404d
+    pristine_git_object: f8bd1eaedf0df29c529f9e641ea5fe59eb1479cf
   tests/mockserver/internal/sdk/models/components/platformskillversion.go:
     id: a742ffff90ef
     last_write_checksum: sha1:9d8ca19699faae865387810ce6eb941be4596cc3
@@ -8177,6 +8293,10 @@ trackedFiles:
     id: cf2540151ce1
     last_write_checksum: sha1:3a0ec2ca473681b89ff97606f648fc15fcdae38e
     pristine_git_object: b88a152d5940b3e49fb73807c476607374d9d01e
+  tests/mockserver/internal/sdk/models/components/platformwarning.go:
+    id: bf3a0578fb90
+    last_write_checksum: sha1:4f58e985f8592a928bb3d605f1a8538a5e611d2a
+    pristine_git_object: c96ef7a9b39cb05eac61f11511b5066c860cb411
   tests/mockserver/internal/sdk/models/components/possiblevalue.go:
     id: bf71542de5f4
     last_write_checksum: sha1:5c25db519b896499621e67c6245893d26afa30e4
@@ -9027,8 +9147,12 @@ trackedFiles:
     pristine_git_object: cdbc9f550e7d2339b0946fe4783a3b79a851f39d
   tests/mockserver/internal/sdk/models/operations/platformsearch.go:
     id: d990791ac101
-    last_write_checksum: sha1:995d47533ef63c7518c50398593671059d6ccc07
-    pristine_git_object: 16b6e86fe62e1e0ec43293439e9fba7995a72a80
+    last_write_checksum: sha1:9da9b49850375b74bf6296fcec336ba9ad1e1eea
+    pristine_git_object: 381c8530dfb959419e47dee10c46cfdd5846f611
+  tests/mockserver/internal/sdk/models/operations/platformsearchfilters.go:
+    id: 3f6c4119e4bd
+    last_write_checksum: sha1:e0836460229365773a66a5b310ba886d5fbdf202
+    pristine_git_object: 8e578bcdd052389777bf51d0140176d523d4a976
   tests/mockserver/internal/sdk/models/operations/platformskillscreate.go:
     id: cd743025fd37
     last_write_checksum: sha1:af1e6384914f9cd0cc653f0492e99ec648168391
@@ -9061,6 +9185,10 @@ trackedFiles:
     id: ef57d1f31c39
     last_write_checksum: sha1:60e17abc357b220cb752d85a411402a118b6fde7
     pristine_git_object: 3853971fc3d394241809e862a204df0821c4e368
+  tests/mockserver/internal/sdk/models/operations/platformskillsupdate.go:
+    id: a42134c7c823
+    last_write_checksum: sha1:f570a0ea531945ee8ae803f4d8c582f7e9c86a79
+    pristine_git_object: ec45cac3446e6c7ceef4a3e2d96da621bfcc1cc8
   tests/mockserver/internal/sdk/models/operations/platformskillsvalidate.go:
     id: c98dd1ece70f
     last_write_checksum: sha1:2449140437acabcd61691b30b730c1edcec089f5
@@ -9285,6 +9413,10 @@ trackedFiles:
     id: 3c481ba80f28
     last_write_checksum: sha1:f20f8fd1bbf3169e0e4516595d7971e5cae03951
     pristine_git_object: 502b190f8e59bcc4ebb0c0efdb317c641b845f93
+  tests/mockserver/internal/sdk/models/sdkerrors/accessrequestpermissiondeniedresponseerror.go:
+    id: f244f160d8da
+    last_write_checksum: sha1:9b0a14a93bc595e225d8c6f06caf7391f6a33dd7
+    pristine_git_object: 5f5014935454bd9afcfdbea2ba6c153fc1508fd6
   tests/mockserver/internal/sdk/models/sdkerrors/collectionerror.go:
     id: 60537b88bdfe
     last_write_checksum: sha1:a8ce08145cf00a84487714f875ba1d3a8d84be1d
@@ -9495,8 +9627,8 @@ trackedFiles:
     pristine_git_object: 6cc8aeec3c52329d389081db0a27f10f53f214b9
   tests/test_messages.py:
     id: be23089b1f8b
-    last_write_checksum: sha1:a91c985cd1d11560059dc448b10e0c7b75ed60e5
-    pristine_git_object: dfdc18641f0d6c38d84b4603ad2da71f75f2e13c
+    last_write_checksum: sha1:5db8087e85104ab50b362638150fa1f6686a3c30
+    pristine_git_object: c0fd29dab7d365ef9d78c0c291b925e6b9fd7298
   tests/test_people.py:
     id: 37c243940039
     last_write_checksum: sha1:7c7268ffeebe48d81ed25e9b1cfc3a395abf5c1f
@@ -9515,16 +9647,16 @@ trackedFiles:
     pristine_git_object: 3fa82f944c8693f534f71d96c489225c3f65cb5d
   tests/test_search.py:
     id: dd86606b335f
-    last_write_checksum: sha1:b7c2a96a3d765d1498f9fe08dffc59cc4c8822ac
-    pristine_git_object: 3925a6e0f49d8e0b1b35ec08c38283a5643ed307
+    last_write_checksum: sha1:aa49beadf59d0c27cd6d0d568968a21d3be76fc0
+    pristine_git_object: 0761637adb8f1f7b236fcb7d04d9e3fecccc2b52
   tests/test_skills.py:
     id: ac5db26bd6b1
-    last_write_checksum: sha1:a9b45f5b6ff56bf6f3335435d5f757738192e1b5
-    pristine_git_object: de32443a28cf8437b0df7879831978412172574f
+    last_write_checksum: sha1:7bab21e1437090731b26a6ea0641f61ddb4c409d
+    pristine_git_object: 7a281c7d17b3a65cc68e1d075f9e54eb4251c833
   tests/test_summarize.py:
     id: a255d8a6f627
-    last_write_checksum: sha1:37185416149f9acbd3383f6c279692aa31e2344a
-    pristine_git_object: 449a89669c90568cbef8fb81ea72eb5e5034bd39
+    last_write_checksum: sha1:56ebc69bb4f81505bc6d5f557eafd27f2bf6287d
+    pristine_git_object: 3f56a110361de93de6f420cfacda057683eabbc8
   tests/test_tools.py:
     id: 70889bdf7321
     last_write_checksum: sha1:d26d83639f731281bb518886f10571c7b0dbf935
@@ -9644,6 +9776,8 @@ examples:
       responses:
         "200":
           application/json: {"chatResult": {"chat": {"createdBy": {"name": "George Clooney", "obfuscatedId": "abc123"}, "icon": {"color": "#343CED", "key": "person_icon", "iconType": "GLYPH", "name": "user"}, "messages": [{"author": "USER", "citations": [{"sourceDocument": {"containerDocument": {"metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "parentDocument": {"metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "sourceFile": {"id": "FILE_1234", "url": "www.google.com", "name": "sample.pdf"}, "sourcePerson": {"name": "George Clooney", "obfuscatedId": "abc123"}, "referenceRanges": [{"textRange": {"startIndex": 641568, "document": {"containerDocument": {"metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "parentDocument": {"metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}}, "snippets": [{"mimeType": "mimeType", "snippet": "snippet"}]}]}], "fragments": [{"structuredResults": [{"document": {"containerDocument": {"metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "parentDocument": {"metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "person": {"name": "George Clooney", "obfuscatedId": "abc123"}, "customer": {"id": "<id>", "company": {"name": "<value>", "location": "New York City", "industry": "Finances", "about": "Financial, software, data, and media company headquartered in Midtown Manhattan, New York City"}, "poc": [{"name": "George Clooney", "obfuscatedId": "abc123"}], "mergedCustomers": [{"id": "<id>", "company": {"name": "<value>", "location": "New York City", "industry": "Finances", "about": "Financial, software, data, and media company headquartered in Midtown Manhattan, New York City"}, "notes": "CIO is interested in trying out the product."}], "notes": "CIO is interested in trying out the product."}, "team": {"id": "<id>", "name": "<value>", "members": [{"person": {"name": "George Clooney", "obfuscatedId": "abc123"}, "relationship": "MEMBER"}], "customFields": [{"label": "<value>", "values": [{}], "displayable": true}], "datasourceProfiles": [{"datasource": "github", "handle": "<value>"}], "status": "PROCESSED", "canBeDeleted": true}, "customEntity": {"roles": [{"person": {"name": "George Clooney", "obfuscatedId": "abc123"}, "role": "VIEWER"}]}, "answer": {"id": 3, "docId": "ANSWERS_answer_3", "question": "Why is the sky blue?", "bodyText": "From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.", "audienceFilters": [{"fieldName": "type", "values": [{"value": "Spreadsheet", "relationType": "EQUALS"}, {"value": "Presentation", "relationType": "EQUALS"}]}], "addedRoles": [{"person": {"name": "George Clooney", "obfuscatedId": "abc123"}, "role": "EDITOR"}], "removedRoles": [{"person": {"name": "George Clooney", "obfuscatedId": "abc123"}, "role": "VERIFIER"}], "combinedAnswerText": {"text": "From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.", "structuredList": [{"link": "https://en.wikipedia.org/wiki/Diffuse_sky_radiation", "document": {"containerDocument": {"metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "parentDocument": {"metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "text": "Because its wavelengths are shorter, blue light is more strongly scattered than the longer-wavelength lights, red or green. Hence the result that when looking at the sky away from the direct incident sunlight, the human eye perceives the sky to be blue.", "structuredResult": {"document": {"containerDocument": {"metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "parentDocument": {"metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "person": {"name": "George Clooney", "obfuscatedId": "abc123"}, "customer": {"id": "<id>", "company": {"name": "<value>", "location": "New York City", "industry": "Finances", "about": "Financial, software, data, and media company headquartered in Midtown Manhattan, New York City"}, "poc": [{"name": "George Clooney", "obfuscatedId": "abc123"}], "mergedCustomers": [{"id": "<id>", "company": {"name": "<value>", "location": "New York City", "industry": "Finances", "about": "Financial, software, data, and media company headquartered in Midtown Manhattan, New York City"}, "notes": "CIO is interested in trying out the product."}], "notes": "CIO is interested in trying out the product."}, "team": {"id": "<id>", "name": "<value>", "members": [{"person": {"name": "George Clooney", "obfuscatedId": "abc123"}, "relationship": "MEMBER"}], "customFields": [{"label": "<value>", "values": [{}], "displayable": true}], "datasourceProfiles": [{"datasource": "github", "handle": "<value>"}], "status": "PROCESSED", "canBeDeleted": true}, "customEntity": {"roles": [{"person": {"name": "George Clooney", "obfuscatedId": "abc123"}, "role": "VIEWER"}]}, "answer": {"id": 3, "docId": "ANSWERS_answer_3", "question": "Why is the sky blue?", "bodyText": "From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light.", "audienceFilters": [{"fieldName": "type", "values": [{"value": "Spreadsheet", "relationType": "EQUALS"}, {"value": "Presentation", "relationType": "EQUALS"}]}], "combinedAnswerText": {"text": "From https://en.wikipedia.org/wiki/Diffuse_sky_radiation, the sky is blue because blue light is more strongly scattered than longer-wavelength light."}, "likes": {"likedBy": [{"user": {"name": "George Clooney", "obfuscatedId": "abc123"}}], "likedByUser": true, "numLikes": 548232}, "author": {"name": "George Clooney", "obfuscatedId": "abc123"}, "updatedBy": {"name": "George Clooney", "obfuscatedId": "abc123"}, "verification": {"state": "DEPRECATED", "metadata": {"lastVerifier": {"name": "George Clooney", "obfuscatedId": "abc123"}, "document": {"containerDocument": {"metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "parentDocument": {"metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "reminders": [{"assignee": {"name": "George Clooney", "obfuscatedId": "abc123"}, "requestor": {"name": "George Clooney", "obfuscatedId": "abc123"}, "remindAt": 728034}], "lastReminder": {"assignee": {"name": "George Clooney", "obfuscatedId": "abc123"}, "requestor": {"name": "George Clooney", "obfuscatedId": "abc123"}, "remindAt": 546319}, "candidateVerifiers": [{"name": "George Clooney", "obfuscatedId": "abc123"}]}}, "collections": [{"name": "<value>", "description": "until nifty warmly nicely furthermore howl at", "audienceFilters": [{"fieldName": "type", "values": [{"value": "Spreadsheet", "relationType": "EQUALS"}, {"value": "Presentation", "relationType": "EQUALS"}]}], "id": 427851, "creator": {"name": "George Clooney", "obfuscatedId": "abc123"}, "updatedBy": {"name": "George Clooney", "obfuscatedId": "abc123"}, "items": [{"collectionId": 864473, "createdBy": {"name": "George Clooney", "obfuscatedId": "abc123"}, "document": {"containerDocument": {"metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "parentDocument": {"metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "shortcut": {"inputAlias": "<value>", "createdBy": {"name": "George Clooney", "obfuscatedId": "abc123"}, "updatedBy": {"name": "George Clooney", "obfuscatedId": "abc123"}, "destinationDocument": {"containerDocument": {"metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "parentDocument": {"metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}}, "collection": {"name": "<value>", "description": "scarification upon ack sometimes arrange contractor courageous tributary worthwhile jell", "audienceFilters": [{"fieldName": "type", "values": [{"value": "Spreadsheet", "relationType": "EQUALS"}, {"value": "Presentation", "relationType": "EQUALS"}]}], "id": 623437, "creator": {"name": "George Clooney", "obfuscatedId": "abc123"}, "updatedBy": {"name": "George Clooney", "obfuscatedId": "abc123"}, "children": [{"name": "<value>", "description": "bustling needily enroll", "audienceFilters": [{"fieldName": "type", "values": [{"value": "Spreadsheet", "relationType": "EQUALS"}, {"value": "Presentation", "relationType": "EQUALS"}]}], "id": 491436, "creator": {"name": "George Clooney", "obfuscatedId": "abc123"}, "updatedBy": {"name": "George Clooney", "obfuscatedId": "abc123"}}]}, "itemType": "DOCUMENT"}]}], "sourceDocument": {"containerDocument": {"metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "parentDocument": {"metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}}, "extractedQnA": {"questionResult": {"title": "title", "url": "https://example.com/foo/bar", "nativeAppUrl": "slack://foo/bar", "snippets": [{"mimeType": "mimeType", "snippet": "snippet"}], "mustIncludeSuggestions": {"suggestions": [{"query": "app:github type:pull author:mortimer", "label": "Mortimer's PRs", "datasource": "github"}], "person": {"name": "George Clooney", "obfuscatedId": "abc123"}}}}, "meeting": {"attendees": {"people": [{"person": {"name": "George Clooney", "obfuscatedId": "abc123"}, "groupAttendees": [{"person": {"name": "George Clooney", "obfuscatedId": "abc123"}}]}]}}, "collection": {"name": "<value>", "description": "scarification upon ack sometimes arrange contractor courageous tributary worthwhile jell", "audienceFilters": [{"fieldName": "type", "values": [{"value": "Spreadsheet", "relationType": "EQUALS"}, {"value": "Presentation", "relationType": "EQUALS"}]}], "id": 623437, "creator": {"name": "George Clooney", "obfuscatedId": "abc123"}, "updatedBy": {"name": "George Clooney", "obfuscatedId": "abc123"}, "children": [{"name": "<value>", "description": "bustling needily enroll", "audienceFilters": [{"fieldName": "type", "values": [{"value": "Spreadsheet", "relationType": "EQUALS"}, {"value": "Presentation", "relationType": "EQUALS"}]}], "id": 491436, "creator": {"name": "George Clooney", "obfuscatedId": "abc123"}, "updatedBy": {"name": "George Clooney", "obfuscatedId": "abc123"}}]}, "code": {"repoName": "scio", "fileName": "README.md"}, "shortcut": {"inputAlias": "<value>", "createdBy": {"name": "George Clooney", "obfuscatedId": "abc123"}, "updatedBy": {"name": "George Clooney", "obfuscatedId": "abc123"}, "destinationDocument": {"containerDocument": {"metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "parentDocument": {"metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}}, "querySuggestions": {"person": {"name": "George Clooney", "obfuscatedId": "abc123"}}, "relatedDocuments": [{"querySuggestion": {"query": "app:github type:pull author:mortimer", "label": "Mortimer's PRs", "datasource": "github"}, "results": [{"title": "title", "url": "https://example.com/foo/bar", "nativeAppUrl": "slack://foo/bar", "snippets": [{"mimeType": "mimeType", "snippet": "snippet"}], "mustIncludeSuggestions": {"person": {"name": "George Clooney", "obfuscatedId": "abc123"}}}]}], "relatedQuestion": {"ranges": [{"startIndex": 853389, "document": {"containerDocument": {"metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "parentDocument": {"metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}}]}}}]}, "likes": {"likedBy": [{"user": {"name": "George Clooney", "obfuscatedId": "abc123"}}], "likedByUser": true, "numLikes": 548232}, "author": {"name": "George Clooney", "obfuscatedId": "abc123"}, "updatedBy": {"name": "George Clooney", "obfuscatedId": "abc123"}, "verification": {"state": "DEPRECATED", "metadata": {"lastVerifier": {"name": "George Clooney", "obfuscatedId": "abc123"}, "document": {"containerDocument": {"metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "parentDocument": {"metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "reminders": [{"assignee": {"name": "George Clooney", "obfuscatedId": "abc123"}, "requestor": {"name": "George Clooney", "obfuscatedId": "abc123"}, "remindAt": 728034}], "lastReminder": {"assignee": {"name": "George Clooney", "obfuscatedId": "abc123"}, "requestor": {"name": "George Clooney", "obfuscatedId": "abc123"}, "remindAt": 546319}, "candidateVerifiers": [{"name": "George Clooney", "obfuscatedId": "abc123"}]}}, "sourceDocument": {"containerDocument": {"metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "parentDocument": {"metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}}, "extractedQnA": {"questionResult": {"title": "title", "url": "https://example.com/foo/bar", "nativeAppUrl": "slack://foo/bar", "snippets": [{"mimeType": "mimeType", "snippet": "snippet"}], "mustIncludeSuggestions": {"suggestions": [{"query": "app:github type:pull author:mortimer", "label": "Mortimer's PRs", "datasource": "github"}], "person": {"name": "George Clooney", "obfuscatedId": "abc123"}}}}, "meeting": {"attendees": {"people": [{"person": {"name": "George Clooney", "obfuscatedId": "abc123"}, "groupAttendees": [{"person": {"name": "George Clooney", "obfuscatedId": "abc123"}}]}]}}, "collection": {"name": "<value>", "description": "scarification upon ack sometimes arrange contractor courageous tributary worthwhile jell", "audienceFilters": [{"fieldName": "type", "values": [{"value": "Spreadsheet", "relationType": "EQUALS"}, {"value": "Presentation", "relationType": "EQUALS"}]}], "id": 623437, "creator": {"name": "George Clooney", "obfuscatedId": "abc123"}, "updatedBy": {"name": "George Clooney", "obfuscatedId": "abc123"}, "children": [{"name": "<value>", "description": "bustling needily enroll", "audienceFilters": [{"fieldName": "type", "values": [{"value": "Spreadsheet", "relationType": "EQUALS"}, {"value": "Presentation", "relationType": "EQUALS"}]}], "id": 491436, "creator": {"name": "George Clooney", "obfuscatedId": "abc123"}, "updatedBy": {"name": "George Clooney", "obfuscatedId": "abc123"}}]}, "code": {"repoName": "scio", "fileName": "README.md"}, "shortcut": {"inputAlias": "<value>", "createdBy": {"name": "George Clooney", "obfuscatedId": "abc123"}, "updatedBy": {"name": "George Clooney", "obfuscatedId": "abc123"}, "destinationDocument": {"containerDocument": {"metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "parentDocument": {"metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}}, "querySuggestions": {"person": {"name": "George Clooney", "obfuscatedId": "abc123"}}, "relatedQuestion": {"ranges": [{"startIndex": 853389, "document": {"containerDocument": {"metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "parentDocument": {"metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}, "metadata": {"datasource": "datasource", "objectType": "Feature Request", "container": "container", "parentId": "JIRA_EN-1337", "mimeType": "mimeType", "documentId": "documentId", "createTime": "2000-01-23T04:56:07.000Z", "updateTime": "2000-01-23T04:56:07.000Z", "author": {"name": "name", "obfuscatedId": "<id>"}, "components": ["Backend", "Networking"], "status": "[\"Done\"]", "customData": {"someCustomField": {}}}}}]}}], "querySuggestion": {"query": "app:github type:pull author:mortimer", "label": "Mortimer's PRs", "datasource": "github"}, "file": {"id": "FILE_1234", "url": "www.google.com", "name": "sample.pdf"}, "action": {"metadata": {"type": "RETRIEVAL", "name": "<value>", "displayName": "Stanford30", "displayDescription": "<value>", "objectName": "[\"HR ticket\",\"Email\",\"Chat message\"]"}}}], "messageType": "CONTENT"}], "roles": [{"person": {"name": "George Clooney", "obfuscatedId": "abc123"}, "role": "EDITOR"}]}}}
+        "403":
+          application/json: {"errorType": "PERMISSION_DENIED", "createdBy": {"name": "George Clooney", "obfuscatedId": "abc123"}, "requestableRoles": ["VERIFIER"], "hasPendingRequest": true}
   listchats:
     speakeasy-default-listchats:
       responses:
@@ -10510,7 +10644,7 @@ examples:
         application/json: {"query": "quarterly planning 2026", "page_size": 10, "datasources": ["confluence", "google_drive"], "filters": [{"field": "type", "values": ["spreadsheet", "presentation"]}]}
       responses:
         "200":
-          application/json: {"results": [], "has_more": false, "next_cursor": "<value>", "request_id": "<id>"}
+          application/json: {"results": [], "has_more": false, "next_cursor": "<value>", "request_id": "<id>", "warnings": []}
         "400":
           application/problem+json: {"type": "https://developer.glean.com/errors/invalid-cursor", "title": "Invalid Pagination Cursor", "status": 400, "detail": "The provided cursor has expired. Start a new search to get a fresh cursor.\n", "code": "invalid_cursor", "documentation_url": "https://developer.glean.com/errors/invalid-cursor", "request_id": "req_7f8a9b0c1d2e", "errors": [{"pointer": "/messages/0/role", "detail": "Must be one of: USER, GLEAN_AI.", "code": "invalid_cursor"}]}
         "500":
@@ -10655,6 +10789,29 @@ examples:
           application/json: {"error": "<value>"}
         "500":
           application/json: {"error": "<value>"}
+  platform-skills-update:
+    speakeasy-default-platform-skills-update:
+      parameters:
+        path:
+          skill_id: "<id>"
+      requestBody:
+        application/json: {"status": "DISABLED"}
+      responses:
+        "200":
+          application/json: {"skill": {"id": "<id>", "display_name": "Afton14", "description": "taut netsuke duh sonata boastfully elegantly management come", "latest_version": 425795, "latest_minor_version": 741364, "status": "DISABLED", "origin": "CUSTOM", "owner": {"name": "<value>"}, "created_at": "2024-12-20T01:31:39.364Z", "updated_at": "2025-12-04T02:59:37.124Z"}, "request_id": "<id>"}
+        "400":
+          application/problem+json: {"type": "https://developers.glean.com/errors/invalid-cursor", "title": "Invalid Pagination Cursor", "status": 400, "detail": "The provided cursor has expired. Start a new search to get a fresh cursor.\n", "code": "invalid_cursor", "documentation_url": "https://developers.glean.com/errors/invalid-cursor", "request_id": "req_7f8a9b0c1d2e", "errors": [{"pointer": "/messages/0/role", "detail": "Must be one of: USER, GLEAN_AI.", "code": "invalid_cursor"}]}
+        "500":
+          application/problem+json: {"type": "https://developers.glean.com/errors/invalid-cursor", "title": "Invalid Pagination Cursor", "status": 400, "detail": "The provided cursor has expired. Start a new search to get a fresh cursor.\n", "code": "invalid_cursor", "documentation_url": "https://developers.glean.com/errors/invalid-cursor", "request_id": "req_7f8a9b0c1d2e", "errors": [{"pointer": "/messages/0/role", "detail": "Must be one of: USER, GLEAN_AI.", "code": "invalid_cursor"}]}
+  platform-search-filters:
+    speakeasy-default-platform-search-filters:
+      responses:
+        "200":
+          application/json: {"datasources": [], "request_id": "<id>"}
+        "400":
+          application/problem+json: {"type": "https://developers.glean.com/errors/invalid-cursor", "title": "Invalid Pagination Cursor", "status": 400, "detail": "The provided cursor has expired. Start a new search to get a fresh cursor.\n", "code": "invalid_cursor", "documentation_url": "https://developers.glean.com/errors/invalid-cursor", "request_id": "req_7f8a9b0c1d2e", "errors": [{"pointer": "/messages/0/role", "detail": "Must be one of: USER, GLEAN_AI.", "code": "invalid_cursor"}]}
+        "500":
+          application/problem+json: {"type": "https://developers.glean.com/errors/invalid-cursor", "title": "Invalid Pagination Cursor", "status": 400, "detail": "The provided cursor has expired. Start a new search to get a fresh cursor.\n", "code": "invalid_cursor", "documentation_url": "https://developers.glean.com/errors/invalid-cursor", "request_id": "req_7f8a9b0c1d2e", "errors": [{"pointer": "/messages/0/role", "detail": "Must be one of: USER, GLEAN_AI.", "code": "invalid_cursor"}]}
 examplesVersion: 1.0.2
 generatedTests:
   activity: "2025-04-28T22:05:12+01:00"
@@ -10834,7 +10991,9 @@ generatedTests:
   platform-skills-get-version: "2026-07-21T08:59:49Z"
   platform-skills-get-version-content: "2026-07-21T08:59:49Z"
   post_/rest/api/index/submissions/{datasourceInstance}/{type}: "2026-07-21T08:59:49Z"
-releaseNotes: "## Python SDK Changes:\n* `glean.skills.create()`: **Added**\n* `glean.skills.list()`: **Added**\n* `glean.skills.validate()`: **Added**\n* `glean.skills.retrieve()`: **Added**\n* `glean.skills.retrieve_content()`: **Added**\n* `glean.skills.create_version()`: **Added**\n* `glean.skills.list_versions()`: **Added**\n* `glean.skills.retrieve_version()`: **Added**\n* `glean.skills.retrieve_version_content()`: **Added**\n* `glean.indexing.datasources.submit()`: **Added**\n* `glean.client.chat.create()`: \n  *  `request.messages[].fragments[].action.metadata.action_type_source` **Added**\n  *  `response.messages[].fragments[].action.metadata.action_type_source` **Added**\n* `glean.client.chat.retrieve()`:  `response.chat_result.chat.messages[].fragments[].action.metadata.action_type_source` **Added**\n* `glean.client.chat.create_stream()`: \n  *  `request.messages[].fragments[].action.metadata.action_type_source` **Added**\n* `glean.client.agents.create()`:  `response.workflow.webhook_url` **Added**\n* `glean.client.search.retrieve_feed()`:  `response.results[].primary_entry.workflow.workflow.webhook_url` **Added**\n* `glean.client.governance.data.findings.create()`: \n  *  `request` **Changed**\n  *  `response` **Changed**\n* `glean.client.governance.data.findings.list()`:  `response.exports[]` **Changed**\n"
+  platform-skills-update: "2026-07-28T02:35:56Z"
+  platform-search-filters: "2026-07-28T02:35:56Z"
+releaseNotes: "## Python SDK Changes:\n* `glean.search.query()`: \n  *  `request.datasource_instances` **Removed** (Breaking ⚠️)\n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error.status[422]` **Added**\n* `glean.skills.update()`: **Added**\n* `glean.search.list_filters()`: **Added**\n* `glean.client.chat.create()`: \n  *  `request.messages[].fragments[].action.metadata.auth.token_endpoint_auth_method.enum(private_key_jwt)` **Added**\n  *  `response.messages[].fragments[].action.metadata.auth.token_endpoint_auth_method.enum(private_key_jwt)` **Added**\n* `glean.client.chat.retrieve()`: \n  *  `response.chat_result.chat.messages[].fragments[].action.metadata.auth.token_endpoint_auth_method.enum(private_key_jwt)` **Added**\n  *  `error.status[403]` **Added**\n* `glean.client.chat.create_stream()`: \n  *  `request.messages[].fragments[].action.metadata.auth.token_endpoint_auth_method.enum(private_key_jwt)` **Added**\n* `glean.indexing.datasources.add()`:  `request` **Changed**\n* `glean.indexing.datasources.retrieve_config()`:  `response` **Changed**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
