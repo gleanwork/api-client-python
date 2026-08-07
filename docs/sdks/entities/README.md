@@ -38,7 +38,7 @@ with Glean(
                 },
             ],
         },
-    ], entity_type=models.ListEntitiesRequestEntityType.PEOPLE, page_size=100, request_type=models.ListEntitiesRequestRequestType.STANDARD)
+    ], entity_type=models.ListEntitiesRequestEntityType.PEOPLE, page_size=100, cursor="", request_type=models.ListEntitiesRequestRequestType.STANDARD)
 
     # Handle response
     print(res)

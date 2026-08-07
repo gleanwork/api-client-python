@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 from .platformresult import PlatformResult, PlatformResultTypedDict
+from .platformwarning import PlatformWarning, PlatformWarningTypedDict
 from glean.api_client.types import BaseModel, Nullable, UNSET_SENTINEL
 from pydantic import model_serializer
 from typing import List
@@ -10,18 +11,26 @@ from typing_extensions import TypedDict
 
 class PlatformSearchResponseTypedDict(TypedDict):
     results: List[PlatformResultTypedDict]
-    r"""Ordered list of search results."""
+    r"""Ordered list of ranked document results. People cards, Q&A blocks, and other UI-only result types are not included.
+
+    """
     has_more: bool
     r"""Indicates whether additional pages of results are available."""
     next_cursor: Nullable[str]
     r"""Opaque token to pass as `cursor` in the next request."""
     request_id: str
     r"""Platform-generated request ID for support correlation."""
+    warnings: List[PlatformWarningTypedDict]
+    r"""Non-blocking warnings for this response. Required; use `[]` when there are none. Clients must tolerate unknown warning codes. `results_incomplete` means some results may be unavailable for the requested datasource scope while `results`, `has_more`, and `next_cursor` remain present. Warning messages are generic and do not include query text or internal identifiers.
+
+    """
 
 
 class PlatformSearchResponse(BaseModel):
     results: List[PlatformResult]
-    r"""Ordered list of search results."""
+    r"""Ordered list of ranked document results. People cards, Q&A blocks, and other UI-only result types are not included.
+
+    """
 
     has_more: bool
     r"""Indicates whether additional pages of results are available."""
@@ -31,6 +40,11 @@ class PlatformSearchResponse(BaseModel):
 
     request_id: str
     r"""Platform-generated request ID for support correlation."""
+
+    warnings: List[PlatformWarning]
+    r"""Non-blocking warnings for this response. Required; use `[]` when there are none. Clients must tolerate unknown warning codes. `results_incomplete` means some results may be unavailable for the requested datasource scope while `results`, `has_more`, and `next_cursor` remain present. Warning messages are generic and do not include query text or internal identifiers.
+
+    """
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):

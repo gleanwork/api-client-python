@@ -165,7 +165,7 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as glean:
 
-    res = glean.client.shortcuts.list(page_size=10, filters=[
+    res = glean.client.shortcuts.list(page_size=10, cursor="", filters=[
         {
             "field_name": "type",
             "values": [

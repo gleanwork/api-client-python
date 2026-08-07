@@ -830,6 +830,258 @@ class ClientAgents(BaseSDK):
 
         raise errors.GleanError("Unexpected response received", http_res)
 
+    def import_(
+        self,
+        *,
+        agent_id: str,
+        bundle: Union[models.Bundle, models.BundleTypedDict],
+        locale: Optional[str] = None,
+        timezone_offset: Optional[int] = None,
+        git_commit_sha: Optional[str] = None,
+        git_author_id: Optional[str] = None,
+        commit_message: Optional[str] = None,
+        sync_mode: Optional[models.ImportAgentSyncMode] = None,
+        is_draft: Optional[bool] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.ImportAgentResponse:
+        r"""Import an agent
+
+        Imports an [agent](https://developers.glean.com/agents/agents-api) from its on-disk folder representation (spec.yaml, instructions.md, skills/, subagents/) packaged as a zip, and creates or updates the agent. Inverse of the export flow: the folder-to-schema conversion runs server-side. The bundle must contain only regular files; symlinks are resolved by the caller at packaging time.
+
+        :param agent_id: The ID of the agent to create or update.
+        :param bundle: Zip of the agent folder (spec.yaml, instructions.md, skills/, subagents/) with symlinks dereferenced.
+
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
+        :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
+        :param git_commit_sha: Optional Git commit SHA to associate with this import.
+        :param git_author_id: Optional VCS commit author ID to associate with this import.
+        :param commit_message: Optional commit message for the imported version.
+        :param sync_mode: Whether the imported version is staged (saved without updating the live version) or published directly to the live version.
+
+        :param is_draft: When true, validates and stores a draft preview without publishing (used for PR preview links). Takes precedence over `syncMode`: when `isDraft` is true, `syncMode` is ignored.
+
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ImportAgentRequestRequest(
+            locale=locale,
+            timezone_offset=timezone_offset,
+            agent_id=agent_id,
+            import_agent_request=models.ImportAgentRequest(
+                bundle=utils.get_pydantic_model(bundle, models.Bundle),
+                git_commit_sha=git_commit_sha,
+                git_author_id=git_author_id,
+                commit_message=commit_message,
+                sync_mode=sync_mode,
+                is_draft=is_draft,
+            ),
+        )
+
+        req = self._build_request(
+            method="POST",
+            path="/rest/api/v1/agents/{agent_id}/import",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.import_agent_request,
+                False,
+                False,
+                "multipart",
+                models.ImportAgentRequest,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="importAgent",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Agents"],
+                extensions={"x-visibility": "Preview"},
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.ImportAgentResponse, http_res)
+        if utils.match_response(http_res, "404", "application/json"):
+            response_data = unmarshal_json_response(errors.ErrorResponseData, http_res)
+            raise errors.ErrorResponse(response_data, http_res)
+        if utils.match_response(http_res, ["400", "401", "403", "4XX"], "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, ["500", "5XX"], "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
+
+        raise errors.GleanError("Unexpected response received", http_res)
+
+    async def import__async(
+        self,
+        *,
+        agent_id: str,
+        bundle: Union[models.Bundle, models.BundleTypedDict],
+        locale: Optional[str] = None,
+        timezone_offset: Optional[int] = None,
+        git_commit_sha: Optional[str] = None,
+        git_author_id: Optional[str] = None,
+        commit_message: Optional[str] = None,
+        sync_mode: Optional[models.ImportAgentSyncMode] = None,
+        is_draft: Optional[bool] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.ImportAgentResponse:
+        r"""Import an agent
+
+        Imports an [agent](https://developers.glean.com/agents/agents-api) from its on-disk folder representation (spec.yaml, instructions.md, skills/, subagents/) packaged as a zip, and creates or updates the agent. Inverse of the export flow: the folder-to-schema conversion runs server-side. The bundle must contain only regular files; symlinks are resolved by the caller at packaging time.
+
+        :param agent_id: The ID of the agent to create or update.
+        :param bundle: Zip of the agent folder (spec.yaml, instructions.md, skills/, subagents/) with symlinks dereferenced.
+
+        :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
+        :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
+        :param git_commit_sha: Optional Git commit SHA to associate with this import.
+        :param git_author_id: Optional VCS commit author ID to associate with this import.
+        :param commit_message: Optional commit message for the imported version.
+        :param sync_mode: Whether the imported version is staged (saved without updating the live version) or published directly to the live version.
+
+        :param is_draft: When true, validates and stores a draft preview without publishing (used for PR preview links). Takes precedence over `syncMode`: when `isDraft` is true, `syncMode` is ignored.
+
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.ImportAgentRequestRequest(
+            locale=locale,
+            timezone_offset=timezone_offset,
+            agent_id=agent_id,
+            import_agent_request=models.ImportAgentRequest(
+                bundle=utils.get_pydantic_model(bundle, models.Bundle),
+                git_commit_sha=git_commit_sha,
+                git_author_id=git_author_id,
+                commit_message=commit_message,
+                sync_mode=sync_mode,
+                is_draft=is_draft,
+            ),
+        )
+
+        req = self._build_request_async(
+            method="POST",
+            path="/rest/api/v1/agents/{agent_id}/import",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.import_agent_request,
+                False,
+                False,
+                "multipart",
+                models.ImportAgentRequest,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="importAgent",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Agents"],
+                extensions={"x-visibility": "Preview"},
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.ImportAgentResponse, http_res)
+        if utils.match_response(http_res, "404", "application/json"):
+            response_data = unmarshal_json_response(errors.ErrorResponseData, http_res)
+            raise errors.ErrorResponse(response_data, http_res)
+        if utils.match_response(http_res, ["400", "401", "403", "4XX"], "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, ["500", "5XX"], "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
+
+        raise errors.GleanError("Unexpected response received", http_res)
+
     def list(
         self,
         *,
@@ -1108,9 +1360,14 @@ class ClientAgents(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "text/event-stream"):
             return http_res.text
-        if utils.match_response(http_res, ["404", "409", "422"], "application/json"):
+        if utils.match_response(http_res, ["404", "409"], "application/json"):
             response_data = unmarshal_json_response(errors.ErrorResponseData, http_res)
             raise errors.ErrorResponse(response_data, http_res)
+        if utils.match_response(http_res, "422", "application/json"):
+            response_data = unmarshal_json_response(
+                errors.UnauthorizedAgentToolsErrorData, http_res
+            )
+            raise errors.UnauthorizedAgentToolsError(response_data, http_res)
         if utils.match_response(http_res, ["400", "403", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.GleanError("API error occurred", http_res, http_res_text)
@@ -1212,9 +1469,14 @@ class ClientAgents(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "text/event-stream"):
             return http_res.text
-        if utils.match_response(http_res, ["404", "409", "422"], "application/json"):
+        if utils.match_response(http_res, ["404", "409"], "application/json"):
             response_data = unmarshal_json_response(errors.ErrorResponseData, http_res)
             raise errors.ErrorResponse(response_data, http_res)
+        if utils.match_response(http_res, "422", "application/json"):
+            response_data = unmarshal_json_response(
+                errors.UnauthorizedAgentToolsErrorData, http_res
+            )
+            raise errors.UnauthorizedAgentToolsError(response_data, http_res)
         if utils.match_response(http_res, ["400", "403", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.GleanError("API error occurred", http_res, http_res_text)
@@ -1313,11 +1575,15 @@ class ClientAgents(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.AgentRunWaitResponse, http_res)
-        if utils.match_response(
-            http_res, ["400", "403", "404", "409", "422", "4XX"], "*"
-        ):
+        if utils.match_response(http_res, "422", "application/json"):
+            response_data = unmarshal_json_response(
+                errors.UnauthorizedAgentToolsErrorData, http_res
+            )
+            raise errors.UnauthorizedAgentToolsError(response_data, http_res)
+        if utils.match_response(http_res, ["400", "403", "404", "409", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, ["500", "5XX"], "*"):
@@ -1415,11 +1681,15 @@ class ClientAgents(BaseSDK):
             retry_config=retry_config,
         )
 
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.AgentRunWaitResponse, http_res)
-        if utils.match_response(
-            http_res, ["400", "403", "404", "409", "422", "4XX"], "*"
-        ):
+        if utils.match_response(http_res, "422", "application/json"):
+            response_data = unmarshal_json_response(
+                errors.UnauthorizedAgentToolsErrorData, http_res
+            )
+            raise errors.UnauthorizedAgentToolsError(response_data, http_res)
+        if utils.match_response(http_res, ["400", "403", "404", "409", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.GleanError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, ["500", "5XX"], "*"):

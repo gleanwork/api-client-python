@@ -7,7 +7,7 @@ type PlatformSkillValidationResponse struct {
 	// Normalized files in the bundle after stripping an optional single root folder.
 	Files []PlatformSkillValidationFile `json:"files"`
 	// Non-blocking validation warnings.
-	Warnings []PlatformSkillValidationWarning `json:"warnings"`
+	Warnings []PlatformWarning `json:"warnings"`
 	// Platform-generated request ID for support correlation.
 	RequestID string `json:"request_id"`
 }
@@ -26,9 +26,9 @@ func (o *PlatformSkillValidationResponse) GetFiles() []PlatformSkillValidationFi
 	return o.Files
 }
 
-func (o *PlatformSkillValidationResponse) GetWarnings() []PlatformSkillValidationWarning {
+func (o *PlatformSkillValidationResponse) GetWarnings() []PlatformWarning {
 	if o == nil {
-		return []PlatformSkillValidationWarning{}
+		return []PlatformWarning{}
 	}
 	return o.Warnings
 }

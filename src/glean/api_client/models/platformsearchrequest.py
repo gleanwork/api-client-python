@@ -27,15 +27,11 @@ class PlatformSearchRequestTypedDict(TypedDict):
 
     """
     datasources: NotRequired[List[str]]
-    r"""Restrict results to specific datasources. Requests must not specify both `datasources` and `datasource_instances`.
-
-    """
-    datasource_instances: NotRequired[List[str]]
-    r"""Restrict results to specific datasource instances. Values are datasource instance identifiers returned by `GET /api/search/filters`. Requests must not specify both `datasources` and `datasource_instances`.
+    r"""Restrict results to specific datasource identifiers returned by `GET /api/search/filters`. Scopes by datasource type and may include results from multiple instances of that type.
 
     """
     filters: NotRequired[List[PlatformFilterTypedDict]]
-    r"""Structured filters applied to search results. Equality operators OR multiple values within a filter. Multiple filters are AND'd together, including range filters on the same field. Filters are AND'd with any inline operators in `query`. Note that conflicting constraints on the same field (e.g., `type:document` in the query and `type: spreadsheet` in a filter) produce an empty result set.
+    r"""Structured filters applied to search results. Multiple values within a filter with `EQUALS` are OR'd; separate filters are AND'd. Conflicting constraints on the same field (for example, `type:document` in `query` and `type:spreadsheet` in a filter) return an empty result set. See `Filter.field` for built-in field names and operators. Other nonblank field names are accepted as custom filters without validation; behavior depends on your connected sources.
 
     """
     time_range: NotRequired[PlatformTimeRangeTypedDict]
@@ -57,17 +53,12 @@ class PlatformSearchRequest(BaseModel):
     """
 
     datasources: Optional[List[str]] = None
-    r"""Restrict results to specific datasources. Requests must not specify both `datasources` and `datasource_instances`.
-
-    """
-
-    datasource_instances: Optional[List[str]] = None
-    r"""Restrict results to specific datasource instances. Values are datasource instance identifiers returned by `GET /api/search/filters`. Requests must not specify both `datasources` and `datasource_instances`.
+    r"""Restrict results to specific datasource identifiers returned by `GET /api/search/filters`. Scopes by datasource type and may include results from multiple instances of that type.
 
     """
 
     filters: Optional[List[PlatformFilter]] = None
-    r"""Structured filters applied to search results. Equality operators OR multiple values within a filter. Multiple filters are AND'd together, including range filters on the same field. Filters are AND'd with any inline operators in `query`. Note that conflicting constraints on the same field (e.g., `type:document` in the query and `type: spreadsheet` in a filter) produce an empty result set.
+    r"""Structured filters applied to search results. Multiple values within a filter with `EQUALS` are OR'd; separate filters are AND'd. Conflicting constraints on the same field (for example, `type:document` in `query` and `type:spreadsheet` in a filter) return an empty result set. See `Filter.field` for built-in field names and operators. Other nonblank field names are accepted as custom filters without validation; behavior depends on your connected sources.
 
     """
 
@@ -77,14 +68,7 @@ class PlatformSearchRequest(BaseModel):
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            [
-                "page_size",
-                "cursor",
-                "datasources",
-                "datasource_instances",
-                "filters",
-                "time_range",
-            ]
+            ["page_size", "cursor", "datasources", "filters", "time_range"]
         )
         nullable_fields = set(["cursor"])
         serialized = handler(self)

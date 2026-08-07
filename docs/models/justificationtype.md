@@ -59,6 +59,7 @@ value = JustificationType.FREQUENTLY_ACCESSED
 | `STARTER_KIT_ORG_CHART`                 | STARTER_KIT_ORG_CHART                   |
 | `STARTER_KIT_ADD_DOC`                   | STARTER_KIT_ADD_DOC                     |
 | `MEETING_RECAP`                         | MEETING_RECAP                           |
+| `MEETING_PREP_AUTOMATION`               | MEETING_PREP_AUTOMATION                 |
 | `ACTIVE_DISCUSSION`                     | ACTIVE_DISCUSSION                       |
 | `MID_DAY_CATCH_UP`                      | MID_DAY_CATCH_UP                        |
 | `QUERY_SUGGESTION`                      | QUERY_SUGGESTION                        |

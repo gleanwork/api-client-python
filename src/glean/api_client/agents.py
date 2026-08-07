@@ -90,10 +90,6 @@ class Agents(BaseSDK):
                 tags=["Agents"],
                 extensions={
                     "x-codegen-request-body-name": "payload",
-                    "x-glean-experimental": {
-                        "id": "4abc1e17-8e06-490b-99a7-e8f97592405a",
-                        "introduced": "2026-05-12",
-                    },
                     "x-visibility": "Public",
                 },
             ),
@@ -204,10 +200,6 @@ class Agents(BaseSDK):
                 tags=["Agents"],
                 extensions={
                     "x-codegen-request-body-name": "payload",
-                    "x-glean-experimental": {
-                        "id": "4abc1e17-8e06-490b-99a7-e8f97592405a",
-                        "introduced": "2026-05-12",
-                    },
                     "x-visibility": "Public",
                 },
             ),
@@ -313,13 +305,7 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={
-                    "x-glean-experimental": {
-                        "id": "009b3e94-694b-4deb-b80a-c67011173715",
-                        "introduced": "2026-05-12",
-                    },
-                    "x-visibility": "Public",
-                },
+                extensions={"x-visibility": "Public"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -421,13 +407,7 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={
-                    "x-glean-experimental": {
-                        "id": "009b3e94-694b-4deb-b80a-c67011173715",
-                        "introduced": "2026-05-12",
-                    },
-                    "x-visibility": "Public",
-                },
+                extensions={"x-visibility": "Public"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -532,13 +512,7 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={
-                    "x-glean-experimental": {
-                        "id": "b40b4dd3-3839-48e6-9e45-7e63e8148b49",
-                        "introduced": "2026-05-12",
-                    },
-                    "x-visibility": "Public",
-                },
+                extensions={"x-visibility": "Public"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -645,13 +619,7 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={
-                    "x-glean-experimental": {
-                        "id": "b40b4dd3-3839-48e6-9e45-7e63e8148b49",
-                        "introduced": "2026-05-12",
-                    },
-                    "x-visibility": "Public",
-                },
+                extensions={"x-visibility": "Public"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -790,10 +758,6 @@ class Agents(BaseSDK):
                 tags=["Agents"],
                 extensions={
                     "x-codegen-request-body-name": "payload",
-                    "x-glean-experimental": {
-                        "id": "26bba669-2e92-4e5d-9798-6a532fae4e9f",
-                        "introduced": "2026-05-12",
-                    },
                     "x-visibility": "Public",
                 },
             ),
@@ -809,6 +773,13 @@ class Agents(BaseSDK):
             )
         if utils.match_response(http_res, "200", "text/event-stream"):
             return http_res.text
+        if utils.match_response(http_res, "422", "application/problem+json"):
+            response_data = unmarshal_json_response(
+                errors.PlatformUnauthorizedAgentToolsProblemErrorData, http_res
+            )
+            raise errors.PlatformUnauthorizedAgentToolsProblemError(
+                response_data, http_res
+            )
         if utils.match_response(
             http_res,
             ["400", "401", "403", "404", "408", "409", "413", "429"],
@@ -936,10 +907,6 @@ class Agents(BaseSDK):
                 tags=["Agents"],
                 extensions={
                     "x-codegen-request-body-name": "payload",
-                    "x-glean-experimental": {
-                        "id": "26bba669-2e92-4e5d-9798-6a532fae4e9f",
-                        "introduced": "2026-05-12",
-                    },
                     "x-visibility": "Public",
                 },
             ),
@@ -955,6 +922,13 @@ class Agents(BaseSDK):
             )
         if utils.match_response(http_res, "200", "text/event-stream"):
             return http_res.text
+        if utils.match_response(http_res, "422", "application/problem+json"):
+            response_data = unmarshal_json_response(
+                errors.PlatformUnauthorizedAgentToolsProblemErrorData, http_res
+            )
+            raise errors.PlatformUnauthorizedAgentToolsProblemError(
+                response_data, http_res
+            )
         if utils.match_response(
             http_res,
             ["400", "401", "403", "404", "408", "409", "413", "429"],

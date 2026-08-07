@@ -321,6 +321,10 @@ For more information on obtaining the appropriate token type, please contact you
 * [get_schemas](docs/sdks/agents/README.md#get_schemas) - Get agent schemas
 * [create_run](docs/sdks/agents/README.md#create_run) - Create agent run
 
+### [Chat](docs/sdks/chatsdk/README.md)
+
+* [create](docs/sdks/chatsdk/README.md#create) - Create a chat response
+
 ### [Client.Activity](docs/sdks/clientactivity/README.md)
 
 * [report](docs/sdks/clientactivity/README.md#report) - Report document activity
@@ -332,6 +336,7 @@ For more information on obtaining the appropriate token type, please contact you
 * [retrieve](docs/sdks/clientagents/README.md#retrieve) - Retrieve an agent
 * [update](docs/sdks/clientagents/README.md#update) - Edit an agent
 * [retrieve_schemas](docs/sdks/clientagents/README.md#retrieve_schemas) - List an agent's schemas
+* [import_](docs/sdks/clientagents/README.md#import_) - Import an agent
 * [list](docs/sdks/clientagents/README.md#list) - Search agents
 * [run_stream](docs/sdks/clientagents/README.md#run_stream) - Create an agent run and stream the response
 * [run](docs/sdks/clientagents/README.md#run) - Create an agent run and wait for the response
@@ -466,6 +471,7 @@ For more information on obtaining the appropriate token type, please contact you
 * [authorize_action_pack](docs/sdks/tools/README.md#authorize_action_pack) - Start the OAuth authorization flow for an action pack.
 * [retrieve_tool_server_auth_status](docs/sdks/tools/README.md#retrieve_tool_server_auth_status) - Get end-user authentication status for a tool server.
 * [authorize_tool_server](docs/sdks/tools/README.md#authorize_tool_server) - Start the OAuth authorization flow for a tool server.
+* [get_tool_server_tools](docs/sdks/tools/README.md#get_tool_server_tools) - Get tool definitions from a tool server.
 
 ### [Client.Verification](docs/sdks/clientverification/README.md)
 
@@ -549,14 +555,20 @@ For more information on obtaining the appropriate token type, please contact you
 ### [Search](docs/sdks/search/README.md)
 
 * [query](docs/sdks/search/README.md#query) - Search
+* [list_filters](docs/sdks/search/README.md#list_filters) - List search filters
 
 ### [Skills](docs/sdks/skills/README.md)
 
 * [create](docs/sdks/skills/README.md#create) - Create skill
 * [list](docs/sdks/skills/README.md#list) - List skills
 * [validate](docs/sdks/skills/README.md#validate) - Validate skill bundle
+* [import_](docs/sdks/skills/README.md#import_) - Import skills from GitHub
+* [preview_source](docs/sdks/skills/README.md#preview_source) - Preview a GitHub skill source
+* [update](docs/sdks/skills/README.md#update) - Update skill
+* [delete](docs/sdks/skills/README.md#delete) - Delete skill
 * [retrieve](docs/sdks/skills/README.md#retrieve) - Retrieve skill
 * [retrieve_content](docs/sdks/skills/README.md#retrieve_content) - Download skill content
+* [sync](docs/sdks/skills/README.md#sync) - Sync a GitHub-imported skill
 * [create_version](docs/sdks/skills/README.md#create_version) - Create skill version
 * [list_versions](docs/sdks/skills/README.md#list_versions) - List skill versions
 * [retrieve_version](docs/sdks/skills/README.md#retrieve_version) - Retrieve skill version

@@ -127,6 +127,7 @@ with Glean(
                 ],
             },
         ],
+        "cursor": "",
     })
 
     # Handle response

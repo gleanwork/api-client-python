@@ -56,6 +56,7 @@ def test_client_shortcuts_listshortcuts():
 
         res = glean.client.shortcuts.list(
             page_size=10,
+            cursor="",
             filters=[
                 {
                     "field_name": "type",

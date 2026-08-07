@@ -27,8 +27,6 @@ class PlatformResultTypedDict(TypedDict):
     r"""The datasource this result originates from."""
     snippets: NotRequired[List[str]]
     r"""Query-relevant plain-text excerpts from the result body."""
-    datasource_instance: NotRequired[Nullable[str]]
-    r"""The datasource instance this result originates from, if known."""
     document_type: NotRequired[Nullable[str]]
     r"""The document type within the datasource."""
     creator: NotRequired[PlatformPersonReferenceTypedDict]
@@ -54,9 +52,6 @@ class PlatformResult(BaseModel):
     snippets: Optional[List[str]] = None
     r"""Query-relevant plain-text excerpts from the result body."""
 
-    datasource_instance: OptionalNullable[str] = UNSET
-    r"""The datasource instance this result originates from, if known."""
-
     document_type: OptionalNullable[str] = UNSET
     r"""The document type within the datasource."""
 
@@ -77,7 +72,6 @@ class PlatformResult(BaseModel):
         optional_fields = set(
             [
                 "snippets",
-                "datasource_instance",
                 "document_type",
                 "creator",
                 "owner",
@@ -85,9 +79,7 @@ class PlatformResult(BaseModel):
                 "created_at",
             ]
         )
-        nullable_fields = set(
-            ["datasource_instance", "document_type", "updated_at", "created_at"]
-        )
+        nullable_fields = set(["document_type", "updated_at", "created_at"])
         serialized = handler(self)
         m = {}
 

@@ -99,3 +99,24 @@ def test_tools_authorize_tool_server():
             server_id="<id>", return_url="https://lucky-disadvantage.com"
         )
         assert res is not None
+
+
+def test_tools_get_tool_server_tools():
+    test_http_client = create_test_http_client("getToolServerTools")
+
+    with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
+        client=test_http_client,
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+    ) as glean:
+        assert glean is not None
+
+        res = glean.client.tools.get_tool_server_tools(
+            server_id="<id>",
+            tool_names=[
+                "<value 1>",
+                "<value 2>",
+                "<value 3>",
+            ],
+        )
+        assert res is not None

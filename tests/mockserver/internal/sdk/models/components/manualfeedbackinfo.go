@@ -112,6 +112,8 @@ const (
 	IssueResultsHelpful               Issue = "RESULTS_HELPFUL"
 	IssueResultsPoorOrder             Issue = "RESULTS_POOR_ORDER"
 	IssueTooMuchOneKind               Issue = "TOO_MUCH_ONE_KIND"
+	IssueNotAQuestion                 Issue = "NOT_A_QUESTION"
+	IssueUnsureIfCorrect              Issue = "UNSURE_IF_CORRECT"
 )
 
 func (e Issue) ToPointer() *Issue {
@@ -152,6 +154,10 @@ func (e *Issue) UnmarshalJSON(data []byte) error {
 	case "RESULTS_POOR_ORDER":
 		fallthrough
 	case "TOO_MUCH_ONE_KIND":
+		fallthrough
+	case "NOT_A_QUESTION":
+		fallthrough
+	case "UNSURE_IF_CORRECT":
 		*e = Issue(v)
 		return nil
 	default:

@@ -9,21 +9,21 @@ import (
 	"time"
 )
 
-// Role - DEPRECATED - use permissions instead. Viewer's role on the specific document.
+// ViewerInfoRole - DEPRECATED - use permissions instead. Viewer's role on the specific document.
 //
 // Deprecated: Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use permissions instead.
-type Role string
+type ViewerInfoRole string
 
 const (
-	RoleAnswerModerator Role = "ANSWER_MODERATOR"
-	RoleOwner           Role = "OWNER"
-	RoleViewer          Role = "VIEWER"
+	ViewerInfoRoleAnswerModerator ViewerInfoRole = "ANSWER_MODERATOR"
+	ViewerInfoRoleOwner           ViewerInfoRole = "OWNER"
+	ViewerInfoRoleViewer          ViewerInfoRole = "VIEWER"
 )
 
-func (e Role) ToPointer() *Role {
+func (e ViewerInfoRole) ToPointer() *ViewerInfoRole {
 	return &e
 }
-func (e *Role) UnmarshalJSON(data []byte) error {
+func (e *ViewerInfoRole) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -34,10 +34,10 @@ func (e *Role) UnmarshalJSON(data []byte) error {
 	case "OWNER":
 		fallthrough
 	case "VIEWER":
-		*e = Role(v)
+		*e = ViewerInfoRole(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for Role: %v", v)
+		return fmt.Errorf("invalid value for ViewerInfoRole: %v", v)
 	}
 }
 
@@ -45,8 +45,8 @@ type ViewerInfo struct {
 	// DEPRECATED - use permissions instead. Viewer's role on the specific document.
 	//
 	// Deprecated: Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use permissions instead.
-	Role           *Role      `json:"role,omitempty"`
-	LastViewedTime *time.Time `json:"lastViewedTime,omitempty"`
+	Role           *ViewerInfoRole `json:"role,omitempty"`
+	LastViewedTime *time.Time      `json:"lastViewedTime,omitempty"`
 }
 
 func (v ViewerInfo) MarshalJSON() ([]byte, error) {
@@ -60,7 +60,7 @@ func (v *ViewerInfo) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *ViewerInfo) GetRole() *Role {
+func (o *ViewerInfo) GetRole() *ViewerInfoRole {
 	if o == nil {
 		return nil
 	}

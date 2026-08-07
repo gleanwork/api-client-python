@@ -1,0 +1,10 @@
+# PlatformChatOutputMessage
+
+
+## Fields
+
+| Field                                                                                    | Type                                                                                     | Required                                                                                 | Description                                                                              |
+| ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `type`                                                                                   | [models.PlatformChatOutputMessageType](../models/platformchatoutputmessagetype.md)       | :heavy_check_mark:                                                                       | N/A                                                                                      |
+| `role`                                                                                   | [models.PlatformChatOutputMessageRole](../models/platformchatoutputmessagerole.md)       | :heavy_check_mark:                                                                       | N/A                                                                                      |
+| `content`                                                                                | List[[models.PlatformChatOutputTextContent](../models/platformchatoutputtextcontent.md)] | :heavy_check_mark:                                                                       | N/A                                                                                      |

@@ -44,11 +44,29 @@ class AuthConfigStatus(str, Enum, metaclass=utils.OpenEnumMeta):
 
 
 class TokenEndpointAuthMethod(str, Enum, metaclass=utils.OpenEnumMeta):
-    r"""The OAuth 2.0 token endpoint authentication method (RFC 7591). Determines how the client authenticates when exchanging an authorization code for a token. client_secret_post sends credentials as form fields, client_secret_basic sends them via Authorization header, none omits client secret and relies on PKCE only. Values use lowercase to match the OAuth 2.0 wire format (RFC 7591 Section 2)."""
+    r"""The OAuth 2.0 token endpoint authentication method (RFC 7591). Determines how the client authenticates when exchanging an authorization code for a token. Values use lowercase to match the OAuth 2.0 wire format (RFC 7591 Section 2)."""
 
+    # Send client_id and client_secret as form fields in the token request body.
     CLIENT_SECRET_POST = "client_secret_post"
+    # Send client_id and client_secret via the HTTP Basic Authorization header.
     CLIENT_SECRET_BASIC = "client_secret_basic"
+    # Public client - omit the client secret and authenticate with the PKCE code_verifier only.
     NONE = "none"
+    # Authenticate with a JWT client assertion signed by the client's private key (RFC 7523 Section 2.2 / OIDC Core Section 9). Requires a key pair pre-registered with the authorization server.
+    PRIVATE_KEY_JWT = "private_key_jwt"
+
+
+class AuthHeaderType(str, Enum, metaclass=utils.OpenEnumMeta):
+    r"""Defines the header structure for sending the API key or token to the server. Defaults to AUTHORIZATION_BEARER. Select the specific header format the server expects for transmitting the key."""
+
+    # Sends \"Authorization: Bearer <key>\".
+    AUTHORIZATION_BEARER = "AUTHORIZATION_BEARER"
+    # Sends \"Authorization: Token <key>\".
+    AUTHORIZATION_TOKEN = "AUTHORIZATION_TOKEN"
+    # Sends \"Authorization: ApiKey <key>\".
+    AUTHORIZATION_API_KEY = "AUTHORIZATION_API_KEY"
+    # Sends \"X-API-Key: <key>\". No Authorization header is sent.
+    X_API_KEY = "X_API_KEY"
 
 
 class AuthConfigTypedDict(TypedDict):
@@ -81,7 +99,9 @@ class AuthConfigTypedDict(TypedDict):
     resource: NotRequired[str]
     r"""The OAuth 2.0 Resource Indicator (RFC 8707) for the protected resource. Discovered from Protected Resource Metadata (RFC 9728) during DCR. Included in authorization and token exchange requests when present."""
     token_endpoint_auth_method: NotRequired[TokenEndpointAuthMethod]
-    r"""The OAuth 2.0 token endpoint authentication method (RFC 7591). Determines how the client authenticates when exchanging an authorization code for a token. client_secret_post sends credentials as form fields, client_secret_basic sends them via Authorization header, none omits client secret and relies on PKCE only. Values use lowercase to match the OAuth 2.0 wire format (RFC 7591 Section 2)."""
+    r"""The OAuth 2.0 token endpoint authentication method (RFC 7591). Determines how the client authenticates when exchanging an authorization code for a token. Values use lowercase to match the OAuth 2.0 wire format (RFC 7591 Section 2)."""
+    auth_header_type: NotRequired[AuthHeaderType]
+    r"""Defines the header structure for sending the API key or token to the server. Defaults to AUTHORIZATION_BEARER. Select the specific header format the server expects for transmitting the key."""
     last_authorized_at: NotRequired[datetime]
     r"""The time the tool was last authorized in ISO format (ISO 8601)."""
 
@@ -128,7 +148,12 @@ class AuthConfig(BaseModel):
     r"""The OAuth 2.0 Resource Indicator (RFC 8707) for the protected resource. Discovered from Protected Resource Metadata (RFC 9728) during DCR. Included in authorization and token exchange requests when present."""
 
     token_endpoint_auth_method: Optional[TokenEndpointAuthMethod] = None
-    r"""The OAuth 2.0 token endpoint authentication method (RFC 7591). Determines how the client authenticates when exchanging an authorization code for a token. client_secret_post sends credentials as form fields, client_secret_basic sends them via Authorization header, none omits client secret and relies on PKCE only. Values use lowercase to match the OAuth 2.0 wire format (RFC 7591 Section 2)."""
+    r"""The OAuth 2.0 token endpoint authentication method (RFC 7591). Determines how the client authenticates when exchanging an authorization code for a token. Values use lowercase to match the OAuth 2.0 wire format (RFC 7591 Section 2)."""
+
+    auth_header_type: Annotated[
+        Optional[AuthHeaderType], pydantic.Field(alias="authHeaderType")
+    ] = None
+    r"""Defines the header structure for sending the API key or token to the server. Defaults to AUTHORIZATION_BEARER. Select the specific header format the server expects for transmitting the key."""
 
     last_authorized_at: Annotated[
         Optional[datetime], pydantic.Field(alias="lastAuthorizedAt")
@@ -171,6 +196,15 @@ class AuthConfig(BaseModel):
                 return value
         return value
 
+    @field_serializer("auth_header_type")
+    def serialize_auth_header_type(self, value):
+        if isinstance(value, str):
+            try:
+                return models.AuthHeaderType(value)
+            except ValueError:
+                return value
+        return value
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -186,6 +220,7 @@ class AuthConfig(BaseModel):
                 "authorization_url",
                 "resource",
                 "token_endpoint_auth_method",
+                "authHeaderType",
                 "lastAuthorizedAt",
             ]
         )

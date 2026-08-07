@@ -40,9 +40,11 @@ def test_search_adminsearch():
                             "Backend",
                             "Networking",
                         ],
-                        status='["Done"]',
+                        status="Done",
                         custom_data={
-                            "someCustomField": models.CustomDataValue(),
+                            "someCustomField": models.CustomDataValue(
+                                string_value="someCustomValue",
+                            ),
                         },
                     ),
                 ),
@@ -64,9 +66,11 @@ def test_search_adminsearch():
                             "Backend",
                             "Networking",
                         ],
-                        status='["Done"]',
+                        status="Done",
                         custom_data={
-                            "someCustomField": models.CustomDataValue(),
+                            "someCustomField": models.CustomDataValue(
+                                string_value="someCustomValue",
+                            ),
                         },
                     ),
                 ),
@@ -87,14 +91,17 @@ def test_search_adminsearch():
                         "Backend",
                         "Networking",
                     ],
-                    status='["Done"]',
+                    status="Done",
                     custom_data={
-                        "someCustomField": models.CustomDataValue(),
+                        "someCustomField": models.CustomDataValue(
+                            string_value="someCustomValue",
+                        ),
                     },
                 ),
             ),
             page_size=10,
             max_snippet_size=400,
+            cursor="",
             input_details={
                 "has_copy_paste": True,
             },
@@ -2116,9 +2123,11 @@ def test_search_search():
                             "Backend",
                             "Networking",
                         ],
-                        status='["Done"]',
+                        status="Done",
                         custom_data={
-                            "someCustomField": models.CustomDataValue(),
+                            "someCustomField": models.CustomDataValue(
+                                string_value="someCustomValue",
+                            ),
                         },
                     ),
                 ),
@@ -2140,9 +2149,11 @@ def test_search_search():
                             "Backend",
                             "Networking",
                         ],
-                        status='["Done"]',
+                        status="Done",
                         custom_data={
-                            "someCustomField": models.CustomDataValue(),
+                            "someCustomField": models.CustomDataValue(
+                                string_value="someCustomValue",
+                            ),
                         },
                     ),
                 ),
@@ -2163,14 +2174,17 @@ def test_search_search():
                         "Backend",
                         "Networking",
                     ],
-                    status='["Done"]',
+                    status="Done",
                     custom_data={
-                        "someCustomField": models.CustomDataValue(),
+                        "someCustomField": models.CustomDataValue(
+                            string_value="someCustomValue",
+                        ),
                     },
                 ),
             ),
             page_size=10,
             max_snippet_size=400,
+            cursor="",
             input_details={
                 "has_copy_paste": True,
             },
@@ -2219,6 +2233,7 @@ def test_search_platform_search():
         res = glean.search.query(
             query="quarterly planning 2026",
             page_size=10,
+            cursor="",
             datasources=[
                 "confluence",
                 "google_drive",
@@ -2233,4 +2248,18 @@ def test_search_platform_search():
                 },
             ],
         )
+        assert res is not None
+
+
+def test_search_platform_search_filters():
+    test_http_client = create_test_http_client("platform-search-filters")
+
+    with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
+        client=test_http_client,
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+    ) as glean:
+        assert glean is not None
+
+        res = glean.search.list_filters()
         assert res is not None

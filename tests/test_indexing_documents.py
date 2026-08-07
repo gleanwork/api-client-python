@@ -89,3 +89,61 @@ def test_indexing_documents_post_api_index_v1_deletedocument():
         glean.indexing.documents.delete(
             datasource="<value>", object_type="<value>", id="<id>"
         )
+
+
+def test_indexing_documents_post_api_index_v1_debug_datasource_document():
+    test_http_client = create_test_http_client(
+        "post_/api/index/v1/debug/{datasource}/document"
+    )
+
+    with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
+        client=test_http_client,
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+    ) as glean:
+        assert glean is not None
+
+        res = glean.indexing.documents.debug(
+            datasource="<value>", object_type="Article", doc_id="art123"
+        )
+        assert res is not None
+
+
+def test_indexing_documents_post_api_index_v1_debug_datasource_documents():
+    test_http_client = create_test_http_client(
+        "post_/api/index/v1/debug/{datasource}/documents"
+    )
+
+    with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
+        client=test_http_client,
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+    ) as glean:
+        assert glean is not None
+
+        res = glean.indexing.documents.debug_many(
+            datasource="<value>", debug_documents=[]
+        )
+        assert res is not None
+
+
+def test_indexing_documents_post_api_index_v1_debug_datasource_document_events():
+    test_http_client = create_test_http_client(
+        "post_/api/index/v1/debug/{datasource}/document/events"
+    )
+
+    with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
+        client=test_http_client,
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+    ) as glean:
+        assert glean is not None
+
+        res = glean.indexing.documents.debug_events(
+            datasource="<value>",
+            object_type="Article",
+            doc_id="art123",
+            start_date="2025-05-01",
+            max_events=50,
+        )
+        assert res is not None

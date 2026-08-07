@@ -158821,7 +158821,7 @@ workflows:
             - condition: $response.header.Content-Type == application/json
             - context: $response.body
               condition: |
-                {"results":[],"has_more":false,"next_cursor":"<value>","request_id":"<id>"}
+                {"results":[],"has_more":false,"next_cursor":"<value>","request_id":"<id>","warnings":[]}
               type: simple
       x-speakeasy-test-group: search
       x-speakeasy-test-rebuild: true
@@ -159047,4 +159047,242 @@ workflows:
                 {"requestId":"<id>"}
               type: simple
       x-speakeasy-test-group: indexing_datasources
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-chat-create
+      steps:
+        - stepId: test
+          operationId: platform-chat-create
+          requestBody:
+            contentType: application/json
+            payload:
+                input: <value>
+                store: true
+                stream: false
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"id":"<id>","object":"response","created_at":"2026-05-19T05:32:52.505Z","status":"completed","output":[{"type":"message","role":"assistant","content":[{"type":"output_text","text":"<value>"}]}],"store":false,"request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: chat_SDK
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-skills-import
+      steps:
+        - stepId: test
+          operationId: platform-skills-import
+          requestBody:
+            contentType: application/json
+            payload:
+                source_urls:
+                    - <value 1>
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"skills":[],"request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: skills
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-skills-preview-source
+      steps:
+        - stepId: test
+          operationId: platform-skills-preview-source
+          requestBody:
+            contentType: application/json
+            payload:
+                source_url: https://ugly-information.name/
+                stream: false
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"skills":[],"failures":[{"source_url":"https://slimy-availability.org","code":"SKILL_FETCH_FAILED","detail":"<value>"}],"request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: skills
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-skills-update
+      steps:
+        - stepId: test
+          operationId: platform-skills-update
+          parameters:
+            - name: skill_id
+              in: path
+              value: <id>
+          requestBody:
+            contentType: application/json
+            payload:
+                status: DISABLED
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"skill":{"id":"<id>","display_name":"Afton14","description":"taut netsuke duh sonata boastfully elegantly management come","latest_version":425795,"latest_minor_version":741364,"status":"DISABLED","origin":"CUSTOM","owner":{"name":"<value>"},"created_at":"2024-12-20T01:31:39.364Z","updated_at":"2025-12-04T02:59:37.124Z"},"request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: skills
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-skills-sync
+      steps:
+        - stepId: test
+          operationId: platform-skills-sync
+          parameters:
+            - name: skill_id
+              in: path
+              value: <id>
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"sync_status":"UP_TO_DATE","commit_sha":"<value>","updated":false,"request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: skills
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-search-filters
+      steps:
+        - stepId: test
+          operationId: platform-search-filters
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"datasources":[],"request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: search
+      x-speakeasy-test-rebuild: true
+    - workflowId: importAgent
+      steps:
+        - stepId: test
+          operationId: importAgent
+          parameters:
+            - name: agent_id
+              in: path
+              value: <id>
+          requestBody:
+            contentType: multipart/form-data
+            payload:
+                bundle: 'x-file: example.file'
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"workflowResult":{"workflow":{"author":{"name":"George Clooney","obfuscatedId":"abc123"},"lastDraftSavedBy":{"name":"George Clooney","obfuscatedId":"abc123"},"lastUpdatedBy":{"name":"George Clooney","obfuscatedId":"abc123"}}}}
+              type: simple
+      x-speakeasy-test-group: client_agents
+      x-speakeasy-test-rebuild: true
+    - workflowId: getToolServerTools
+      steps:
+        - stepId: test
+          operationId: getToolServerTools
+          parameters:
+            - name: serverId
+              in: path
+              value: <id>
+            - name: toolNames
+              in: query
+              value:
+                - <value 1>
+                - <value 2>
+                - <value 3>
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"tools":[{"serverId":"<id>","name":"<value>"}]}
+              type: simple
+      x-speakeasy-test-group: tools
+      x-speakeasy-test-rebuild: true
+    - workflowId: post_/api/index/v1/debug/{datasource}/document
+      steps:
+        - stepId: test
+          operationId: post_/api/index/v1/debug/{datasource}/document
+          parameters:
+            - name: datasource
+              in: path
+              value: <value>
+          requestBody:
+            contentType: application/json
+            payload:
+                docId: art123
+                objectType: Article
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"status":{"uploadStatus":"UPLOADED","lastUploadedAt":"2021-08-06T17:58:01.000Z","indexingStatus":"INDEXED","lastIndexedAt":"2021-08-06T17:58:01.000Z","permissionIdentityStatus":"UPLOADED"}}
+              type: simple
+      x-speakeasy-test-group: indexing_documents
+      x-speakeasy-test-rebuild: true
+    - workflowId: post_/api/index/v1/debug/{datasource}/documents
+      steps:
+        - stepId: test
+          operationId: post_/api/index/v1/debug/{datasource}/documents
+          parameters:
+            - name: datasource
+              in: path
+              value: <value>
+          requestBody:
+            contentType: application/json
+            payload:
+                debugDocuments: []
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"documentStatuses":[{"debugInfo":{"status":{"uploadStatus":"UPLOADED","lastUploadedAt":"2021-08-06T17:58:01.000Z","indexingStatus":"INDEXED","lastIndexedAt":"2021-08-06T17:58:01.000Z","permissionIdentityStatus":"UPLOADED"}}}]}
+              type: simple
+      x-speakeasy-test-group: indexing_documents
+      x-speakeasy-test-rebuild: true
+    - workflowId: post_/api/index/v1/debug/{datasource}/document/events
+      steps:
+        - stepId: test
+          operationId: post_/api/index/v1/debug/{datasource}/document/events
+          parameters:
+            - name: datasource
+              in: path
+              value: <value>
+          requestBody:
+            contentType: application/json
+            payload:
+                docId: art123
+                maxEvents: 50
+                objectType: Article
+                startDate: "2025-05-01"
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"lifeCycleEvents":[{"event":"INDEXED","timestamp":"2021-08-06T17:58:01.000Z"}]}
+              type: simple
+      x-speakeasy-test-group: indexing_documents
+      x-speakeasy-test-rebuild: true
+    - workflowId: post_/api/index/v1/debug/{datasource}/user
+      steps:
+        - stepId: test
+          operationId: post_/api/index/v1/debug/{datasource}/user
+          parameters:
+            - name: datasource
+              in: path
+              value: <value>
+          requestBody:
+            contentType: application/json
+            payload:
+                email: u1@foo.com
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"status":{"isActiveUser":true,"uploadStatus":"UPLOADED","lastUploadedAt":"2021-08-06T17:58:01.000Z"}}
+              type: simple
+      x-speakeasy-test-group: people
       x-speakeasy-test-rebuild: true

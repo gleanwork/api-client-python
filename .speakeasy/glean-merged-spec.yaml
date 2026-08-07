@@ -2,8 +2,8 @@ openapi: 3.0.0
 info:
   version: "0.9.0"
   title: Glean API
-  x-source-commit-sha: 2822daae55430107c738db822cbeeb5a6bef463b
-  x-open-api-commit-sha: 0bdefe83a21f917592624e6f1dbaa180e89d5224
+  x-source-commit-sha: 7a82cb818d032eca9f42d56706dd9e0a65418d45
+  x-open-api-commit-sha: 987c3f6458420f6a99420d808bdccea74ab84dad
   description: |
     # Introduction
     In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This is useful, for example, for doing permissions-aware search over content in internal tools that reside on-prem as well as for searching over applications that Glean does not currently support first class. In addition these APIs allow the customer to push organization data (people info, organization structure etc) into Glean.
@@ -40,9 +40,6 @@ paths:
         Search agents available to the authenticated user by agent name.
       operationId: platform-agents-search
       x-visibility: Public
-      x-glean-experimental:
-        id: 4abc1e17-8e06-490b-99a7-e8f97592405a
-        introduced: "2026-05-12"
       x-codegen-request-body-name: payload
       requestBody:
         required: true
@@ -88,9 +85,6 @@ paths:
         Retrieve details for an agent available to the authenticated user.
       operationId: platform-agents-get
       x-visibility: Public
-      x-glean-experimental:
-        id: 009b3e94-694b-4deb-b80a-c67011173715
-        introduced: "2026-05-12"
       parameters:
         - in: path
           name: agent_id
@@ -135,9 +129,6 @@ paths:
         Retrieve an agent's input and output JSON schemas.
       operationId: platform-agents-get-schemas
       x-visibility: Public
-      x-glean-experimental:
-        id: b40b4dd3-3839-48e6-9e45-7e63e8148b49
-        introduced: "2026-05-12"
       parameters:
         - in: path
           name: agent_id
@@ -189,9 +180,6 @@ paths:
         Execute an agent run. Set `stream` to true to receive server-sent events; otherwise the response contains the final agent messages.
       operationId: platform-agents-create-run
       x-visibility: Public
-      x-glean-experimental:
-        id: 26bba669-2e92-4e5d-9798-6a532fae4e9f
-        introduced: "2026-05-12"
       x-codegen-request-body-name: payload
       parameters:
         - in: path
@@ -240,6 +228,12 @@ paths:
           $ref: "#/components/responses/PlatformConflict"
         "413":
           $ref: "#/components/responses/PlatformRequestTooLarge"
+        "422":
+          description: Returned when the agent has tools the caller must authorize before the run can start. `authentication_suggestions` names each such tool; POST its `server_id` to the Client API's `/tool-servers/{serverId}/auth` with `returnUrl` in the request body to obtain an `authorizationUrl` to redirect the end user to, then retry the run once OAuth completes.
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/PlatformUnauthorizedAgentToolsProblem"
         "429":
           $ref: "#/components/responses/PlatformTooManyRequests"
         "500":
@@ -248,6 +242,77 @@ paths:
           $ref: "#/components/responses/PlatformServiceUnavailable"
       x-speakeasy-group: agents
       x-speakeasy-name-override: createRun
+      security:
+        - APIToken: []
+  /api/chat:
+    post:
+      tags:
+        - Chat
+      summary: Create a chat response
+      description: |
+        Run an assistant turn. Set `stream` to true to receive server-sent events; otherwise the response is a typed JSON response object.
+      operationId: platform-chat-create
+      x-visibility: Public
+      x-glean-experimental:
+        id: e65a0a77-97a2-4c91-be60-eae7f6238015
+        introduced: "2026-07-14"
+      x-codegen-request-body-name: payload
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PlatformChatCreateRequest"
+      responses:
+        "200":
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlatformChatCompletedResponse"
+            text/event-stream:
+              schema:
+                type: string
+                description: |
+                  Server-sent events for a streaming chat run. Event payloads are documented under ChatStream* schemas.
+                example: |
+                  id: 1
+                  event: response.created
+                  data: {"type":"response.created","response_id":"resp_e65a0a77-97a2-4c91-be60-eae7f6238015"}
+
+                  id: 2
+                  event: response.output_text.delta
+                  data: {"type":"response.output_text.delta","response_id":"resp_e65a0a77-97a2-4c91-be60-eae7f6238015","delta":"Hello"}
+
+                  id: 3
+                  event: response.output_text.done
+                  data: {"type":"response.output_text.done","response_id":"resp_e65a0a77-97a2-4c91-be60-eae7f6238015","text":"Hello"}
+
+                  id: 4
+                  event: response.completed
+                  data: {"type":"response.completed","response_id":"resp_e65a0a77-97a2-4c91-be60-eae7f6238015","response":{"id":"resp_e65a0a77-97a2-4c91-be60-eae7f6238015","object":"response","status":"completed","output":[{"type":"message","role":"assistant","content":[{"type":"output_text","text":"Hello"}]}],"store":true,"request_id":"req_123","created_at":"2026-07-14T20:00:00Z"}}
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+        "413":
+          $ref: "#/components/responses/PlatformRequestTooLarge"
+        "422":
+          $ref: "#/components/responses/PlatformUnprocessableEntity"
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+      x-speakeasy-group: chat
+      x-speakeasy-name-override: create
       security:
         - APIToken: []
   /api/skills:
@@ -400,7 +465,217 @@ paths:
       x-speakeasy-name-override: validate
       security:
         - APIToken: []
+  /api/skills/import:
+    post:
+      tags:
+        - Skills
+      summary: Import skills from GitHub
+      description: |
+        Import one or more skills selected from a GitHub source preview. Each source URL is fetched and persisted as an independent skill with source provenance. This operation does not create a durable source resource. The import is atomic: if any source cannot be fetched, validated, or persisted, no skills are created.
+      operationId: platform-skills-import
+      x-visibility: Public
+      x-glean-experimental:
+        id: 9162d790-e101-437d-a9a0-25e4687d150b
+        introduced: "2026-07-28"
+      x-codegen-request-body-name: request
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PlatformSkillImportRequest"
+      responses:
+        "200":
+          description: Skills imported successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlatformSkillImportResponse"
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+        "409":
+          $ref: "#/components/responses/PlatformConflict"
+        "413":
+          $ref: "#/components/responses/PlatformRequestTooLarge"
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+      x-speakeasy-group: skills
+      x-speakeasy-name-override: import
+      security:
+        - APIToken: []
+  /api/skills/sources/preview:
+    post:
+      tags:
+        - Skills
+      summary: Preview a GitHub skill source
+      description: |
+        Inspect a GitHub URL without persisting a source or any discovered skills. Set stream to true to receive repository scan progress as server-sent events; otherwise the response contains the completed preview.
+      operationId: platform-skills-preview-source
+      x-visibility: Public
+      x-glean-experimental:
+        id: 1629009b-244a-400a-bf55-c441dfbc586c
+        introduced: "2026-07-23"
+      x-codegen-request-body-name: request
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PlatformSkillSourcePreviewRequest"
+      responses:
+        "200":
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlatformSkillSourcePreviewResponse"
+            text/event-stream:
+              schema:
+                type: string
+                description: |
+                  Server-sent scan, progress, skill, and result events. A failed stream
+                  emits `data: {"type":"error","code":"service_unavailable","message":"GitHub is temporarily unavailable."}`
+                  followed by `data: [DONE]` instead of a result event.
+                example: |
+                  data: {"type":"scan","total":1,"skill_paths":["https://github.com/acme/skills/tree/main/skills/example"]}
+
+                  data: {"type":"progress","completed":1,"total":1,"current_skill":"skills/example/SKILL.md"}
+
+                  data: {"type":"skill","skill":{"display_name":"Example","description":"Example skill","source_url":"https://github.com/acme/skills/tree/main/skills/example","commit_sha":"abc123","main_content":"---\nname: Example\n---","files":[],"file_tree":["SKILL.md"]}}
+
+                  data: {"type":"result","response":{"skills":[{"display_name":"Example","description":"Example skill","source_url":"https://github.com/acme/skills/tree/main/skills/example","commit_sha":"abc123","main_content":"---\nname: Example\n---","files":[],"file_tree":["SKILL.md"]}],"failures":[],"request_id":"req-123"}}
+
+                  data: [DONE]
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+        "413":
+          $ref: "#/components/responses/PlatformRequestTooLarge"
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+      x-speakeasy-group: skills
+      x-speakeasy-name-override: previewSource
+      security:
+        - APIToken: []
   /api/skills/{skill_id}:
+    patch:
+      tags:
+        - Skills
+      summary: Update skill
+      description: |
+        Update mutable metadata for a skill. V1 supports enabling or disabling a skill without changing its content.
+      operationId: platform-skills-update
+      x-visibility: Public
+      x-glean-experimental:
+        id: 262e1f6b-6c2d-4d6d-943b-fc251d2fb38b
+        introduced: "2026-07-20"
+      parameters:
+        - name: skill_id
+          in: path
+          required: true
+          description: Glean skill ID.
+          schema:
+            type: string
+            minLength: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PlatformSkillUpdateRequest"
+        x-codegen-request-body-name: request
+      responses:
+        "200":
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlatformSkillUpdateResponse"
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+        "409":
+          $ref: "#/components/responses/PlatformConflict"
+        "413":
+          $ref: "#/components/responses/PlatformRequestTooLarge"
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+      x-speakeasy-group: skills
+      x-speakeasy-name-override: update
+      security:
+        - APIToken: []
+    delete:
+      tags:
+        - Skills
+      summary: Delete skill
+      description: |
+        Delete a skill the authenticated caller is allowed to manage. This operation permanently removes all versions of the skill.
+      operationId: platform-skills-delete
+      x-visibility: Public
+      x-glean-experimental:
+        id: c4351fd0-4d28-4ad4-ab93-587ca4778173
+        introduced: "2026-07-31"
+      parameters:
+        - name: skill_id
+          in: path
+          required: true
+          description: Glean skill ID.
+          schema:
+            type: string
+            minLength: 1
+      responses:
+        "204":
+          description: Skill deleted. No content.
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+      x-speakeasy-group: skills
+      x-speakeasy-name-override: delete
+      security:
+        - APIToken: []
     get:
       tags:
         - Skills
@@ -498,6 +773,57 @@ paths:
           $ref: "#/components/responses/PlatformServiceUnavailable"
       x-speakeasy-group: skills
       x-speakeasy-name-override: retrieveContent
+      security:
+        - APIToken: []
+  /api/skills/{skill_id}/sync:
+    post:
+      tags:
+        - Skills
+      summary: Sync a GitHub-imported skill
+      description: |
+        Refresh one GitHub-imported skill from its stored source URL. If the skill content has changed, this operation creates a new skill version. If the skill is no longer present upstream, the stored skill is left unchanged and must be deleted explicitly.
+      operationId: platform-skills-sync
+      x-visibility: Public
+      x-glean-experimental:
+        id: 568aa3f8-2af8-449c-9e4f-818ed4b877ef
+        introduced: "2026-08-03"
+      parameters:
+        - name: skill_id
+          in: path
+          required: true
+          description: ID of the GitHub-imported skill to sync.
+          schema:
+            type: string
+            minLength: 1
+      responses:
+        "200":
+          description: Skill sync completed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlatformSkillSyncResponse"
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+        "409":
+          $ref: "#/components/responses/PlatformConflict"
+        "413":
+          $ref: "#/components/responses/PlatformRequestTooLarge"
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+      x-speakeasy-group: skills
+      x-speakeasy-name-override: sync
       security:
         - APIToken: []
   /api/skills/{skill_id}/versions:
@@ -739,7 +1065,8 @@ paths:
         - Search
       summary: Search
       description: |
-        Execute a search query and retrieve ranked results. This is the data retrieval variant of the search API and returns only results and pagination state.
+        Search your organization's connected content and return ranked document results with cursor pagination. Use `GET /api/search/filters` to discover datasource identifiers and common filter fields. Built-in filter names are validated; other field names are accepted as custom filters and behavior depends on your Glean configuration and connected sources.
+        Errors: HTTP 422 `unprocessable_query` returns no `results` or `next_cursor`. See `warnings` on the response for non-blocking issues such as partially available results. Not every query issue produces a warning or error.
       operationId: platform-search
       x-visibility: Public
       x-glean-experimental:
@@ -754,7 +1081,7 @@ paths:
               $ref: "#/components/schemas/PlatformSearchRequest"
       responses:
         "200":
-          description: Successful search.
+          description: Successful response.
           content:
             application/json:
               schema:
@@ -771,6 +1098,8 @@ paths:
           $ref: "#/components/responses/PlatformRequestTimeout"
         "413":
           $ref: "#/components/responses/PlatformRequestTooLarge"
+        "422":
+          $ref: "#/components/responses/PlatformUnprocessableEntity"
         "429":
           $ref: "#/components/responses/PlatformTooManyRequests"
         "500":
@@ -779,6 +1108,73 @@ paths:
           $ref: "#/components/responses/PlatformServiceUnavailable"
       x-speakeasy-group: search
       x-speakeasy-name-override: query
+      security:
+        - APIToken: []
+  /api/search/filters:
+    get:
+      tags:
+        - Search
+      summary: List search filters
+      description: |
+        List datasources and common built-in filter fields visible to the authenticated user. This is a best-effort catalog, not an exhaustive list of every filter search accepts.
+        Without `query`, returns field metadata only and does not run a search. With a nonblank `query`, provide exactly one `datasources` value to request suggested filter values for that query; no documents are returned and this endpoint does not include warning objects. See `FilterFieldInfo.values` for limitations on suggested values. Rate-limited requests return HTTP 429 with `Retry-After`; temporary backend unavailability returns HTTP 503.
+      operationId: platform-search-filters
+      x-visibility: Public
+      x-glean-experimental:
+        id: 0b585621-13fb-4544-bf20-5e1c99452735
+        introduced: "2026-05-12"
+      parameters:
+        - in: query
+          name: datasources
+          description: |
+            Restrict metadata to one or more datasource identifiers as returned by this endpoint (for example, `jira`). With a nonblank `query`, exactly one datasource is required. Unknown or inaccessible identifiers return `invalid_datasource`.
+          required: false
+          schema:
+            type: array
+            minItems: 1
+            items:
+              type: string
+              minLength: 1
+        - in: query
+          name: query
+          description: |
+            Optional search query that requests suggested filter values for the selected datasource. Must be nonblank when present. Triggers a search for facet values only; does not return documents.
+          required: false
+          schema:
+            type: string
+            minLength: 1
+      responses:
+        "200":
+          description: Successful response.
+          headers:
+            Cache-Control:
+              description: |
+                Present as `no-store` for query-backed discovery responses. Catalog-only responses omit this endpoint-specific override.
+              schema:
+                type: string
+                example: no-store
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlatformSearchFiltersResponse"
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+      x-speakeasy-group: search
+      x-speakeasy-name-override: listFilters
       security:
         - APIToken: []
   /rest/api/v1/activity:
@@ -1442,6 +1838,10 @@ paths:
           description: Not Authorized
         "403":
           description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessRequestPermissionDeniedResponse'
         "429":
           description: Too Many Requests
       x-visibility: Public
@@ -1835,6 +2235,56 @@ paths:
       x-visibility: Preview
       x-speakeasy-group: client.agents
       x-speakeasy-name-override: retrieveSchemas
+  /rest/api/v1/agents/{agent_id}/import:
+    post:
+      operationId: importAgent
+      summary: Import an agent
+      description: 'Imports an [agent](https://developers.glean.com/agents/agents-api) from its on-disk folder representation (spec.yaml, instructions.md, skills/, subagents/) packaged as a zip, and creates or updates the agent. Inverse of the export flow: the folder-to-schema conversion runs server-side. The bundle must contain only regular files; symlinks are resolved by the caller at packaging time.'
+      tags:
+        - Agents
+      security:
+        - APIToken: []
+      parameters:
+        - $ref: '#/components/parameters/locale'
+        - $ref: '#/components/parameters/timezoneOffset'
+        - name: agent_id
+          in: path
+          description: The ID of the agent to create or update.
+          required: true
+          schema:
+            type: string
+            title: Agent ID
+            description: The ID of the agent to create or update.
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ImportAgentRequest'
+        required: true
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportAgentResponse'
+        "400":
+          description: Bad request
+        "401":
+          description: Not Authorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "500":
+          description: Internal server error
+      x-visibility: Preview
+      x-speakeasy-group: client.agents
+      x-speakeasy-name-override: import
   /rest/api/v1/agents/search:
     post:
       operationId: searchAgents
@@ -1934,11 +2384,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         "422":
-          description: Validation Error
+          description: Returned when the agent has tools the caller has not authorized. The response body enumerates the tools that need connecting.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                $ref: '#/components/schemas/UnauthorizedAgentToolsError'
         "500":
           description: Internal server error
       x-visibility: Preview
@@ -1975,7 +2425,11 @@ paths:
         "409":
           description: Conflict
         "422":
-          description: Validation Error
+          description: Returned when the agent has tools the caller has not authorized. The response body enumerates the tools that need connecting.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedAgentToolsError'
         "500":
           description: Internal server error
       x-visibility: Preview
@@ -3539,6 +3993,65 @@ paths:
         required: true
         schema:
           type: string
+  /rest/api/v1/tool-servers/{serverId}/tools:
+    get:
+      operationId: getToolServerTools
+      summary: Get tool definitions from a tool server.
+      description: |
+        Returns the name, description and JSON input schema for the named tools on the
+        specified tool server. Works for both action packs and MCP servers.
+
+        `toolNames` is required. Names that do not exist on the server are returned in
+        `notFound` rather than failing the request, so a single bad name does not force
+        callers into one-at-a-time retries. Matching is case-insensitive and treats `-`
+        and `_` as equivalent.
+
+        Native tools are not served; `serverId=native` returns 404.
+      tags:
+        - Tools
+      security:
+        - APIToken: []
+      parameters:
+        - name: toolNames
+          in: query
+          description: Tool names to look up on this server. Maximum 100.
+          required: true
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ToolDefinitionsResponse'
+        "400":
+          description: Invalid request (e.g. missing toolNames, or more than 100 names)
+        "401":
+          description: Unauthorized
+        "404":
+          description: Tool server not found
+        "429":
+          description: Too Many Requests
+        "503":
+          description: Tool schemas could not be resolved from the server
+      x-visibility: Preview
+      x-glean-experimental:
+        id: 332eb38f-1b5d-4896-88e3-59db5e96e4e1
+        introduced: "2026-07-30"
+      x-speakeasy-name-override: getToolServerTools
+      x-speakeasy-group: client.tools
+    parameters:
+      - name: serverId
+        in: path
+        description: Unique identifier of the tool server.
+        required: true
+        schema:
+          type: string
   /api/index/v1/indexdocument:
     post:
       summary: Index document
@@ -4000,7 +4513,7 @@ paths:
         "200":
           description: OK
           content:
-            application/json; charset=UTF-8:
+            application/json:
               schema:
                 $ref: '#/components/schemas/DebugDatasourceStatusResponse'
         "400":
@@ -4031,7 +4544,7 @@ paths:
             type: string
       requestBody:
         content:
-          application/json; charset=UTF-8:
+          application/json:
             schema:
               $ref: '#/components/schemas/DebugDocumentRequest'
         required: true
@@ -4040,7 +4553,7 @@ paths:
         "200":
           description: OK
           content:
-            application/json; charset=UTF-8:
+            application/json:
               schema:
                 $ref: '#/components/schemas/DebugDocumentResponse'
         "400":
@@ -4071,7 +4584,7 @@ paths:
             type: string
       requestBody:
         content:
-          application/json; charset=UTF-8:
+          application/json:
             schema:
               $ref: '#/components/schemas/DebugDocumentsRequest'
         required: true
@@ -4080,7 +4593,7 @@ paths:
         "200":
           description: OK
           content:
-            application/json; charset=UTF-8:
+            application/json:
               schema:
                 $ref: '#/components/schemas/DebugDocumentsResponse'
         "400":
@@ -4111,7 +4624,7 @@ paths:
             type: string
       requestBody:
         content:
-          application/json; charset=UTF-8:
+          application/json:
             schema:
               $ref: '#/components/schemas/DebugUserRequest'
         required: true
@@ -4120,7 +4633,7 @@ paths:
         "200":
           description: OK
           content:
-            application/json; charset=UTF-8:
+            application/json:
               schema:
                 $ref: '#/components/schemas/DebugUserResponse'
         "400":
@@ -4639,7 +5152,7 @@ paths:
             type: string
       requestBody:
         content:
-          application/json; charset=UTF-8:
+          application/json:
             schema:
               $ref: '#/components/schemas/DebugDocumentLifecycleRequest'
         required: true
@@ -4648,7 +5161,7 @@ paths:
         "200":
           description: OK
           content:
-            application/json; charset=UTF-8:
+            application/json:
               schema:
                 $ref: '#/components/schemas/DebugDocumentLifecycleResponse'
         "400":
@@ -5640,6 +6153,24 @@ components:
       description: >-
         HTTP bearer token. Accepts a Glean-issued API token, an OAuth access token from the Glean OAuth Authorization Server (including Dynamic Client Registration clients), or an OAuth access token issued by an external identity provider. External-IdP OAuth tokens must also include the `X-Glean-Auth-Type: OAUTH` request header. OAuth is supported on the Client API only; the Indexing API requires a Glean-issued token.
   schemas:
+    PlatformWarning:
+      type: object
+      additionalProperties: false
+      required:
+        - code
+        - message
+      description: Non-blocking warning attached to a successful Platform response.
+      properties:
+        code:
+          type: string
+          minLength: 1
+          description: |
+            Open snake_case warning code. Clients must tolerate unknown values; the set of codes is not a closed enum.
+          example: results_incomplete
+        message:
+          type: string
+          minLength: 1
+          description: Human-readable warning message.
     PlatformAgentsSearchRequest:
       type: object
       additionalProperties: false
@@ -5710,13 +6241,16 @@ components:
         - authentication_required
         - token_expired
         - insufficient_permissions
+        - spend_limit_exceeded
         - resource_not_found
         - method_not_allowed
         - request_timeout
         - request_too_large
+        - token_limit_exceeded
         - conflict
         - gone
         - unprocessable_query
+        - tools_unauthorized
         - rate_limit_exceeded
         - internal_error
         - service_unavailable
@@ -5751,6 +6285,9 @@ components:
         insufficient_permissions:
           status: 403
           title: Insufficient Permissions
+        spend_limit_exceeded:
+          status: 403
+          title: Spend Limit Exceeded
         resource_not_found:
           status: 404
           title: Resource Not Found
@@ -5763,6 +6300,9 @@ components:
         request_too_large:
           status: 413
           title: Request Too Large
+        token_limit_exceeded:
+          status: 413
+          title: Token Limit Exceeded
         conflict:
           status: 409
           title: Conflict
@@ -5772,6 +6312,9 @@ components:
         unprocessable_query:
           status: 422
           title: Unprocessable Query
+        tools_unauthorized:
+          status: 422
+          title: Tools Unauthorized
         rate_limit_exceeded:
           status: 429
           title: Rate Limit Exceeded
@@ -6025,6 +6568,304 @@ components:
         request_id:
           type: string
           description: Platform-generated request ID for support correlation.
+    PlatformAuthenticationSuggestion:
+      type: object
+      description: One tool the caller must authorize before the agent can run.
+      required:
+        - server_id
+      properties:
+        tool_name:
+          type: string
+          description: Human-readable tool name.
+        server_id:
+          type: string
+          description: Identifier to POST to `/tool-servers/{serverId}/auth` (Client API) with `returnUrl` in the request body to obtain an `authorizationUrl` to redirect the end user to.
+    PlatformUnauthorizedAgentToolsProblem:
+      description: Problem detail extended with `authentication_suggestions` naming each tool the caller must authorize.
+      allOf:
+        - $ref: "#/components/schemas/PlatformProblemDetail"
+        - type: object
+          required:
+            - authentication_suggestions
+          properties:
+            authentication_suggestions:
+              type: array
+              description: One entry per tool the caller must authorize.
+              items:
+                $ref: "#/components/schemas/PlatformAuthenticationSuggestion"
+    PlatformChatInputMessage:
+      type: object
+      additionalProperties: false
+      required:
+        - role
+        - content
+      properties:
+        role:
+          type: string
+          enum:
+            - user
+            - assistant
+        content:
+          type: string
+          minLength: 1
+    PlatformChatCreateRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - input
+      properties:
+        input:
+          description: |
+            Either a plain string (single user turn) or a chronological array of `user`/`assistant` messages. The final array message must be `user`.
+          oneOf:
+            - type: string
+              minLength: 1
+            - type: array
+              minItems: 1
+              items:
+                $ref: "#/components/schemas/PlatformChatInputMessage"
+        stream:
+          type: boolean
+          description: |
+            When true, respond with `text/event-stream`. When false or omitted, respond with `application/json`.
+          default: false
+        store:
+          type: boolean
+          description: |
+            When true (default), persist the interaction and return a `conversation_id`. When false, run ephemerally with no persistence.
+          default: true
+        conversation_id:
+          type: string
+          minLength: 1
+          description: |
+            Continue an existing stored conversation. Incompatible with message-array `input` and with `store: false`.
+    PlatformChatStreamResponseId:
+      type: string
+      minLength: 1
+      pattern: ^resp_[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$
+      description: |
+        Platform-owned, non-persisted response envelope identifier in `resp_<uuid>` form. The same identifier is used for every event in one streamed response.
+    PlatformChatDocumentSource:
+      type: object
+      additionalProperties: false
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          enum:
+            - document
+        document_id:
+          type: string
+          minLength: 1
+        url:
+          type: string
+          minLength: 1
+        title:
+          type: string
+        datasource:
+          type: string
+      anyOf:
+        - required:
+            - document_id
+        - required:
+            - url
+    PlatformChatPersonSource:
+      type: object
+      additionalProperties: false
+      required:
+        - type
+        - person_id
+      properties:
+        type:
+          type: string
+          enum:
+            - person
+        person_id:
+          type: string
+          minLength: 1
+        name:
+          type: string
+        url:
+          type: string
+    PlatformChatFileSource:
+      type: object
+      additionalProperties: false
+      required:
+        - type
+        - file_id
+      properties:
+        type:
+          type: string
+          enum:
+            - file
+        file_id:
+          type: string
+          minLength: 1
+        title:
+          type: string
+        url:
+          type: string
+        datasource:
+          type: string
+    PlatformChatCustomEntitySource:
+      type: object
+      additionalProperties: false
+      required:
+        - type
+        - entity_id
+      properties:
+        type:
+          type: string
+          enum:
+            - custom_entity
+        entity_id:
+          type: string
+          minLength: 1
+        name:
+          type: string
+        title:
+          type: string
+        url:
+          type: string
+        datasource:
+          type: string
+    PlatformChatCitationSource:
+      description: Four-variant citation source union.
+      oneOf:
+        - $ref: "#/components/schemas/PlatformChatDocumentSource"
+        - $ref: "#/components/schemas/PlatformChatPersonSource"
+        - $ref: "#/components/schemas/PlatformChatFileSource"
+        - $ref: "#/components/schemas/PlatformChatCustomEntitySource"
+      discriminator:
+        propertyName: type
+        mapping:
+          document: "#/components/schemas/ChatDocumentSource"
+          person: "#/components/schemas/ChatPersonSource"
+          file: "#/components/schemas/ChatFileSource"
+          custom_entity: "#/components/schemas/ChatCustomEntitySource"
+    PlatformChatCitationSnippet:
+      type: object
+      additionalProperties: false
+      required:
+        - text
+      properties:
+        text:
+          type: string
+          minLength: 1
+        page_number:
+          type: integer
+          nullable: true
+    PlatformChatCitationAnnotation:
+      type: object
+      additionalProperties: false
+      required:
+        - type
+        - sources
+      properties:
+        type:
+          type: string
+          enum:
+            - citation
+        sources:
+          type: array
+          minItems: 1
+          items:
+            $ref: "#/components/schemas/PlatformChatCitationSource"
+        start_index:
+          type: integer
+          minimum: 0
+          nullable: true
+        end_index:
+          type: integer
+          minimum: 0
+          nullable: true
+        snippets:
+          type: array
+          nullable: true
+          items:
+            $ref: "#/components/schemas/PlatformChatCitationSnippet"
+    PlatformChatOutputTextContent:
+      type: object
+      additionalProperties: false
+      required:
+        - type
+        - text
+      properties:
+        type:
+          type: string
+          enum:
+            - output_text
+        text:
+          type: string
+        annotations:
+          type: array
+          items:
+            $ref: "#/components/schemas/PlatformChatCitationAnnotation"
+    PlatformChatOutputMessage:
+      type: object
+      additionalProperties: false
+      required:
+        - type
+        - role
+        - content
+      properties:
+        type:
+          type: string
+          enum:
+            - message
+        role:
+          type: string
+          enum:
+            - assistant
+        content:
+          type: array
+          minItems: 1
+          maxItems: 1
+          items:
+            $ref: "#/components/schemas/PlatformChatOutputTextContent"
+    PlatformChatCompletedResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - object
+        - created_at
+        - status
+        - output
+        - store
+        - request_id
+      properties:
+        id:
+          $ref: "#/components/schemas/PlatformChatStreamResponseId"
+        object:
+          type: string
+          enum:
+            - response
+        created_at:
+          type: string
+          format: date-time
+          description: RFC 3339 UTC timestamp when the response was created.
+        status:
+          type: string
+          enum:
+            - completed
+        output:
+          type: array
+          minItems: 1
+          maxItems: 1
+          items:
+            $ref: "#/components/schemas/PlatformChatOutputMessage"
+        store:
+          type: boolean
+        conversation_id:
+          type: string
+          minLength: 1
+          nullable: true
+          description: Present when the interaction was persisted.
+        request_id:
+          type: string
+          minLength: 1
     PlatformSkillStatus:
       type: string
       enum:
@@ -6205,18 +7046,6 @@ components:
         is_manifest:
           type: boolean
           description: Whether this file is the skill manifest.
-    PlatformSkillValidationWarning:
-      type: object
-      required:
-        - code
-        - message
-      properties:
-        code:
-          type: string
-          description: Stable warning code.
-        message:
-          type: string
-          description: Human-readable warning message.
     PlatformSkillValidationResponse:
       type: object
       required:
@@ -6236,7 +7065,143 @@ components:
           type: array
           description: Non-blocking validation warnings.
           items:
-            $ref: "#/components/schemas/PlatformSkillValidationWarning"
+            $ref: "#/components/schemas/PlatformWarning"
+        request_id:
+          type: string
+          description: Platform-generated request ID for support correlation.
+    PlatformSkillImportRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - source_urls
+      properties:
+        source_urls:
+          type: array
+          minItems: 1
+          maxItems: 100
+          uniqueItems: true
+          description: Resolved GitHub skill URLs selected from a source preview.
+          items:
+            type: string
+            minLength: 1
+            maxLength: 2048
+    PlatformSkillImportResponse:
+      type: object
+      required:
+        - skills
+        - request_id
+      properties:
+        skills:
+          type: array
+          minItems: 1
+          description: Independently persisted skills in request order.
+          items:
+            $ref: "#/components/schemas/PlatformSkill"
+        request_id:
+          type: string
+          description: Platform-generated request ID for support correlation.
+    PlatformSkillSourcePreviewRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - source_url
+      properties:
+        source_url:
+          type: string
+          minLength: 1
+          maxLength: 2048
+          description: GitHub URL for a skill directory, SKILL.md file, or repository to inspect.
+        stream:
+          type: boolean
+          default: false
+          description: Whether to stream repository scan progress using server-sent events.
+    PlatformSkillSourcePreviewFile:
+      type: object
+      required:
+        - path
+        - content
+      properties:
+        path:
+          type: string
+          description: Relative path within the skill bundle.
+        content:
+          type: string
+          description: UTF-8 file content.
+    PlatformSkillSourcePreview:
+      type: object
+      required:
+        - display_name
+        - description
+        - source_url
+        - commit_sha
+        - main_content
+        - files
+        - file_tree
+      properties:
+        display_name:
+          type: string
+          description: Skill name parsed from SKILL.md frontmatter.
+        description:
+          type: string
+          description: Skill description parsed from SKILL.md frontmatter.
+        source_url:
+          type: string
+          description: Resolved URL for this skill within the source.
+        commit_sha:
+          type: string
+          description: Commit SHA used to produce the preview.
+        main_content:
+          type: string
+          description: SKILL.md content fetched as part of the preview.
+        files:
+          type: array
+          description: Supporting files fetched with the skill.
+          items:
+            $ref: "#/components/schemas/PlatformSkillSourcePreviewFile"
+        file_tree:
+          type: array
+          description: Relative paths discovered for the skill.
+          items:
+            type: string
+    PlatformSkillSourcePreviewFailureCode:
+      type: string
+      enum:
+        - INVALID_SKILL
+        - SKILL_FETCH_FAILED
+      description: Stable machine-readable reason a discovered entry was excluded.
+    PlatformSkillSourcePreviewFailure:
+      type: object
+      required:
+        - source_url
+        - code
+        - detail
+      properties:
+        source_url:
+          type: string
+          description: Resolved URL for the entry that could not be previewed.
+        code:
+          $ref: "#/components/schemas/PlatformSkillSourcePreviewFailureCode"
+        detail:
+          type: string
+          description: Safe explanation of why the entry was excluded.
+    PlatformSkillSourcePreviewResponse:
+      type: object
+      required:
+        - skills
+        - failures
+        - request_id
+      properties:
+        skills:
+          type: array
+          minItems: 1
+          description: Valid skills discovered at the source URL.
+          items:
+            $ref: "#/components/schemas/PlatformSkillSourcePreview"
+        failures:
+          type: array
+          description: Discovered entries that could not be included in the preview.
+          items:
+            $ref: "#/components/schemas/PlatformSkillSourcePreviewFailure"
         request_id:
           type: string
           description: Platform-generated request ID for support correlation.
@@ -6248,6 +7213,56 @@ components:
       properties:
         skill:
           $ref: "#/components/schemas/PlatformSkill"
+        request_id:
+          type: string
+          description: Platform-generated request ID for support correlation.
+    PlatformSkillUpdateStatus:
+      type: string
+      enum:
+        - ENABLED
+        - DISABLED
+      description: New status for the skill.
+    PlatformSkillUpdateRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - status
+      properties:
+        status:
+          $ref: "#/components/schemas/PlatformSkillUpdateStatus"
+    PlatformSkillUpdateResponse:
+      type: object
+      required:
+        - skill
+        - request_id
+      properties:
+        skill:
+          $ref: "#/components/schemas/PlatformSkill"
+        request_id:
+          type: string
+          description: Platform-generated request ID for support correlation.
+    PlatformSkillSyncResultStatus:
+      type: string
+      enum:
+        - UP_TO_DATE
+      description: Synchronization status after a successful refresh.
+    PlatformSkillSyncResponse:
+      type: object
+      required:
+        - sync_status
+        - commit_sha
+        - updated
+        - request_id
+      properties:
+        sync_status:
+          $ref: "#/components/schemas/PlatformSkillSyncResultStatus"
+        commit_sha:
+          type: string
+          minLength: 1
+          description: Git commit SHA now associated with the skill.
+        updated:
+          type: boolean
+          description: Whether this request created a new skill version.
         request_id:
           type: string
           description: Platform-generated request ID for support correlation.
@@ -6353,23 +7368,27 @@ components:
         - LTE
     PlatformFilter:
       type: object
+      additionalProperties: false
       required:
         - field
         - values
       description: |
-        A single filter criterion. For `EQUALS`, multiple values within a filter are OR'd. For `NOT_EQUALS`, multiple values exclude all listed values. Filters are AND'd with each other and with any inline query operators.
+        A single filter criterion. For `EQUALS`, multiple values within a filter are OR'd; for `NOT_EQUALS`, listed values are excluded. Separate filters are AND'd with each other and with inline operators in `query`. Repeated same-field `EQUALS` filters are rejected.
       properties:
         field:
           type: string
+          minLength: 1
           description: |
-            The field to filter on. Accepts built-in filter field names such as `type`, `owner`, `from`, `author`, `channel`, `status`, `assignee`, `reporter`, `component`, `mentions`, and `collection`, plus custom datasource property names.
+            Filter field name. Built-in names (case-sensitive, lowercase only): `type`, `owner`, `from`, `author`, `channel`, `status`, `assignee`, `reporter`, `component`, `mentions`, and `collection`. Built-ins accept only `EQUALS` and `NOT_EQUALS`. Any other nonblank name is accepted as a custom filter without spelling, existence, or type checks; behavior depends on your connected sources.
           example: type
         values:
           type: array
           minItems: 1
           items:
             type: string
-          description: One or more values to match.
+            minLength: 1
+          description: |
+            One or more values to match. Prefer values returned by filter discovery unchanged. For people (`USER`) fields, values may be email addresses or display names.
           example:
             - spreadsheet
             - presentation
@@ -6377,9 +7396,10 @@ components:
           allOf:
             - $ref: "#/components/schemas/PlatformFilterOperator"
           description: |
-            Comparison operator to apply to this filter. Defaults to `EQUALS`. `GT`, `GTE`, `LT`, and `LTE` range operators require exactly one value; express bounded ranges with multiple filters on the same field.
+            Comparison operator. Defaults to `EQUALS`. Built-in fields support only `EQUALS` and `NOT_EQUALS`. Range operators (`GT`, `GTE`, `LT`, `LTE`) require exactly one value; express ranges with multiple filters on the same field. Custom fields may support different operators depending on the data source.
     PlatformTimeRange:
       type: object
+      additionalProperties: false
       description: Filter results to those last updated within this range.
       properties:
         start:
@@ -6408,6 +7428,7 @@ components:
       properties:
         query:
           type: string
+          minLength: 1
           description: |
             The search query string. Supports inline operators such as `from:jane type:document app:confluence`. Inline operators are AND'd with structured `filters`.
         page_size:
@@ -6421,28 +7442,27 @@ components:
           nullable: true
           description: |
             Opaque pagination token from a previous response's `next_cursor` field. Omit on the first request.
+          example: ""
         datasources:
           type: array
+          minItems: 1
           items:
             type: string
+            minLength: 1
           description: |
-            Restrict results to specific datasources. Requests must not specify both `datasources` and `datasource_instances`.
-        datasource_instances:
-          type: array
-          items:
-            type: string
-          description: |
-            Restrict results to specific datasource instances. Values are datasource instance identifiers returned by `GET /api/search/filters`. Requests must not specify both `datasources` and `datasource_instances`.
+            Restrict results to specific datasource identifiers returned by `GET /api/search/filters`. Scopes by datasource type and may include results from multiple instances of that type.
         filters:
           type: array
+          minItems: 1
           items:
             $ref: "#/components/schemas/PlatformFilter"
           description: |
-            Structured filters applied to search results. Equality operators OR multiple values within a filter. Multiple filters are AND'd together, including range filters on the same field. Filters are AND'd with any inline operators in `query`. Note that conflicting constraints on the same field (e.g., `type:document` in the query and `type: spreadsheet` in a filter) produce an empty result set.
+            Structured filters applied to search results. Multiple values within a filter with `EQUALS` are OR'd; separate filters are AND'd. Conflicting constraints on the same field (for example, `type:document` in `query` and `type:spreadsheet` in a filter) return an empty result set. See `Filter.field` for built-in field names and operators. Other nonblank field names are accepted as custom filters without validation; behavior depends on your connected sources.
         time_range:
           $ref: "#/components/schemas/PlatformTimeRange"
     PlatformResult:
       type: object
+      additionalProperties: false
       required:
         - url
         - title
@@ -6451,31 +7471,31 @@ components:
         url:
           type: string
           format: uri
+          minLength: 1
           description: Canonical URL of the result.
           example: https://company.atlassian.net/wiki/spaces/ENG/pages/12345
         title:
           type: string
+          minLength: 1
           description: Result title.
           example: Q2 2026 Platform Roadmap
         snippets:
           type: array
           items:
             type: string
+            minLength: 1
           description: Query-relevant plain-text excerpts from the result body.
           example:
             - The platform team will focus on API stability and...
         datasource:
           type: string
+          minLength: 1
           description: The datasource this result originates from.
           example: confluence
-        datasource_instance:
-          type: string
-          nullable: true
-          description: The datasource instance this result originates from, if known.
-          example: confluence_acme
         document_type:
           type: string
           nullable: true
+          minLength: 1
           description: The document type within the datasource.
           example: page
         creator:
@@ -6494,17 +7514,20 @@ components:
           description: When the result was created.
     PlatformSearchResponse:
       type: object
+      additionalProperties: false
       required:
         - results
         - has_more
         - next_cursor
         - request_id
+        - warnings
       properties:
         results:
           type: array
           items:
             $ref: "#/components/schemas/PlatformResult"
-          description: Ordered list of search results.
+          description: |
+            Ordered list of ranked document results. People cards, Q&A blocks, and other UI-only result types are not included.
         has_more:
           type: boolean
           description: Indicates whether additional pages of results are available.
@@ -6514,6 +7537,82 @@ components:
           description: Opaque token to pass as `cursor` in the next request.
         request_id:
           type: string
+          minLength: 1
+          description: Platform-generated request ID for support correlation.
+        warnings:
+          type: array
+          description: |
+            Non-blocking warnings for this response. Required; use `[]` when there are none. Clients must tolerate unknown warning codes. `results_incomplete` means some results may be unavailable for the requested datasource scope while `results`, `has_more`, and `next_cursor` remain present. Warning messages are generic and do not include query text or internal identifiers.
+          items:
+            $ref: "#/components/schemas/PlatformWarning"
+    PlatformFilterFieldInfo:
+      type: object
+      additionalProperties: false
+      required:
+        - field
+        - type
+        - operators
+      properties:
+        field:
+          type: string
+          minLength: 1
+          description: Field name usable in the `filters` array for `POST /api/search`.
+          example: status
+        type:
+          type: string
+          minLength: 1
+          description: |
+            Open field-type string. Current values are `STRING` for text and keyword fields and `USER` for people fields (`owner`, `from`, `author`, `assignee`, `reporter`, `mentions`). Clients must tolerate unknown values.
+          example: STRING
+        operators:
+          type: array
+          minItems: 1
+          description: |
+            Comparison operators supported for this field. Built-in fields expose `EQUALS` and `NOT_EQUALS`.
+          items:
+            $ref: "#/components/schemas/PlatformFilterOperator"
+        values:
+          type: array
+          description: |
+            Suggested filter values observed for the supplied `query`. Omitted in catalog-only responses. Present as an array, including `[]`, when `query` is provided. Values are a bounded, non-exhaustive sample in search-provider order and may include duplicates; blank values are omitted. No additional endpoint-specific truncation is applied. Grouping in the search UI is not preserved; each value applies to the field broadly. An empty array does not mean no valid value exists. Availability varies by data source; federated and MCP integrations may return page-derived values or none at all. Reusing a suggested value in `POST /api/search` does not guarantee matching results or identical filter behavior. For `USER` fields, values may be email addresses or display names.
+          items:
+            type: string
+            minLength: 1
+    PlatformDatasourceFilterInfo:
+      type: object
+      additionalProperties: false
+      required:
+        - datasource
+        - filters
+      properties:
+        datasource:
+          type: string
+          minLength: 1
+          description: |
+            Datasource identifier usable in `POST /api/search` `datasources`.
+          example: jira
+        filters:
+          type: array
+          description: |
+            Common built-in filter fields for this datasource. May be empty. A built-in omitted here can still be valid in `POST /api/search`; see `Filter.field` for the full built-in name list.
+          items:
+            $ref: "#/components/schemas/PlatformFilterFieldInfo"
+    PlatformSearchFiltersResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - datasources
+        - request_id
+      properties:
+        datasources:
+          type: array
+          description: |
+            Datasources visible to the authenticated user. Each `datasource` is an identifier you can pass to `POST /api/search` `datasources`. An empty array means no visible datasources.
+          items:
+            $ref: "#/components/schemas/PlatformDatasourceFilterInfo"
+        request_id:
+          type: string
+          minLength: 1
           description: Platform-generated request ID for support correlation.
     ActivityEventParams:
       properties:
@@ -6719,6 +7818,8 @@ components:
               - RESULTS_HELPFUL
               - RESULTS_POOR_ORDER
               - TOO_MUCH_ONE_KIND
+              - NOT_A_QUESTION
+              - UNSURE_IF_CORRECT
           description: The issue(s) the user indicated in the feedback.
         imageUrls:
           type: array
@@ -7394,12 +8495,16 @@ components:
         facetFilters:
           - fieldName: fieldName
             values:
-              - fieldValues
-              - fieldValues
+              - value: fieldValues
+                relationType: EQUALS
+              - value: fieldValues
+                relationType: EQUALS
           - fieldName: fieldName
             values:
-              - fieldValues
-              - fieldValues
+              - value: fieldValues
+                relationType: EQUALS
+              - value: fieldValues
+                relationType: EQUALS
     TextRange:
       properties:
         startIndex:
@@ -8572,6 +9677,7 @@ components:
         cursor:
           type: string
           description: An opaque cursor representing the search request
+          example: ""
         trackingToken:
           type: string
           description: An opaque token that represents this particular result in this particular query. To be used for /feedback reporting.
@@ -8666,8 +9772,9 @@ components:
         url: https://example.com/foo/bar
         nativeAppUrl: slack://foo/bar
         mustIncludeSuggestions:
-          - missingTerm: container
-            query: container
+          suggestions:
+            - missingTerm: container
+              query: container
     ExtractedQnA:
       properties:
         heading:
@@ -9493,6 +10600,9 @@ components:
         department:
           type: string
           description: An organizational unit where everyone has a similar task, e.g. `Engineering`.
+        jobFunction:
+          type: string
+          description: Normalized job-function category assigned by Entity Builder from the source department and, when available, job title. Unlike `department`, which preserves the company-specific organizational unit, this field groups departments into configured categories such as `Engineering`, `Sales`, or `IT`; it may be `Unknown` when the mapping is inconclusive.
         teams:
           type: array
           items:
@@ -9638,7 +10748,7 @@ components:
         department: Movies
         email: george@example.com
         location: Hollywood, CA
-        phone: 6505551234
+        phone: "6505551234"
         photoUrl: https://example.com/george.jpg
         startDate: "2000-01-23"
         title: Actor
@@ -9888,10 +10998,10 @@ components:
         components:
           - Backend
           - Networking
-        status:
-          - Done
+        status: Done
         customData:
-          someCustomField: someCustomValue
+          someCustomField:
+            stringValue: someCustomValue
     DocumentSection:
       type: object
       properties:
@@ -10350,10 +11460,7 @@ components:
     objectName:
       type: string
       description: Name of the generated object. This will be used to indicate to the end user what the generated object contains.
-      example:
-        - HR ticket
-        - Email
-        - Chat message
+      example: HR ticket
     PersonObject:
       properties:
         name:
@@ -10430,7 +11537,36 @@ components:
             - client_secret_post
             - client_secret_basic
             - none
-          description: The OAuth 2.0 token endpoint authentication method (RFC 7591). Determines how the client authenticates when exchanging an authorization code for a token. client_secret_post sends credentials as form fields, client_secret_basic sends them via Authorization header, none omits client secret and relies on PKCE only. Values use lowercase to match the OAuth 2.0 wire format (RFC 7591 Section 2).
+            - private_key_jwt
+          description: The OAuth 2.0 token endpoint authentication method (RFC 7591). Determines how the client authenticates when exchanging an authorization code for a token. Values use lowercase to match the OAuth 2.0 wire format (RFC 7591 Section 2).
+          x-enumDescriptions:
+            client_secret_post: Send client_id and client_secret as form fields in the token request body.
+            client_secret_basic: Send client_id and client_secret via the HTTP Basic Authorization header.
+            none: Public client - omit the client secret and authenticate with the PKCE code_verifier only.
+            private_key_jwt: Authenticate with a JWT client assertion signed by the client's private key (RFC 7523 Section 2.2 / OIDC Core Section 9). Requires a key pair pre-registered with the authorization server.
+          x-speakeasy-enum-descriptions:
+            client_secret_post: Send client_id and client_secret as form fields in the token request body.
+            client_secret_basic: Send client_id and client_secret via the HTTP Basic Authorization header.
+            none: Public client - omit the client secret and authenticate with the PKCE code_verifier only.
+            private_key_jwt: Authenticate with a JWT client assertion signed by the client's private key (RFC 7523 Section 2.2 / OIDC Core Section 9). Requires a key pair pre-registered with the authorization server.
+        authHeaderType:
+          type: string
+          enum:
+            - AUTHORIZATION_BEARER
+            - AUTHORIZATION_TOKEN
+            - AUTHORIZATION_API_KEY
+            - X_API_KEY
+          description: Defines the header structure for sending the API key or token to the server. Defaults to AUTHORIZATION_BEARER. Select the specific header format the server expects for transmitting the key.
+          x-enumDescriptions:
+            AUTHORIZATION_BEARER: "Sends \"Authorization: Bearer <key>\"."
+            AUTHORIZATION_TOKEN: "Sends \"Authorization: Token <key>\"."
+            AUTHORIZATION_API_KEY: "Sends \"Authorization: ApiKey <key>\"."
+            X_API_KEY: "Sends \"X-API-Key: <key>\". No Authorization header is sent."
+          x-speakeasy-enum-descriptions:
+            AUTHORIZATION_BEARER: "Sends \"Authorization: Bearer <key>\"."
+            AUTHORIZATION_TOKEN: "Sends \"Authorization: Token <key>\"."
+            AUTHORIZATION_API_KEY: "Sends \"Authorization: ApiKey <key>\"."
+            X_API_KEY: "Sends \"X-API-Key: <key>\". No Authorization header is sent."
         lastAuthorizedAt:
           type: string
           format: date-time
@@ -10954,6 +12090,26 @@ components:
       properties:
         chatResult:
           $ref: '#/components/schemas/ChatResult'
+    AccessRequestPermissionDeniedResponse:
+      type: object
+      properties:
+        errorType:
+          type: string
+          enum:
+            - PERMISSION_DENIED
+        createdBy:
+          $ref: '#/components/schemas/Person'
+        requestableRoles:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserRole'
+        hasPendingRequest:
+          type: boolean
+      required:
+        - errorType
+        - createdBy
+        - requestableRoles
+        - hasPendingRequest
     ChatMetadataResult:
       properties:
         chat:
@@ -10971,6 +12127,7 @@ components:
         cursor:
           type: string
           description: An opaque cursor for fetching the next page of results. If empty, there are no more results.
+          example: ""
     GetChatApplicationRequest:
       properties:
         id:
@@ -11235,6 +12392,52 @@ components:
         - input_schema
         - output_schema
       description: Defines the structure and properties of an agent.
+    ImportAgentSyncMode:
+      type: string
+      enum:
+        - STAGED
+        - PUBLISHED
+      description: |
+        Whether the imported version is staged (saved without updating the live version) or published directly to the live version.
+    ImportAgentRequest:
+      type: object
+      properties:
+        bundle:
+          type: string
+          format: binary
+          description: |
+            Zip of the agent folder (spec.yaml, instructions.md, skills/, subagents/) with symlinks dereferenced.
+        gitCommitSha:
+          type: string
+          description: Optional Git commit SHA to associate with this import.
+        gitAuthorId:
+          type: string
+          description: Optional VCS commit author ID to associate with this import.
+        commitMessage:
+          type: string
+          description: Optional commit message for the imported version.
+        syncMode:
+          $ref: '#/components/schemas/ImportAgentSyncMode'
+        isDraft:
+          type: boolean
+          description: |
+            When true, validates and stores a draft preview without publishing (used for PR preview links). Takes precedence over `syncMode`: when `isDraft` is true, `syncMode` is ignored.
+      required:
+        - bundle
+    ImportAgentStatus:
+      type: string
+      enum:
+        - CREATED
+        - UPDATED
+        - DRAFT_PREVIEW
+      description: Outcome of the import for the target agent.
+    ImportAgentResponse:
+      type: object
+      properties:
+        workflowResult:
+          $ref: '#/components/schemas/WorkflowResult'
+        status:
+          $ref: '#/components/schemas/ImportAgentStatus'
     SearchAgentsRequest:
       type: object
       properties:
@@ -11303,6 +12506,22 @@ components:
       required:
         - agent_id
       description: 'Payload for creating a run. **Important**: If the agent uses an input form trigger, the `input` field is required and must include all fields defined in the form schema. Even fields marked as optional in the UI must be included in the request—use an empty string (`""`) for optional fields without values. Omitting required form fields will result in a 500 error.'
+    UnauthorizedAgentToolsError:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the failure.
+        authenticationSuggestions:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServerToolRequest'
+          description: One entry per tool the caller must authorize.
+      title: UnauthorizedAgentToolsError
+      required:
+        - message
+        - authenticationSuggestions
+      description: Returned when the agent has tools the caller must authorize before the run can start. Each entry in `authenticationSuggestions` names one such tool; POST its `serverId` to `/tool-servers/{serverId}/auth` with `returnUrl` in the request body to obtain an `authorizationUrl` to redirect the end user to, then retry the run once OAuth completes.
     AgentExecutionStatus:
       type: string
       title: AgentExecutionStatus
@@ -11605,6 +12824,7 @@ components:
         cursor:
           type: string
           description: Pagination cursor. A previously received opaque token representing the position in the overall results at which to start.
+          example: ""
       required:
         - filterSets
     GetDocumentsByFacetsResponse:
@@ -11620,6 +12840,7 @@ components:
         cursor:
           type: string
           description: Cursor that indicates the start of the next page of results. To be passed in "more" requests for this query.
+          example: ""
     InsightsOverviewRequest:
       properties:
         departments:
@@ -12610,6 +13831,7 @@ components:
             cursor:
               type: string
               description: Cursor that indicates the start of the next page of results. To be passed in "more" requests for this query.
+              example: ""
             hasMoreResults:
               type: boolean
               description: Whether more results are available. Use cursor to retrieve them.
@@ -12688,12 +13910,16 @@ components:
         rewrittenFacetFilters:
           - fieldName: fieldName
             values:
-              - fieldValues
-              - fieldValues
+              - value: fieldValues
+                relationType: EQUALS
+              - value: fieldValues
+                relationType: EQUALS
           - fieldName: fieldName
             values:
-              - fieldValues
-              - fieldValues
+              - value: fieldValues
+                relationType: EQUALS
+              - value: fieldValues
+                relationType: EQUALS
     MessagesResponse:
       properties:
         hasMore:
@@ -12778,6 +14004,7 @@ components:
             cursor:
               type: string
               description: Pagination cursor. A previously received opaque token representing the position in the overall results at which to start.
+              example: ""
             resultTabIds:
               type: array
               items:
@@ -13102,6 +14329,7 @@ components:
               - PLAN_MY_DAY
               - END_MY_DAY
               - STARTER_KIT
+              - MEETING_PREP_AUTOMATION
               - MID_DAY_CATCH_UP
               - QUERY_SUGGESTION
               - COWORK_CUJ_PROMO
@@ -13545,6 +14773,7 @@ components:
             - STARTER_KIT_ORG_CHART
             - STARTER_KIT_ADD_DOC
             - MEETING_RECAP
+            - MEETING_PREP_AUTOMATION
             - ACTIVE_DISCUSSION
             - MID_DAY_CATCH_UP
             - QUERY_SUGGESTION
@@ -13636,6 +14865,7 @@ components:
             - PLAN_MY_DAY
             - END_MY_DAY
             - STARTER_KIT
+            - MEETING_PREP_AUTOMATION
             - MID_DAY_CATCH_UP
             - QUERY_SUGGESTION
             - COWORK_CUJ_PROMO
@@ -13791,6 +15021,7 @@ components:
         cursor:
           type: string
           description: Pagination cursor. A previously received opaque token representing the position in the overall results at which to start.
+          example: ""
         source:
           type: string
           description: A string denoting the search surface from which the endpoint is called.
@@ -13840,6 +15071,7 @@ components:
         cursor:
           type: string
           description: Pagination cursor. A previously received opaque token representing the position in the overall results at which to start.
+          example: ""
         totalCount:
           type: integer
           description: The total number of entities available
@@ -13986,6 +15218,7 @@ components:
         cursor:
           type: string
           description: A token specifying the position in the overall results to start at. Received from the endpoint and iterated back. Currently being used as page no (as we implement offset pagination)
+          example: ""
         filters:
           type: array
           items:
@@ -14004,6 +15237,7 @@ components:
         cursor:
           type: string
           description: Cursor indicates the start of the next page of results
+          example: ""
         hasNextPage:
           type: boolean
         totalItemCount:
@@ -14328,6 +15562,84 @@ components:
             After the user consents, control returns to `returnUrl` from the request.
       required:
         - authorizationUrl
+    ToolAnnotations:
+      type: object
+      properties:
+        title:
+          type: string
+        readOnlyHint:
+          type: boolean
+          description: |
+            True if the tool does not modify its environment. Always present. MCP
+            defines no distinction between an undeclared value and `false` here, so
+            `false` means "not declared read-only" rather than "declared mutating".
+          x-includeEmpty: true
+        destructiveHint:
+          type: boolean
+          description: |
+            True if the tool may perform destructive updates. **Absent means the server
+            did not declare it**, for which the MCP default is `true`. Only meaningful
+            when `readOnlyHint` is `false`.
+          nullable: true
+        idempotentHint:
+          type: boolean
+          description: |
+            True if repeated calls with the same arguments have no additional effect.
+            Always present; as with `readOnlyHint`, `false` means "not declared
+            idempotent". Only meaningful when `readOnlyHint` is `false`.
+          x-includeEmpty: true
+        openWorldHint:
+          type: boolean
+          description: |
+            True if the tool interacts with an open world of external entities. **Absent
+            means the server did not declare it**, for which the MCP default is `true`.
+          nullable: true
+      description: |
+        Behavioural hints for the tool, exactly as declared by the tool server. No
+        defaults are filled in — see the per-field notes for what an absent value means.
+
+        Per the MCP specification, clients MUST treat these hints as untrusted unless
+        the tool server is itself trusted. They are advisory metadata, not an
+        authorization signal, and must not be the sole basis of a security decision.
+    ToolDefinition:
+      type: object
+      properties:
+        serverId:
+          type: string
+          description: Tool server this tool belongs to.
+        name:
+          type: string
+          description: Name to invoke the tool by.
+        displayName:
+          type: string
+          description: Human-readable name of the tool.
+        description:
+          type: string
+          description: What the tool does, as surfaced to a model.
+        inputSchema:
+          type: object
+          additionalProperties: true
+          description: JSON Schema for the tool's input parameters.
+        annotations:
+          $ref: '#/components/schemas/ToolAnnotations'
+      required:
+        - serverId
+        - name
+    ToolDefinitionsResponse:
+      type: object
+      properties:
+        tools:
+          type: array
+          items:
+            $ref: '#/components/schemas/ToolDefinition'
+          description: Definitions for the requested tools that exist on this server.
+        notFound:
+          type: array
+          items:
+            type: string
+          description: Requested names that do not exist on this server.
+      required:
+        - tools
     IndexDocumentRequest:
       type: object
       properties:
@@ -15845,6 +17157,8 @@ components:
             - ENTITY
             - CALENDAR
             - AGENTS
+            - AI_CONVERSATION
+            - AI_ARTIFACT
           description: The document category of this object type.
         propertyDefinitions:
           type: array
@@ -15898,6 +17212,8 @@ components:
             - ENTITY
             - CALENDAR
             - AGENTS
+            - AI_CONVERSATION
+            - AI_ARTIFACT
           description: The type of this datasource. It is an important signal for relevance and must be specified and cannot be UNCATEGORIZED. Please refer to [this](https://developers.glean.com/docs/indexing_api_datasource_category/) for more details.
           default: UNCATEGORIZED
         urlRegex:
@@ -17024,6 +18340,12 @@ components:
             $ref: "#/components/schemas/PlatformProblemDetail"
     PlatformConflict:
       description: Request conflicts with current state of the resource.
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/PlatformProblemDetail"
+    PlatformUnprocessableEntity:
+      description: Syntactically valid but semantically incorrect request.
       content:
         application/problem+json:
           schema:

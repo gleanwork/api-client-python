@@ -54,6 +54,8 @@ type PersonMetadata struct {
 	BusinessUnit *string `json:"businessUnit,omitempty"`
 	// An organizational unit where everyone has a similar task, e.g. `Engineering`.
 	Department *string `json:"department,omitempty"`
+	// Normalized job-function category assigned by Entity Builder from the source department and, when available, job title. Unlike `department`, which preserves the company-specific organizational unit, this field groups departments into configured categories such as `Engineering`, `Sales`, or `IT`; it may be `Unknown` when the mapping is inconclusive.
+	JobFunction *string `json:"jobFunction,omitempty"`
 	// Info about the employee's team(s).
 	Teams []PersonTeam `json:"teams,omitempty"`
 	// The number of people in this person's department.
@@ -183,6 +185,13 @@ func (o *PersonMetadata) GetDepartment() *string {
 		return nil
 	}
 	return o.Department
+}
+
+func (o *PersonMetadata) GetJobFunction() *string {
+	if o == nil {
+		return nil
+	}
+	return o.JobFunction
 }
 
 func (o *PersonMetadata) GetTeams() []PersonTeam {

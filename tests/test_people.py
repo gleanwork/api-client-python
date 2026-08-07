@@ -18,3 +18,19 @@ def test_people_post_api_index_v1_processallemployeesandteams():
         assert glean is not None
 
         glean.indexing.people.process_all_employees_and_teams()
+
+
+def test_people_post_api_index_v1_debug_datasource_user():
+    test_http_client = create_test_http_client(
+        "post_/api/index/v1/debug/{datasource}/user"
+    )
+
+    with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
+        client=test_http_client,
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+    ) as glean:
+        assert glean is not None
+
+        res = glean.indexing.people.debug(datasource="<value>", email="u1@foo.com")
+        assert res is not None

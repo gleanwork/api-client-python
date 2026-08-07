@@ -16,6 +16,7 @@ import weakref
 
 if TYPE_CHECKING:
     from glean.api_client.agents import Agents
+    from glean.api_client.chat_sdk import ChatSDK
     from glean.api_client.client import Client
     from glean.api_client.indexing import Indexing
     from glean.api_client.search import Search
@@ -43,12 +44,14 @@ class Glean(BaseSDK):
     """
 
     agents: "Agents"
+    chat: "ChatSDK"
     skills: "Skills"
     search: "Search"
     client: "Client"
     indexing: "Indexing"
     _sub_sdk_map = {
         "agents": ("glean.api_client.agents", "Agents"),
+        "chat": ("glean.api_client.chat_sdk", "ChatSDK"),
         "skills": ("glean.api_client.skills", "Skills"),
         "search": ("glean.api_client.search", "Search"),
         "client": ("glean.api_client.client", "Client"),

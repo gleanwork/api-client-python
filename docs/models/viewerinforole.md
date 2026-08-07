@@ -1,4 +1,4 @@
-# ~~Role~~
+# ~~ViewerInfoRole~~
 
 DEPRECATED - use permissions instead. Viewer's role on the specific document.
 
@@ -7,9 +7,9 @@ DEPRECATED - use permissions instead. Viewer's role on the specific document.
 ## Example Usage
 
 ```python
-from glean.api_client.models import Role
+from glean.api_client.models import ViewerInfoRole
 
-value = Role.ANSWER_MODERATOR
+value = ViewerInfoRole.ANSWER_MODERATOR
 
 # Open enum: unrecognized values are captured as UnrecognizedStr
 ```

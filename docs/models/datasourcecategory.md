@@ -35,3 +35,5 @@ value = DatasourceCategory.UNCATEGORIZED
 | `ENTITY`                | ENTITY                  |
 | `CALENDAR`              | CALENDAR                |
 | `AGENTS`                | AGENTS                  |
+| `AI_CONVERSATION`       | AI_CONVERSATION         |
+| `AI_ARTIFACT`           | AI_ARTIFACT             |
