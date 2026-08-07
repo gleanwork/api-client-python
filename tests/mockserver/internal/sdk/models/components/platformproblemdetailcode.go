@@ -21,13 +21,16 @@ const (
 	PlatformProblemDetailCodeAuthenticationRequired  PlatformProblemDetailCode = "authentication_required"
 	PlatformProblemDetailCodeTokenExpired            PlatformProblemDetailCode = "token_expired"
 	PlatformProblemDetailCodeInsufficientPermissions PlatformProblemDetailCode = "insufficient_permissions"
+	PlatformProblemDetailCodeSpendLimitExceeded      PlatformProblemDetailCode = "spend_limit_exceeded"
 	PlatformProblemDetailCodeResourceNotFound        PlatformProblemDetailCode = "resource_not_found"
 	PlatformProblemDetailCodeMethodNotAllowed        PlatformProblemDetailCode = "method_not_allowed"
 	PlatformProblemDetailCodeRequestTimeout          PlatformProblemDetailCode = "request_timeout"
 	PlatformProblemDetailCodeRequestTooLarge         PlatformProblemDetailCode = "request_too_large"
+	PlatformProblemDetailCodeTokenLimitExceeded      PlatformProblemDetailCode = "token_limit_exceeded"
 	PlatformProblemDetailCodeConflict                PlatformProblemDetailCode = "conflict"
 	PlatformProblemDetailCodeGone                    PlatformProblemDetailCode = "gone"
 	PlatformProblemDetailCodeUnprocessableQuery      PlatformProblemDetailCode = "unprocessable_query"
+	PlatformProblemDetailCodeToolsUnauthorized       PlatformProblemDetailCode = "tools_unauthorized"
 	PlatformProblemDetailCodeRateLimitExceeded       PlatformProblemDetailCode = "rate_limit_exceeded"
 	PlatformProblemDetailCodeInternalError           PlatformProblemDetailCode = "internal_error"
 	PlatformProblemDetailCodeServiceUnavailable      PlatformProblemDetailCode = "service_unavailable"
@@ -62,6 +65,8 @@ func (e *PlatformProblemDetailCode) UnmarshalJSON(data []byte) error {
 		fallthrough
 	case "insufficient_permissions":
 		fallthrough
+	case "spend_limit_exceeded":
+		fallthrough
 	case "resource_not_found":
 		fallthrough
 	case "method_not_allowed":
@@ -70,11 +75,15 @@ func (e *PlatformProblemDetailCode) UnmarshalJSON(data []byte) error {
 		fallthrough
 	case "request_too_large":
 		fallthrough
+	case "token_limit_exceeded":
+		fallthrough
 	case "conflict":
 		fallthrough
 	case "gone":
 		fallthrough
 	case "unprocessable_query":
+		fallthrough
+	case "tools_unauthorized":
 		fallthrough
 	case "rate_limit_exceeded":
 		fallthrough

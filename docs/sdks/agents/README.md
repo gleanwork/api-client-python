@@ -185,8 +185,9 @@ with Glean(
 
 ### Errors
 
-| Error Type                             | Status Code                            | Content Type                           |
-| -------------------------------------- | -------------------------------------- | -------------------------------------- |
-| errors.PlatformProblemDetailError      | 400, 401, 403, 404, 408, 409, 413, 429 | application/problem+json               |
-| errors.PlatformProblemDetailError      | 500, 503                               | application/problem+json               |
-| errors.GleanError                      | 4XX, 5XX                               | \*/\*                                  |
+| Error Type                                        | Status Code                                       | Content Type                                      |
+| ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- |
+| errors.PlatformUnauthorizedAgentToolsProblemError | 422                                               | application/problem+json                          |
+| errors.PlatformProblemDetailError                 | 400, 401, 403, 404, 408, 409, 413, 429            | application/problem+json                          |
+| errors.PlatformProblemDetailError                 | 500, 503                                          | application/problem+json                          |
+| errors.GleanError                                 | 4XX, 5XX                                          | \*/\*                                             |

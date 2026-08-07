@@ -27,13 +27,16 @@ value = PlatformProblemDetailCode.INVALID_REQUEST
 | `AUTHENTICATION_REQUIRED`  | authentication_required    |
 | `TOKEN_EXPIRED`            | token_expired              |
 | `INSUFFICIENT_PERMISSIONS` | insufficient_permissions   |
+| `SPEND_LIMIT_EXCEEDED`     | spend_limit_exceeded       |
 | `RESOURCE_NOT_FOUND`       | resource_not_found         |
 | `METHOD_NOT_ALLOWED`       | method_not_allowed         |
 | `REQUEST_TIMEOUT`          | request_timeout            |
 | `REQUEST_TOO_LARGE`        | request_too_large          |
+| `TOKEN_LIMIT_EXCEEDED`     | token_limit_exceeded       |
 | `CONFLICT`                 | conflict                   |
 | `GONE`                     | gone                       |
 | `UNPROCESSABLE_QUERY`      | unprocessable_query        |
+| `TOOLS_UNAUTHORIZED`       | tools_unauthorized         |
 | `RATE_LIMIT_EXCEEDED`      | rate_limit_exceeded        |
 | `INTERNAL_ERROR`           | internal_error             |
 | `SERVICE_UNAVAILABLE`      | service_unavailable        |

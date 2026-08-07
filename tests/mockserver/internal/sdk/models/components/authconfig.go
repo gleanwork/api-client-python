@@ -109,13 +109,14 @@ func (e *AuthConfigStatus) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// TokenEndpointAuthMethod - The OAuth 2.0 token endpoint authentication method (RFC 7591). Determines how the client authenticates when exchanging an authorization code for a token. client_secret_post sends credentials as form fields, client_secret_basic sends them via Authorization header, none omits client secret and relies on PKCE only. Values use lowercase to match the OAuth 2.0 wire format (RFC 7591 Section 2).
+// TokenEndpointAuthMethod - The OAuth 2.0 token endpoint authentication method (RFC 7591). Determines how the client authenticates when exchanging an authorization code for a token. Values use lowercase to match the OAuth 2.0 wire format (RFC 7591 Section 2).
 type TokenEndpointAuthMethod string
 
 const (
 	TokenEndpointAuthMethodClientSecretPost  TokenEndpointAuthMethod = "client_secret_post"
 	TokenEndpointAuthMethodClientSecretBasic TokenEndpointAuthMethod = "client_secret_basic"
 	TokenEndpointAuthMethodNone              TokenEndpointAuthMethod = "none"
+	TokenEndpointAuthMethodPrivateKeyJwt     TokenEndpointAuthMethod = "private_key_jwt"
 )
 
 func (e TokenEndpointAuthMethod) ToPointer() *TokenEndpointAuthMethod {
@@ -132,10 +133,45 @@ func (e *TokenEndpointAuthMethod) UnmarshalJSON(data []byte) error {
 	case "client_secret_basic":
 		fallthrough
 	case "none":
+		fallthrough
+	case "private_key_jwt":
 		*e = TokenEndpointAuthMethod(v)
 		return nil
 	default:
 		return fmt.Errorf("invalid value for TokenEndpointAuthMethod: %v", v)
+	}
+}
+
+// AuthHeaderType - Defines the header structure for sending the API key or token to the server. Defaults to AUTHORIZATION_BEARER. Select the specific header format the server expects for transmitting the key.
+type AuthHeaderType string
+
+const (
+	AuthHeaderTypeAuthorizationBearer AuthHeaderType = "AUTHORIZATION_BEARER"
+	AuthHeaderTypeAuthorizationToken  AuthHeaderType = "AUTHORIZATION_TOKEN"
+	AuthHeaderTypeAuthorizationAPIKey AuthHeaderType = "AUTHORIZATION_API_KEY"
+	AuthHeaderTypeXAPIKey             AuthHeaderType = "X_API_KEY"
+)
+
+func (e AuthHeaderType) ToPointer() *AuthHeaderType {
+	return &e
+}
+func (e *AuthHeaderType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "AUTHORIZATION_BEARER":
+		fallthrough
+	case "AUTHORIZATION_TOKEN":
+		fallthrough
+	case "AUTHORIZATION_API_KEY":
+		fallthrough
+	case "X_API_KEY":
+		*e = AuthHeaderType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for AuthHeaderType: %v", v)
 	}
 }
 
@@ -166,8 +202,10 @@ type AuthConfig struct {
 	AuthorizationURL *string `json:"authorization_url,omitempty"`
 	// The OAuth 2.0 Resource Indicator (RFC 8707) for the protected resource. Discovered from Protected Resource Metadata (RFC 9728) during DCR. Included in authorization and token exchange requests when present.
 	Resource *string `json:"resource,omitempty"`
-	// The OAuth 2.0 token endpoint authentication method (RFC 7591). Determines how the client authenticates when exchanging an authorization code for a token. client_secret_post sends credentials as form fields, client_secret_basic sends them via Authorization header, none omits client secret and relies on PKCE only. Values use lowercase to match the OAuth 2.0 wire format (RFC 7591 Section 2).
+	// The OAuth 2.0 token endpoint authentication method (RFC 7591). Determines how the client authenticates when exchanging an authorization code for a token. Values use lowercase to match the OAuth 2.0 wire format (RFC 7591 Section 2).
 	TokenEndpointAuthMethod *TokenEndpointAuthMethod `json:"token_endpoint_auth_method,omitempty"`
+	// Defines the header structure for sending the API key or token to the server. Defaults to AUTHORIZATION_BEARER. Select the specific header format the server expects for transmitting the key.
+	AuthHeaderType *AuthHeaderType `json:"authHeaderType,omitempty"`
 	// The time the tool was last authorized in ISO format (ISO 8601).
 	LastAuthorizedAt *time.Time `json:"lastAuthorizedAt,omitempty"`
 }
@@ -258,6 +296,13 @@ func (o *AuthConfig) GetTokenEndpointAuthMethod() *TokenEndpointAuthMethod {
 		return nil
 	}
 	return o.TokenEndpointAuthMethod
+}
+
+func (o *AuthConfig) GetAuthHeaderType() *AuthHeaderType {
+	if o == nil {
+		return nil
+	}
+	return o.AuthHeaderType
 }
 
 func (o *AuthConfig) GetLastAuthorizedAt() *time.Time {

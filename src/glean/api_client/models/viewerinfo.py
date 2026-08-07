@@ -14,7 +14,7 @@ from typing_extensions import Annotated, NotRequired, TypedDict, deprecated
 @deprecated(
     "warning: ** DEPRECATED ** - Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use permissions instead."
 )
-class Role(str, Enum, metaclass=utils.OpenEnumMeta):
+class ViewerInfoRole(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""DEPRECATED - use permissions instead. Viewer's role on the specific document."""
 
     ANSWER_MODERATOR = "ANSWER_MODERATOR"
@@ -23,14 +23,14 @@ class Role(str, Enum, metaclass=utils.OpenEnumMeta):
 
 
 class ViewerInfoTypedDict(TypedDict):
-    role: NotRequired[Role]
+    role: NotRequired[ViewerInfoRole]
     r"""DEPRECATED - use permissions instead. Viewer's role on the specific document."""
     last_viewed_time: NotRequired[datetime]
 
 
 class ViewerInfo(BaseModel):
     role: Annotated[
-        Optional[Role],
+        Optional[ViewerInfoRole],
         pydantic.Field(
             deprecated="warning: ** DEPRECATED ** - Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use permissions instead."
         ),
@@ -45,7 +45,7 @@ class ViewerInfo(BaseModel):
     def serialize_role(self, value):
         if isinstance(value, str):
             try:
-                return models.Role(value)
+                return models.ViewerInfoRole(value)
             except ValueError:
                 return value
         return value

@@ -8,6 +8,7 @@
 * [retrieve](#retrieve) - Retrieve an agent
 * [update](#update) - Edit an agent
 * [retrieve_schemas](#retrieve_schemas) - List an agent's schemas
+* [import_](#import_) - Import an agent
 * [list](#list) - Search agents
 * [run_stream](#run_stream) - Create an agent run and stream the response
 * [run](#run) - Create an agent run and wait for the response
@@ -182,6 +183,58 @@ with Glean(
 | errors.ErrorResponse | 404, 422             | application/json     |
 | errors.GleanError    | 4XX, 5XX             | \*/\*                |
 
+## import_
+
+Imports an [agent](https://developers.glean.com/agents/agents-api) from its on-disk folder representation (spec.yaml, instructions.md, skills/, subagents/) packaged as a zip, and creates or updates the agent. Inverse of the export flow: the folder-to-schema conversion runs server-side. The bundle must contain only regular files; symlinks are resolved by the caller at packaging time.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="importAgent" method="post" path="/rest/api/v1/agents/{agent_id}/import" -->
+```python
+from glean.api_client import Glean
+import os
+
+
+with Glean(
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+) as glean:
+
+    res = glean.client.agents.import_(agent_id="<id>", bundle={
+        "file_name": "example.file",
+        "content": open("example.file", "rb"),
+    })
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                                           | Type                                                                                                                                                                                                | Required                                                                                                                                                                                            | Description                                                                                                                                                                                         |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `agent_id`                                                                                                                                                                                          | *str*                                                                                                                                                                                               | :heavy_check_mark:                                                                                                                                                                                  | The ID of the agent to create or update.                                                                                                                                                            |
+| `bundle`                                                                                                                                                                                            | [models.Bundle](../../models/bundle.md)                                                                                                                                                             | :heavy_check_mark:                                                                                                                                                                                  | Zip of the agent folder (spec.yaml, instructions.md, skills/, subagents/) with symlinks dereferenced.<br/>                                                                                          |
+| `locale`                                                                                                                                                                                            | *Optional[str]*                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                  | The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`. |
+| `timezone_offset`                                                                                                                                                                                   | *Optional[int]*                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                  | The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.                                                                                          |
+| `git_commit_sha`                                                                                                                                                                                    | *Optional[str]*                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                  | Optional Git commit SHA to associate with this import.                                                                                                                                              |
+| `git_author_id`                                                                                                                                                                                     | *Optional[str]*                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                  | Optional VCS commit author ID to associate with this import.                                                                                                                                        |
+| `commit_message`                                                                                                                                                                                    | *Optional[str]*                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                  | Optional commit message for the imported version.                                                                                                                                                   |
+| `sync_mode`                                                                                                                                                                                         | [Optional[models.ImportAgentSyncMode]](../../models/importagentsyncmode.md)                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                  | Whether the imported version is staged (saved without updating the live version) or published directly to the live version.<br/>                                                                    |
+| `is_draft`                                                                                                                                                                                          | *Optional[bool]*                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                  | When true, validates and stores a draft preview without publishing (used for PR preview links). Takes precedence over `syncMode`: when `isDraft` is true, `syncMode` is ignored.<br/>               |
+| `retries`                                                                                                                                                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                  | Configuration to override the default retry behavior of the client.                                                                                                                                 |
+
+### Response
+
+**[models.ImportAgentResponse](../../models/importagentresponse.md)**
+
+### Errors
+
+| Error Type           | Status Code          | Content Type         |
+| -------------------- | -------------------- | -------------------- |
+| errors.ErrorResponse | 404                  | application/json     |
+| errors.GleanError    | 4XX, 5XX             | \*/\*                |
+
 ## list
 
 Search for [agents](https://developers.glean.com/agents/agents-api) by agent name.
@@ -266,10 +319,11 @@ with Glean(
 
 ### Errors
 
-| Error Type           | Status Code          | Content Type         |
-| -------------------- | -------------------- | -------------------- |
-| errors.ErrorResponse | 404, 409, 422        | application/json     |
-| errors.GleanError    | 4XX, 5XX             | \*/\*                |
+| Error Type                         | Status Code                        | Content Type                       |
+| ---------------------------------- | ---------------------------------- | ---------------------------------- |
+| errors.ErrorResponse               | 404, 409                           | application/json                   |
+| errors.UnauthorizedAgentToolsError | 422                                | application/json                   |
+| errors.GleanError                  | 4XX, 5XX                           | \*/\*                              |
 
 ## run
 
@@ -314,6 +368,7 @@ with Glean(
 
 ### Errors
 
-| Error Type        | Status Code       | Content Type      |
-| ----------------- | ----------------- | ----------------- |
-| errors.GleanError | 4XX, 5XX          | \*/\*             |
+| Error Type                         | Status Code                        | Content Type                       |
+| ---------------------------------- | ---------------------------------- | ---------------------------------- |
+| errors.UnauthorizedAgentToolsError | 422                                | application/json                   |
+| errors.GleanError                  | 4XX, 5XX                           | \*/\*                              |

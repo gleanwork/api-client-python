@@ -37,6 +37,8 @@ class DatasourceCategory(str, Enum, metaclass=utils.OpenEnumMeta):
     ENTITY = "ENTITY"
     CALENDAR = "CALENDAR"
     AGENTS = "AGENTS"
+    AI_CONVERSATION = "AI_CONVERSATION"
+    AI_ARTIFACT = "AI_ARTIFACT"
 
 
 class HideBuiltInFacet(str, Enum, metaclass=utils.OpenEnumMeta):

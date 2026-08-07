@@ -48,6 +48,8 @@ class PersonMetadataTypedDict(TypedDict):
     r"""Typically the highest level organizational unit; generally applies to bigger companies with multiple distinct businesses."""
     department: NotRequired[str]
     r"""An organizational unit where everyone has a similar task, e.g. `Engineering`."""
+    job_function: NotRequired[str]
+    r"""Normalized job-function category assigned by Entity Builder from the source department and, when available, job title. Unlike `department`, which preserves the company-specific organizational unit, this field groups departments into configured categories such as `Engineering`, `Sales`, or `IT`; it may be `Unknown` when the mapping is inconclusive."""
     teams: NotRequired[List[PersonTeamTypedDict]]
     r"""Info about the employee's team(s)."""
     department_count: NotRequired[int]
@@ -144,6 +146,9 @@ class PersonMetadata(BaseModel):
 
     department: Optional[str] = None
     r"""An organizational unit where everyone has a similar task, e.g. `Engineering`."""
+
+    job_function: Annotated[Optional[str], pydantic.Field(alias="jobFunction")] = None
+    r"""Normalized job-function category assigned by Entity Builder from the source department and, when available, job title. Unlike `department`, which preserves the company-specific organizational unit, this field groups departments into configured categories such as `Engineering`, `Sales`, or `IT`; it may be `Unknown` when the mapping is inconclusive."""
 
     teams: Optional[List[PersonTeam]] = None
     r"""Info about the employee's team(s)."""
@@ -320,6 +325,7 @@ class PersonMetadata(BaseModel):
                 "title",
                 "businessUnit",
                 "department",
+                "jobFunction",
                 "teams",
                 "departmentCount",
                 "email",

@@ -1,0 +1,11 @@
+# PlatformSkillSyncResponse
+
+
+## Fields
+
+| Field                                                                              | Type                                                                               | Required                                                                           | Description                                                                        |
+| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `sync_status`                                                                      | [models.PlatformSkillSyncResultStatus](../models/platformskillsyncresultstatus.md) | :heavy_check_mark:                                                                 | Synchronization status after a successful refresh.                                 |
+| `commit_sha`                                                                       | *str*                                                                              | :heavy_check_mark:                                                                 | Git commit SHA now associated with the skill.                                      |
+| `updated`                                                                          | *bool*                                                                             | :heavy_check_mark:                                                                 | Whether this request created a new skill version.                                  |
+| `request_id`                                                                       | *str*                                                                              | :heavy_check_mark:                                                                 | Platform-generated request ID for support correlation.                             |

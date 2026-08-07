@@ -6,6 +6,10 @@ from typing import Any, TYPE_CHECKING
 from glean.api_client.utils.dynamic_imports import lazy_getattr, lazy_dir
 
 if TYPE_CHECKING:
+    from .accessrequestpermissiondeniedresponse_error import (
+        AccessRequestPermissionDeniedResponseError,
+        AccessRequestPermissionDeniedResponseErrorData,
+    )
     from .collectionerror import CollectionError, CollectionErrorData
     from .errorinforesponse import ErrorInfoResponse, ErrorInfoResponseData
     from .errorresponse import ErrorResponse, ErrorResponseData
@@ -16,9 +20,19 @@ if TYPE_CHECKING:
         PlatformProblemDetailError,
         PlatformProblemDetailErrorData,
     )
+    from .platformunauthorizedagenttoolsproblem_error import (
+        PlatformUnauthorizedAgentToolsProblemError,
+        PlatformUnauthorizedAgentToolsProblemErrorData,
+    )
     from .responsevalidationerror import ResponseValidationError
+    from .unauthorizedagenttoolserror import (
+        UnauthorizedAgentToolsError,
+        UnauthorizedAgentToolsErrorData,
+    )
 
 __all__ = [
+    "AccessRequestPermissionDeniedResponseError",
+    "AccessRequestPermissionDeniedResponseErrorData",
     "CollectionError",
     "CollectionErrorData",
     "ErrorInfoResponse",
@@ -32,10 +46,16 @@ __all__ = [
     "NoResponseError",
     "PlatformProblemDetailError",
     "PlatformProblemDetailErrorData",
+    "PlatformUnauthorizedAgentToolsProblemError",
+    "PlatformUnauthorizedAgentToolsProblemErrorData",
     "ResponseValidationError",
+    "UnauthorizedAgentToolsError",
+    "UnauthorizedAgentToolsErrorData",
 ]
 
 _dynamic_imports: dict[str, str] = {
+    "AccessRequestPermissionDeniedResponseError": ".accessrequestpermissiondeniedresponse_error",
+    "AccessRequestPermissionDeniedResponseErrorData": ".accessrequestpermissiondeniedresponse_error",
     "CollectionError": ".collectionerror",
     "CollectionErrorData": ".collectionerror",
     "ErrorInfoResponse": ".errorinforesponse",
@@ -48,7 +68,11 @@ _dynamic_imports: dict[str, str] = {
     "NoResponseError": ".no_response_error",
     "PlatformProblemDetailError": ".platformproblemdetail_error",
     "PlatformProblemDetailErrorData": ".platformproblemdetail_error",
+    "PlatformUnauthorizedAgentToolsProblemError": ".platformunauthorizedagenttoolsproblem_error",
+    "PlatformUnauthorizedAgentToolsProblemErrorData": ".platformunauthorizedagenttoolsproblem_error",
     "ResponseValidationError": ".responsevalidationerror",
+    "UnauthorizedAgentToolsError": ".unauthorizedagenttoolserror",
+    "UnauthorizedAgentToolsErrorData": ".unauthorizedagenttoolserror",
 }
 
 

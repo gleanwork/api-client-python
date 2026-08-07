@@ -10,6 +10,7 @@
 * [authorize_action_pack](#authorize_action_pack) - Start the OAuth authorization flow for an action pack.
 * [retrieve_tool_server_auth_status](#retrieve_tool_server_auth_status) - Get end-user authentication status for a tool server.
 * [authorize_tool_server](#authorize_tool_server) - Start the OAuth authorization flow for a tool server.
+* [get_tool_server_tools](#get_tool_server_tools) - Get tool definitions from a tool server.
 
 ## list
 
@@ -268,6 +269,60 @@ with Glean(
 ### Response
 
 **[models.AuthorizeToolServerResponse](../../models/authorizetoolserverresponse.md)**
+
+### Errors
+
+| Error Type        | Status Code       | Content Type      |
+| ----------------- | ----------------- | ----------------- |
+| errors.GleanError | 4XX, 5XX          | \*/\*             |
+
+## get_tool_server_tools
+
+Returns the name, description and JSON input schema for the named tools on the
+specified tool server. Works for both action packs and MCP servers.
+
+`toolNames` is required. Names that do not exist on the server are returned in
+`notFound` rather than failing the request, so a single bad name does not force
+callers into one-at-a-time retries. Matching is case-insensitive and treats `-`
+and `_` as equivalent.
+
+Native tools are not served; `serverId=native` returns 404.
+
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="getToolServerTools" method="get" path="/rest/api/v1/tool-servers/{serverId}/tools" -->
+```python
+from glean.api_client import Glean
+import os
+
+
+with Glean(
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+) as glean:
+
+    res = glean.client.tools.get_tool_server_tools(server_id="<id>", tool_names=[
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+    ])
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `server_id`                                                         | *str*                                                               | :heavy_check_mark:                                                  | Unique identifier of the tool server.                               |
+| `tool_names`                                                        | List[*str*]                                                         | :heavy_check_mark:                                                  | Tool names to look up on this server. Maximum 100.                  |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Response
+
+**[models.ToolDefinitionsResponse](../../models/tooldefinitionsresponse.md)**
 
 ### Errors
 

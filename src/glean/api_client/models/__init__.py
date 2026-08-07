@@ -71,6 +71,9 @@ from typing import Any, TYPE_CHECKING
 from glean.api_client.utils.dynamic_imports import lazy_getattr, lazy_dir
 
 if TYPE_CHECKING:
+    from .accessrequestpermissiondeniedresponse_error import (
+        AccessRequestPermissionDeniedResponseErrorType,
+    )
     from .actionauthtype import ActionAuthType
     from .actionpackauthstatus import (
         ActionPackAuthStatus,
@@ -189,6 +192,7 @@ if TYPE_CHECKING:
         AuthConfigStatus,
         AuthConfigType,
         AuthConfigTypedDict,
+        AuthHeaderType,
         GrantType,
         TokenEndpointAuthMethod,
     )
@@ -992,6 +996,10 @@ if TYPE_CHECKING:
         GetToolServerAuthStatusRequest,
         GetToolServerAuthStatusRequestTypedDict,
     )
+    from .gettoolservertoolsop import (
+        GetToolServerToolsRequest,
+        GetToolServerToolsRequestTypedDict,
+    )
     from .getusercountrequest import GetUserCountRequest, GetUserCountRequestTypedDict
     from .getusercountresponse import (
         GetUserCountResponse,
@@ -1012,6 +1020,19 @@ if TYPE_CHECKING:
     from .hotword import Hotword, HotwordTypedDict
     from .hotwordproximity import HotwordProximity, HotwordProximityTypedDict
     from .iconconfig import IconConfig, IconConfigTypedDict, IconType
+    from .importagentop import (
+        ImportAgentRequestRequest,
+        ImportAgentRequestRequestTypedDict,
+    )
+    from .importagentrequest import (
+        Bundle,
+        BundleTypedDict,
+        ImportAgentRequest,
+        ImportAgentRequestTypedDict,
+    )
+    from .importagentresponse import ImportAgentResponse, ImportAgentResponseTypedDict
+    from .importagentstatus import ImportAgentStatus
+    from .importagentsyncmode import ImportAgentSyncMode
     from .indexdocumentrequest import (
         IndexDocumentRequest,
         IndexDocumentRequestTypedDict,
@@ -1231,9 +1252,23 @@ if TYPE_CHECKING:
         PlatformAgentsGetRequest,
         PlatformAgentsGetRequestTypedDict,
     )
+    from .platform_chat_createop import (
+        PlatformChatCreateResponse,
+        PlatformChatCreateResponseTypedDict,
+    )
+    from .platform_search_filtersop import (
+        PlatformSearchFiltersRequest,
+        PlatformSearchFiltersRequestTypedDict,
+        PlatformSearchFiltersResponseResponse,
+        PlatformSearchFiltersResponseResponseTypedDict,
+    )
     from .platform_skills_create_versionop import (
         PlatformSkillsCreateVersionRequest,
         PlatformSkillsCreateVersionRequestTypedDict,
+    )
+    from .platform_skills_deleteop import (
+        PlatformSkillsDeleteRequest,
+        PlatformSkillsDeleteRequestTypedDict,
     )
     from .platform_skills_get_contentop import (
         PlatformSkillsGetContentRequest,
@@ -1262,6 +1297,18 @@ if TYPE_CHECKING:
     from .platform_skills_listop import (
         PlatformSkillsListRequest,
         PlatformSkillsListRequestTypedDict,
+    )
+    from .platform_skills_preview_sourceop import (
+        PlatformSkillsPreviewSourceResponse,
+        PlatformSkillsPreviewSourceResponseTypedDict,
+    )
+    from .platform_skills_syncop import (
+        PlatformSkillsSyncRequest,
+        PlatformSkillsSyncRequestTypedDict,
+    )
+    from .platform_skills_updateop import (
+        PlatformSkillsUpdateRequest,
+        PlatformSkillsUpdateRequestTypedDict,
     )
     from .platformactionsummary import (
         PlatformActionSummary,
@@ -1298,8 +1345,86 @@ if TYPE_CHECKING:
         PlatformAgentsSearchResponse,
         PlatformAgentsSearchResponseTypedDict,
     )
+    from .platformauthenticationsuggestion import (
+        PlatformAuthenticationSuggestion,
+        PlatformAuthenticationSuggestionTypedDict,
+    )
+    from .platformchatcitationannotation import (
+        PlatformChatCitationAnnotation,
+        PlatformChatCitationAnnotationType,
+        PlatformChatCitationAnnotationTypedDict,
+    )
+    from .platformchatcitationsnippet import (
+        PlatformChatCitationSnippet,
+        PlatformChatCitationSnippetTypedDict,
+    )
+    from .platformchatcitationsource import (
+        PlatformChatCitationSource,
+        PlatformChatCitationSourceTypedDict,
+    )
+    from .platformchatcompletedresponse import (
+        Object,
+        PlatformChatCompletedResponse,
+        PlatformChatCompletedResponseStatus,
+        PlatformChatCompletedResponseTypedDict,
+    )
+    from .platformchatcreaterequest import (
+        Input,
+        InputTypedDict,
+        PlatformChatCreateRequest,
+        PlatformChatCreateRequestTypedDict,
+    )
+    from .platformchatcustomentitysource import (
+        PlatformChatCustomEntitySource,
+        PlatformChatCustomEntitySourceType,
+        PlatformChatCustomEntitySourceTypedDict,
+    )
+    from .platformchatdocumentsource import (
+        PlatformChatDocumentSource,
+        PlatformChatDocumentSourceDocument1,
+        PlatformChatDocumentSourceDocument1TypedDict,
+        PlatformChatDocumentSourceDocument2,
+        PlatformChatDocumentSourceDocument2TypedDict,
+        PlatformChatDocumentSourceType1,
+        PlatformChatDocumentSourceType2,
+        PlatformChatDocumentSourceTypedDict,
+    )
+    from .platformchatfilesource import (
+        PlatformChatFileSource,
+        PlatformChatFileSourceType,
+        PlatformChatFileSourceTypedDict,
+    )
+    from .platformchatinputmessage import (
+        PlatformChatInputMessage,
+        PlatformChatInputMessageRole,
+        PlatformChatInputMessageTypedDict,
+    )
+    from .platformchatoutputmessage import (
+        PlatformChatOutputMessage,
+        PlatformChatOutputMessageRole,
+        PlatformChatOutputMessageType,
+        PlatformChatOutputMessageTypedDict,
+    )
+    from .platformchatoutputtextcontent import (
+        PlatformChatOutputTextContent,
+        PlatformChatOutputTextContentType,
+        PlatformChatOutputTextContentTypedDict,
+    )
+    from .platformchatpersonsource import (
+        PlatformChatPersonSource,
+        PlatformChatPersonSourceType,
+        PlatformChatPersonSourceTypedDict,
+    )
     from .platformcontenttype import PlatformContentType
+    from .platformdatasourcefilterinfo import (
+        PlatformDatasourceFilterInfo,
+        PlatformDatasourceFilterInfoTypedDict,
+    )
     from .platformfilter import PlatformFilter, PlatformFilterTypedDict
+    from .platformfilterfieldinfo import (
+        PlatformFilterFieldInfo,
+        PlatformFilterFieldInfoTypedDict,
+    )
     from .platformfilteroperator import PlatformFilterOperator
     from .platformmessage import PlatformMessage, PlatformMessageTypedDict
     from .platformmessagerole import PlatformMessageRole
@@ -1317,6 +1442,10 @@ if TYPE_CHECKING:
         PlatformProblemDetailErrorTypedDict,
     )
     from .platformresult import PlatformResult, PlatformResultTypedDict
+    from .platformsearchfiltersresponse import (
+        PlatformSearchFiltersResponse,
+        PlatformSearchFiltersResponseTypedDict,
+    )
     from .platformsearchrequest import (
         PlatformSearchRequest,
         PlatformSearchRequestTypedDict,
@@ -1340,17 +1469,62 @@ if TYPE_CHECKING:
         PlatformSkillGetResponse,
         PlatformSkillGetResponseTypedDict,
     )
+    from .platformskillimportrequest import (
+        PlatformSkillImportRequest,
+        PlatformSkillImportRequestTypedDict,
+    )
+    from .platformskillimportresponse import (
+        PlatformSkillImportResponse,
+        PlatformSkillImportResponseTypedDict,
+    )
     from .platformskillorigin import PlatformSkillOrigin
     from .platformskillslistresponse import (
         PlatformSkillsListResponse,
         PlatformSkillsListResponseTypedDict,
+    )
+    from .platformskillsourcepreview import (
+        PlatformSkillSourcePreview,
+        PlatformSkillSourcePreviewTypedDict,
+    )
+    from .platformskillsourcepreviewfailure import (
+        PlatformSkillSourcePreviewFailure,
+        PlatformSkillSourcePreviewFailureTypedDict,
+    )
+    from .platformskillsourcepreviewfailurecode import (
+        PlatformSkillSourcePreviewFailureCode,
+    )
+    from .platformskillsourcepreviewfile import (
+        PlatformSkillSourcePreviewFile,
+        PlatformSkillSourcePreviewFileTypedDict,
+    )
+    from .platformskillsourcepreviewrequest import (
+        PlatformSkillSourcePreviewRequest,
+        PlatformSkillSourcePreviewRequestTypedDict,
+    )
+    from .platformskillsourcepreviewresponse import (
+        PlatformSkillSourcePreviewResponse,
+        PlatformSkillSourcePreviewResponseTypedDict,
     )
     from .platformskillsourceprovenance import (
         PlatformSkillSourceProvenance,
         PlatformSkillSourceProvenanceTypedDict,
     )
     from .platformskillstatus import PlatformSkillStatus
+    from .platformskillsyncresponse import (
+        PlatformSkillSyncResponse,
+        PlatformSkillSyncResponseTypedDict,
+    )
+    from .platformskillsyncresultstatus import PlatformSkillSyncResultStatus
     from .platformskillsyncstatus import PlatformSkillSyncStatus
+    from .platformskillupdaterequest import (
+        PlatformSkillUpdateRequest,
+        PlatformSkillUpdateRequestTypedDict,
+    )
+    from .platformskillupdateresponse import (
+        PlatformSkillUpdateResponse,
+        PlatformSkillUpdateResponseTypedDict,
+    )
+    from .platformskillupdatestatus import PlatformSkillUpdateStatus
     from .platformskillvalidationfile import (
         PlatformSkillValidationFile,
         PlatformSkillValidationFileTypedDict,
@@ -1368,10 +1542,6 @@ if TYPE_CHECKING:
     from .platformskillvalidationresponse import (
         PlatformSkillValidationResponse,
         PlatformSkillValidationResponseTypedDict,
-    )
-    from .platformskillvalidationwarning import (
-        PlatformSkillValidationWarning,
-        PlatformSkillValidationWarningTypedDict,
     )
     from .platformskillversion import (
         PlatformSkillVersion,
@@ -1396,6 +1566,7 @@ if TYPE_CHECKING:
         PlatformSkillVersionsListResponseTypedDict,
     )
     from .platformtimerange import PlatformTimeRange, PlatformTimeRangeTypedDict
+    from .platformwarning import PlatformWarning, PlatformWarningTypedDict
     from .possiblevalue import PossibleValue, PossibleValueTypedDict
     from .post_api_index_v1_debug_datasource_document_eventsop import (
         PostAPIIndexV1DebugDatasourceDocumentEventsRequest,
@@ -1604,6 +1775,12 @@ if TYPE_CHECKING:
         TimeRangeFilterTypedDict,
     )
     from .tool import Tool, ToolType, ToolTypedDict
+    from .toolannotations import ToolAnnotations, ToolAnnotationsTypedDict
+    from .tooldefinition import ToolDefinition, ToolDefinitionTypedDict
+    from .tooldefinitionsresponse import (
+        ToolDefinitionsResponse,
+        ToolDefinitionsResponseTypedDict,
+    )
     from .toolinfo import ToolInfo, ToolInfoTypedDict
     from .toolmetadata import (
         ActionTypeSource,
@@ -1736,7 +1913,7 @@ if TYPE_CHECKING:
         VerifyRequestAction,
         VerifyRequestTypedDict,
     )
-    from .viewerinfo import Role, ViewerInfo, ViewerInfoTypedDict
+    from .viewerinfo import ViewerInfo, ViewerInfoRole, ViewerInfoTypedDict
     from .workflow import Workflow, WorkflowTypedDict
     from .workflowfeedbackinfo import (
         WorkflowFeedbackInfo,
@@ -1801,6 +1978,7 @@ Reaction.model_rebuild()
 
 
 __all__ = [
+    "AccessRequestPermissionDeniedResponseErrorType",
     "ActionAuthType",
     "ActionPackAuthStatus",
     "ActionPackAuthStatusResponse",
@@ -1897,6 +2075,7 @@ __all__ = [
     "AuthConfigTypedDict",
     "AuthContext",
     "AuthContextTypedDict",
+    "AuthHeaderType",
     "AuthStatus",
     "AuthToken",
     "AuthTokenTypedDict",
@@ -1946,6 +2125,8 @@ __all__ = [
     "BulkUploadHistoryEvent",
     "BulkUploadHistoryEventStatus",
     "BulkUploadHistoryEventTypedDict",
+    "Bundle",
+    "BundleTypedDict",
     "CalendarAttendee",
     "CalendarAttendeeTypedDict",
     "CalendarAttendees",
@@ -2482,6 +2663,8 @@ __all__ = [
     "GetShortcutResponseTypedDict",
     "GetToolServerAuthStatusRequest",
     "GetToolServerAuthStatusRequestTypedDict",
+    "GetToolServerToolsRequest",
+    "GetToolServerToolsRequestTypedDict",
     "GetUserCountRequest",
     "GetUserCountRequestTypedDict",
     "GetUserCountResponse",
@@ -2536,6 +2719,14 @@ __all__ = [
     "IconType",
     "Identity",
     "IdentityTypedDict",
+    "ImportAgentRequest",
+    "ImportAgentRequestRequest",
+    "ImportAgentRequestRequestTypedDict",
+    "ImportAgentRequestTypedDict",
+    "ImportAgentResponse",
+    "ImportAgentResponseTypedDict",
+    "ImportAgentStatus",
+    "ImportAgentSyncMode",
     "IncludeType",
     "IndexDocumentRequest",
     "IndexDocumentRequestTypedDict",
@@ -2555,11 +2746,13 @@ __all__ = [
     "IndexUserRequestTypedDict",
     "IndexingShortcut",
     "IndexingShortcutTypedDict",
+    "Input",
     "InputOptions",
     "InputOptionsTimePeriodType",
     "InputOptionsTypedDict",
     "InputSchema",
     "InputSchemaTypedDict",
+    "InputTypedDict",
     "InsightsAssistantRequest",
     "InsightsAssistantRequestTypedDict",
     "InsightsChatSummary",
@@ -2673,6 +2866,7 @@ __all__ = [
     "MessagesResponse",
     "MessagesResponseTypedDict",
     "Mode",
+    "Object",
     "ObjectDefinition",
     "ObjectDefinitionTypedDict",
     "ObjectPermissions",
@@ -2758,8 +2952,55 @@ __all__ = [
     "PlatformAgentsSearchRequestTypedDict",
     "PlatformAgentsSearchResponse",
     "PlatformAgentsSearchResponseTypedDict",
+    "PlatformAuthenticationSuggestion",
+    "PlatformAuthenticationSuggestionTypedDict",
+    "PlatformChatCitationAnnotation",
+    "PlatformChatCitationAnnotationType",
+    "PlatformChatCitationAnnotationTypedDict",
+    "PlatformChatCitationSnippet",
+    "PlatformChatCitationSnippetTypedDict",
+    "PlatformChatCitationSource",
+    "PlatformChatCitationSourceTypedDict",
+    "PlatformChatCompletedResponse",
+    "PlatformChatCompletedResponseStatus",
+    "PlatformChatCompletedResponseTypedDict",
+    "PlatformChatCreateRequest",
+    "PlatformChatCreateRequestTypedDict",
+    "PlatformChatCreateResponse",
+    "PlatformChatCreateResponseTypedDict",
+    "PlatformChatCustomEntitySource",
+    "PlatformChatCustomEntitySourceType",
+    "PlatformChatCustomEntitySourceTypedDict",
+    "PlatformChatDocumentSource",
+    "PlatformChatDocumentSourceDocument1",
+    "PlatformChatDocumentSourceDocument1TypedDict",
+    "PlatformChatDocumentSourceDocument2",
+    "PlatformChatDocumentSourceDocument2TypedDict",
+    "PlatformChatDocumentSourceType1",
+    "PlatformChatDocumentSourceType2",
+    "PlatformChatDocumentSourceTypedDict",
+    "PlatformChatFileSource",
+    "PlatformChatFileSourceType",
+    "PlatformChatFileSourceTypedDict",
+    "PlatformChatInputMessage",
+    "PlatformChatInputMessageRole",
+    "PlatformChatInputMessageTypedDict",
+    "PlatformChatOutputMessage",
+    "PlatformChatOutputMessageRole",
+    "PlatformChatOutputMessageType",
+    "PlatformChatOutputMessageTypedDict",
+    "PlatformChatOutputTextContent",
+    "PlatformChatOutputTextContentType",
+    "PlatformChatOutputTextContentTypedDict",
+    "PlatformChatPersonSource",
+    "PlatformChatPersonSourceType",
+    "PlatformChatPersonSourceTypedDict",
     "PlatformContentType",
+    "PlatformDatasourceFilterInfo",
+    "PlatformDatasourceFilterInfoTypedDict",
     "PlatformFilter",
+    "PlatformFilterFieldInfo",
+    "PlatformFilterFieldInfoTypedDict",
     "PlatformFilterOperator",
     "PlatformFilterTypedDict",
     "PlatformMessage",
@@ -2774,6 +3015,12 @@ __all__ = [
     "PlatformProblemDetailErrorTypedDict",
     "PlatformResult",
     "PlatformResultTypedDict",
+    "PlatformSearchFiltersRequest",
+    "PlatformSearchFiltersRequestTypedDict",
+    "PlatformSearchFiltersResponse",
+    "PlatformSearchFiltersResponseResponse",
+    "PlatformSearchFiltersResponseResponseTypedDict",
+    "PlatformSearchFiltersResponseTypedDict",
     "PlatformSearchRequest",
     "PlatformSearchRequestTypedDict",
     "PlatformSearchResponse",
@@ -2787,12 +3034,35 @@ __all__ = [
     "PlatformSkillCreateResponseTypedDict",
     "PlatformSkillGetResponse",
     "PlatformSkillGetResponseTypedDict",
+    "PlatformSkillImportRequest",
+    "PlatformSkillImportRequestTypedDict",
+    "PlatformSkillImportResponse",
+    "PlatformSkillImportResponseTypedDict",
     "PlatformSkillOrigin",
+    "PlatformSkillSourcePreview",
+    "PlatformSkillSourcePreviewFailure",
+    "PlatformSkillSourcePreviewFailureCode",
+    "PlatformSkillSourcePreviewFailureTypedDict",
+    "PlatformSkillSourcePreviewFile",
+    "PlatformSkillSourcePreviewFileTypedDict",
+    "PlatformSkillSourcePreviewRequest",
+    "PlatformSkillSourcePreviewRequestTypedDict",
+    "PlatformSkillSourcePreviewResponse",
+    "PlatformSkillSourcePreviewResponseTypedDict",
+    "PlatformSkillSourcePreviewTypedDict",
     "PlatformSkillSourceProvenance",
     "PlatformSkillSourceProvenanceTypedDict",
     "PlatformSkillStatus",
+    "PlatformSkillSyncResponse",
+    "PlatformSkillSyncResponseTypedDict",
+    "PlatformSkillSyncResultStatus",
     "PlatformSkillSyncStatus",
     "PlatformSkillTypedDict",
+    "PlatformSkillUpdateRequest",
+    "PlatformSkillUpdateRequestTypedDict",
+    "PlatformSkillUpdateResponse",
+    "PlatformSkillUpdateResponseTypedDict",
+    "PlatformSkillUpdateStatus",
     "PlatformSkillValidationFile",
     "PlatformSkillValidationFileTypedDict",
     "PlatformSkillValidationMetadata",
@@ -2803,8 +3073,6 @@ __all__ = [
     "PlatformSkillValidationRequestTypedDict",
     "PlatformSkillValidationResponse",
     "PlatformSkillValidationResponseTypedDict",
-    "PlatformSkillValidationWarning",
-    "PlatformSkillValidationWarningTypedDict",
     "PlatformSkillVersion",
     "PlatformSkillVersionCreateRequest",
     "PlatformSkillVersionCreateRequestFile",
@@ -2819,6 +3087,8 @@ __all__ = [
     "PlatformSkillVersionsListResponseTypedDict",
     "PlatformSkillsCreateVersionRequest",
     "PlatformSkillsCreateVersionRequestTypedDict",
+    "PlatformSkillsDeleteRequest",
+    "PlatformSkillsDeleteRequestTypedDict",
     "PlatformSkillsGetContentRequest",
     "PlatformSkillsGetContentRequestTypedDict",
     "PlatformSkillsGetContentResponse",
@@ -2837,8 +3107,16 @@ __all__ = [
     "PlatformSkillsListResponseTypedDict",
     "PlatformSkillsListVersionsRequest",
     "PlatformSkillsListVersionsRequestTypedDict",
+    "PlatformSkillsPreviewSourceResponse",
+    "PlatformSkillsPreviewSourceResponseTypedDict",
+    "PlatformSkillsSyncRequest",
+    "PlatformSkillsSyncRequestTypedDict",
+    "PlatformSkillsUpdateRequest",
+    "PlatformSkillsUpdateRequestTypedDict",
     "PlatformTimeRange",
     "PlatformTimeRangeTypedDict",
+    "PlatformWarning",
+    "PlatformWarningTypedDict",
     "PossibleValue",
     "PossibleValueTypedDict",
     "PostAPIIndexV1DebugDatasourceDocumentEventsRequest",
@@ -2932,7 +3210,6 @@ __all__ = [
     "ResultsDescriptionTypedDict",
     "ResultsResponse",
     "ResultsResponseTypedDict",
-    "Role",
     "RotateDatasourceCredentialsRequest",
     "RotateDatasourceCredentialsRequestRequest",
     "RotateDatasourceCredentialsRequestRequestTypedDict",
@@ -3056,6 +3333,12 @@ __all__ = [
     "TimeRangeTypedDict",
     "TokenEndpointAuthMethod",
     "Tool",
+    "ToolAnnotations",
+    "ToolAnnotationsTypedDict",
+    "ToolDefinition",
+    "ToolDefinitionTypedDict",
+    "ToolDefinitionsResponse",
+    "ToolDefinitionsResponseTypedDict",
     "ToolInfo",
     "ToolInfoTypedDict",
     "ToolMetadata",
@@ -3165,6 +3448,7 @@ __all__ = [
     "VerifyRequestRequestTypedDict",
     "VerifyRequestTypedDict",
     "ViewerInfo",
+    "ViewerInfoRole",
     "ViewerInfoTypedDict",
     "WarningType",
     "Workflow",
@@ -3183,6 +3467,7 @@ __all__ = [
 ]
 
 _dynamic_imports: dict[str, str] = {
+    "AccessRequestPermissionDeniedResponseErrorType": ".accessrequestpermissiondeniedresponse_error",
     "ActionAuthType": ".actionauthtype",
     "ActionPackAuthStatus": ".actionpackauthstatus",
     "ActionPackAuthStatusTypedDict": ".actionpackauthstatus",
@@ -3275,6 +3560,7 @@ _dynamic_imports: dict[str, str] = {
     "AuthConfigStatus": ".authconfig",
     "AuthConfigType": ".authconfig",
     "AuthConfigTypedDict": ".authconfig",
+    "AuthHeaderType": ".authconfig",
     "GrantType": ".authconfig",
     "TokenEndpointAuthMethod": ".authconfig",
     "AuthContext": ".authcontext",
@@ -3860,6 +4146,8 @@ _dynamic_imports: dict[str, str] = {
     "GetShortcutResponseTypedDict": ".getshortcutresponse",
     "GetToolServerAuthStatusRequest": ".gettoolserverauthstatusop",
     "GetToolServerAuthStatusRequestTypedDict": ".gettoolserverauthstatusop",
+    "GetToolServerToolsRequest": ".gettoolservertoolsop",
+    "GetToolServerToolsRequestTypedDict": ".gettoolservertoolsop",
     "GetUserCountRequest": ".getusercountrequest",
     "GetUserCountRequestTypedDict": ".getusercountrequest",
     "GetUserCountResponse": ".getusercountresponse",
@@ -3882,6 +4170,16 @@ _dynamic_imports: dict[str, str] = {
     "IconConfig": ".iconconfig",
     "IconConfigTypedDict": ".iconconfig",
     "IconType": ".iconconfig",
+    "ImportAgentRequestRequest": ".importagentop",
+    "ImportAgentRequestRequestTypedDict": ".importagentop",
+    "Bundle": ".importagentrequest",
+    "BundleTypedDict": ".importagentrequest",
+    "ImportAgentRequest": ".importagentrequest",
+    "ImportAgentRequestTypedDict": ".importagentrequest",
+    "ImportAgentResponse": ".importagentresponse",
+    "ImportAgentResponseTypedDict": ".importagentresponse",
+    "ImportAgentStatus": ".importagentstatus",
+    "ImportAgentSyncMode": ".importagentsyncmode",
     "IndexDocumentRequest": ".indexdocumentrequest",
     "IndexDocumentRequestTypedDict": ".indexdocumentrequest",
     "IndexDocumentsRequest": ".indexdocumentsrequest",
@@ -4061,8 +4359,16 @@ _dynamic_imports: dict[str, str] = {
     "PlatformAgentsGetSchemasRequestTypedDict": ".platform_agents_get_schemasop",
     "PlatformAgentsGetRequest": ".platform_agents_getop",
     "PlatformAgentsGetRequestTypedDict": ".platform_agents_getop",
+    "PlatformChatCreateResponse": ".platform_chat_createop",
+    "PlatformChatCreateResponseTypedDict": ".platform_chat_createop",
+    "PlatformSearchFiltersRequest": ".platform_search_filtersop",
+    "PlatformSearchFiltersRequestTypedDict": ".platform_search_filtersop",
+    "PlatformSearchFiltersResponseResponse": ".platform_search_filtersop",
+    "PlatformSearchFiltersResponseResponseTypedDict": ".platform_search_filtersop",
     "PlatformSkillsCreateVersionRequest": ".platform_skills_create_versionop",
     "PlatformSkillsCreateVersionRequestTypedDict": ".platform_skills_create_versionop",
+    "PlatformSkillsDeleteRequest": ".platform_skills_deleteop",
+    "PlatformSkillsDeleteRequestTypedDict": ".platform_skills_deleteop",
     "PlatformSkillsGetContentRequest": ".platform_skills_get_contentop",
     "PlatformSkillsGetContentRequestTypedDict": ".platform_skills_get_contentop",
     "PlatformSkillsGetContentResponse": ".platform_skills_get_contentop",
@@ -4079,6 +4385,12 @@ _dynamic_imports: dict[str, str] = {
     "PlatformSkillsListVersionsRequestTypedDict": ".platform_skills_list_versionsop",
     "PlatformSkillsListRequest": ".platform_skills_listop",
     "PlatformSkillsListRequestTypedDict": ".platform_skills_listop",
+    "PlatformSkillsPreviewSourceResponse": ".platform_skills_preview_sourceop",
+    "PlatformSkillsPreviewSourceResponseTypedDict": ".platform_skills_preview_sourceop",
+    "PlatformSkillsSyncRequest": ".platform_skills_syncop",
+    "PlatformSkillsSyncRequestTypedDict": ".platform_skills_syncop",
+    "PlatformSkillsUpdateRequest": ".platform_skills_updateop",
+    "PlatformSkillsUpdateRequestTypedDict": ".platform_skills_updateop",
     "PlatformActionSummary": ".platformactionsummary",
     "PlatformActionSummaryTypedDict": ".platformactionsummary",
     "PlatformAgent": ".platformagent",
@@ -4100,9 +4412,57 @@ _dynamic_imports: dict[str, str] = {
     "PlatformAgentsSearchRequestTypedDict": ".platformagentssearchrequest",
     "PlatformAgentsSearchResponse": ".platformagentssearchresponse",
     "PlatformAgentsSearchResponseTypedDict": ".platformagentssearchresponse",
+    "PlatformAuthenticationSuggestion": ".platformauthenticationsuggestion",
+    "PlatformAuthenticationSuggestionTypedDict": ".platformauthenticationsuggestion",
+    "PlatformChatCitationAnnotation": ".platformchatcitationannotation",
+    "PlatformChatCitationAnnotationType": ".platformchatcitationannotation",
+    "PlatformChatCitationAnnotationTypedDict": ".platformchatcitationannotation",
+    "PlatformChatCitationSnippet": ".platformchatcitationsnippet",
+    "PlatformChatCitationSnippetTypedDict": ".platformchatcitationsnippet",
+    "PlatformChatCitationSource": ".platformchatcitationsource",
+    "PlatformChatCitationSourceTypedDict": ".platformchatcitationsource",
+    "Object": ".platformchatcompletedresponse",
+    "PlatformChatCompletedResponse": ".platformchatcompletedresponse",
+    "PlatformChatCompletedResponseStatus": ".platformchatcompletedresponse",
+    "PlatformChatCompletedResponseTypedDict": ".platformchatcompletedresponse",
+    "Input": ".platformchatcreaterequest",
+    "InputTypedDict": ".platformchatcreaterequest",
+    "PlatformChatCreateRequest": ".platformchatcreaterequest",
+    "PlatformChatCreateRequestTypedDict": ".platformchatcreaterequest",
+    "PlatformChatCustomEntitySource": ".platformchatcustomentitysource",
+    "PlatformChatCustomEntitySourceType": ".platformchatcustomentitysource",
+    "PlatformChatCustomEntitySourceTypedDict": ".platformchatcustomentitysource",
+    "PlatformChatDocumentSource": ".platformchatdocumentsource",
+    "PlatformChatDocumentSourceDocument1": ".platformchatdocumentsource",
+    "PlatformChatDocumentSourceDocument1TypedDict": ".platformchatdocumentsource",
+    "PlatformChatDocumentSourceDocument2": ".platformchatdocumentsource",
+    "PlatformChatDocumentSourceDocument2TypedDict": ".platformchatdocumentsource",
+    "PlatformChatDocumentSourceType1": ".platformchatdocumentsource",
+    "PlatformChatDocumentSourceType2": ".platformchatdocumentsource",
+    "PlatformChatDocumentSourceTypedDict": ".platformchatdocumentsource",
+    "PlatformChatFileSource": ".platformchatfilesource",
+    "PlatformChatFileSourceType": ".platformchatfilesource",
+    "PlatformChatFileSourceTypedDict": ".platformchatfilesource",
+    "PlatformChatInputMessage": ".platformchatinputmessage",
+    "PlatformChatInputMessageRole": ".platformchatinputmessage",
+    "PlatformChatInputMessageTypedDict": ".platformchatinputmessage",
+    "PlatformChatOutputMessage": ".platformchatoutputmessage",
+    "PlatformChatOutputMessageRole": ".platformchatoutputmessage",
+    "PlatformChatOutputMessageType": ".platformchatoutputmessage",
+    "PlatformChatOutputMessageTypedDict": ".platformchatoutputmessage",
+    "PlatformChatOutputTextContent": ".platformchatoutputtextcontent",
+    "PlatformChatOutputTextContentType": ".platformchatoutputtextcontent",
+    "PlatformChatOutputTextContentTypedDict": ".platformchatoutputtextcontent",
+    "PlatformChatPersonSource": ".platformchatpersonsource",
+    "PlatformChatPersonSourceType": ".platformchatpersonsource",
+    "PlatformChatPersonSourceTypedDict": ".platformchatpersonsource",
     "PlatformContentType": ".platformcontenttype",
+    "PlatformDatasourceFilterInfo": ".platformdatasourcefilterinfo",
+    "PlatformDatasourceFilterInfoTypedDict": ".platformdatasourcefilterinfo",
     "PlatformFilter": ".platformfilter",
     "PlatformFilterTypedDict": ".platformfilter",
+    "PlatformFilterFieldInfo": ".platformfilterfieldinfo",
+    "PlatformFilterFieldInfoTypedDict": ".platformfilterfieldinfo",
     "PlatformFilterOperator": ".platformfilteroperator",
     "PlatformMessage": ".platformmessage",
     "PlatformMessageTypedDict": ".platformmessage",
@@ -4116,6 +4476,8 @@ _dynamic_imports: dict[str, str] = {
     "PlatformProblemDetailErrorTypedDict": ".platformproblemdetailerror",
     "PlatformResult": ".platformresult",
     "PlatformResultTypedDict": ".platformresult",
+    "PlatformSearchFiltersResponse": ".platformsearchfiltersresponse",
+    "PlatformSearchFiltersResponseTypedDict": ".platformsearchfiltersresponse",
     "PlatformSearchRequest": ".platformsearchrequest",
     "PlatformSearchRequestTypedDict": ".platformsearchrequest",
     "PlatformSearchResponse": ".platformsearchresponse",
@@ -4130,13 +4492,36 @@ _dynamic_imports: dict[str, str] = {
     "PlatformSkillCreateResponseTypedDict": ".platformskillcreateresponse",
     "PlatformSkillGetResponse": ".platformskillgetresponse",
     "PlatformSkillGetResponseTypedDict": ".platformskillgetresponse",
+    "PlatformSkillImportRequest": ".platformskillimportrequest",
+    "PlatformSkillImportRequestTypedDict": ".platformskillimportrequest",
+    "PlatformSkillImportResponse": ".platformskillimportresponse",
+    "PlatformSkillImportResponseTypedDict": ".platformskillimportresponse",
     "PlatformSkillOrigin": ".platformskillorigin",
     "PlatformSkillsListResponse": ".platformskillslistresponse",
     "PlatformSkillsListResponseTypedDict": ".platformskillslistresponse",
+    "PlatformSkillSourcePreview": ".platformskillsourcepreview",
+    "PlatformSkillSourcePreviewTypedDict": ".platformskillsourcepreview",
+    "PlatformSkillSourcePreviewFailure": ".platformskillsourcepreviewfailure",
+    "PlatformSkillSourcePreviewFailureTypedDict": ".platformskillsourcepreviewfailure",
+    "PlatformSkillSourcePreviewFailureCode": ".platformskillsourcepreviewfailurecode",
+    "PlatformSkillSourcePreviewFile": ".platformskillsourcepreviewfile",
+    "PlatformSkillSourcePreviewFileTypedDict": ".platformskillsourcepreviewfile",
+    "PlatformSkillSourcePreviewRequest": ".platformskillsourcepreviewrequest",
+    "PlatformSkillSourcePreviewRequestTypedDict": ".platformskillsourcepreviewrequest",
+    "PlatformSkillSourcePreviewResponse": ".platformskillsourcepreviewresponse",
+    "PlatformSkillSourcePreviewResponseTypedDict": ".platformskillsourcepreviewresponse",
     "PlatformSkillSourceProvenance": ".platformskillsourceprovenance",
     "PlatformSkillSourceProvenanceTypedDict": ".platformskillsourceprovenance",
     "PlatformSkillStatus": ".platformskillstatus",
+    "PlatformSkillSyncResponse": ".platformskillsyncresponse",
+    "PlatformSkillSyncResponseTypedDict": ".platformskillsyncresponse",
+    "PlatformSkillSyncResultStatus": ".platformskillsyncresultstatus",
     "PlatformSkillSyncStatus": ".platformskillsyncstatus",
+    "PlatformSkillUpdateRequest": ".platformskillupdaterequest",
+    "PlatformSkillUpdateRequestTypedDict": ".platformskillupdaterequest",
+    "PlatformSkillUpdateResponse": ".platformskillupdateresponse",
+    "PlatformSkillUpdateResponseTypedDict": ".platformskillupdateresponse",
+    "PlatformSkillUpdateStatus": ".platformskillupdatestatus",
     "PlatformSkillValidationFile": ".platformskillvalidationfile",
     "PlatformSkillValidationFileTypedDict": ".platformskillvalidationfile",
     "PlatformSkillValidationMetadata": ".platformskillvalidationmetadata",
@@ -4147,8 +4532,6 @@ _dynamic_imports: dict[str, str] = {
     "PlatformSkillValidationRequestTypedDict": ".platformskillvalidationrequest",
     "PlatformSkillValidationResponse": ".platformskillvalidationresponse",
     "PlatformSkillValidationResponseTypedDict": ".platformskillvalidationresponse",
-    "PlatformSkillValidationWarning": ".platformskillvalidationwarning",
-    "PlatformSkillValidationWarningTypedDict": ".platformskillvalidationwarning",
     "PlatformSkillVersion": ".platformskillversion",
     "PlatformSkillVersionTypedDict": ".platformskillversion",
     "PlatformSkillVersionCreateRequest": ".platformskillversioncreaterequest",
@@ -4163,6 +4546,8 @@ _dynamic_imports: dict[str, str] = {
     "PlatformSkillVersionsListResponseTypedDict": ".platformskillversionslistresponse",
     "PlatformTimeRange": ".platformtimerange",
     "PlatformTimeRangeTypedDict": ".platformtimerange",
+    "PlatformWarning": ".platformwarning",
+    "PlatformWarningTypedDict": ".platformwarning",
     "PossibleValue": ".possiblevalue",
     "PossibleValueTypedDict": ".possiblevalue",
     "PostAPIIndexV1DebugDatasourceDocumentEventsRequest": ".post_api_index_v1_debug_datasource_document_eventsop",
@@ -4343,6 +4728,12 @@ _dynamic_imports: dict[str, str] = {
     "Tool": ".tool",
     "ToolType": ".tool",
     "ToolTypedDict": ".tool",
+    "ToolAnnotations": ".toolannotations",
+    "ToolAnnotationsTypedDict": ".toolannotations",
+    "ToolDefinition": ".tooldefinition",
+    "ToolDefinitionTypedDict": ".tooldefinition",
+    "ToolDefinitionsResponse": ".tooldefinitionsresponse",
+    "ToolDefinitionsResponseTypedDict": ".tooldefinitionsresponse",
     "ToolInfo": ".toolinfo",
     "ToolInfoTypedDict": ".toolinfo",
     "ActionTypeSource": ".toolmetadata",
@@ -4443,8 +4834,8 @@ _dynamic_imports: dict[str, str] = {
     "VerifyRequest": ".verifyrequest",
     "VerifyRequestAction": ".verifyrequest",
     "VerifyRequestTypedDict": ".verifyrequest",
-    "Role": ".viewerinfo",
     "ViewerInfo": ".viewerinfo",
+    "ViewerInfoRole": ".viewerinfo",
     "ViewerInfoTypedDict": ".viewerinfo",
     "Workflow": ".workflow",
     "WorkflowTypedDict": ".workflow",

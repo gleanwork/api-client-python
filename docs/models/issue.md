@@ -28,3 +28,5 @@ value = Issue.AGENT_CANVAS_FAILED
 | `RESULTS_HELPFUL`                 | RESULTS_HELPFUL                   |
 | `RESULTS_POOR_ORDER`              | RESULTS_POOR_ORDER                |
 | `TOO_MUCH_ONE_KIND`               | TOO_MUCH_ONE_KIND                 |
+| `NOT_A_QUESTION`                  | NOT_A_QUESTION                    |
+| `UNSURE_IF_CORRECT`               | UNSURE_IF_CORRECT                 |

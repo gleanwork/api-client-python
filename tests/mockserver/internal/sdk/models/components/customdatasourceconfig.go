@@ -30,6 +30,8 @@ const (
 	DatasourceCategoryEntity               DatasourceCategory = "ENTITY"
 	DatasourceCategoryCalendar             DatasourceCategory = "CALENDAR"
 	DatasourceCategoryAgents               DatasourceCategory = "AGENTS"
+	DatasourceCategoryAiConversation       DatasourceCategory = "AI_CONVERSATION"
+	DatasourceCategoryAiArtifact           DatasourceCategory = "AI_ARTIFACT"
 )
 
 func (e DatasourceCategory) ToPointer() *DatasourceCategory {
@@ -76,6 +78,10 @@ func (e *DatasourceCategory) UnmarshalJSON(data []byte) error {
 	case "CALENDAR":
 		fallthrough
 	case "AGENTS":
+		fallthrough
+	case "AI_CONVERSATION":
+		fallthrough
+	case "AI_ARTIFACT":
 		*e = DatasourceCategory(v)
 		return nil
 	default:

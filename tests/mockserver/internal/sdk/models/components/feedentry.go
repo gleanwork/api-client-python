@@ -98,6 +98,7 @@ const (
 	JustificationTypeStarterKitOrgChart                JustificationType = "STARTER_KIT_ORG_CHART"
 	JustificationTypeStarterKitAddDoc                  JustificationType = "STARTER_KIT_ADD_DOC"
 	JustificationTypeMeetingRecap                      JustificationType = "MEETING_RECAP"
+	JustificationTypeMeetingPrepAutomation             JustificationType = "MEETING_PREP_AUTOMATION"
 	JustificationTypeActiveDiscussion                  JustificationType = "ACTIVE_DISCUSSION"
 	JustificationTypeMidDayCatchUp                     JustificationType = "MID_DAY_CATCH_UP"
 	JustificationTypeQuerySuggestion                   JustificationType = "QUERY_SUGGESTION"
@@ -207,6 +208,8 @@ func (e *JustificationType) UnmarshalJSON(data []byte) error {
 	case "STARTER_KIT_ADD_DOC":
 		fallthrough
 	case "MEETING_RECAP":
+		fallthrough
+	case "MEETING_PREP_AUTOMATION":
 		fallthrough
 	case "ACTIVE_DISCUSSION":
 		fallthrough

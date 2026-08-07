@@ -9,10 +9,7 @@ from .platformskillvalidationmetadata import (
     PlatformSkillValidationMetadata,
     PlatformSkillValidationMetadataTypedDict,
 )
-from .platformskillvalidationwarning import (
-    PlatformSkillValidationWarning,
-    PlatformSkillValidationWarningTypedDict,
-)
+from .platformwarning import PlatformWarning, PlatformWarningTypedDict
 from glean.api_client.types import BaseModel
 from typing import List
 from typing_extensions import TypedDict
@@ -22,7 +19,7 @@ class PlatformSkillValidationResponseTypedDict(TypedDict):
     metadata: PlatformSkillValidationMetadataTypedDict
     files: List[PlatformSkillValidationFileTypedDict]
     r"""Normalized files in the bundle after stripping an optional single root folder."""
-    warnings: List[PlatformSkillValidationWarningTypedDict]
+    warnings: List[PlatformWarningTypedDict]
     r"""Non-blocking validation warnings."""
     request_id: str
     r"""Platform-generated request ID for support correlation."""
@@ -34,7 +31,7 @@ class PlatformSkillValidationResponse(BaseModel):
     files: List[PlatformSkillValidationFile]
     r"""Normalized files in the bundle after stripping an optional single root folder."""
 
-    warnings: List[PlatformSkillValidationWarning]
+    warnings: List[PlatformWarning]
     r"""Non-blocking validation warnings."""
 
     request_id: str

@@ -17,3 +17,23 @@ def test_client_agents_create_agent():
 
         res = glean.client.agents.create()
         assert res is not None
+
+
+def test_client_agents_import_agent():
+    test_http_client = create_test_http_client("importAgent")
+
+    with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
+        client=test_http_client,
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+    ) as glean:
+        assert glean is not None
+
+        res = glean.client.agents.import_(
+            agent_id="<id>",
+            bundle={
+                "file_name": "example.file",
+                "content": open(".speakeasy/testfiles/example.file", "rb"),
+            },
+        )
+        assert res is not None

@@ -8,7 +8,7 @@ import (
 
 type PlatformSearchResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// Successful search.
+	// Successful response.
 	PlatformSearchResponse *components.PlatformSearchResponse
 }
 

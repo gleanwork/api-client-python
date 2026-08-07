@@ -40,6 +40,7 @@ const (
 	FeedRequestCategoryPlanMyDay                    FeedRequestCategory = "PLAN_MY_DAY"
 	FeedRequestCategoryEndMyDay                     FeedRequestCategory = "END_MY_DAY"
 	FeedRequestCategoryStarterKit                   FeedRequestCategory = "STARTER_KIT"
+	FeedRequestCategoryMeetingPrepAutomation        FeedRequestCategory = "MEETING_PREP_AUTOMATION"
 	FeedRequestCategoryMidDayCatchUp                FeedRequestCategory = "MID_DAY_CATCH_UP"
 	FeedRequestCategoryQuerySuggestion              FeedRequestCategory = "QUERY_SUGGESTION"
 	FeedRequestCategoryCoworkCujPromo               FeedRequestCategory = "COWORK_CUJ_PROMO"
@@ -124,6 +125,8 @@ func (e *FeedRequestCategory) UnmarshalJSON(data []byte) error {
 	case "END_MY_DAY":
 		fallthrough
 	case "STARTER_KIT":
+		fallthrough
+	case "MEETING_PREP_AUTOMATION":
 		fallthrough
 	case "MID_DAY_CATCH_UP":
 		fallthrough
