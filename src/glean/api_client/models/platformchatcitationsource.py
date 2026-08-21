@@ -17,8 +17,10 @@ from .platformchatpersonsource import (
     PlatformChatPersonSource,
     PlatformChatPersonSourceTypedDict,
 )
+from glean.api_client.utils import get_discriminator
+from pydantic import Discriminator, Tag
 from typing import Union
-from typing_extensions import TypeAliasType
+from typing_extensions import Annotated, TypeAliasType
 
 
 PlatformChatCitationSourceTypedDict = TypeAliasType(
@@ -33,13 +35,13 @@ PlatformChatCitationSourceTypedDict = TypeAliasType(
 r"""Four-variant citation source union."""
 
 
-PlatformChatCitationSource = TypeAliasType(
-    "PlatformChatCitationSource",
+PlatformChatCitationSource = Annotated[
     Union[
-        PlatformChatPersonSource,
-        PlatformChatFileSource,
-        PlatformChatCustomEntitySource,
-        PlatformChatDocumentSource,
+        Annotated[PlatformChatDocumentSource, Tag("DOCUMENT")],
+        Annotated[PlatformChatPersonSource, Tag("PERSON")],
+        Annotated[PlatformChatFileSource, Tag("FILE")],
+        Annotated[PlatformChatCustomEntitySource, Tag("CUSTOM_ENTITY")],
     ],
-)
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
 r"""Four-variant citation source union."""

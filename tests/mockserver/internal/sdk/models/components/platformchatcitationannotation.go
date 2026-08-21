@@ -11,7 +11,7 @@ import (
 type PlatformChatCitationAnnotationType string
 
 const (
-	PlatformChatCitationAnnotationTypeCitation PlatformChatCitationAnnotationType = "citation"
+	PlatformChatCitationAnnotationTypeCitation PlatformChatCitationAnnotationType = "CITATION"
 )
 
 func (e PlatformChatCitationAnnotationType) ToPointer() *PlatformChatCitationAnnotationType {
@@ -23,7 +23,7 @@ func (e *PlatformChatCitationAnnotationType) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	switch v {
-	case "citation":
+	case "CITATION":
 		*e = PlatformChatCitationAnnotationType(v)
 		return nil
 	default:

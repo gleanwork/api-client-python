@@ -13,4 +13,4 @@ value = PlatformChatCompletedResponseStatus.COMPLETED
 
 | Name        | Value       |
 | ----------- | ----------- |
-| `COMPLETED` | completed   |
+| `COMPLETED` | COMPLETED   |

@@ -9,7 +9,7 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class PlatformChatCustomEntitySourceType(str, Enum):
-    CUSTOM_ENTITY = "custom_entity"
+    CUSTOM_ENTITY = "CUSTOM_ENTITY"
 
 
 class PlatformChatCustomEntitySourceTypedDict(TypedDict):

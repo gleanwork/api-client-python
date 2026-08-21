@@ -13,4 +13,4 @@ value = PlatformChatCustomEntitySourceType.CUSTOM_ENTITY
 
 | Name            | Value           |
 | --------------- | --------------- |
-| `CUSTOM_ENTITY` | custom_entity   |
+| `CUSTOM_ENTITY` | CUSTOM_ENTITY   |

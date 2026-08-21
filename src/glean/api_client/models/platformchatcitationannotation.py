@@ -23,7 +23,7 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class PlatformChatCitationAnnotationType(str, Enum):
-    CITATION = "citation"
+    CITATION = "CITATION"
 
 
 class PlatformChatCitationAnnotationTypedDict(TypedDict):

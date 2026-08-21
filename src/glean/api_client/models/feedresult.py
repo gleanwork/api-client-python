@@ -56,16 +56,19 @@ class FeedResultCategory(str, Enum, metaclass=utils.OpenEnumMeta):
     PROJECT_FOCUS_BLOCK = "PROJECT_FOCUS_BLOCK"
     PROJECT_NEXT_STEP = "PROJECT_NEXT_STEP"
     DEMO_CARD = "DEMO_CARD"
+    RESOLVE_MEETING_CONFLICT = "RESOLVE_MEETING_CONFLICT"
     OOO_PLANNER = "OOO_PLANNER"
     OOO_CATCH_UP = "OOO_CATCH_UP"
     ADMIN_HEALTH_CENTER = "ADMIN_HEALTH_CENTER"
+    KNOWLEDGE_GAP = "KNOWLEDGE_GAP"
 
 
 class PlacementReason(str, Enum, metaclass=utils.OpenEnumMeta):
-    r"""Placement source for ranked feed results. ORGANIC means the card was emitted by normal feed ranking. PROMO means the card was inserted by the homepage cards promo framework."""
+    r"""Placement source for ranked feed results. ORGANIC means the card was emitted by normal feed ranking. PROMO means the card was inserted by the homepage cards promo framework. PINNED means the card was moved to the head of the ranked stack (e.g. knowledge-gap pilot cards)."""
 
     ORGANIC = "ORGANIC"
     PROMO = "PROMO"
+    PINNED = "PINNED"
 
 
 class FeedResultTypedDict(TypedDict):
@@ -77,7 +80,7 @@ class FeedResultTypedDict(TypedDict):
     rank: NotRequired[int]
     r"""Rank of the result. Rank is suggested by server. Client side rank may differ."""
     placement_reason: NotRequired[PlacementReason]
-    r"""Placement source for ranked feed results. ORGANIC means the card was emitted by normal feed ranking. PROMO means the card was inserted by the homepage cards promo framework."""
+    r"""Placement source for ranked feed results. ORGANIC means the card was emitted by normal feed ranking. PROMO means the card was inserted by the homepage cards promo framework. PINNED means the card was moved to the head of the ranked stack (e.g. knowledge-gap pilot cards)."""
 
 
 class FeedResult(BaseModel):
@@ -97,7 +100,7 @@ class FeedResult(BaseModel):
     placement_reason: Annotated[
         Optional[PlacementReason], pydantic.Field(alias="placementReason")
     ] = None
-    r"""Placement source for ranked feed results. ORGANIC means the card was emitted by normal feed ranking. PROMO means the card was inserted by the homepage cards promo framework."""
+    r"""Placement source for ranked feed results. ORGANIC means the card was emitted by normal feed ranking. PROMO means the card was inserted by the homepage cards promo framework. PINNED means the card was moved to the head of the ranked stack (e.g. knowledge-gap pilot cards)."""
 
     @field_serializer("category")
     def serialize_category(self, value):

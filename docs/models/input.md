@@ -1,6 +1,6 @@
 # Input
 
-Either a plain string (single user turn) or a chronological array of `user`/`assistant` messages. The final array message must be `user`.
+Either a plain string (single user turn) or a chronological array of `USER`/`ASSISTANT` messages. The final array message must be `USER`.
 
 
 

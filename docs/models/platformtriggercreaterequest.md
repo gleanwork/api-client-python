@@ -1,0 +1,11 @@
+# PlatformTriggerCreateRequest
+
+
+## Fields
+
+| Field                                                                  | Type                                                                   | Required                                                               | Description                                                            | Example                                                                |
+| ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| `preset_id`                                                            | *str*                                                                  | :heavy_check_mark:                                                     | ID of the preset to instantiate.                                       | GITHUB_1                                                               |
+| `description`                                                          | *Optional[str]*                                                        | :heavy_minus_sign:                                                     | Optional note describing this trigger.                                 | Reviews I am tagged on, sent to my team's review channel               |
+| `inputs`                                                               | Dict[str, *Any*]                                                       | :heavy_minus_sign:                                                     | Values for the preset's inputs.                                        | {<br/>"repository": "acme/payments-api"<br/>}                          |
+| `delivery`                                                             | [models.PlatformTriggerDelivery](../models/platformtriggerdelivery.md) | :heavy_check_mark:                                                     | N/A                                                                    |                                                                        |

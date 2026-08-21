@@ -5,6 +5,7 @@ package components
 import (
 	"encoding/json"
 	"fmt"
+	"mockserver/internal/sdk/optionalnullable"
 )
 
 // CalendarEventEventType - The nature of the event, for example "out of office".
@@ -44,6 +45,12 @@ type CalendarEvent struct {
 	// A permalink for this calendar event
 	URL       string             `json:"url"`
 	Attendees *CalendarAttendees `json:"attendees,omitempty"`
+	// Whether the requesting user is the organizer of this event.
+	IsOrganizer optionalnullable.OptionalNullable[bool] `json:"isOrganizer,omitempty"`
+	// The current booking status of the room resource associated with an event.
+	RoomBookingStatus *CalendarRoomBookingStatus `json:"roomBookingStatus,omitempty"`
+	// The display name of the room resource associated with this event.
+	RoomName *string `json:"roomName,omitempty"`
 	// The location that this event is taking place at.
 	Location       *string         `json:"location,omitempty"`
 	ConferenceData *ConferenceData `json:"conferenceData,omitempty"`
@@ -92,6 +99,27 @@ func (o *CalendarEvent) GetAttendees() *CalendarAttendees {
 		return nil
 	}
 	return o.Attendees
+}
+
+func (o *CalendarEvent) GetIsOrganizer() optionalnullable.OptionalNullable[bool] {
+	if o == nil {
+		return nil
+	}
+	return o.IsOrganizer
+}
+
+func (o *CalendarEvent) GetRoomBookingStatus() *CalendarRoomBookingStatus {
+	if o == nil {
+		return nil
+	}
+	return o.RoomBookingStatus
+}
+
+func (o *CalendarEvent) GetRoomName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RoomName
 }
 
 func (o *CalendarEvent) GetLocation() *string {

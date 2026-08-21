@@ -1,0 +1,9 @@
+# PlatformTriggerPresetsEventsSearchRequest
+
+
+## Fields
+
+| Field                                                                                                            | Type                                                                                                             | Required                                                                                                         | Description                                                                                                      |
+| ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `preset_id`                                                                                                      | *str*                                                                                                            | :heavy_check_mark:                                                                                               | ID of the preset to preview.                                                                                     |
+| `platform_trigger_preset_event_search_request`                                                                   | [Optional[models.PlatformTriggerPresetEventSearchRequest]](../models/platformtriggerpreseteventsearchrequest.md) | :heavy_minus_sign:                                                                                               | N/A                                                                                                              |

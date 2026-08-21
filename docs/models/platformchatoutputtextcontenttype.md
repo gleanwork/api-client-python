@@ -13,4 +13,4 @@ value = PlatformChatOutputTextContentType.OUTPUT_TEXT
 
 | Name          | Value         |
 | ------------- | ------------- |
-| `OUTPUT_TEXT` | output_text   |
+| `OUTPUT_TEXT` | OUTPUT_TEXT   |

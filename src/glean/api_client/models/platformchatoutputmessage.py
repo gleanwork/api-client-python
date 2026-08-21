@@ -12,11 +12,11 @@ from typing_extensions import TypedDict
 
 
 class PlatformChatOutputMessageType(str, Enum):
-    MESSAGE = "message"
+    MESSAGE = "MESSAGE"
 
 
 class PlatformChatOutputMessageRole(str, Enum):
-    ASSISTANT = "assistant"
+    ASSISTANT = "ASSISTANT"
 
 
 class PlatformChatOutputMessageTypedDict(TypedDict):

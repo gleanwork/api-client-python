@@ -21,6 +21,7 @@ if TYPE_CHECKING:
     from glean.api_client.indexing import Indexing
     from glean.api_client.search import Search
     from glean.api_client.skills import Skills
+    from glean.api_client.triggers import Triggers
 
 
 class Glean(BaseSDK):
@@ -47,6 +48,7 @@ class Glean(BaseSDK):
     chat: "ChatSDK"
     skills: "Skills"
     search: "Search"
+    triggers: "Triggers"
     client: "Client"
     indexing: "Indexing"
     _sub_sdk_map = {
@@ -54,6 +56,7 @@ class Glean(BaseSDK):
         "chat": ("glean.api_client.chat_sdk", "ChatSDK"),
         "skills": ("glean.api_client.skills", "Skills"),
         "search": ("glean.api_client.search", "Search"),
+        "triggers": ("glean.api_client.triggers", "Triggers"),
         "client": ("glean.api_client.client", "Client"),
         "indexing": ("glean.api_client.indexing", "Indexing"),
     }

@@ -7,8 +7,8 @@ from typing_extensions import TypedDict
 
 
 class PlatformChatInputMessageRole(str, Enum):
-    USER = "user"
-    ASSISTANT = "assistant"
+    USER = "USER"
+    ASSISTANT = "ASSISTANT"
 
 
 class PlatformChatInputMessageTypedDict(TypedDict):

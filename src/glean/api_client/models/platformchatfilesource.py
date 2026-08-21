@@ -9,7 +9,7 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class PlatformChatFileSourceType(str, Enum):
-    FILE = "file"
+    FILE = "FILE"
 
 
 class PlatformChatFileSourceTypedDict(TypedDict):

@@ -279,14 +279,15 @@ with Glean(
 ## get_tool_server_tools
 
 Returns the name, description and JSON input schema for the named tools on the
-specified tool server. Works for both action packs and MCP servers.
+specified tool server. Works for Glean's built-in tools, tool packs and MCP
+servers.
 
 `toolNames` is required. Names that do not exist on the server are returned in
 `notFound` rather than failing the request, so a single bad name does not force
 callers into one-at-a-time retries. Matching is case-insensitive and treats `-`
 and `_` as equivalent.
 
-Native tools are not served; `serverId=native` returns 404.
+Use `serverId=native` for Glean's built-in tools.
 
 
 ### Example Usage

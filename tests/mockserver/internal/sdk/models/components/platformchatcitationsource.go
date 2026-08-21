@@ -3,6 +3,7 @@
 package components
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"mockserver/internal/sdk/utils"
@@ -11,10 +12,10 @@ import (
 type PlatformChatCitationSourceType string
 
 const (
-	PlatformChatCitationSourceTypePlatformChatDocumentSource     PlatformChatCitationSourceType = "PlatformChatDocumentSource"
-	PlatformChatCitationSourceTypePlatformChatPersonSource       PlatformChatCitationSourceType = "PlatformChatPersonSource"
-	PlatformChatCitationSourceTypePlatformChatFileSource         PlatformChatCitationSourceType = "PlatformChatFileSource"
-	PlatformChatCitationSourceTypePlatformChatCustomEntitySource PlatformChatCitationSourceType = "PlatformChatCustomEntitySource"
+	PlatformChatCitationSourceTypeDocument     PlatformChatCitationSourceType = "DOCUMENT"
+	PlatformChatCitationSourceTypePerson       PlatformChatCitationSourceType = "PERSON"
+	PlatformChatCitationSourceTypeFile         PlatformChatCitationSourceType = "FILE"
+	PlatformChatCitationSourceTypeCustomEntity PlatformChatCitationSourceType = "CUSTOM_ENTITY"
 )
 
 // PlatformChatCitationSource - Four-variant citation source union.
@@ -27,69 +28,98 @@ type PlatformChatCitationSource struct {
 	Type PlatformChatCitationSourceType
 }
 
-func CreatePlatformChatCitationSourcePlatformChatDocumentSource(platformChatDocumentSource PlatformChatDocumentSource) PlatformChatCitationSource {
-	typ := PlatformChatCitationSourceTypePlatformChatDocumentSource
+func CreatePlatformChatCitationSourceDocument(document PlatformChatDocumentSource) PlatformChatCitationSource {
+	typ := PlatformChatCitationSourceTypeDocument
 
 	return PlatformChatCitationSource{
-		PlatformChatDocumentSource: &platformChatDocumentSource,
+		PlatformChatDocumentSource: &document,
 		Type:                       typ,
 	}
 }
 
-func CreatePlatformChatCitationSourcePlatformChatPersonSource(platformChatPersonSource PlatformChatPersonSource) PlatformChatCitationSource {
-	typ := PlatformChatCitationSourceTypePlatformChatPersonSource
+func CreatePlatformChatCitationSourcePerson(person PlatformChatPersonSource) PlatformChatCitationSource {
+	typ := PlatformChatCitationSourceTypePerson
+
+	typStr := PlatformChatPersonSourceType(typ)
+	person.Type = typStr
 
 	return PlatformChatCitationSource{
-		PlatformChatPersonSource: &platformChatPersonSource,
+		PlatformChatPersonSource: &person,
 		Type:                     typ,
 	}
 }
 
-func CreatePlatformChatCitationSourcePlatformChatFileSource(platformChatFileSource PlatformChatFileSource) PlatformChatCitationSource {
-	typ := PlatformChatCitationSourceTypePlatformChatFileSource
+func CreatePlatformChatCitationSourceFile(file PlatformChatFileSource) PlatformChatCitationSource {
+	typ := PlatformChatCitationSourceTypeFile
+
+	typStr := PlatformChatFileSourceType(typ)
+	file.Type = typStr
 
 	return PlatformChatCitationSource{
-		PlatformChatFileSource: &platformChatFileSource,
+		PlatformChatFileSource: &file,
 		Type:                   typ,
 	}
 }
 
-func CreatePlatformChatCitationSourcePlatformChatCustomEntitySource(platformChatCustomEntitySource PlatformChatCustomEntitySource) PlatformChatCitationSource {
-	typ := PlatformChatCitationSourceTypePlatformChatCustomEntitySource
+func CreatePlatformChatCitationSourceCustomEntity(customEntity PlatformChatCustomEntitySource) PlatformChatCitationSource {
+	typ := PlatformChatCitationSourceTypeCustomEntity
+
+	typStr := PlatformChatCustomEntitySourceType(typ)
+	customEntity.Type = typStr
 
 	return PlatformChatCitationSource{
-		PlatformChatCustomEntitySource: &platformChatCustomEntitySource,
+		PlatformChatCustomEntitySource: &customEntity,
 		Type:                           typ,
 	}
 }
 
 func (u *PlatformChatCitationSource) UnmarshalJSON(data []byte) error {
 
-	var platformChatPersonSource PlatformChatPersonSource = PlatformChatPersonSource{}
-	if err := utils.UnmarshalJSON(data, &platformChatPersonSource, "", true, nil); err == nil {
-		u.PlatformChatPersonSource = &platformChatPersonSource
-		u.Type = PlatformChatCitationSourceTypePlatformChatPersonSource
-		return nil
+	type discriminator struct {
+		Type string `json:"type"`
 	}
 
-	var platformChatFileSource PlatformChatFileSource = PlatformChatFileSource{}
-	if err := utils.UnmarshalJSON(data, &platformChatFileSource, "", true, nil); err == nil {
-		u.PlatformChatFileSource = &platformChatFileSource
-		u.Type = PlatformChatCitationSourceTypePlatformChatFileSource
-		return nil
+	dis := new(discriminator)
+	if err := json.Unmarshal(data, &dis); err != nil {
+		return fmt.Errorf("could not unmarshal discriminator: %w", err)
 	}
 
-	var platformChatCustomEntitySource PlatformChatCustomEntitySource = PlatformChatCustomEntitySource{}
-	if err := utils.UnmarshalJSON(data, &platformChatCustomEntitySource, "", true, nil); err == nil {
-		u.PlatformChatCustomEntitySource = &platformChatCustomEntitySource
-		u.Type = PlatformChatCitationSourceTypePlatformChatCustomEntitySource
-		return nil
-	}
+	switch dis.Type {
+	case "DOCUMENT":
+		platformChatDocumentSource := new(PlatformChatDocumentSource)
+		if err := utils.UnmarshalJSON(data, &platformChatDocumentSource, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == DOCUMENT) type PlatformChatDocumentSource within PlatformChatCitationSource: %w", string(data), err)
+		}
 
-	var platformChatDocumentSource PlatformChatDocumentSource = PlatformChatDocumentSource{}
-	if err := utils.UnmarshalJSON(data, &platformChatDocumentSource, "", true, nil); err == nil {
-		u.PlatformChatDocumentSource = &platformChatDocumentSource
-		u.Type = PlatformChatCitationSourceTypePlatformChatDocumentSource
+		u.PlatformChatDocumentSource = platformChatDocumentSource
+		u.Type = PlatformChatCitationSourceTypeDocument
+		return nil
+	case "PERSON":
+		platformChatPersonSource := new(PlatformChatPersonSource)
+		if err := utils.UnmarshalJSON(data, &platformChatPersonSource, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == PERSON) type PlatformChatPersonSource within PlatformChatCitationSource: %w", string(data), err)
+		}
+
+		u.PlatformChatPersonSource = platformChatPersonSource
+		u.Type = PlatformChatCitationSourceTypePerson
+		return nil
+	case "FILE":
+		platformChatFileSource := new(PlatformChatFileSource)
+		if err := utils.UnmarshalJSON(data, &platformChatFileSource, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == FILE) type PlatformChatFileSource within PlatformChatCitationSource: %w", string(data), err)
+		}
+
+		u.PlatformChatFileSource = platformChatFileSource
+		u.Type = PlatformChatCitationSourceTypeFile
+		return nil
+	case "CUSTOM_ENTITY":
+		platformChatCustomEntitySource := new(PlatformChatCustomEntitySource)
+		if err := utils.UnmarshalJSON(data, &platformChatCustomEntitySource, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == CUSTOM_ENTITY) type PlatformChatCustomEntitySource within PlatformChatCitationSource: %w", string(data), err)
+		}
+
+		u.PlatformChatCustomEntitySource = platformChatCustomEntitySource
+		u.Type = PlatformChatCitationSourceTypeCustomEntity
 		return nil
 	}
 
