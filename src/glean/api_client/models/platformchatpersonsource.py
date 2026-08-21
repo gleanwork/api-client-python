@@ -9,7 +9,7 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class PlatformChatPersonSourceType(str, Enum):
-    PERSON = "person"
+    PERSON = "PERSON"
 
 
 class PlatformChatPersonSourceTypedDict(TypedDict):

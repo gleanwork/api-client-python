@@ -6,8 +6,8 @@
 
 * [create](#create) - Create skill
 * [list](#list) - List skills
-* [validate](#validate) - Validate skill bundle
 * [import_](#import_) - Import skills from GitHub
+* [validate](#validate) - Validate skill bundle
 * [preview_source](#preview_source) - Preview a GitHub skill source
 * [update](#update) - Update skill
 * [delete](#delete) - Delete skill
@@ -109,6 +109,51 @@ with Glean(
 | errors.PlatformProblemDetailError | 500, 503                          | application/problem+json          |
 | errors.GleanError                 | 4XX, 5XX                          | \*/\*                             |
 
+## import_
+
+Import one or more skills selected from a GitHub source preview. Each source URL is fetched and persisted as an independent skill with source provenance. This operation does not create a durable source resource. The import is atomic: if any source cannot be fetched, validated, or persisted, no skills are created.
+
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="platform-skills-import" method="post" path="/api/skills/import" -->
+```python
+from glean.api_client import Glean
+import os
+
+
+with Glean(
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+) as glean:
+
+    res = glean.skills.import_(source_urls=[
+        "<value 1>",
+    ])
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `source_urls`                                                       | List[*str*]                                                         | :heavy_check_mark:                                                  | Resolved GitHub skill URLs selected from a source preview.          |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Response
+
+**[models.PlatformSkillImportResponse](../../models/platformskillimportresponse.md)**
+
+### Errors
+
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| errors.PlatformProblemDetailError | 400, 401, 403, 408, 409, 413, 429 | application/problem+json          |
+| errors.PlatformProblemDetailError | 500, 503                          | application/problem+json          |
+| errors.GleanError                 | 4XX, 5XX                          | \*/\*                             |
+
 ## validate
 
 Validate a skill bundle without persisting it. Accepts a SKILL.md, .zip, or .skill upload and returns parsed metadata plus the normalized file layout.
@@ -152,51 +197,6 @@ with Glean(
 | Error Type                        | Status Code                       | Content Type                      |
 | --------------------------------- | --------------------------------- | --------------------------------- |
 | errors.PlatformProblemDetailError | 400, 401, 403, 404, 408, 413, 429 | application/problem+json          |
-| errors.PlatformProblemDetailError | 500, 503                          | application/problem+json          |
-| errors.GleanError                 | 4XX, 5XX                          | \*/\*                             |
-
-## import_
-
-Import one or more skills selected from a GitHub source preview. Each source URL is fetched and persisted as an independent skill with source provenance. This operation does not create a durable source resource. The import is atomic: if any source cannot be fetched, validated, or persisted, no skills are created.
-
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="platform-skills-import" method="post" path="/api/skills/import" -->
-```python
-from glean.api_client import Glean
-import os
-
-
-with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
-) as glean:
-
-    res = glean.skills.import_(source_urls=[
-        "<value 1>",
-    ])
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `source_urls`                                                       | List[*str*]                                                         | :heavy_check_mark:                                                  | Resolved GitHub skill URLs selected from a source preview.          |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
-
-### Response
-
-**[models.PlatformSkillImportResponse](../../models/platformskillimportresponse.md)**
-
-### Errors
-
-| Error Type                        | Status Code                       | Content Type                      |
-| --------------------------------- | --------------------------------- | --------------------------------- |
-| errors.PlatformProblemDetailError | 400, 401, 403, 408, 409, 413, 429 | application/problem+json          |
 | errors.PlatformProblemDetailError | 500, 503                          | application/problem+json          |
 | errors.GleanError                 | 4XX, 5XX                          | \*/\*                             |
 

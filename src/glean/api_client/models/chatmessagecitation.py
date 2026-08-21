@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 from .chatfile import ChatFile, ChatFileTypedDict
+from .chatskill import ChatSkill, ChatSkillTypedDict
 from .customentity import CustomEntity, CustomEntityTypedDict
 from .document import Document, DocumentTypedDict
 from .person import Person, PersonTypedDict
@@ -23,6 +24,8 @@ class ChatMessageCitationTypedDict(TypedDict):
     r"""Structure for file uploaded by a user for Chat."""
     source_person: NotRequired[PersonTypedDict]
     source_custom_entity: NotRequired[CustomEntityTypedDict]
+    source_skill: NotRequired[ChatSkillTypedDict]
+    r"""A skill cited by Assistant."""
     reference_ranges: NotRequired[List[ReferenceRangeTypedDict]]
     r"""Each reference range and its corresponding snippets"""
 
@@ -52,6 +55,11 @@ class ChatMessageCitation(BaseModel):
         Optional[CustomEntity], pydantic.Field(alias="sourceCustomEntity")
     ] = None
 
+    source_skill: Annotated[
+        Optional[ChatSkill], pydantic.Field(alias="sourceSkill")
+    ] = None
+    r"""A skill cited by Assistant."""
+
     reference_ranges: Annotated[
         Optional[List[ReferenceRange]], pydantic.Field(alias="referenceRanges")
     ] = None
@@ -66,6 +74,7 @@ class ChatMessageCitation(BaseModel):
                 "sourceFile",
                 "sourcePerson",
                 "sourceCustomEntity",
+                "sourceSkill",
                 "referenceRanges",
             ]
         )

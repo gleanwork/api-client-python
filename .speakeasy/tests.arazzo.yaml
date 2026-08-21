@@ -159063,7 +159063,7 @@ workflows:
             - condition: $response.header.Content-Type == application/json
             - context: $response.body
               condition: |
-                {"id":"<id>","object":"response","created_at":"2026-05-19T05:32:52.505Z","status":"completed","output":[{"type":"message","role":"assistant","content":[{"type":"output_text","text":"<value>"}]}],"store":false,"request_id":"<id>"}
+                {"id":"<id>","object":"RESPONSE","created_at":"2026-05-19T05:32:52.505Z","status":"COMPLETED","output":[{"type":"MESSAGE","role":"ASSISTANT","content":[{"type":"OUTPUT_TEXT","text":"<value>"}]}],"store":false,"request_id":"<id>"}
               type: simple
       x-speakeasy-test-group: chat_SDK
       x-speakeasy-test-rebuild: true
@@ -159285,4 +159285,186 @@ workflows:
                 {"status":{"isActiveUser":true,"uploadStatus":"UPLOADED","lastUploadedAt":"2021-08-06T17:58:01.000Z"}}
               type: simple
       x-speakeasy-test-group: people
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-triggers-create
+      steps:
+        - stepId: test
+          operationId: platform-triggers-create
+          requestBody:
+            contentType: application/json
+            payload:
+                delivery:
+                    auth:
+                        secret: secret_test_123
+                        type: BEARER
+                    webhook_url: https://customer.app/webhook
+                description: Reviews I am tagged on, sent to my team's review channel
+                inputs:
+                    repository: acme/payments-api
+                preset_id: GITHUB_1
+          successCriteria:
+            - condition: $statusCode == 201
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"trigger":{"trigger_id":"trigger_test_123","preset_id":"GITHUB_1","description":"Reviews I am tagged on, sent to my team's review channel","status":"ENABLED","inputs":{"repository":"acme/payments-api"},"delivery":{"webhook_url":"https://customer.app/webhook"},"created_at":"2025-08-17T18:19:46.877Z","updated_at":"2024-09-14T03:27:40.201Z","signing_secret":"whsec_xxx"},"request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: triggers
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-triggers-list
+      steps:
+        - stepId: test
+          operationId: platform-triggers-list
+          parameters:
+            - name: page_size
+              in: query
+              value: 50
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"results":[],"has_more":true,"next_cursor":"<value>","request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: triggers
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-triggers-get
+      steps:
+        - stepId: test
+          operationId: platform-triggers-get
+          parameters:
+            - name: trigger_id
+              in: path
+              value: <id>
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"trigger":{"trigger_id":"trigger_test_123","preset_id":"GITHUB_1","description":"Reviews I am tagged on, sent to my team's review channel","status":"ENABLED","inputs":{"repository":"acme/payments-api"},"delivery":{"webhook_url":"https://customer.app/webhook"},"created_at":"2024-01-06T01:37:37.232Z","updated_at":"2025-07-02T01:19:47.126Z"},"request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: triggers
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-triggers-update
+      steps:
+        - stepId: test
+          operationId: platform-triggers-update
+          parameters:
+            - name: trigger_id
+              in: path
+              value: <id>
+          requestBody:
+            contentType: application/json
+            payload:
+                delivery:
+                    auth:
+                        secret: secret_test_123
+                        type: BEARER
+                    webhook_url: https://customer.app/webhook
+                description: Reviews I am tagged on, sent to my team's review channel
+                inputs:
+                    repository: acme/payments-api
+                status: ENABLED
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"trigger":{"trigger_id":"trigger_test_123","preset_id":"GITHUB_1","description":"Reviews I am tagged on, sent to my team's review channel","status":"ENABLED","inputs":{"repository":"acme/payments-api"},"delivery":{"webhook_url":"https://customer.app/webhook"},"created_at":"2026-09-03T11:57:47.699Z","updated_at":"2026-01-25T02:15:09.513Z"},"request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: triggers
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-triggers-events-search
+      steps:
+        - stepId: test
+          operationId: platform-triggers-events-search
+          parameters:
+            - name: trigger_id
+              in: path
+              value: <id>
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"results":[{"event_type":"DOCUMENT_CHANGE","datasource":"GITHUB","reason":"REVIEW_REQUESTED","doc_type":"pull","doc_id":"<id>","view_url":"https://silent-omelet.biz","title":"<value>","event_time":"2024-06-12T22:23:25.274Z"}],"has_more":false,"request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: triggers
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-trigger-presets-list
+      steps:
+        - stepId: test
+          operationId: platform-trigger-presets-list
+          parameters:
+            - name: page_size
+              in: query
+              value: 50
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"results":[],"has_more":false,"next_cursor":null,"request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: triggers
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-trigger-presets-get
+      steps:
+        - stepId: test
+          operationId: platform-trigger-presets-get
+          parameters:
+            - name: preset_id
+              in: path
+              value: <id>
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"trigger_preset":{"preset_id":"GITHUB_1","datasource":"github","display_name":"Review requested from me","description":"A review is requested from the trigger creator on a pull request","inputs":[]},"request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: triggers
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-trigger-presets-input-values-list
+      steps:
+        - stepId: test
+          operationId: platform-trigger-presets-input-values-list
+          parameters:
+            - name: preset_id
+              in: path
+              value: <id>
+            - name: field
+              in: query
+              value: <value>
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"results":[{"value":"acme/payments-api","display_name":"acme/payments-api"}],"is_truncated":false,"request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: triggers
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-trigger-presets-events-search
+      steps:
+        - stepId: test
+          operationId: platform-trigger-presets-events-search
+          parameters:
+            - name: preset_id
+              in: path
+              value: <id>
+          requestBody:
+            contentType: application/json
+            payload:
+                inputs:
+                    repository: acme/payments-api
+                page_size: 10
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"results":[{"event_type":"DOCUMENT_CHANGE","datasource":"GITHUB","reason":"REVIEW_REQUESTED","doc_type":"pull","doc_id":"<id>","view_url":"https://prickly-cutover.info/","title":"<value>","event_time":"2025-04-15T15:45:31.544Z"}],"has_more":false,"request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: triggers
       x-speakeasy-test-rebuild: true

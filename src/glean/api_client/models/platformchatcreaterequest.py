@@ -14,20 +14,20 @@ from typing_extensions import NotRequired, TypeAliasType, TypedDict
 InputTypedDict = TypeAliasType(
     "InputTypedDict", Union[str, List[PlatformChatInputMessageTypedDict]]
 )
-r"""Either a plain string (single user turn) or a chronological array of `user`/`assistant` messages. The final array message must be `user`.
+r"""Either a plain string (single user turn) or a chronological array of `USER`/`ASSISTANT` messages. The final array message must be `USER`.
 
 """
 
 
 Input = TypeAliasType("Input", Union[str, List[PlatformChatInputMessage]])
-r"""Either a plain string (single user turn) or a chronological array of `user`/`assistant` messages. The final array message must be `user`.
+r"""Either a plain string (single user turn) or a chronological array of `USER`/`ASSISTANT` messages. The final array message must be `USER`.
 
 """
 
 
 class PlatformChatCreateRequestTypedDict(TypedDict):
     input: InputTypedDict
-    r"""Either a plain string (single user turn) or a chronological array of `user`/`assistant` messages. The final array message must be `user`.
+    r"""Either a plain string (single user turn) or a chronological array of `USER`/`ASSISTANT` messages. The final array message must be `USER`.
 
     """
     stream: NotRequired[bool]
@@ -46,7 +46,7 @@ class PlatformChatCreateRequestTypedDict(TypedDict):
 
 class PlatformChatCreateRequest(BaseModel):
     input: Input
-    r"""Either a plain string (single user turn) or a chronological array of `user`/`assistant` messages. The final array message must be `user`.
+    r"""Either a plain string (single user turn) or a chronological array of `USER`/`ASSISTANT` messages. The final array message must be `USER`.
 
     """
 

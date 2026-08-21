@@ -11,8 +11,8 @@ import (
 type PlatformChatInputMessageRole string
 
 const (
-	PlatformChatInputMessageRoleUser      PlatformChatInputMessageRole = "user"
-	PlatformChatInputMessageRoleAssistant PlatformChatInputMessageRole = "assistant"
+	PlatformChatInputMessageRoleUser      PlatformChatInputMessageRole = "USER"
+	PlatformChatInputMessageRoleAssistant PlatformChatInputMessageRole = "ASSISTANT"
 )
 
 func (e PlatformChatInputMessageRole) ToPointer() *PlatformChatInputMessageRole {
@@ -24,9 +24,9 @@ func (e *PlatformChatInputMessageRole) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	switch v {
-	case "user":
+	case "USER":
 		fallthrough
-	case "assistant":
+	case "ASSISTANT":
 		*e = PlatformChatInputMessageRole(v)
 		return nil
 	default:

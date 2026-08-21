@@ -2,13 +2,20 @@
 
 from __future__ import annotations
 from .calendarattendees import CalendarAttendees, CalendarAttendeesTypedDict
+from .calendarroombookingstatus import CalendarRoomBookingStatus
 from .conferencedata import ConferenceData, ConferenceDataTypedDict
 from .eventclassification import EventClassification, EventClassificationTypedDict
 from .generatedattachment import GeneratedAttachment, GeneratedAttachmentTypedDict
 from .timeinterval import TimeInterval, TimeIntervalTypedDict
 from enum import Enum
 from glean.api_client import models, utils
-from glean.api_client.types import BaseModel, UNSET_SENTINEL
+from glean.api_client.types import (
+    BaseModel,
+    Nullable,
+    OptionalNullable,
+    UNSET,
+    UNSET_SENTINEL,
+)
 import pydantic
 from pydantic import field_serializer, model_serializer
 from typing import List, Optional
@@ -33,6 +40,12 @@ class CalendarEventTypedDict(TypedDict):
     event_type: NotRequired[CalendarEventEventType]
     r"""The nature of the event, for example \"out of office\"."""
     attendees: NotRequired[CalendarAttendeesTypedDict]
+    is_organizer: NotRequired[Nullable[bool]]
+    r"""Whether the requesting user is the organizer of this event."""
+    room_booking_status: NotRequired[CalendarRoomBookingStatus]
+    r"""The current booking status of the room resource associated with an event."""
+    room_name: NotRequired[str]
+    r"""The display name of the room resource associated with this event."""
     location: NotRequired[str]
     r"""The location that this event is taking place at."""
     conference_data: NotRequired[ConferenceDataTypedDict]
@@ -65,6 +78,19 @@ class CalendarEvent(BaseModel):
     r"""The nature of the event, for example \"out of office\"."""
 
     attendees: Optional[CalendarAttendees] = None
+
+    is_organizer: Annotated[
+        OptionalNullable[bool], pydantic.Field(alias="isOrganizer")
+    ] = UNSET
+    r"""Whether the requesting user is the organizer of this event."""
+
+    room_booking_status: Annotated[
+        Optional[CalendarRoomBookingStatus], pydantic.Field(alias="roomBookingStatus")
+    ] = None
+    r"""The current booking status of the room resource associated with an event."""
+
+    room_name: Annotated[Optional[str], pydantic.Field(alias="roomName")] = None
+    r"""The display name of the room resource associated with this event."""
 
     location: Optional[str] = None
     r"""The location that this event is taking place at."""
@@ -105,6 +131,15 @@ class CalendarEvent(BaseModel):
                 return value
         return value
 
+    @field_serializer("room_booking_status")
+    def serialize_room_booking_status(self, value):
+        if isinstance(value, str):
+            try:
+                return models.CalendarRoomBookingStatus(value)
+            except ValueError:
+                return value
+        return value
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -112,6 +147,9 @@ class CalendarEvent(BaseModel):
                 "time",
                 "eventType",
                 "attendees",
+                "isOrganizer",
+                "roomBookingStatus",
+                "roomName",
                 "location",
                 "conferenceData",
                 "description",
@@ -122,15 +160,24 @@ class CalendarEvent(BaseModel):
                 "generatedAttachments",
             ]
         )
+        nullable_fields = set(["isOrganizer"])
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
             k = f.alias or n
             val = serialized.get(k, serialized.get(n))
+            is_nullable_and_explicitly_set = (
+                k in nullable_fields
+                and (self.__pydantic_fields_set__.intersection({n}))  # pylint: disable=no-member
+            )
 
             if val != UNSET_SENTINEL:
-                if val is not None or k not in optional_fields:
+                if (
+                    val is not None
+                    or k not in optional_fields
+                    or is_nullable_and_explicitly_set
+                ):
                     m[k] = val
 
         return m

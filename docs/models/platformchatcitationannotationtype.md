@@ -13,4 +13,4 @@ value = PlatformChatCitationAnnotationType.CITATION
 
 | Name       | Value      |
 | ---------- | ---------- |
-| `CITATION` | citation   |
+| `CITATION` | CITATION   |

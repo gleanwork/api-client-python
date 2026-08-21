@@ -13,7 +13,7 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class PlatformChatOutputTextContentType(str, Enum):
-    OUTPUT_TEXT = "output_text"
+    OUTPUT_TEXT = "OUTPUT_TEXT"
 
 
 class PlatformChatOutputTextContentTypedDict(TypedDict):

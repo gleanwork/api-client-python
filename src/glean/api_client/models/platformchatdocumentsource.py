@@ -9,7 +9,7 @@ from typing_extensions import NotRequired, TypeAliasType, TypedDict
 
 
 class PlatformChatDocumentSourceType2(str, Enum):
-    DOCUMENT = "document"
+    DOCUMENT = "DOCUMENT"
 
 
 class PlatformChatDocumentSourceDocument2TypedDict(TypedDict):
@@ -49,7 +49,7 @@ class PlatformChatDocumentSourceDocument2(BaseModel):
 
 
 class PlatformChatDocumentSourceType1(str, Enum):
-    DOCUMENT = "document"
+    DOCUMENT = "DOCUMENT"
 
 
 class PlatformChatDocumentSourceDocument1TypedDict(TypedDict):

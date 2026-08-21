@@ -561,8 +561,8 @@ For more information on obtaining the appropriate token type, please contact you
 
 * [create](docs/sdks/skills/README.md#create) - Create skill
 * [list](docs/sdks/skills/README.md#list) - List skills
-* [validate](docs/sdks/skills/README.md#validate) - Validate skill bundle
 * [import_](docs/sdks/skills/README.md#import_) - Import skills from GitHub
+* [validate](docs/sdks/skills/README.md#validate) - Validate skill bundle
 * [preview_source](docs/sdks/skills/README.md#preview_source) - Preview a GitHub skill source
 * [update](docs/sdks/skills/README.md#update) - Update skill
 * [delete](docs/sdks/skills/README.md#delete) - Delete skill
@@ -573,6 +573,19 @@ For more information on obtaining the appropriate token type, please contact you
 * [list_versions](docs/sdks/skills/README.md#list_versions) - List skill versions
 * [retrieve_version](docs/sdks/skills/README.md#retrieve_version) - Retrieve skill version
 * [retrieve_version_content](docs/sdks/skills/README.md#retrieve_version_content) - Download skill version content
+
+### [Triggers](docs/sdks/triggers/README.md)
+
+* [create](docs/sdks/triggers/README.md#create) - Create trigger
+* [list](docs/sdks/triggers/README.md#list) - List triggers
+* [get](docs/sdks/triggers/README.md#get) - Get trigger
+* [update](docs/sdks/triggers/README.md#update) - Update trigger
+* [delete](docs/sdks/triggers/README.md#delete) - Delete trigger
+* [search_events](docs/sdks/triggers/README.md#search_events) - Search events for a trigger
+* [list_presets](docs/sdks/triggers/README.md#list_presets) - List trigger presets
+* [get_preset](docs/sdks/triggers/README.md#get_preset) - Get trigger preset
+* [list_preset_input_values](docs/sdks/triggers/README.md#list_preset_input_values) - Search trigger preset input values
+* [search_preset_events](docs/sdks/triggers/README.md#search_preset_events) - Search events for a trigger preset
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
@@ -889,6 +902,20 @@ class CustomClient(AsyncHttpClient):
 
 s = Glean(async_client=CustomClient(httpx.AsyncClient()))
 ```
+### httpx2 (Pydantic's httpx fork)
+
+[httpx2](https://httpx2.pydantic.dev/) is Pydantic's maintained fork of `httpx`. To run this SDK on httpx2, call `alias_httpx()` at your program's entry point, before importing the SDK, so every `import httpx` — including the ones inside the SDK — resolves to `httpx2`:
+```python
+import httpx2
+
+httpx2.alias_httpx()
+
+from glean.api_client import Glean
+
+s = Glean()
+```
+
+An SDK can also be generated against httpx2 directly, so it depends on the fork instead of `httpx`, by setting `python.httpClientLibrary: httpx2` in `gen.yaml`.
 <!-- End Custom HTTP Client [http-client] -->
 
 <!-- Start Resource Management [resource-management] -->

@@ -466,6 +466,230 @@ class Skills(BaseSDK):
 
         raise errors.GleanError("Unexpected response received", http_res)
 
+    def import_(
+        self,
+        *,
+        source_urls: Iterable[str],
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.PlatformSkillImportResponse:
+        r"""Import skills from GitHub
+
+        Import one or more skills selected from a GitHub source preview. Each source URL is fetched and persisted as an independent skill with source provenance. This operation does not create a durable source resource. The import is atomic: if any source cannot be fetched, validated, or persisted, no skills are created.
+
+
+        :param source_urls: Resolved GitHub skill URLs selected from a source preview.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.PlatformSkillImportRequest(
+            source_urls=utils.unmarshal(source_urls, List[str]),
+        )
+
+        req = self._build_request(
+            method="POST",
+            path="/api/skills/import",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request, False, False, "json", models.PlatformSkillImportRequest
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="platform-skills-import",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Skills"],
+                extensions={
+                    "x-codegen-request-body-name": "request",
+                    "x-glean-experimental": {
+                        "id": "9162d790-e101-437d-a9a0-25e4687d150b",
+                        "introduced": "2026-07-28",
+                    },
+                    "x-visibility": "Public",
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.PlatformSkillImportResponse, http_res)
+        if utils.match_response(
+            http_res,
+            ["400", "401", "403", "408", "409", "413", "429"],
+            "application/problem+json",
+        ):
+            response_data = unmarshal_json_response(
+                errors.PlatformProblemDetailErrorData, http_res
+            )
+            raise errors.PlatformProblemDetailError(response_data, http_res)
+        if utils.match_response(http_res, ["500", "503"], "application/problem+json"):
+            response_data = unmarshal_json_response(
+                errors.PlatformProblemDetailErrorData, http_res
+            )
+            raise errors.PlatformProblemDetailError(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
+
+        raise errors.GleanError("Unexpected response received", http_res)
+
+    async def import__async(
+        self,
+        *,
+        source_urls: Iterable[str],
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.PlatformSkillImportResponse:
+        r"""Import skills from GitHub
+
+        Import one or more skills selected from a GitHub source preview. Each source URL is fetched and persisted as an independent skill with source provenance. This operation does not create a durable source resource. The import is atomic: if any source cannot be fetched, validated, or persisted, no skills are created.
+
+
+        :param source_urls: Resolved GitHub skill URLs selected from a source preview.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.PlatformSkillImportRequest(
+            source_urls=utils.unmarshal(source_urls, List[str]),
+        )
+
+        req = self._build_request_async(
+            method="POST",
+            path="/api/skills/import",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request, False, False, "json", models.PlatformSkillImportRequest
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="platform-skills-import",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Skills"],
+                extensions={
+                    "x-codegen-request-body-name": "request",
+                    "x-glean-experimental": {
+                        "id": "9162d790-e101-437d-a9a0-25e4687d150b",
+                        "introduced": "2026-07-28",
+                    },
+                    "x-visibility": "Public",
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.PlatformSkillImportResponse, http_res)
+        if utils.match_response(
+            http_res,
+            ["400", "401", "403", "408", "409", "413", "429"],
+            "application/problem+json",
+        ):
+            response_data = unmarshal_json_response(
+                errors.PlatformProblemDetailErrorData, http_res
+            )
+            raise errors.PlatformProblemDetailError(response_data, http_res)
+        if utils.match_response(http_res, ["500", "503"], "application/problem+json"):
+            response_data = unmarshal_json_response(
+                errors.PlatformProblemDetailErrorData, http_res
+            )
+            raise errors.PlatformProblemDetailError(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
+
+        raise errors.GleanError("Unexpected response received", http_res)
+
     def validate(
         self,
         *,
@@ -690,230 +914,6 @@ class Skills(BaseSDK):
         if utils.match_response(
             http_res,
             ["400", "401", "403", "404", "408", "413", "429"],
-            "application/problem+json",
-        ):
-            response_data = unmarshal_json_response(
-                errors.PlatformProblemDetailErrorData, http_res
-            )
-            raise errors.PlatformProblemDetailError(response_data, http_res)
-        if utils.match_response(http_res, ["500", "503"], "application/problem+json"):
-            response_data = unmarshal_json_response(
-                errors.PlatformProblemDetailErrorData, http_res
-            )
-            raise errors.PlatformProblemDetailError(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.GleanError("API error occurred", http_res, http_res_text)
-
-        raise errors.GleanError("Unexpected response received", http_res)
-
-    def import_(
-        self,
-        *,
-        source_urls: Iterable[str],
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.PlatformSkillImportResponse:
-        r"""Import skills from GitHub
-
-        Import one or more skills selected from a GitHub source preview. Each source URL is fetched and persisted as an independent skill with source provenance. This operation does not create a durable source resource. The import is atomic: if any source cannot be fetched, validated, or persisted, no skills are created.
-
-
-        :param source_urls: Resolved GitHub skill URLs selected from a source preview.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.PlatformSkillImportRequest(
-            source_urls=utils.unmarshal(source_urls, List[str]),
-        )
-
-        req = self._build_request(
-            method="POST",
-            path="/api/skills/import",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=True,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.PlatformSkillImportRequest
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = self.do_request(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="platform-skills-import",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-                tags=["Skills"],
-                extensions={
-                    "x-codegen-request-body-name": "request",
-                    "x-glean-experimental": {
-                        "id": "9162d790-e101-437d-a9a0-25e4687d150b",
-                        "introduced": "2026-07-28",
-                    },
-                    "x-visibility": "Public",
-                },
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.PlatformSkillImportResponse, http_res)
-        if utils.match_response(
-            http_res,
-            ["400", "401", "403", "408", "409", "413", "429"],
-            "application/problem+json",
-        ):
-            response_data = unmarshal_json_response(
-                errors.PlatformProblemDetailErrorData, http_res
-            )
-            raise errors.PlatformProblemDetailError(response_data, http_res)
-        if utils.match_response(http_res, ["500", "503"], "application/problem+json"):
-            response_data = unmarshal_json_response(
-                errors.PlatformProblemDetailErrorData, http_res
-            )
-            raise errors.PlatformProblemDetailError(response_data, http_res)
-        if utils.match_response(http_res, "4XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError("API error occurred", http_res, http_res_text)
-        if utils.match_response(http_res, "5XX", "*"):
-            http_res_text = utils.stream_to_text(http_res)
-            raise errors.GleanError("API error occurred", http_res, http_res_text)
-
-        raise errors.GleanError("Unexpected response received", http_res)
-
-    async def import__async(
-        self,
-        *,
-        source_urls: Iterable[str],
-        retries: OptionalNullable[utils.RetryConfig] = UNSET,
-        server_url: Optional[str] = None,
-        timeout_ms: Optional[int] = None,
-        http_headers: Optional[Mapping[str, str]] = None,
-    ) -> models.PlatformSkillImportResponse:
-        r"""Import skills from GitHub
-
-        Import one or more skills selected from a GitHub source preview. Each source URL is fetched and persisted as an independent skill with source provenance. This operation does not create a durable source resource. The import is atomic: if any source cannot be fetched, validated, or persisted, no skills are created.
-
-
-        :param source_urls: Resolved GitHub skill URLs selected from a source preview.
-        :param retries: Override the default retry configuration for this method
-        :param server_url: Override the default server URL for this method
-        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
-        :param http_headers: Additional headers to set or replace on requests.
-        """
-        base_url = None
-        url_variables = None
-        if timeout_ms is None:
-            timeout_ms = self.sdk_configuration.timeout_ms
-
-        if server_url is not None:
-            base_url = server_url
-        else:
-            base_url = self._get_url(base_url, url_variables)
-
-        request = models.PlatformSkillImportRequest(
-            source_urls=utils.unmarshal(source_urls, List[str]),
-        )
-
-        req = self._build_request_async(
-            method="POST",
-            path="/api/skills/import",
-            base_url=base_url,
-            url_variables=url_variables,
-            request=request,
-            request_body_required=True,
-            request_has_path_params=False,
-            request_has_query_params=True,
-            user_agent_header="user-agent",
-            accept_header_value="application/json",
-            http_headers=http_headers,
-            security=self.sdk_configuration.security,
-            get_serialized_body=lambda: utils.serialize_request_body(
-                request, False, False, "json", models.PlatformSkillImportRequest
-            ),
-            allow_empty_value=None,
-            timeout_ms=timeout_ms,
-        )
-
-        if retries == UNSET:
-            if self.sdk_configuration.retry_config is not UNSET:
-                retries = self.sdk_configuration.retry_config
-
-        retry_config = None
-        if isinstance(retries, utils.RetryConfig):
-            retry_config = (retries, ["429", "500", "502", "503", "504"])
-
-        http_res = await self.do_request_async(
-            hook_ctx=HookContext(
-                config=self.sdk_configuration,
-                base_url=base_url or "",
-                operation_id="platform-skills-import",
-                oauth2_scopes=None,
-                security_source=get_security_from_env(
-                    self.sdk_configuration.security, models.Security
-                ),
-                tags=["Skills"],
-                extensions={
-                    "x-codegen-request-body-name": "request",
-                    "x-glean-experimental": {
-                        "id": "9162d790-e101-437d-a9a0-25e4687d150b",
-                        "introduced": "2026-07-28",
-                    },
-                    "x-visibility": "Public",
-                },
-            ),
-            request=req,
-            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
-            retry_config=retry_config,
-        )
-
-        response_data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
-            return unmarshal_json_response(models.PlatformSkillImportResponse, http_res)
-        if utils.match_response(
-            http_res,
-            ["400", "401", "403", "408", "409", "413", "429"],
             "application/problem+json",
         ):
             response_data = unmarshal_json_response(

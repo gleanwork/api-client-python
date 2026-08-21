@@ -34,7 +34,7 @@ class ChatSDK(BaseSDK):
         Run an assistant turn. Set `stream` to true to receive server-sent events; otherwise the response is a typed JSON response object.
 
 
-        :param input: Either a plain string (single user turn) or a chronological array of `user`/`assistant` messages. The final array message must be `user`.
+        :param input: Either a plain string (single user turn) or a chronological array of `USER`/`ASSISTANT` messages. The final array message must be `USER`.
 
         :param stream: When true, respond with `text/event-stream`. When false or omitted, respond with `application/json`.
 
@@ -167,7 +167,7 @@ class ChatSDK(BaseSDK):
         Run an assistant turn. Set `stream` to true to receive server-sent events; otherwise the response is a typed JSON response object.
 
 
-        :param input: Either a plain string (single user turn) or a chronological array of `user`/`assistant` messages. The final array message must be `user`.
+        :param input: Either a plain string (single user turn) or a chronological array of `USER`/`ASSISTANT` messages. The final array message must be `USER`.
 
         :param stream: When true, respond with `text/event-stream`. When false or omitted, respond with `application/json`.
 

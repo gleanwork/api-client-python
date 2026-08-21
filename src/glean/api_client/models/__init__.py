@@ -285,6 +285,7 @@ if TYPE_CHECKING:
         CalendarEventEventType,
         CalendarEventTypedDict,
     )
+    from .calendarroombookingstatus import CalendarRoomBookingStatus
     from .canonicalizingregextype import (
         CanonicalizingRegexType,
         CanonicalizingRegexTypeTypedDict,
@@ -306,6 +307,7 @@ if TYPE_CHECKING:
         ChatRestrictionFiltersTypedDict,
     )
     from .chatresult import ChatResult, ChatResultTypedDict
+    from .chatskill import ChatSkill, ChatSkillTypedDict
     from .chatstreamop import ChatStreamRequest, ChatStreamRequestTypedDict
     from .chatsuggestion import ChatSuggestion, ChatSuggestionTypedDict
     from .chatzerostatesuggestionoptions import (
@@ -1310,6 +1312,46 @@ if TYPE_CHECKING:
         PlatformSkillsUpdateRequest,
         PlatformSkillsUpdateRequestTypedDict,
     )
+    from .platform_trigger_presets_events_searchop import (
+        PlatformTriggerPresetsEventsSearchRequest,
+        PlatformTriggerPresetsEventsSearchRequestTypedDict,
+    )
+    from .platform_trigger_presets_getop import (
+        PlatformTriggerPresetsGetRequest,
+        PlatformTriggerPresetsGetRequestTypedDict,
+    )
+    from .platform_trigger_presets_input_values_listop import (
+        PlatformTriggerPresetsInputValuesListRequest,
+        PlatformTriggerPresetsInputValuesListRequestTypedDict,
+    )
+    from .platform_trigger_presets_listop import (
+        PlatformTriggerPresetsListRequest,
+        PlatformTriggerPresetsListRequestTypedDict,
+    )
+    from .platform_triggers_createop import (
+        PlatformTriggersCreateTriggerWebhookEventRequest,
+        PlatformTriggersCreateTriggerWebhookEventRequestTypedDict,
+    )
+    from .platform_triggers_deleteop import (
+        PlatformTriggersDeleteRequest,
+        PlatformTriggersDeleteRequestTypedDict,
+    )
+    from .platform_triggers_events_searchop import (
+        PlatformTriggersEventsSearchRequest,
+        PlatformTriggersEventsSearchRequestTypedDict,
+    )
+    from .platform_triggers_getop import (
+        PlatformTriggersGetRequest,
+        PlatformTriggersGetRequestTypedDict,
+    )
+    from .platform_triggers_listop import (
+        PlatformTriggersListRequest,
+        PlatformTriggersListRequestTypedDict,
+    )
+    from .platform_triggers_updateop import (
+        PlatformTriggersUpdateRequest,
+        PlatformTriggersUpdateRequestTypedDict,
+    )
     from .platformactionsummary import (
         PlatformActionSummary,
         PlatformActionSummaryTypedDict,
@@ -1415,10 +1457,18 @@ if TYPE_CHECKING:
         PlatformChatPersonSourceType,
         PlatformChatPersonSourceTypedDict,
     )
+    from .platformcontentschedulewebhookevent import (
+        PlatformContentScheduleWebhookEvent,
+        PlatformContentScheduleWebhookEventTypedDict,
+    )
     from .platformcontenttype import PlatformContentType
     from .platformdatasourcefilterinfo import (
         PlatformDatasourceFilterInfo,
         PlatformDatasourceFilterInfoTypedDict,
+    )
+    from .platformdocumentchangewebhookevent import (
+        PlatformDocumentChangeWebhookEvent,
+        PlatformDocumentChangeWebhookEventTypedDict,
     )
     from .platformfilter import PlatformFilter, PlatformFilterTypedDict
     from .platformfilterfieldinfo import (
@@ -1566,6 +1616,98 @@ if TYPE_CHECKING:
         PlatformSkillVersionsListResponseTypedDict,
     )
     from .platformtimerange import PlatformTimeRange, PlatformTimeRangeTypedDict
+    from .platformtrigger import PlatformTrigger, PlatformTriggerTypedDict
+    from .platformtriggerauth_output import (
+        PlatformTriggerAuth,
+        PlatformTriggerAuthOutput,
+        PlatformTriggerAuthOutputTypedDict,
+        PlatformTriggerAuthType,
+        PlatformTriggerAuthTypedDict,
+    )
+    from .platformtriggercreaterequest import (
+        PlatformTriggerCreateRequest,
+        PlatformTriggerCreateRequestTypedDict,
+    )
+    from .platformtriggercreateresponse import (
+        PlatformTriggerCreateResponse,
+        PlatformTriggerCreateResponseTypedDict,
+    )
+    from .platformtriggerdelivery import (
+        PlatformTriggerDelivery,
+        PlatformTriggerDeliveryTypedDict,
+    )
+    from .platformtriggerdelivery_output import (
+        PlatformTriggerDeliveryOutput,
+        PlatformTriggerDeliveryOutputTypedDict,
+    )
+    from .platformtriggerevent import (
+        PlatformTriggerEvent,
+        PlatformTriggerEventTypedDict,
+    )
+    from .platformtriggereventreason import PlatformTriggerEventReason
+    from .platformtriggereventsearchrequest import (
+        PlatformTriggerEventSearchRequest,
+        PlatformTriggerEventSearchRequestTypedDict,
+    )
+    from .platformtriggereventsearchresponse import (
+        PlatformTriggerEventSearchResponse,
+        PlatformTriggerEventSearchResponseTypedDict,
+    )
+    from .platformtriggereventtype import PlatformTriggerEventType
+    from .platformtriggergetresponse import (
+        PlatformTriggerGetResponse,
+        PlatformTriggerGetResponseTypedDict,
+    )
+    from .platformtriggerlistresponse import (
+        PlatformTriggerListResponse,
+        PlatformTriggerListResponseTypedDict,
+    )
+    from .platformtriggerpreset import (
+        PlatformTriggerPreset,
+        PlatformTriggerPresetTypedDict,
+    )
+    from .platformtriggerpreseteventsearchrequest import (
+        PlatformTriggerPresetEventSearchRequest,
+        PlatformTriggerPresetEventSearchRequestTypedDict,
+    )
+    from .platformtriggerpresetgetresponse import (
+        PlatformTriggerPresetGetResponse,
+        PlatformTriggerPresetGetResponseTypedDict,
+    )
+    from .platformtriggerpresetinput import (
+        PlatformTriggerPresetInput,
+        PlatformTriggerPresetInputTypedDict,
+    )
+    from .platformtriggerpresetinputtype import PlatformTriggerPresetInputType
+    from .platformtriggerpresetinputvalue import (
+        PlatformTriggerPresetInputValue,
+        PlatformTriggerPresetInputValueTypedDict,
+    )
+    from .platformtriggerpresetinputvaluelistresponse import (
+        PlatformTriggerPresetInputValueListResponse,
+        PlatformTriggerPresetInputValueListResponseTypedDict,
+    )
+    from .platformtriggerpresetlistresponse import (
+        PlatformTriggerPresetListResponse,
+        PlatformTriggerPresetListResponseTypedDict,
+    )
+    from .platformtriggerpresetsummary import (
+        PlatformTriggerPresetSummary,
+        PlatformTriggerPresetSummaryTypedDict,
+    )
+    from .platformtriggerstatus import PlatformTriggerStatus
+    from .platformtriggerupdaterequest import (
+        PlatformTriggerUpdateRequest,
+        PlatformTriggerUpdateRequestTypedDict,
+    )
+    from .platformtriggerwebhookevent import (
+        PlatformTriggerWebhookEvent,
+        PlatformTriggerWebhookEventTypedDict,
+    )
+    from .platformtriggerwithsecret import (
+        PlatformTriggerWithSecret,
+        PlatformTriggerWithSecretTypedDict,
+    )
     from .platformwarning import PlatformWarning, PlatformWarningTypedDict
     from .possiblevalue import PossibleValue, PossibleValueTypedDict
     from .post_api_index_v1_debug_datasource_document_eventsop import (
@@ -2134,6 +2276,7 @@ __all__ = [
     "CalendarEvent",
     "CalendarEventEventType",
     "CalendarEventTypedDict",
+    "CalendarRoomBookingStatus",
     "CanonicalizingRegexType",
     "CanonicalizingRegexTypeTypedDict",
     "CategoryToResultSize",
@@ -2167,6 +2310,8 @@ __all__ = [
     "ChatRestrictionFiltersTypedDict",
     "ChatResult",
     "ChatResultTypedDict",
+    "ChatSkill",
+    "ChatSkillTypedDict",
     "ChatStreamRequest",
     "ChatStreamRequestTypedDict",
     "ChatSuggestion",
@@ -2995,9 +3140,13 @@ __all__ = [
     "PlatformChatPersonSource",
     "PlatformChatPersonSourceType",
     "PlatformChatPersonSourceTypedDict",
+    "PlatformContentScheduleWebhookEvent",
+    "PlatformContentScheduleWebhookEventTypedDict",
     "PlatformContentType",
     "PlatformDatasourceFilterInfo",
     "PlatformDatasourceFilterInfoTypedDict",
+    "PlatformDocumentChangeWebhookEvent",
+    "PlatformDocumentChangeWebhookEventTypedDict",
     "PlatformFilter",
     "PlatformFilterFieldInfo",
     "PlatformFilterFieldInfoTypedDict",
@@ -3115,6 +3264,77 @@ __all__ = [
     "PlatformSkillsUpdateRequestTypedDict",
     "PlatformTimeRange",
     "PlatformTimeRangeTypedDict",
+    "PlatformTrigger",
+    "PlatformTriggerAuth",
+    "PlatformTriggerAuthOutput",
+    "PlatformTriggerAuthOutputTypedDict",
+    "PlatformTriggerAuthType",
+    "PlatformTriggerAuthTypedDict",
+    "PlatformTriggerCreateRequest",
+    "PlatformTriggerCreateRequestTypedDict",
+    "PlatformTriggerCreateResponse",
+    "PlatformTriggerCreateResponseTypedDict",
+    "PlatformTriggerDelivery",
+    "PlatformTriggerDeliveryOutput",
+    "PlatformTriggerDeliveryOutputTypedDict",
+    "PlatformTriggerDeliveryTypedDict",
+    "PlatformTriggerEvent",
+    "PlatformTriggerEventReason",
+    "PlatformTriggerEventSearchRequest",
+    "PlatformTriggerEventSearchRequestTypedDict",
+    "PlatformTriggerEventSearchResponse",
+    "PlatformTriggerEventSearchResponseTypedDict",
+    "PlatformTriggerEventType",
+    "PlatformTriggerEventTypedDict",
+    "PlatformTriggerGetResponse",
+    "PlatformTriggerGetResponseTypedDict",
+    "PlatformTriggerListResponse",
+    "PlatformTriggerListResponseTypedDict",
+    "PlatformTriggerPreset",
+    "PlatformTriggerPresetEventSearchRequest",
+    "PlatformTriggerPresetEventSearchRequestTypedDict",
+    "PlatformTriggerPresetGetResponse",
+    "PlatformTriggerPresetGetResponseTypedDict",
+    "PlatformTriggerPresetInput",
+    "PlatformTriggerPresetInputType",
+    "PlatformTriggerPresetInputTypedDict",
+    "PlatformTriggerPresetInputValue",
+    "PlatformTriggerPresetInputValueListResponse",
+    "PlatformTriggerPresetInputValueListResponseTypedDict",
+    "PlatformTriggerPresetInputValueTypedDict",
+    "PlatformTriggerPresetListResponse",
+    "PlatformTriggerPresetListResponseTypedDict",
+    "PlatformTriggerPresetSummary",
+    "PlatformTriggerPresetSummaryTypedDict",
+    "PlatformTriggerPresetTypedDict",
+    "PlatformTriggerPresetsEventsSearchRequest",
+    "PlatformTriggerPresetsEventsSearchRequestTypedDict",
+    "PlatformTriggerPresetsGetRequest",
+    "PlatformTriggerPresetsGetRequestTypedDict",
+    "PlatformTriggerPresetsInputValuesListRequest",
+    "PlatformTriggerPresetsInputValuesListRequestTypedDict",
+    "PlatformTriggerPresetsListRequest",
+    "PlatformTriggerPresetsListRequestTypedDict",
+    "PlatformTriggerStatus",
+    "PlatformTriggerTypedDict",
+    "PlatformTriggerUpdateRequest",
+    "PlatformTriggerUpdateRequestTypedDict",
+    "PlatformTriggerWebhookEvent",
+    "PlatformTriggerWebhookEventTypedDict",
+    "PlatformTriggerWithSecret",
+    "PlatformTriggerWithSecretTypedDict",
+    "PlatformTriggersCreateTriggerWebhookEventRequest",
+    "PlatformTriggersCreateTriggerWebhookEventRequestTypedDict",
+    "PlatformTriggersDeleteRequest",
+    "PlatformTriggersDeleteRequestTypedDict",
+    "PlatformTriggersEventsSearchRequest",
+    "PlatformTriggersEventsSearchRequestTypedDict",
+    "PlatformTriggersGetRequest",
+    "PlatformTriggersGetRequestTypedDict",
+    "PlatformTriggersListRequest",
+    "PlatformTriggersListRequestTypedDict",
+    "PlatformTriggersUpdateRequest",
+    "PlatformTriggersUpdateRequestTypedDict",
     "PlatformWarning",
     "PlatformWarningTypedDict",
     "PossibleValue",
@@ -3615,6 +3835,7 @@ _dynamic_imports: dict[str, str] = {
     "CalendarEvent": ".calendarevent",
     "CalendarEventEventType": ".calendarevent",
     "CalendarEventTypedDict": ".calendarevent",
+    "CalendarRoomBookingStatus": ".calendarroombookingstatus",
     "CanonicalizingRegexType": ".canonicalizingregextype",
     "CanonicalizingRegexTypeTypedDict": ".canonicalizingregextype",
     "Chat": ".chat",
@@ -3645,6 +3866,8 @@ _dynamic_imports: dict[str, str] = {
     "ChatRestrictionFiltersTypedDict": ".chatrestrictionfilters",
     "ChatResult": ".chatresult",
     "ChatResultTypedDict": ".chatresult",
+    "ChatSkill": ".chatskill",
+    "ChatSkillTypedDict": ".chatskill",
     "ChatStreamRequest": ".chatstreamop",
     "ChatStreamRequestTypedDict": ".chatstreamop",
     "ChatSuggestion": ".chatsuggestion",
@@ -4391,6 +4614,26 @@ _dynamic_imports: dict[str, str] = {
     "PlatformSkillsSyncRequestTypedDict": ".platform_skills_syncop",
     "PlatformSkillsUpdateRequest": ".platform_skills_updateop",
     "PlatformSkillsUpdateRequestTypedDict": ".platform_skills_updateop",
+    "PlatformTriggerPresetsEventsSearchRequest": ".platform_trigger_presets_events_searchop",
+    "PlatformTriggerPresetsEventsSearchRequestTypedDict": ".platform_trigger_presets_events_searchop",
+    "PlatformTriggerPresetsGetRequest": ".platform_trigger_presets_getop",
+    "PlatformTriggerPresetsGetRequestTypedDict": ".platform_trigger_presets_getop",
+    "PlatformTriggerPresetsInputValuesListRequest": ".platform_trigger_presets_input_values_listop",
+    "PlatformTriggerPresetsInputValuesListRequestTypedDict": ".platform_trigger_presets_input_values_listop",
+    "PlatformTriggerPresetsListRequest": ".platform_trigger_presets_listop",
+    "PlatformTriggerPresetsListRequestTypedDict": ".platform_trigger_presets_listop",
+    "PlatformTriggersCreateTriggerWebhookEventRequest": ".platform_triggers_createop",
+    "PlatformTriggersCreateTriggerWebhookEventRequestTypedDict": ".platform_triggers_createop",
+    "PlatformTriggersDeleteRequest": ".platform_triggers_deleteop",
+    "PlatformTriggersDeleteRequestTypedDict": ".platform_triggers_deleteop",
+    "PlatformTriggersEventsSearchRequest": ".platform_triggers_events_searchop",
+    "PlatformTriggersEventsSearchRequestTypedDict": ".platform_triggers_events_searchop",
+    "PlatformTriggersGetRequest": ".platform_triggers_getop",
+    "PlatformTriggersGetRequestTypedDict": ".platform_triggers_getop",
+    "PlatformTriggersListRequest": ".platform_triggers_listop",
+    "PlatformTriggersListRequestTypedDict": ".platform_triggers_listop",
+    "PlatformTriggersUpdateRequest": ".platform_triggers_updateop",
+    "PlatformTriggersUpdateRequestTypedDict": ".platform_triggers_updateop",
     "PlatformActionSummary": ".platformactionsummary",
     "PlatformActionSummaryTypedDict": ".platformactionsummary",
     "PlatformAgent": ".platformagent",
@@ -4456,9 +4699,13 @@ _dynamic_imports: dict[str, str] = {
     "PlatformChatPersonSource": ".platformchatpersonsource",
     "PlatformChatPersonSourceType": ".platformchatpersonsource",
     "PlatformChatPersonSourceTypedDict": ".platformchatpersonsource",
+    "PlatformContentScheduleWebhookEvent": ".platformcontentschedulewebhookevent",
+    "PlatformContentScheduleWebhookEventTypedDict": ".platformcontentschedulewebhookevent",
     "PlatformContentType": ".platformcontenttype",
     "PlatformDatasourceFilterInfo": ".platformdatasourcefilterinfo",
     "PlatformDatasourceFilterInfoTypedDict": ".platformdatasourcefilterinfo",
+    "PlatformDocumentChangeWebhookEvent": ".platformdocumentchangewebhookevent",
+    "PlatformDocumentChangeWebhookEventTypedDict": ".platformdocumentchangewebhookevent",
     "PlatformFilter": ".platformfilter",
     "PlatformFilterTypedDict": ".platformfilter",
     "PlatformFilterFieldInfo": ".platformfilterfieldinfo",
@@ -4546,6 +4793,57 @@ _dynamic_imports: dict[str, str] = {
     "PlatformSkillVersionsListResponseTypedDict": ".platformskillversionslistresponse",
     "PlatformTimeRange": ".platformtimerange",
     "PlatformTimeRangeTypedDict": ".platformtimerange",
+    "PlatformTrigger": ".platformtrigger",
+    "PlatformTriggerTypedDict": ".platformtrigger",
+    "PlatformTriggerAuth": ".platformtriggerauth_output",
+    "PlatformTriggerAuthOutput": ".platformtriggerauth_output",
+    "PlatformTriggerAuthOutputTypedDict": ".platformtriggerauth_output",
+    "PlatformTriggerAuthType": ".platformtriggerauth_output",
+    "PlatformTriggerAuthTypedDict": ".platformtriggerauth_output",
+    "PlatformTriggerCreateRequest": ".platformtriggercreaterequest",
+    "PlatformTriggerCreateRequestTypedDict": ".platformtriggercreaterequest",
+    "PlatformTriggerCreateResponse": ".platformtriggercreateresponse",
+    "PlatformTriggerCreateResponseTypedDict": ".platformtriggercreateresponse",
+    "PlatformTriggerDelivery": ".platformtriggerdelivery",
+    "PlatformTriggerDeliveryTypedDict": ".platformtriggerdelivery",
+    "PlatformTriggerDeliveryOutput": ".platformtriggerdelivery_output",
+    "PlatformTriggerDeliveryOutputTypedDict": ".platformtriggerdelivery_output",
+    "PlatformTriggerEvent": ".platformtriggerevent",
+    "PlatformTriggerEventTypedDict": ".platformtriggerevent",
+    "PlatformTriggerEventReason": ".platformtriggereventreason",
+    "PlatformTriggerEventSearchRequest": ".platformtriggereventsearchrequest",
+    "PlatformTriggerEventSearchRequestTypedDict": ".platformtriggereventsearchrequest",
+    "PlatformTriggerEventSearchResponse": ".platformtriggereventsearchresponse",
+    "PlatformTriggerEventSearchResponseTypedDict": ".platformtriggereventsearchresponse",
+    "PlatformTriggerEventType": ".platformtriggereventtype",
+    "PlatformTriggerGetResponse": ".platformtriggergetresponse",
+    "PlatformTriggerGetResponseTypedDict": ".platformtriggergetresponse",
+    "PlatformTriggerListResponse": ".platformtriggerlistresponse",
+    "PlatformTriggerListResponseTypedDict": ".platformtriggerlistresponse",
+    "PlatformTriggerPreset": ".platformtriggerpreset",
+    "PlatformTriggerPresetTypedDict": ".platformtriggerpreset",
+    "PlatformTriggerPresetEventSearchRequest": ".platformtriggerpreseteventsearchrequest",
+    "PlatformTriggerPresetEventSearchRequestTypedDict": ".platformtriggerpreseteventsearchrequest",
+    "PlatformTriggerPresetGetResponse": ".platformtriggerpresetgetresponse",
+    "PlatformTriggerPresetGetResponseTypedDict": ".platformtriggerpresetgetresponse",
+    "PlatformTriggerPresetInput": ".platformtriggerpresetinput",
+    "PlatformTriggerPresetInputTypedDict": ".platformtriggerpresetinput",
+    "PlatformTriggerPresetInputType": ".platformtriggerpresetinputtype",
+    "PlatformTriggerPresetInputValue": ".platformtriggerpresetinputvalue",
+    "PlatformTriggerPresetInputValueTypedDict": ".platformtriggerpresetinputvalue",
+    "PlatformTriggerPresetInputValueListResponse": ".platformtriggerpresetinputvaluelistresponse",
+    "PlatformTriggerPresetInputValueListResponseTypedDict": ".platformtriggerpresetinputvaluelistresponse",
+    "PlatformTriggerPresetListResponse": ".platformtriggerpresetlistresponse",
+    "PlatformTriggerPresetListResponseTypedDict": ".platformtriggerpresetlistresponse",
+    "PlatformTriggerPresetSummary": ".platformtriggerpresetsummary",
+    "PlatformTriggerPresetSummaryTypedDict": ".platformtriggerpresetsummary",
+    "PlatformTriggerStatus": ".platformtriggerstatus",
+    "PlatformTriggerUpdateRequest": ".platformtriggerupdaterequest",
+    "PlatformTriggerUpdateRequestTypedDict": ".platformtriggerupdaterequest",
+    "PlatformTriggerWebhookEvent": ".platformtriggerwebhookevent",
+    "PlatformTriggerWebhookEventTypedDict": ".platformtriggerwebhookevent",
+    "PlatformTriggerWithSecret": ".platformtriggerwithsecret",
+    "PlatformTriggerWithSecretTypedDict": ".platformtriggerwithsecret",
     "PlatformWarning": ".platformwarning",
     "PlatformWarningTypedDict": ".platformwarning",
     "PossibleValue": ".possiblevalue",

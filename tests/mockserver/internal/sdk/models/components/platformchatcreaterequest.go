@@ -15,7 +15,7 @@ const (
 	InputTypeArrayOfPlatformChatInputMessage InputType = "arrayOfPlatformChatInputMessage"
 )
 
-// Input - Either a plain string (single user turn) or a chronological array of `user`/`assistant` messages. The final array message must be `user`.
+// Input - Either a plain string (single user turn) or a chronological array of `USER`/`ASSISTANT` messages. The final array message must be `USER`.
 type Input struct {
 	Str                             *string                    `queryParam:"inline"`
 	ArrayOfPlatformChatInputMessage []PlatformChatInputMessage `queryParam:"inline"`
@@ -73,7 +73,7 @@ func (u Input) MarshalJSON() ([]byte, error) {
 }
 
 type PlatformChatCreateRequest struct {
-	// Either a plain string (single user turn) or a chronological array of `user`/`assistant` messages. The final array message must be `user`.
+	// Either a plain string (single user turn) or a chronological array of `USER`/`ASSISTANT` messages. The final array message must be `USER`.
 	//
 	Input Input `json:"input"`
 	// When true, respond with `text/event-stream`. When false or omitted, respond with `application/json`.

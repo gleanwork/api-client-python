@@ -20,11 +20,11 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class Object(str, Enum):
-    RESPONSE = "response"
+    RESPONSE = "RESPONSE"
 
 
 class PlatformChatCompletedResponseStatus(str, Enum):
-    COMPLETED = "completed"
+    COMPLETED = "COMPLETED"
 
 
 class PlatformChatCompletedResponseTypedDict(TypedDict):
