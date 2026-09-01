@@ -7,6 +7,7 @@ from glean.api_client.types import OptionalNullable, UNSET
 from glean.api_client.utils import get_security_from_env
 from glean.api_client.utils.unmarshal_json_response import unmarshal_json_response
 from typing import Any, Dict, Iterable, List, Mapping, Optional, Union
+from typing_extensions import deprecated
 
 
 class ClientAgents(BaseSDK):
@@ -224,6 +225,9 @@ class ClientAgents(BaseSDK):
 
         raise errors.GleanError("Unexpected response received", http_res)
 
+    @deprecated(
+        "warning: ** DEPRECATED ** - Deprecated on 2026-08-25, removal scheduled for 2027-04-15: Use GET /api/agents/{agent_id} instead.."
+    )
     def retrieve(
         self,
         *,
@@ -298,7 +302,16 @@ class ClientAgents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-visibility": "Preview"},
+                extensions={
+                    "x-glean-deprecated": {
+                        "docs": "https://developers.glean.com/api/platform-api/agents-overview",
+                        "id": "e01a59ea-5de0-481f-97b6-d28dd65379e6",
+                        "introduced": "2026-08-25",
+                        "message": "Use GET /api/agents/{agent_id} instead.",
+                        "removal": "2027-04-15",
+                    },
+                    "x-visibility": "Preview",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -320,6 +333,9 @@ class ClientAgents(BaseSDK):
 
         raise errors.GleanError("Unexpected response received", http_res)
 
+    @deprecated(
+        "warning: ** DEPRECATED ** - Deprecated on 2026-08-25, removal scheduled for 2027-04-15: Use GET /api/agents/{agent_id} instead.."
+    )
     async def retrieve_async(
         self,
         *,
@@ -394,7 +410,16 @@ class ClientAgents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-visibility": "Preview"},
+                extensions={
+                    "x-glean-deprecated": {
+                        "docs": "https://developers.glean.com/api/platform-api/agents-overview",
+                        "id": "e01a59ea-5de0-481f-97b6-d28dd65379e6",
+                        "introduced": "2026-08-25",
+                        "message": "Use GET /api/agents/{agent_id} instead.",
+                        "removal": "2027-04-15",
+                    },
+                    "x-visibility": "Preview",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -638,6 +663,9 @@ class ClientAgents(BaseSDK):
 
         raise errors.GleanError("Unexpected response received", http_res)
 
+    @deprecated(
+        "warning: ** DEPRECATED ** - Deprecated on 2026-08-25, removal scheduled for 2027-04-15: Use GET /api/agents/{agent_id}/schemas instead.."
+    )
     def retrieve_schemas(
         self,
         *,
@@ -712,7 +740,16 @@ class ClientAgents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-visibility": "Preview"},
+                extensions={
+                    "x-glean-deprecated": {
+                        "docs": "https://developers.glean.com/api/platform-api/agents-overview",
+                        "id": "9ca398ba-cf22-4523-9d9c-86e5f82d6ec7",
+                        "introduced": "2026-08-25",
+                        "message": "Use GET /api/agents/{agent_id}/schemas instead.",
+                        "removal": "2027-04-15",
+                    },
+                    "x-visibility": "Preview",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -734,6 +771,9 @@ class ClientAgents(BaseSDK):
 
         raise errors.GleanError("Unexpected response received", http_res)
 
+    @deprecated(
+        "warning: ** DEPRECATED ** - Deprecated on 2026-08-25, removal scheduled for 2027-04-15: Use GET /api/agents/{agent_id}/schemas instead.."
+    )
     async def retrieve_schemas_async(
         self,
         *,
@@ -808,7 +848,16 @@ class ClientAgents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-visibility": "Preview"},
+                extensions={
+                    "x-glean-deprecated": {
+                        "docs": "https://developers.glean.com/api/platform-api/agents-overview",
+                        "id": "9ca398ba-cf22-4523-9d9c-86e5f82d6ec7",
+                        "introduced": "2026-08-25",
+                        "message": "Use GET /api/agents/{agent_id}/schemas instead.",
+                        "removal": "2027-04-15",
+                    },
+                    "x-visibility": "Preview",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -861,7 +910,7 @@ class ClientAgents(BaseSDK):
         :param commit_message: Optional commit message for the imported version.
         :param sync_mode: Whether the imported version is staged (saved without updating the live version) or published directly to the live version.
 
-        :param is_draft: When true, validates and stores a draft preview without publishing (used for PR preview links). Takes precedence over `syncMode`: when `isDraft` is true, `syncMode` is ignored.
+        :param is_draft: Deprecated. Draft mutation semantics are not supported for transient previews. Use transient and parentWorkflowId instead.
 
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -987,7 +1036,7 @@ class ClientAgents(BaseSDK):
         :param commit_message: Optional commit message for the imported version.
         :param sync_mode: Whether the imported version is staged (saved without updating the live version) or published directly to the live version.
 
-        :param is_draft: When true, validates and stores a draft preview without publishing (used for PR preview links). Takes precedence over `syncMode`: when `isDraft` is true, `syncMode` is ignored.
+        :param is_draft: Deprecated. Draft mutation semantics are not supported for transient previews. Use transient and parentWorkflowId instead.
 
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -1082,6 +1131,9 @@ class ClientAgents(BaseSDK):
 
         raise errors.GleanError("Unexpected response received", http_res)
 
+    @deprecated(
+        "warning: ** DEPRECATED ** - Deprecated on 2026-08-25, removal scheduled for 2027-04-15: Use POST /api/agents/search instead.."
+    )
     def list(
         self,
         *,
@@ -1153,7 +1205,16 @@ class ClientAgents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-visibility": "Preview"},
+                extensions={
+                    "x-glean-deprecated": {
+                        "docs": "https://developers.glean.com/api/platform-api/agents-overview",
+                        "id": "3ab6f4c0-0b97-4a0b-b5da-e888e4bb7706",
+                        "introduced": "2026-08-25",
+                        "message": "Use POST /api/agents/search instead.",
+                        "removal": "2027-04-15",
+                    },
+                    "x-visibility": "Preview",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1175,6 +1236,9 @@ class ClientAgents(BaseSDK):
 
         raise errors.GleanError("Unexpected response received", http_res)
 
+    @deprecated(
+        "warning: ** DEPRECATED ** - Deprecated on 2026-08-25, removal scheduled for 2027-04-15: Use POST /api/agents/search instead.."
+    )
     async def list_async(
         self,
         *,
@@ -1246,7 +1310,16 @@ class ClientAgents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-visibility": "Preview"},
+                extensions={
+                    "x-glean-deprecated": {
+                        "docs": "https://developers.glean.com/api/platform-api/agents-overview",
+                        "id": "3ab6f4c0-0b97-4a0b-b5da-e888e4bb7706",
+                        "introduced": "2026-08-25",
+                        "message": "Use POST /api/agents/search instead.",
+                        "removal": "2027-04-15",
+                    },
+                    "x-visibility": "Preview",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1268,6 +1341,9 @@ class ClientAgents(BaseSDK):
 
         raise errors.GleanError("Unexpected response received", http_res)
 
+    @deprecated(
+        "warning: ** DEPRECATED ** - Deprecated on 2026-08-25, removal scheduled for 2027-04-15: Use POST /api/agents/{agent_id}/runs with stream=true instead.."
+    )
     def run_stream(
         self,
         *,
@@ -1350,7 +1426,16 @@ class ClientAgents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-visibility": "Preview"},
+                extensions={
+                    "x-glean-deprecated": {
+                        "docs": "https://developers.glean.com/api/platform-api/agents-overview",
+                        "id": "db3f42a5-8820-451e-b57a-14bf6ca3915c",
+                        "introduced": "2026-08-25",
+                        "message": "Use POST /api/agents/{agent_id}/runs with stream=true instead.",
+                        "removal": "2027-04-15",
+                    },
+                    "x-visibility": "Preview",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1377,6 +1462,9 @@ class ClientAgents(BaseSDK):
 
         raise errors.GleanError("Unexpected response received", http_res)
 
+    @deprecated(
+        "warning: ** DEPRECATED ** - Deprecated on 2026-08-25, removal scheduled for 2027-04-15: Use POST /api/agents/{agent_id}/runs with stream=true instead.."
+    )
     async def run_stream_async(
         self,
         *,
@@ -1459,7 +1547,16 @@ class ClientAgents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-visibility": "Preview"},
+                extensions={
+                    "x-glean-deprecated": {
+                        "docs": "https://developers.glean.com/api/platform-api/agents-overview",
+                        "id": "db3f42a5-8820-451e-b57a-14bf6ca3915c",
+                        "introduced": "2026-08-25",
+                        "message": "Use POST /api/agents/{agent_id}/runs with stream=true instead.",
+                        "removal": "2027-04-15",
+                    },
+                    "x-visibility": "Preview",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1486,6 +1583,9 @@ class ClientAgents(BaseSDK):
 
         raise errors.GleanError("Unexpected response received", http_res)
 
+    @deprecated(
+        "warning: ** DEPRECATED ** - Deprecated on 2026-08-25, removal scheduled for 2027-04-15: Use POST /api/agents/{agent_id}/runs instead.."
+    )
     def run(
         self,
         *,
@@ -1568,7 +1668,16 @@ class ClientAgents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-visibility": "Preview"},
+                extensions={
+                    "x-glean-deprecated": {
+                        "docs": "https://developers.glean.com/api/platform-api/agents-overview",
+                        "id": "683b90e1-48d3-4d7a-a32d-b48eb194fcf0",
+                        "introduced": "2026-08-25",
+                        "message": "Use POST /api/agents/{agent_id}/runs instead.",
+                        "removal": "2027-04-15",
+                    },
+                    "x-visibility": "Preview",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1592,6 +1701,9 @@ class ClientAgents(BaseSDK):
 
         raise errors.GleanError("Unexpected response received", http_res)
 
+    @deprecated(
+        "warning: ** DEPRECATED ** - Deprecated on 2026-08-25, removal scheduled for 2027-04-15: Use POST /api/agents/{agent_id}/runs instead.."
+    )
     async def run_async(
         self,
         *,
@@ -1674,7 +1786,16 @@ class ClientAgents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-visibility": "Preview"},
+                extensions={
+                    "x-glean-deprecated": {
+                        "docs": "https://developers.glean.com/api/platform-api/agents-overview",
+                        "id": "683b90e1-48d3-4d7a-a32d-b48eb194fcf0",
+                        "introduced": "2026-08-25",
+                        "message": "Use POST /api/agents/{agent_id}/runs instead.",
+                        "removal": "2027-04-15",
+                    },
+                    "x-visibility": "Preview",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

@@ -20,3 +20,4 @@ value = ServerToolRequestRequestType.EXECUTION
 | `EXECUTION`                 | EXECUTION                   |
 | `AUTHENTICATION_SUGGESTION` | AUTHENTICATION_SUGGESTION   |
 | `VOTE_SUGGESTION`           | VOTE_SUGGESTION             |
+| `SANDBOX_EGRESS`            | SANDBOX_EGRESS              |

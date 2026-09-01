@@ -133,7 +133,12 @@ def test_agents_platform_agents_create_run():
             messages=[
                 {
                     "role": models.PlatformMessageRole.USER,
-                    "content": [],
+                    "content": [
+                        {
+                            "text": "What is our parental leave policy?",
+                            "type": models.PlatformContentType.TEXT,
+                        },
+                    ],
                 },
             ],
             stream=False,

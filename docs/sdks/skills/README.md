@@ -127,7 +127,7 @@ with Glean(
 ) as glean:
 
     res = glean.skills.import_(source_urls=[
-        "<value 1>",
+        "https://github.com/anthropics/skills/tree/main/skills/skill-creator",
     ])
 
     # Handle response
@@ -217,7 +217,7 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as glean:
 
-    res = glean.skills.preview_source(source_url="https://ugly-information.name/", stream=False)
+    res = glean.skills.preview_source(source_url="https://github.com/anthropics/skills", stream=False)
 
     # Handle response
     print(res)
@@ -261,7 +261,7 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as glean:
 
-    res = glean.skills.update(skill_id="<id>", status=models.PlatformSkillUpdateStatus.DISABLED)
+    res = glean.skills.update(skill_id="<id>", status=models.PlatformSkillUpdateStatus.ENABLED)
 
     # Handle response
     print(res)

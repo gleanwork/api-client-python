@@ -20,6 +20,8 @@ class ServerToolRequestRequestType(str, Enum, metaclass=utils.OpenEnumMeta):
     AUTHENTICATION_SUGGESTION = "AUTHENTICATION_SUGGESTION"
     # Suggestion to vote for enabling an available-but-not-enabled tool.
     VOTE_SUGGESTION = "VOTE_SUGGESTION"
+    # Request to approve an outbound/egress call from the sandbox.
+    SANDBOX_EGRESS = "SANDBOX_EGRESS"
 
 
 class ServerToolRequestTypedDict(TypedDict):

@@ -159,7 +159,7 @@ def test_skills_platform_skills_import():
 
         res = glean.skills.import_(
             source_urls=[
-                "<value 1>",
+                "https://github.com/anthropics/skills/tree/main/skills/skill-creator",
             ]
         )
         assert res is not None
@@ -176,7 +176,7 @@ def test_skills_platform_skills_preview_source():
         assert glean is not None
 
         res = glean.skills.preview_source(
-            source_url="https://ugly-information.name/", stream=False
+            source_url="https://github.com/anthropics/skills", stream=False
         )
         assert res is not None
 
@@ -192,7 +192,7 @@ def test_skills_platform_skills_update():
         assert glean is not None
 
         res = glean.skills.update(
-            skill_id="<id>", status=models.PlatformSkillUpdateStatus.DISABLED
+            skill_id="<id>", status=models.PlatformSkillUpdateStatus.ENABLED
         )
         assert res is not None
 

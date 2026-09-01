@@ -15,6 +15,7 @@ const (
 	ServerToolResponseRequestTypeExecution                ServerToolResponseRequestType = "EXECUTION"
 	ServerToolResponseRequestTypeAuthenticationSuggestion ServerToolResponseRequestType = "AUTHENTICATION_SUGGESTION"
 	ServerToolResponseRequestTypeVoteSuggestion           ServerToolResponseRequestType = "VOTE_SUGGESTION"
+	ServerToolResponseRequestTypeSandboxEgress            ServerToolResponseRequestType = "SANDBOX_EGRESS"
 )
 
 func (e ServerToolResponseRequestType) ToPointer() *ServerToolResponseRequestType {
@@ -31,6 +32,8 @@ func (e *ServerToolResponseRequestType) UnmarshalJSON(data []byte) error {
 	case "AUTHENTICATION_SUGGESTION":
 		fallthrough
 	case "VOTE_SUGGESTION":
+		fallthrough
+	case "SANDBOX_EGRESS":
 		*e = ServerToolResponseRequestType(v)
 		return nil
 	default:
@@ -81,6 +84,9 @@ func (e *GrantScope) UnmarshalJSON(data []byte) error {
 //
 // For VOTE_SUGGESTION requests:
 // - voted: whether the user voted for this tool
+//
+// For SANDBOX_EGRESS requests:
+// - isGranted: whether the sandbox egress call is approved
 type ServerToolResponse struct {
 	// The type of request made to the user.
 	RequestType ServerToolResponseRequestType `json:"requestType"`
