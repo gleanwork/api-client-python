@@ -159,7 +159,12 @@ with Glean(
     res = glean.agents.create_run(agent_id="<id>", messages=[
         {
             "role": models.PlatformMessageRole.USER,
-            "content": [],
+            "content": [
+                {
+                    "text": "What is our parental leave policy?",
+                    "type": models.PlatformContentType.TEXT,
+                },
+            ],
         },
     ], stream=False)
 

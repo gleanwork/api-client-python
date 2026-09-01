@@ -38,7 +38,7 @@ type ImportAgentRequest struct {
 	// Whether the imported version is staged (saved without updating the live version) or published directly to the live version.
 	//
 	SyncMode *ImportAgentSyncMode `multipartForm:"name=syncMode"`
-	// When true, validates and stores a draft preview without publishing (used for PR preview links). Takes precedence over `syncMode`: when `isDraft` is true, `syncMode` is ignored.
+	// Deprecated. Draft mutation semantics are not supported for transient previews. Use transient and parentWorkflowId instead.
 	//
 	IsDraft *bool `multipartForm:"name=isDraft"`
 }

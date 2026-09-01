@@ -23,7 +23,7 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as glean:
 
-    res = glean.chat.create(input="<value>", stream=False, store=True)
+    res = glean.chat.create(input="What is our parental leave policy?", stream=False, store=True)
 
     # Handle response
     print(res)

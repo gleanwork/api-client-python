@@ -14,6 +14,7 @@ const (
 	ServerToolRequestRequestTypeExecution                ServerToolRequestRequestType = "EXECUTION"
 	ServerToolRequestRequestTypeAuthenticationSuggestion ServerToolRequestRequestType = "AUTHENTICATION_SUGGESTION"
 	ServerToolRequestRequestTypeVoteSuggestion           ServerToolRequestRequestType = "VOTE_SUGGESTION"
+	ServerToolRequestRequestTypeSandboxEgress            ServerToolRequestRequestType = "SANDBOX_EGRESS"
 )
 
 func (e ServerToolRequestRequestType) ToPointer() *ServerToolRequestRequestType {
@@ -30,6 +31,8 @@ func (e *ServerToolRequestRequestType) UnmarshalJSON(data []byte) error {
 	case "AUTHENTICATION_SUGGESTION":
 		fallthrough
 	case "VOTE_SUGGESTION":
+		fallthrough
+	case "SANDBOX_EGRESS":
 		*e = ServerToolRequestRequestType(v)
 		return nil
 	default:

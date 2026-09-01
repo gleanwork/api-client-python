@@ -20,6 +20,8 @@ class ServerToolResponseRequestType(str, Enum, metaclass=utils.OpenEnumMeta):
     AUTHENTICATION_SUGGESTION = "AUTHENTICATION_SUGGESTION"
     # Suggestion to vote for enabling an available-but-not-enabled tool.
     VOTE_SUGGESTION = "VOTE_SUGGESTION"
+    # Request to approve an outbound/egress call from the sandbox.
+    SANDBOX_EGRESS = "SANDBOX_EGRESS"
 
 
 class GrantScope(str, Enum, metaclass=utils.OpenEnumMeta):
@@ -47,6 +49,9 @@ class ServerToolResponseTypedDict(TypedDict):
 
     For VOTE_SUGGESTION requests:
     - voted: whether the user voted for this tool
+
+    For SANDBOX_EGRESS requests:
+    - isGranted: whether the sandbox egress call is approved
 
     """
 
@@ -80,6 +85,9 @@ class ServerToolResponse(BaseModel):
 
     For VOTE_SUGGESTION requests:
     - voted: whether the user voted for this tool
+
+    For SANDBOX_EGRESS requests:
+    - isGranted: whether the sandbox egress call is approved
 
     """
 
