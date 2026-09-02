@@ -1,0 +1,10 @@
+# PlatformChatStreamResponseFailedServerSentEvent
+
+
+## Fields
+
+| Field                                                                                    | Type                                                                                     | Required                                                                                 | Description                                                                              |
+| ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `id`                                                                                     | *Optional[str]*                                                                          | :heavy_minus_sign:                                                                       | N/A                                                                                      |
+| `event`                                                                                  | *Literal["RESPONSE_FAILED"]*                                                             | :heavy_check_mark:                                                                       | N/A                                                                                      |
+| `data`                                                                                   | [models.PlatformChatStreamResponseFailed](../models/platformchatstreamresponsefailed.md) | :heavy_check_mark:                                                                       | N/A                                                                                      |

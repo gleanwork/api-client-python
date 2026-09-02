@@ -1,6 +1,6 @@
 # ChatMessageFragment
 
-Represents a part of a ChatMessage that originates from a single action/tool. It is designed to support rich data formats beyond simple text, allowing for a more dynamic and interactive chat experience. Each fragment can include various types of content, such as text, search queries, action information, and more. Also, each ChatMessageFragment should only have one of structuredResults, querySuggestion, writeAction, followupAction, agentRecommendation, followupRoutingSuggestion or file.
+A typed fragment within a chat message that carries text or structured content such as citations, actions, and tool output.
 
 
 ## Fields

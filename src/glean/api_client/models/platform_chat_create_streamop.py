@@ -6,34 +6,37 @@ from .platformchatinputmessage import (
     PlatformChatInputMessageTypedDict,
 )
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
+from glean.api_client.utils import validate_const
+import pydantic
 from pydantic import model_serializer
-from typing import List, Optional, Union
-from typing_extensions import NotRequired, TypeAliasType, TypedDict
+from pydantic.functional_validators import AfterValidator
+from typing import List, Literal, Optional, Union
+from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-InputTypedDict = TypeAliasType(
-    "InputTypedDict", Union[str, List[PlatformChatInputMessageTypedDict]]
+PlatformChatCreateStreamInputTypedDict = TypeAliasType(
+    "PlatformChatCreateStreamInputTypedDict",
+    Union[str, List[PlatformChatInputMessageTypedDict]],
 )
 r"""Either a plain string (single user turn) or a chronological array of `USER`/`ASSISTANT` messages. The final array message must be `USER`.
 
 """
 
 
-Input = TypeAliasType("Input", Union[str, List[PlatformChatInputMessage]])
+PlatformChatCreateStreamInput = TypeAliasType(
+    "PlatformChatCreateStreamInput", Union[str, List[PlatformChatInputMessage]]
+)
 r"""Either a plain string (single user turn) or a chronological array of `USER`/`ASSISTANT` messages. The final array message must be `USER`.
 
 """
 
 
-class PlatformChatCreateRequestTypedDict(TypedDict):
-    input: InputTypedDict
+class PlatformChatCreateStreamRequestTypedDict(TypedDict):
+    input: PlatformChatCreateStreamInputTypedDict
     r"""Either a plain string (single user turn) or a chronological array of `USER`/`ASSISTANT` messages. The final array message must be `USER`.
 
     """
-    stream: NotRequired[bool]
-    r"""When true, respond with `text/event-stream`. When false or omitted, respond with `application/json`.
-
-    """
+    stream: Literal[True]
     store: NotRequired[bool]
     r"""When true (default), persist the interaction and return a `conversation_id`. When false, run ephemerally with no persistence.
 
@@ -44,16 +47,16 @@ class PlatformChatCreateRequestTypedDict(TypedDict):
     """
 
 
-class PlatformChatCreateRequest(BaseModel):
-    input: Input
+class PlatformChatCreateStreamRequest(BaseModel):
+    input: PlatformChatCreateStreamInput
     r"""Either a plain string (single user turn) or a chronological array of `USER`/`ASSISTANT` messages. The final array message must be `USER`.
 
     """
 
-    stream: Optional[bool] = False
-    r"""When true, respond with `text/event-stream`. When false or omitted, respond with `application/json`.
-
-    """
+    STREAM: Annotated[
+        Annotated[Optional[Literal[True]], AfterValidator(validate_const(True))],
+        pydantic.Field(alias="stream"),
+    ] = True
 
     store: Optional[bool] = True
     r"""When true (default), persist the interaction and return a `conversation_id`. When false, run ephemerally with no persistence.
@@ -80,3 +83,9 @@ class PlatformChatCreateRequest(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    PlatformChatCreateStreamRequest.model_rebuild()
+except NameError:
+    pass

@@ -1254,9 +1254,17 @@ if TYPE_CHECKING:
         PlatformAgentsGetRequest,
         PlatformAgentsGetRequestTypedDict,
     )
+    from .platform_chat_create_streamop import (
+        PlatformChatCreateStreamInput,
+        PlatformChatCreateStreamInputTypedDict,
+        PlatformChatCreateStreamRequest,
+        PlatformChatCreateStreamRequestTypedDict,
+    )
     from .platform_chat_createop import (
-        PlatformChatCreateResponse,
-        PlatformChatCreateResponseTypedDict,
+        PlatformChatCreateInput,
+        PlatformChatCreateInputTypedDict,
+        PlatformChatCreateRequest,
+        PlatformChatCreateRequestTypedDict,
     )
     from .platform_search_filtersop import (
         PlatformSearchFiltersRequest,
@@ -1405,16 +1413,10 @@ if TYPE_CHECKING:
         PlatformChatCitationSourceTypedDict,
     )
     from .platformchatcompletedresponse import (
-        Object,
         PlatformChatCompletedResponse,
+        PlatformChatCompletedResponseObject,
         PlatformChatCompletedResponseStatus,
         PlatformChatCompletedResponseTypedDict,
-    )
-    from .platformchatcreaterequest import (
-        Input,
-        InputTypedDict,
-        PlatformChatCreateRequest,
-        PlatformChatCreateRequestTypedDict,
     )
     from .platformchatcustomentitysource import (
         PlatformChatCustomEntitySource,
@@ -1430,6 +1432,12 @@ if TYPE_CHECKING:
         PlatformChatDocumentSourceType1,
         PlatformChatDocumentSourceType2,
         PlatformChatDocumentSourceTypedDict,
+    )
+    from .platformchatfailedresponse import (
+        PlatformChatFailedResponse,
+        PlatformChatFailedResponseObject,
+        PlatformChatFailedResponseStatus,
+        PlatformChatFailedResponseTypedDict,
     )
     from .platformchatfilesource import (
         PlatformChatFileSource,
@@ -1456,6 +1464,68 @@ if TYPE_CHECKING:
         PlatformChatPersonSource,
         PlatformChatPersonSourceType,
         PlatformChatPersonSourceTypedDict,
+    )
+    from .platformchatresponseerror import (
+        PlatformChatResponseError,
+        PlatformChatResponseErrorTypedDict,
+    )
+    from .platformchatstreameventserversentevent import (
+        PlatformChatStreamEventServerSentEvent,
+        PlatformChatStreamEventServerSentEventTypedDict,
+    )
+    from .platformchatstreamoutputtextdelta import (
+        PlatformChatStreamOutputTextDelta,
+        PlatformChatStreamOutputTextDeltaType,
+        PlatformChatStreamOutputTextDeltaTypedDict,
+    )
+    from .platformchatstreamoutputtextdeltaserversentevent import (
+        PlatformChatStreamOutputTextDeltaServerSentEvent,
+        PlatformChatStreamOutputTextDeltaServerSentEventTypedDict,
+    )
+    from .platformchatstreamoutputtextdone import (
+        PlatformChatStreamOutputTextDone,
+        PlatformChatStreamOutputTextDoneType,
+        PlatformChatStreamOutputTextDoneTypedDict,
+    )
+    from .platformchatstreamoutputtextdoneserversentevent import (
+        PlatformChatStreamOutputTextDoneServerSentEvent,
+        PlatformChatStreamOutputTextDoneServerSentEventTypedDict,
+    )
+    from .platformchatstreamprogress import (
+        PlatformChatStreamProgress,
+        PlatformChatStreamProgressType,
+        PlatformChatStreamProgressTypedDict,
+    )
+    from .platformchatstreamprogressserversentevent import (
+        PlatformChatStreamProgressServerSentEvent,
+        PlatformChatStreamProgressServerSentEventTypedDict,
+    )
+    from .platformchatstreamresponsecompleted import (
+        PlatformChatStreamResponseCompleted,
+        PlatformChatStreamResponseCompletedType,
+        PlatformChatStreamResponseCompletedTypedDict,
+    )
+    from .platformchatstreamresponsecompletedserversentevent import (
+        PlatformChatStreamResponseCompletedServerSentEvent,
+        PlatformChatStreamResponseCompletedServerSentEventTypedDict,
+    )
+    from .platformchatstreamresponsecreated import (
+        PlatformChatStreamResponseCreated,
+        PlatformChatStreamResponseCreatedType,
+        PlatformChatStreamResponseCreatedTypedDict,
+    )
+    from .platformchatstreamresponsecreatedserversentevent import (
+        PlatformChatStreamResponseCreatedServerSentEvent,
+        PlatformChatStreamResponseCreatedServerSentEventTypedDict,
+    )
+    from .platformchatstreamresponsefailed import (
+        PlatformChatStreamResponseFailed,
+        PlatformChatStreamResponseFailedType,
+        PlatformChatStreamResponseFailedTypedDict,
+    )
+    from .platformchatstreamresponsefailedserversentevent import (
+        PlatformChatStreamResponseFailedServerSentEvent,
+        PlatformChatStreamResponseFailedServerSentEventTypedDict,
     )
     from .platformcontentschedulewebhookevent import (
         PlatformContentScheduleWebhookEvent,
@@ -2891,13 +2961,11 @@ __all__ = [
     "IndexUserRequestTypedDict",
     "IndexingShortcut",
     "IndexingShortcutTypedDict",
-    "Input",
     "InputOptions",
     "InputOptionsTimePeriodType",
     "InputOptionsTypedDict",
     "InputSchema",
     "InputSchemaTypedDict",
-    "InputTypedDict",
     "InsightsAssistantRequest",
     "InsightsAssistantRequestTypedDict",
     "InsightsChatSummary",
@@ -3011,7 +3079,6 @@ __all__ = [
     "MessagesResponse",
     "MessagesResponseTypedDict",
     "Mode",
-    "Object",
     "ObjectDefinition",
     "ObjectDefinitionTypedDict",
     "ObjectPermissions",
@@ -3107,12 +3174,17 @@ __all__ = [
     "PlatformChatCitationSource",
     "PlatformChatCitationSourceTypedDict",
     "PlatformChatCompletedResponse",
+    "PlatformChatCompletedResponseObject",
     "PlatformChatCompletedResponseStatus",
     "PlatformChatCompletedResponseTypedDict",
+    "PlatformChatCreateInput",
+    "PlatformChatCreateInputTypedDict",
     "PlatformChatCreateRequest",
     "PlatformChatCreateRequestTypedDict",
-    "PlatformChatCreateResponse",
-    "PlatformChatCreateResponseTypedDict",
+    "PlatformChatCreateStreamInput",
+    "PlatformChatCreateStreamInputTypedDict",
+    "PlatformChatCreateStreamRequest",
+    "PlatformChatCreateStreamRequestTypedDict",
     "PlatformChatCustomEntitySource",
     "PlatformChatCustomEntitySourceType",
     "PlatformChatCustomEntitySourceTypedDict",
@@ -3124,6 +3196,10 @@ __all__ = [
     "PlatformChatDocumentSourceType1",
     "PlatformChatDocumentSourceType2",
     "PlatformChatDocumentSourceTypedDict",
+    "PlatformChatFailedResponse",
+    "PlatformChatFailedResponseObject",
+    "PlatformChatFailedResponseStatus",
+    "PlatformChatFailedResponseTypedDict",
     "PlatformChatFileSource",
     "PlatformChatFileSourceType",
     "PlatformChatFileSourceTypedDict",
@@ -3140,6 +3216,40 @@ __all__ = [
     "PlatformChatPersonSource",
     "PlatformChatPersonSourceType",
     "PlatformChatPersonSourceTypedDict",
+    "PlatformChatResponseError",
+    "PlatformChatResponseErrorTypedDict",
+    "PlatformChatStreamEventServerSentEvent",
+    "PlatformChatStreamEventServerSentEventTypedDict",
+    "PlatformChatStreamOutputTextDelta",
+    "PlatformChatStreamOutputTextDeltaServerSentEvent",
+    "PlatformChatStreamOutputTextDeltaServerSentEventTypedDict",
+    "PlatformChatStreamOutputTextDeltaType",
+    "PlatformChatStreamOutputTextDeltaTypedDict",
+    "PlatformChatStreamOutputTextDone",
+    "PlatformChatStreamOutputTextDoneServerSentEvent",
+    "PlatformChatStreamOutputTextDoneServerSentEventTypedDict",
+    "PlatformChatStreamOutputTextDoneType",
+    "PlatformChatStreamOutputTextDoneTypedDict",
+    "PlatformChatStreamProgress",
+    "PlatformChatStreamProgressServerSentEvent",
+    "PlatformChatStreamProgressServerSentEventTypedDict",
+    "PlatformChatStreamProgressType",
+    "PlatformChatStreamProgressTypedDict",
+    "PlatformChatStreamResponseCompleted",
+    "PlatformChatStreamResponseCompletedServerSentEvent",
+    "PlatformChatStreamResponseCompletedServerSentEventTypedDict",
+    "PlatformChatStreamResponseCompletedType",
+    "PlatformChatStreamResponseCompletedTypedDict",
+    "PlatformChatStreamResponseCreated",
+    "PlatformChatStreamResponseCreatedServerSentEvent",
+    "PlatformChatStreamResponseCreatedServerSentEventTypedDict",
+    "PlatformChatStreamResponseCreatedType",
+    "PlatformChatStreamResponseCreatedTypedDict",
+    "PlatformChatStreamResponseFailed",
+    "PlatformChatStreamResponseFailedServerSentEvent",
+    "PlatformChatStreamResponseFailedServerSentEventTypedDict",
+    "PlatformChatStreamResponseFailedType",
+    "PlatformChatStreamResponseFailedTypedDict",
     "PlatformContentScheduleWebhookEvent",
     "PlatformContentScheduleWebhookEventTypedDict",
     "PlatformContentType",
@@ -4582,8 +4692,14 @@ _dynamic_imports: dict[str, str] = {
     "PlatformAgentsGetSchemasRequestTypedDict": ".platform_agents_get_schemasop",
     "PlatformAgentsGetRequest": ".platform_agents_getop",
     "PlatformAgentsGetRequestTypedDict": ".platform_agents_getop",
-    "PlatformChatCreateResponse": ".platform_chat_createop",
-    "PlatformChatCreateResponseTypedDict": ".platform_chat_createop",
+    "PlatformChatCreateStreamInput": ".platform_chat_create_streamop",
+    "PlatformChatCreateStreamInputTypedDict": ".platform_chat_create_streamop",
+    "PlatformChatCreateStreamRequest": ".platform_chat_create_streamop",
+    "PlatformChatCreateStreamRequestTypedDict": ".platform_chat_create_streamop",
+    "PlatformChatCreateInput": ".platform_chat_createop",
+    "PlatformChatCreateInputTypedDict": ".platform_chat_createop",
+    "PlatformChatCreateRequest": ".platform_chat_createop",
+    "PlatformChatCreateRequestTypedDict": ".platform_chat_createop",
     "PlatformSearchFiltersRequest": ".platform_search_filtersop",
     "PlatformSearchFiltersRequestTypedDict": ".platform_search_filtersop",
     "PlatformSearchFiltersResponseResponse": ".platform_search_filtersop",
@@ -4664,14 +4780,10 @@ _dynamic_imports: dict[str, str] = {
     "PlatformChatCitationSnippetTypedDict": ".platformchatcitationsnippet",
     "PlatformChatCitationSource": ".platformchatcitationsource",
     "PlatformChatCitationSourceTypedDict": ".platformchatcitationsource",
-    "Object": ".platformchatcompletedresponse",
     "PlatformChatCompletedResponse": ".platformchatcompletedresponse",
+    "PlatformChatCompletedResponseObject": ".platformchatcompletedresponse",
     "PlatformChatCompletedResponseStatus": ".platformchatcompletedresponse",
     "PlatformChatCompletedResponseTypedDict": ".platformchatcompletedresponse",
-    "Input": ".platformchatcreaterequest",
-    "InputTypedDict": ".platformchatcreaterequest",
-    "PlatformChatCreateRequest": ".platformchatcreaterequest",
-    "PlatformChatCreateRequestTypedDict": ".platformchatcreaterequest",
     "PlatformChatCustomEntitySource": ".platformchatcustomentitysource",
     "PlatformChatCustomEntitySourceType": ".platformchatcustomentitysource",
     "PlatformChatCustomEntitySourceTypedDict": ".platformchatcustomentitysource",
@@ -4683,6 +4795,10 @@ _dynamic_imports: dict[str, str] = {
     "PlatformChatDocumentSourceType1": ".platformchatdocumentsource",
     "PlatformChatDocumentSourceType2": ".platformchatdocumentsource",
     "PlatformChatDocumentSourceTypedDict": ".platformchatdocumentsource",
+    "PlatformChatFailedResponse": ".platformchatfailedresponse",
+    "PlatformChatFailedResponseObject": ".platformchatfailedresponse",
+    "PlatformChatFailedResponseStatus": ".platformchatfailedresponse",
+    "PlatformChatFailedResponseTypedDict": ".platformchatfailedresponse",
     "PlatformChatFileSource": ".platformchatfilesource",
     "PlatformChatFileSourceType": ".platformchatfilesource",
     "PlatformChatFileSourceTypedDict": ".platformchatfilesource",
@@ -4699,6 +4815,40 @@ _dynamic_imports: dict[str, str] = {
     "PlatformChatPersonSource": ".platformchatpersonsource",
     "PlatformChatPersonSourceType": ".platformchatpersonsource",
     "PlatformChatPersonSourceTypedDict": ".platformchatpersonsource",
+    "PlatformChatResponseError": ".platformchatresponseerror",
+    "PlatformChatResponseErrorTypedDict": ".platformchatresponseerror",
+    "PlatformChatStreamEventServerSentEvent": ".platformchatstreameventserversentevent",
+    "PlatformChatStreamEventServerSentEventTypedDict": ".platformchatstreameventserversentevent",
+    "PlatformChatStreamOutputTextDelta": ".platformchatstreamoutputtextdelta",
+    "PlatformChatStreamOutputTextDeltaType": ".platformchatstreamoutputtextdelta",
+    "PlatformChatStreamOutputTextDeltaTypedDict": ".platformchatstreamoutputtextdelta",
+    "PlatformChatStreamOutputTextDeltaServerSentEvent": ".platformchatstreamoutputtextdeltaserversentevent",
+    "PlatformChatStreamOutputTextDeltaServerSentEventTypedDict": ".platformchatstreamoutputtextdeltaserversentevent",
+    "PlatformChatStreamOutputTextDone": ".platformchatstreamoutputtextdone",
+    "PlatformChatStreamOutputTextDoneType": ".platformchatstreamoutputtextdone",
+    "PlatformChatStreamOutputTextDoneTypedDict": ".platformchatstreamoutputtextdone",
+    "PlatformChatStreamOutputTextDoneServerSentEvent": ".platformchatstreamoutputtextdoneserversentevent",
+    "PlatformChatStreamOutputTextDoneServerSentEventTypedDict": ".platformchatstreamoutputtextdoneserversentevent",
+    "PlatformChatStreamProgress": ".platformchatstreamprogress",
+    "PlatformChatStreamProgressType": ".platformchatstreamprogress",
+    "PlatformChatStreamProgressTypedDict": ".platformchatstreamprogress",
+    "PlatformChatStreamProgressServerSentEvent": ".platformchatstreamprogressserversentevent",
+    "PlatformChatStreamProgressServerSentEventTypedDict": ".platformchatstreamprogressserversentevent",
+    "PlatformChatStreamResponseCompleted": ".platformchatstreamresponsecompleted",
+    "PlatformChatStreamResponseCompletedType": ".platformchatstreamresponsecompleted",
+    "PlatformChatStreamResponseCompletedTypedDict": ".platformchatstreamresponsecompleted",
+    "PlatformChatStreamResponseCompletedServerSentEvent": ".platformchatstreamresponsecompletedserversentevent",
+    "PlatformChatStreamResponseCompletedServerSentEventTypedDict": ".platformchatstreamresponsecompletedserversentevent",
+    "PlatformChatStreamResponseCreated": ".platformchatstreamresponsecreated",
+    "PlatformChatStreamResponseCreatedType": ".platformchatstreamresponsecreated",
+    "PlatformChatStreamResponseCreatedTypedDict": ".platformchatstreamresponsecreated",
+    "PlatformChatStreamResponseCreatedServerSentEvent": ".platformchatstreamresponsecreatedserversentevent",
+    "PlatformChatStreamResponseCreatedServerSentEventTypedDict": ".platformchatstreamresponsecreatedserversentevent",
+    "PlatformChatStreamResponseFailed": ".platformchatstreamresponsefailed",
+    "PlatformChatStreamResponseFailedType": ".platformchatstreamresponsefailed",
+    "PlatformChatStreamResponseFailedTypedDict": ".platformchatstreamresponsefailed",
+    "PlatformChatStreamResponseFailedServerSentEvent": ".platformchatstreamresponsefailedserversentevent",
+    "PlatformChatStreamResponseFailedServerSentEventTypedDict": ".platformchatstreamresponsefailedserversentevent",
     "PlatformContentScheduleWebhookEvent": ".platformcontentschedulewebhookevent",
     "PlatformContentScheduleWebhookEventTypedDict": ".platformcontentschedulewebhookevent",
     "PlatformContentType": ".platformcontenttype",

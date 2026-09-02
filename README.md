@@ -49,6 +49,7 @@ Remember that each namespace requires its own authentication token type as descr
   * [SDK Example Usage](#sdk-example-usage)
   * [Authentication](#authentication)
   * [Available Resources and Operations](#available-resources-and-operations)
+  * [Server-sent event streaming](#server-sent-event-streaming)
   * [File uploads](#file-uploads)
   * [Retries](#retries)
   * [Error Handling](#error-handling)
@@ -324,6 +325,7 @@ For more information on obtaining the appropriate token type, please contact you
 ### [Chat](docs/sdks/chatsdk/README.md)
 
 * [create](docs/sdks/chatsdk/README.md#create) - Create a chat response
+* [create_stream](docs/sdks/chatsdk/README.md#create_stream) - SDK-only logical operation. HTTP clients must call the base path; the URL fragment is not sent. Create a chat response
 
 ### [Client.Activity](docs/sdks/clientactivity/README.md)
 
@@ -589,6 +591,41 @@ For more information on obtaining the appropriate token type, please contact you
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
+
+<!-- Start Server-sent event streaming [eventstream] -->
+## Server-sent event streaming
+
+[Server-sent events][mdn-sse] are used to stream content from certain
+operations. These operations will expose the stream as [Generator][generator] that
+can be consumed using a simple `for` loop. The loop will
+terminate when the server no longer has any events to send and closes the
+underlying connection.  
+
+The stream is also a [Context Manager][context-manager] and can be used with the `with` statement and will close the
+underlying connection when the context is exited.
+
+```python
+from glean.api_client import Glean
+import os
+
+
+with Glean(
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+) as glean:
+
+    res = glean.chat.create_stream(input="What is our parental leave policy?", store=True)
+
+    with res as event_stream:
+        for event in event_stream:
+            # handle event
+            print(event, flush=True)
+
+```
+
+[mdn-sse]: https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events
+[generator]: https://book.pythontips.com/en/latest/generators.html
+[context-manager]: https://book.pythontips.com/en/latest/context_managers.html
+<!-- End Server-sent event streaming [eventstream] -->
 
 <!-- Start File uploads [file-upload] -->
 ## File uploads

@@ -10,26 +10,26 @@ import (
 	"time"
 )
 
-type Object string
+type PlatformChatCompletedResponseObject string
 
 const (
-	ObjectResponse Object = "RESPONSE"
+	PlatformChatCompletedResponseObjectResponse PlatformChatCompletedResponseObject = "RESPONSE"
 )
 
-func (e Object) ToPointer() *Object {
+func (e PlatformChatCompletedResponseObject) ToPointer() *PlatformChatCompletedResponseObject {
 	return &e
 }
-func (e *Object) UnmarshalJSON(data []byte) error {
+func (e *PlatformChatCompletedResponseObject) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "RESPONSE":
-		*e = Object(v)
+		*e = PlatformChatCompletedResponseObject(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for Object: %v", v)
+		return fmt.Errorf("invalid value for PlatformChatCompletedResponseObject: %v", v)
 	}
 }
 
@@ -59,8 +59,8 @@ func (e *PlatformChatCompletedResponseStatus) UnmarshalJSON(data []byte) error {
 type PlatformChatCompletedResponse struct {
 	// Platform-owned, non-persisted response envelope identifier in `resp_<uuid>` form. The same identifier is used for every event in one streamed response.
 	//
-	ID     string `json:"id"`
-	Object Object `json:"object"`
+	ID     string                              `json:"id"`
+	Object PlatformChatCompletedResponseObject `json:"object"`
 	// RFC 3339 UTC timestamp when the response was created.
 	CreatedAt time.Time                           `json:"created_at"`
 	Status    PlatformChatCompletedResponseStatus `json:"status"`
@@ -89,9 +89,9 @@ func (o *PlatformChatCompletedResponse) GetID() string {
 	return o.ID
 }
 
-func (o *PlatformChatCompletedResponse) GetObject() Object {
+func (o *PlatformChatCompletedResponse) GetObject() PlatformChatCompletedResponseObject {
 	if o == nil {
-		return Object("")
+		return PlatformChatCompletedResponseObject("")
 	}
 	return o.Object
 }

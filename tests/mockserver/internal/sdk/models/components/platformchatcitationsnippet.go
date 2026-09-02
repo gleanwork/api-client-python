@@ -4,11 +4,23 @@ package components
 
 import (
 	"mockserver/internal/sdk/optionalnullable"
+	"mockserver/internal/sdk/utils"
 )
 
 type PlatformChatCitationSnippet struct {
 	Text       string                                   `json:"text"`
 	PageNumber optionalnullable.OptionalNullable[int64] `json:"page_number,omitempty"`
+}
+
+func (p PlatformChatCitationSnippet) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PlatformChatCitationSnippet) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"text"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *PlatformChatCitationSnippet) GetText() string {

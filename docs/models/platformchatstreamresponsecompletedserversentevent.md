@@ -1,0 +1,10 @@
+# PlatformChatStreamResponseCompletedServerSentEvent
+
+
+## Fields
+
+| Field                                                                                          | Type                                                                                           | Required                                                                                       | Description                                                                                    |
+| ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `id`                                                                                           | *Optional[str]*                                                                                | :heavy_minus_sign:                                                                             | N/A                                                                                            |
+| `event`                                                                                        | *Literal["RESPONSE_COMPLETED"]*                                                                | :heavy_check_mark:                                                                             | N/A                                                                                            |
+| `data`                                                                                         | [models.PlatformChatStreamResponseCompleted](../models/platformchatstreamresponsecompleted.md) | :heavy_check_mark:                                                                             | N/A                                                                                            |
