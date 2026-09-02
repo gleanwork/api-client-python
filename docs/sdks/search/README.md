@@ -25,10 +25,7 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as glean:
 
-    res = glean.search.query(query="quarterly planning 2026", page_size=10, datasources=[
-        "confluence",
-        "google_drive",
-    ], filters=[
+    res = glean.search.query(query="quarterly planning 2026", page_size=10, filters=[
         {
             "field": "type",
             "values": [

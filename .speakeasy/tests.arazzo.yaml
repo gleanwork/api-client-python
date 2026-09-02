@@ -158808,14 +158808,6 @@ workflows:
           requestBody:
             contentType: application/json
             payload:
-                datasources:
-                    - confluence
-                    - google_drive
-                filters:
-                    - field: type
-                      values:
-                        - spreadsheet
-                        - presentation
                 page_size: 10
                 query: quarterly planning 2026
           successCriteria:
@@ -159296,13 +159288,9 @@ workflows:
             contentType: application/json
             payload:
                 delivery:
-                    auth:
-                        secret: secret_test_123
-                        type: BEARER
-                    webhook_url: https://customer.app/webhook
-                description: Reviews I am tagged on, sent to my team's review channel
+                    webhook_url: https://example.com/webhook
                 inputs:
-                    repository: acme/payments-api
+                    repository: '{repository}'
                 preset_id: GITHUB_1
           successCriteria:
             - condition: $statusCode == 201
@@ -159359,14 +159347,9 @@ workflows:
             contentType: application/json
             payload:
                 delivery:
-                    auth:
-                        secret: secret_test_123
-                        type: BEARER
-                    webhook_url: https://customer.app/webhook
-                description: Reviews I am tagged on, sent to my team's review channel
+                    webhook_url: https://example.com/webhook
                 inputs:
-                    repository: acme/payments-api
-                status: ENABLED
+                    repository: '{repository}'
           successCriteria:
             - condition: $statusCode == 200
             - condition: $response.header.Content-Type == application/json
@@ -159391,6 +159374,10 @@ workflows:
               condition: |
                 {"results":[{"event_type":"DOCUMENT_CHANGE","datasource":"GITHUB","reason":"REVIEW_REQUESTED","doc_type":"pull","doc_id":"<id>","view_url":"https://silent-omelet.biz","title":"<value>","event_time":"2024-06-12T22:23:25.274Z"}],"has_more":false,"request_id":"<id>"}
               type: simple
+          requestBody:
+            contentType: application/json
+            payload:
+                page_size: 10
       x-speakeasy-test-group: triggers
       x-speakeasy-test-rebuild: true
     - workflowId: platform-trigger-presets-list
@@ -159459,7 +159446,7 @@ workflows:
             contentType: application/json
             payload:
                 inputs:
-                    repository: acme/payments-api
+                    repository: '{repository}'
                 page_size: 10
           successCriteria:
             - condition: $statusCode == 200

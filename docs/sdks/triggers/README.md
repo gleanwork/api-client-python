@@ -24,7 +24,7 @@ Create a trigger from a preset and return it with its signing secret.
 
 <!-- UsageSnippet language="python" operationID="platform-triggers-create" method="post" path="/api/triggers" -->
 ```python
-from glean.api_client import Glean, models
+from glean.api_client import Glean
 import os
 
 
@@ -33,13 +33,9 @@ with Glean(
 ) as glean:
 
     res = glean.triggers.create(preset_id="GITHUB_1", delivery={
-        "webhook_url": "https://customer.app/webhook",
-        "auth": {
-            "type": models.PlatformTriggerAuthType.BEARER,
-            "secret": "secret_test_123",
-        },
+        "webhook_url": "https://example.com/webhook",
     }, description="Reviews I am tagged on, sent to my team's review channel", inputs={
-        "repository": "acme/payments-api",
+        "repository": "{repository}",
     })
 
     # Handle response
@@ -130,7 +126,7 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as glean:
 
-    res = glean.triggers.get(trigger_id="<id>")
+    res = glean.triggers.get(trigger_id="{trigger_id}")
 
     # Handle response
     print(res)
@@ -139,10 +135,10 @@ with Glean(
 
 ### Parameters
 
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `trigger_id`                                                        | *str*                                                               | :heavy_check_mark:                                                  | ID of the trigger to retrieve.                                      |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         | Example                                                             |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `trigger_id`                                                        | *str*                                                               | :heavy_check_mark:                                                  | ID of the trigger to retrieve.                                      | {trigger_id}                                                        |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
 
 ### Response
 
@@ -173,14 +169,10 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as glean:
 
-    res = glean.triggers.update(trigger_id="<id>", status=models.PlatformTriggerStatus.ENABLED, description="Reviews I am tagged on, sent to my team's review channel", inputs={
-        "repository": "acme/payments-api",
+    res = glean.triggers.update(trigger_id="{trigger_id}", status=models.PlatformTriggerStatus.ENABLED, description="Reviews I am tagged on, sent to my team's review channel", inputs={
+        "repository": "{repository}",
     }, delivery={
-        "webhook_url": "https://customer.app/webhook",
-        "auth": {
-            "type": models.PlatformTriggerAuthType.BEARER,
-            "secret": "secret_test_123",
-        },
+        "webhook_url": "https://example.com/webhook",
     })
 
     # Handle response
@@ -192,7 +184,7 @@ with Glean(
 
 | Parameter                                                                           | Type                                                                                | Required                                                                            | Description                                                                         | Example                                                                             |
 | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| `trigger_id`                                                                        | *str*                                                                               | :heavy_check_mark:                                                                  | ID of the trigger to update.                                                        |                                                                                     |
+| `trigger_id`                                                                        | *str*                                                                               | :heavy_check_mark:                                                                  | ID of the trigger to update.                                                        | {trigger_id}                                                                        |
 | `status`                                                                            | [Optional[models.PlatformTriggerStatus]](../../models/platformtriggerstatus.md)     | :heavy_minus_sign:                                                                  | Current trigger lifecycle state.                                                    | ENABLED                                                                             |
 | `description`                                                                       | *Optional[str]*                                                                     | :heavy_minus_sign:                                                                  | Optional note describing this trigger.                                              | Reviews I am tagged on, sent to my team's review channel                            |
 | `inputs`                                                                            | Dict[str, *Any*]                                                                    | :heavy_minus_sign:                                                                  | Values for the preset's inputs.                                                     | {<br/>"repository": "acme/payments-api"<br/>}                                       |
@@ -228,7 +220,7 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as glean:
 
-    glean.triggers.delete(trigger_id="<id>")
+    glean.triggers.delete(trigger_id="{trigger_id}")
 
     # Use the SDK ...
 
@@ -236,10 +228,10 @@ with Glean(
 
 ### Parameters
 
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `trigger_id`                                                        | *str*                                                               | :heavy_check_mark:                                                  | ID of the trigger to delete.                                        |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         | Example                                                             |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `trigger_id`                                                        | *str*                                                               | :heavy_check_mark:                                                  | ID of the trigger to delete.                                        | {trigger_id}                                                        |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
 
 ### Errors
 
@@ -266,7 +258,7 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as glean:
 
-    res = glean.triggers.search_events(trigger_id="<id>", page_size=10)
+    res = glean.triggers.search_events(trigger_id="{trigger_id}", page_size=10)
 
     # Handle response
     print(res)
@@ -275,11 +267,11 @@ with Glean(
 
 ### Parameters
 
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `trigger_id`                                                        | *str*                                                               | :heavy_check_mark:                                                  | ID of the trigger whose events to search.                           |
-| `page_size`                                                         | *Optional[int]*                                                     | :heavy_minus_sign:                                                  | Maximum number of events to return.                                 |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         | Example                                                             |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `trigger_id`                                                        | *str*                                                               | :heavy_check_mark:                                                  | ID of the trigger whose events to search.                           | {trigger_id}                                                        |
+| `page_size`                                                         | *Optional[int]*                                                     | :heavy_minus_sign:                                                  | Maximum number of events to return.                                 |                                                                     |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
 
 ### Response
 
@@ -355,7 +347,7 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as glean:
 
-    res = glean.triggers.get_preset(preset_id="<id>")
+    res = glean.triggers.get_preset(preset_id="{preset_id}")
 
     # Handle response
     print(res)
@@ -364,10 +356,10 @@ with Glean(
 
 ### Parameters
 
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `preset_id`                                                         | *str*                                                               | :heavy_check_mark:                                                  | ID of the preset to retrieve.                                       |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         | Example                                                             |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `preset_id`                                                         | *str*                                                               | :heavy_check_mark:                                                  | ID of the preset to retrieve.                                       | {preset_id}                                                         |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
 
 ### Response
 
@@ -398,7 +390,7 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as glean:
 
-    res = glean.triggers.list_preset_input_values(preset_id="<id>", field="<value>")
+    res = glean.triggers.list_preset_input_values(preset_id="{preset_id}", field="{field}")
 
     # Handle response
     print(res)
@@ -407,12 +399,12 @@ with Glean(
 
 ### Parameters
 
-| Parameter                                                                                                            | Type                                                                                                                 | Required                                                                                                             | Description                                                                                                          |
-| -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| `preset_id`                                                                                                          | *str*                                                                                                                | :heavy_check_mark:                                                                                                   | ID of the preset the input belongs to.                                                                               |
-| `field`                                                                                                              | *str*                                                                                                                | :heavy_check_mark:                                                                                                   | Field identifier of the input whose values to list.                                                                  |
-| `query`                                                                                                              | *Optional[str]*                                                                                                      | :heavy_minus_sign:                                                                                                   | Prefix filter over the input's option values, for typeahead. Matching is on the option value, not its display name.<br/> |
-| `retries`                                                                                                            | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                     | :heavy_minus_sign:                                                                                                   | Configuration to override the default retry behavior of the client.                                                  |
+| Parameter                                                                                                            | Type                                                                                                                 | Required                                                                                                             | Description                                                                                                          | Example                                                                                                              |
+| -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `preset_id`                                                                                                          | *str*                                                                                                                | :heavy_check_mark:                                                                                                   | ID of the preset the input belongs to.                                                                               | {preset_id}                                                                                                          |
+| `field`                                                                                                              | *str*                                                                                                                | :heavy_check_mark:                                                                                                   | Field identifier of the input whose values to list.                                                                  | {field}                                                                                                              |
+| `query`                                                                                                              | *Optional[str]*                                                                                                      | :heavy_minus_sign:                                                                                                   | Prefix filter over the input's option values, for typeahead. Matching is on the option value, not its display name.<br/> |                                                                                                                      |
+| `retries`                                                                                                            | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                     | :heavy_minus_sign:                                                                                                   | Configuration to override the default retry behavior of the client.                                                  |                                                                                                                      |
 
 ### Response
 
@@ -443,8 +435,8 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as glean:
 
-    res = glean.triggers.search_preset_events(preset_id="<id>", inputs={
-        "repository": "acme/payments-api",
+    res = glean.triggers.search_preset_events(preset_id="{preset_id}", inputs={
+        "repository": "{repository}",
     }, page_size=10)
 
     # Handle response
@@ -456,7 +448,7 @@ with Glean(
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         | Example                                                             |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `preset_id`                                                         | *str*                                                               | :heavy_check_mark:                                                  | ID of the preset to preview.                                        |                                                                     |
+| `preset_id`                                                         | *str*                                                               | :heavy_check_mark:                                                  | ID of the preset to preview.                                        | {preset_id}                                                         |
 | `inputs`                                                            | Dict[str, *str*]                                                    | :heavy_minus_sign:                                                  | Values for the preset's input fields, keyed by field name.<br/>     | {<br/>"repository": "acme/payments-api"<br/>}                       |
 | `page_size`                                                         | *Optional[int]*                                                     | :heavy_minus_sign:                                                  | Maximum number of events to return.                                 |                                                                     |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |

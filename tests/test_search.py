@@ -2233,10 +2233,6 @@ def test_search_platform_search():
         res = glean.search.query(
             query="quarterly planning 2026",
             page_size=10,
-            datasources=[
-                "confluence",
-                "google_drive",
-            ],
             filters=[
                 {
                     "field": "type",

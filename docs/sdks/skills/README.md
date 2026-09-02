@@ -261,7 +261,7 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as glean:
 
-    res = glean.skills.update(skill_id="<id>", status=models.PlatformSkillUpdateStatus.ENABLED)
+    res = glean.skills.update(skill_id="{skill_id}", status=models.PlatformSkillUpdateStatus.ENABLED)
 
     # Handle response
     print(res)
@@ -270,11 +270,11 @@ with Glean(
 
 ### Parameters
 
-| Parameter                                                                     | Type                                                                          | Required                                                                      | Description                                                                   |
-| ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
-| `skill_id`                                                                    | *str*                                                                         | :heavy_check_mark:                                                            | Glean skill ID.                                                               |
-| `status`                                                                      | [models.PlatformSkillUpdateStatus](../../models/platformskillupdatestatus.md) | :heavy_check_mark:                                                            | New status for the skill.                                                     |
-| `retries`                                                                     | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)              | :heavy_minus_sign:                                                            | Configuration to override the default retry behavior of the client.           |
+| Parameter                                                                     | Type                                                                          | Required                                                                      | Description                                                                   | Example                                                                       |
+| ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| `skill_id`                                                                    | *str*                                                                         | :heavy_check_mark:                                                            | Glean skill ID.                                                               | {skill_id}                                                                    |
+| `status`                                                                      | [models.PlatformSkillUpdateStatus](../../models/platformskillupdatestatus.md) | :heavy_check_mark:                                                            | New status for the skill.                                                     |                                                                               |
+| `retries`                                                                     | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)              | :heavy_minus_sign:                                                            | Configuration to override the default retry behavior of the client.           |                                                                               |
 
 ### Response
 
@@ -305,7 +305,7 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as glean:
 
-    glean.skills.delete(skill_id="<id>")
+    glean.skills.delete(skill_id="{skill_id}")
 
     # Use the SDK ...
 
@@ -313,10 +313,10 @@ with Glean(
 
 ### Parameters
 
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `skill_id`                                                          | *str*                                                               | :heavy_check_mark:                                                  | Glean skill ID.                                                     |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         | Example                                                             |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `skill_id`                                                          | *str*                                                               | :heavy_check_mark:                                                  | Glean skill ID.                                                     | {skill_id}                                                          |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
 
 ### Errors
 
@@ -343,7 +343,7 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as glean:
 
-    res = glean.skills.retrieve(skill_id="<id>")
+    res = glean.skills.retrieve(skill_id="{skill_id}")
 
     # Handle response
     print(res)
@@ -352,10 +352,10 @@ with Glean(
 
 ### Parameters
 
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `skill_id`                                                          | *str*                                                               | :heavy_check_mark:                                                  | Glean skill ID.                                                     |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         | Example                                                             |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `skill_id`                                                          | *str*                                                               | :heavy_check_mark:                                                  | Glean skill ID.                                                     | {skill_id}                                                          |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
 
 ### Response
 
@@ -386,7 +386,7 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as glean:
 
-    res = glean.skills.retrieve_content(skill_id="<id>")
+    res = glean.skills.retrieve_content(skill_id="{skill_id}")
 
     # Handle response
     print(res)
@@ -395,10 +395,10 @@ with Glean(
 
 ### Parameters
 
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `skill_id`                                                          | *str*                                                               | :heavy_check_mark:                                                  | Glean skill ID.                                                     |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         | Example                                                             |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `skill_id`                                                          | *str*                                                               | :heavy_check_mark:                                                  | Glean skill ID.                                                     | {skill_id}                                                          |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
 
 ### Response
 
@@ -429,7 +429,7 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as glean:
 
-    res = glean.skills.sync(skill_id="<id>")
+    res = glean.skills.sync(skill_id="{skill_id}")
 
     # Handle response
     print(res)
@@ -438,10 +438,10 @@ with Glean(
 
 ### Parameters
 
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `skill_id`                                                          | *str*                                                               | :heavy_check_mark:                                                  | ID of the GitHub-imported skill to sync.                            |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         | Example                                                             |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `skill_id`                                                          | *str*                                                               | :heavy_check_mark:                                                  | ID of the GitHub-imported skill to sync.                            | {skill_id}                                                          |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
 
 ### Response
 
@@ -472,7 +472,7 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as glean:
 
-    res = glean.skills.create_version(skill_id="<id>", file={
+    res = glean.skills.create_version(skill_id="{skill_id}", file={
         "file_name": "example.file",
         "content": open("example.file", "rb"),
     })
@@ -484,11 +484,11 @@ with Glean(
 
 ### Parameters
 
-| Parameter                                                                                             | Type                                                                                                  | Required                                                                                              | Description                                                                                           |
-| ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| `skill_id`                                                                                            | *str*                                                                                                 | :heavy_check_mark:                                                                                    | Glean skill ID.                                                                                       |
-| `file`                                                                                                | [models.PlatformSkillVersionCreateRequestFile](../../models/platformskillversioncreaterequestfile.md) | :heavy_check_mark:                                                                                    | SKILL.md, .zip, or .skill bundle to store as a new version.                                           |
-| `retries`                                                                                             | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                      | :heavy_minus_sign:                                                                                    | Configuration to override the default retry behavior of the client.                                   |
+| Parameter                                                                                             | Type                                                                                                  | Required                                                                                              | Description                                                                                           | Example                                                                                               |
+| ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `skill_id`                                                                                            | *str*                                                                                                 | :heavy_check_mark:                                                                                    | Glean skill ID.                                                                                       | {skill_id}                                                                                            |
+| `file`                                                                                                | [models.PlatformSkillVersionCreateRequestFile](../../models/platformskillversioncreaterequestfile.md) | :heavy_check_mark:                                                                                    | SKILL.md, .zip, or .skill bundle to store as a new version.                                           |                                                                                                       |
+| `retries`                                                                                             | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                      | :heavy_minus_sign:                                                                                    | Configuration to override the default retry behavior of the client.                                   |                                                                                                       |
 
 ### Response
 
@@ -519,7 +519,7 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as glean:
 
-    res = glean.skills.list_versions(skill_id="<id>")
+    res = glean.skills.list_versions(skill_id="{skill_id}")
 
     # Handle response
     print(res)
@@ -528,12 +528,12 @@ with Glean(
 
 ### Parameters
 
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `skill_id`                                                          | *str*                                                               | :heavy_check_mark:                                                  | Glean skill ID.                                                     |
-| `page_size`                                                         | *Optional[int]*                                                     | :heavy_minus_sign:                                                  | Maximum number of versions to return.                               |
-| `cursor`                                                            | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | Opaque pagination cursor from a previous response.                  |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         | Example                                                             |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `skill_id`                                                          | *str*                                                               | :heavy_check_mark:                                                  | Glean skill ID.                                                     | {skill_id}                                                          |
+| `page_size`                                                         | *Optional[int]*                                                     | :heavy_minus_sign:                                                  | Maximum number of versions to return.                               |                                                                     |
+| `cursor`                                                            | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | Opaque pagination cursor from a previous response.                  |                                                                     |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
 
 ### Response
 
@@ -564,7 +564,7 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as glean:
 
-    res = glean.skills.retrieve_version(skill_id="<id>", version=495658)
+    res = glean.skills.retrieve_version(skill_id="{skill_id}", version=1)
 
     # Handle response
     print(res)
@@ -573,11 +573,11 @@ with Glean(
 
 ### Parameters
 
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `skill_id`                                                          | *str*                                                               | :heavy_check_mark:                                                  | Glean skill ID.                                                     |
-| `version`                                                           | *int*                                                               | :heavy_check_mark:                                                  | Major version number.                                               |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         | Example                                                             |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `skill_id`                                                          | *str*                                                               | :heavy_check_mark:                                                  | Glean skill ID.                                                     | {skill_id}                                                          |
+| `version`                                                           | *int*                                                               | :heavy_check_mark:                                                  | Major version number.                                               | 1                                                                   |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
 
 ### Response
 
@@ -608,7 +608,7 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as glean:
 
-    res = glean.skills.retrieve_version_content(skill_id="<id>", version=117760)
+    res = glean.skills.retrieve_version_content(skill_id="{skill_id}", version=1)
 
     # Handle response
     print(res)
@@ -617,11 +617,11 @@ with Glean(
 
 ### Parameters
 
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `skill_id`                                                          | *str*                                                               | :heavy_check_mark:                                                  | Glean skill ID.                                                     |
-| `version`                                                           | *int*                                                               | :heavy_check_mark:                                                  | Major version number.                                               |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         | Example                                                             |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `skill_id`                                                          | *str*                                                               | :heavy_check_mark:                                                  | Glean skill ID.                                                     | {skill_id}                                                          |
+| `version`                                                           | *int*                                                               | :heavy_check_mark:                                                  | Major version number.                                               | 1                                                                   |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
 
 ### Response
 

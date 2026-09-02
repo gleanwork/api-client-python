@@ -18,15 +18,11 @@ def test_triggers_platform_triggers_create():
         res = glean.triggers.create(
             preset_id="GITHUB_1",
             delivery={
-                "webhook_url": "https://customer.app/webhook",
-                "auth": {
-                    "type": models.PlatformTriggerAuthType.BEARER,
-                    "secret": "secret_test_123",
-                },
+                "webhook_url": "https://example.com/webhook",
             },
             description="Reviews I am tagged on, sent to my team's review channel",
             inputs={
-                "repository": "acme/payments-api",
+                "repository": "{repository}",
             },
         )
         assert res is not None
@@ -75,14 +71,10 @@ def test_triggers_platform_triggers_update():
             status=models.PlatformTriggerStatus.ENABLED,
             description="Reviews I am tagged on, sent to my team's review channel",
             inputs={
-                "repository": "acme/payments-api",
+                "repository": "{repository}",
             },
             delivery={
-                "webhook_url": "https://customer.app/webhook",
-                "auth": {
-                    "type": models.PlatformTriggerAuthType.BEARER,
-                    "secret": "secret_test_123",
-                },
+                "webhook_url": "https://example.com/webhook",
             },
         )
         assert res is not None
@@ -159,7 +151,7 @@ def test_triggers_platform_trigger_presets_events_search():
         res = glean.triggers.search_preset_events(
             preset_id="<id>",
             inputs={
-                "repository": "acme/payments-api",
+                "repository": "{repository}",
             },
             page_size=10,
         )
