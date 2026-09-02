@@ -3,15 +3,130 @@
 package operations
 
 import (
+	"errors"
+	"fmt"
 	"mockserver/internal/sdk/models/components"
+	"mockserver/internal/sdk/types"
+	"mockserver/internal/sdk/utils"
 )
+
+type PlatformChatCreateInputType string
+
+const (
+	PlatformChatCreateInputTypeStr                             PlatformChatCreateInputType = "str"
+	PlatformChatCreateInputTypeArrayOfPlatformChatInputMessage PlatformChatCreateInputType = "arrayOfPlatformChatInputMessage"
+)
+
+// PlatformChatCreateInput - Either a plain string (single user turn) or a chronological array of `USER`/`ASSISTANT` messages. The final array message must be `USER`.
+type PlatformChatCreateInput struct {
+	Str                             *string                               `queryParam:"inline"`
+	ArrayOfPlatformChatInputMessage []components.PlatformChatInputMessage `queryParam:"inline"`
+
+	Type PlatformChatCreateInputType
+}
+
+func CreatePlatformChatCreateInputStr(str string) PlatformChatCreateInput {
+	typ := PlatformChatCreateInputTypeStr
+
+	return PlatformChatCreateInput{
+		Str:  &str,
+		Type: typ,
+	}
+}
+
+func CreatePlatformChatCreateInputArrayOfPlatformChatInputMessage(arrayOfPlatformChatInputMessage []components.PlatformChatInputMessage) PlatformChatCreateInput {
+	typ := PlatformChatCreateInputTypeArrayOfPlatformChatInputMessage
+
+	return PlatformChatCreateInput{
+		ArrayOfPlatformChatInputMessage: arrayOfPlatformChatInputMessage,
+		Type:                            typ,
+	}
+}
+
+func (u *PlatformChatCreateInput) UnmarshalJSON(data []byte) error {
+
+	var str string = ""
+	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
+		u.Str = &str
+		u.Type = PlatformChatCreateInputTypeStr
+		return nil
+	}
+
+	var arrayOfPlatformChatInputMessage []components.PlatformChatInputMessage = []components.PlatformChatInputMessage{}
+	if err := utils.UnmarshalJSON(data, &arrayOfPlatformChatInputMessage, "", true, nil); err == nil {
+		u.ArrayOfPlatformChatInputMessage = arrayOfPlatformChatInputMessage
+		u.Type = PlatformChatCreateInputTypeArrayOfPlatformChatInputMessage
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for PlatformChatCreateInput", string(data))
+}
+
+func (u PlatformChatCreateInput) MarshalJSON() ([]byte, error) {
+	if u.Str != nil {
+		return utils.MarshalJSON(u.Str, "", true)
+	}
+
+	if u.ArrayOfPlatformChatInputMessage != nil {
+		return utils.MarshalJSON(u.ArrayOfPlatformChatInputMessage, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type PlatformChatCreateInput: all fields are null")
+}
+
+type PlatformChatCreateRequest struct {
+	// Either a plain string (single user turn) or a chronological array of `USER`/`ASSISTANT` messages. The final array message must be `USER`.
+	//
+	Input  PlatformChatCreateInput `json:"input"`
+	stream *bool                   `const:"false" json:"stream"`
+	// When true (default), persist the interaction and return a `conversation_id`. When false, run ephemerally with no persistence.
+	//
+	Store *bool `default:"true" json:"store"`
+	// Continue an existing stored conversation. Incompatible with message-array `input` and with `store: false`.
+	//
+	ConversationID *string `json:"conversation_id,omitempty"`
+}
+
+func (p PlatformChatCreateRequest) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PlatformChatCreateRequest) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"input"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *PlatformChatCreateRequest) GetInput() PlatformChatCreateInput {
+	if o == nil {
+		return PlatformChatCreateInput{}
+	}
+	return o.Input
+}
+
+func (o *PlatformChatCreateRequest) GetStream() *bool {
+	return types.Bool(false)
+}
+
+func (o *PlatformChatCreateRequest) GetStore() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Store
+}
+
+func (o *PlatformChatCreateRequest) GetConversationID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ConversationID
+}
 
 type PlatformChatCreateResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Successful response.
 	PlatformChatCompletedResponse *components.PlatformChatCompletedResponse
-	// Successful response.
-	Res *string
 }
 
 func (o *PlatformChatCreateResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -26,11 +141,4 @@ func (o *PlatformChatCreateResponse) GetPlatformChatCompletedResponse() *compone
 		return nil
 	}
 	return o.PlatformChatCompletedResponse
-}
-
-func (o *PlatformChatCreateResponse) GetRes() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Res
 }

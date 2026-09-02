@@ -15,7 +15,5 @@ def test_chat_sdk_platform_chat_create():
     ) as glean:
         assert glean is not None
 
-        res = glean.chat.create(
-            input="What is our parental leave policy?", stream=False, store=True
-        )
+        res = glean.chat.create(input="What is our parental leave policy?", store=True)
         assert res is not None

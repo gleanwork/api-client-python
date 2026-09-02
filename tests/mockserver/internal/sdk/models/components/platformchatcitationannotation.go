@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"mockserver/internal/sdk/optionalnullable"
+	"mockserver/internal/sdk/utils"
 )
 
 type PlatformChatCitationAnnotationType string
@@ -37,6 +38,17 @@ type PlatformChatCitationAnnotation struct {
 	StartIndex optionalnullable.OptionalNullable[int64]                         `json:"start_index,omitempty"`
 	EndIndex   optionalnullable.OptionalNullable[int64]                         `json:"end_index,omitempty"`
 	Snippets   optionalnullable.OptionalNullable[[]PlatformChatCitationSnippet] `json:"snippets,omitempty"`
+}
+
+func (p PlatformChatCitationAnnotation) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PlatformChatCitationAnnotation) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"type", "sources"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *PlatformChatCitationAnnotation) GetType() PlatformChatCitationAnnotationType {

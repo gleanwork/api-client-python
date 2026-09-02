@@ -5,6 +5,7 @@ package components
 import (
 	"encoding/json"
 	"fmt"
+	"mockserver/internal/sdk/utils"
 )
 
 type PlatformChatOutputMessageType string
@@ -57,6 +58,17 @@ type PlatformChatOutputMessage struct {
 	Type    PlatformChatOutputMessageType   `json:"type"`
 	Role    PlatformChatOutputMessageRole   `json:"role"`
 	Content []PlatformChatOutputTextContent `json:"content"`
+}
+
+func (p PlatformChatOutputMessage) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PlatformChatOutputMessage) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"type", "role", "content"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *PlatformChatOutputMessage) GetType() PlatformChatOutputMessageType {

@@ -2,8 +2,8 @@ openapi: 3.1.0
 info:
   version: "0.9.0"
   title: Glean API
-  x-source-commit-sha: 862fa29b6596610ab353977db068dc0775b41374
-  x-open-api-commit-sha: 7da59003472c34503ffb3d3dfbd504f288990ba2
+  x-source-commit-sha: 5466f502134b80b23f38908bc64369113503fdea
+  x-open-api-commit-sha: deb9f3c416b47e6ae3ae9af44a4b6a8ba8f61089
   description: |
     # Introduction
     In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This is useful, for example, for doing permissions-aware search over content in internal tools that reside on-prem as well as for searching over applications that Glean does not currently support first class. In addition these APIs allow the customer to push organization data (people info, organization structure etc) into Glean.
@@ -267,7 +267,16 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/PlatformChatCreateRequest"
+              allOf:
+                - $ref: "#/components/schemas/PlatformChatCreateRequest"
+                - type: object
+                  required:
+                    - stream
+                  properties:
+                    stream:
+                      type: boolean
+                      const: false
+                      default: false
       responses:
         "200":
           description: Successful response.
@@ -275,31 +284,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PlatformChatCompletedResponse"
-            text/event-stream:
-              schema:
-                type: string
-                description: |
-                  Server-sent events for a streaming chat run. Event payloads are documented under ChatStream* schemas.
-                example: |
-                  id: 1
-                  event: RESPONSE_CREATED
-                  data: {"type":"RESPONSE_CREATED","response_id":"resp_e65a0a77-97a2-4c91-be60-eae7f6238015"}
-
-                  id: 2
-                  event: RESPONSE_PROGRESS
-                  data: {"type":"RESPONSE_PROGRESS","response_id":"resp_e65a0a77-97a2-4c91-be60-eae7f6238015","text":"**Searching:** foo"}
-
-                  id: 3
-                  event: RESPONSE_OUTPUT_TEXT_DELTA
-                  data: {"type":"RESPONSE_OUTPUT_TEXT_DELTA","response_id":"resp_e65a0a77-97a2-4c91-be60-eae7f6238015","delta":"Hello"}
-
-                  id: 4
-                  event: RESPONSE_OUTPUT_TEXT_DONE
-                  data: {"type":"RESPONSE_OUTPUT_TEXT_DONE","response_id":"resp_e65a0a77-97a2-4c91-be60-eae7f6238015","text":"Hello"}
-
-                  id: 5
-                  event: RESPONSE_COMPLETED
-                  data: {"type":"RESPONSE_COMPLETED","response_id":"resp_e65a0a77-97a2-4c91-be60-eae7f6238015","response":{"id":"resp_e65a0a77-97a2-4c91-be60-eae7f6238015","object":"RESPONSE","status":"COMPLETED","output":[{"type":"MESSAGE","role":"ASSISTANT","content":[{"type":"OUTPUT_TEXT","text":"Hello"}]}],"store":true,"request_id":"req_123","created_at":"2026-07-14T20:00:00Z"}}
         "400":
           $ref: "#/components/responses/PlatformBadRequest"
         "401":
@@ -1745,6 +1729,65 @@ paths:
           $ref: "#/components/responses/PlatformServiceUnavailable"
       x-speakeasy-group: triggers
       x-speakeasy-name-override: searchPresetEvents
+      security:
+        - APIToken: []
+  /api/chat#stream:
+    post:
+      tags:
+        - Chat
+      summary: SDK-only logical operation. HTTP clients must call the base path; the URL fragment is not sent. Create a chat response
+      description: |
+        SDK-only logical operation. HTTP clients must call the base path; the URL fragment is not sent. Run an assistant turn. Set `stream` to true to receive server-sent events; otherwise the response is a typed JSON response object.
+      operationId: platform-chat-create-stream
+      x-visibility: Public
+      x-glean-experimental:
+        id: e65a0a77-97a2-4c91-be60-eae7f6238015
+        introduced: "2026-07-14"
+      x-codegen-request-body-name: payload
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/PlatformChatCreateRequest"
+                - type: object
+                  required:
+                    - stream
+                  properties:
+                    stream:
+                      type: boolean
+                      const: true
+                      default: true
+      responses:
+        "200":
+          description: Successful response.
+          content:
+            text/event-stream:
+              schema:
+                $ref: "#/components/schemas/PlatformChatStreamEventServerSentEvent"
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+        "413":
+          $ref: "#/components/responses/PlatformRequestTooLarge"
+        "422":
+          $ref: "#/components/responses/PlatformUnprocessableEntity"
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+      x-speakeasy-group: chat
+      x-speakeasy-name-override: createStream
       security:
         - APIToken: []
   /rest/api/v1/activity:
@@ -7494,6 +7537,188 @@ components:
         request_id:
           type: string
           minLength: 1
+    PlatformChatStreamResponseCreated:
+      type: object
+      additionalProperties: false
+      required:
+        - type
+        - response_id
+      properties:
+        type:
+          type: string
+          enum:
+            - RESPONSE_CREATED
+        response_id:
+          $ref: "#/components/schemas/PlatformChatStreamResponseId"
+    PlatformChatStreamProgress:
+      type: object
+      additionalProperties: false
+      required:
+        - type
+        - response_id
+        - text
+      properties:
+        type:
+          type: string
+          enum:
+            - RESPONSE_PROGRESS
+        response_id:
+          $ref: "#/components/schemas/PlatformChatStreamResponseId"
+        text:
+          type: string
+          minLength: 1
+          description: |
+            Verbatim concatenated fragment text from an assistant UPDATE wire message. Display-oriented passthrough only; not part of the final answer and not present on terminal response snapshots.
+    PlatformChatStreamOutputTextDelta:
+      type: object
+      additionalProperties: false
+      required:
+        - type
+        - response_id
+        - delta
+      properties:
+        type:
+          type: string
+          enum:
+            - RESPONSE_OUTPUT_TEXT_DELTA
+        response_id:
+          $ref: "#/components/schemas/PlatformChatStreamResponseId"
+        delta:
+          type: string
+    PlatformChatStreamOutputTextDone:
+      type: object
+      additionalProperties: false
+      required:
+        - type
+        - response_id
+        - text
+      properties:
+        type:
+          type: string
+          enum:
+            - RESPONSE_OUTPUT_TEXT_DONE
+        response_id:
+          $ref: "#/components/schemas/PlatformChatStreamResponseId"
+        text:
+          type: string
+    PlatformChatStreamResponseCompleted:
+      type: object
+      additionalProperties: false
+      required:
+        - type
+        - response_id
+        - response
+      properties:
+        type:
+          type: string
+          enum:
+            - RESPONSE_COMPLETED
+        response_id:
+          $ref: "#/components/schemas/PlatformChatStreamResponseId"
+        response:
+          $ref: "#/components/schemas/PlatformChatCompletedResponse"
+    PlatformChatResponseError:
+      type: object
+      additionalProperties: false
+      required:
+        - message
+      properties:
+        code:
+          type:
+            - string
+            - "null"
+          description: |
+            Open snake_case error code aligned with ProblemDetail codes when present. Clients must tolerate unknown values; the set of codes is not a closed enum. Limit failures use `spend_limit_exceeded` (billing spend limit) and `token_limit_exceeded` (model context/token limit).
+          example: spend_limit_exceeded
+        message:
+          type: string
+          minLength: 1
+    PlatformChatFailedResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - object
+        - created_at
+        - status
+        - output
+        - store
+        - request_id
+        - error
+      properties:
+        id:
+          $ref: "#/components/schemas/PlatformChatStreamResponseId"
+        object:
+          type: string
+          enum:
+            - RESPONSE
+        created_at:
+          type: string
+          format: date-time
+          description: RFC 3339 UTC timestamp when the response was created.
+        status:
+          type: string
+          enum:
+            - FAILED
+        output:
+          type: array
+          maxItems: 1
+          items:
+            $ref: "#/components/schemas/PlatformChatOutputMessage"
+        store:
+          type: boolean
+        conversation_id:
+          type:
+            - string
+            - "null"
+          minLength: 1
+          description: Present when the interaction was persisted.
+        request_id:
+          type: string
+          minLength: 1
+        error:
+          $ref: "#/components/schemas/PlatformChatResponseError"
+    PlatformChatStreamResponseFailed:
+      type: object
+      additionalProperties: false
+      required:
+        - type
+        - response_id
+        - response
+      properties:
+        type:
+          type: string
+          enum:
+            - RESPONSE_FAILED
+        response_id:
+          $ref: "#/components/schemas/PlatformChatStreamResponseId"
+        response:
+          $ref: "#/components/schemas/PlatformChatFailedResponse"
+    PlatformChatStreamEvent:
+      description: |
+        JSON object written to the SSE `data` field. This schema is the payload for SDK transform, not the raw HTTP body. Do not run JSON response conformance on stream bodies. A typical wire frame is:
+        id: 1
+        event: RESPONSE_CREATED
+        data: {"type":"RESPONSE_CREATED","response_id":"resp_e65a0a77-97a2-4c91-be60-eae7f6238015"}
+      example:
+        type: RESPONSE_CREATED
+        response_id: resp_e65a0a77-97a2-4c91-be60-eae7f6238015
+      oneOf:
+        - $ref: "#/components/schemas/PlatformChatStreamResponseCreated"
+        - $ref: "#/components/schemas/PlatformChatStreamProgress"
+        - $ref: "#/components/schemas/PlatformChatStreamOutputTextDelta"
+        - $ref: "#/components/schemas/PlatformChatStreamOutputTextDone"
+        - $ref: "#/components/schemas/PlatformChatStreamResponseCompleted"
+        - $ref: "#/components/schemas/PlatformChatStreamResponseFailed"
+      discriminator:
+        propertyName: type
+        mapping:
+          RESPONSE_CREATED: "#/components/schemas/PlatformChatStreamResponseCreated"
+          RESPONSE_PROGRESS: "#/components/schemas/PlatformChatStreamProgress"
+          RESPONSE_OUTPUT_TEXT_DELTA: "#/components/schemas/PlatformChatStreamOutputTextDelta"
+          RESPONSE_OUTPUT_TEXT_DONE: "#/components/schemas/PlatformChatStreamOutputTextDone"
+          RESPONSE_COMPLETED: "#/components/schemas/PlatformChatStreamResponseCompleted"
+          RESPONSE_FAILED: "#/components/schemas/PlatformChatStreamResponseFailed"
     PlatformSkillStatus:
       type: string
       enum:
@@ -8834,6 +9059,102 @@ components:
           minimum: 1
           maximum: 100
           default: 10
+    PlatformChatStreamResponseCreatedServerSentEvent:
+      type: object
+      required:
+        - event
+        - data
+      properties:
+        id:
+          type: string
+        event:
+          type: string
+          const: RESPONSE_CREATED
+        data:
+          $ref: "#/components/schemas/PlatformChatStreamResponseCreated"
+    PlatformChatStreamProgressServerSentEvent:
+      type: object
+      required:
+        - event
+        - data
+      properties:
+        id:
+          type: string
+        event:
+          type: string
+          const: RESPONSE_PROGRESS
+        data:
+          $ref: "#/components/schemas/PlatformChatStreamProgress"
+    PlatformChatStreamOutputTextDeltaServerSentEvent:
+      type: object
+      required:
+        - event
+        - data
+      properties:
+        id:
+          type: string
+        event:
+          type: string
+          const: RESPONSE_OUTPUT_TEXT_DELTA
+        data:
+          $ref: "#/components/schemas/PlatformChatStreamOutputTextDelta"
+    PlatformChatStreamOutputTextDoneServerSentEvent:
+      type: object
+      required:
+        - event
+        - data
+      properties:
+        id:
+          type: string
+        event:
+          type: string
+          const: RESPONSE_OUTPUT_TEXT_DONE
+        data:
+          $ref: "#/components/schemas/PlatformChatStreamOutputTextDone"
+    PlatformChatStreamResponseCompletedServerSentEvent:
+      type: object
+      required:
+        - event
+        - data
+      properties:
+        id:
+          type: string
+        event:
+          type: string
+          const: RESPONSE_COMPLETED
+        data:
+          $ref: "#/components/schemas/PlatformChatStreamResponseCompleted"
+    PlatformChatStreamResponseFailedServerSentEvent:
+      type: object
+      required:
+        - event
+        - data
+      properties:
+        id:
+          type: string
+        event:
+          type: string
+          const: RESPONSE_FAILED
+        data:
+          $ref: "#/components/schemas/PlatformChatStreamResponseFailed"
+    PlatformChatStreamEventServerSentEvent:
+      description: A typed server-sent event.
+      oneOf:
+        - $ref: "#/components/schemas/PlatformChatStreamResponseCreatedServerSentEvent"
+        - $ref: "#/components/schemas/PlatformChatStreamProgressServerSentEvent"
+        - $ref: "#/components/schemas/PlatformChatStreamOutputTextDeltaServerSentEvent"
+        - $ref: "#/components/schemas/PlatformChatStreamOutputTextDoneServerSentEvent"
+        - $ref: "#/components/schemas/PlatformChatStreamResponseCompletedServerSentEvent"
+        - $ref: "#/components/schemas/PlatformChatStreamResponseFailedServerSentEvent"
+      discriminator:
+        propertyName: event
+        mapping:
+          RESPONSE_CREATED: "#/components/schemas/PlatformChatStreamResponseCreatedServerSentEvent"
+          RESPONSE_PROGRESS: "#/components/schemas/PlatformChatStreamProgressServerSentEvent"
+          RESPONSE_OUTPUT_TEXT_DELTA: "#/components/schemas/PlatformChatStreamOutputTextDeltaServerSentEvent"
+          RESPONSE_OUTPUT_TEXT_DONE: "#/components/schemas/PlatformChatStreamOutputTextDoneServerSentEvent"
+          RESPONSE_COMPLETED: "#/components/schemas/PlatformChatStreamResponseCompletedServerSentEvent"
+          RESPONSE_FAILED: "#/components/schemas/PlatformChatStreamResponseFailedServerSentEvent"
     ActivityEventParams:
       properties:
         bodyContent:
@@ -13109,7 +13430,7 @@ components:
             serverToolResponse:
               $ref: '#/components/schemas/ServerToolResponse'
               description: response corresponding to the server tool request.
-      description: Represents a part of a ChatMessage that originates from a single action/tool. It is designed to support rich data formats beyond simple text, allowing for a more dynamic and interactive chat experience. Each fragment can include various types of content, such as text, search queries, action information, and more. Also, each ChatMessageFragment should only have one of structuredResults, querySuggestion, writeAction, followupAction, agentRecommendation, followupRoutingSuggestion or file.
+      description: A typed fragment within a chat message that carries text or structured content such as citations, actions, and tool output.
     ChatMessage:
       properties:
         agentConfig:

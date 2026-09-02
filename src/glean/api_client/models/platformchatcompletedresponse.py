@@ -19,7 +19,7 @@ from typing import List
 from typing_extensions import NotRequired, TypedDict
 
 
-class Object(str, Enum):
+class PlatformChatCompletedResponseObject(str, Enum):
     RESPONSE = "RESPONSE"
 
 
@@ -32,7 +32,7 @@ class PlatformChatCompletedResponseTypedDict(TypedDict):
     r"""Platform-owned, non-persisted response envelope identifier in `resp_<uuid>` form. The same identifier is used for every event in one streamed response.
 
     """
-    object: Object
+    object: PlatformChatCompletedResponseObject
     created_at: datetime
     r"""RFC 3339 UTC timestamp when the response was created."""
     status: PlatformChatCompletedResponseStatus
@@ -49,7 +49,7 @@ class PlatformChatCompletedResponse(BaseModel):
 
     """
 
-    object: Object
+    object: PlatformChatCompletedResponseObject
 
     created_at: datetime
     r"""RFC 3339 UTC timestamp when the response was created."""
