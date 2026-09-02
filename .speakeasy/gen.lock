@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 3e3290ca-0ee8-4981-b1bc-14536048fa63
 management:
-  docChecksum: 8dc95bfc7e332908fbcd5de1c6c86785
+  docChecksum: 18a116fa0026e01d9a1addcdb4a0eb16
   docVersion: 0.9.0
   speakeasyVersion: 1.796.2
   generationVersion: 2.933.0
-  releaseVersion: 0.16.1
-  configChecksum: c4ea74bb21e39957d292092ac1c8c45c
+  releaseVersion: 0.16.2
+  configChecksum: a7a11b36535e41b352cebf1baf51a08f
   repoURL: https://github.com/gleanwork/api-client-python.git
   installationURL: https://github.com/gleanwork/api-client-python.git
   published: true
 persistentEdits:
-  generation_id: c8e57301-015b-43df-a22a-3285d122506c
-  pristine_commit_hash: 83e1b161fc2b3ee766197cad54d2014a6ee3ced5
-  pristine_tree_hash: 3d8bfd051a5a08abe7525dcee07d4b51cffd8a34
+  generation_id: a9ae9f72-aa80-42b2-a7c6-80a108646be4
+  pristine_commit_hash: 94a8120ced5f78b789b3995f71d75e3b0e961bbd
+  pristine_tree_hash: 806526f89efcfb70df8cac2915597c728d57954e
 features:
   python:
     acceptHeaders: 3.0.0
@@ -3737,8 +3737,8 @@ trackedFiles:
     pristine_git_object: 79e388be87446ab6a4064b372bad0e8376d0cb5e
   pyproject.toml:
     id: 5d07e7d72637
-    last_write_checksum: sha1:47c4c996133e0a3adbcf155d937d19aa4c5a7d25
-    pristine_git_object: 3e07b290191d20adb52b0682dcefceb99e4ffd4c
+    last_write_checksum: sha1:314627ada5f907dfe762d42b455898682fd017f5
+    pristine_git_object: fbc50d459b37c40ead57325817253088c83fffe5
   scripts/prepare_readme.py:
     id: e0c5957a6035
     last_write_checksum: sha1:c2c83f71dea61eb50c9e05da83b16d18b4da8794
@@ -3765,8 +3765,8 @@ trackedFiles:
     pristine_git_object: 55f23c1feabfedeb7e8cd5bea8b910f0ae0b77d9
   src/glean/api_client/_version.py:
     id: 0ce22b26136b
-    last_write_checksum: sha1:5a1b915ca864b7c3d74ee1d7dd28515f488953a7
-    pristine_git_object: a511f7fd6941269d63893322ef0a654fe236d8a9
+    last_write_checksum: sha1:ab9358db14dd6cbe230d10ffe933fdff623479e8
+    pristine_git_object: f1e4b67954209b7ce6d8efd4b99e6ad838d786a3
   src/glean/api_client/agents.py:
     id: b925701a9217
     last_write_checksum: sha1:1d4b152d9d9260d1c97d4983f521f30b5cfa1085
@@ -10745,8 +10745,8 @@ trackedFiles:
     pristine_git_object: 6cc8aeec3c52329d389081db0a27f10f53f214b9
   tests/test_messages.py:
     id: be23089b1f8b
-    last_write_checksum: sha1:5db8087e85104ab50b362638150fa1f6686a3c30
-    pristine_git_object: c0fd29dab7d365ef9d78c0c291b925e6b9fd7298
+    last_write_checksum: sha1:a91c985cd1d11560059dc448b10e0c7b75ed60e5
+    pristine_git_object: dfdc18641f0d6c38d84b4603ad2da71f75f2e13c
   tests/test_people.py:
     id: 37c243940039
     last_write_checksum: sha1:2b78b1c5ea17f267895188b1b48ff9fe2bc19f17
@@ -10773,8 +10773,8 @@ trackedFiles:
     pristine_git_object: 63587d5a9e7b7e506ce9daf00d51ce92afb56035
   tests/test_summarize.py:
     id: a255d8a6f627
-    last_write_checksum: sha1:6383d6969c6f1bf1832e5ace511e5c2ffaa6d86f
-    pristine_git_object: cac8e9788f25fda1ff78bd2e3e36917319145e82
+    last_write_checksum: sha1:d0245ffca1533446942ac2b0f1109d4f6e9888b4
+    pristine_git_object: f9c494d59cc7d73c8b3ea1c965b544c79625198a
   tests/test_tools.py:
     id: 70889bdf7321
     last_write_checksum: sha1:e9e37efd6a65d805c02d70d548df9c87dd062b0e
@@ -12351,7 +12351,6 @@ generatedTests:
   platform-trigger-presets-get: "2026-08-21T02:33:03Z"
   platform-trigger-presets-input-values-list: "2026-08-21T02:33:03Z"
   platform-trigger-presets-events-search: "2026-08-21T02:33:03Z"
-releaseNotes: "## Python SDK Changes:\n* `glean.client.chat.create()`: \n  *  `request.messages[].fragments[]` **Changed**\n  *  `response.messages[].fragments[]` **Changed**\n* `glean.client.chat.retrieve()`:  `response.chat_result.chat.messages[].fragments[]` **Changed**\n* `glean.client.chat.create_stream()`: \n  *  `request.messages[].fragments[]` **Changed**\n* `glean.client.agents.retrieve()`: **Deprecated**\n* `glean.client.agents.retrieve_schemas()`: **Deprecated**\n* `glean.client.agents.list()`: **Deprecated**\n* `glean.client.agents.run_stream()`: **Deprecated**\n* `glean.client.agents.run_stream()`:  `error.authentication_suggestions[].request_type.enum(sandbox_egress)` **Added**\n* `glean.client.agents.run()`: **Deprecated**\n* `glean.client.agents.run()`:  `error.authentication_suggestions[].request_type.enum(sandbox_egress)` **Added**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
