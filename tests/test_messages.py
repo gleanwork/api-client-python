@@ -18,7 +18,7 @@ def test_messages_messages():
         res = glean.client.messages.retrieve(
             id_type=models.IDType.CONVERSATION_ID,
             id="<id>",
-            datasource=models.Datasource.GCHAT,
+            datasource=models.Datasource.SLACK,
             timestamp_millis=558834,
         )
         assert res is not None
