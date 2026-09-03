@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 3e3290ca-0ee8-4981-b1bc-14536048fa63
 management:
-  docChecksum: 68720f65cbf714217871381245ae8dc9
+  docChecksum: f93d9acdb5383727834338db515aa742
   docVersion: 0.9.0
   speakeasyVersion: 1.796.3
   generationVersion: 2.934.1
-  releaseVersion: 0.17.1
-  configChecksum: 90deb9852463a2d33051170909e38115
+  releaseVersion: 0.17.2
+  configChecksum: b7ae99ce6ccd8c4cc258510c44d6f78a
   repoURL: https://github.com/gleanwork/api-client-python.git
   installationURL: https://github.com/gleanwork/api-client-python.git
   published: true
 persistentEdits:
-  generation_id: 6b5dc78d-b487-4ea5-aa9d-92ec81f0a7f3
-  pristine_commit_hash: 66dde951b461075c33fa93046ef24d2cc0bbb1dc
-  pristine_tree_hash: 2e8abebd209eeca1675863d3785fa321954e32e4
+  generation_id: b4d5ed18-703b-4369-8a8a-618d88b8c02f
+  pristine_commit_hash: 0ebe7b5ea93e1be4a8a7bd749d04edebf276a8b1
+  pristine_tree_hash: c3fecdeccfbd30816d30dcf6ccf45e45cd400398
 features:
   python:
     acceptHeaders: 3.0.0
@@ -3450,8 +3450,8 @@ trackedFiles:
     pristine_git_object: c7f7adecc74cc4072799169c68332df2d8932c44
   docs/models/ugctype.md:
     id: 675d62d57771
-    last_write_checksum: sha1:169a6f517f4b9adbf679237581b4d3066b210ad5
-    pristine_git_object: 6eb0e28433d7cdfac10ceb8fad23adfe5b780a86
+    last_write_checksum: sha1:bafed49f9b14d83c3286e0e679168973efa19be6
+    pristine_git_object: edccbd16624b8810be3c92ee88cafe94e9f76739
   docs/models/uiconfig.md:
     id: c4d3817a701c
     last_write_checksum: sha1:dd422e5a1bbf9af85722cd43c5437716b8bb3017
@@ -3834,8 +3834,8 @@ trackedFiles:
     pristine_git_object: 79e388be87446ab6a4064b372bad0e8376d0cb5e
   pyproject.toml:
     id: 5d07e7d72637
-    last_write_checksum: sha1:79dba443d9e2a9797dada86dcfbf8ebaab8c180d
-    pristine_git_object: d4e7511e76fcb18bbb8b6c2664327f2b6d8f5014
+    last_write_checksum: sha1:191e4a74605ba58b10a9a886e3af34eb34c405c1
+    pristine_git_object: 58bf68a5e7f6565ec588e3aaf56e213d7c37cdf1
   scripts/prepare_readme.py:
     id: e0c5957a6035
     last_write_checksum: sha1:c2c83f71dea61eb50c9e05da83b16d18b4da8794
@@ -3862,8 +3862,8 @@ trackedFiles:
     pristine_git_object: 55f23c1feabfedeb7e8cd5bea8b910f0ae0b77d9
   src/glean/api_client/_version.py:
     id: 0ce22b26136b
-    last_write_checksum: sha1:0745e24320cc049ea03d135ffbccf979ebc46066
-    pristine_git_object: 7b440e02689bcbc32926d66155f26363b206569d
+    last_write_checksum: sha1:4d442579e40ce7f162a3df8f452d3c06127db2b4
+    pristine_git_object: 7d8165edb96ef827617bef6a9f064f213d692116
   src/glean/api_client/agents.py:
     id: b925701a9217
     last_write_checksum: sha1:1d4b152d9d9260d1c97d4983f521f30b5cfa1085
@@ -6718,8 +6718,8 @@ trackedFiles:
     pristine_git_object: 8b5a32ccf25fcfb0fb904e8046bf1b36110a3880
   src/glean/api_client/models/ugctype.py:
     id: 9afda9fb9dd7
-    last_write_checksum: sha1:de5bd700977491b8c70af26d6ecd89a46a19944c
-    pristine_git_object: 7775bf5a69464558210caaf38fe31633c8a7d134
+    last_write_checksum: sha1:3464ec5db301fcfece53e316e4325f69ef3b4f9b
+    pristine_git_object: a628cc8f00ce32c24ed9b022d6ed64e4bf1db2dd
   src/glean/api_client/models/unauthorizeddatasourceinstance.py:
     id: d3507c78b8df
     last_write_checksum: sha1:e86e33256eecf3766c2cc9fedeab56e34e0f129c
@@ -9918,8 +9918,8 @@ trackedFiles:
     pristine_git_object: 7a6a89805e8b840aa2fae616ef6e49dc3d0e0851
   tests/mockserver/internal/sdk/models/components/ugctype.go:
     id: 7b77277c1355
-    last_write_checksum: sha1:c7e27d5ff56bd7ff24625189a85d766eca701e7f
-    pristine_git_object: bc085b15186b2dcd11f9f73d3dcbb7c090e2987d
+    last_write_checksum: sha1:653a15069e2fc0cce67579c0871856d42a85f51f
+    pristine_git_object: 3d7ab4b482de383d8b46f9af9779e1051f9c68ff
   tests/mockserver/internal/sdk/models/components/unauthorizeddatasourceinstance.go:
     id: bc69d4c4bf6d
     last_write_checksum: sha1:39fb84396b33bc645fb5e6ebcea36ab88b5db179
@@ -10966,8 +10966,8 @@ trackedFiles:
     pristine_git_object: 6cc8aeec3c52329d389081db0a27f10f53f214b9
   tests/test_messages.py:
     id: be23089b1f8b
-    last_write_checksum: sha1:b7415512608102fa07b1990a350a7da66946fe46
-    pristine_git_object: 636f01d348f30db3ee81985044634511b615af16
+    last_write_checksum: sha1:5db8087e85104ab50b362638150fa1f6686a3c30
+    pristine_git_object: c0fd29dab7d365ef9d78c0c291b925e6b9fd7298
   tests/test_people.py:
     id: 37c243940039
     last_write_checksum: sha1:2b78b1c5ea17f267895188b1b48ff9fe2bc19f17
@@ -10994,8 +10994,8 @@ trackedFiles:
     pristine_git_object: 63587d5a9e7b7e506ce9daf00d51ce92afb56035
   tests/test_summarize.py:
     id: a255d8a6f627
-    last_write_checksum: sha1:d0245ffca1533446942ac2b0f1109d4f6e9888b4
-    pristine_git_object: f9c494d59cc7d73c8b3ea1c965b544c79625198a
+    last_write_checksum: sha1:6244d4da1522f443776e78aeb31dd83ebdc90c42
+    pristine_git_object: 2b5d1f38b094214933fc3b8da79ff8ed979c5122
   tests/test_tools.py:
     id: 70889bdf7321
     last_write_checksum: sha1:e9e37efd6a65d805c02d70d548df9c87dd062b0e
@@ -12583,6 +12583,7 @@ generatedTests:
   platform-trigger-presets-get: "2026-08-21T02:33:03Z"
   platform-trigger-presets-input-values-list: "2026-08-21T02:33:03Z"
   platform-trigger-presets-events-search: "2026-08-21T02:33:03Z"
+releaseNotes: "## Python SDK Changes:\n* `glean.client.announcements.create()`: \n  *  `request.body.structured_list[].document.metadata.author.related_documents[].results[].structured_results[].answer.collections[].items[].shortcut.favorite_info.ugc_type.enum(skills_type)` **Added**\n  *  `response.body.structured_list[].document.metadata.author.related_documents[].results[].structured_results[].answer.collections[].items[].shortcut.favorite_info.ugc_type.enum(skills_type)` **Added**\n* `glean.client.announcements.update()`: \n  *  `request.body.structured_list[].document.metadata.author.related_documents[].results[].structured_results[].answer.collections[].items[].shortcut.favorite_info.ugc_type.enum(skills_type)` **Added**\n  *  `response.body.structured_list[].document.metadata.author.related_documents[].results[].structured_results[].answer.collections[].items[].shortcut.favorite_info.ugc_type.enum(skills_type)` **Added**\n* `glean.client.answers.create()`: \n  *  `request.data.added_roles[].person.related_documents[].query_suggestion.ranges[].document.metadata.pins[].favorite_info.ugc_type.enum(skills_type)` **Added**\n  *  `response.added_roles[].person.related_documents[].query_suggestion.ranges[].document.metadata.pins[].favorite_info.ugc_type.enum(skills_type)` **Added**\n* `glean.client.answers.update()`: \n  *  `request.added_roles[].person.related_documents[].query_suggestion.ranges[].document.metadata.pins[].favorite_info.ugc_type.enum(skills_type)` **Added**\n  *  `response.added_roles[].person.related_documents[].query_suggestion.ranges[].document.metadata.pins[].favorite_info.ugc_type.enum(skills_type)` **Added**\n* `glean.client.answers.retrieve()`:  `response.answer_result.answer.added_roles[].person.related_documents[].query_suggestion.ranges[].document.metadata.pins[].favorite_info.ugc_type.enum(skills_type)` **Added**\n* `glean.client.answers.list()`:  `response.answer_results[].answer.added_roles[].person.related_documents[].query_suggestion.ranges[].document.metadata.pins[].favorite_info.ugc_type.enum(skills_type)` **Added**\n* `glean.client.chat.create()`: \n  *  `request.messages[].citations[].source_document.metadata.author.related_documents[].results[].structured_results[].answer.collections[].items[].shortcut.favorite_info.ugc_type.enum(skills_type)` **Added**\n  *  `response.messages[].citations[].source_document.metadata.author.related_documents[].results[].structured_results[].answer.collections[].items[].shortcut.favorite_info.ugc_type.enum(skills_type)` **Added**\n* `glean.client.chat.retrieve()`: \n  *  `response.chat_result.chat.created_by.related_documents[].query_suggestion.ranges[].document.metadata.pins[].favorite_info.ugc_type.enum(skills_type)` **Added**\n  *  `error.created_by.related_documents[].query_suggestion.ranges[].document.metadata.pins[].favorite_info.ugc_type.enum(skills_type)` **Added**\n* `glean.client.chat.list()`:  `response.chat_results[].chat.created_by.related_documents[].query_suggestion.ranges[].document.metadata.pins[].favorite_info.ugc_type.enum(skills_type)` **Added**\n* `glean.client.chat.create_stream()`: \n  *  `request.messages[].citations[].source_document.metadata.author.related_documents[].results[].structured_results[].answer.collections[].items[].shortcut.favorite_info.ugc_type.enum(skills_type)` **Added**\n* `glean.client.agents.create()`:  `response.workflow.author.related_documents[].query_suggestion.ranges[].document.metadata.pins[].favorite_info.ugc_type.enum(skills_type)` **Added**\n* `glean.client.agents.import()`:  `response.workflow_result.workflow.author.related_documents[].query_suggestion.ranges[].document.metadata.pins[].favorite_info.ugc_type.enum(skills_type)` **Added**\n* `glean.client.collections.add_items()`:  `response.collection.added_roles[].person.related_documents[].query_suggestion.ranges[].document.metadata.pins[].favorite_info.ugc_type.enum(skills_type)` **Added**\n* `glean.client.collections.create()`: \n  *  `request.added_roles[].person.related_documents[].query_suggestion.ranges[].document.metadata.pins[].favorite_info.ugc_type.enum(skills_type)` **Added**\n  *  `response.union(class (0)).collection.added_roles[].person.related_documents[].query_suggestion.ranges[].document.metadata.pins[].favorite_info.ugc_type.enum(skills_type)` **Added**\n* `glean.client.collections.delete_item()`:  `response.collection.added_roles[].person.related_documents[].query_suggestion.ranges[].document.metadata.pins[].favorite_info.ugc_type.enum(skills_type)` **Added**\n* `glean.client.collections.update()`: \n  *  `request.added_roles[].person.related_documents[].query_suggestion.ranges[].document.metadata.pins[].favorite_info.ugc_type.enum(skills_type)` **Added**\n  *  `response.added_roles[].person.related_documents[].query_suggestion.ranges[].document.metadata.pins[].favorite_info.ugc_type.enum(skills_type)` **Added**\n* `glean.client.collections.update_item()`:  `response.collection.added_roles[].person.related_documents[].query_suggestion.ranges[].document.metadata.pins[].favorite_info.ugc_type.enum(skills_type)` **Added**\n* `glean.client.collections.retrieve()`:  `response.collection.added_roles[].person.related_documents[].query_suggestion.ranges[].document.metadata.pins[].favorite_info.ugc_type.enum(skills_type)` **Added**\n* `glean.client.collections.list()`:  `response.collections[].added_roles[].person.related_documents[].query_suggestion.ranges[].document.metadata.pins[].favorite_info.ugc_type.enum(skills_type)` **Added**\n* `glean.client.documents.retrieve()`:  `response.documents.Map<DocumentOrError>.union(Document).metadata.author.related_documents[].results[].structured_results[].answer.collections[].items[].shortcut.favorite_info.ugc_type.enum(skills_type)` **Added**\n* `glean.client.documents.retrieve_by_facets()`:  `response.documents[].metadata.author.related_documents[].results[].structured_results[].answer.collections[].items[].shortcut.favorite_info.ugc_type.enum(skills_type)` **Added**\n* `glean.client.insights.retrieve()`:  `response.glean_assist.activity_insights[].user.related_documents[].query_suggestion.ranges[].document.metadata.pins[].favorite_info.ugc_type.enum(skills_type)` **Added**\n* `glean.client.messages.retrieve()`:  `response.search_response.results[].structured_results[].document.metadata.pins[].favorite_info.ugc_type.enum(skills_type)` **Added**\n* `glean.client.pins.update()`:  `response.attribution.related_documents[].query_suggestion.ranges[].document.metadata.collections[].items[].shortcut.favorite_info.ugc_type.enum(skills_type)` **Added**\n* `glean.client.pins.retrieve()`:  `response.pin.attribution.related_documents[].query_suggestion.ranges[].document.metadata.collections[].items[].shortcut.favorite_info.ugc_type.enum(skills_type)` **Added**\n* `glean.client.pins.list()`:  `response.pins[].attribution.related_documents[].query_suggestion.ranges[].document.metadata.collections[].items[].shortcut.favorite_info.ugc_type.enum(skills_type)` **Added**\n* `glean.client.pins.create()`:  `response.attribution.related_documents[].query_suggestion.ranges[].document.metadata.collections[].items[].shortcut.favorite_info.ugc_type.enum(skills_type)` **Added**\n* `glean.client.search.query_as_admin()`: \n  *  `request.source_document.metadata.author.related_documents[].results[].structured_results[].answer.collections[].items[].shortcut.favorite_info.ugc_type.enum(skills_type)` **Added**\n  *  `response.results[].structured_results[].document.metadata.pins[].favorite_info.ugc_type.enum(skills_type)` **Added**\n* `glean.client.search.autocomplete()`:  `response.results[].document.metadata.author.related_documents[].results[].structured_results[].answer.collections[].items[].shortcut.favorite_info.ugc_type.enum(skills_type)` **Added**\n* `glean.client.search.retrieve_feed()`:  `response.results[].primary_entry.created_by.related_documents[].query_suggestion.ranges[].document.metadata.pins[].favorite_info.ugc_type.enum(skills_type)` **Added**\n* `glean.client.search.recommendations()`: \n  *  `request.source_document.metadata.author.related_documents[].results[].structured_results[].answer.collections[].items[].shortcut.favorite_info.ugc_type.enum(skills_type)` **Added**\n  *  `response.results[].structured_results[].document.metadata.pins[].favorite_info.ugc_type.enum(skills_type)` **Added**\n* `glean.client.search.query()`: \n  *  `request.source_document.metadata.author.related_documents[].results[].structured_results[].answer.collections[].items[].shortcut.favorite_info.ugc_type.enum(skills_type)` **Added**\n  *  `response.results[].structured_results[].document.metadata.pins[].favorite_info.ugc_type.enum(skills_type)` **Added**\n* `glean.client.entities.list()`:  `response.results[].related_documents[].query_suggestion.ranges[].document.metadata.pins[].favorite_info.ugc_type.enum(skills_type)` **Added**\n* `glean.client.entities.read_people()`:  `response.results[].related_documents[].query_suggestion.ranges[].document.metadata.pins[].favorite_info.ugc_type.enum(skills_type)` **Added**\n* `glean.client.shortcuts.create()`: \n  *  `request.data.added_roles[].person.related_documents[].query_suggestion.ranges[].document.metadata.pins[].favorite_info.ugc_type.enum(skills_type)` **Added**\n  *  `response.shortcut.added_roles[].person.related_documents[].query_suggestion.ranges[].document.metadata.pins[].favorite_info.ugc_type.enum(skills_type)` **Added**\n* `glean.client.shortcuts.retrieve()`:  `response.shortcut.added_roles[].person.related_documents[].query_suggestion.ranges[].document.metadata.pins[].favorite_info.ugc_type.enum(skills_type)` **Added**\n* `glean.client.shortcuts.list()`:  `response.shortcuts[].added_roles[].person.related_documents[].query_suggestion.ranges[].document.metadata.pins[].favorite_info.ugc_type.enum(skills_type)` **Added**\n* `glean.client.shortcuts.update()`: \n  *  `request.added_roles[].person.related_documents[].query_suggestion.ranges[].document.metadata.pins[].favorite_info.ugc_type.enum(skills_type)` **Added**\n  *  `response.shortcut.added_roles[].person.related_documents[].query_suggestion.ranges[].document.metadata.pins[].favorite_info.ugc_type.enum(skills_type)` **Added**\n* `glean.client.verification.add_reminder()`:  `response.metadata.last_verifier.related_documents[].query_suggestion.ranges[].document.metadata.pins[].favorite_info.ugc_type.enum(skills_type)` **Added**\n* `glean.client.verification.list()`:  `response.documents[].metadata.last_verifier.related_documents[].query_suggestion.ranges[].document.metadata.pins[].favorite_info.ugc_type.enum(skills_type)` **Added**\n* `glean.client.verification.verify()`:  `response.metadata.last_verifier.related_documents[].query_suggestion.ranges[].document.metadata.pins[].favorite_info.ugc_type.enum(skills_type)` **Added**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
