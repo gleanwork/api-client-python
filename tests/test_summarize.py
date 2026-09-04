@@ -18,11 +18,11 @@ def test_summarize_summarize():
         res = glean.client.documents.summarize(
             document_specs=[
                 {
-                    "ugc_type": models.DocumentSpecUgcType2.ARTIFACTS,
+                    "ugc_type": models.DocumentSpecUgcType2.ANSWERS,
                     "ugc_id": "<id>",
                 },
                 {
-                    "id": "<id>",
+                    "url": "https://potable-pine.org",
                 },
             ]
         )
