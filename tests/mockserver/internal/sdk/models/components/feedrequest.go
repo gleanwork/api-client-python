@@ -53,10 +53,12 @@ const (
 	FeedRequestCategoryProjectNextStep              FeedRequestCategory = "PROJECT_NEXT_STEP"
 	FeedRequestCategoryDemoCard                     FeedRequestCategory = "DEMO_CARD"
 	FeedRequestCategoryResolveMeetingConflict       FeedRequestCategory = "RESOLVE_MEETING_CONFLICT"
+	FeedRequestCategoryFindingMeetingRoom           FeedRequestCategory = "FINDING_MEETING_ROOM"
 	FeedRequestCategoryOooPlanner                   FeedRequestCategory = "OOO_PLANNER"
 	FeedRequestCategoryOooCatchUp                   FeedRequestCategory = "OOO_CATCH_UP"
 	FeedRequestCategoryAdminHealthCenter            FeedRequestCategory = "ADMIN_HEALTH_CENTER"
 	FeedRequestCategoryKnowledgeGap                 FeedRequestCategory = "KNOWLEDGE_GAP"
+	FeedRequestCategoryArtifactCreation             FeedRequestCategory = "ARTIFACT_CREATION"
 )
 
 func (e FeedRequestCategory) ToPointer() *FeedRequestCategory {
@@ -154,6 +156,8 @@ func (e *FeedRequestCategory) UnmarshalJSON(data []byte) error {
 		fallthrough
 	case "RESOLVE_MEETING_CONFLICT":
 		fallthrough
+	case "FINDING_MEETING_ROOM":
+		fallthrough
 	case "OOO_PLANNER":
 		fallthrough
 	case "OOO_CATCH_UP":
@@ -161,6 +165,8 @@ func (e *FeedRequestCategory) UnmarshalJSON(data []byte) error {
 	case "ADMIN_HEALTH_CENTER":
 		fallthrough
 	case "KNOWLEDGE_GAP":
+		fallthrough
+	case "ARTIFACT_CREATION":
 		*e = FeedRequestCategory(v)
 		return nil
 	default:

@@ -60,7 +60,9 @@ value = FeedResultCategory.DOCUMENT_SUGGESTION
 | `PROJECT_NEXT_STEP`                 | PROJECT_NEXT_STEP                   |
 | `DEMO_CARD`                         | DEMO_CARD                           |
 | `RESOLVE_MEETING_CONFLICT`          | RESOLVE_MEETING_CONFLICT            |
+| `FINDING_MEETING_ROOM`              | FINDING_MEETING_ROOM                |
 | `OOO_PLANNER`                       | OOO_PLANNER                         |
 | `OOO_CATCH_UP`                      | OOO_CATCH_UP                        |
 | `ADMIN_HEALTH_CENTER`               | ADMIN_HEALTH_CENTER                 |
 | `KNOWLEDGE_GAP`                     | KNOWLEDGE_GAP                       |
+| `ARTIFACT_CREATION`                 | ARTIFACT_CREATION                   |
