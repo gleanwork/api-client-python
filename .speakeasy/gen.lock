@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 3e3290ca-0ee8-4981-b1bc-14536048fa63
 management:
-  docChecksum: 37d6cc2da3d557fea3dcc4a18c4e2372
+  docChecksum: 222e73a084effb7fc3817efd2945fc92
   docVersion: 0.9.0
   speakeasyVersion: 1.796.4
   generationVersion: 2.935.1
-  releaseVersion: 0.17.3
-  configChecksum: b835a50c1d7345959c2530a8ef09d433
+  releaseVersion: 0.17.4
+  configChecksum: e4ab11d686c12cf3d3f7a3d2757efa16
   repoURL: https://github.com/gleanwork/api-client-python.git
   installationURL: https://github.com/gleanwork/api-client-python.git
   published: true
 persistentEdits:
-  generation_id: 0844412a-986c-4b51-8fd0-6f814a8edef9
-  pristine_commit_hash: b37b0fec29949db7a4778377ed8f2842e7dcf8a1
-  pristine_tree_hash: a0bfd0167ad191e4ca0ebe32886e7dfa406c1993
+  generation_id: 5e225388-9e77-4845-bfd7-bfe13fa6a0db
+  pristine_commit_hash: 5e067eb5080fb803e343799857ce08b8324eed3e
+  pristine_tree_hash: c9edce0ed0954548a63ae65f360238df87d907a7
 features:
   python:
     acceptHeaders: 3.0.0
@@ -1414,8 +1414,8 @@ trackedFiles:
     pristine_git_object: a851a7f13eb25d515fa9b9244c5dfdc98fa14e2c
   docs/models/feedrequestcategory.md:
     id: 31a02f3064c7
-    last_write_checksum: sha1:6b7d01384e760cef73f66b4bad6b0819af88faa2
-    pristine_git_object: 833e3e946d89d99e7f3203ab796012c13557eced
+    last_write_checksum: sha1:9940232e4994754d391d10c568f927614e8b945b
+    pristine_git_object: 324182ad032356eeeb8ddf7a507b22157e6e8cf4
   docs/models/feedrequestoptions.md:
     id: 58eb26b19e77
     last_write_checksum: sha1:fd2ab08736cef8156169b0cfee8c52e7aed1accf
@@ -1434,8 +1434,8 @@ trackedFiles:
     pristine_git_object: f6f92abf16b61f88b527e1c906f605e98306878e
   docs/models/feedresultcategory.md:
     id: a5f77f38d0a7
-    last_write_checksum: sha1:ce8c5903f3caf430bbd8fbe8b2437b834d31c87a
-    pristine_git_object: cf76344578ecbe9e3d953b28322c3e19b32595a9
+    last_write_checksum: sha1:88998b75c86690ad8a114141ea423030b8928022
+    pristine_git_object: 96a85d7437cc41a597e94e4f130037d6b32fe142
   docs/models/fieldscope.md:
     id: e6b52bcb22a6
     last_write_checksum: sha1:13a1492ce39d2f89a01d626996a345a1339a1873
@@ -1878,8 +1878,8 @@ trackedFiles:
     pristine_git_object: 647f9bb67a6af30d7fd71c8ddb3c5e1bf40bb938
   docs/models/justificationtype.md:
     id: 8286affacee4
-    last_write_checksum: sha1:da65aab15eb3fda18ce75c2a74b0c457efe4e488
-    pristine_git_object: ae3931e04f130275a829a02ce00b308fff0d6b87
+    last_write_checksum: sha1:299f564dff713eec9aee79b16e46fe69f76280a7
+    pristine_git_object: f1e53c7f49ed540744adb93b1a1d26bab8bfaf85
   docs/models/knowledgetype.md:
     id: 1e0c90679228
     last_write_checksum: sha1:0030a7539b9362bbb59e0bbd36580676058b3540
@@ -3834,8 +3834,8 @@ trackedFiles:
     pristine_git_object: 79e388be87446ab6a4064b372bad0e8376d0cb5e
   pyproject.toml:
     id: 5d07e7d72637
-    last_write_checksum: sha1:7375c47425b1de3c5fec186f1fb04efa6d1c8149
-    pristine_git_object: afb92a113fba0d60fe9154375d19f94b42cdd3c7
+    last_write_checksum: sha1:c34a2bb82413ae68dd60e637557ecaa717141b38
+    pristine_git_object: 8be3a251c6fe11a9034b6ec7813671d083461a16
   scripts/prepare_readme.py:
     id: e0c5957a6035
     last_write_checksum: sha1:c2c83f71dea61eb50c9e05da83b16d18b4da8794
@@ -3862,8 +3862,8 @@ trackedFiles:
     pristine_git_object: 55f23c1feabfedeb7e8cd5bea8b910f0ae0b77d9
   src/glean/api_client/_version.py:
     id: 0ce22b26136b
-    last_write_checksum: sha1:e282b0e42e40ddcdabbf28c375f75a7c18684635
-    pristine_git_object: 0066781237fc92f0030990320c1249d0eaa82176
+    last_write_checksum: sha1:edf1216b1dbcae5be29c7fb61d7b26a4946a8783
+    pristine_git_object: e04036c4c319fca0a5880bdcd7ff5a2cb08aeb80
   src/glean/api_client/agents.py:
     id: b925701a9217
     last_write_checksum: sha1:1d4b152d9d9260d1c97d4983f521f30b5cfa1085
@@ -5098,16 +5098,16 @@ trackedFiles:
     pristine_git_object: 44041cb376d89949c815ea1e7813505940605855
   src/glean/api_client/models/feedentry.py:
     id: 023eb6c10ae1
-    last_write_checksum: sha1:f6d1b010b7385dfb8fe27387f27b302af4f5a815
-    pristine_git_object: 56a778d29a38d9c9e753021ab0d0a7660a3a7186
+    last_write_checksum: sha1:58fa848ca8be51a9f1f86ce6c108988c213bb413
+    pristine_git_object: 7dee139ec55576268c0f22c76f906d794c67c2ab
   src/glean/api_client/models/feedop.py:
     id: b8067ac0a127
     last_write_checksum: sha1:c58cb0a3a01925eb14d84176c5c6e9d8f4d84cf1
     pristine_git_object: f39626285f84630e5a9233736d652914b759d44b
   src/glean/api_client/models/feedrequest.py:
     id: 33496b6a5bab
-    last_write_checksum: sha1:8171043e578b64f580741b320c2b33e5d78dbf34
-    pristine_git_object: 10c493bb3fc1ff5a4261e2592e44ed2e9baf9a1c
+    last_write_checksum: sha1:fe4ce3082dd4b6567533916585a56459bf0f0595
+    pristine_git_object: b6d5609d6e0ddf0f733192c7d17b400e9df34532
   src/glean/api_client/models/feedrequestoptions.py:
     id: b99003fbf522
     last_write_checksum: sha1:d5ffee29242075cbe6d2dd5ec916b0c3d40acf54
@@ -5118,8 +5118,8 @@ trackedFiles:
     pristine_git_object: 683438c837601f483526ec18756fadc7222edb24
   src/glean/api_client/models/feedresult.py:
     id: ae187332b37a
-    last_write_checksum: sha1:84f219646018516fc326af51a1c14d50a52b2b27
-    pristine_git_object: 6646f94da4b4e0dbf0615943d691ad96339832d7
+    last_write_checksum: sha1:99146017e1ad26ead3c75624d236cbb4c77a4fb9
+    pristine_git_object: 388ef7d33dba188b7876f3cc0086d012cf857a32
   src/glean/api_client/models/followupaction.py:
     id: e2de5c4c8524
     last_write_checksum: sha1:49e1a826449081fecfcd828c940604db949a8533
@@ -8602,12 +8602,12 @@ trackedFiles:
     pristine_git_object: 04cc3a93272ac70933b0485bee31b335e05ab623
   tests/mockserver/internal/sdk/models/components/feedentry.go:
     id: d25fd66fcf7a
-    last_write_checksum: sha1:a8719b9673b1be33ad678b8aba6dbbf535d7e45d
-    pristine_git_object: 79fe6b08fbe864c3f293421c8594d27603ce35de
+    last_write_checksum: sha1:6bd0dce24d0f908a53a89ded54805b8a517cd4e9
+    pristine_git_object: 2824141d82570d68507a8d526999871ed9235c11
   tests/mockserver/internal/sdk/models/components/feedrequest.go:
     id: b06bc4cef0cf
-    last_write_checksum: sha1:d16256931c5705257894f29fd2bb083cea2c95ae
-    pristine_git_object: b020374ce491b9719d7a253996a23e3aadcb03e5
+    last_write_checksum: sha1:5b96a8086c80278d6ab2475ec98022ccdf0cfe5e
+    pristine_git_object: 023f1fdef400afb3a7e2503f4dbbe2b46ae3e478
   tests/mockserver/internal/sdk/models/components/feedrequestoptions.go:
     id: fd9245fe1bf2
     last_write_checksum: sha1:fa30b7fd6ee3e45896d7bbe36e33e7c0cb9000ba
@@ -8618,8 +8618,8 @@ trackedFiles:
     pristine_git_object: 54f9d1a8997983156c84e69f888c59a80d06c2b1
   tests/mockserver/internal/sdk/models/components/feedresult.go:
     id: 47411573e67a
-    last_write_checksum: sha1:4f077b5af6ccac474f80febd79efa382d6c445dc
-    pristine_git_object: cdb71976f9b6e528b67fd80e9a5860144f0d1cc6
+    last_write_checksum: sha1:39d548d2ce819a208597afb35a2533529633596f
+    pristine_git_object: f014c787e5ed4c75eff83e0f8e3ccb4d55687185
   tests/mockserver/internal/sdk/models/components/followupaction.go:
     id: 38179fec19b1
     last_write_checksum: sha1:32a31f7af77a58ce6f3284e8550d01fcf0d3bddd
@@ -10966,8 +10966,8 @@ trackedFiles:
     pristine_git_object: 6cc8aeec3c52329d389081db0a27f10f53f214b9
   tests/test_messages.py:
     id: be23089b1f8b
-    last_write_checksum: sha1:b7415512608102fa07b1990a350a7da66946fe46
-    pristine_git_object: 636f01d348f30db3ee81985044634511b615af16
+    last_write_checksum: sha1:bef200db8e7fff0aa33ef17846f5054a2d035a88
+    pristine_git_object: 36643db35a2d2a3cf9d327379ee7a6cb30da51d0
   tests/test_people.py:
     id: 37c243940039
     last_write_checksum: sha1:2b78b1c5ea17f267895188b1b48ff9fe2bc19f17
@@ -10994,8 +10994,8 @@ trackedFiles:
     pristine_git_object: 63587d5a9e7b7e506ce9daf00d51ce92afb56035
   tests/test_summarize.py:
     id: a255d8a6f627
-    last_write_checksum: sha1:e7e9214f8583669b5db38c048f17c49fe1bcc0a2
-    pristine_git_object: a4e5f87b9e662c320b1b8e64bf9ede7974523a3f
+    last_write_checksum: sha1:6244d4da1522f443776e78aeb31dd83ebdc90c42
+    pristine_git_object: 2b5d1f38b094214933fc3b8da79ff8ed979c5122
   tests/test_tools.py:
     id: 70889bdf7321
     last_write_checksum: sha1:e9e37efd6a65d805c02d70d548df9c87dd062b0e
@@ -12583,6 +12583,7 @@ generatedTests:
   platform-trigger-presets-get: "2026-08-21T02:33:03Z"
   platform-trigger-presets-input-values-list: "2026-08-21T02:33:03Z"
   platform-trigger-presets-events-search: "2026-08-21T02:33:03Z"
+releaseNotes: "## Python SDK Changes:\n* `glean.client.search.retrieve_feed()`: \n  *  `request.categories[]` **Changed**\n  *  `response.results[]` **Changed**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json

@@ -2,8 +2,8 @@ openapi: 3.1.0
 info:
   version: "0.9.0"
   title: Glean API
-  x-source-commit-sha: ae68c59fa1e1a61dfd7c494be7d2e118303de0f2
-  x-open-api-commit-sha: 26c5b4d7b8bb3519275c7b2353b0d3da933032f7
+  x-source-commit-sha: 59fa118cd743cd6bc9ea3c8d2816148f10c9855d
+  x-open-api-commit-sha: 5f42745c7a4eb0d878f881bab0606b6966aa8d72
   description: |
     # Introduction
     In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This is useful, for example, for doing permissions-aware search over content in internal tools that reside on-prem as well as for searching over applications that Glean does not currently support first class. In addition these APIs allow the customer to push organization data (people info, organization structure etc) into Glean.
@@ -15940,10 +15940,12 @@ components:
               - PROJECT_NEXT_STEP
               - DEMO_CARD
               - RESOLVE_MEETING_CONFLICT
+              - FINDING_MEETING_ROOM
               - OOO_PLANNER
               - OOO_CATCH_UP
               - ADMIN_HEALTH_CENTER
               - KNOWLEDGE_GAP
+              - ARTIFACT_CREATION
           description: Categories of content requested. An allowlist gives flexibility to request content separately or together.
         requestOptions:
           $ref: '#/components/schemas/FeedRequestOptions'
@@ -16410,10 +16412,12 @@ components:
             - PROJECT_NEXT_STEP
             - DEMO_CARD
             - RESOLVE_MEETING_CONFLICT
+            - FINDING_MEETING_ROOM
             - OOO_PLANNER
             - OOO_CATCH_UP
             - ADMIN_HEALTH_CENTER
             - KNOWLEDGE_GAP
+            - ARTIFACT_CREATION
           description: Type of the justification.
         justification:
           type: string
@@ -16503,10 +16507,12 @@ components:
             - PROJECT_NEXT_STEP
             - DEMO_CARD
             - RESOLVE_MEETING_CONFLICT
+            - FINDING_MEETING_ROOM
             - OOO_PLANNER
             - OOO_CATCH_UP
             - ADMIN_HEALTH_CENTER
             - KNOWLEDGE_GAP
+            - ARTIFACT_CREATION
           description: Category of the result, one of the requested categories in incoming request.
         primaryEntry:
           $ref: '#/components/schemas/FeedEntry'

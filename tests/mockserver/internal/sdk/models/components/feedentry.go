@@ -113,10 +113,12 @@ const (
 	JustificationTypeProjectNextStep                   JustificationType = "PROJECT_NEXT_STEP"
 	JustificationTypeDemoCard                          JustificationType = "DEMO_CARD"
 	JustificationTypeResolveMeetingConflict            JustificationType = "RESOLVE_MEETING_CONFLICT"
+	JustificationTypeFindingMeetingRoom                JustificationType = "FINDING_MEETING_ROOM"
 	JustificationTypeOooPlanner                        JustificationType = "OOO_PLANNER"
 	JustificationTypeOooCatchUp                        JustificationType = "OOO_CATCH_UP"
 	JustificationTypeAdminHealthCenter                 JustificationType = "ADMIN_HEALTH_CENTER"
 	JustificationTypeKnowledgeGap                      JustificationType = "KNOWLEDGE_GAP"
+	JustificationTypeArtifactCreation                  JustificationType = "ARTIFACT_CREATION"
 )
 
 func (e JustificationType) ToPointer() *JustificationType {
@@ -242,6 +244,8 @@ func (e *JustificationType) UnmarshalJSON(data []byte) error {
 		fallthrough
 	case "RESOLVE_MEETING_CONFLICT":
 		fallthrough
+	case "FINDING_MEETING_ROOM":
+		fallthrough
 	case "OOO_PLANNER":
 		fallthrough
 	case "OOO_CATCH_UP":
@@ -249,6 +253,8 @@ func (e *JustificationType) UnmarshalJSON(data []byte) error {
 	case "ADMIN_HEALTH_CENTER":
 		fallthrough
 	case "KNOWLEDGE_GAP":
+		fallthrough
+	case "ARTIFACT_CREATION":
 		*e = JustificationType(v)
 		return nil
 	default:
