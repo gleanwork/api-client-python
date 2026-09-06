@@ -3,7 +3,7 @@ info:
   version: "0.9.0"
   title: Glean API
   x-source-commit-sha: 59fa118cd743cd6bc9ea3c8d2816148f10c9855d
-  x-open-api-commit-sha: 5f42745c7a4eb0d878f881bab0606b6966aa8d72
+  x-open-api-commit-sha: 83ff3b39389051c6fb840d76dc1d2072c3f50c3d
   description: |
     # Introduction
     In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This is useful, for example, for doing permissions-aware search over content in internal tools that reside on-prem as well as for searching over applications that Glean does not currently support first class. In addition these APIs allow the customer to push organization data (people info, organization structure etc) into Glean.
