@@ -153,7 +153,7 @@ with Glean(
 
 Replaces all the currently indexed employees using paginated batch API calls. Please refer to the [bulk indexing](https://developers.glean.com/indexing/documents/bulk-upload-model) documentation for an explanation of how to use bulk endpoints.
 
-> :warning: **DEPRECATED**: Deprecated on 2026-02-03, removal scheduled for 2026-10-15: Endpoint is deprecated.
+> :warning: **DEPRECATED**: Deprecated on 2026-02-03, removal scheduled for 2027-01-15: Endpoint is deprecated.
 
 ### Example Usage
 

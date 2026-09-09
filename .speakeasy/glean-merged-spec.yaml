@@ -2,8 +2,8 @@ openapi: 3.1.0
 info:
   version: "0.9.0"
   title: Glean API
-  x-source-commit-sha: be488aad3aab1450b2ec01f91d1b5c4d45a10b93
-  x-open-api-commit-sha: 9a7b8a7874f77833c0aa5a2317b0bfbe54976f03
+  x-source-commit-sha: 18c1fb95817c54a18b1d105dbbab8dc9af3cf203
+  x-open-api-commit-sha: 6406463e03468e149f44ae0141fd377ba6e6b2a8
   description: |
     # Introduction
     In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This is useful, for example, for doing permissions-aware search over content in internal tools that reside on-prem as well as for searching over applications that Glean does not currently support first class. In addition these APIs allow the customer to push organization data (people info, organization structure etc) into Glean.
@@ -5628,8 +5628,8 @@ paths:
         id: ce596f49-55c4-465e-bf3c-5a3a33906e1f
         introduced: "2026-02-03"
         message: Endpoint is deprecated
-        removal: "2026-10-15"
-      x-speakeasy-deprecation-message: "Deprecated on 2026-02-03, removal scheduled for 2026-10-15: Endpoint is deprecated"
+        removal: "2027-01-15"
+      x-speakeasy-deprecation-message: "Deprecated on 2026-02-03, removal scheduled for 2027-01-15: Endpoint is deprecated"
       x-speakeasy-name-override: bulkIndex
       x-speakeasy-group: indexing.people
   /api/index/v1/indexemployeelist: {}

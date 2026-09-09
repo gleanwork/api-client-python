@@ -606,7 +606,7 @@ class People(BaseSDK):
         raise errors.GleanError("Unexpected response received", http_res)
 
     @deprecated(
-        "warning: ** DEPRECATED ** - Deprecated on 2026-02-03, removal scheduled for 2026-10-15: Endpoint is deprecated."
+        "warning: ** DEPRECATED ** - Deprecated on 2026-02-03, removal scheduled for 2027-01-15: Endpoint is deprecated."
     )
     def bulk_index(
         self,
@@ -704,7 +704,7 @@ class People(BaseSDK):
                         "id": "ce596f49-55c4-465e-bf3c-5a3a33906e1f",
                         "introduced": "2026-02-03",
                         "message": "Endpoint is deprecated",
-                        "removal": "2026-10-15",
+                        "removal": "2027-01-15",
                     }
                 },
             ),
@@ -725,7 +725,7 @@ class People(BaseSDK):
         raise errors.GleanError("Unexpected response received", http_res)
 
     @deprecated(
-        "warning: ** DEPRECATED ** - Deprecated on 2026-02-03, removal scheduled for 2026-10-15: Endpoint is deprecated."
+        "warning: ** DEPRECATED ** - Deprecated on 2026-02-03, removal scheduled for 2027-01-15: Endpoint is deprecated."
     )
     async def bulk_index_async(
         self,
@@ -823,7 +823,7 @@ class People(BaseSDK):
                         "id": "ce596f49-55c4-465e-bf3c-5a3a33906e1f",
                         "introduced": "2026-02-03",
                         "message": "Endpoint is deprecated",
-                        "removal": "2026-10-15",
+                        "removal": "2027-01-15",
                     }
                 },
             ),
