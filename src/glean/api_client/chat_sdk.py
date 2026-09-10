@@ -95,10 +95,6 @@ class ChatSDK(BaseSDK):
                 tags=["Chat"],
                 extensions={
                     "x-codegen-request-body-name": "payload",
-                    "x-glean-experimental": {
-                        "id": "e65a0a77-97a2-4c91-be60-eae7f6238015",
-                        "introduced": "2026-07-14",
-                    },
                     "x-visibility": "Public",
                 },
             ),
@@ -220,10 +216,6 @@ class ChatSDK(BaseSDK):
                 tags=["Chat"],
                 extensions={
                     "x-codegen-request-body-name": "payload",
-                    "x-glean-experimental": {
-                        "id": "e65a0a77-97a2-4c91-be60-eae7f6238015",
-                        "introduced": "2026-07-14",
-                    },
                     "x-visibility": "Public",
                 },
             ),
@@ -346,10 +338,6 @@ class ChatSDK(BaseSDK):
                 tags=["Chat"],
                 extensions={
                     "x-codegen-request-body-name": "payload",
-                    "x-glean-experimental": {
-                        "id": "e65a0a77-97a2-4c91-be60-eae7f6238015",
-                        "introduced": "2026-07-14",
-                    },
                     "x-visibility": "Public",
                 },
             ),
@@ -484,10 +472,6 @@ class ChatSDK(BaseSDK):
                 tags=["Chat"],
                 extensions={
                     "x-codegen-request-body-name": "payload",
-                    "x-glean-experimental": {
-                        "id": "e65a0a77-97a2-4c91-be60-eae7f6238015",
-                        "introduced": "2026-07-14",
-                    },
                     "x-visibility": "Public",
                 },
             ),

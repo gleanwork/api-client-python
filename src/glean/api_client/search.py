@@ -115,10 +115,6 @@ class Search(BaseSDK):
                 tags=["Search"],
                 extensions={
                     "x-codegen-request-body-name": "payload",
-                    "x-glean-experimental": {
-                        "id": "5ab612fc-ed50-4419-bec3-e5fe83934653",
-                        "introduced": "2026-04-08",
-                    },
                     "x-visibility": "Public",
                 },
             ),
@@ -258,10 +254,6 @@ class Search(BaseSDK):
                 tags=["Search"],
                 extensions={
                     "x-codegen-request-body-name": "payload",
-                    "x-glean-experimental": {
-                        "id": "5ab612fc-ed50-4419-bec3-e5fe83934653",
-                        "introduced": "2026-04-08",
-                    },
                     "x-visibility": "Public",
                 },
             ),
@@ -371,13 +363,7 @@ class Search(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Search"],
-                extensions={
-                    "x-glean-experimental": {
-                        "id": "0b585621-13fb-4544-bf20-5e1c99452735",
-                        "introduced": "2026-05-12",
-                    },
-                    "x-visibility": "Public",
-                },
+                extensions={"x-visibility": "Public"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -490,13 +476,7 @@ class Search(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Search"],
-                extensions={
-                    "x-glean-experimental": {
-                        "id": "0b585621-13fb-4544-bf20-5e1c99452735",
-                        "introduced": "2026-05-12",
-                    },
-                    "x-visibility": "Public",
-                },
+                extensions={"x-visibility": "Public"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
