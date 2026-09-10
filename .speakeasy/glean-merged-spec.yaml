@@ -2,8 +2,8 @@ openapi: 3.1.0
 info:
   version: "0.9.0"
   title: Glean API
-  x-source-commit-sha: c7223f0e466c632820e8ef482ecdbb03a025224a
-  x-open-api-commit-sha: 3c1ac65b05f5133def947499c01ef4e2ca3a6abd
+  x-source-commit-sha: 31a8965bc9e49871a44c872a19d7442c25790b41
+  x-open-api-commit-sha: 50797dafaa6c32f59f7dd18b9a5766b5321fffaa
   description: |
     # Introduction
     In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This is useful, for example, for doing permissions-aware search over content in internal tools that reside on-prem as well as for searching over applications that Glean does not currently support first class. In addition these APIs allow the customer to push organization data (people info, organization structure etc) into Glean.
@@ -261,9 +261,6 @@ paths:
         Run an assistant turn. The default response is JSON. HTTP clients request server-sent events by setting `stream` to true in the JSON body. An `Accept: text/event-stream` header does not replace `stream`.
       operationId: platform-chat-create
       x-visibility: Public
-      x-glean-experimental:
-        id: e65a0a77-97a2-4c91-be60-eae7f6238015
-        introduced: "2026-07-14"
       x-codegen-request-body-name: payload
       requestBody:
         required: true
@@ -1076,9 +1073,6 @@ paths:
         Errors: HTTP 422 `unprocessable_query` returns no `results` or `next_cursor`. See `warnings` on the response for non-blocking issues such as partially available results. Not every query issue produces a warning or error.
       operationId: platform-search
       x-visibility: Public
-      x-glean-experimental:
-        id: 5ab612fc-ed50-4419-bec3-e5fe83934653
-        introduced: "2026-04-08"
       x-codegen-request-body-name: payload
       requestBody:
         required: true
@@ -1127,9 +1121,6 @@ paths:
         Without `query`, returns field metadata only and does not run a search. With a nonblank `query`, provide exactly one `datasources` value to request suggested filter values for that query; no documents are returned and this endpoint does not include warning objects. See `FilterFieldInfo.values` for limitations on suggested values. Rate-limited requests return HTTP 429 with `Retry-After`; temporary backend unavailability returns HTTP 503.
       operationId: platform-search-filters
       x-visibility: Public
-      x-glean-experimental:
-        id: 0b585621-13fb-4544-bf20-5e1c99452735
-        introduced: "2026-05-12"
       parameters:
         - in: query
           name: datasources
@@ -1762,9 +1753,6 @@ paths:
         SDK-only logical operation. HTTP clients must call the base path; the URL fragment is not sent. Run an assistant turn as server-sent events. HTTP clients request this mode by setting `stream` to true in the JSON body.
       operationId: platform-chat-create-stream
       x-visibility: Public
-      x-glean-experimental:
-        id: e65a0a77-97a2-4c91-be60-eae7f6238015
-        introduced: "2026-07-14"
       x-codegen-request-body-name: payload
       requestBody:
         required: true
