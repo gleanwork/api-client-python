@@ -2,8 +2,8 @@ openapi: 3.1.0
 info:
   version: "0.9.0"
   title: Glean API
-  x-source-commit-sha: c7b8faeb148d368cb196525870fce7781c99cb17
-  x-open-api-commit-sha: 61445ec6fadf3e946ccb479688ddb310ca7e1118
+  x-source-commit-sha: c7223f0e466c632820e8ef482ecdbb03a025224a
+  x-open-api-commit-sha: 3c1ac65b05f5133def947499c01ef4e2ca3a6abd
   description: |
     # Introduction
     In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This is useful, for example, for doing permissions-aware search over content in internal tools that reside on-prem as well as for searching over applications that Glean does not currently support first class. In addition these APIs allow the customer to push organization data (people info, organization structure etc) into Glean.
@@ -1757,9 +1757,9 @@ paths:
     post:
       tags:
         - Chat
-      summary: SDK-only logical operation. HTTP clients must call the base path; the URL fragment is not sent. Create a chat response
+      summary: Create a streaming chat response
       description: |
-        SDK-only logical operation. HTTP clients must call the base path; the URL fragment is not sent. Run an assistant turn. The default response is JSON. HTTP clients request server-sent events by setting `stream` to true in the JSON body. An `Accept: text/event-stream` header does not replace `stream`.
+        SDK-only logical operation. HTTP clients must call the base path; the URL fragment is not sent. Run an assistant turn as server-sent events. HTTP clients request this mode by setting `stream` to true in the JSON body.
       operationId: platform-chat-create-stream
       x-visibility: Public
       x-glean-experimental:

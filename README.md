@@ -325,7 +325,7 @@ For more information on obtaining the appropriate token type, please contact you
 ### [Chat](docs/sdks/chatsdk/README.md)
 
 * [create](docs/sdks/chatsdk/README.md#create) - Create a chat response
-* [create_stream](docs/sdks/chatsdk/README.md#create_stream) - SDK-only logical operation. HTTP clients must call the base path; the URL fragment is not sent. Create a chat response
+* [create_stream](docs/sdks/chatsdk/README.md#create_stream) - Create a streaming chat response
 
 ### [Client.Activity](docs/sdks/clientactivity/README.md)
 
