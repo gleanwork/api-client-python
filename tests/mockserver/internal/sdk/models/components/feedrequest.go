@@ -60,6 +60,7 @@ const (
 	FeedRequestCategoryKnowledgeGap                 FeedRequestCategory = "KNOWLEDGE_GAP"
 	FeedRequestCategoryArtifactCreation             FeedRequestCategory = "ARTIFACT_CREATION"
 	FeedRequestCategoryEditDoc                      FeedRequestCategory = "EDIT_DOC"
+	FeedRequestCategoryChatToArtifact               FeedRequestCategory = "CHAT_TO_ARTIFACT"
 )
 
 func (e FeedRequestCategory) ToPointer() *FeedRequestCategory {
@@ -170,6 +171,8 @@ func (e *FeedRequestCategory) UnmarshalJSON(data []byte) error {
 	case "ARTIFACT_CREATION":
 		fallthrough
 	case "EDIT_DOC":
+		fallthrough
+	case "CHAT_TO_ARTIFACT":
 		*e = FeedRequestCategory(v)
 		return nil
 	default:
