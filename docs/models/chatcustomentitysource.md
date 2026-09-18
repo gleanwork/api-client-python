@@ -1,0 +1,13 @@
+# ChatCustomEntitySource
+
+
+## Fields
+
+| Field                                                                        | Type                                                                         | Required                                                                     | Description                                                                  |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `type`                                                                       | [models.ChatCustomEntitySourceType](../models/chatcustomentitysourcetype.md) | :heavy_check_mark:                                                           | N/A                                                                          |
+| `entity_id`                                                                  | *str*                                                                        | :heavy_check_mark:                                                           | N/A                                                                          |
+| `name`                                                                       | *Optional[str]*                                                              | :heavy_minus_sign:                                                           | N/A                                                                          |
+| `title`                                                                      | *Optional[str]*                                                              | :heavy_minus_sign:                                                           | N/A                                                                          |
+| `url`                                                                        | *Optional[str]*                                                              | :heavy_minus_sign:                                                           | N/A                                                                          |
+| `datasource`                                                                 | *Optional[str]*                                                              | :heavy_minus_sign:                                                           | N/A                                                                          |

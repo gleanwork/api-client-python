@@ -120,6 +120,8 @@ const (
 	JustificationTypeKnowledgeGap                      JustificationType = "KNOWLEDGE_GAP"
 	JustificationTypeArtifactCreation                  JustificationType = "ARTIFACT_CREATION"
 	JustificationTypeEditDoc                           JustificationType = "EDIT_DOC"
+	JustificationTypeChatToArtifact                    JustificationType = "CHAT_TO_ARTIFACT"
+	JustificationTypeShareArtifact                     JustificationType = "SHARE_ARTIFACT"
 )
 
 func (e JustificationType) ToPointer() *JustificationType {
@@ -258,6 +260,10 @@ func (e *JustificationType) UnmarshalJSON(data []byte) error {
 	case "ARTIFACT_CREATION":
 		fallthrough
 	case "EDIT_DOC":
+		fallthrough
+	case "CHAT_TO_ARTIFACT":
+		fallthrough
+	case "SHARE_ARTIFACT":
 		*e = JustificationType(v)
 		return nil
 	default:

@@ -81,7 +81,6 @@ type AutocompleteRequest struct {
 	// Filter to only return results of the given type(s). All types may be returned if omitted.
 	ResultTypes []AutocompleteRequestResultType `json:"resultTypes,omitempty"`
 	// Maximum number of results to be returned. If no value is provided, the backend will cap at 200.
-	//
 	ResultSize *int64 `json:"resultSize,omitempty"`
 	// Auth tokens which may be used for federated results.
 	AuthTokens []AuthToken `json:"authTokens,omitempty"`

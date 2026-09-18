@@ -134,6 +134,8 @@ class JustificationType(str, Enum, metaclass=utils.OpenEnumMeta):
     KNOWLEDGE_GAP = "KNOWLEDGE_GAP"
     ARTIFACT_CREATION = "ARTIFACT_CREATION"
     EDIT_DOC = "EDIT_DOC"
+    CHAT_TO_ARTIFACT = "CHAT_TO_ARTIFACT"
+    SHARE_ARTIFACT = "SHARE_ARTIFACT"
 
 
 class FeedEntryTypedDict(TypedDict):

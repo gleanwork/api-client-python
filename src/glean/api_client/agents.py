@@ -661,8 +661,8 @@ class Agents(BaseSDK):
         input: Optional[Mapping[str, Any]] = None,
         messages: Optional[
             Union[
-                Iterable[models.PlatformMessage],
-                Iterable[models.PlatformMessageTypedDict],
+                Iterable[models.PlatformMessageInput],
+                Iterable[models.PlatformMessageInputTypedDict],
             ]
         ] = None,
         metadata: Optional[Mapping[str, Any]] = None,
@@ -705,7 +705,7 @@ class Agents(BaseSDK):
             platform_agent_run_create_request=models.PlatformAgentRunCreateRequest(
                 input=utils.unmarshal(input, Optional[Dict[str, Any]]),
                 messages=utils.get_pydantic_model(
-                    messages, Optional[List[models.PlatformMessage]]
+                    messages, Optional[List[models.PlatformMessageInput]]
                 ),
                 metadata=utils.unmarshal(metadata, Optional[Dict[str, Any]]),
                 stream=stream,
@@ -810,8 +810,8 @@ class Agents(BaseSDK):
         input: Optional[Mapping[str, Any]] = None,
         messages: Optional[
             Union[
-                Iterable[models.PlatformMessage],
-                Iterable[models.PlatformMessageTypedDict],
+                Iterable[models.PlatformMessageInput],
+                Iterable[models.PlatformMessageInputTypedDict],
             ]
         ] = None,
         metadata: Optional[Mapping[str, Any]] = None,
@@ -854,7 +854,7 @@ class Agents(BaseSDK):
             platform_agent_run_create_request=models.PlatformAgentRunCreateRequest(
                 input=utils.unmarshal(input, Optional[Dict[str, Any]]),
                 messages=utils.get_pydantic_model(
-                    messages, Optional[List[models.PlatformMessage]]
+                    messages, Optional[List[models.PlatformMessageInput]]
                 ),
                 metadata=utils.unmarshal(metadata, Optional[Dict[str, Any]]),
                 stream=stream,

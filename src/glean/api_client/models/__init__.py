@@ -291,15 +291,47 @@ if TYPE_CHECKING:
         CanonicalizingRegexTypeTypedDict,
     )
     from .chat import Chat, ChatTypedDict
+    from .chatcitationannotation import (
+        ChatCitationAnnotation,
+        ChatCitationAnnotationType,
+        ChatCitationAnnotationTypedDict,
+    )
+    from .chatcitationsnippet import ChatCitationSnippet, ChatCitationSnippetTypedDict
+    from .chatcitationsource import ChatCitationSource, ChatCitationSourceTypedDict
+    from .chatcustomentitysource import (
+        ChatCustomEntitySource,
+        ChatCustomEntitySourceType,
+        ChatCustomEntitySourceTypedDict,
+    )
+    from .chatdocumentsource import (
+        ChatDocumentSource,
+        ChatDocumentSourceDocument1,
+        ChatDocumentSourceDocument1TypedDict,
+        ChatDocumentSourceDocument2,
+        ChatDocumentSourceDocument2TypedDict,
+        ChatDocumentSourceType1,
+        ChatDocumentSourceType2,
+        ChatDocumentSourceTypedDict,
+    )
     from .chatfile import ChatFile, ChatFileTypedDict
     from .chatfilefailurereason import ChatFileFailureReason
     from .chatfilemetadata import ChatFileMetadata, ChatFileMetadataTypedDict
+    from .chatfilesource import (
+        ChatFileSource,
+        ChatFileSourceType,
+        ChatFileSourceTypedDict,
+    )
     from .chatfilestatus import ChatFileStatus
     from .chatmessage import Author, ChatMessage, ChatMessageTypedDict, MessageType
     from .chatmessagecitation import ChatMessageCitation, ChatMessageCitationTypedDict
     from .chatmessagefragment import ChatMessageFragment, ChatMessageFragmentTypedDict
     from .chatmetadataresult import ChatMetadataResult, ChatMetadataResultTypedDict
     from .chatop import ChatRequestRequest, ChatRequestRequestTypedDict
+    from .chatpersonsource import (
+        ChatPersonSource,
+        ChatPersonSourceType,
+        ChatPersonSourceTypedDict,
+    )
     from .chatrequest import ChatRequest, ChatRequestTypedDict
     from .chatresponse import ChatResponse, ChatResponseTypedDict
     from .chatrestrictionfilters import (
@@ -1031,6 +1063,7 @@ if TYPE_CHECKING:
         BundleTypedDict,
         ImportAgentRequest,
         ImportAgentRequestTypedDict,
+        VersionSource,
     )
     from .importagentresponse import ImportAgentResponse, ImportAgentResponseTypedDict
     from .importagentstatus import ImportAgentStatus
@@ -1193,6 +1226,12 @@ if TYPE_CHECKING:
         MessageTextBlock,
         MessageTextBlockTypedDict,
         MessageTypedDict,
+    )
+    from .message_input import (
+        MessageInput,
+        MessageInputTypedDict,
+        MessageTextBlockInput,
+        MessageTextBlockInputTypedDict,
     )
     from .messagesop import MessagesRequestRequest, MessagesRequestRequestTypedDict
     from .messagesrequest import (
@@ -1547,10 +1586,18 @@ if TYPE_CHECKING:
     )
     from .platformfilteroperator import PlatformFilterOperator
     from .platformmessage import PlatformMessage, PlatformMessageTypedDict
+    from .platformmessage_input import (
+        PlatformMessageInput,
+        PlatformMessageInputTypedDict,
+    )
     from .platformmessagerole import PlatformMessageRole
     from .platformmessagetextblock import (
         PlatformMessageTextBlock,
         PlatformMessageTextBlockTypedDict,
+    )
+    from .platformmessagetextblock_input import (
+        PlatformMessageTextBlockInput,
+        PlatformMessageTextBlockInputTypedDict,
     )
     from .platformpersonreference import (
         PlatformPersonReference,
@@ -2354,10 +2401,31 @@ __all__ = [
     "ChannelInviteInfo",
     "ChannelInviteInfoTypedDict",
     "Chat",
+    "ChatCitationAnnotation",
+    "ChatCitationAnnotationType",
+    "ChatCitationAnnotationTypedDict",
+    "ChatCitationSnippet",
+    "ChatCitationSnippetTypedDict",
+    "ChatCitationSource",
+    "ChatCitationSourceTypedDict",
+    "ChatCustomEntitySource",
+    "ChatCustomEntitySourceType",
+    "ChatCustomEntitySourceTypedDict",
+    "ChatDocumentSource",
+    "ChatDocumentSourceDocument1",
+    "ChatDocumentSourceDocument1TypedDict",
+    "ChatDocumentSourceDocument2",
+    "ChatDocumentSourceDocument2TypedDict",
+    "ChatDocumentSourceType1",
+    "ChatDocumentSourceType2",
+    "ChatDocumentSourceTypedDict",
     "ChatFile",
     "ChatFileFailureReason",
     "ChatFileMetadata",
     "ChatFileMetadataTypedDict",
+    "ChatFileSource",
+    "ChatFileSourceType",
+    "ChatFileSourceTypedDict",
     "ChatFileStatus",
     "ChatFileTypedDict",
     "ChatMessage",
@@ -2370,6 +2438,9 @@ __all__ = [
     "ChatMetadataResult",
     "ChatMetadataResultTypedDict",
     "ChatMetadataTypedDict",
+    "ChatPersonSource",
+    "ChatPersonSourceType",
+    "ChatPersonSourceTypedDict",
     "ChatRequest",
     "ChatRequestRequest",
     "ChatRequestRequestTypedDict",
@@ -3068,7 +3139,11 @@ __all__ = [
     "Meeting",
     "MeetingTypedDict",
     "Message",
+    "MessageInput",
+    "MessageInputTypedDict",
     "MessageTextBlock",
+    "MessageTextBlockInput",
+    "MessageTextBlockInputTypedDict",
     "MessageTextBlockTypedDict",
     "MessageType",
     "MessageTypedDict",
@@ -3263,8 +3338,12 @@ __all__ = [
     "PlatformFilterOperator",
     "PlatformFilterTypedDict",
     "PlatformMessage",
+    "PlatformMessageInput",
+    "PlatformMessageInputTypedDict",
     "PlatformMessageRole",
     "PlatformMessageTextBlock",
+    "PlatformMessageTextBlockInput",
+    "PlatformMessageTextBlockInputTypedDict",
     "PlatformMessageTextBlockTypedDict",
     "PlatformMessageTypedDict",
     "PlatformPersonReference",
@@ -3777,6 +3856,7 @@ __all__ = [
     "VerifyRequestRequest",
     "VerifyRequestRequestTypedDict",
     "VerifyRequestTypedDict",
+    "VersionSource",
     "ViewerInfo",
     "ViewerInfoRole",
     "ViewerInfoTypedDict",
@@ -3950,11 +4030,32 @@ _dynamic_imports: dict[str, str] = {
     "CanonicalizingRegexTypeTypedDict": ".canonicalizingregextype",
     "Chat": ".chat",
     "ChatTypedDict": ".chat",
+    "ChatCitationAnnotation": ".chatcitationannotation",
+    "ChatCitationAnnotationType": ".chatcitationannotation",
+    "ChatCitationAnnotationTypedDict": ".chatcitationannotation",
+    "ChatCitationSnippet": ".chatcitationsnippet",
+    "ChatCitationSnippetTypedDict": ".chatcitationsnippet",
+    "ChatCitationSource": ".chatcitationsource",
+    "ChatCitationSourceTypedDict": ".chatcitationsource",
+    "ChatCustomEntitySource": ".chatcustomentitysource",
+    "ChatCustomEntitySourceType": ".chatcustomentitysource",
+    "ChatCustomEntitySourceTypedDict": ".chatcustomentitysource",
+    "ChatDocumentSource": ".chatdocumentsource",
+    "ChatDocumentSourceDocument1": ".chatdocumentsource",
+    "ChatDocumentSourceDocument1TypedDict": ".chatdocumentsource",
+    "ChatDocumentSourceDocument2": ".chatdocumentsource",
+    "ChatDocumentSourceDocument2TypedDict": ".chatdocumentsource",
+    "ChatDocumentSourceType1": ".chatdocumentsource",
+    "ChatDocumentSourceType2": ".chatdocumentsource",
+    "ChatDocumentSourceTypedDict": ".chatdocumentsource",
     "ChatFile": ".chatfile",
     "ChatFileTypedDict": ".chatfile",
     "ChatFileFailureReason": ".chatfilefailurereason",
     "ChatFileMetadata": ".chatfilemetadata",
     "ChatFileMetadataTypedDict": ".chatfilemetadata",
+    "ChatFileSource": ".chatfilesource",
+    "ChatFileSourceType": ".chatfilesource",
+    "ChatFileSourceTypedDict": ".chatfilesource",
     "ChatFileStatus": ".chatfilestatus",
     "Author": ".chatmessage",
     "ChatMessage": ".chatmessage",
@@ -3968,6 +4069,9 @@ _dynamic_imports: dict[str, str] = {
     "ChatMetadataResultTypedDict": ".chatmetadataresult",
     "ChatRequestRequest": ".chatop",
     "ChatRequestRequestTypedDict": ".chatop",
+    "ChatPersonSource": ".chatpersonsource",
+    "ChatPersonSourceType": ".chatpersonsource",
+    "ChatPersonSourceTypedDict": ".chatpersonsource",
     "ChatRequest": ".chatrequest",
     "ChatRequestTypedDict": ".chatrequest",
     "ChatResponse": ".chatresponse",
@@ -4509,6 +4613,7 @@ _dynamic_imports: dict[str, str] = {
     "BundleTypedDict": ".importagentrequest",
     "ImportAgentRequest": ".importagentrequest",
     "ImportAgentRequestTypedDict": ".importagentrequest",
+    "VersionSource": ".importagentrequest",
     "ImportAgentResponse": ".importagentresponse",
     "ImportAgentResponseTypedDict": ".importagentresponse",
     "ImportAgentStatus": ".importagentstatus",
@@ -4634,6 +4739,10 @@ _dynamic_imports: dict[str, str] = {
     "MessageTextBlock": ".message",
     "MessageTextBlockTypedDict": ".message",
     "MessageTypedDict": ".message",
+    "MessageInput": ".message_input",
+    "MessageInputTypedDict": ".message_input",
+    "MessageTextBlockInput": ".message_input",
+    "MessageTextBlockInputTypedDict": ".message_input",
     "MessagesRequestRequest": ".messagesop",
     "MessagesRequestRequestTypedDict": ".messagesop",
     "Datasource": ".messagesrequest",
@@ -4863,9 +4972,13 @@ _dynamic_imports: dict[str, str] = {
     "PlatformFilterOperator": ".platformfilteroperator",
     "PlatformMessage": ".platformmessage",
     "PlatformMessageTypedDict": ".platformmessage",
+    "PlatformMessageInput": ".platformmessage_input",
+    "PlatformMessageInputTypedDict": ".platformmessage_input",
     "PlatformMessageRole": ".platformmessagerole",
     "PlatformMessageTextBlock": ".platformmessagetextblock",
     "PlatformMessageTextBlockTypedDict": ".platformmessagetextblock",
+    "PlatformMessageTextBlockInput": ".platformmessagetextblock_input",
+    "PlatformMessageTextBlockInputTypedDict": ".platformmessagetextblock_input",
     "PlatformPersonReference": ".platformpersonreference",
     "PlatformPersonReferenceTypedDict": ".platformpersonreference",
     "PlatformProblemDetailCode": ".platformproblemdetailcode",

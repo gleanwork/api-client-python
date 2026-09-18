@@ -2,8 +2,8 @@ openapi: 3.1.0
 info:
   version: "0.9.0"
   title: Glean API
-  x-source-commit-sha: 31a8965bc9e49871a44c872a19d7442c25790b41
-  x-open-api-commit-sha: 50797dafaa6c32f59f7dd18b9a5766b5321fffaa
+  x-source-commit-sha: 5f1d873383438dc574c1075f9476915610e56875
+  x-open-api-commit-sha: 6a8c8e16bbbca13a130766a72f307fb373b8256a
   description: |
     # Introduction
     In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This is useful, for example, for doing permissions-aware search over content in internal tools that reside on-prem as well as for searching over applications that Glean does not currently support first class. In addition these APIs allow the customer to push organization data (people info, organization structure etc) into Glean.
@@ -7135,6 +7135,163 @@ components:
       type: string
       enum:
         - text
+    PlatformChatDocumentSource:
+      type: object
+      additionalProperties: false
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          x-discriminator: true
+          enum:
+            - DOCUMENT
+        document_id:
+          type: string
+          minLength: 1
+        url:
+          type: string
+          minLength: 1
+        title:
+          type: string
+        datasource:
+          type: string
+      anyOf:
+        - required:
+            - document_id
+          properties:
+            document_id:
+              type: string
+              minLength: 1
+        - required:
+            - url
+          properties:
+            url:
+              type: string
+              minLength: 1
+    PlatformChatPersonSource:
+      type: object
+      additionalProperties: false
+      required:
+        - type
+        - person_id
+      properties:
+        type:
+          type: string
+          x-discriminator: true
+          enum:
+            - PERSON
+        person_id:
+          type: string
+          minLength: 1
+        name:
+          type: string
+        url:
+          type: string
+    PlatformChatFileSource:
+      type: object
+      additionalProperties: false
+      required:
+        - type
+        - file_id
+      properties:
+        type:
+          type: string
+          x-discriminator: true
+          enum:
+            - FILE
+        file_id:
+          type: string
+          minLength: 1
+        title:
+          type: string
+        url:
+          type: string
+        datasource:
+          type: string
+    PlatformChatCustomEntitySource:
+      type: object
+      additionalProperties: false
+      required:
+        - type
+        - entity_id
+      properties:
+        type:
+          type: string
+          x-discriminator: true
+          enum:
+            - CUSTOM_ENTITY
+        entity_id:
+          type: string
+          minLength: 1
+        name:
+          type: string
+        title:
+          type: string
+        url:
+          type: string
+        datasource:
+          type: string
+    PlatformChatCitationSource:
+      description: Four-variant citation source union.
+      x-multiple-discriminators: true
+      oneOf:
+        - $ref: "#/components/schemas/PlatformChatDocumentSource"
+        - $ref: "#/components/schemas/PlatformChatPersonSource"
+        - $ref: "#/components/schemas/PlatformChatFileSource"
+        - $ref: "#/components/schemas/PlatformChatCustomEntitySource"
+      discriminator:
+        propertyName: type
+        mapping:
+          DOCUMENT: "#/components/schemas/PlatformChatDocumentSource"
+          PERSON: "#/components/schemas/PlatformChatPersonSource"
+          FILE: "#/components/schemas/PlatformChatFileSource"
+          CUSTOM_ENTITY: "#/components/schemas/PlatformChatCustomEntitySource"
+    PlatformChatCitationSnippet:
+      type: object
+      additionalProperties: false
+      required:
+        - text
+      properties:
+        text:
+          type: string
+          minLength: 1
+        page_number:
+          type:
+            - integer
+            - "null"
+    PlatformChatCitationAnnotation:
+      type: object
+      additionalProperties: false
+      required:
+        - type
+        - sources
+      properties:
+        type:
+          type: string
+          enum:
+            - CITATION
+        sources:
+          type: array
+          minItems: 1
+          items:
+            $ref: "#/components/schemas/PlatformChatCitationSource"
+        start_index:
+          type:
+            - integer
+            - "null"
+          minimum: 0
+        end_index:
+          type:
+            - integer
+            - "null"
+          minimum: 0
+        snippets:
+          type:
+            - array
+            - "null"
+          items:
+            $ref: "#/components/schemas/PlatformChatCitationSnippet"
     PlatformMessageTextBlock:
       type: object
       required:
@@ -7146,6 +7303,11 @@ components:
           description: Text content.
         type:
           $ref: "#/components/schemas/PlatformContentType"
+        annotations:
+          type: array
+          readOnly: true
+          items:
+            $ref: "#/components/schemas/PlatformChatCitationAnnotation"
     PlatformMessage:
       type: object
       required:
@@ -7321,150 +7483,6 @@ components:
       pattern: ^resp_[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$
       description: |
         Platform-owned, non-persisted response envelope identifier in `resp_<uuid>` form. The same identifier is used for every event in one streamed response.
-    PlatformChatDocumentSource:
-      type: object
-      additionalProperties: false
-      required:
-        - type
-      properties:
-        type:
-          type: string
-          enum:
-            - DOCUMENT
-        document_id:
-          type: string
-          minLength: 1
-        url:
-          type: string
-          minLength: 1
-        title:
-          type: string
-        datasource:
-          type: string
-      anyOf:
-        - required:
-            - document_id
-        - required:
-            - url
-    PlatformChatPersonSource:
-      type: object
-      additionalProperties: false
-      required:
-        - type
-        - person_id
-      properties:
-        type:
-          type: string
-          enum:
-            - PERSON
-        person_id:
-          type: string
-          minLength: 1
-        name:
-          type: string
-        url:
-          type: string
-    PlatformChatFileSource:
-      type: object
-      additionalProperties: false
-      required:
-        - type
-        - file_id
-      properties:
-        type:
-          type: string
-          enum:
-            - FILE
-        file_id:
-          type: string
-          minLength: 1
-        title:
-          type: string
-        url:
-          type: string
-        datasource:
-          type: string
-    PlatformChatCustomEntitySource:
-      type: object
-      additionalProperties: false
-      required:
-        - type
-        - entity_id
-      properties:
-        type:
-          type: string
-          enum:
-            - CUSTOM_ENTITY
-        entity_id:
-          type: string
-          minLength: 1
-        name:
-          type: string
-        title:
-          type: string
-        url:
-          type: string
-        datasource:
-          type: string
-    PlatformChatCitationSource:
-      description: Four-variant citation source union.
-      oneOf:
-        - $ref: "#/components/schemas/PlatformChatDocumentSource"
-        - $ref: "#/components/schemas/PlatformChatPersonSource"
-        - $ref: "#/components/schemas/PlatformChatFileSource"
-        - $ref: "#/components/schemas/PlatformChatCustomEntitySource"
-      discriminator:
-        propertyName: type
-        mapping:
-          DOCUMENT: "#/components/schemas/PlatformChatDocumentSource"
-          PERSON: "#/components/schemas/PlatformChatPersonSource"
-          FILE: "#/components/schemas/PlatformChatFileSource"
-          CUSTOM_ENTITY: "#/components/schemas/PlatformChatCustomEntitySource"
-    PlatformChatCitationSnippet:
-      type: object
-      additionalProperties: false
-      required:
-        - text
-      properties:
-        text:
-          type: string
-          minLength: 1
-        page_number:
-          type:
-            - integer
-            - "null"
-    PlatformChatCitationAnnotation:
-      type: object
-      additionalProperties: false
-      required:
-        - type
-        - sources
-      properties:
-        type:
-          type: string
-          enum:
-            - CITATION
-        sources:
-          type: array
-          minItems: 1
-          items:
-            $ref: "#/components/schemas/PlatformChatCitationSource"
-        start_index:
-          type:
-            - integer
-            - "null"
-          minimum: 0
-        end_index:
-          type:
-            - integer
-            - "null"
-          minimum: 0
-        snippets:
-          type:
-            - array
-            - "null"
-          items:
-            $ref: "#/components/schemas/PlatformChatCitationSnippet"
     PlatformChatOutputTextContent:
       type: object
       additionalProperties: false
@@ -14004,6 +14022,18 @@ components:
           description: Optional commit message for the imported version.
         syncMode:
           $ref: '#/components/schemas/ImportAgentSyncMode'
+        versionSource:
+          type: string
+          enum:
+            - GIT
+            - USER
+          description: |
+            Provenance recorded on the staged commit or published version this import produces. Doesn't change the agent's management mode (workflowSource). GIT: synced from a Git repository. USER: uploaded by a user. Defaults to USER when omitted. Ignored for transient imports.
+          default: USER
+        publishedBaselineHash:
+          type: string
+          description: |
+            Optional baseline hash of the currently published agent definition. When publish hash validation is enabled, an import updating an existing agent with syncMode PUBLISHED is rejected with HTTP 409 if the current published definition hash is nonempty and does not match this baseline. Leading and trailing whitespace is trimmed; omitted or blank values skip validation. Ignored for STAGED imports, new agents, and transient previews.
         isDraft:
           type: boolean
           description: |
@@ -14043,6 +14073,163 @@ components:
       type: string
       enum:
         - text
+    ChatDocumentSource:
+      type: object
+      anyOf:
+        - properties:
+            document_id:
+              type: string
+              minLength: 1
+          required:
+            - document_id
+        - properties:
+            url:
+              type: string
+              minLength: 1
+          required:
+            - url
+      properties:
+        type:
+          type: string
+          enum:
+            - DOCUMENT
+          x-discriminator: true
+        document_id:
+          type: string
+          minLength: 1
+        url:
+          type: string
+          minLength: 1
+        title:
+          type: string
+        datasource:
+          type: string
+      required:
+        - type
+      additionalProperties: false
+    ChatPersonSource:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - PERSON
+          x-discriminator: true
+        person_id:
+          type: string
+          minLength: 1
+        name:
+          type: string
+        url:
+          type: string
+      required:
+        - type
+        - person_id
+      additionalProperties: false
+    ChatFileSource:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - FILE
+          x-discriminator: true
+        file_id:
+          type: string
+          minLength: 1
+        title:
+          type: string
+        url:
+          type: string
+        datasource:
+          type: string
+      required:
+        - type
+        - file_id
+      additionalProperties: false
+    ChatCustomEntitySource:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - CUSTOM_ENTITY
+          x-discriminator: true
+        entity_id:
+          type: string
+          minLength: 1
+        name:
+          type: string
+        title:
+          type: string
+        url:
+          type: string
+        datasource:
+          type: string
+      required:
+        - type
+        - entity_id
+      additionalProperties: false
+    ChatCitationSource:
+      oneOf:
+        - $ref: '#/components/schemas/ChatDocumentSource'
+        - $ref: '#/components/schemas/ChatPersonSource'
+        - $ref: '#/components/schemas/ChatFileSource'
+        - $ref: '#/components/schemas/ChatCustomEntitySource'
+      discriminator:
+        propertyName: type
+        mapping:
+          DOCUMENT: '#/components/schemas/ChatDocumentSource'
+          PERSON: '#/components/schemas/ChatPersonSource'
+          FILE: '#/components/schemas/ChatFileSource'
+          CUSTOM_ENTITY: '#/components/schemas/ChatCustomEntitySource'
+      description: Four-variant citation source union.
+      x-multiple-discriminators: true
+    ChatCitationSnippet:
+      type: object
+      properties:
+        text:
+          type: string
+          minLength: 1
+        page_number:
+          type:
+            - integer
+            - "null"
+      required:
+        - text
+      additionalProperties: false
+    ChatCitationAnnotation:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - CITATION
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/ChatCitationSource'
+          minItems: 1
+        start_index:
+          type:
+            - integer
+            - "null"
+          minimum: 0
+        end_index:
+          type:
+            - integer
+            - "null"
+          minimum: 0
+        snippets:
+          type:
+            - array
+            - "null"
+          items:
+            $ref: '#/components/schemas/ChatCitationSnippet'
+      required:
+        - type
+        - sources
+      additionalProperties: false
     Message:
       type: object
       properties:
@@ -14060,6 +14247,11 @@ components:
                 type: string
               type:
                 $ref: '#/components/schemas/ContentType'
+              annotations:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ChatCitationAnnotation'
+                readOnly: true
             title: MessageTextBlock
             required:
               - text
@@ -15666,8 +15858,7 @@ components:
           description: Filter to only return results of the given type(s). All types may be returned if omitted.
         resultSize:
           type: integer
-          description: |
-            Maximum number of results to be returned. If no value is provided, the backend will cap at 200.
+          description: Maximum number of results to be returned. If no value is provided, the backend will cap at 200.
           example: 10
         authTokens:
           type: array
@@ -15935,6 +16126,8 @@ components:
               - KNOWLEDGE_GAP
               - ARTIFACT_CREATION
               - EDIT_DOC
+              - CHAT_TO_ARTIFACT
+              - SHARE_ARTIFACT
           description: Categories of content requested. An allowlist gives flexibility to request content separately or together.
         requestOptions:
           $ref: '#/components/schemas/FeedRequestOptions'
@@ -16408,6 +16601,8 @@ components:
             - KNOWLEDGE_GAP
             - ARTIFACT_CREATION
             - EDIT_DOC
+            - CHAT_TO_ARTIFACT
+            - SHARE_ARTIFACT
           description: Type of the justification.
         justification:
           type: string
@@ -16504,6 +16699,8 @@ components:
             - KNOWLEDGE_GAP
             - ARTIFACT_CREATION
             - EDIT_DOC
+            - CHAT_TO_ARTIFACT
+            - SHARE_ARTIFACT
           description: Category of the result, one of the requested categories in incoming request.
         primaryEntry:
           $ref: '#/components/schemas/FeedEntry'

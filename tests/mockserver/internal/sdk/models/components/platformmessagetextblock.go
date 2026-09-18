@@ -4,8 +4,9 @@ package components
 
 type PlatformMessageTextBlock struct {
 	// Text content.
-	Text string              `json:"text"`
-	Type PlatformContentType `json:"type"`
+	Text        string                           `json:"text"`
+	Type        PlatformContentType              `json:"type"`
+	Annotations []PlatformChatCitationAnnotation `json:"annotations,omitempty"`
 }
 
 func (o *PlatformMessageTextBlock) GetText() string {
@@ -20,4 +21,11 @@ func (o *PlatformMessageTextBlock) GetType() PlatformContentType {
 		return PlatformContentType("")
 	}
 	return o.Type
+}
+
+func (o *PlatformMessageTextBlock) GetAnnotations() []PlatformChatCitationAnnotation {
+	if o == nil {
+		return nil
+	}
+	return o.Annotations
 }
