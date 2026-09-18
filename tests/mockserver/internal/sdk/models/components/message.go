@@ -3,8 +3,9 @@
 package components
 
 type MessageTextBlock struct {
-	Text string      `json:"text"`
-	Type ContentType `json:"type"`
+	Text        string                   `json:"text"`
+	Type        ContentType              `json:"type"`
+	Annotations []ChatCitationAnnotation `json:"annotations,omitempty"`
 }
 
 func (o *MessageTextBlock) GetText() string {
@@ -19,6 +20,13 @@ func (o *MessageTextBlock) GetType() ContentType {
 		return ContentType("")
 	}
 	return o.Type
+}
+
+func (o *MessageTextBlock) GetAnnotations() []ChatCitationAnnotation {
+	if o == nil {
+		return nil
+	}
+	return o.Annotations
 }
 
 type Message struct {

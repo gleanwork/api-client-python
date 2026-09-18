@@ -9,7 +9,7 @@ type AgentRunCreate struct {
 	// The input to the agent. Required when the agent uses an input form trigger.
 	Input map[string]any `json:"input,omitempty"`
 	// The messages to pass an input to the agent.
-	Messages []Message `json:"messages,omitempty"`
+	Messages []MessageInput `json:"messages,omitempty"`
 	// The metadata to pass to the agent.
 	Metadata map[string]any `json:"metadata,omitempty"`
 }
@@ -28,7 +28,7 @@ func (o *AgentRunCreate) GetInput() map[string]any {
 	return o.Input
 }
 
-func (o *AgentRunCreate) GetMessages() []Message {
+func (o *AgentRunCreate) GetMessages() []MessageInput {
 	if o == nil {
 		return nil
 	}

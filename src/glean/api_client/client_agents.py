@@ -890,6 +890,8 @@ class ClientAgents(BaseSDK):
         git_author_id: Optional[str] = None,
         commit_message: Optional[str] = None,
         sync_mode: Optional[models.ImportAgentSyncMode] = None,
+        version_source: Optional[models.VersionSource] = models.VersionSource.USER,
+        published_baseline_hash: Optional[str] = None,
         is_draft: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -909,6 +911,10 @@ class ClientAgents(BaseSDK):
         :param git_author_id: Optional VCS commit author ID to associate with this import.
         :param commit_message: Optional commit message for the imported version.
         :param sync_mode: Whether the imported version is staged (saved without updating the live version) or published directly to the live version.
+
+        :param version_source: Provenance recorded on the staged commit or published version this import produces. Doesn't change the agent's management mode (workflowSource). GIT: synced from a Git repository. USER: uploaded by a user. Defaults to USER when omitted. Ignored for transient imports.
+
+        :param published_baseline_hash: Optional baseline hash of the currently published agent definition. When publish hash validation is enabled, an import updating an existing agent with syncMode PUBLISHED is rejected with HTTP 409 if the current published definition hash is nonempty and does not match this baseline. Leading and trailing whitespace is trimmed; omitted or blank values skip validation. Ignored for STAGED imports, new agents, and transient previews.
 
         :param is_draft: Deprecated. Draft mutation semantics are not supported for transient previews. Use transient and parentWorkflowId instead.
 
@@ -937,6 +943,8 @@ class ClientAgents(BaseSDK):
                 git_author_id=git_author_id,
                 commit_message=commit_message,
                 sync_mode=sync_mode,
+                version_source=version_source,
+                published_baseline_hash=published_baseline_hash,
                 is_draft=is_draft,
             ),
         )
@@ -1016,6 +1024,8 @@ class ClientAgents(BaseSDK):
         git_author_id: Optional[str] = None,
         commit_message: Optional[str] = None,
         sync_mode: Optional[models.ImportAgentSyncMode] = None,
+        version_source: Optional[models.VersionSource] = models.VersionSource.USER,
+        published_baseline_hash: Optional[str] = None,
         is_draft: Optional[bool] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
@@ -1035,6 +1045,10 @@ class ClientAgents(BaseSDK):
         :param git_author_id: Optional VCS commit author ID to associate with this import.
         :param commit_message: Optional commit message for the imported version.
         :param sync_mode: Whether the imported version is staged (saved without updating the live version) or published directly to the live version.
+
+        :param version_source: Provenance recorded on the staged commit or published version this import produces. Doesn't change the agent's management mode (workflowSource). GIT: synced from a Git repository. USER: uploaded by a user. Defaults to USER when omitted. Ignored for transient imports.
+
+        :param published_baseline_hash: Optional baseline hash of the currently published agent definition. When publish hash validation is enabled, an import updating an existing agent with syncMode PUBLISHED is rejected with HTTP 409 if the current published definition hash is nonempty and does not match this baseline. Leading and trailing whitespace is trimmed; omitted or blank values skip validation. Ignored for STAGED imports, new agents, and transient previews.
 
         :param is_draft: Deprecated. Draft mutation semantics are not supported for transient previews. Use transient and parentWorkflowId instead.
 
@@ -1063,6 +1077,8 @@ class ClientAgents(BaseSDK):
                 git_author_id=git_author_id,
                 commit_message=commit_message,
                 sync_mode=sync_mode,
+                version_source=version_source,
+                published_baseline_hash=published_baseline_hash,
                 is_draft=is_draft,
             ),
         )
@@ -1350,7 +1366,7 @@ class ClientAgents(BaseSDK):
         agent_id: str,
         input: Optional[Mapping[str, Any]] = None,
         messages: Optional[
-            Union[Iterable[models.Message], Iterable[models.MessageTypedDict]]
+            Union[Iterable[models.MessageInput], Iterable[models.MessageInputTypedDict]]
         ] = None,
         metadata: Optional[Mapping[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1384,7 +1400,9 @@ class ClientAgents(BaseSDK):
         request = models.AgentRunCreate(
             agent_id=agent_id,
             input=utils.unmarshal(input, Optional[Dict[str, Any]]),
-            messages=utils.get_pydantic_model(messages, Optional[List[models.Message]]),
+            messages=utils.get_pydantic_model(
+                messages, Optional[List[models.MessageInput]]
+            ),
             metadata=utils.unmarshal(metadata, Optional[Dict[str, Any]]),
         )
 
@@ -1471,7 +1489,7 @@ class ClientAgents(BaseSDK):
         agent_id: str,
         input: Optional[Mapping[str, Any]] = None,
         messages: Optional[
-            Union[Iterable[models.Message], Iterable[models.MessageTypedDict]]
+            Union[Iterable[models.MessageInput], Iterable[models.MessageInputTypedDict]]
         ] = None,
         metadata: Optional[Mapping[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1505,7 +1523,9 @@ class ClientAgents(BaseSDK):
         request = models.AgentRunCreate(
             agent_id=agent_id,
             input=utils.unmarshal(input, Optional[Dict[str, Any]]),
-            messages=utils.get_pydantic_model(messages, Optional[List[models.Message]]),
+            messages=utils.get_pydantic_model(
+                messages, Optional[List[models.MessageInput]]
+            ),
             metadata=utils.unmarshal(metadata, Optional[Dict[str, Any]]),
         )
 
@@ -1592,7 +1612,7 @@ class ClientAgents(BaseSDK):
         agent_id: str,
         input: Optional[Mapping[str, Any]] = None,
         messages: Optional[
-            Union[Iterable[models.Message], Iterable[models.MessageTypedDict]]
+            Union[Iterable[models.MessageInput], Iterable[models.MessageInputTypedDict]]
         ] = None,
         metadata: Optional[Mapping[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1626,7 +1646,9 @@ class ClientAgents(BaseSDK):
         request = models.AgentRunCreate(
             agent_id=agent_id,
             input=utils.unmarshal(input, Optional[Dict[str, Any]]),
-            messages=utils.get_pydantic_model(messages, Optional[List[models.Message]]),
+            messages=utils.get_pydantic_model(
+                messages, Optional[List[models.MessageInput]]
+            ),
             metadata=utils.unmarshal(metadata, Optional[Dict[str, Any]]),
         )
 
@@ -1710,7 +1732,7 @@ class ClientAgents(BaseSDK):
         agent_id: str,
         input: Optional[Mapping[str, Any]] = None,
         messages: Optional[
-            Union[Iterable[models.Message], Iterable[models.MessageTypedDict]]
+            Union[Iterable[models.MessageInput], Iterable[models.MessageInputTypedDict]]
         ] = None,
         metadata: Optional[Mapping[str, Any]] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
@@ -1744,7 +1766,9 @@ class ClientAgents(BaseSDK):
         request = models.AgentRunCreate(
             agent_id=agent_id,
             input=utils.unmarshal(input, Optional[Dict[str, Any]]),
-            messages=utils.get_pydantic_model(messages, Optional[List[models.Message]]),
+            messages=utils.get_pydantic_model(
+                messages, Optional[List[models.MessageInput]]
+            ),
             metadata=utils.unmarshal(metadata, Optional[Dict[str, Any]]),
         )
 

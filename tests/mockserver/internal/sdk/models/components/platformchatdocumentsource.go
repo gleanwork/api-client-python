@@ -33,9 +33,9 @@ func (e *PlatformChatDocumentSourceType2) UnmarshalJSON(data []byte) error {
 }
 
 type PlatformChatDocumentSourceDocument2 struct {
+	URL        string                          `json:"url"`
 	Type       PlatformChatDocumentSourceType2 `json:"type"`
 	DocumentID *string                         `json:"document_id,omitempty"`
-	URL        string                          `json:"url"`
 	Title      *string                         `json:"title,omitempty"`
 	Datasource *string                         `json:"datasource,omitempty"`
 }
@@ -45,10 +45,17 @@ func (p PlatformChatDocumentSourceDocument2) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PlatformChatDocumentSourceDocument2) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"type", "url"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"url", "type"}); err != nil {
 		return err
 	}
 	return nil
+}
+
+func (o *PlatformChatDocumentSourceDocument2) GetURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.URL
 }
 
 func (o *PlatformChatDocumentSourceDocument2) GetType() PlatformChatDocumentSourceType2 {
@@ -63,13 +70,6 @@ func (o *PlatformChatDocumentSourceDocument2) GetDocumentID() *string {
 		return nil
 	}
 	return o.DocumentID
-}
-
-func (o *PlatformChatDocumentSourceDocument2) GetURL() string {
-	if o == nil {
-		return ""
-	}
-	return o.URL
 }
 
 func (o *PlatformChatDocumentSourceDocument2) GetTitle() *string {
@@ -110,8 +110,8 @@ func (e *PlatformChatDocumentSourceType1) UnmarshalJSON(data []byte) error {
 }
 
 type PlatformChatDocumentSourceDocument1 struct {
-	Type       PlatformChatDocumentSourceType1 `json:"type"`
 	DocumentID string                          `json:"document_id"`
+	Type       PlatformChatDocumentSourceType1 `json:"type"`
 	URL        *string                         `json:"url,omitempty"`
 	Title      *string                         `json:"title,omitempty"`
 	Datasource *string                         `json:"datasource,omitempty"`
@@ -122,17 +122,10 @@ func (p PlatformChatDocumentSourceDocument1) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PlatformChatDocumentSourceDocument1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"type", "document_id"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"document_id", "type"}); err != nil {
 		return err
 	}
 	return nil
-}
-
-func (o *PlatformChatDocumentSourceDocument1) GetType() PlatformChatDocumentSourceType1 {
-	if o == nil {
-		return PlatformChatDocumentSourceType1("")
-	}
-	return o.Type
 }
 
 func (o *PlatformChatDocumentSourceDocument1) GetDocumentID() string {
@@ -140,6 +133,13 @@ func (o *PlatformChatDocumentSourceDocument1) GetDocumentID() string {
 		return ""
 	}
 	return o.DocumentID
+}
+
+func (o *PlatformChatDocumentSourceDocument1) GetType() PlatformChatDocumentSourceType1 {
+	if o == nil {
+		return PlatformChatDocumentSourceType1("")
+	}
+	return o.Type
 }
 
 func (o *PlatformChatDocumentSourceDocument1) GetURL() *string {

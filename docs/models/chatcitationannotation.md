@@ -1,0 +1,12 @@
+# ChatCitationAnnotation
+
+
+## Fields
+
+| Field                                                                        | Type                                                                         | Required                                                                     | Description                                                                  |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `type`                                                                       | [models.ChatCitationAnnotationType](../models/chatcitationannotationtype.md) | :heavy_check_mark:                                                           | N/A                                                                          |
+| `sources`                                                                    | List[[models.ChatCitationSource](../models/chatcitationsource.md)]           | :heavy_check_mark:                                                           | N/A                                                                          |
+| `start_index`                                                                | *OptionalNullable[int]*                                                      | :heavy_minus_sign:                                                           | N/A                                                                          |
+| `end_index`                                                                  | *OptionalNullable[int]*                                                      | :heavy_minus_sign:                                                           | N/A                                                                          |
+| `snippets`                                                                   | List[[models.ChatCitationSnippet](../models/chatcitationsnippet.md)]         | :heavy_minus_sign:                                                           | N/A                                                                          |

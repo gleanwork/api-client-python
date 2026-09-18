@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 from .importagentsyncmode import ImportAgentSyncMode
+from enum import Enum
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 from glean.api_client.utils import FieldMetadata, MultipartFormMetadata
 import io
@@ -51,6 +52,13 @@ class Bundle(BaseModel):
         return m
 
 
+class VersionSource(str, Enum):
+    r"""Provenance recorded on the staged commit or published version this import produces. Doesn't change the agent's management mode (workflowSource). GIT: synced from a Git repository. USER: uploaded by a user. Defaults to USER when omitted. Ignored for transient imports."""
+
+    GIT = "GIT"
+    USER = "USER"
+
+
 class ImportAgentRequestTypedDict(TypedDict):
     bundle: BundleTypedDict
     r"""Zip of the agent folder (spec.yaml, instructions.md, skills/, subagents/) with symlinks dereferenced.
@@ -64,6 +72,14 @@ class ImportAgentRequestTypedDict(TypedDict):
     r"""Optional commit message for the imported version."""
     sync_mode: NotRequired[ImportAgentSyncMode]
     r"""Whether the imported version is staged (saved without updating the live version) or published directly to the live version.
+
+    """
+    version_source: NotRequired[VersionSource]
+    r"""Provenance recorded on the staged commit or published version this import produces. Doesn't change the agent's management mode (workflowSource). GIT: synced from a Git repository. USER: uploaded by a user. Defaults to USER when omitted. Ignored for transient imports.
+
+    """
+    published_baseline_hash: NotRequired[str]
+    r"""Optional baseline hash of the currently published agent definition. When publish hash validation is enabled, an import updating an existing agent with syncMode PUBLISHED is rejected with HTTP 409 if the current published definition hash is nonempty and does not match this baseline. Leading and trailing whitespace is trimmed; omitted or blank values skip validation. Ignored for STAGED imports, new agents, and transient previews.
 
     """
     is_draft: NotRequired[bool]
@@ -108,6 +124,24 @@ class ImportAgentRequest(BaseModel):
 
     """
 
+    version_source: Annotated[
+        Optional[VersionSource],
+        pydantic.Field(alias="versionSource"),
+        FieldMetadata(multipart=True),
+    ] = VersionSource.USER
+    r"""Provenance recorded on the staged commit or published version this import produces. Doesn't change the agent's management mode (workflowSource). GIT: synced from a Git repository. USER: uploaded by a user. Defaults to USER when omitted. Ignored for transient imports.
+
+    """
+
+    published_baseline_hash: Annotated[
+        Optional[str],
+        pydantic.Field(alias="publishedBaselineHash"),
+        FieldMetadata(multipart=True),
+    ] = None
+    r"""Optional baseline hash of the currently published agent definition. When publish hash validation is enabled, an import updating an existing agent with syncMode PUBLISHED is rejected with HTTP 409 if the current published definition hash is nonempty and does not match this baseline. Leading and trailing whitespace is trimmed; omitted or blank values skip validation. Ignored for STAGED imports, new agents, and transient previews.
+
+    """
+
     is_draft: Annotated[
         Optional[bool], pydantic.Field(alias="isDraft"), FieldMetadata(multipart=True)
     ] = None
@@ -118,7 +152,15 @@ class ImportAgentRequest(BaseModel):
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["gitCommitSha", "gitAuthorId", "commitMessage", "syncMode", "isDraft"]
+            [
+                "gitCommitSha",
+                "gitAuthorId",
+                "commitMessage",
+                "syncMode",
+                "versionSource",
+                "publishedBaselineHash",
+                "isDraft",
+            ]
         )
         serialized = handler(self)
         m = {}

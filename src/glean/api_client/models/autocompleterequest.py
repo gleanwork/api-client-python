@@ -40,9 +40,7 @@ class AutocompleteRequestTypedDict(TypedDict):
     result_types: NotRequired[List[AutocompleteRequestResultType]]
     r"""Filter to only return results of the given type(s). All types may be returned if omitted."""
     result_size: NotRequired[int]
-    r"""Maximum number of results to be returned. If no value is provided, the backend will cap at 200.
-
-    """
+    r"""Maximum number of results to be returned. If no value is provided, the backend will cap at 200."""
     auth_tokens: NotRequired[List[AuthTokenTypedDict]]
     r"""Auth tokens which may be used for federated results."""
 
@@ -74,9 +72,7 @@ class AutocompleteRequest(BaseModel):
     r"""Filter to only return results of the given type(s). All types may be returned if omitted."""
 
     result_size: Annotated[Optional[int], pydantic.Field(alias="resultSize")] = None
-    r"""Maximum number of results to be returned. If no value is provided, the backend will cap at 200.
-
-    """
+    r"""Maximum number of results to be returned. If no value is provided, the backend will cap at 200."""
 
     auth_tokens: Annotated[
         Optional[List[AuthToken]], pydantic.Field(alias="authTokens")

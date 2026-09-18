@@ -13,17 +13,17 @@ class PlatformChatDocumentSourceType2(str, Enum):
 
 
 class PlatformChatDocumentSourceDocument2TypedDict(TypedDict):
-    type: PlatformChatDocumentSourceType2
     url: str
+    type: PlatformChatDocumentSourceType2
     document_id: NotRequired[str]
     title: NotRequired[str]
     datasource: NotRequired[str]
 
 
 class PlatformChatDocumentSourceDocument2(BaseModel):
-    type: PlatformChatDocumentSourceType2
-
     url: str
+
+    type: PlatformChatDocumentSourceType2
 
     document_id: Optional[str] = None
 
@@ -53,17 +53,17 @@ class PlatformChatDocumentSourceType1(str, Enum):
 
 
 class PlatformChatDocumentSourceDocument1TypedDict(TypedDict):
-    type: PlatformChatDocumentSourceType1
     document_id: str
+    type: PlatformChatDocumentSourceType1
     url: NotRequired[str]
     title: NotRequired[str]
     datasource: NotRequired[str]
 
 
 class PlatformChatDocumentSourceDocument1(BaseModel):
-    type: PlatformChatDocumentSourceType1
-
     document_id: str
+
+    type: PlatformChatDocumentSourceType1
 
     url: Optional[str] = None
 
