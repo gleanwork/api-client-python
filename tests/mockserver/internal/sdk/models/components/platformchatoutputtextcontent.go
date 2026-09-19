@@ -5,6 +5,7 @@ package components
 import (
 	"encoding/json"
 	"fmt"
+	"mockserver/internal/sdk/optionalnullable"
 	"mockserver/internal/sdk/utils"
 )
 
@@ -31,10 +32,28 @@ func (e *PlatformChatOutputTextContentType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// StructuredOutput - Parsed and validated JSON object when structured output was requested. Present only when the request included `text.format.type: JSON_SCHEMA`.
+type StructuredOutput struct {
+}
+
+func (s StructuredOutput) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *StructuredOutput) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 type PlatformChatOutputTextContent struct {
-	Type        PlatformChatOutputTextContentType `json:"type"`
-	Text        string                            `json:"text"`
-	Annotations []PlatformChatCitationAnnotation  `json:"annotations,omitempty"`
+	Type PlatformChatOutputTextContentType `json:"type"`
+	Text string                            `json:"text"`
+	// Parsed and validated JSON object when structured output was requested. Present only when the request included `text.format.type: JSON_SCHEMA`.
+	//
+	StructuredOutput optionalnullable.OptionalNullable[StructuredOutput] `json:"structured_output,omitempty"`
+	Annotations      []PlatformChatCitationAnnotation                    `json:"annotations,omitempty"`
 }
 
 func (p PlatformChatOutputTextContent) MarshalJSON() ([]byte, error) {
@@ -60,6 +79,13 @@ func (o *PlatformChatOutputTextContent) GetText() string {
 		return ""
 	}
 	return o.Text
+}
+
+func (o *PlatformChatOutputTextContent) GetStructuredOutput() optionalnullable.OptionalNullable[StructuredOutput] {
+	if o == nil {
+		return nil
+	}
+	return o.StructuredOutput
 }
 
 func (o *PlatformChatOutputTextContent) GetAnnotations() []PlatformChatCitationAnnotation {
