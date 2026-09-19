@@ -3,6 +3,7 @@
 package operations
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"mockserver/internal/sdk/models/components"
@@ -74,6 +75,120 @@ func (u PlatformChatCreateInput) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type PlatformChatCreateInput: all fields are null")
 }
 
+type PlatformChatCreateFormatType string
+
+const (
+	PlatformChatCreateFormatTypeText       PlatformChatCreateFormatType = "TEXT"
+	PlatformChatCreateFormatTypeJSONSchema PlatformChatCreateFormatType = "JSON_SCHEMA"
+)
+
+// PlatformChatCreateFormat - Output format for the assistant text. TEXT is unconstrained. JSON_SCHEMA constrains the response to the supplied schema.
+type PlatformChatCreateFormat struct {
+	PlatformChatTextFormat       *components.PlatformChatTextFormat       `queryParam:"inline"`
+	PlatformChatJSONSchemaFormat *components.PlatformChatJSONSchemaFormat `queryParam:"inline"`
+
+	Type PlatformChatCreateFormatType
+}
+
+func CreatePlatformChatCreateFormatText(text components.PlatformChatTextFormat) PlatformChatCreateFormat {
+	typ := PlatformChatCreateFormatTypeText
+
+	typStr := components.PlatformChatTextFormatType(typ)
+	text.Type = typStr
+
+	return PlatformChatCreateFormat{
+		PlatformChatTextFormat: &text,
+		Type:                   typ,
+	}
+}
+
+func CreatePlatformChatCreateFormatJSONSchema(jsonSchema components.PlatformChatJSONSchemaFormat) PlatformChatCreateFormat {
+	typ := PlatformChatCreateFormatTypeJSONSchema
+
+	typStr := components.PlatformChatJSONSchemaFormatType(typ)
+	jsonSchema.Type = typStr
+
+	return PlatformChatCreateFormat{
+		PlatformChatJSONSchemaFormat: &jsonSchema,
+		Type:                         typ,
+	}
+}
+
+func (u *PlatformChatCreateFormat) UnmarshalJSON(data []byte) error {
+
+	type discriminator struct {
+		Type string `json:"type"`
+	}
+
+	dis := new(discriminator)
+	if err := json.Unmarshal(data, &dis); err != nil {
+		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+	}
+
+	switch dis.Type {
+	case "TEXT":
+		platformChatTextFormat := new(components.PlatformChatTextFormat)
+		if err := utils.UnmarshalJSON(data, &platformChatTextFormat, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == TEXT) type components.PlatformChatTextFormat within PlatformChatCreateFormat: %w", string(data), err)
+		}
+
+		u.PlatformChatTextFormat = platformChatTextFormat
+		u.Type = PlatformChatCreateFormatTypeText
+		return nil
+	case "JSON_SCHEMA":
+		platformChatJSONSchemaFormat := new(components.PlatformChatJSONSchemaFormat)
+		if err := utils.UnmarshalJSON(data, &platformChatJSONSchemaFormat, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == JSON_SCHEMA) type components.PlatformChatJSONSchemaFormat within PlatformChatCreateFormat: %w", string(data), err)
+		}
+
+		u.PlatformChatJSONSchemaFormat = platformChatJSONSchemaFormat
+		u.Type = PlatformChatCreateFormatTypeJSONSchema
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for PlatformChatCreateFormat", string(data))
+}
+
+func (u PlatformChatCreateFormat) MarshalJSON() ([]byte, error) {
+	if u.PlatformChatTextFormat != nil {
+		return utils.MarshalJSON(u.PlatformChatTextFormat, "", true)
+	}
+
+	if u.PlatformChatJSONSchemaFormat != nil {
+		return utils.MarshalJSON(u.PlatformChatJSONSchemaFormat, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type PlatformChatCreateFormat: all fields are null")
+}
+
+// PlatformChatCreateText - Optional configuration for the assistant's text response. When `format.type` is `JSON_SCHEMA`, the response is constrained to the supplied JSON schema and returned in `output[*].content[*].structured_output`. Structured output is not supported when `stream` is true.
+type PlatformChatCreateText struct {
+	// Output format for the assistant text. TEXT is unconstrained. JSON_SCHEMA constrains the response to the supplied schema.
+	//
+	Format *PlatformChatCreateFormat `json:"format,omitempty"`
+}
+
+func (o *PlatformChatCreateText) GetFormat() *PlatformChatCreateFormat {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *PlatformChatCreateText) GetFormatText() *components.PlatformChatTextFormat {
+	if v := o.GetFormat(); v != nil {
+		return v.PlatformChatTextFormat
+	}
+	return nil
+}
+
+func (o *PlatformChatCreateText) GetFormatJSONSchema() *components.PlatformChatJSONSchemaFormat {
+	if v := o.GetFormat(); v != nil {
+		return v.PlatformChatJSONSchemaFormat
+	}
+	return nil
+}
+
 type PlatformChatCreateRequest struct {
 	// Either a plain string (single user turn) or a chronological array of `USER`/`ASSISTANT` messages. The final array message must be `USER`.
 	//
@@ -85,6 +200,9 @@ type PlatformChatCreateRequest struct {
 	// Continue an existing stored conversation. Incompatible with message-array `input` and with `store: false`.
 	//
 	ConversationID *string `json:"conversation_id,omitempty"`
+	// Optional configuration for the assistant's text response. When `format.type` is `JSON_SCHEMA`, the response is constrained to the supplied JSON schema and returned in `output[*].content[*].structured_output`. Structured output is not supported when `stream` is true.
+	//
+	Text *PlatformChatCreateText `json:"text,omitempty"`
 }
 
 func (p PlatformChatCreateRequest) MarshalJSON() ([]byte, error) {
@@ -121,6 +239,13 @@ func (o *PlatformChatCreateRequest) GetConversationID() *string {
 		return nil
 	}
 	return o.ConversationID
+}
+
+func (o *PlatformChatCreateRequest) GetText() *PlatformChatCreateText {
+	if o == nil {
+		return nil
+	}
+	return o.Text
 }
 
 type PlatformChatCreateResponse struct {

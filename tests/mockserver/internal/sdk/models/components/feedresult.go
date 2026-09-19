@@ -63,6 +63,7 @@ const (
 	FeedResultCategoryEditDoc                      FeedResultCategory = "EDIT_DOC"
 	FeedResultCategoryChatToArtifact               FeedResultCategory = "CHAT_TO_ARTIFACT"
 	FeedResultCategoryShareArtifact                FeedResultCategory = "SHARE_ARTIFACT"
+	FeedResultCategoryCreateAgent                  FeedResultCategory = "CREATE_AGENT"
 )
 
 func (e FeedResultCategory) ToPointer() *FeedResultCategory {
@@ -177,6 +178,8 @@ func (e *FeedResultCategory) UnmarshalJSON(data []byte) error {
 	case "CHAT_TO_ARTIFACT":
 		fallthrough
 	case "SHARE_ARTIFACT":
+		fallthrough
+	case "CREATE_AGENT":
 		*e = FeedResultCategory(v)
 		return nil
 	default:

@@ -159049,9 +159049,24 @@ workflows:
           requestBody:
             contentType: application/json
             payload:
-                input: What is our parental leave policy?
+                input: Summarize our parental leave policy as JSON.
                 store: true
                 stream: false
+                text:
+                    format:
+                        name: policy_summary
+                        schema:
+                            properties:
+                                duration_weeks:
+                                    type: integer
+                                eligible_employees:
+                                    type: string
+                            required:
+                                - eligible_employees
+                                - duration_weeks
+                            type: object
+                        strict: true
+                        type: JSON_SCHEMA
           successCriteria:
             - condition: $statusCode == 200
             - condition: $response.header.Content-Type == application/json

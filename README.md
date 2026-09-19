@@ -605,7 +605,7 @@ The stream is also a [Context Manager][context-manager] and can be used with the
 underlying connection when the context is exited.
 
 ```python
-from glean.api_client import Glean
+from glean.api_client import Glean, models
 import os
 
 
@@ -613,7 +613,28 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN", ""),
 ) as glean:
 
-    res = glean.chat.create_stream(input="What is our parental leave policy?", store=True)
+    res = glean.chat.create_stream(input="Summarize our parental leave policy as JSON.", store=True, text={
+        "format_": {
+            "type": models.PlatformChatJSONSchemaFormatType.JSON_SCHEMA,
+            "name": "policy_summary",
+            "schema_": {
+                "type": "object",
+                "properties": {
+                    "eligible_employees": {
+                        "type": "string",
+                    },
+                    "duration_weeks": {
+                        "type": "integer",
+                    },
+                },
+                "required": [
+                    "eligible_employees",
+                    "duration_weeks",
+                ],
+            },
+            "strict": True,
+        },
+    })
 
     with res as event_stream:
         for event in event_stream:
