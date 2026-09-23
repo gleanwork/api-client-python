@@ -18,6 +18,9 @@ class ChatSDK(BaseSDK):
         ],
         store: Optional[bool] = True,
         conversation_id: Optional[str] = None,
+        text: Optional[
+            Union[models.PlatformChatCreateText, models.PlatformChatCreateTextTypedDict]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -33,6 +36,8 @@ class ChatSDK(BaseSDK):
         :param store: When true (default), persist the interaction and return a `conversation_id`. When false, run ephemerally with no persistence.
 
         :param conversation_id: Continue an existing stored conversation. Incompatible with message-array `input` and with `store: false`.
+
+        :param text: Optional configuration for the assistant's text response. When `format.type` is `JSON_SCHEMA`, the response is constrained to the supplied JSON schema and returned in `output[*].content[*].structured_output`. Structured output is not supported when `stream` is true.
 
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -53,6 +58,9 @@ class ChatSDK(BaseSDK):
             input=utils.get_pydantic_model(input, models.PlatformChatCreateInput),
             store=store,
             conversation_id=conversation_id,
+            text=utils.get_pydantic_model(
+                text, Optional[models.PlatformChatCreateText]
+            ),
         )
 
         req = self._build_request(
@@ -139,6 +147,9 @@ class ChatSDK(BaseSDK):
         ],
         store: Optional[bool] = True,
         conversation_id: Optional[str] = None,
+        text: Optional[
+            Union[models.PlatformChatCreateText, models.PlatformChatCreateTextTypedDict]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -154,6 +165,8 @@ class ChatSDK(BaseSDK):
         :param store: When true (default), persist the interaction and return a `conversation_id`. When false, run ephemerally with no persistence.
 
         :param conversation_id: Continue an existing stored conversation. Incompatible with message-array `input` and with `store: false`.
+
+        :param text: Optional configuration for the assistant's text response. When `format.type` is `JSON_SCHEMA`, the response is constrained to the supplied JSON schema and returned in `output[*].content[*].structured_output`. Structured output is not supported when `stream` is true.
 
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -174,6 +187,9 @@ class ChatSDK(BaseSDK):
             input=utils.get_pydantic_model(input, models.PlatformChatCreateInput),
             store=store,
             conversation_id=conversation_id,
+            text=utils.get_pydantic_model(
+                text, Optional[models.PlatformChatCreateText]
+            ),
         )
 
         req = self._build_request_async(
@@ -261,6 +277,12 @@ class ChatSDK(BaseSDK):
         ],
         store: Optional[bool] = True,
         conversation_id: Optional[str] = None,
+        text: Optional[
+            Union[
+                models.PlatformChatCreateStreamText,
+                models.PlatformChatCreateStreamTextTypedDict,
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -276,6 +298,8 @@ class ChatSDK(BaseSDK):
         :param store: When true (default), persist the interaction and return a `conversation_id`. When false, run ephemerally with no persistence.
 
         :param conversation_id: Continue an existing stored conversation. Incompatible with message-array `input` and with `store: false`.
+
+        :param text: Optional configuration for the assistant's text response. When `format.type` is `JSON_SCHEMA`, the response is constrained to the supplied JSON schema and returned in `output[*].content[*].structured_output`. Structured output is not supported when `stream` is true.
 
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -296,6 +320,9 @@ class ChatSDK(BaseSDK):
             input=utils.get_pydantic_model(input, models.PlatformChatCreateStreamInput),
             store=store,
             conversation_id=conversation_id,
+            text=utils.get_pydantic_model(
+                text, Optional[models.PlatformChatCreateStreamText]
+            ),
         )
 
         req = self._build_request(
@@ -395,6 +422,12 @@ class ChatSDK(BaseSDK):
         ],
         store: Optional[bool] = True,
         conversation_id: Optional[str] = None,
+        text: Optional[
+            Union[
+                models.PlatformChatCreateStreamText,
+                models.PlatformChatCreateStreamTextTypedDict,
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -410,6 +443,8 @@ class ChatSDK(BaseSDK):
         :param store: When true (default), persist the interaction and return a `conversation_id`. When false, run ephemerally with no persistence.
 
         :param conversation_id: Continue an existing stored conversation. Incompatible with message-array `input` and with `store: false`.
+
+        :param text: Optional configuration for the assistant's text response. When `format.type` is `JSON_SCHEMA`, the response is constrained to the supplied JSON schema and returned in `output[*].content[*].structured_output`. Structured output is not supported when `stream` is true.
 
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -430,6 +465,9 @@ class ChatSDK(BaseSDK):
             input=utils.get_pydantic_model(input, models.PlatformChatCreateStreamInput),
             store=store,
             conversation_id=conversation_id,
+            text=utils.get_pydantic_model(
+                text, Optional[models.PlatformChatCreateStreamText]
+            ),
         )
 
         req = self._build_request_async(

@@ -5,6 +5,10 @@ from .platformagentruncreaterequest import (
     PlatformAgentRunCreateRequest,
     PlatformAgentRunCreateRequestTypedDict,
 )
+from .platformagentrunresponse import (
+    PlatformAgentRunResponse,
+    PlatformAgentRunResponseTypedDict,
+)
 from .platformagentrunwaitresponse import (
     PlatformAgentRunWaitResponse,
     PlatformAgentRunWaitResponseTypedDict,
@@ -35,10 +39,13 @@ class PlatformAgentsCreateRunRequest(BaseModel):
 
 PlatformAgentsCreateRunResponseTypedDict = TypeAliasType(
     "PlatformAgentsCreateRunResponseTypedDict",
-    Union[PlatformAgentRunWaitResponseTypedDict, str],
+    Union[
+        PlatformAgentRunResponseTypedDict, PlatformAgentRunWaitResponseTypedDict, str
+    ],
 )
 
 
 PlatformAgentsCreateRunResponse = TypeAliasType(
-    "PlatformAgentsCreateRunResponse", Union[PlatformAgentRunWaitResponse, str]
+    "PlatformAgentsCreateRunResponse",
+    Union[PlatformAgentRunResponse, PlatformAgentRunWaitResponse, str],
 )

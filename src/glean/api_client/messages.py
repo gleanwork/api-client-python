@@ -109,7 +109,7 @@ class Messages(BaseSDK):
                 tags=["Messages"],
                 extensions={
                     "x-codegen-request-body-name": "payload",
-                    "x-visibility": "Preview",
+                    "x-visibility": "Public",
                 },
             ),
             request=req,
@@ -227,7 +227,7 @@ class Messages(BaseSDK):
                 tags=["Messages"],
                 extensions={
                     "x-codegen-request-body-name": "payload",
-                    "x-visibility": "Preview",
+                    "x-visibility": "Public",
                 },
             ),
             request=req,

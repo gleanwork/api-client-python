@@ -93,7 +93,7 @@ class ClientDocuments(BaseSDK):
                 tags=["Documents"],
                 extensions={
                     "x-codegen-request-body-name": "payload",
-                    "x-visibility": "Preview",
+                    "x-visibility": "Public",
                 },
             ),
             request=req,
@@ -194,7 +194,7 @@ class ClientDocuments(BaseSDK):
                 tags=["Documents"],
                 extensions={
                     "x-codegen-request-body-name": "payload",
-                    "x-visibility": "Preview",
+                    "x-visibility": "Public",
                 },
             ),
             request=req,
@@ -509,7 +509,7 @@ class ClientDocuments(BaseSDK):
                 tags=["Documents"],
                 extensions={
                     "x-codegen-request-body-name": "payload",
-                    "x-visibility": "Preview",
+                    "x-visibility": "Public",
                 },
             ),
             request=req,
@@ -620,7 +620,7 @@ class ClientDocuments(BaseSDK):
                 tags=["Documents"],
                 extensions={
                     "x-codegen-request-body-name": "payload",
-                    "x-visibility": "Preview",
+                    "x-visibility": "Public",
                 },
             ),
             request=req,

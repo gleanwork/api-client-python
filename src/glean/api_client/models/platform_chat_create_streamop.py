@@ -5,10 +5,18 @@ from .platformchatinputmessage import (
     PlatformChatInputMessage,
     PlatformChatInputMessageTypedDict,
 )
+from .platformchatjsonschemaformat import (
+    PlatformChatJSONSchemaFormat,
+    PlatformChatJSONSchemaFormatTypedDict,
+)
+from .platformchattextformat import (
+    PlatformChatTextFormat,
+    PlatformChatTextFormatTypedDict,
+)
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
-from glean.api_client.utils import validate_const
+from glean.api_client.utils import get_discriminator, validate_const
 import pydantic
-from pydantic import model_serializer
+from pydantic import Discriminator, Tag, model_serializer
 from pydantic.functional_validators import AfterValidator
 from typing import List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
@@ -31,6 +39,63 @@ r"""Either a plain string (single user turn) or a chronological array of `USER`/
 """
 
 
+PlatformChatCreateStreamFormatTypedDict = TypeAliasType(
+    "PlatformChatCreateStreamFormatTypedDict",
+    Union[PlatformChatTextFormatTypedDict, PlatformChatJSONSchemaFormatTypedDict],
+)
+r"""Output format for the assistant text. TEXT is unconstrained. JSON_SCHEMA constrains the response to the supplied schema.
+
+"""
+
+
+PlatformChatCreateStreamFormat = Annotated[
+    Union[
+        Annotated[PlatformChatTextFormat, Tag("TEXT")],
+        Annotated[PlatformChatJSONSchemaFormat, Tag("JSON_SCHEMA")],
+    ],
+    Discriminator(lambda m: get_discriminator(m, "type", "type")),
+]
+r"""Output format for the assistant text. TEXT is unconstrained. JSON_SCHEMA constrains the response to the supplied schema.
+
+"""
+
+
+class PlatformChatCreateStreamTextTypedDict(TypedDict):
+    r"""Optional configuration for the assistant's text response. When `format.type` is `JSON_SCHEMA`, the response is constrained to the supplied JSON schema and returned in `output[*].content[*].structured_output`. Structured output is not supported when `stream` is true."""
+
+    format_: NotRequired[PlatformChatCreateStreamFormatTypedDict]
+    r"""Output format for the assistant text. TEXT is unconstrained. JSON_SCHEMA constrains the response to the supplied schema.
+
+    """
+
+
+class PlatformChatCreateStreamText(BaseModel):
+    r"""Optional configuration for the assistant's text response. When `format.type` is `JSON_SCHEMA`, the response is constrained to the supplied JSON schema and returned in `output[*].content[*].structured_output`. Structured output is not supported when `stream` is true."""
+
+    format_: Annotated[
+        Optional[PlatformChatCreateStreamFormat], pydantic.Field(alias="format")
+    ] = None
+    r"""Output format for the assistant text. TEXT is unconstrained. JSON_SCHEMA constrains the response to the supplied schema.
+
+    """
+
+    @model_serializer(mode="wrap")
+    def serialize_model(self, handler):
+        optional_fields = set(["format"])
+        serialized = handler(self)
+        m = {}
+
+        for n, f in type(self).model_fields.items():
+            k = f.alias or n
+            val = serialized.get(k, serialized.get(n))
+
+            if val != UNSET_SENTINEL:
+                if val is not None or k not in optional_fields:
+                    m[k] = val
+
+        return m
+
+
 class PlatformChatCreateStreamRequestTypedDict(TypedDict):
     input: PlatformChatCreateStreamInputTypedDict
     r"""Either a plain string (single user turn) or a chronological array of `USER`/`ASSISTANT` messages. The final array message must be `USER`.
@@ -43,6 +108,10 @@ class PlatformChatCreateStreamRequestTypedDict(TypedDict):
     """
     conversation_id: NotRequired[str]
     r"""Continue an existing stored conversation. Incompatible with message-array `input` and with `store: false`.
+
+    """
+    text: NotRequired[PlatformChatCreateStreamTextTypedDict]
+    r"""Optional configuration for the assistant's text response. When `format.type` is `JSON_SCHEMA`, the response is constrained to the supplied JSON schema and returned in `output[*].content[*].structured_output`. Structured output is not supported when `stream` is true.
 
     """
 
@@ -68,9 +137,14 @@ class PlatformChatCreateStreamRequest(BaseModel):
 
     """
 
+    text: Optional[PlatformChatCreateStreamText] = None
+    r"""Optional configuration for the assistant's text response. When `format.type` is `JSON_SCHEMA`, the response is constrained to the supplied JSON schema and returned in `output[*].content[*].structured_output`. Structured output is not supported when `stream` is true.
+
+    """
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["stream", "store", "conversation_id"])
+        optional_fields = set(["stream", "store", "conversation_id", "text"])
         serialized = handler(self)
         m = {}
 
@@ -85,6 +159,10 @@ class PlatformChatCreateStreamRequest(BaseModel):
         return m
 
 
+try:
+    PlatformChatCreateStreamText.model_rebuild()
+except NameError:
+    pass
 try:
     PlatformChatCreateStreamRequest.model_rebuild()
 except NameError:
