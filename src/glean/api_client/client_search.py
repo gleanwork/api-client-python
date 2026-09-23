@@ -144,7 +144,7 @@ class ClientSearch(BaseSDK):
                 tags=["Search"],
                 extensions={
                     "x-codegen-request-body-name": "payload",
-                    "x-visibility": "Preview",
+                    "x-visibility": "Public",
                 },
             ),
             request=req,
@@ -300,7 +300,7 @@ class ClientSearch(BaseSDK):
                 tags=["Search"],
                 extensions={
                     "x-codegen-request-body-name": "payload",
-                    "x-visibility": "Preview",
+                    "x-visibility": "Public",
                 },
             ),
             request=req,
@@ -945,7 +945,7 @@ class ClientSearch(BaseSDK):
                 tags=["Search"],
                 extensions={
                     "x-codegen-request-body-name": "payload",
-                    "x-visibility": "Preview",
+                    "x-visibility": "Public",
                 },
             ),
             request=req,
@@ -1088,7 +1088,7 @@ class ClientSearch(BaseSDK):
                 tags=["Search"],
                 extensions={
                     "x-codegen-request-body-name": "payload",
-                    "x-visibility": "Preview",
+                    "x-visibility": "Public",
                 },
             ),
             request=req,

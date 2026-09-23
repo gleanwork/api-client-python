@@ -2,10 +2,18 @@
 
 from __future__ import annotations
 from .platformmessage_input import PlatformMessageInput, PlatformMessageInputTypedDict
+from enum import Enum
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
 from pydantic import model_serializer
 from typing import Any, Dict, List, Optional
 from typing_extensions import NotRequired, TypedDict
+
+
+class ExecutionMode(str, Enum):
+    r"""REQUEST_BOUND preserves the existing wait/stream behavior. DURABLE starts a fresh, persisted execution with a 30-minute execution timeout and returns immediately. DURABLE requires stream to be false or omitted and does not accept metadata.chat_session_id. It does not bypass tool approval requirements or provide automatic QE-crash resumption. Expiry is read-triggered: the next GET of the run marks an active turn FAILED if more than 40 minutes have passed since the turn was accepted. There is no periodic sweep, so the stored run can remain RUNNING until it is read. Expiry never replays execution or expires approval-paused runs, and failure does not prove that external tool work has stopped."""
+
+    REQUEST_BOUND = "REQUEST_BOUND"
+    DURABLE = "DURABLE"
 
 
 class PlatformAgentRunCreateRequestTypedDict(TypedDict):
@@ -20,7 +28,11 @@ class PlatformAgentRunCreateRequestTypedDict(TypedDict):
     metadata: NotRequired[Dict[str, Any]]
     r"""Metadata to pass to the agent."""
     stream: NotRequired[bool]
-    r"""Whether to stream the run response as server-sent events."""
+    r"""Whether to stream the run response as server-sent events. Not supported in DURABLE mode."""
+    execution_mode: NotRequired[ExecutionMode]
+    r"""REQUEST_BOUND preserves the existing wait/stream behavior. DURABLE starts a fresh, persisted execution with a 30-minute execution timeout and returns immediately. DURABLE requires stream to be false or omitted and does not accept metadata.chat_session_id. It does not bypass tool approval requirements or provide automatic QE-crash resumption. Expiry is read-triggered: the next GET of the run marks an active turn FAILED if more than 40 minutes have passed since the turn was accepted. There is no periodic sweep, so the stored run can remain RUNNING until it is read. Expiry never replays execution or expires approval-paused runs, and failure does not prove that external tool work has stopped.
+
+    """
 
 
 class PlatformAgentRunCreateRequest(BaseModel):
@@ -38,11 +50,18 @@ class PlatformAgentRunCreateRequest(BaseModel):
     r"""Metadata to pass to the agent."""
 
     stream: Optional[bool] = False
-    r"""Whether to stream the run response as server-sent events."""
+    r"""Whether to stream the run response as server-sent events. Not supported in DURABLE mode."""
+
+    execution_mode: Optional[ExecutionMode] = ExecutionMode.REQUEST_BOUND
+    r"""REQUEST_BOUND preserves the existing wait/stream behavior. DURABLE starts a fresh, persisted execution with a 30-minute execution timeout and returns immediately. DURABLE requires stream to be false or omitted and does not accept metadata.chat_session_id. It does not bypass tool approval requirements or provide automatic QE-crash resumption. Expiry is read-triggered: the next GET of the run marks an active turn FAILED if more than 40 minutes have passed since the turn was accepted. There is no periodic sweep, so the stored run can remain RUNNING until it is read. Expiry never replays execution or expires approval-paused runs, and failure does not prove that external tool work has stopped.
+
+    """
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["input", "messages", "metadata", "stream"])
+        optional_fields = set(
+            ["input", "messages", "metadata", "stream", "execution_mode"]
+        )
         serialized = handler(self)
         m = {}
 

@@ -3,8 +3,37 @@
 package components
 
 import (
+	"encoding/json"
+	"fmt"
 	"mockserver/internal/sdk/utils"
 )
+
+// ExecutionMode - REQUEST_BOUND preserves the existing wait/stream behavior. DURABLE starts a fresh, persisted execution with a 30-minute execution timeout and returns immediately. DURABLE requires stream to be false or omitted and does not accept metadata.chat_session_id. It does not bypass tool approval requirements or provide automatic QE-crash resumption. Expiry is read-triggered: the next GET of the run marks an active turn FAILED if more than 40 minutes have passed since the turn was accepted. There is no periodic sweep, so the stored run can remain RUNNING until it is read. Expiry never replays execution or expires approval-paused runs, and failure does not prove that external tool work has stopped.
+type ExecutionMode string
+
+const (
+	ExecutionModeRequestBound ExecutionMode = "REQUEST_BOUND"
+	ExecutionModeDurable      ExecutionMode = "DURABLE"
+)
+
+func (e ExecutionMode) ToPointer() *ExecutionMode {
+	return &e
+}
+func (e *ExecutionMode) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "REQUEST_BOUND":
+		fallthrough
+	case "DURABLE":
+		*e = ExecutionMode(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for ExecutionMode: %v", v)
+	}
+}
 
 // PlatformAgentRunCreateRequest - Request to run an agent. A request MUST supply either `messages` (a non-empty conversation) or `input` (for input-form triggered agents).
 type PlatformAgentRunCreateRequest struct {
@@ -15,8 +44,11 @@ type PlatformAgentRunCreateRequest struct {
 	Messages []PlatformMessageInput `json:"messages,omitempty"`
 	// Metadata to pass to the agent.
 	Metadata map[string]any `json:"metadata,omitempty"`
-	// Whether to stream the run response as server-sent events.
+	// Whether to stream the run response as server-sent events. Not supported in DURABLE mode.
 	Stream *bool `default:"false" json:"stream"`
+	// REQUEST_BOUND preserves the existing wait/stream behavior. DURABLE starts a fresh, persisted execution with a 30-minute execution timeout and returns immediately. DURABLE requires stream to be false or omitted and does not accept metadata.chat_session_id. It does not bypass tool approval requirements or provide automatic QE-crash resumption. Expiry is read-triggered: the next GET of the run marks an active turn FAILED if more than 40 minutes have passed since the turn was accepted. There is no periodic sweep, so the stored run can remain RUNNING until it is read. Expiry never replays execution or expires approval-paused runs, and failure does not prove that external tool work has stopped.
+	//
+	ExecutionMode *ExecutionMode `default:"REQUEST_BOUND" json:"execution_mode"`
 }
 
 func (p PlatformAgentRunCreateRequest) MarshalJSON() ([]byte, error) {
@@ -56,4 +88,11 @@ func (o *PlatformAgentRunCreateRequest) GetStream() *bool {
 		return nil
 	}
 	return o.Stream
+}
+
+func (o *PlatformAgentRunCreateRequest) GetExecutionMode() *ExecutionMode {
+	if o == nil {
+		return nil
+	}
+	return o.ExecutionMode
 }

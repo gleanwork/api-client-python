@@ -667,6 +667,9 @@ class Agents(BaseSDK):
         ] = None,
         metadata: Optional[Mapping[str, Any]] = None,
         stream: Optional[bool] = False,
+        execution_mode: Optional[
+            models.ExecutionMode
+        ] = models.ExecutionMode.REQUEST_BOUND,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         accept_header_override: Optional[CreateRunAcceptEnum] = None,
@@ -675,7 +678,7 @@ class Agents(BaseSDK):
     ) -> models.PlatformAgentsCreateRunResponse:
         r"""Create agent run
 
-        Execute an agent run. Set `stream` to true to receive server-sent events; otherwise the response contains the final agent messages.
+        Execute an agent run. By default, set `stream` to true to receive server-sent events; otherwise the response contains the final agent messages. Set `execution_mode` to `DURABLE` to persist a new run and return its initial snapshot with HTTP 201 without waiting for execution. Poll the agent-scoped GET run endpoint for progress. Durable execution continues after an HTTP disconnect, but is not automatically resumed after a QE restart or crash. An active turn becomes overdue more than 40 minutes after acceptance (a 30-minute execution timeout plus 10 minutes of grace). The next GET of the run marks the overdue turn FAILED without replay; there is no periodic sweep. Without a GET, the stored run can remain RUNNING. Failure does not prove that external tool work has stopped. Paused runs are not expired; an accepted approval continuation starts a fresh deadline. Each POST creates a new run; retrying a POST can create another execution. Submit pending approval decisions through the run responses endpoint, and cancellation can be requested through the run cancellations endpoint. A run tracks one workflow execution; automatic background-subagent wake turns are separate executions, not continuations tracked by this run ID.
 
 
         :param agent_id: ID of the agent to run.
@@ -683,7 +686,9 @@ class Agents(BaseSDK):
         :param messages: Messages to pass to the agent. When provided, the array MUST contain at least one message and each message MUST specify a valid `role` and non-empty `content`.
 
         :param metadata: Metadata to pass to the agent.
-        :param stream: Whether to stream the run response as server-sent events.
+        :param stream: Whether to stream the run response as server-sent events. Not supported in DURABLE mode.
+        :param execution_mode: REQUEST_BOUND preserves the existing wait/stream behavior. DURABLE starts a fresh, persisted execution with a 30-minute execution timeout and returns immediately. DURABLE requires stream to be false or omitted and does not accept metadata.chat_session_id. It does not bypass tool approval requirements or provide automatic QE-crash resumption. Expiry is read-triggered: the next GET of the run marks an active turn FAILED if more than 40 minutes have passed since the turn was accepted. There is no periodic sweep, so the stored run can remain RUNNING until it is read. Expiry never replays execution or expires approval-paused runs, and failure does not prove that external tool work has stopped.
+
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -709,6 +714,7 @@ class Agents(BaseSDK):
                 ),
                 metadata=utils.unmarshal(metadata, Optional[Dict[str, Any]]),
                 stream=stream,
+                execution_mode=execution_mode,
             ),
         )
 
@@ -773,6 +779,8 @@ class Agents(BaseSDK):
             )
         if utils.match_response(http_res, "200", "text/event-stream"):
             return http_res.text
+        if utils.match_response(http_res, "201", "application/json"):
+            return unmarshal_json_response(models.PlatformAgentRunResponse, http_res)
         if utils.match_response(http_res, "422", "application/problem+json"):
             response_data = unmarshal_json_response(
                 errors.PlatformUnauthorizedAgentToolsProblemErrorData, http_res
@@ -816,6 +824,9 @@ class Agents(BaseSDK):
         ] = None,
         metadata: Optional[Mapping[str, Any]] = None,
         stream: Optional[bool] = False,
+        execution_mode: Optional[
+            models.ExecutionMode
+        ] = models.ExecutionMode.REQUEST_BOUND,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         accept_header_override: Optional[CreateRunAcceptEnum] = None,
@@ -824,7 +835,7 @@ class Agents(BaseSDK):
     ) -> models.PlatformAgentsCreateRunResponse:
         r"""Create agent run
 
-        Execute an agent run. Set `stream` to true to receive server-sent events; otherwise the response contains the final agent messages.
+        Execute an agent run. By default, set `stream` to true to receive server-sent events; otherwise the response contains the final agent messages. Set `execution_mode` to `DURABLE` to persist a new run and return its initial snapshot with HTTP 201 without waiting for execution. Poll the agent-scoped GET run endpoint for progress. Durable execution continues after an HTTP disconnect, but is not automatically resumed after a QE restart or crash. An active turn becomes overdue more than 40 minutes after acceptance (a 30-minute execution timeout plus 10 minutes of grace). The next GET of the run marks the overdue turn FAILED without replay; there is no periodic sweep. Without a GET, the stored run can remain RUNNING. Failure does not prove that external tool work has stopped. Paused runs are not expired; an accepted approval continuation starts a fresh deadline. Each POST creates a new run; retrying a POST can create another execution. Submit pending approval decisions through the run responses endpoint, and cancellation can be requested through the run cancellations endpoint. A run tracks one workflow execution; automatic background-subagent wake turns are separate executions, not continuations tracked by this run ID.
 
 
         :param agent_id: ID of the agent to run.
@@ -832,7 +843,9 @@ class Agents(BaseSDK):
         :param messages: Messages to pass to the agent. When provided, the array MUST contain at least one message and each message MUST specify a valid `role` and non-empty `content`.
 
         :param metadata: Metadata to pass to the agent.
-        :param stream: Whether to stream the run response as server-sent events.
+        :param stream: Whether to stream the run response as server-sent events. Not supported in DURABLE mode.
+        :param execution_mode: REQUEST_BOUND preserves the existing wait/stream behavior. DURABLE starts a fresh, persisted execution with a 30-minute execution timeout and returns immediately. DURABLE requires stream to be false or omitted and does not accept metadata.chat_session_id. It does not bypass tool approval requirements or provide automatic QE-crash resumption. Expiry is read-triggered: the next GET of the run marks an active turn FAILED if more than 40 minutes have passed since the turn was accepted. There is no periodic sweep, so the stored run can remain RUNNING until it is read. Expiry never replays execution or expires approval-paused runs, and failure does not prove that external tool work has stopped.
+
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -858,6 +871,7 @@ class Agents(BaseSDK):
                 ),
                 metadata=utils.unmarshal(metadata, Optional[Dict[str, Any]]),
                 stream=stream,
+                execution_mode=execution_mode,
             ),
         )
 
@@ -922,6 +936,8 @@ class Agents(BaseSDK):
             )
         if utils.match_response(http_res, "200", "text/event-stream"):
             return http_res.text
+        if utils.match_response(http_res, "201", "application/json"):
+            return unmarshal_json_response(models.PlatformAgentRunResponse, http_res)
         if utils.match_response(http_res, "422", "application/problem+json"):
             response_data = unmarshal_json_response(
                 errors.PlatformUnauthorizedAgentToolsProblemErrorData, http_res
@@ -929,6 +945,694 @@ class Agents(BaseSDK):
             raise errors.PlatformUnauthorizedAgentToolsProblemError(
                 response_data, http_res
             )
+        if utils.match_response(
+            http_res,
+            ["400", "401", "403", "404", "408", "409", "413", "429"],
+            "application/problem+json",
+        ):
+            response_data = unmarshal_json_response(
+                errors.PlatformProblemDetailErrorData, http_res
+            )
+            raise errors.PlatformProblemDetailError(response_data, http_res)
+        if utils.match_response(http_res, ["500", "503"], "application/problem+json"):
+            response_data = unmarshal_json_response(
+                errors.PlatformProblemDetailErrorData, http_res
+            )
+            raise errors.PlatformProblemDetailError(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
+
+        raise errors.GleanError("Unexpected response received", http_res)
+
+    def get_run(
+        self,
+        *,
+        agent_id: str,
+        run_id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.PlatformAgentRunResponse:
+        r"""Get agent run
+
+        Retrieve a persisted workflow execution owned by the authenticated user. The run must belong to the specified agent, and the user must still have access to that agent. Unknown runs, runs owned by another user, and mismatched agent/run identifiers return 404. Requires the agents.run scope. Executions without a persisted workflow record are not available through this endpoint.
+
+
+        :param agent_id: ID of the agent that owns the run.
+        :param run_id: ID of the durable run to retrieve.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.PlatformAgentsGetRunRequest(
+            agent_id=agent_id,
+            run_id=run_id,
+        )
+
+        req = self._build_request(
+            method="GET",
+            path="/api/agents/{agent_id}/runs/{run_id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="platform-agents-get-run",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Agents"],
+                extensions={"x-visibility": "Public"},
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.PlatformAgentRunResponse, http_res)
+        if utils.match_response(
+            http_res,
+            ["400", "401", "403", "404", "408", "429"],
+            "application/problem+json",
+        ):
+            response_data = unmarshal_json_response(
+                errors.PlatformProblemDetailErrorData, http_res
+            )
+            raise errors.PlatformProblemDetailError(response_data, http_res)
+        if utils.match_response(http_res, ["500", "503"], "application/problem+json"):
+            response_data = unmarshal_json_response(
+                errors.PlatformProblemDetailErrorData, http_res
+            )
+            raise errors.PlatformProblemDetailError(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
+
+        raise errors.GleanError("Unexpected response received", http_res)
+
+    async def get_run_async(
+        self,
+        *,
+        agent_id: str,
+        run_id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.PlatformAgentRunResponse:
+        r"""Get agent run
+
+        Retrieve a persisted workflow execution owned by the authenticated user. The run must belong to the specified agent, and the user must still have access to that agent. Unknown runs, runs owned by another user, and mismatched agent/run identifiers return 404. Requires the agents.run scope. Executions without a persisted workflow record are not available through this endpoint.
+
+
+        :param agent_id: ID of the agent that owns the run.
+        :param run_id: ID of the durable run to retrieve.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.PlatformAgentsGetRunRequest(
+            agent_id=agent_id,
+            run_id=run_id,
+        )
+
+        req = self._build_request_async(
+            method="GET",
+            path="/api/agents/{agent_id}/runs/{run_id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="platform-agents-get-run",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Agents"],
+                extensions={"x-visibility": "Public"},
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.PlatformAgentRunResponse, http_res)
+        if utils.match_response(
+            http_res,
+            ["400", "401", "403", "404", "408", "429"],
+            "application/problem+json",
+        ):
+            response_data = unmarshal_json_response(
+                errors.PlatformProblemDetailErrorData, http_res
+            )
+            raise errors.PlatformProblemDetailError(response_data, http_res)
+        if utils.match_response(http_res, ["500", "503"], "application/problem+json"):
+            response_data = unmarshal_json_response(
+                errors.PlatformProblemDetailErrorData, http_res
+            )
+            raise errors.PlatformProblemDetailError(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
+
+        raise errors.GleanError("Unexpected response received", http_res)
+
+    def cancel_run(
+        self,
+        *,
+        agent_id: str,
+        run_id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.PlatformAgentRunResponse:
+        r"""Cancel an agent run
+
+        Request cooperative cancellation of the durable agent run identified by `run_id` in the JSON body. Requires ownership, current agent access, and the agents.run scope. Sending a cancellation signal does not itself change an active run from RUNNING; poll GET run for the final state. Paused runs become CANCELLED without resuming execution. Repeated requests and requests for terminal runs return the current snapshot. Completion may win a race with cancellation. Completed tool side effects cannot be undone, and external work may continue if a tool does not support cancellation. Cancellation targets this run, not separate background-subagent executions. An active run without a cancellation registration returns 409. Cancellation signaling requires Redis. An interrupted active run can instead become FAILED through deadline cleanup; this does not verify that external tool work has stopped.
+
+
+        :param agent_id: ID of the agent that owns the run.
+        :param run_id: ID of the run to cancel. Must belong to the agent identified in the path.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.PlatformAgentsCancelRunRequest(
+            agent_id=agent_id,
+            platform_agent_run_cancellation_request=models.PlatformAgentRunCancellationRequest(
+                run_id=run_id,
+            ),
+        )
+
+        req = self._build_request(
+            method="POST",
+            path="/api/agents/{agent_id}/cancellations",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.platform_agent_run_cancellation_request,
+                False,
+                False,
+                "json",
+                models.PlatformAgentRunCancellationRequest,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="platform-agents-cancel-run",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Agents"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.PlatformAgentRunResponse, http_res)
+        if utils.match_response(
+            http_res,
+            ["400", "401", "403", "404", "408", "409", "413", "429"],
+            "application/problem+json",
+        ):
+            response_data = unmarshal_json_response(
+                errors.PlatformProblemDetailErrorData, http_res
+            )
+            raise errors.PlatformProblemDetailError(response_data, http_res)
+        if utils.match_response(http_res, ["500", "503"], "application/problem+json"):
+            response_data = unmarshal_json_response(
+                errors.PlatformProblemDetailErrorData, http_res
+            )
+            raise errors.PlatformProblemDetailError(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
+
+        raise errors.GleanError("Unexpected response received", http_res)
+
+    async def cancel_run_async(
+        self,
+        *,
+        agent_id: str,
+        run_id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.PlatformAgentRunResponse:
+        r"""Cancel an agent run
+
+        Request cooperative cancellation of the durable agent run identified by `run_id` in the JSON body. Requires ownership, current agent access, and the agents.run scope. Sending a cancellation signal does not itself change an active run from RUNNING; poll GET run for the final state. Paused runs become CANCELLED without resuming execution. Repeated requests and requests for terminal runs return the current snapshot. Completion may win a race with cancellation. Completed tool side effects cannot be undone, and external work may continue if a tool does not support cancellation. Cancellation targets this run, not separate background-subagent executions. An active run without a cancellation registration returns 409. Cancellation signaling requires Redis. An interrupted active run can instead become FAILED through deadline cleanup; this does not verify that external tool work has stopped.
+
+
+        :param agent_id: ID of the agent that owns the run.
+        :param run_id: ID of the run to cancel. Must belong to the agent identified in the path.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.PlatformAgentsCancelRunRequest(
+            agent_id=agent_id,
+            platform_agent_run_cancellation_request=models.PlatformAgentRunCancellationRequest(
+                run_id=run_id,
+            ),
+        )
+
+        req = self._build_request_async(
+            method="POST",
+            path="/api/agents/{agent_id}/cancellations",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.platform_agent_run_cancellation_request,
+                False,
+                False,
+                "json",
+                models.PlatformAgentRunCancellationRequest,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="platform-agents-cancel-run",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Agents"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-visibility": "Public",
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.PlatformAgentRunResponse, http_res)
+        if utils.match_response(
+            http_res,
+            ["400", "401", "403", "404", "408", "409", "413", "429"],
+            "application/problem+json",
+        ):
+            response_data = unmarshal_json_response(
+                errors.PlatformProblemDetailErrorData, http_res
+            )
+            raise errors.PlatformProblemDetailError(response_data, http_res)
+        if utils.match_response(http_res, ["500", "503"], "application/problem+json"):
+            response_data = unmarshal_json_response(
+                errors.PlatformProblemDetailErrorData, http_res
+            )
+            raise errors.PlatformProblemDetailError(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
+
+        raise errors.GleanError("Unexpected response received", http_res)
+
+    def respond_to_run(
+        self,
+        *,
+        agent_id: str,
+        run_id: str,
+        responses: Union[
+            Iterable[models.PlatformAgentRunApprovalDecision],
+            Iterable[models.PlatformAgentRunApprovalDecisionTypedDict],
+        ],
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.PlatformAgentRunResponse:
+        r"""Respond to agent run approvals
+
+        Submit decisions for every pending tool approval in the paused run's current batch. The run is identified by `run_id` in the JSON body. Decisions apply only to the stored invocations and arguments; argument edits, authentication responses, and session-wide grants are not supported. The caller must own the run, still have agent access, and have the agents.run scope. Acceptance persists the decisions before resuming the same run and chat session. Identical accepted decisions return the current snapshot without another continuation. Conflicting, stale, incomplete, or non-pending decisions return 409. Cancellation registration failure returns 503 without accepting the decisions; retry the same approval batch. This retry guarantee does not cover an indeterminate database commit outcome. Go workflow approval resumes currently support one tool invocation and one approval response. Unsupported multi-tool or multi-decision Go resumes fail without executing tools. The resumed action must resolve to the tool identified by the stored approval request and paused checkpoint. Missing or inconsistent identity fails without executing tools. Execution continues after HTTP disconnects, but is not automatically resumed after a QE crash. Each accepted continuation starts a fresh 30-minute execution timeout and 40-minute cleanup deadline. Identical retries do not extend that deadline. Waiting for approval does not expire a run. The next GET marks an overdue active turn FAILED without replaying execution.
+
+
+        :param agent_id: ID of the agent that owns the run.
+        :param run_id: ID of the run whose pending approvals are being answered. Must belong to the agent identified in the path.
+        :param responses: One decision per pending interaction. Interaction IDs must be unique.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.PlatformAgentsCreateRunResponsesRequest(
+            agent_id=agent_id,
+            platform_agent_run_responses_request=models.PlatformAgentRunResponsesRequest(
+                run_id=run_id,
+                responses=utils.get_pydantic_model(
+                    responses, List[models.PlatformAgentRunApprovalDecision]
+                ),
+            ),
+        )
+
+        req = self._build_request(
+            method="POST",
+            path="/api/agents/{agent_id}/responses",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.platform_agent_run_responses_request,
+                False,
+                False,
+                "json",
+                models.PlatformAgentRunResponsesRequest,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="platform-agents-create-run-responses",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Agents"],
+                extensions={"x-visibility": "Public"},
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.PlatformAgentRunResponse, http_res)
+        if utils.match_response(
+            http_res,
+            ["400", "401", "403", "404", "408", "409", "413", "429"],
+            "application/problem+json",
+        ):
+            response_data = unmarshal_json_response(
+                errors.PlatformProblemDetailErrorData, http_res
+            )
+            raise errors.PlatformProblemDetailError(response_data, http_res)
+        if utils.match_response(http_res, ["500", "503"], "application/problem+json"):
+            response_data = unmarshal_json_response(
+                errors.PlatformProblemDetailErrorData, http_res
+            )
+            raise errors.PlatformProblemDetailError(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
+
+        raise errors.GleanError("Unexpected response received", http_res)
+
+    async def respond_to_run_async(
+        self,
+        *,
+        agent_id: str,
+        run_id: str,
+        responses: Union[
+            Iterable[models.PlatformAgentRunApprovalDecision],
+            Iterable[models.PlatformAgentRunApprovalDecisionTypedDict],
+        ],
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.PlatformAgentRunResponse:
+        r"""Respond to agent run approvals
+
+        Submit decisions for every pending tool approval in the paused run's current batch. The run is identified by `run_id` in the JSON body. Decisions apply only to the stored invocations and arguments; argument edits, authentication responses, and session-wide grants are not supported. The caller must own the run, still have agent access, and have the agents.run scope. Acceptance persists the decisions before resuming the same run and chat session. Identical accepted decisions return the current snapshot without another continuation. Conflicting, stale, incomplete, or non-pending decisions return 409. Cancellation registration failure returns 503 without accepting the decisions; retry the same approval batch. This retry guarantee does not cover an indeterminate database commit outcome. Go workflow approval resumes currently support one tool invocation and one approval response. Unsupported multi-tool or multi-decision Go resumes fail without executing tools. The resumed action must resolve to the tool identified by the stored approval request and paused checkpoint. Missing or inconsistent identity fails without executing tools. Execution continues after HTTP disconnects, but is not automatically resumed after a QE crash. Each accepted continuation starts a fresh 30-minute execution timeout and 40-minute cleanup deadline. Identical retries do not extend that deadline. Waiting for approval does not expire a run. The next GET marks an overdue active turn FAILED without replaying execution.
+
+
+        :param agent_id: ID of the agent that owns the run.
+        :param run_id: ID of the run whose pending approvals are being answered. Must belong to the agent identified in the path.
+        :param responses: One decision per pending interaction. Interaction IDs must be unique.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.PlatformAgentsCreateRunResponsesRequest(
+            agent_id=agent_id,
+            platform_agent_run_responses_request=models.PlatformAgentRunResponsesRequest(
+                run_id=run_id,
+                responses=utils.get_pydantic_model(
+                    responses, List[models.PlatformAgentRunApprovalDecision]
+                ),
+            ),
+        )
+
+        req = self._build_request_async(
+            method="POST",
+            path="/api/agents/{agent_id}/responses",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request.platform_agent_run_responses_request,
+                False,
+                False,
+                "json",
+                models.PlatformAgentRunResponsesRequest,
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="platform-agents-create-run-responses",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Agents"],
+                extensions={"x-visibility": "Public"},
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.PlatformAgentRunResponse, http_res)
         if utils.match_response(
             http_res,
             ["400", "401", "403", "404", "408", "409", "413", "429"],

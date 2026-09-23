@@ -65,3 +65,5 @@ value = FeedRequestCategory.DOCUMENT_SUGGESTION
 | `EDIT_DOC`                          | EDIT_DOC                            |
 | `CHAT_TO_ARTIFACT`                  | CHAT_TO_ARTIFACT                    |
 | `SHARE_ARTIFACT`                    | SHARE_ARTIFACT                      |
+| `CREATE_AGENT`                      | CREATE_AGENT                        |
+| `MANAGER_INVITE`                    | MANAGER_INVITE                      |

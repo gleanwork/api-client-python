@@ -142,5 +142,57 @@ def test_agents_platform_agents_create_run():
                 },
             ],
             stream=False,
+            execution_mode=models.ExecutionMode.REQUEST_BOUND,
+        )
+        assert res is not None
+
+
+def test_agents_platform_agents_get_run():
+    test_http_client = create_test_http_client("platform-agents-get-run")
+
+    with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
+        client=test_http_client,
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+    ) as glean:
+        assert glean is not None
+
+        res = glean.agents.get_run(agent_id="{agent_id}", run_id="{run_id}")
+        assert res is not None
+
+
+def test_agents_platform_agents_cancel_run():
+    test_http_client = create_test_http_client("platform-agents-cancel-run")
+
+    with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
+        client=test_http_client,
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+    ) as glean:
+        assert glean is not None
+
+        res = glean.agents.cancel_run(agent_id="{agent_id}", run_id="{run_id}")
+        assert res is not None
+
+
+def test_agents_platform_agents_create_run_responses():
+    test_http_client = create_test_http_client("platform-agents-create-run-responses")
+
+    with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
+        client=test_http_client,
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+    ) as glean:
+        assert glean is not None
+
+        res = glean.agents.respond_to_run(
+            agent_id="{agent_id}",
+            run_id="{run_id}",
+            responses=[
+                {
+                    "interaction_id": "{interaction_id}",
+                    "decision": models.Decision.APPROVE,
+                },
+            ],
         )
         assert res is not None

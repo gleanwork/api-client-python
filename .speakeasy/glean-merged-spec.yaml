@@ -2,8 +2,8 @@ openapi: 3.1.0
 info:
   version: "0.9.0"
   title: Glean API
-  x-source-commit-sha: 5f1d873383438dc574c1075f9476915610e56875
-  x-open-api-commit-sha: 6a8c8e16bbbca13a130766a72f307fb373b8256a
+  x-source-commit-sha: 600aa35531e44582cf056cb0531c04e7ec04d472
+  x-open-api-commit-sha: c9917479fd934576f376c1f21d0bb426ee4fd46e
   description: |
     # Introduction
     In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This is useful, for example, for doing permissions-aware search over content in internal tools that reside on-prem as well as for searching over applications that Glean does not currently support first class. In addition these APIs allow the customer to push organization data (people info, organization structure etc) into Glean.
@@ -179,7 +179,7 @@ paths:
         - Agents
       summary: Create agent run
       description: |
-        Execute an agent run. Set `stream` to true to receive server-sent events; otherwise the response contains the final agent messages.
+        Execute an agent run. By default, set `stream` to true to receive server-sent events; otherwise the response contains the final agent messages. Set `execution_mode` to `DURABLE` to persist a new run and return its initial snapshot with HTTP 201 without waiting for execution. Poll the agent-scoped GET run endpoint for progress. Durable execution continues after an HTTP disconnect, but is not automatically resumed after a QE restart or crash. An active turn becomes overdue more than 40 minutes after acceptance (a 30-minute execution timeout plus 10 minutes of grace). The next GET of the run marks the overdue turn FAILED without replay; there is no periodic sweep. Without a GET, the stored run can remain RUNNING. Failure does not prove that external tool work has stopped. Paused runs are not expired; an accepted approval continuation starts a fresh deadline. Each POST creates a new run; retrying a POST can create another execution. Submit pending approval decisions through the run responses endpoint, and cancellation can be requested through the run cancellations endpoint. A run tracks one workflow execution; automatic background-subagent wake turns are separate executions, not continuations tracked by this run ID.
       operationId: platform-agents-create-run
       x-visibility: Public
       x-codegen-request-body-name: payload
@@ -214,7 +214,6 @@ paths:
                   id: 1
                   event: message
                   data: {"messages":[{"role":"GLEAN_AI","content":[{"text":"Hello","type":"text"}]}]}
-
                   id: 2
                   event: message
                   data: {"messages":[{"role":"GLEAN_AI","content":[{"text":", I can help with HR policy questions.","type":"text"}]}]}
@@ -222,6 +221,13 @@ paths:
                   id: 3
                   event: run.failed
                   data: {"error":{"type":"https://developers.glean.com/errors/spend-limit-exceeded","title":"Spend Limit Exceeded","status":403,"detail":"You've reached the monthly limit set by your admin.","code":"spend_limit_exceeded","request_id":"req_123","documentation_url":"https://developers.glean.com/errors/spend-limit-exceeded"}}
+        "201":
+          description: |
+            Durable run persisted and started. The snapshot is immediately retrievable through GET /api/agents/{agent_id}/runs/{run_id}. Execution failures appear in the run state.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlatformAgentRunResponse"
         "400":
           $ref: "#/components/responses/PlatformBadRequest"
         "401":
@@ -250,6 +256,174 @@ paths:
           $ref: "#/components/responses/PlatformServiceUnavailable"
       x-speakeasy-group: agents
       x-speakeasy-name-override: createRun
+      security:
+        - APIToken: []
+  /api/agents/{agent_id}/runs/{run_id}:
+    get:
+      tags:
+        - Agents
+      summary: Get agent run
+      description: |
+        Retrieve a persisted workflow execution owned by the authenticated user. The run must belong to the specified agent, and the user must still have access to that agent. Unknown runs, runs owned by another user, and mismatched agent/run identifiers return 404. Requires the agents.run scope. Executions without a persisted workflow record are not available through this endpoint.
+      operationId: platform-agents-get-run
+      x-visibility: Public
+      parameters:
+        - in: path
+          name: agent_id
+          description: ID of the agent that owns the run.
+          required: true
+          example: "{agent_id}"
+          schema:
+            type: string
+            minLength: 1
+            maxLength: 256
+        - in: path
+          name: run_id
+          description: ID of the durable run to retrieve.
+          required: true
+          example: "{run_id}"
+          schema:
+            type: string
+            minLength: 1
+            maxLength: 256
+      responses:
+        "200":
+          description: Current persisted run snapshot. A failed execution is still a successful retrieval.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlatformAgentRunResponse"
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+      x-speakeasy-group: agents
+      x-speakeasy-name-override: getRun
+      security:
+        - APIToken: []
+  /api/agents/{agent_id}/cancellations:
+    post:
+      tags:
+        - Agents
+      summary: Cancel an agent run
+      description: |
+        Request cooperative cancellation of the durable agent run identified by `run_id` in the JSON body. Requires ownership, current agent access, and the agents.run scope. Sending a cancellation signal does not itself change an active run from RUNNING; poll GET run for the final state. Paused runs become CANCELLED without resuming execution. Repeated requests and requests for terminal runs return the current snapshot. Completion may win a race with cancellation. Completed tool side effects cannot be undone, and external work may continue if a tool does not support cancellation. Cancellation targets this run, not separate background-subagent executions. An active run without a cancellation registration returns 409. Cancellation signaling requires Redis. An interrupted active run can instead become FAILED through deadline cleanup; this does not verify that external tool work has stopped.
+      operationId: platform-agents-cancel-run
+      x-visibility: Public
+      x-codegen-request-body-name: payload
+      parameters:
+        - in: path
+          name: agent_id
+          description: ID of the agent that owns the run.
+          required: true
+          example: "{agent_id}"
+          schema:
+            type: string
+            minLength: 1
+            maxLength: 256
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PlatformAgentRunCancellationRequest"
+      responses:
+        "200":
+          description: Current run snapshot after requesting cancellation, or an unchanged terminal run.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlatformAgentRunResponse"
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+        "409":
+          $ref: "#/components/responses/PlatformConflict"
+        "413":
+          $ref: "#/components/responses/PlatformRequestTooLarge"
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+      x-speakeasy-group: agents
+      x-speakeasy-name-override: cancelRun
+      security:
+        - APIToken: []
+  /api/agents/{agent_id}/responses:
+    post:
+      tags:
+        - Agents
+      summary: Respond to agent run approvals
+      description: |
+        Submit decisions for every pending tool approval in the paused run's current batch. The run is identified by `run_id` in the JSON body. Decisions apply only to the stored invocations and arguments; argument edits, authentication responses, and session-wide grants are not supported. The caller must own the run, still have agent access, and have the agents.run scope. Acceptance persists the decisions before resuming the same run and chat session. Identical accepted decisions return the current snapshot without another continuation. Conflicting, stale, incomplete, or non-pending decisions return 409. Cancellation registration failure returns 503 without accepting the decisions; retry the same approval batch. This retry guarantee does not cover an indeterminate database commit outcome. Go workflow approval resumes currently support one tool invocation and one approval response. Unsupported multi-tool or multi-decision Go resumes fail without executing tools. The resumed action must resolve to the tool identified by the stored approval request and paused checkpoint. Missing or inconsistent identity fails without executing tools. Execution continues after HTTP disconnects, but is not automatically resumed after a QE crash. Each accepted continuation starts a fresh 30-minute execution timeout and 40-minute cleanup deadline. Identical retries do not extend that deadline. Waiting for approval does not expire a run. The next GET marks an overdue active turn FAILED without replaying execution.
+      operationId: platform-agents-create-run-responses
+      x-visibility: Public
+      parameters:
+        - in: path
+          name: agent_id
+          description: ID of the agent that owns the run.
+          required: true
+          example: "{agent_id}"
+          schema:
+            type: string
+            minLength: 1
+            maxLength: 256
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PlatformAgentRunResponsesRequest"
+      responses:
+        "200":
+          description: Decisions accepted, or an identical retry. Poll GET run for continued execution.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlatformAgentRunResponse"
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+        "409":
+          $ref: "#/components/responses/PlatformConflict"
+        "413":
+          $ref: "#/components/responses/PlatformRequestTooLarge"
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+      x-speakeasy-group: agents
+      x-speakeasy-name-override: respondToRun
       security:
         - APIToken: []
   /api/chat:
@@ -2532,7 +2706,7 @@ paths:
           description: Not Authorized
         "403":
           description: Forbidden
-      x-visibility: Preview
+      x-visibility: Public
       x-codegen-request-body-name: payload
       x-speakeasy-name-override: retrieveApplication
       x-speakeasy-group: client.chat
@@ -2720,7 +2894,7 @@ paths:
           description: Forbidden
         "500":
           description: Internal server error
-      x-visibility: Preview
+      x-visibility: Public
       x-speakeasy-group: client.agents
       x-speakeasy-name-override: create
   /rest/api/v1/agents/{agent_id}:
@@ -2763,7 +2937,7 @@ paths:
         "500":
           description: Internal server error
       deprecated: true
-      x-visibility: Preview
+      x-visibility: Public
       x-glean-deprecated:
         docs: https://developers.glean.com/api/platform-api/agents-overview
         id: e01a59ea-5de0-481f-97b6-d28dd65379e6
@@ -2815,7 +2989,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
         "500":
           description: Internal server error
-      x-visibility: Preview
+      x-visibility: Public
       x-speakeasy-group: client.agents
       x-speakeasy-name-override: update
   /rest/api/v1/agents/{agent_id}/schemas:
@@ -2864,7 +3038,7 @@ paths:
         "500":
           description: Internal server error
       deprecated: true
-      x-visibility: Preview
+      x-visibility: Public
       x-glean-deprecated:
         docs: https://developers.glean.com/api/platform-api/agents-overview
         id: 9ca398ba-cf22-4523-9d9c-86e5f82d6ec7
@@ -2921,7 +3095,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
         "500":
           description: Internal server error
-      x-visibility: Preview
+      x-visibility: Public
       x-speakeasy-group: client.agents
       x-speakeasy-name-override: import
   /rest/api/v1/agents/search:
@@ -2965,7 +3139,7 @@ paths:
         "500":
           description: Internal server error
       deprecated: true
-      x-visibility: Preview
+      x-visibility: Public
       x-glean-deprecated:
         docs: https://developers.glean.com/api/platform-api/agents-overview
         id: 3ab6f4c0-0b97-4a0b-b5da-e888e4bb7706
@@ -3039,7 +3213,7 @@ paths:
         "500":
           description: Internal server error
       deprecated: true
-      x-visibility: Preview
+      x-visibility: Public
       x-glean-deprecated:
         docs: https://developers.glean.com/api/platform-api/agents-overview
         id: db3f42a5-8820-451e-b57a-14bf6ca3915c
@@ -3088,7 +3262,7 @@ paths:
         "500":
           description: Internal server error
       deprecated: true
-      x-visibility: Preview
+      x-visibility: Public
       x-glean-deprecated:
         docs: https://developers.glean.com/api/platform-api/agents-overview
         id: 683b90e1-48d3-4d7a-a32d-b48eb194fcf0
@@ -3362,7 +3536,7 @@ paths:
           description: Not Authorized
         "429":
           description: Too Many Requests
-      x-visibility: Preview
+      x-visibility: Public
       x-codegen-request-body-name: payload
       x-speakeasy-name-override: retrieve
       x-speakeasy-group: client.collections
@@ -3436,7 +3610,7 @@ paths:
           description: Forbidden
         "429":
           description: Too Many Requests
-      x-visibility: Preview
+      x-visibility: Public
       x-codegen-request-body-name: payload
       x-speakeasy-name-override: retrievePermissions
       x-speakeasy-group: client.documents
@@ -3508,7 +3682,7 @@ paths:
           description: Not Found
         "429":
           description: Too Many Requests
-      x-visibility: Preview
+      x-visibility: Public
       x-codegen-request-body-name: payload
       x-speakeasy-name-override: retrieveByFacets
       x-speakeasy-group: client.documents
@@ -3580,7 +3754,7 @@ paths:
           description: Not Authorized
         "429":
           description: Too Many Requests
-      x-visibility: Preview
+      x-visibility: Public
       x-codegen-request-body-name: payload
       x-speakeasy-name-override: retrieve
       x-speakeasy-group: client.messages
@@ -3806,7 +3980,7 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
         "429":
           description: Too Many Requests
-      x-visibility: Preview
+      x-visibility: Public
       x-codegen-request-body-name: payload
       x-speakeasy-group: client.search
       x-speakeasy-name-override: queryAsAdmin
@@ -3922,7 +4096,7 @@ paths:
           description: Document does not exist or user cannot access document
         "429":
           description: Too Many Requests
-      x-visibility: Preview
+      x-visibility: Public
       x-codegen-request-body-name: payload
       x-speakeasy-group: client.search
       x-speakeasy-name-override: recommendations
@@ -4459,7 +4633,7 @@ paths:
           description: Not Found
         "429":
           description: Too Many Requests
-      x-visibility: Preview
+      x-visibility: Public
       x-speakeasy-name-override: list
       x-speakeasy-group: client.tools
   /rest/api/v1/tools/call:
@@ -4492,7 +4666,7 @@ paths:
           description: Not Found
         "429":
           description: Too Many Requests
-      x-visibility: Preview
+      x-visibility: Public
       x-speakeasy-name-override: run
       x-speakeasy-group: client.tools
   /rest/api/v1/actions/actionpack/{actionPackId}/auth:
@@ -4522,7 +4696,7 @@ paths:
           description: Action pack not found
         "429":
           description: Too Many Requests
-      x-visibility: Preview
+      x-visibility: Public
       x-speakeasy-name-override: retrieveActionPackAuthStatus
       x-speakeasy-group: client.tools
     post:
@@ -4563,7 +4737,7 @@ paths:
           description: Action pack not found
         "429":
           description: Too Many Requests
-      x-visibility: Preview
+      x-visibility: Public
       x-speakeasy-name-override: authorizeActionPack
       x-speakeasy-group: client.tools
     parameters:
@@ -4599,7 +4773,7 @@ paths:
           description: Tool server not found
         "429":
           description: Too Many Requests
-      x-visibility: Preview
+      x-visibility: Public
       x-glean-experimental:
         id: 52fde6ec-c18b-4de6-b761-f82008542ae7
         introduced: "2026-07-02"
@@ -4643,7 +4817,7 @@ paths:
           description: Tool server not found
         "429":
           description: Too Many Requests
-      x-visibility: Preview
+      x-visibility: Public
       x-glean-experimental:
         id: 1935476e-ecaf-4c1f-a9fd-1e768cf68f30
         introduced: "2026-07-02"
@@ -4703,7 +4877,7 @@ paths:
           description: Too Many Requests
         "503":
           description: Tool schemas could not be resolved from the server
-      x-visibility: Preview
+      x-visibility: Public
       x-glean-experimental:
         id: 332eb38f-1b5d-4896-88e3-59db5e96e4e1
         introduced: "2026-07-30"
@@ -6133,6 +6307,7 @@ paths:
           description: Permissions error
         "500":
           description: Internal error
+      x-visibility: Public
       x-speakeasy-group: client.governance.data.policies
       x-speakeasy-name-override: update
   /rest/api/v1/governance/data/policies:
@@ -6529,7 +6704,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-      x-visibility: Preview
+      x-visibility: Public
       x-speakeasy-group: client.datasources
       x-speakeasy-name-override: retrieveConfiguration
     patch:
@@ -6577,7 +6752,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-      x-visibility: Preview
+      x-visibility: Public
       x-speakeasy-group: client.datasources
       x-speakeasy-name-override: updateConfiguration
   /rest/api/v1/datasource/{datasourceInstanceId}/credentialstatus:
@@ -6619,7 +6794,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-      x-visibility: Preview
+      x-visibility: Public
       x-speakeasy-group: client.datasources
       x-speakeasy-name-override: retrieveCredentialStatus
   /rest/api/v1/datasource/{datasourceInstanceId}/credentials:
@@ -6668,7 +6843,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-      x-visibility: Preview
+      x-visibility: Public
       x-speakeasy-group: client.datasources
       x-speakeasy-name-override: rotateCredentials
   /rest/api/v1/chat#stream:
@@ -7351,8 +7526,16 @@ components:
           additionalProperties: true
         stream:
           type: boolean
-          description: Whether to stream the run response as server-sent events.
+          description: Whether to stream the run response as server-sent events. Not supported in DURABLE mode.
           default: false
+        execution_mode:
+          type: string
+          enum:
+            - REQUEST_BOUND
+            - DURABLE
+          default: REQUEST_BOUND
+          description: |
+            REQUEST_BOUND preserves the existing wait/stream behavior. DURABLE starts a fresh, persisted execution with a 30-minute execution timeout and returns immediately. DURABLE requires stream to be false or omitted and does not accept metadata.chat_session_id. It does not bypass tool approval requirements or provide automatic QE-crash resumption. Expiry is read-triggered: the next GET of the run marks an active turn FAILED if more than 40 minutes have passed since the turn was accepted. There is no periodic sweep, so the stored run can remain RUNNING until it is read. Expiry never replays execution or expires approval-paused runs, and failure does not prove that external tool work has stopped.
     PlatformAgentRunCreate:
       type: object
       required:
@@ -7404,6 +7587,124 @@ components:
         request_id:
           type: string
           description: Platform-generated request ID for support correlation.
+    PlatformAgentRunState:
+      type: string
+      enum:
+        - QUEUED
+        - RUNNING
+        - REQUIRES_INPUT
+        - SUCCEEDED
+        - FAILED
+        - CANCELLING
+        - CANCELLED
+        - EXPIRED
+      description: State of the persisted workflow execution. REQUIRES_INPUT is nonterminal.
+    PlatformAgentRunToolApproval:
+      type: object
+      description: Pending approval for a specific persisted tool invocation and its arguments.
+      required:
+        - interaction_id
+        - type
+        - display_name
+        - description
+        - arguments
+      properties:
+        interaction_id:
+          type: string
+          description: Identifies this specific invocation approval, not the tool definition.
+        type:
+          type: string
+          enum:
+            - TOOL_APPROVAL
+          description: Interaction type identifying a tool execution approval request.
+        tool_id:
+          type: string
+          description: Platform tool identifier when recorded. Omitted for requests without one, such as some MCP tools.
+        display_name:
+          type: string
+          description: Display name of the tool requesting approval.
+        description:
+          type: string
+          description: Description of the tool associated with this approval request.
+        arguments:
+          type: object
+          additionalProperties: true
+          description: Arguments from the persisted approval request. Older platform tools use flattened parameters.
+        expires_at:
+          type: string
+          format: date-time
+          description: Approval deadline, when one is set. Omitted when the approval has no expiration.
+    PlatformAgentRunError:
+      type: object
+      description: Caller-safe details of an agent run execution failure.
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+          description: Machine-readable execution failure code.
+        message:
+          type: string
+          description: Caller-safe execution failure description.
+    PlatformDurableAgentRun:
+      type: object
+      description: Agent run state, pending tool approvals, and output available independently of the creation request.
+      required:
+        - run_id
+        - agent_id
+        - state
+        - created_at
+        - updated_at
+        - pending_interactions
+      properties:
+        run_id:
+          type: string
+          description: ID of the run, preserved across approval continuations.
+        agent_id:
+          type: string
+          description: ID of the agent that owns the run.
+        state:
+          $ref: "#/components/schemas/PlatformAgentRunState"
+          description: Current lifecycle state of the run.
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the run was first persisted.
+        updated_at:
+          type: string
+          format: date-time
+          description: |
+            Latest persisted activity timestamp across the execution and its messages, including checkpoint messages. This is not a worker heartbeat or an exact state-transition timestamp.
+        expires_at:
+          type: string
+          format: date-time
+          description: Execution deadline, when one is set. Not the run history retention deadline.
+        pending_interactions:
+          type: array
+          description: Unanswered tool approvals when the run is in REQUIRES_INPUT. Empty in other states.
+          items:
+            $ref: "#/components/schemas/PlatformAgentRunToolApproval"
+        output:
+          type: object
+          additionalProperties: true
+          description: Accumulated text-only agent output under the messages key, when available.
+        error:
+          $ref: "#/components/schemas/PlatformAgentRunError"
+          description: Caller-safe failure details when the run is in FAILED.
+    PlatformAgentRunResponse:
+      type: object
+      description: Persisted agent run snapshot with a request ID for support correlation.
+      required:
+        - run
+        - request_id
+      properties:
+        run:
+          $ref: "#/components/schemas/PlatformDurableAgentRun"
+          description: Current persisted snapshot of the requested agent run.
+        request_id:
+          type: string
+          description: Platform-generated request ID for support correlation.
     PlatformAuthenticationSuggestion:
       type: object
       description: One tool the caller must authorize before the agent can run.
@@ -7429,6 +7730,64 @@ components:
               description: One entry per tool the caller must authorize.
               items:
                 $ref: "#/components/schemas/PlatformAuthenticationSuggestion"
+    PlatformAgentRunCancellationRequest:
+      type: object
+      additionalProperties: false
+      description: Request cooperative cancellation of a run owned by the caller.
+      required:
+        - run_id
+      example:
+        run_id: "{run_id}"
+      properties:
+        run_id:
+          type: string
+          minLength: 1
+          maxLength: 256
+          description: ID of the run to cancel. Must belong to the agent identified in the path.
+    PlatformAgentRunApprovalDecision:
+      type: object
+      additionalProperties: false
+      description: Approve or reject the invocation identified by a pending interaction ID.
+      required:
+        - interaction_id
+        - decision
+      properties:
+        interaction_id:
+          type: string
+          minLength: 1
+          maxLength: 256
+          description: The interaction_id returned in the run's pending_interactions.
+        decision:
+          type: string
+          enum:
+            - APPROVE
+            - REJECT
+          description: The decision for this invocation only. Rejection follows normal workflow behavior.
+    PlatformAgentRunResponsesRequest:
+      type: object
+      additionalProperties: false
+      description: Invocation-scoped decisions for the complete pending approval batch.
+      required:
+        - run_id
+        - responses
+      example:
+        run_id: "{run_id}"
+        responses:
+          - interaction_id: "{interaction_id}"
+            decision: APPROVE
+      properties:
+        run_id:
+          type: string
+          minLength: 1
+          maxLength: 256
+          description: ID of the run whose pending approvals are being answered. Must belong to the agent identified in the path.
+        responses:
+          type: array
+          minItems: 1
+          maxItems: 100
+          description: One decision per pending interaction. Interaction IDs must be unique.
+          items:
+            $ref: "#/components/schemas/PlatformAgentRunApprovalDecision"
     PlatformChatInputMessage:
       type: object
       additionalProperties: false
@@ -7444,13 +7803,72 @@ components:
         content:
           type: string
           minLength: 1
+    PlatformChatTextFormat:
+      type: object
+      additionalProperties: false
+      description: Unconstrained plain-text assistant output.
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          description: Discriminator. Must be TEXT.
+          enum:
+            - TEXT
+    PlatformChatJsonSchemaFormat:
+      type: object
+      additionalProperties: false
+      description: Constrains the assistant response to a caller-supplied JSON Schema.
+      required:
+        - type
+        - name
+        - schema
+      properties:
+        type:
+          type: string
+          description: Discriminator. Must be JSON_SCHEMA.
+          enum:
+            - JSON_SCHEMA
+        name:
+          type: string
+          minLength: 1
+          maxLength: 64
+          description: A stable identifier for the schema.
+        description:
+          type: string
+          maxLength: 1024
+          description: An optional human-readable description of the schema.
+        schema:
+          type: object
+          additionalProperties: true
+          description: A JSON Schema object describing the desired output shape.
+        strict:
+          type: boolean
+          default: true
+          description: |
+            When true, the provider validates the response against the schema. Unsupported by some providers; defaults to true.
     PlatformChatCreateRequest:
       type: object
       additionalProperties: false
       required:
         - input
       example:
-        input: What is our parental leave policy?
+        input: Summarize our parental leave policy as JSON.
+        text:
+          format:
+            type: JSON_SCHEMA
+            name: policy_summary
+            schema:
+              type: object
+              properties:
+                eligible_employees:
+                  type: string
+                duration_weeks:
+                  type: integer
+              required:
+                - eligible_employees
+                - duration_weeks
+            strict: true
       properties:
         input:
           description: |
@@ -7477,6 +7895,18 @@ components:
           minLength: 1
           description: |
             Continue an existing stored conversation. Incompatible with message-array `input` and with `store: false`.
+        text:
+          type: object
+          additionalProperties: false
+          description: |
+            Optional configuration for the assistant's text response. When `format.type` is `JSON_SCHEMA`, the response is constrained to the supplied JSON schema and returned in `output[*].content[*].structured_output`. Structured output is not supported when `stream` is true.
+          properties:
+            format:
+              description: |
+                Output format for the assistant text. TEXT is unconstrained. JSON_SCHEMA constrains the response to the supplied schema.
+              oneOf:
+                - $ref: "#/components/schemas/PlatformChatTextFormat"
+                - $ref: "#/components/schemas/PlatformChatJsonSchemaFormat"
     PlatformChatStreamResponseId:
       type: string
       minLength: 1
@@ -7496,6 +7926,12 @@ components:
             - OUTPUT_TEXT
         text:
           type: string
+        structured_output:
+          type:
+            - object
+            - "null"
+          description: |
+            Parsed and validated JSON object when structured output was requested. Present only when the request included `text.format.type: JSON_SCHEMA`.
         annotations:
           type: array
           items:
@@ -13344,7 +13780,7 @@ components:
         - toolType
         - requestType
         - requestId
-      x-visibility: Preview
+      x-visibility: Public
       x-glean-experimental:
         id: 4e3ee791-45e0-4125-845f-4b7701aa983c
         introduced: "2026-07-02"
@@ -13378,7 +13814,7 @@ components:
               description: Preview information for this tool request.
           required:
             - toolName
-      x-visibility: Preview
+      x-visibility: Public
       x-glean-experimental:
         id: 8544e887-4569-4b14-bde0-d1be9e90dbc3
         introduced: "2026-07-02"
@@ -13390,7 +13826,7 @@ components:
           description: ID of the MCP server (populated when toolType is MCP).
       description: |
         Context for authentication responses, containing identifiers for the entity being authenticated.
-      x-visibility: Preview
+      x-visibility: Public
       x-glean-experimental:
         id: a7c1d3e5-9f42-4b8a-b6e0-2d4f8a1c3e5b
         introduced: "2026-07-09"
@@ -13439,7 +13875,7 @@ components:
 
         For SANDBOX_EGRESS requests:
         - isGranted: whether the sandbox egress call is approved
-      x-visibility: Preview
+      x-visibility: Public
       x-glean-experimental:
         id: 3eae3ee7-2c06-4027-be14-98260a3ce608
         introduced: "2026-07-02"
@@ -16128,6 +16564,8 @@ components:
               - EDIT_DOC
               - CHAT_TO_ARTIFACT
               - SHARE_ARTIFACT
+              - CREATE_AGENT
+              - MANAGER_INVITE
           description: Categories of content requested. An allowlist gives flexibility to request content separately or together.
         requestOptions:
           $ref: '#/components/schemas/FeedRequestOptions'
@@ -16603,6 +17041,8 @@ components:
             - EDIT_DOC
             - CHAT_TO_ARTIFACT
             - SHARE_ARTIFACT
+            - CREATE_AGENT
+            - MANAGER_INVITE
           description: Type of the justification.
         justification:
           type: string
@@ -16701,6 +17141,8 @@ components:
             - EDIT_DOC
             - CHAT_TO_ARTIFACT
             - SHARE_ARTIFACT
+            - CREATE_AGENT
+            - MANAGER_INVITE
           description: Category of the result, one of the requested categories in incoming request.
         primaryEntry:
           $ref: '#/components/schemas/FeedEntry'

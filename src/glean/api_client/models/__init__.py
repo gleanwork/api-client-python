@@ -1279,11 +1279,23 @@ if TYPE_CHECKING:
     from .peruserinsight import PerUserInsight, PerUserInsightTypedDict
     from .pinop import PinRequestRequest, PinRequestRequestTypedDict
     from .pinrequest import PinRequest, PinRequestTypedDict
+    from .platform_agents_cancel_runop import (
+        PlatformAgentsCancelRunRequest,
+        PlatformAgentsCancelRunRequestTypedDict,
+    )
+    from .platform_agents_create_run_responsesop import (
+        PlatformAgentsCreateRunResponsesRequest,
+        PlatformAgentsCreateRunResponsesRequestTypedDict,
+    )
     from .platform_agents_create_runop import (
         PlatformAgentsCreateRunRequest,
         PlatformAgentsCreateRunRequestTypedDict,
         PlatformAgentsCreateRunResponse,
         PlatformAgentsCreateRunResponseTypedDict,
+    )
+    from .platform_agents_get_runop import (
+        PlatformAgentsGetRunRequest,
+        PlatformAgentsGetRunRequestTypedDict,
     )
     from .platform_agents_get_schemasop import (
         PlatformAgentsGetSchemasRequest,
@@ -1294,16 +1306,24 @@ if TYPE_CHECKING:
         PlatformAgentsGetRequestTypedDict,
     )
     from .platform_chat_create_streamop import (
+        PlatformChatCreateStreamFormat,
+        PlatformChatCreateStreamFormatTypedDict,
         PlatformChatCreateStreamInput,
         PlatformChatCreateStreamInputTypedDict,
         PlatformChatCreateStreamRequest,
         PlatformChatCreateStreamRequestTypedDict,
+        PlatformChatCreateStreamText,
+        PlatformChatCreateStreamTextTypedDict,
     )
     from .platform_chat_createop import (
+        PlatformChatCreateFormat,
+        PlatformChatCreateFormatTypedDict,
         PlatformChatCreateInput,
         PlatformChatCreateInputTypedDict,
         PlatformChatCreateRequest,
         PlatformChatCreateRequestTypedDict,
+        PlatformChatCreateText,
+        PlatformChatCreateTextTypedDict,
     )
     from .platform_search_filtersop import (
         PlatformSearchFiltersRequest,
@@ -1414,9 +1434,37 @@ if TYPE_CHECKING:
         PlatformAgentGetResponseTypedDict,
     )
     from .platformagentrun import PlatformAgentRun, PlatformAgentRunTypedDict
+    from .platformagentrunapprovaldecision import (
+        Decision,
+        PlatformAgentRunApprovalDecision,
+        PlatformAgentRunApprovalDecisionTypedDict,
+    )
+    from .platformagentruncancellationrequest import (
+        PlatformAgentRunCancellationRequest,
+        PlatformAgentRunCancellationRequestTypedDict,
+    )
     from .platformagentruncreaterequest import (
+        ExecutionMode,
         PlatformAgentRunCreateRequest,
         PlatformAgentRunCreateRequestTypedDict,
+    )
+    from .platformagentrunerror import (
+        PlatformAgentRunError,
+        PlatformAgentRunErrorTypedDict,
+    )
+    from .platformagentrunresponse import (
+        PlatformAgentRunResponse,
+        PlatformAgentRunResponseTypedDict,
+    )
+    from .platformagentrunresponsesrequest import (
+        PlatformAgentRunResponsesRequest,
+        PlatformAgentRunResponsesRequestTypedDict,
+    )
+    from .platformagentrunstate import PlatformAgentRunState
+    from .platformagentruntoolapproval import (
+        PlatformAgentRunToolApproval,
+        PlatformAgentRunToolApprovalType,
+        PlatformAgentRunToolApprovalTypedDict,
     )
     from .platformagentrunwaitresponse import (
         PlatformAgentRunWaitResponse,
@@ -1488,6 +1536,11 @@ if TYPE_CHECKING:
         PlatformChatInputMessageRole,
         PlatformChatInputMessageTypedDict,
     )
+    from .platformchatjsonschemaformat import (
+        PlatformChatJSONSchemaFormat,
+        PlatformChatJSONSchemaFormatType,
+        PlatformChatJSONSchemaFormatTypedDict,
+    )
     from .platformchatoutputmessage import (
         PlatformChatOutputMessage,
         PlatformChatOutputMessageRole,
@@ -1498,6 +1551,8 @@ if TYPE_CHECKING:
         PlatformChatOutputTextContent,
         PlatformChatOutputTextContentType,
         PlatformChatOutputTextContentTypedDict,
+        StructuredOutput,
+        StructuredOutputTypedDict,
     )
     from .platformchatpersonsource import (
         PlatformChatPersonSource,
@@ -1566,6 +1621,11 @@ if TYPE_CHECKING:
         PlatformChatStreamResponseFailedServerSentEvent,
         PlatformChatStreamResponseFailedServerSentEventTypedDict,
     )
+    from .platformchattextformat import (
+        PlatformChatTextFormat,
+        PlatformChatTextFormatType,
+        PlatformChatTextFormatTypedDict,
+    )
     from .platformcontentschedulewebhookevent import (
         PlatformContentScheduleWebhookEvent,
         PlatformContentScheduleWebhookEventTypedDict,
@@ -1578,6 +1638,10 @@ if TYPE_CHECKING:
     from .platformdocumentchangewebhookevent import (
         PlatformDocumentChangeWebhookEvent,
         PlatformDocumentChangeWebhookEventTypedDict,
+    )
+    from .platformdurableagentrun import (
+        PlatformDurableAgentRun,
+        PlatformDurableAgentRunTypedDict,
     )
     from .platformfilter import PlatformFilter, PlatformFilterTypedDict
     from .platformfilterfieldinfo import (
@@ -2631,6 +2695,7 @@ __all__ = [
     "DebugUserRequestTypedDict",
     "DebugUserResponse",
     "DebugUserResponseTypedDict",
+    "Decision",
     "DeleteAnnouncementRequest",
     "DeleteAnnouncementRequestTypedDict",
     "DeleteAnswerRequest",
@@ -2804,6 +2869,7 @@ __all__ = [
     "EventClassificationName",
     "EventClassificationTypedDict",
     "EventStrategyName",
+    "ExecutionMode",
     "ExportInfo",
     "ExportInfoExportType",
     "ExportInfoStatus",
@@ -3219,20 +3285,40 @@ __all__ = [
     "PlatformAgentGetResponse",
     "PlatformAgentGetResponseTypedDict",
     "PlatformAgentRun",
+    "PlatformAgentRunApprovalDecision",
+    "PlatformAgentRunApprovalDecisionTypedDict",
+    "PlatformAgentRunCancellationRequest",
+    "PlatformAgentRunCancellationRequestTypedDict",
     "PlatformAgentRunCreateRequest",
     "PlatformAgentRunCreateRequestTypedDict",
+    "PlatformAgentRunError",
+    "PlatformAgentRunErrorTypedDict",
+    "PlatformAgentRunResponse",
+    "PlatformAgentRunResponseTypedDict",
+    "PlatformAgentRunResponsesRequest",
+    "PlatformAgentRunResponsesRequestTypedDict",
+    "PlatformAgentRunState",
+    "PlatformAgentRunToolApproval",
+    "PlatformAgentRunToolApprovalType",
+    "PlatformAgentRunToolApprovalTypedDict",
     "PlatformAgentRunTypedDict",
     "PlatformAgentRunWaitResponse",
     "PlatformAgentRunWaitResponseTypedDict",
     "PlatformAgentSchemasResponse",
     "PlatformAgentSchemasResponseTypedDict",
     "PlatformAgentTypedDict",
+    "PlatformAgentsCancelRunRequest",
+    "PlatformAgentsCancelRunRequestTypedDict",
     "PlatformAgentsCreateRunRequest",
     "PlatformAgentsCreateRunRequestTypedDict",
     "PlatformAgentsCreateRunResponse",
     "PlatformAgentsCreateRunResponseTypedDict",
+    "PlatformAgentsCreateRunResponsesRequest",
+    "PlatformAgentsCreateRunResponsesRequestTypedDict",
     "PlatformAgentsGetRequest",
     "PlatformAgentsGetRequestTypedDict",
+    "PlatformAgentsGetRunRequest",
+    "PlatformAgentsGetRunRequestTypedDict",
     "PlatformAgentsGetSchemasRequest",
     "PlatformAgentsGetSchemasRequestTypedDict",
     "PlatformAgentsSearchRequest",
@@ -3252,14 +3338,22 @@ __all__ = [
     "PlatformChatCompletedResponseObject",
     "PlatformChatCompletedResponseStatus",
     "PlatformChatCompletedResponseTypedDict",
+    "PlatformChatCreateFormat",
+    "PlatformChatCreateFormatTypedDict",
     "PlatformChatCreateInput",
     "PlatformChatCreateInputTypedDict",
     "PlatformChatCreateRequest",
     "PlatformChatCreateRequestTypedDict",
+    "PlatformChatCreateStreamFormat",
+    "PlatformChatCreateStreamFormatTypedDict",
     "PlatformChatCreateStreamInput",
     "PlatformChatCreateStreamInputTypedDict",
     "PlatformChatCreateStreamRequest",
     "PlatformChatCreateStreamRequestTypedDict",
+    "PlatformChatCreateStreamText",
+    "PlatformChatCreateStreamTextTypedDict",
+    "PlatformChatCreateText",
+    "PlatformChatCreateTextTypedDict",
     "PlatformChatCustomEntitySource",
     "PlatformChatCustomEntitySourceType",
     "PlatformChatCustomEntitySourceTypedDict",
@@ -3281,6 +3375,9 @@ __all__ = [
     "PlatformChatInputMessage",
     "PlatformChatInputMessageRole",
     "PlatformChatInputMessageTypedDict",
+    "PlatformChatJSONSchemaFormat",
+    "PlatformChatJSONSchemaFormatType",
+    "PlatformChatJSONSchemaFormatTypedDict",
     "PlatformChatOutputMessage",
     "PlatformChatOutputMessageRole",
     "PlatformChatOutputMessageType",
@@ -3325,6 +3422,9 @@ __all__ = [
     "PlatformChatStreamResponseFailedServerSentEventTypedDict",
     "PlatformChatStreamResponseFailedType",
     "PlatformChatStreamResponseFailedTypedDict",
+    "PlatformChatTextFormat",
+    "PlatformChatTextFormatType",
+    "PlatformChatTextFormatTypedDict",
     "PlatformContentScheduleWebhookEvent",
     "PlatformContentScheduleWebhookEventTypedDict",
     "PlatformContentType",
@@ -3332,6 +3432,8 @@ __all__ = [
     "PlatformDatasourceFilterInfoTypedDict",
     "PlatformDocumentChangeWebhookEvent",
     "PlatformDocumentChangeWebhookEventTypedDict",
+    "PlatformDurableAgentRun",
+    "PlatformDurableAgentRunTypedDict",
     "PlatformFilter",
     "PlatformFilterFieldInfo",
     "PlatformFilterFieldInfoTypedDict",
@@ -3698,6 +3800,8 @@ __all__ = [
     "StructuredLinkTypedDict",
     "StructuredLocation",
     "StructuredLocationTypedDict",
+    "StructuredOutput",
+    "StructuredOutputTypedDict",
     "StructuredResult",
     "StructuredResultSource",
     "StructuredResultTypedDict",
@@ -4793,22 +4897,36 @@ _dynamic_imports: dict[str, str] = {
     "PinRequestRequestTypedDict": ".pinop",
     "PinRequest": ".pinrequest",
     "PinRequestTypedDict": ".pinrequest",
+    "PlatformAgentsCancelRunRequest": ".platform_agents_cancel_runop",
+    "PlatformAgentsCancelRunRequestTypedDict": ".platform_agents_cancel_runop",
+    "PlatformAgentsCreateRunResponsesRequest": ".platform_agents_create_run_responsesop",
+    "PlatformAgentsCreateRunResponsesRequestTypedDict": ".platform_agents_create_run_responsesop",
     "PlatformAgentsCreateRunRequest": ".platform_agents_create_runop",
     "PlatformAgentsCreateRunRequestTypedDict": ".platform_agents_create_runop",
     "PlatformAgentsCreateRunResponse": ".platform_agents_create_runop",
     "PlatformAgentsCreateRunResponseTypedDict": ".platform_agents_create_runop",
+    "PlatformAgentsGetRunRequest": ".platform_agents_get_runop",
+    "PlatformAgentsGetRunRequestTypedDict": ".platform_agents_get_runop",
     "PlatformAgentsGetSchemasRequest": ".platform_agents_get_schemasop",
     "PlatformAgentsGetSchemasRequestTypedDict": ".platform_agents_get_schemasop",
     "PlatformAgentsGetRequest": ".platform_agents_getop",
     "PlatformAgentsGetRequestTypedDict": ".platform_agents_getop",
+    "PlatformChatCreateStreamFormat": ".platform_chat_create_streamop",
+    "PlatformChatCreateStreamFormatTypedDict": ".platform_chat_create_streamop",
     "PlatformChatCreateStreamInput": ".platform_chat_create_streamop",
     "PlatformChatCreateStreamInputTypedDict": ".platform_chat_create_streamop",
     "PlatformChatCreateStreamRequest": ".platform_chat_create_streamop",
     "PlatformChatCreateStreamRequestTypedDict": ".platform_chat_create_streamop",
+    "PlatformChatCreateStreamText": ".platform_chat_create_streamop",
+    "PlatformChatCreateStreamTextTypedDict": ".platform_chat_create_streamop",
+    "PlatformChatCreateFormat": ".platform_chat_createop",
+    "PlatformChatCreateFormatTypedDict": ".platform_chat_createop",
     "PlatformChatCreateInput": ".platform_chat_createop",
     "PlatformChatCreateInputTypedDict": ".platform_chat_createop",
     "PlatformChatCreateRequest": ".platform_chat_createop",
     "PlatformChatCreateRequestTypedDict": ".platform_chat_createop",
+    "PlatformChatCreateText": ".platform_chat_createop",
+    "PlatformChatCreateTextTypedDict": ".platform_chat_createop",
     "PlatformSearchFiltersRequest": ".platform_search_filtersop",
     "PlatformSearchFiltersRequestTypedDict": ".platform_search_filtersop",
     "PlatformSearchFiltersResponseResponse": ".platform_search_filtersop",
@@ -4870,8 +4988,24 @@ _dynamic_imports: dict[str, str] = {
     "PlatformAgentGetResponseTypedDict": ".platformagentgetresponse",
     "PlatformAgentRun": ".platformagentrun",
     "PlatformAgentRunTypedDict": ".platformagentrun",
+    "Decision": ".platformagentrunapprovaldecision",
+    "PlatformAgentRunApprovalDecision": ".platformagentrunapprovaldecision",
+    "PlatformAgentRunApprovalDecisionTypedDict": ".platformagentrunapprovaldecision",
+    "PlatformAgentRunCancellationRequest": ".platformagentruncancellationrequest",
+    "PlatformAgentRunCancellationRequestTypedDict": ".platformagentruncancellationrequest",
+    "ExecutionMode": ".platformagentruncreaterequest",
     "PlatformAgentRunCreateRequest": ".platformagentruncreaterequest",
     "PlatformAgentRunCreateRequestTypedDict": ".platformagentruncreaterequest",
+    "PlatformAgentRunError": ".platformagentrunerror",
+    "PlatformAgentRunErrorTypedDict": ".platformagentrunerror",
+    "PlatformAgentRunResponse": ".platformagentrunresponse",
+    "PlatformAgentRunResponseTypedDict": ".platformagentrunresponse",
+    "PlatformAgentRunResponsesRequest": ".platformagentrunresponsesrequest",
+    "PlatformAgentRunResponsesRequestTypedDict": ".platformagentrunresponsesrequest",
+    "PlatformAgentRunState": ".platformagentrunstate",
+    "PlatformAgentRunToolApproval": ".platformagentruntoolapproval",
+    "PlatformAgentRunToolApprovalType": ".platformagentruntoolapproval",
+    "PlatformAgentRunToolApprovalTypedDict": ".platformagentruntoolapproval",
     "PlatformAgentRunWaitResponse": ".platformagentrunwaitresponse",
     "PlatformAgentRunWaitResponseTypedDict": ".platformagentrunwaitresponse",
     "PlatformAgentSchemasResponse": ".platformagentschemasresponse",
@@ -4914,6 +5048,9 @@ _dynamic_imports: dict[str, str] = {
     "PlatformChatInputMessage": ".platformchatinputmessage",
     "PlatformChatInputMessageRole": ".platformchatinputmessage",
     "PlatformChatInputMessageTypedDict": ".platformchatinputmessage",
+    "PlatformChatJSONSchemaFormat": ".platformchatjsonschemaformat",
+    "PlatformChatJSONSchemaFormatType": ".platformchatjsonschemaformat",
+    "PlatformChatJSONSchemaFormatTypedDict": ".platformchatjsonschemaformat",
     "PlatformChatOutputMessage": ".platformchatoutputmessage",
     "PlatformChatOutputMessageRole": ".platformchatoutputmessage",
     "PlatformChatOutputMessageType": ".platformchatoutputmessage",
@@ -4921,6 +5058,8 @@ _dynamic_imports: dict[str, str] = {
     "PlatformChatOutputTextContent": ".platformchatoutputtextcontent",
     "PlatformChatOutputTextContentType": ".platformchatoutputtextcontent",
     "PlatformChatOutputTextContentTypedDict": ".platformchatoutputtextcontent",
+    "StructuredOutput": ".platformchatoutputtextcontent",
+    "StructuredOutputTypedDict": ".platformchatoutputtextcontent",
     "PlatformChatPersonSource": ".platformchatpersonsource",
     "PlatformChatPersonSourceType": ".platformchatpersonsource",
     "PlatformChatPersonSourceTypedDict": ".platformchatpersonsource",
@@ -4958,6 +5097,9 @@ _dynamic_imports: dict[str, str] = {
     "PlatformChatStreamResponseFailedTypedDict": ".platformchatstreamresponsefailed",
     "PlatformChatStreamResponseFailedServerSentEvent": ".platformchatstreamresponsefailedserversentevent",
     "PlatformChatStreamResponseFailedServerSentEventTypedDict": ".platformchatstreamresponsefailedserversentevent",
+    "PlatformChatTextFormat": ".platformchattextformat",
+    "PlatformChatTextFormatType": ".platformchattextformat",
+    "PlatformChatTextFormatTypedDict": ".platformchattextformat",
     "PlatformContentScheduleWebhookEvent": ".platformcontentschedulewebhookevent",
     "PlatformContentScheduleWebhookEventTypedDict": ".platformcontentschedulewebhookevent",
     "PlatformContentType": ".platformcontenttype",
@@ -4965,6 +5107,8 @@ _dynamic_imports: dict[str, str] = {
     "PlatformDatasourceFilterInfoTypedDict": ".platformdatasourcefilterinfo",
     "PlatformDocumentChangeWebhookEvent": ".platformdocumentchangewebhookevent",
     "PlatformDocumentChangeWebhookEventTypedDict": ".platformdocumentchangewebhookevent",
+    "PlatformDurableAgentRun": ".platformdurableagentrun",
+    "PlatformDurableAgentRunTypedDict": ".platformdurableagentrun",
     "PlatformFilter": ".platformfilter",
     "PlatformFilterTypedDict": ".platformfilter",
     "PlatformFilterFieldInfo": ".platformfilterfieldinfo",

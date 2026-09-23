@@ -158786,6 +158786,7 @@ workflows:
           requestBody:
             contentType: application/json
             payload:
+                execution_mode: REQUEST_BOUND
                 messages:
                     - content:
                         - text: What is our parental leave policy?
@@ -159049,9 +159050,24 @@ workflows:
           requestBody:
             contentType: application/json
             payload:
-                input: What is our parental leave policy?
+                input: Summarize our parental leave policy as JSON.
                 store: true
                 stream: false
+                text:
+                    format:
+                        name: policy_summary
+                        schema:
+                            properties:
+                                duration_weeks:
+                                    type: integer
+                                eligible_employees:
+                                    type: string
+                            required:
+                                - eligible_employees
+                                - duration_weeks
+                            type: object
+                        strict: true
+                        type: JSON_SCHEMA
           successCriteria:
             - condition: $statusCode == 200
             - condition: $response.header.Content-Type == application/json
@@ -159457,4 +159473,69 @@ workflows:
                 {"results":[{"event_type":"DOCUMENT_CHANGE","datasource":"GITHUB","reason":"REVIEW_REQUESTED","doc_type":"pull","doc_id":"<id>","view_url":"https://prickly-cutover.info/","title":"<value>","event_time":"2025-04-15T15:45:31.544Z"}],"has_more":false,"request_id":"<id>"}
               type: simple
       x-speakeasy-test-group: triggers
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-agents-get-run
+      steps:
+        - stepId: test
+          operationId: platform-agents-get-run
+          parameters:
+            - name: agent_id
+              in: path
+              value: '{agent_id}'
+            - name: run_id
+              in: path
+              value: '{run_id}'
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"run":{"run_id":"<id>","agent_id":"<id>","state":"CANCELLING","created_at":"2025-02-20T06:37:06.101Z","updated_at":"2025-06-13T07:24:18.599Z","pending_interactions":[]},"request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: agents
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-agents-cancel-run
+      steps:
+        - stepId: test
+          operationId: platform-agents-cancel-run
+          parameters:
+            - name: agent_id
+              in: path
+              value: '{agent_id}'
+          requestBody:
+            contentType: application/json
+            payload:
+                run_id: '{run_id}'
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"run":{"run_id":"<id>","agent_id":"<id>","state":"REQUIRES_INPUT","created_at":"2026-04-14T14:14:08.916Z","updated_at":"2025-07-26T12:32:21.659Z","pending_interactions":[]},"request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: agents
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-agents-create-run-responses
+      steps:
+        - stepId: test
+          operationId: platform-agents-create-run-responses
+          parameters:
+            - name: agent_id
+              in: path
+              value: '{agent_id}'
+          requestBody:
+            contentType: application/json
+            payload:
+                responses:
+                    - decision: APPROVE
+                      interaction_id: '{interaction_id}'
+                run_id: '{run_id}'
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"run":{"run_id":"<id>","agent_id":"<id>","state":"QUEUED","created_at":"2024-08-26T19:05:47.442Z","updated_at":"2026-08-22T09:50:35.176Z","pending_interactions":[{"interaction_id":"<id>","type":"TOOL_APPROVAL","display_name":"King.Trantow44","description":"provided collectivization whereas disapprove gah astride under stoop louse","arguments":{"key":"<value>","key1":"<value>"}}]},"request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: agents
       x-speakeasy-test-rebuild: true

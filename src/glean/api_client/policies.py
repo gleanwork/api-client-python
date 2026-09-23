@@ -280,7 +280,7 @@ class Policies(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Governance"],
-                extensions=None,
+                extensions={"x-visibility": "Public"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -390,7 +390,7 @@ class Policies(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Governance"],
-                extensions=None,
+                extensions={"x-visibility": "Public"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

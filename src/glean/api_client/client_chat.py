@@ -1184,7 +1184,7 @@ class ClientChat(BaseSDK):
                 tags=["Chat"],
                 extensions={
                     "x-codegen-request-body-name": "payload",
-                    "x-visibility": "Preview",
+                    "x-visibility": "Public",
                 },
             ),
             request=req,
@@ -1288,7 +1288,7 @@ class ClientChat(BaseSDK):
                 tags=["Chat"],
                 extensions={
                     "x-codegen-request-body-name": "payload",
-                    "x-visibility": "Preview",
+                    "x-visibility": "Public",
                 },
             ),
             request=req,

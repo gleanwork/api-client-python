@@ -1617,7 +1617,7 @@ class Collections(BaseSDK):
                 tags=["Collections"],
                 extensions={
                     "x-codegen-request-body-name": "payload",
-                    "x-visibility": "Preview",
+                    "x-visibility": "Public",
                 },
             ),
             request=req,
@@ -1727,7 +1727,7 @@ class Collections(BaseSDK):
                 tags=["Collections"],
                 extensions={
                     "x-codegen-request-body-name": "payload",
-                    "x-visibility": "Preview",
+                    "x-visibility": "Public",
                 },
             ),
             request=req,

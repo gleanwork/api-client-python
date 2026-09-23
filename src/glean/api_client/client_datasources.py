@@ -82,7 +82,7 @@ class ClientDatasources(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Datasources"],
-                extensions={"x-visibility": "Preview"},
+                extensions={"x-visibility": "Public"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -178,7 +178,7 @@ class ClientDatasources(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Datasources"],
-                extensions={"x-visibility": "Preview"},
+                extensions={"x-visibility": "Public"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -291,7 +291,7 @@ class ClientDatasources(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Datasources"],
-                extensions={"x-visibility": "Preview"},
+                extensions={"x-visibility": "Public"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -404,7 +404,7 @@ class ClientDatasources(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Datasources"],
-                extensions={"x-visibility": "Preview"},
+                extensions={"x-visibility": "Public"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -497,7 +497,7 @@ class ClientDatasources(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Datasources"],
-                extensions={"x-visibility": "Preview"},
+                extensions={"x-visibility": "Public"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -590,7 +590,7 @@ class ClientDatasources(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Datasources"],
-                extensions={"x-visibility": "Preview"},
+                extensions={"x-visibility": "Public"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -701,7 +701,7 @@ class ClientDatasources(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Datasources"],
-                extensions={"x-visibility": "Preview"},
+                extensions={"x-visibility": "Public"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -812,7 +812,7 @@ class ClientDatasources(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Datasources"],
-                extensions={"x-visibility": "Preview"},
+                extensions={"x-visibility": "Public"},
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
