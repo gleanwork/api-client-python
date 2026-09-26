@@ -28,6 +28,8 @@ class IncludeType(str, Enum):
 
 
 class PeopleRequestTypedDict(TypedDict):
+    fallback_to_authenticated_identity: NotRequired[bool]
+    r"""If true and the current user's people profile is missing, reads the stored SSO profile and returns a minimal Person with its display name, the authenticated user's email, the same obfuscatedId used by a normal self-lookup, and identityOnly set to true. If the SSO profile or its name is unavailable, preserves the missing-profile error. Applies only when emailIds and obfuscatedIds are empty and the request doesn't use act-as, a virtual identity, anonymous authentication, or the INVALID_ENTITIES includeType. The fallback doesn't mask lookup or enrichment errors and doesn't create a directory profile. Normal people profiles don't require an SSO lookup."""
     timezone_offset: NotRequired[int]
     r"""The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC."""
     obfuscated_ids: NotRequired[List[str]]
@@ -43,6 +45,11 @@ class PeopleRequestTypedDict(TypedDict):
 
 
 class PeopleRequest(BaseModel):
+    fallback_to_authenticated_identity: Annotated[
+        Optional[bool], pydantic.Field(alias="fallbackToAuthenticatedIdentity")
+    ] = False
+    r"""If true and the current user's people profile is missing, reads the stored SSO profile and returns a minimal Person with its display name, the authenticated user's email, the same obfuscatedId used by a normal self-lookup, and identityOnly set to true. If the SSO profile or its name is unavailable, preserves the missing-profile error. Applies only when emailIds and obfuscatedIds are empty and the request doesn't use act-as, a virtual identity, anonymous authentication, or the INVALID_ENTITIES includeType. The fallback doesn't mask lookup or enrichment errors and doesn't create a directory profile. Normal people profiles don't require an SSO lookup."""
+
     timezone_offset: Annotated[
         Optional[int], pydantic.Field(alias="timezoneOffset")
     ] = None
@@ -73,6 +80,7 @@ class PeopleRequest(BaseModel):
     def serialize_model(self, handler):
         optional_fields = set(
             [
+                "fallbackToAuthenticatedIdentity",
                 "timezoneOffset",
                 "obfuscatedIds",
                 "emailIds",

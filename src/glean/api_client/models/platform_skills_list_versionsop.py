@@ -12,7 +12,7 @@ class PlatformSkillsListVersionsRequestTypedDict(TypedDict):
     skill_id: str
     r"""Glean skill ID."""
     page_size: NotRequired[int]
-    r"""Maximum number of versions to return."""
+    r"""Maximum number of versions to return. Defaults to 20. Maximum is 100."""
     cursor: NotRequired[str]
     r"""Opaque pagination cursor from a previous response."""
 
@@ -26,8 +26,8 @@ class PlatformSkillsListVersionsRequest(BaseModel):
     page_size: Annotated[
         Optional[int],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
-    r"""Maximum number of versions to return."""
+    ] = 20
+    r"""Maximum number of versions to return. Defaults to 20. Maximum is 100."""
 
     cursor: Annotated[
         Optional[str],

@@ -28,7 +28,7 @@ func (o *PlatformSkillsCreateVersionRequest) GetBody() components.PlatformSkillV
 
 type PlatformSkillsCreateVersionResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// Successful response.
+	// Skill version created.
 	PlatformSkillVersionCreateResponse *components.PlatformSkillVersionCreateResponse
 }
 

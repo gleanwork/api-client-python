@@ -20,7 +20,7 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class PlatformSkillTypedDict(TypedDict):
-    id: str
+    skill_id: str
     r"""Glean skill ID."""
     display_name: str
     r"""Human-readable skill name."""
@@ -31,7 +31,9 @@ class PlatformSkillTypedDict(TypedDict):
     latest_minor_version: int
     r"""Latest minor version number for the skill."""
     status: PlatformSkillStatus
-    r"""Current skill status."""
+    r"""The caller's effective activation. The owner sees the skill's stored status. Another caller sees their personal setting, or DISABLED when they have none. DRAFT is the stored draft state and is not set by update. Effective activation may also reflect workspace governance policy.
+
+    """
     origin: PlatformSkillOrigin
     r"""Source category for the skill."""
     owner: PlatformPersonReferenceTypedDict
@@ -44,7 +46,7 @@ class PlatformSkillTypedDict(TypedDict):
 
 
 class PlatformSkill(BaseModel):
-    id: str
+    skill_id: str
     r"""Glean skill ID."""
 
     display_name: str
@@ -60,7 +62,9 @@ class PlatformSkill(BaseModel):
     r"""Latest minor version number for the skill."""
 
     status: PlatformSkillStatus
-    r"""Current skill status."""
+    r"""The caller's effective activation. The owner sees the skill's stored status. Another caller sees their personal setting, or DISABLED when they have none. DRAFT is the stored draft state and is not set by update. Effective activation may also reflect workspace governance policy.
+
+    """
 
     origin: PlatformSkillOrigin
     r"""Source category for the skill."""
@@ -81,6 +85,15 @@ class PlatformSkill(BaseModel):
         if isinstance(value, str):
             try:
                 return models.PlatformSkillStatus(value)
+            except ValueError:
+                return value
+        return value
+
+    @field_serializer("origin")
+    def serialize_origin(self, value):
+        if isinstance(value, str):
+            try:
+                return models.PlatformSkillOrigin(value)
             except ValueError:
                 return value
         return value

@@ -9,7 +9,7 @@ from typing_extensions import TypedDict
 
 
 class PlatformSkillsListResponseTypedDict(TypedDict):
-    skills: List[PlatformSkillTypedDict]
+    results: List[PlatformSkillTypedDict]
     r"""Skills available to the user."""
     has_more: bool
     r"""Whether additional results are available."""
@@ -20,7 +20,7 @@ class PlatformSkillsListResponseTypedDict(TypedDict):
 
 
 class PlatformSkillsListResponse(BaseModel):
-    skills: List[PlatformSkill]
+    results: List[PlatformSkill]
     r"""Skills available to the user."""
 
     has_more: bool

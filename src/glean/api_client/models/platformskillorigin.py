@@ -2,9 +2,11 @@
 
 from __future__ import annotations
 from enum import Enum
+from glean.api_client import utils
 
 
-class PlatformSkillOrigin(str, Enum):
+class PlatformSkillOrigin(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""Source category for the skill."""
 
     CUSTOM = "CUSTOM"
+    GITHUB = "GITHUB"

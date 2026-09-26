@@ -2,12 +2,27 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 // PlatformAuthenticationSuggestion - One tool the caller must authorize before the agent can run.
 type PlatformAuthenticationSuggestion struct {
 	// Human-readable tool name.
 	ToolName *string `json:"tool_name,omitempty"`
 	// Identifier to POST to `/tool-servers/{serverId}/auth` (Client API) with `returnUrl` in the request body to obtain an `authorizationUrl` to redirect the end user to.
 	ServerID string `json:"server_id"`
+}
+
+func (p PlatformAuthenticationSuggestion) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PlatformAuthenticationSuggestion) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"server_id"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *PlatformAuthenticationSuggestion) GetToolName() *string {

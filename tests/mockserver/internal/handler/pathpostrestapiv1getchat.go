@@ -628,8 +628,8 @@ func testGetchatGetchat0(w http.ResponseWriter, req *http.Request) {
 											Roles:              []components.UserRoleSpecification{},
 											SourceDocumentSpec: types.Pointer(components.CreateDocumentSpecUnionDocumentSpec3(
 												components.DocumentSpec3{
-													UgcType:   components.DocumentSpecUgcType1Shortcuts,
-													ContentID: 602763,
+													UgcType:   components.DocumentSpecUgcType1Announcements,
+													ContentID: 848009,
 												},
 											)),
 											SourceType: components.AnswerSourceTypeAssistant.ToPointer(),

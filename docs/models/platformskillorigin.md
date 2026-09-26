@@ -8,6 +8,8 @@ Source category for the skill.
 from glean.api_client.models import PlatformSkillOrigin
 
 value = PlatformSkillOrigin.CUSTOM
+
+# Open enum: unrecognized values are captured as UnrecognizedStr
 ```
 
 
@@ -16,3 +18,4 @@ value = PlatformSkillOrigin.CUSTOM
 | Name     | Value    |
 | -------- | -------- |
 | `CUSTOM` | CUSTOM   |
+| `GITHUB` | GITHUB   |

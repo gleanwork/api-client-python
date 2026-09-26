@@ -10,7 +10,7 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 class PlatformSkillsListRequestTypedDict(TypedDict):
     page_size: NotRequired[int]
-    r"""Maximum number of skills to return."""
+    r"""Maximum number of skills to return. Defaults to 20. Maximum is 100."""
     cursor: NotRequired[str]
     r"""Opaque pagination cursor from a previous response."""
 
@@ -19,8 +19,8 @@ class PlatformSkillsListRequest(BaseModel):
     page_size: Annotated[
         Optional[int],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
-    r"""Maximum number of skills to return."""
+    ] = 20
+    r"""Maximum number of skills to return. Defaults to 20. Maximum is 100."""
 
     cursor: Annotated[
         Optional[str],
