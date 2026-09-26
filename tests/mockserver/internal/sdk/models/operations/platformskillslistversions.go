@@ -4,15 +4,27 @@ package operations
 
 import (
 	"mockserver/internal/sdk/models/components"
+	"mockserver/internal/sdk/utils"
 )
 
 type PlatformSkillsListVersionsRequest struct {
 	// Glean skill ID.
 	SkillID string `pathParam:"style=simple,explode=false,name=skill_id"`
-	// Maximum number of versions to return.
-	PageSize *int64 `queryParam:"style=form,explode=true,name=page_size"`
+	// Maximum number of versions to return. Defaults to 20. Maximum is 100.
+	PageSize *int64 `default:"20" queryParam:"style=form,explode=true,name=page_size"`
 	// Opaque pagination cursor from a previous response.
 	Cursor *string `queryParam:"style=form,explode=true,name=cursor"`
+}
+
+func (p PlatformSkillsListVersionsRequest) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PlatformSkillsListVersionsRequest) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"skill_id"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *PlatformSkillsListVersionsRequest) GetSkillID() string {

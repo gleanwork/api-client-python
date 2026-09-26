@@ -4,13 +4,25 @@ package operations
 
 import (
 	"mockserver/internal/sdk/models/components"
+	"mockserver/internal/sdk/utils"
 )
 
 type PlatformSkillsListRequest struct {
-	// Maximum number of skills to return.
-	PageSize *int64 `queryParam:"style=form,explode=true,name=page_size"`
+	// Maximum number of skills to return. Defaults to 20. Maximum is 100.
+	PageSize *int64 `default:"20" queryParam:"style=form,explode=true,name=page_size"`
 	// Opaque pagination cursor from a previous response.
 	Cursor *string `queryParam:"style=form,explode=true,name=cursor"`
+}
+
+func (p PlatformSkillsListRequest) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PlatformSkillsListRequest) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *PlatformSkillsListRequest) GetPageSize() *int64 {

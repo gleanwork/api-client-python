@@ -306,6 +306,7 @@ class Entities(BaseSDK):
         self,
         *,
         locale: Optional[str] = None,
+        fallback_to_authenticated_identity: Optional[bool] = False,
         timezone_offset: Optional[int] = None,
         obfuscated_ids: Optional[Iterable[str]] = None,
         email_ids: Optional[Iterable[str]] = None,
@@ -322,6 +323,7 @@ class Entities(BaseSDK):
         Read people details for the given IDs.
 
         :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
+        :param fallback_to_authenticated_identity: If true and the current user's people profile is missing, reads the stored SSO profile and returns a minimal Person with its display name, the authenticated user's email, the same obfuscatedId used by a normal self-lookup, and identityOnly set to true. If the SSO profile or its name is unavailable, preserves the missing-profile error. Applies only when emailIds and obfuscatedIds are empty and the request doesn't use act-as, a virtual identity, anonymous authentication, or the INVALID_ENTITIES includeType. The fallback doesn't mask lookup or enrichment errors and doesn't create a directory profile. Normal people profiles don't require an SSO lookup.
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param obfuscated_ids: The Person IDs to retrieve. If no IDs are requested, the current user's details are returned.
         :param email_ids: The email IDs to retrieve. The result is the deduplicated union of emailIds and obfuscatedIds.
@@ -346,6 +348,7 @@ class Entities(BaseSDK):
         request = models.PeopleRequestRequest(
             locale=locale,
             people_request=models.PeopleRequest(
+                fallback_to_authenticated_identity=fallback_to_authenticated_identity,
                 timezone_offset=timezone_offset,
                 obfuscated_ids=utils.unmarshal(obfuscated_ids, Optional[List[str]]),
                 email_ids=utils.unmarshal(email_ids, Optional[List[str]]),
@@ -422,6 +425,7 @@ class Entities(BaseSDK):
         self,
         *,
         locale: Optional[str] = None,
+        fallback_to_authenticated_identity: Optional[bool] = False,
         timezone_offset: Optional[int] = None,
         obfuscated_ids: Optional[Iterable[str]] = None,
         email_ids: Optional[Iterable[str]] = None,
@@ -438,6 +442,7 @@ class Entities(BaseSDK):
         Read people details for the given IDs.
 
         :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
+        :param fallback_to_authenticated_identity: If true and the current user's people profile is missing, reads the stored SSO profile and returns a minimal Person with its display name, the authenticated user's email, the same obfuscatedId used by a normal self-lookup, and identityOnly set to true. If the SSO profile or its name is unavailable, preserves the missing-profile error. Applies only when emailIds and obfuscatedIds are empty and the request doesn't use act-as, a virtual identity, anonymous authentication, or the INVALID_ENTITIES includeType. The fallback doesn't mask lookup or enrichment errors and doesn't create a directory profile. Normal people profiles don't require an SSO lookup.
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
         :param obfuscated_ids: The Person IDs to retrieve. If no IDs are requested, the current user's details are returned.
         :param email_ids: The email IDs to retrieve. The result is the deduplicated union of emailIds and obfuscatedIds.
@@ -462,6 +467,7 @@ class Entities(BaseSDK):
         request = models.PeopleRequestRequest(
             locale=locale,
             people_request=models.PeopleRequest(
+                fallback_to_authenticated_identity=fallback_to_authenticated_identity,
                 timezone_offset=timezone_offset,
                 obfuscated_ids=utils.unmarshal(obfuscated_ids, Optional[List[str]]),
                 email_ids=utils.unmarshal(email_ids, Optional[List[str]]),

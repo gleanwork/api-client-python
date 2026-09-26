@@ -64,6 +64,7 @@ const (
 	FeedRequestCategoryShareArtifact                FeedRequestCategory = "SHARE_ARTIFACT"
 	FeedRequestCategoryCreateAgent                  FeedRequestCategory = "CREATE_AGENT"
 	FeedRequestCategoryManagerInvite                FeedRequestCategory = "MANAGER_INVITE"
+	FeedRequestCategoryOnboardingAuthorization      FeedRequestCategory = "ONBOARDING_AUTHORIZATION"
 )
 
 func (e FeedRequestCategory) ToPointer() *FeedRequestCategory {
@@ -182,6 +183,8 @@ func (e *FeedRequestCategory) UnmarshalJSON(data []byte) error {
 	case "CREATE_AGENT":
 		fallthrough
 	case "MANAGER_INVITE":
+		fallthrough
+	case "ONBOARDING_AUTHORIZATION":
 		*e = FeedRequestCategory(v)
 		return nil
 	default:

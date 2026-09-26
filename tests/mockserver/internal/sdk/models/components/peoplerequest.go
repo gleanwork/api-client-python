@@ -5,6 +5,7 @@ package components
 import (
 	"encoding/json"
 	"fmt"
+	"mockserver/internal/sdk/utils"
 )
 
 type PeopleRequestIncludeField string
@@ -84,6 +85,8 @@ func (e *IncludeType) UnmarshalJSON(data []byte) error {
 }
 
 type PeopleRequest struct {
+	// If true and the current user's people profile is missing, reads the stored SSO profile and returns a minimal Person with its display name, the authenticated user's email, the same obfuscatedId used by a normal self-lookup, and identityOnly set to true. If the SSO profile or its name is unavailable, preserves the missing-profile error. Applies only when emailIds and obfuscatedIds are empty and the request doesn't use act-as, a virtual identity, anonymous authentication, or the INVALID_ENTITIES includeType. The fallback doesn't mask lookup or enrichment errors and doesn't create a directory profile. Normal people profiles don't require an SSO lookup.
+	FallbackToAuthenticatedIdentity *bool `default:"false" json:"fallbackToAuthenticatedIdentity"`
 	// The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
 	TimezoneOffset *int64 `json:"timezoneOffset,omitempty"`
 	// The Person IDs to retrieve. If no IDs are requested, the current user's details are returned.
@@ -96,6 +99,24 @@ type PeopleRequest struct {
 	IncludeTypes []IncludeType `json:"includeTypes,omitempty"`
 	// A string denoting the search surface from which the endpoint is called.
 	Source *string `json:"source,omitempty"`
+}
+
+func (p PeopleRequest) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PeopleRequest) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *PeopleRequest) GetFallbackToAuthenticatedIdentity() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.FallbackToAuthenticatedIdentity
 }
 
 func (o *PeopleRequest) GetTimezoneOffset() *int64 {

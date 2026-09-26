@@ -47,7 +47,7 @@ func testPlatformSkillsListPlatformSkillsList0(w http.ResponseWriter, req *http.
 		return
 	}
 	var respBody *components.PlatformSkillsListResponse = &components.PlatformSkillsListResponse{
-		Skills:     []components.PlatformSkill{},
+		Results:    []components.PlatformSkill{},
 		HasMore:    true,
 		NextCursor: types.String("<value>"),
 		RequestID:  "<id>",

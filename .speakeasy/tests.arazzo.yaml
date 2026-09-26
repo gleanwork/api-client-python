@@ -158867,11 +158867,11 @@ workflows:
             payload:
                 file: 'x-file: example.file'
           successCriteria:
-            - condition: $statusCode == 200
+            - condition: $statusCode == 201
             - condition: $response.header.Content-Type == application/json
             - context: $response.body
               condition: |
-                {"skill":{"id":"<id>","display_name":"Merl18","description":"rural ugh unexpectedly excepting livid","latest_version":504149,"latest_minor_version":106110,"status":"DISABLED","origin":"CUSTOM","owner":{"name":"<value>"},"created_at":"2025-01-04T03:16:16.951Z","updated_at":"2025-09-10T16:05:46.046Z"},"request_id":"<id>"}
+                {"skill":{"skill_id":"<id>","display_name":"Merl18","description":"rural ugh unexpectedly excepting livid","latest_version":504149,"latest_minor_version":106110,"status":"DISABLED","origin":"CUSTOM","owner":{"name":"<value>"},"created_at":"2025-09-10T16:05:46.046Z","updated_at":"2025-08-13T23:05:45.737Z"},"request_id":"<id>"}
               type: simple
       x-speakeasy-test-group: skills
       x-speakeasy-test-rebuild: true
@@ -158884,8 +158884,12 @@ workflows:
             - condition: $response.header.Content-Type == application/json
             - context: $response.body
               condition: |
-                {"skills":[],"has_more":true,"next_cursor":"<value>","request_id":"<id>"}
+                {"results":[],"has_more":true,"next_cursor":"<value>","request_id":"<id>"}
               type: simple
+          parameters:
+            - name: page_size
+              in: query
+              value: 20
       x-speakeasy-test-group: skills
       x-speakeasy-test-rebuild: true
     - workflowId: platform-skills-validate
@@ -158918,7 +158922,7 @@ workflows:
             - condition: $response.header.Content-Type == application/json
             - context: $response.body
               condition: |
-                {"skill":{"id":"<id>","display_name":"Chad_Herzog","description":"whenever up aha controvert","latest_version":151495,"latest_minor_version":170771,"status":"DISABLED","origin":"CUSTOM","owner":{"name":"<value>"},"created_at":"2024-12-25T16:41:00.099Z","updated_at":"2026-12-07T21:59:59.375Z"},"request_id":"<id>"}
+                {"skill":{"skill_id":"<id>","display_name":"Chad_Herzog","description":"whenever up aha controvert","latest_version":151495,"latest_minor_version":170771,"status":"DISABLED","origin":"CUSTOM","owner":{"name":"<value>"},"created_at":"2024-12-25T16:41:00.099Z","updated_at":"2026-12-07T21:59:59.375Z"},"request_id":"<id>"}
               type: simple
       x-speakeasy-test-group: skills
       x-speakeasy-test-rebuild: true
@@ -158952,7 +158956,7 @@ workflows:
             payload:
                 file: 'x-file: example.file'
           successCriteria:
-            - condition: $statusCode == 200
+            - condition: $statusCode == 201
             - condition: $response.header.Content-Type == application/json
             - context: $response.body
               condition: |
@@ -158968,12 +158972,15 @@ workflows:
             - name: skill_id
               in: path
               value: <id>
+            - name: page_size
+              in: query
+              value: 20
           successCriteria:
             - condition: $statusCode == 200
             - condition: $response.header.Content-Type == application/json
             - context: $response.body
               condition: |
-                {"versions":[],"has_more":false,"next_cursor":"<value>","request_id":"<id>"}
+                {"results":[],"has_more":false,"next_cursor":"<value>","request_id":"<id>"}
               type: simple
       x-speakeasy-test-group: skills
       x-speakeasy-test-rebuild: true
@@ -159087,7 +159094,7 @@ workflows:
                 source_urls:
                     - https://github.com/anthropics/skills/tree/main/skills/skill-creator
           successCriteria:
-            - condition: $statusCode == 200
+            - condition: $statusCode == 201
             - condition: $response.header.Content-Type == application/json
             - context: $response.body
               condition: |
@@ -159130,7 +159137,7 @@ workflows:
             - condition: $response.header.Content-Type == application/json
             - context: $response.body
               condition: |
-                {"skill":{"id":"<id>","display_name":"Afton14","description":"taut netsuke duh sonata boastfully elegantly management come","latest_version":425795,"latest_minor_version":741364,"status":"DISABLED","origin":"CUSTOM","owner":{"name":"<value>"},"created_at":"2024-12-20T01:31:39.364Z","updated_at":"2025-12-04T02:59:37.124Z"},"request_id":"<id>"}
+                {"skill":{"skill_id":"<id>","display_name":"Afton14","description":"taut netsuke duh sonata boastfully elegantly management come","latest_version":425795,"latest_minor_version":741364,"status":"DISABLED","origin":"CUSTOM","owner":{"name":"<value>"},"created_at":"2024-12-20T01:31:39.364Z","updated_at":"2025-12-04T02:59:37.124Z"},"request_id":"<id>"}
               type: simple
       x-speakeasy-test-group: skills
       x-speakeasy-test-rebuild: true
@@ -159147,7 +159154,7 @@ workflows:
             - condition: $response.header.Content-Type == application/json
             - context: $response.body
               condition: |
-                {"sync_status":"UP_TO_DATE","commit_sha":"<value>","updated":false,"request_id":"<id>"}
+                {"commit_sha":"<value>","is_updated":false,"request_id":"<id>"}
               type: simple
       x-speakeasy-test-group: skills
       x-speakeasy-test-rebuild: true

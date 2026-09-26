@@ -66,6 +66,7 @@ class FeedRequestCategory(str, Enum):
     SHARE_ARTIFACT = "SHARE_ARTIFACT"
     CREATE_AGENT = "CREATE_AGENT"
     MANAGER_INVITE = "MANAGER_INVITE"
+    ONBOARDING_AUTHORIZATION = "ONBOARDING_AUTHORIZATION"
 
 
 class FeedRequestTypedDict(TypedDict):

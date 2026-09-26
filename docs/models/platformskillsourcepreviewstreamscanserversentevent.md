@@ -1,0 +1,10 @@
+# PlatformSkillSourcePreviewStreamScanServerSentEvent
+
+
+## Fields
+
+| Field                                                                                            | Type                                                                                             | Required                                                                                         | Description                                                                                      |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| `id`                                                                                             | *Optional[str]*                                                                                  | :heavy_minus_sign:                                                                               | N/A                                                                                              |
+| `event`                                                                                          | *Literal["SCAN"]*                                                                                | :heavy_check_mark:                                                                               | N/A                                                                                              |
+| `data`                                                                                           | [models.PlatformSkillSourcePreviewStreamScan](../models/platformskillsourcepreviewstreamscan.md) | :heavy_check_mark:                                                                               | Repository scan started; names every skill path found.                                           |
