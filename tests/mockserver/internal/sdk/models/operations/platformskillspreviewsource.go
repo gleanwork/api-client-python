@@ -4,14 +4,42 @@ package operations
 
 import (
 	"mockserver/internal/sdk/models/components"
+	"mockserver/internal/sdk/types"
+	"mockserver/internal/sdk/utils"
 )
+
+type PlatformSkillsPreviewSourceRequest struct {
+	// GitHub URL for a skill directory, SKILL.md file, or repository to inspect.
+	SourceURL string `json:"source_url"`
+	stream    *bool  `const:"false" json:"stream"`
+}
+
+func (p PlatformSkillsPreviewSourceRequest) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PlatformSkillsPreviewSourceRequest) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"source_url"}); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *PlatformSkillsPreviewSourceRequest) GetSourceURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.SourceURL
+}
+
+func (o *PlatformSkillsPreviewSourceRequest) GetStream() *bool {
+	return types.Bool(false)
+}
 
 type PlatformSkillsPreviewSourceResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Successful response.
 	PlatformSkillSourcePreviewResponse *components.PlatformSkillSourcePreviewResponse
-	// Successful response.
-	Res *string
 }
 
 func (o *PlatformSkillsPreviewSourceResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -26,11 +54,4 @@ func (o *PlatformSkillsPreviewSourceResponse) GetPlatformSkillSourcePreviewRespo
 		return nil
 	}
 	return o.PlatformSkillSourcePreviewResponse
-}
-
-func (o *PlatformSkillsPreviewSourceResponse) GetRes() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Res
 }

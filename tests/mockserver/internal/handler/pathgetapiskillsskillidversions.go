@@ -47,7 +47,7 @@ func testPlatformSkillsListVersionsPlatformSkillsListVersions0(w http.ResponseWr
 		return
 	}
 	var respBody *components.PlatformSkillVersionsListResponse = &components.PlatformSkillVersionsListResponse{
-		Versions:   []components.PlatformSkillVersion{},
+		Results:    []components.PlatformSkillVersion{},
 		HasMore:    false,
 		NextCursor: types.String("<value>"),
 		RequestID:  "<id>",

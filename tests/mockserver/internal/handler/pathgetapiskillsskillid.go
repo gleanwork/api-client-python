@@ -48,7 +48,7 @@ func testPlatformSkillsGetPlatformSkillsGet0(w http.ResponseWriter, req *http.Re
 	}
 	var respBody *components.PlatformSkillGetResponse = &components.PlatformSkillGetResponse{
 		Skill: components.PlatformSkill{
-			ID:                 "<id>",
+			SkillID:            "<id>",
 			DisplayName:        "Chad_Herzog",
 			Description:        "whenever up aha controvert",
 			LatestVersion:      151495,

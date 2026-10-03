@@ -9,14 +9,18 @@ from typing_extensions import TypedDict
 
 class PlatformSkillImportResponseTypedDict(TypedDict):
     skills: List[PlatformSkillTypedDict]
-    r"""Independently persisted skills in request order."""
+    r"""Imported skills in request order. The import is atomic: either every source persists or none does.
+
+    """
     request_id: str
     r"""Platform-generated request ID for support correlation."""
 
 
 class PlatformSkillImportResponse(BaseModel):
     skills: List[PlatformSkill]
-    r"""Independently persisted skills in request order."""
+    r"""Imported skills in request order. The import is atomic: either every source persists or none does.
+
+    """
 
     request_id: str
     r"""Platform-generated request ID for support correlation."""

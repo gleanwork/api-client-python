@@ -103,6 +103,7 @@ class ChatSDK(BaseSDK):
                 tags=["Chat"],
                 extensions={
                     "x-codegen-request-body-name": "payload",
+                    "x-glean-scopes": {"legacy": ["CHAT"], "platform": ["chat:write"]},
                     "x-visibility": "Public",
                 },
             ),
@@ -232,6 +233,7 @@ class ChatSDK(BaseSDK):
                 tags=["Chat"],
                 extensions={
                     "x-codegen-request-body-name": "payload",
+                    "x-glean-scopes": {"legacy": ["CHAT"], "platform": ["chat:write"]},
                     "x-visibility": "Public",
                 },
             ),
@@ -365,6 +367,7 @@ class ChatSDK(BaseSDK):
                 tags=["Chat"],
                 extensions={
                     "x-codegen-request-body-name": "payload",
+                    "x-glean-scopes": {"legacy": ["CHAT"], "platform": ["chat:write"]},
                     "x-visibility": "Public",
                 },
             ),
@@ -510,6 +513,7 @@ class ChatSDK(BaseSDK):
                 tags=["Chat"],
                 extensions={
                     "x-codegen-request-body-name": "payload",
+                    "x-glean-scopes": {"legacy": ["CHAT"], "platform": ["chat:write"]},
                     "x-visibility": "Public",
                 },
             ),

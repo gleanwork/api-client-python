@@ -46,10 +46,9 @@ func testPlatformSkillsSyncPlatformSkillsSync0(w http.ResponseWriter, req *http.
 		return
 	}
 	var respBody *components.PlatformSkillSyncResponse = &components.PlatformSkillSyncResponse{
-		SyncStatus: components.PlatformSkillSyncResultStatusUpToDate,
-		CommitSha:  "<value>",
-		Updated:    false,
-		RequestID:  "<id>",
+		CommitSha: "<value>",
+		IsUpdated: false,
+		RequestID: "<id>",
 	}
 	respBodyBytes, err := utils.MarshalJSON(respBody, "", true)
 

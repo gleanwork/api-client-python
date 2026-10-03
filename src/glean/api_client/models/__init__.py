@@ -183,6 +183,7 @@ if TYPE_CHECKING:
     )
     from .answerresult import AnswerResult, AnswerResultTypedDict
     from .appresult import AppResult, AppResultTypedDict
+    from .artifacttype import ArtifactType
     from .assistantinsightsresponse import (
         AssistantInsightsResponse,
         AssistantInsightsResponseTypedDict,
@@ -1203,6 +1204,10 @@ if TYPE_CHECKING:
         ManualFeedbackSideBySideInfoTypedDict,
         ManualFeedbackSideBySideInfoVote,
     )
+    from .mcpauthmethodbreakdown import (
+        McpAuthMethodBreakdown,
+        McpAuthMethodBreakdownTypedDict,
+    )
     from .mcpbreakdowninsightsrequest import (
         BreakdownType,
         McpBreakdownInsightsRequest,
@@ -1367,9 +1372,13 @@ if TYPE_CHECKING:
         PlatformSkillsListRequest,
         PlatformSkillsListRequestTypedDict,
     )
+    from .platform_skills_preview_source_streamop import (
+        PlatformSkillsPreviewSourceStreamRequest,
+        PlatformSkillsPreviewSourceStreamRequestTypedDict,
+    )
     from .platform_skills_preview_sourceop import (
-        PlatformSkillsPreviewSourceResponse,
-        PlatformSkillsPreviewSourceResponseTypedDict,
+        PlatformSkillsPreviewSourceRequest,
+        PlatformSkillsPreviewSourceRequestTypedDict,
     )
     from .platform_skills_syncop import (
         PlatformSkillsSyncRequest,
@@ -1667,6 +1676,10 @@ if TYPE_CHECKING:
         PlatformPersonReference,
         PlatformPersonReferenceTypedDict,
     )
+    from .platformproblemdetail import (
+        PlatformProblemDetail,
+        PlatformProblemDetailTypedDict,
+    )
     from .platformproblemdetailcode import PlatformProblemDetailCode
     from .platformproblemdetailerror import (
         PlatformProblemDetailError,
@@ -1728,13 +1741,58 @@ if TYPE_CHECKING:
         PlatformSkillSourcePreviewFile,
         PlatformSkillSourcePreviewFileTypedDict,
     )
-    from .platformskillsourcepreviewrequest import (
-        PlatformSkillSourcePreviewRequest,
-        PlatformSkillSourcePreviewRequestTypedDict,
-    )
     from .platformskillsourcepreviewresponse import (
         PlatformSkillSourcePreviewResponse,
         PlatformSkillSourcePreviewResponseTypedDict,
+    )
+    from .platformskillsourcepreviewstreamerror import (
+        PlatformSkillSourcePreviewStreamError,
+        PlatformSkillSourcePreviewStreamErrorType,
+        PlatformSkillSourcePreviewStreamErrorTypedDict,
+    )
+    from .platformskillsourcepreviewstreamerrorserversentevent import (
+        PlatformSkillSourcePreviewStreamErrorServerSentEvent,
+        PlatformSkillSourcePreviewStreamErrorServerSentEventTypedDict,
+    )
+    from .platformskillsourcepreviewstreameventserversentevent import (
+        PlatformSkillSourcePreviewStreamEventServerSentEvent,
+        PlatformSkillSourcePreviewStreamEventServerSentEventTypedDict,
+    )
+    from .platformskillsourcepreviewstreamprogress import (
+        PlatformSkillSourcePreviewStreamProgress,
+        PlatformSkillSourcePreviewStreamProgressType,
+        PlatformSkillSourcePreviewStreamProgressTypedDict,
+    )
+    from .platformskillsourcepreviewstreamprogressserversentevent import (
+        PlatformSkillSourcePreviewStreamProgressServerSentEvent,
+        PlatformSkillSourcePreviewStreamProgressServerSentEventTypedDict,
+    )
+    from .platformskillsourcepreviewstreamresult import (
+        PlatformSkillSourcePreviewStreamResult,
+        PlatformSkillSourcePreviewStreamResultType,
+        PlatformSkillSourcePreviewStreamResultTypedDict,
+    )
+    from .platformskillsourcepreviewstreamresultserversentevent import (
+        PlatformSkillSourcePreviewStreamResultServerSentEvent,
+        PlatformSkillSourcePreviewStreamResultServerSentEventTypedDict,
+    )
+    from .platformskillsourcepreviewstreamscan import (
+        PlatformSkillSourcePreviewStreamScan,
+        PlatformSkillSourcePreviewStreamScanType,
+        PlatformSkillSourcePreviewStreamScanTypedDict,
+    )
+    from .platformskillsourcepreviewstreamscanserversentevent import (
+        PlatformSkillSourcePreviewStreamScanServerSentEvent,
+        PlatformSkillSourcePreviewStreamScanServerSentEventTypedDict,
+    )
+    from .platformskillsourcepreviewstreamskill import (
+        PlatformSkillSourcePreviewStreamSkill,
+        PlatformSkillSourcePreviewStreamSkillType,
+        PlatformSkillSourcePreviewStreamSkillTypedDict,
+    )
+    from .platformskillsourcepreviewstreamskillserversentevent import (
+        PlatformSkillSourcePreviewStreamSkillServerSentEvent,
+        PlatformSkillSourcePreviewStreamSkillServerSentEventTypedDict,
     )
     from .platformskillsourceprovenance import (
         PlatformSkillSourceProvenance,
@@ -1745,7 +1803,6 @@ if TYPE_CHECKING:
         PlatformSkillSyncResponse,
         PlatformSkillSyncResponseTypedDict,
     )
-    from .platformskillsyncresultstatus import PlatformSkillSyncResultStatus
     from .platformskillsyncstatus import PlatformSkillSyncStatus
     from .platformskillupdaterequest import (
         PlatformSkillUpdateRequest,
@@ -2125,6 +2182,12 @@ if TYPE_CHECKING:
     )
     from .toolsets import ToolSets, ToolSetsTypedDict
     from .toolslistresponse import ToolsListResponse, ToolsListResponseTypedDict
+    from .ugcaction_union import (
+        UgcAction,
+        UgcActionTypedDict,
+        UgcActionUnion,
+        UgcActionUnionTypedDict,
+    )
     from .ugctype import UgcType
     from .unauthorizeddatasourceinstance import (
         UnauthorizedDatasourceInstance,
@@ -2390,6 +2453,7 @@ __all__ = [
     "AnswerTypedDict",
     "AppResult",
     "AppResultTypedDict",
+    "ArtifactType",
     "AssistantInsightsResponse",
     "AssistantInsightsResponseTypedDict",
     "AuthConfig",
@@ -3186,6 +3250,8 @@ __all__ = [
     "ManualFeedbackSideBySideInfoSource",
     "ManualFeedbackSideBySideInfoTypedDict",
     "ManualFeedbackSideBySideInfoVote",
+    "McpAuthMethodBreakdown",
+    "McpAuthMethodBreakdownTypedDict",
     "McpBreakdownInsightsRequest",
     "McpBreakdownInsightsRequestTypedDict",
     "McpBreakdownInsightsResponse",
@@ -3450,9 +3516,11 @@ __all__ = [
     "PlatformMessageTypedDict",
     "PlatformPersonReference",
     "PlatformPersonReferenceTypedDict",
+    "PlatformProblemDetail",
     "PlatformProblemDetailCode",
     "PlatformProblemDetailError",
     "PlatformProblemDetailErrorTypedDict",
+    "PlatformProblemDetailTypedDict",
     "PlatformResult",
     "PlatformResultTypedDict",
     "PlatformSearchFiltersRequest",
@@ -3485,17 +3553,41 @@ __all__ = [
     "PlatformSkillSourcePreviewFailureTypedDict",
     "PlatformSkillSourcePreviewFile",
     "PlatformSkillSourcePreviewFileTypedDict",
-    "PlatformSkillSourcePreviewRequest",
-    "PlatformSkillSourcePreviewRequestTypedDict",
     "PlatformSkillSourcePreviewResponse",
     "PlatformSkillSourcePreviewResponseTypedDict",
+    "PlatformSkillSourcePreviewStreamError",
+    "PlatformSkillSourcePreviewStreamErrorServerSentEvent",
+    "PlatformSkillSourcePreviewStreamErrorServerSentEventTypedDict",
+    "PlatformSkillSourcePreviewStreamErrorType",
+    "PlatformSkillSourcePreviewStreamErrorTypedDict",
+    "PlatformSkillSourcePreviewStreamEventServerSentEvent",
+    "PlatformSkillSourcePreviewStreamEventServerSentEventTypedDict",
+    "PlatformSkillSourcePreviewStreamProgress",
+    "PlatformSkillSourcePreviewStreamProgressServerSentEvent",
+    "PlatformSkillSourcePreviewStreamProgressServerSentEventTypedDict",
+    "PlatformSkillSourcePreviewStreamProgressType",
+    "PlatformSkillSourcePreviewStreamProgressTypedDict",
+    "PlatformSkillSourcePreviewStreamResult",
+    "PlatformSkillSourcePreviewStreamResultServerSentEvent",
+    "PlatformSkillSourcePreviewStreamResultServerSentEventTypedDict",
+    "PlatformSkillSourcePreviewStreamResultType",
+    "PlatformSkillSourcePreviewStreamResultTypedDict",
+    "PlatformSkillSourcePreviewStreamScan",
+    "PlatformSkillSourcePreviewStreamScanServerSentEvent",
+    "PlatformSkillSourcePreviewStreamScanServerSentEventTypedDict",
+    "PlatformSkillSourcePreviewStreamScanType",
+    "PlatformSkillSourcePreviewStreamScanTypedDict",
+    "PlatformSkillSourcePreviewStreamSkill",
+    "PlatformSkillSourcePreviewStreamSkillServerSentEvent",
+    "PlatformSkillSourcePreviewStreamSkillServerSentEventTypedDict",
+    "PlatformSkillSourcePreviewStreamSkillType",
+    "PlatformSkillSourcePreviewStreamSkillTypedDict",
     "PlatformSkillSourcePreviewTypedDict",
     "PlatformSkillSourceProvenance",
     "PlatformSkillSourceProvenanceTypedDict",
     "PlatformSkillStatus",
     "PlatformSkillSyncResponse",
     "PlatformSkillSyncResponseTypedDict",
-    "PlatformSkillSyncResultStatus",
     "PlatformSkillSyncStatus",
     "PlatformSkillTypedDict",
     "PlatformSkillUpdateRequest",
@@ -3547,8 +3639,10 @@ __all__ = [
     "PlatformSkillsListResponseTypedDict",
     "PlatformSkillsListVersionsRequest",
     "PlatformSkillsListVersionsRequestTypedDict",
-    "PlatformSkillsPreviewSourceResponse",
-    "PlatformSkillsPreviewSourceResponseTypedDict",
+    "PlatformSkillsPreviewSourceRequest",
+    "PlatformSkillsPreviewSourceRequestTypedDict",
+    "PlatformSkillsPreviewSourceStreamRequest",
+    "PlatformSkillsPreviewSourceStreamRequestTypedDict",
     "PlatformSkillsSyncRequest",
     "PlatformSkillsSyncRequestTypedDict",
     "PlatformSkillsUpdateRequest",
@@ -3878,6 +3972,10 @@ __all__ = [
     "UIConfig",
     "UIConfigTypedDict",
     "UIOptions",
+    "UgcAction",
+    "UgcActionTypedDict",
+    "UgcActionUnion",
+    "UgcActionUnionTypedDict",
     "UgcType",
     "UnauthorizedDatasourceInstance",
     "UnauthorizedDatasourceInstanceTypedDict",
@@ -4068,6 +4166,7 @@ _dynamic_imports: dict[str, str] = {
     "AnswerResultTypedDict": ".answerresult",
     "AppResult": ".appresult",
     "AppResultTypedDict": ".appresult",
+    "ArtifactType": ".artifacttype",
     "AssistantInsightsResponse": ".assistantinsightsresponse",
     "AssistantInsightsResponseTypedDict": ".assistantinsightsresponse",
     "AuthConfig": ".authconfig",
@@ -4822,6 +4921,8 @@ _dynamic_imports: dict[str, str] = {
     "ManualFeedbackSideBySideInfoSource": ".manualfeedbacksidebysideinfo",
     "ManualFeedbackSideBySideInfoTypedDict": ".manualfeedbacksidebysideinfo",
     "ManualFeedbackSideBySideInfoVote": ".manualfeedbacksidebysideinfo",
+    "McpAuthMethodBreakdown": ".mcpauthmethodbreakdown",
+    "McpAuthMethodBreakdownTypedDict": ".mcpauthmethodbreakdown",
     "BreakdownType": ".mcpbreakdowninsightsrequest",
     "McpBreakdownInsightsRequest": ".mcpbreakdowninsightsrequest",
     "McpBreakdownInsightsRequestTypedDict": ".mcpbreakdowninsightsrequest",
@@ -4951,8 +5052,10 @@ _dynamic_imports: dict[str, str] = {
     "PlatformSkillsListVersionsRequestTypedDict": ".platform_skills_list_versionsop",
     "PlatformSkillsListRequest": ".platform_skills_listop",
     "PlatformSkillsListRequestTypedDict": ".platform_skills_listop",
-    "PlatformSkillsPreviewSourceResponse": ".platform_skills_preview_sourceop",
-    "PlatformSkillsPreviewSourceResponseTypedDict": ".platform_skills_preview_sourceop",
+    "PlatformSkillsPreviewSourceStreamRequest": ".platform_skills_preview_source_streamop",
+    "PlatformSkillsPreviewSourceStreamRequestTypedDict": ".platform_skills_preview_source_streamop",
+    "PlatformSkillsPreviewSourceRequest": ".platform_skills_preview_sourceop",
+    "PlatformSkillsPreviewSourceRequestTypedDict": ".platform_skills_preview_sourceop",
     "PlatformSkillsSyncRequest": ".platform_skills_syncop",
     "PlatformSkillsSyncRequestTypedDict": ".platform_skills_syncop",
     "PlatformSkillsUpdateRequest": ".platform_skills_updateop",
@@ -5125,6 +5228,8 @@ _dynamic_imports: dict[str, str] = {
     "PlatformMessageTextBlockInputTypedDict": ".platformmessagetextblock_input",
     "PlatformPersonReference": ".platformpersonreference",
     "PlatformPersonReferenceTypedDict": ".platformpersonreference",
+    "PlatformProblemDetail": ".platformproblemdetail",
+    "PlatformProblemDetailTypedDict": ".platformproblemdetail",
     "PlatformProblemDetailCode": ".platformproblemdetailcode",
     "PlatformProblemDetailError": ".platformproblemdetailerror",
     "PlatformProblemDetailErrorTypedDict": ".platformproblemdetailerror",
@@ -5160,16 +5265,40 @@ _dynamic_imports: dict[str, str] = {
     "PlatformSkillSourcePreviewFailureCode": ".platformskillsourcepreviewfailurecode",
     "PlatformSkillSourcePreviewFile": ".platformskillsourcepreviewfile",
     "PlatformSkillSourcePreviewFileTypedDict": ".platformskillsourcepreviewfile",
-    "PlatformSkillSourcePreviewRequest": ".platformskillsourcepreviewrequest",
-    "PlatformSkillSourcePreviewRequestTypedDict": ".platformskillsourcepreviewrequest",
     "PlatformSkillSourcePreviewResponse": ".platformskillsourcepreviewresponse",
     "PlatformSkillSourcePreviewResponseTypedDict": ".platformskillsourcepreviewresponse",
+    "PlatformSkillSourcePreviewStreamError": ".platformskillsourcepreviewstreamerror",
+    "PlatformSkillSourcePreviewStreamErrorType": ".platformskillsourcepreviewstreamerror",
+    "PlatformSkillSourcePreviewStreamErrorTypedDict": ".platformskillsourcepreviewstreamerror",
+    "PlatformSkillSourcePreviewStreamErrorServerSentEvent": ".platformskillsourcepreviewstreamerrorserversentevent",
+    "PlatformSkillSourcePreviewStreamErrorServerSentEventTypedDict": ".platformskillsourcepreviewstreamerrorserversentevent",
+    "PlatformSkillSourcePreviewStreamEventServerSentEvent": ".platformskillsourcepreviewstreameventserversentevent",
+    "PlatformSkillSourcePreviewStreamEventServerSentEventTypedDict": ".platformskillsourcepreviewstreameventserversentevent",
+    "PlatformSkillSourcePreviewStreamProgress": ".platformskillsourcepreviewstreamprogress",
+    "PlatformSkillSourcePreviewStreamProgressType": ".platformskillsourcepreviewstreamprogress",
+    "PlatformSkillSourcePreviewStreamProgressTypedDict": ".platformskillsourcepreviewstreamprogress",
+    "PlatformSkillSourcePreviewStreamProgressServerSentEvent": ".platformskillsourcepreviewstreamprogressserversentevent",
+    "PlatformSkillSourcePreviewStreamProgressServerSentEventTypedDict": ".platformskillsourcepreviewstreamprogressserversentevent",
+    "PlatformSkillSourcePreviewStreamResult": ".platformskillsourcepreviewstreamresult",
+    "PlatformSkillSourcePreviewStreamResultType": ".platformskillsourcepreviewstreamresult",
+    "PlatformSkillSourcePreviewStreamResultTypedDict": ".platformskillsourcepreviewstreamresult",
+    "PlatformSkillSourcePreviewStreamResultServerSentEvent": ".platformskillsourcepreviewstreamresultserversentevent",
+    "PlatformSkillSourcePreviewStreamResultServerSentEventTypedDict": ".platformskillsourcepreviewstreamresultserversentevent",
+    "PlatformSkillSourcePreviewStreamScan": ".platformskillsourcepreviewstreamscan",
+    "PlatformSkillSourcePreviewStreamScanType": ".platformskillsourcepreviewstreamscan",
+    "PlatformSkillSourcePreviewStreamScanTypedDict": ".platformskillsourcepreviewstreamscan",
+    "PlatformSkillSourcePreviewStreamScanServerSentEvent": ".platformskillsourcepreviewstreamscanserversentevent",
+    "PlatformSkillSourcePreviewStreamScanServerSentEventTypedDict": ".platformskillsourcepreviewstreamscanserversentevent",
+    "PlatformSkillSourcePreviewStreamSkill": ".platformskillsourcepreviewstreamskill",
+    "PlatformSkillSourcePreviewStreamSkillType": ".platformskillsourcepreviewstreamskill",
+    "PlatformSkillSourcePreviewStreamSkillTypedDict": ".platformskillsourcepreviewstreamskill",
+    "PlatformSkillSourcePreviewStreamSkillServerSentEvent": ".platformskillsourcepreviewstreamskillserversentevent",
+    "PlatformSkillSourcePreviewStreamSkillServerSentEventTypedDict": ".platformskillsourcepreviewstreamskillserversentevent",
     "PlatformSkillSourceProvenance": ".platformskillsourceprovenance",
     "PlatformSkillSourceProvenanceTypedDict": ".platformskillsourceprovenance",
     "PlatformSkillStatus": ".platformskillstatus",
     "PlatformSkillSyncResponse": ".platformskillsyncresponse",
     "PlatformSkillSyncResponseTypedDict": ".platformskillsyncresponse",
-    "PlatformSkillSyncResultStatus": ".platformskillsyncresultstatus",
     "PlatformSkillSyncStatus": ".platformskillsyncstatus",
     "PlatformSkillUpdateRequest": ".platformskillupdaterequest",
     "PlatformSkillUpdateRequestTypedDict": ".platformskillupdaterequest",
@@ -5464,6 +5593,10 @@ _dynamic_imports: dict[str, str] = {
     "ToolSetsTypedDict": ".toolsets",
     "ToolsListResponse": ".toolslistresponse",
     "ToolsListResponseTypedDict": ".toolslistresponse",
+    "UgcAction": ".ugcaction_union",
+    "UgcActionTypedDict": ".ugcaction_union",
+    "UgcActionUnion": ".ugcaction_union",
+    "UgcActionUnionTypedDict": ".ugcaction_union",
     "UgcType": ".ugctype",
     "UnauthorizedDatasourceInstance": ".unauthorizeddatasourceinstance",
     "UnauthorizedDatasourceInstanceTypedDict": ".unauthorizeddatasourceinstance",

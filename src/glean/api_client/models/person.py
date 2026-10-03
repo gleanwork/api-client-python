@@ -17,6 +17,8 @@ class PersonTypedDict(TypedDict):
     r"""The display name."""
     obfuscated_id: str
     r"""An opaque identifier that can be used to request metadata for a Person."""
+    identity_only: NotRequired[bool]
+    r"""True when this is an authenticated identity fallback rather than a people profile. Directory metadata is unavailable."""
     related_documents: NotRequired[List["RelatedDocumentsTypedDict"]]
     r"""A list of documents related to this person."""
     metadata: NotRequired["PersonMetadataTypedDict"]
@@ -29,6 +31,11 @@ class Person(BaseModel):
     obfuscated_id: Annotated[str, pydantic.Field(alias="obfuscatedId")]
     r"""An opaque identifier that can be used to request metadata for a Person."""
 
+    identity_only: Annotated[Optional[bool], pydantic.Field(alias="identityOnly")] = (
+        None
+    )
+    r"""True when this is an authenticated identity fallback rather than a people profile. Directory metadata is unavailable."""
+
     related_documents: Annotated[
         Optional[List["RelatedDocuments"]], pydantic.Field(alias="relatedDocuments")
     ] = None
@@ -38,7 +45,7 @@ class Person(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["relatedDocuments", "metadata"])
+        optional_fields = set(["identityOnly", "relatedDocuments", "metadata"])
         serialized = handler(self)
         m = {}
 

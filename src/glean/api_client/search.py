@@ -115,6 +115,10 @@ class Search(BaseSDK):
                 tags=["Search"],
                 extensions={
                     "x-codegen-request-body-name": "payload",
+                    "x-glean-scopes": {
+                        "legacy": ["SEARCH"],
+                        "platform": ["search:query"],
+                    },
                     "x-visibility": "Public",
                 },
             ),
@@ -254,6 +258,10 @@ class Search(BaseSDK):
                 tags=["Search"],
                 extensions={
                     "x-codegen-request-body-name": "payload",
+                    "x-glean-scopes": {
+                        "legacy": ["SEARCH"],
+                        "platform": ["search:query"],
+                    },
                     "x-visibility": "Public",
                 },
             ),
@@ -363,7 +371,13 @@ class Search(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Search"],
-                extensions={"x-visibility": "Public"},
+                extensions={
+                    "x-glean-scopes": {
+                        "legacy": ["SEARCH"],
+                        "platform": ["search:query"],
+                    },
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -476,7 +490,13 @@ class Search(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Search"],
-                extensions={"x-visibility": "Public"},
+                extensions={
+                    "x-glean-scopes": {
+                        "legacy": ["SEARCH"],
+                        "platform": ["search:query"],
+                    },
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
