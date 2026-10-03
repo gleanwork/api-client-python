@@ -65,6 +65,6 @@ func testPlatformSkillsImportPlatformSkillsImport0(w http.ResponseWriter, req *h
 		return
 	}
 	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
+	w.WriteHeader(http.StatusCreated)
 	_, _ = w.Write(respBodyBytes)
 }

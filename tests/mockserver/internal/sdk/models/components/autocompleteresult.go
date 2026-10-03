@@ -83,6 +83,8 @@ type AutocompleteResult struct {
 	URL       *string    `json:"url,omitempty"`
 	// A single object that can support any object in the work graph. Only a single object will be populated.
 	StructuredResult *StructuredResult `json:"structuredResult,omitempty"`
+	// An action to perform on user-generated content. This may be accompanied by `text` on the ChatMessageFragment, which acts as the display name content of the pill.
+	UgcAction *UgcActionUnion `json:"ugcAction,omitempty"`
 	// A token to be passed in /feedback events associated with this autocomplete result.
 	TrackingToken *string `json:"trackingToken,omitempty"`
 	// Subsections of the result string to which some special formatting should be applied (eg. bold)
@@ -150,6 +152,13 @@ func (o *AutocompleteResult) GetStructuredResult() *StructuredResult {
 		return nil
 	}
 	return o.StructuredResult
+}
+
+func (o *AutocompleteResult) GetUgcAction() *UgcActionUnion {
+	if o == nil {
+		return nil
+	}
+	return o.UgcAction
 }
 
 func (o *AutocompleteResult) GetTrackingToken() *string {

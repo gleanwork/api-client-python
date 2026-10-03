@@ -99,6 +99,10 @@ class Triggers(BaseSDK):
                         "id": "eb175f18-74e6-4c9c-ba02-23bcc9018fc9",
                         "introduced": "2026-07-06",
                     },
+                    "x-glean-scopes": {
+                        "legacy": ["TRIGGERS"],
+                        "platform": ["triggers:write"],
+                    },
                     "x-visibility": "Public",
                 },
             ),
@@ -224,6 +228,10 @@ class Triggers(BaseSDK):
                         "id": "eb175f18-74e6-4c9c-ba02-23bcc9018fc9",
                         "introduced": "2026-07-06",
                     },
+                    "x-glean-scopes": {
+                        "legacy": ["TRIGGERS"],
+                        "platform": ["triggers:write"],
+                    },
                     "x-visibility": "Public",
                 },
             ),
@@ -337,6 +345,10 @@ class Triggers(BaseSDK):
                         "id": "e3554987-e043-4561-889a-a1117b1bce06",
                         "introduced": "2026-07-06",
                     },
+                    "x-glean-scopes": {
+                        "legacy": ["TRIGGERS"],
+                        "platform": ["triggers:read"],
+                    },
                     "x-visibility": "Public",
                 },
             ),
@@ -446,6 +458,10 @@ class Triggers(BaseSDK):
                         "id": "e3554987-e043-4561-889a-a1117b1bce06",
                         "introduced": "2026-07-06",
                     },
+                    "x-glean-scopes": {
+                        "legacy": ["TRIGGERS"],
+                        "platform": ["triggers:read"],
+                    },
                     "x-visibility": "Public",
                 },
             ),
@@ -551,6 +567,10 @@ class Triggers(BaseSDK):
                     "x-glean-experimental": {
                         "id": "46de62cb-ba31-4f71-9646-649c1d604816",
                         "introduced": "2026-07-06",
+                    },
+                    "x-glean-scopes": {
+                        "legacy": ["TRIGGERS"],
+                        "platform": ["triggers:read"],
                     },
                     "x-visibility": "Public",
                 },
@@ -659,6 +679,10 @@ class Triggers(BaseSDK):
                     "x-glean-experimental": {
                         "id": "46de62cb-ba31-4f71-9646-649c1d604816",
                         "introduced": "2026-07-06",
+                    },
+                    "x-glean-scopes": {
+                        "legacy": ["TRIGGERS"],
+                        "platform": ["triggers:read"],
                     },
                     "x-visibility": "Public",
                 },
@@ -796,6 +820,10 @@ class Triggers(BaseSDK):
                         "id": "3eb4c709-bd5c-4019-b913-0db36c766350",
                         "introduced": "2026-07-06",
                     },
+                    "x-glean-scopes": {
+                        "legacy": ["TRIGGERS"],
+                        "platform": ["triggers:write"],
+                    },
                     "x-visibility": "Public",
                 },
             ),
@@ -932,6 +960,10 @@ class Triggers(BaseSDK):
                         "id": "3eb4c709-bd5c-4019-b913-0db36c766350",
                         "introduced": "2026-07-06",
                     },
+                    "x-glean-scopes": {
+                        "legacy": ["TRIGGERS"],
+                        "platform": ["triggers:write"],
+                    },
                     "x-visibility": "Public",
                 },
             ),
@@ -1040,6 +1072,10 @@ class Triggers(BaseSDK):
                         "id": "e6564ed7-8b4b-4708-918b-eed97110859f",
                         "introduced": "2026-07-06",
                     },
+                    "x-glean-scopes": {
+                        "legacy": ["TRIGGERS"],
+                        "platform": ["triggers:write"],
+                    },
                     "x-visibility": "Public",
                 },
             ),
@@ -1147,6 +1183,10 @@ class Triggers(BaseSDK):
                     "x-glean-experimental": {
                         "id": "e6564ed7-8b4b-4708-918b-eed97110859f",
                         "introduced": "2026-07-06",
+                    },
+                    "x-glean-scopes": {
+                        "legacy": ["TRIGGERS"],
+                        "platform": ["triggers:write"],
                     },
                     "x-visibility": "Public",
                 },
@@ -1269,6 +1309,10 @@ class Triggers(BaseSDK):
                     "x-glean-experimental": {
                         "id": "c734a377-3dec-4ee2-9ec5-3848a8384f03",
                         "introduced": "2026-08-07",
+                    },
+                    "x-glean-scopes": {
+                        "legacy": ["TRIGGERS"],
+                        "platform": ["triggers:read"],
                     },
                     "x-visibility": "Public",
                 },
@@ -1394,6 +1438,10 @@ class Triggers(BaseSDK):
                         "id": "c734a377-3dec-4ee2-9ec5-3848a8384f03",
                         "introduced": "2026-08-07",
                     },
+                    "x-glean-scopes": {
+                        "legacy": ["TRIGGERS"],
+                        "platform": ["triggers:read"],
+                    },
                     "x-visibility": "Public",
                 },
             ),
@@ -1510,6 +1558,10 @@ class Triggers(BaseSDK):
                         "id": "f5b16196-0d4c-42f0-89bf-40313398728e",
                         "introduced": "2026-07-22",
                     },
+                    "x-glean-scopes": {
+                        "legacy": ["TRIGGERS"],
+                        "platform": ["triggers:read"],
+                    },
                     "x-visibility": "Public",
                 },
             ),
@@ -1624,6 +1676,10 @@ class Triggers(BaseSDK):
                         "id": "f5b16196-0d4c-42f0-89bf-40313398728e",
                         "introduced": "2026-07-22",
                     },
+                    "x-glean-scopes": {
+                        "legacy": ["TRIGGERS"],
+                        "platform": ["triggers:read"],
+                    },
                     "x-visibility": "Public",
                 },
             ),
@@ -1731,6 +1787,10 @@ class Triggers(BaseSDK):
                     "x-glean-experimental": {
                         "id": "5277167d-909b-4eee-95d1-8958b07016bb",
                         "introduced": "2026-07-22",
+                    },
+                    "x-glean-scopes": {
+                        "legacy": ["TRIGGERS"],
+                        "platform": ["triggers:read"],
                     },
                     "x-visibility": "Public",
                 },
@@ -1841,6 +1901,10 @@ class Triggers(BaseSDK):
                     "x-glean-experimental": {
                         "id": "5277167d-909b-4eee-95d1-8958b07016bb",
                         "introduced": "2026-07-22",
+                    },
+                    "x-glean-scopes": {
+                        "legacy": ["TRIGGERS"],
+                        "platform": ["triggers:read"],
                     },
                     "x-visibility": "Public",
                 },
@@ -1959,6 +2023,10 @@ class Triggers(BaseSDK):
                         "id": "24c5675d-a57a-48cb-9d71-3dece296f28c",
                         "introduced": "2026-08-06",
                     },
+                    "x-glean-scopes": {
+                        "legacy": ["TRIGGERS"],
+                        "platform": ["triggers:read"],
+                    },
                     "x-visibility": "Public",
                 },
             ),
@@ -2075,6 +2143,10 @@ class Triggers(BaseSDK):
                     "x-glean-experimental": {
                         "id": "24c5675d-a57a-48cb-9d71-3dece296f28c",
                         "introduced": "2026-08-06",
+                    },
+                    "x-glean-scopes": {
+                        "legacy": ["TRIGGERS"],
+                        "platform": ["triggers:read"],
                     },
                     "x-visibility": "Public",
                 },
@@ -2204,6 +2276,10 @@ class Triggers(BaseSDK):
                         "id": "a48efd80-78d6-46de-9f23-5b8c63ecd157",
                         "introduced": "2026-08-12",
                     },
+                    "x-glean-scopes": {
+                        "legacy": ["TRIGGERS"],
+                        "platform": ["triggers:read"],
+                    },
                     "x-visibility": "Public",
                 },
             ),
@@ -2331,6 +2407,10 @@ class Triggers(BaseSDK):
                     "x-glean-experimental": {
                         "id": "a48efd80-78d6-46de-9f23-5b8c63ecd157",
                         "introduced": "2026-08-12",
+                    },
+                    "x-glean-scopes": {
+                        "legacy": ["TRIGGERS"],
+                        "platform": ["triggers:read"],
                     },
                     "x-visibility": "Public",
                 },

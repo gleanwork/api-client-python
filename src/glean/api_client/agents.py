@@ -90,6 +90,10 @@ class Agents(BaseSDK):
                 tags=["Agents"],
                 extensions={
                     "x-codegen-request-body-name": "payload",
+                    "x-glean-scopes": {
+                        "legacy": ["AGENTS"],
+                        "platform": ["agents:read"],
+                    },
                     "x-visibility": "Public",
                 },
             ),
@@ -200,6 +204,10 @@ class Agents(BaseSDK):
                 tags=["Agents"],
                 extensions={
                     "x-codegen-request-body-name": "payload",
+                    "x-glean-scopes": {
+                        "legacy": ["AGENTS"],
+                        "platform": ["agents:read"],
+                    },
                     "x-visibility": "Public",
                 },
             ),
@@ -305,7 +313,13 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-visibility": "Public"},
+                extensions={
+                    "x-glean-scopes": {
+                        "legacy": ["AGENTS"],
+                        "platform": ["agents:read"],
+                    },
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -407,7 +421,13 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-visibility": "Public"},
+                extensions={
+                    "x-glean-scopes": {
+                        "legacy": ["AGENTS"],
+                        "platform": ["agents:read"],
+                    },
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -512,7 +532,13 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-visibility": "Public"},
+                extensions={
+                    "x-glean-scopes": {
+                        "legacy": ["AGENTS"],
+                        "platform": ["agents:read"],
+                    },
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -619,7 +645,13 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-visibility": "Public"},
+                extensions={
+                    "x-glean-scopes": {
+                        "legacy": ["AGENTS"],
+                        "platform": ["agents:read"],
+                    },
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -764,6 +796,10 @@ class Agents(BaseSDK):
                 tags=["Agents"],
                 extensions={
                     "x-codegen-request-body-name": "payload",
+                    "x-glean-scopes": {
+                        "legacy": ["AGENTS"],
+                        "platform": ["agents:run"],
+                    },
                     "x-visibility": "Public",
                 },
             ),
@@ -921,6 +957,10 @@ class Agents(BaseSDK):
                 tags=["Agents"],
                 extensions={
                     "x-codegen-request-body-name": "payload",
+                    "x-glean-scopes": {
+                        "legacy": ["AGENTS"],
+                        "platform": ["agents:run"],
+                    },
                     "x-visibility": "Public",
                 },
             ),
@@ -1040,7 +1080,13 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-visibility": "Public"},
+                extensions={
+                    "x-glean-scopes": {
+                        "legacy": ["AGENTS"],
+                        "platform": ["agents:run"],
+                    },
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1145,7 +1191,13 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-visibility": "Public"},
+                extensions={
+                    "x-glean-scopes": {
+                        "legacy": ["AGENTS"],
+                        "platform": ["agents:run"],
+                    },
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1261,6 +1313,10 @@ class Agents(BaseSDK):
                 tags=["Agents"],
                 extensions={
                     "x-codegen-request-body-name": "payload",
+                    "x-glean-scopes": {
+                        "legacy": ["AGENTS"],
+                        "platform": ["agents:run"],
+                    },
                     "x-visibility": "Public",
                 },
             ),
@@ -1378,6 +1434,10 @@ class Agents(BaseSDK):
                 tags=["Agents"],
                 extensions={
                     "x-codegen-request-body-name": "payload",
+                    "x-glean-scopes": {
+                        "legacy": ["AGENTS"],
+                        "platform": ["agents:run"],
+                    },
                     "x-visibility": "Public",
                 },
             ),
@@ -1501,7 +1561,13 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-visibility": "Public"},
+                extensions={
+                    "x-glean-scopes": {
+                        "legacy": ["AGENTS"],
+                        "platform": ["agents:run"],
+                    },
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
@@ -1623,7 +1689,13 @@ class Agents(BaseSDK):
                     self.sdk_configuration.security, models.Security
                 ),
                 tags=["Agents"],
-                extensions={"x-visibility": "Public"},
+                extensions={
+                    "x-glean-scopes": {
+                        "legacy": ["AGENTS"],
+                        "platform": ["agents:run"],
+                    },
+                    "x-visibility": "Public",
+                },
             ),
             request=req,
             is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),

@@ -1857,3 +1857,96 @@ func TestAsOptionalNullable(t *testing.T) {
 		assert.Equal(t, "test", value)
 	})
 }
+
+func TestIsOptionalNullableType(t *testing.T) {
+	t.Parallel()
+	tests := []struct {
+		name string
+		typ  reflect.Type
+		want bool
+	}{
+		{
+			name: "OptionalNullable of scalar",
+			typ:  reflect.TypeOf(OptionalNullable[string]{}),
+			want: true,
+		},
+		{
+			name: "OptionalNullable of pointer",
+			typ:  reflect.TypeOf(OptionalNullable[*int]{}),
+			want: true,
+		},
+		{
+			name: "OptionalNullable of slice",
+			typ:  reflect.TypeOf(OptionalNullable[[]string]{}),
+			want: true,
+		},
+		{
+			name: "plain string map",
+			typ:  reflect.TypeOf(map[string]string{}),
+			want: false,
+		},
+		{
+			name: "bool-keyed map with non-pointer values",
+			typ:  reflect.TypeOf(map[bool]string{}),
+			want: false,
+		},
+		{
+			name: "bool-keyed pointer map without the interface method",
+			typ:  reflect.TypeOf(map[bool]*string{}),
+			want: false,
+		},
+		{
+			name: "non-map type",
+			typ:  reflect.TypeOf(""),
+			want: false,
+		},
+		{
+			name: "pointer to OptionalNullable",
+			typ:  reflect.TypeOf(&OptionalNullable[string]{}),
+			want: false,
+		},
+		{
+			name: "nil type",
+			typ:  nil,
+			want: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			assert.Equal(t, tt.want, IsOptionalNullableType(tt.typ))
+		})
+	}
+}
+
+func TestFromReflect(t *testing.T) {
+	t.Parallel()
+	typ := reflect.TypeOf(OptionalNullable[string]{})
+
+	t.Run("with value", func(t *testing.T) {
+		t.Parallel()
+		inner := reflect.New(reflect.TypeOf(""))
+		inner.Elem().SetString("hello")
+
+		got, ok := FromReflect(typ, inner).Interface().(OptionalNullable[string])
+		require.True(t, ok)
+		assert.True(t, got.IsSet())
+		assert.False(t, got.IsNull())
+		v, set := got.Get()
+		require.True(t, set)
+		require.NotNil(t, v)
+		assert.Equal(t, "hello", *v)
+		assert.Equal(t, From(ptrFrom("hello")), got)
+	})
+
+	t.Run("with nil pointer sets null", func(t *testing.T) {
+		t.Parallel()
+		nilPtr := reflect.Zero(typ.Elem())
+
+		got, ok := FromReflect(typ, nilPtr).Interface().(OptionalNullable[string])
+		require.True(t, ok)
+		assert.True(t, got.IsSet())
+		assert.True(t, got.IsNull())
+		assert.Equal(t, From[string](nil), got)
+	})
+}

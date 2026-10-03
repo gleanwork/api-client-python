@@ -138,6 +138,8 @@ class JustificationType(str, Enum, metaclass=utils.OpenEnumMeta):
     SHARE_ARTIFACT = "SHARE_ARTIFACT"
     CREATE_AGENT = "CREATE_AGENT"
     MANAGER_INVITE = "MANAGER_INVITE"
+    ONBOARDING_AUTHORIZATION = "ONBOARDING_AUTHORIZATION"
+    CHAT_REMINDER = "CHAT_REMINDER"
 
 
 class FeedEntryTypedDict(TypedDict):

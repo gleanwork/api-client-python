@@ -19,3 +19,4 @@ value = BreakdownType.USERS
 | `HOST_APPLICATIONS` | HOST_APPLICATIONS   |
 | `TOOLS`             | TOOLS               |
 | `SERVERS`           | SERVERS             |
+| `AUTH_METHODS`      | AUTH_METHODS        |

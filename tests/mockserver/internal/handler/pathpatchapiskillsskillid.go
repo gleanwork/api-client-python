@@ -53,7 +53,7 @@ func testPlatformSkillsUpdatePlatformSkillsUpdate0(w http.ResponseWriter, req *h
 	}
 	var respBody *components.PlatformSkillUpdateResponse = &components.PlatformSkillUpdateResponse{
 		Skill: components.PlatformSkill{
-			ID:                 "<id>",
+			SkillID:            "<id>",
 			DisplayName:        "Afton14",
 			Description:        "taut netsuke duh sonata boastfully elegantly management come",
 			LatestVersion:      425795,

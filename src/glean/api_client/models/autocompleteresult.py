@@ -6,6 +6,7 @@ from .operatormetadata import OperatorMetadata, OperatorMetadataTypedDict
 from .quicklink import Quicklink, QuicklinkTypedDict
 from .structuredresult import StructuredResult, StructuredResultTypedDict
 from .textrange import TextRange, TextRangeTypedDict
+from .ugcaction_union import UgcActionUnion, UgcActionUnionTypedDict
 from enum import Enum
 from glean.api_client import models, utils
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
@@ -46,6 +47,8 @@ class AutocompleteResultTypedDict(TypedDict):
     url: NotRequired[str]
     structured_result: NotRequired[StructuredResultTypedDict]
     r"""A single object that can support any object in the work graph. Only a single object will be populated."""
+    ugc_action: NotRequired[UgcActionUnionTypedDict]
+    r"""An action to perform on user-generated content. This may be accompanied by `text` on the ChatMessageFragment, which acts as the display name content of the pill."""
     tracking_token: NotRequired[str]
     r"""A token to be passed in /feedback events associated with this autocomplete result."""
     ranges: NotRequired[List[TextRangeTypedDict]]
@@ -81,6 +84,11 @@ class AutocompleteResult(BaseModel):
     ] = None
     r"""A single object that can support any object in the work graph. Only a single object will be populated."""
 
+    ugc_action: Annotated[
+        Optional[UgcActionUnion], pydantic.Field(alias="ugcAction")
+    ] = None
+    r"""An action to perform on user-generated content. This may be accompanied by `text` on the ChatMessageFragment, which acts as the display name content of the pill."""
+
     tracking_token: Annotated[Optional[str], pydantic.Field(alias="trackingToken")] = (
         None
     )
@@ -110,6 +118,7 @@ class AutocompleteResult(BaseModel):
                 "document",
                 "url",
                 "structuredResult",
+                "ugcAction",
                 "trackingToken",
                 "ranges",
             ]

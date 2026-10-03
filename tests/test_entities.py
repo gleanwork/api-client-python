@@ -52,10 +52,11 @@ def test_entities_people():
         assert glean is not None
 
         res = glean.client.entities.read_people(
+            fallback_to_authenticated_identity=False,
             obfuscated_ids=[
                 "abc123",
                 "abc456",
-            ]
+            ],
         )
         assert res is not None
 

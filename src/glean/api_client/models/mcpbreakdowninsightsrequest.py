@@ -17,6 +17,7 @@ class BreakdownType(str, Enum):
     HOST_APPLICATIONS = "HOST_APPLICATIONS"
     TOOLS = "TOOLS"
     SERVERS = "SERVERS"
+    AUTH_METHODS = "AUTH_METHODS"
 
 
 class McpBreakdownInsightsRequestTypedDict(TypedDict):
@@ -35,6 +36,8 @@ class McpBreakdownInsightsRequestTypedDict(TypedDict):
     r"""MCP tools to filter by. Empty array means all tools."""
     servers: NotRequired[List[str]]
     r"""MCP servers to filter by. Empty array means all servers."""
+    auth_methods: NotRequired[List[str]]
+    r"""Authentication methods to filter by, for example OAUTH_XAA for Cross App Access traffic. Empty array means all authentication methods."""
 
 
 class McpBreakdownInsightsRequest(BaseModel):
@@ -69,6 +72,11 @@ class McpBreakdownInsightsRequest(BaseModel):
     servers: Optional[List[str]] = None
     r"""MCP servers to filter by. Empty array means all servers."""
 
+    auth_methods: Annotated[
+        Optional[List[str]], pydantic.Field(alias="authMethods")
+    ] = None
+    r"""Authentication methods to filter by, for example OAUTH_XAA for Cross App Access traffic. Empty array means all authentication methods."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
@@ -81,6 +89,7 @@ class McpBreakdownInsightsRequest(BaseModel):
                 "hostApplications",
                 "tools",
                 "servers",
+                "authMethods",
             ]
         )
         serialized = handler(self)

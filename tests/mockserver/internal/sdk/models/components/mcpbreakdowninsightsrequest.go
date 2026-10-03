@@ -15,6 +15,7 @@ const (
 	BreakdownTypeHostApplications BreakdownType = "HOST_APPLICATIONS"
 	BreakdownTypeTools            BreakdownType = "TOOLS"
 	BreakdownTypeServers          BreakdownType = "SERVERS"
+	BreakdownTypeAuthMethods      BreakdownType = "AUTH_METHODS"
 )
 
 func (e BreakdownType) ToPointer() *BreakdownType {
@@ -33,6 +34,8 @@ func (e *BreakdownType) UnmarshalJSON(data []byte) error {
 	case "TOOLS":
 		fallthrough
 	case "SERVERS":
+		fallthrough
+	case "AUTH_METHODS":
 		*e = BreakdownType(v)
 		return nil
 	default:
@@ -56,6 +59,8 @@ type McpBreakdownInsightsRequest struct {
 	Tools []string `json:"tools,omitempty"`
 	// MCP servers to filter by. Empty array means all servers.
 	Servers []string `json:"servers,omitempty"`
+	// Authentication methods to filter by, for example OAUTH_XAA for Cross App Access traffic. Empty array means all authentication methods.
+	AuthMethods []string `json:"authMethods,omitempty"`
 }
 
 func (o *McpBreakdownInsightsRequest) GetDepartments() []string {
@@ -112,4 +117,11 @@ func (o *McpBreakdownInsightsRequest) GetServers() []string {
 		return nil
 	}
 	return o.Servers
+}
+
+func (o *McpBreakdownInsightsRequest) GetAuthMethods() []string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthMethods
 }

@@ -2,24 +2,28 @@
 
 from __future__ import annotations
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
+from glean.api_client.utils import validate_const
+import pydantic
 from pydantic import model_serializer
-from typing import Optional
-from typing_extensions import NotRequired, TypedDict
+from pydantic.functional_validators import AfterValidator
+from typing import Literal, Optional
+from typing_extensions import Annotated, TypedDict
 
 
-class PlatformSkillSourcePreviewRequestTypedDict(TypedDict):
+class PlatformSkillsPreviewSourceStreamRequestTypedDict(TypedDict):
     source_url: str
     r"""GitHub URL for a skill directory, SKILL.md file, or repository to inspect."""
-    stream: NotRequired[bool]
-    r"""Whether to stream repository scan progress using server-sent events."""
+    stream: Literal[True]
 
 
-class PlatformSkillSourcePreviewRequest(BaseModel):
+class PlatformSkillsPreviewSourceStreamRequest(BaseModel):
     source_url: str
     r"""GitHub URL for a skill directory, SKILL.md file, or repository to inspect."""
 
-    stream: Optional[bool] = False
-    r"""Whether to stream repository scan progress using server-sent events."""
+    STREAM: Annotated[
+        Annotated[Optional[Literal[True]], AfterValidator(validate_const(True))],
+        pydantic.Field(alias="stream"),
+    ] = True
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -36,3 +40,9 @@ class PlatformSkillSourcePreviewRequest(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    PlatformSkillsPreviewSourceStreamRequest.model_rebuild()
+except NameError:
+    pass

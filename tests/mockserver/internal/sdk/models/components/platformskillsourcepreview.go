@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type PlatformSkillSourcePreview struct {
 	// Skill name parsed from SKILL.md frontmatter.
 	DisplayName string `json:"display_name"`
@@ -17,6 +21,17 @@ type PlatformSkillSourcePreview struct {
 	Files []PlatformSkillSourcePreviewFile `json:"files"`
 	// Relative paths discovered for the skill.
 	FileTree []string `json:"file_tree"`
+}
+
+func (p PlatformSkillSourcePreview) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PlatformSkillSourcePreview) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"display_name", "description", "source_url", "commit_sha", "main_content", "files", "file_tree"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *PlatformSkillSourcePreview) GetDisplayName() string {

@@ -19,6 +19,8 @@ class McpUserBreakdownTypedDict(TypedDict):
     r"""MCP tools used by this user in the specified time period."""
     servers: NotRequired[List[str]]
     r"""MCP servers used by this user in the specified time period."""
+    auth_methods: NotRequired[List[str]]
+    r"""Authentication methods this user's MCP clients presented in the specified time period, for example OAUTH_XAA for Cross App Access."""
 
 
 class McpUserBreakdown(BaseModel):
@@ -38,10 +40,22 @@ class McpUserBreakdown(BaseModel):
     servers: Optional[List[str]] = None
     r"""MCP servers used by this user in the specified time period."""
 
+    auth_methods: Annotated[
+        Optional[List[str]], pydantic.Field(alias="authMethods")
+    ] = None
+    r"""Authentication methods this user's MCP clients presented in the specified time period, for example OAUTH_XAA for Cross App Access."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
         optional_fields = set(
-            ["person", "totalCalls", "hostApplications", "tools", "servers"]
+            [
+                "person",
+                "totalCalls",
+                "hostApplications",
+                "tools",
+                "servers",
+                "authMethods",
+            ]
         )
         serialized = handler(self)
         m = {}

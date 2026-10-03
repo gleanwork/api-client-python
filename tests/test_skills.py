@@ -34,7 +34,7 @@ def test_skills_platform_skills_list():
     ) as glean:
         assert glean is not None
 
-        res = glean.skills.list()
+        res = glean.skills.list(page_size=20)
         assert res is not None
 
 
@@ -115,7 +115,7 @@ def test_skills_platform_skills_list_versions():
     ) as glean:
         assert glean is not None
 
-        res = glean.skills.list_versions(skill_id="<id>")
+        res = glean.skills.list_versions(skill_id="<id>", page_size=20)
         assert res is not None
 
 
@@ -176,7 +176,7 @@ def test_skills_platform_skills_preview_source():
         assert glean is not None
 
         res = glean.skills.preview_source(
-            source_url="https://github.com/anthropics/skills", stream=False
+            source_url="https://github.com/anthropics/skills"
         )
         assert res is not None
 

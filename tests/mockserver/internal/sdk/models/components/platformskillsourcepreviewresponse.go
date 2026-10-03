@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"mockserver/internal/sdk/utils"
+)
+
 type PlatformSkillSourcePreviewResponse struct {
 	// Valid skills discovered at the source URL.
 	Skills []PlatformSkillSourcePreview `json:"skills"`
@@ -9,6 +13,17 @@ type PlatformSkillSourcePreviewResponse struct {
 	Failures []PlatformSkillSourcePreviewFailure `json:"failures"`
 	// Platform-generated request ID for support correlation.
 	RequestID string `json:"request_id"`
+}
+
+func (p PlatformSkillSourcePreviewResponse) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PlatformSkillSourcePreviewResponse) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"skills", "failures", "request_id"}); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *PlatformSkillSourcePreviewResponse) GetSkills() []PlatformSkillSourcePreview {

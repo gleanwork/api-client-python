@@ -8,9 +8,13 @@ from typing_extensions import TypedDict
 
 class PlatformSkillUpdateRequestTypedDict(TypedDict):
     status: PlatformSkillUpdateStatus
-    r"""New status for the skill."""
+    r"""Activation to apply for the authenticated caller. For the owner, this updates the skill's stored status. For any other caller, it updates only that caller's setting.
+
+    """
 
 
 class PlatformSkillUpdateRequest(BaseModel):
     status: PlatformSkillUpdateStatus
-    r"""New status for the skill."""
+    r"""Activation to apply for the authenticated caller. For the owner, this updates the skill's stored status. For any other caller, it updates only that caller's setting.
+
+    """

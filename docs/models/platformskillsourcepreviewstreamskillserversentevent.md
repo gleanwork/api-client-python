@@ -1,0 +1,10 @@
+# PlatformSkillSourcePreviewStreamSkillServerSentEvent
+
+
+## Fields
+
+| Field                                                                                              | Type                                                                                               | Required                                                                                           | Description                                                                                        |
+| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `id`                                                                                               | *Optional[str]*                                                                                    | :heavy_minus_sign:                                                                                 | N/A                                                                                                |
+| `event`                                                                                            | *Literal["SKILL"]*                                                                                 | :heavy_check_mark:                                                                                 | N/A                                                                                                |
+| `data`                                                                                             | [models.PlatformSkillSourcePreviewStreamSkill](../models/platformskillsourcepreviewstreamskill.md) | :heavy_check_mark:                                                                                 | One skill previewed; carries the previewed skill.                                                  |

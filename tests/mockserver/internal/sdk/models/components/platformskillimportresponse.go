@@ -3,7 +3,8 @@
 package components
 
 type PlatformSkillImportResponse struct {
-	// Independently persisted skills in request order.
+	// Imported skills in request order. The import is atomic: either every source persists or none does.
+	//
 	Skills []PlatformSkill `json:"skills"`
 	// Platform-generated request ID for support correlation.
 	RequestID string `json:"request_id"`
