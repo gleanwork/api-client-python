@@ -1330,6 +1330,10 @@ if TYPE_CHECKING:
         PlatformChatCreateText,
         PlatformChatCreateTextTypedDict,
     )
+    from .platform_departments_listop import (
+        PlatformDepartmentsListRequest,
+        PlatformDepartmentsListRequestTypedDict,
+    )
     from .platform_search_filtersop import (
         PlatformSearchFiltersRequest,
         PlatformSearchFiltersRequestTypedDict,
@@ -1427,6 +1431,10 @@ if TYPE_CHECKING:
     from .platform_triggers_updateop import (
         PlatformTriggersUpdateRequest,
         PlatformTriggersUpdateRequestTypedDict,
+    )
+    from .platform_users_listop import (
+        PlatformUsersListRequest,
+        PlatformUsersListRequestTypedDict,
     )
     from .platformactionsummary import (
         PlatformActionSummary,
@@ -1644,6 +1652,16 @@ if TYPE_CHECKING:
         PlatformDatasourceFilterInfo,
         PlatformDatasourceFilterInfoTypedDict,
     )
+    from .platformdepartment import PlatformDepartment, PlatformDepartmentTypedDict
+    from .platformdepartmentfilter import (
+        PlatformDepartmentFilter,
+        PlatformDepartmentFilterOperator,
+        PlatformDepartmentFilterTypedDict,
+    )
+    from .platformdepartmentreference import (
+        PlatformDepartmentReference,
+        PlatformDepartmentReferenceTypedDict,
+    )
     from .platformdocumentchangewebhookevent import (
         PlatformDocumentChangeWebhookEvent,
         PlatformDocumentChangeWebhookEventTypedDict,
@@ -1658,6 +1676,14 @@ if TYPE_CHECKING:
         PlatformFilterFieldInfoTypedDict,
     )
     from .platformfilteroperator import PlatformFilterOperator
+    from .platformlistdepartmentsresponse import (
+        PlatformListDepartmentsResponse,
+        PlatformListDepartmentsResponseTypedDict,
+    )
+    from .platformlistusersresponse import (
+        PlatformListUsersResponse,
+        PlatformListUsersResponseTypedDict,
+    )
     from .platformmessage import PlatformMessage, PlatformMessageTypedDict
     from .platformmessage_input import (
         PlatformMessageInput,
@@ -1676,6 +1702,7 @@ if TYPE_CHECKING:
         PlatformPersonReference,
         PlatformPersonReferenceTypedDict,
     )
+    from .platformpersontype import PlatformPersonType
     from .platformproblemdetail import (
         PlatformProblemDetail,
         PlatformProblemDetailTypedDict,
@@ -1946,6 +1973,18 @@ if TYPE_CHECKING:
         PlatformTriggerWithSecret,
         PlatformTriggerWithSecretTypedDict,
     )
+    from .platformuser import PlatformUser, PlatformUserTypedDict
+    from .platformuserdatasourceprofile import (
+        PlatformUserDatasourceProfile,
+        PlatformUserDatasourceProfileTypedDict,
+    )
+    from .platformuserfilter import (
+        PlatformUserFilter,
+        PlatformUserFilterOperator,
+        PlatformUserFilterTypedDict,
+    )
+    from .platformuserinclude import PlatformUserInclude
+    from .platformusermanager import PlatformUserManager, PlatformUserManagerTypedDict
     from .platformwarning import PlatformWarning, PlatformWarningTypedDict
     from .possiblevalue import PossibleValue, PossibleValueTypedDict
     from .post_api_index_v1_debug_datasource_document_eventsop import (
@@ -3496,6 +3535,15 @@ __all__ = [
     "PlatformContentType",
     "PlatformDatasourceFilterInfo",
     "PlatformDatasourceFilterInfoTypedDict",
+    "PlatformDepartment",
+    "PlatformDepartmentFilter",
+    "PlatformDepartmentFilterOperator",
+    "PlatformDepartmentFilterTypedDict",
+    "PlatformDepartmentReference",
+    "PlatformDepartmentReferenceTypedDict",
+    "PlatformDepartmentTypedDict",
+    "PlatformDepartmentsListRequest",
+    "PlatformDepartmentsListRequestTypedDict",
     "PlatformDocumentChangeWebhookEvent",
     "PlatformDocumentChangeWebhookEventTypedDict",
     "PlatformDurableAgentRun",
@@ -3505,6 +3553,10 @@ __all__ = [
     "PlatformFilterFieldInfoTypedDict",
     "PlatformFilterOperator",
     "PlatformFilterTypedDict",
+    "PlatformListDepartmentsResponse",
+    "PlatformListDepartmentsResponseTypedDict",
+    "PlatformListUsersResponse",
+    "PlatformListUsersResponseTypedDict",
     "PlatformMessage",
     "PlatformMessageInput",
     "PlatformMessageInputTypedDict",
@@ -3516,6 +3568,7 @@ __all__ = [
     "PlatformMessageTypedDict",
     "PlatformPersonReference",
     "PlatformPersonReferenceTypedDict",
+    "PlatformPersonType",
     "PlatformProblemDetail",
     "PlatformProblemDetailCode",
     "PlatformProblemDetailError",
@@ -3720,6 +3773,18 @@ __all__ = [
     "PlatformTriggersListRequestTypedDict",
     "PlatformTriggersUpdateRequest",
     "PlatformTriggersUpdateRequestTypedDict",
+    "PlatformUser",
+    "PlatformUserDatasourceProfile",
+    "PlatformUserDatasourceProfileTypedDict",
+    "PlatformUserFilter",
+    "PlatformUserFilterOperator",
+    "PlatformUserFilterTypedDict",
+    "PlatformUserInclude",
+    "PlatformUserManager",
+    "PlatformUserManagerTypedDict",
+    "PlatformUserTypedDict",
+    "PlatformUsersListRequest",
+    "PlatformUsersListRequestTypedDict",
     "PlatformWarning",
     "PlatformWarningTypedDict",
     "PossibleValue",
@@ -5028,6 +5093,8 @@ _dynamic_imports: dict[str, str] = {
     "PlatformChatCreateRequestTypedDict": ".platform_chat_createop",
     "PlatformChatCreateText": ".platform_chat_createop",
     "PlatformChatCreateTextTypedDict": ".platform_chat_createop",
+    "PlatformDepartmentsListRequest": ".platform_departments_listop",
+    "PlatformDepartmentsListRequestTypedDict": ".platform_departments_listop",
     "PlatformSearchFiltersRequest": ".platform_search_filtersop",
     "PlatformSearchFiltersRequestTypedDict": ".platform_search_filtersop",
     "PlatformSearchFiltersResponseResponse": ".platform_search_filtersop",
@@ -5080,6 +5147,8 @@ _dynamic_imports: dict[str, str] = {
     "PlatformTriggersListRequestTypedDict": ".platform_triggers_listop",
     "PlatformTriggersUpdateRequest": ".platform_triggers_updateop",
     "PlatformTriggersUpdateRequestTypedDict": ".platform_triggers_updateop",
+    "PlatformUsersListRequest": ".platform_users_listop",
+    "PlatformUsersListRequestTypedDict": ".platform_users_listop",
     "PlatformActionSummary": ".platformactionsummary",
     "PlatformActionSummaryTypedDict": ".platformactionsummary",
     "PlatformAgent": ".platformagent",
@@ -5208,6 +5277,13 @@ _dynamic_imports: dict[str, str] = {
     "PlatformContentType": ".platformcontenttype",
     "PlatformDatasourceFilterInfo": ".platformdatasourcefilterinfo",
     "PlatformDatasourceFilterInfoTypedDict": ".platformdatasourcefilterinfo",
+    "PlatformDepartment": ".platformdepartment",
+    "PlatformDepartmentTypedDict": ".platformdepartment",
+    "PlatformDepartmentFilter": ".platformdepartmentfilter",
+    "PlatformDepartmentFilterOperator": ".platformdepartmentfilter",
+    "PlatformDepartmentFilterTypedDict": ".platformdepartmentfilter",
+    "PlatformDepartmentReference": ".platformdepartmentreference",
+    "PlatformDepartmentReferenceTypedDict": ".platformdepartmentreference",
     "PlatformDocumentChangeWebhookEvent": ".platformdocumentchangewebhookevent",
     "PlatformDocumentChangeWebhookEventTypedDict": ".platformdocumentchangewebhookevent",
     "PlatformDurableAgentRun": ".platformdurableagentrun",
@@ -5217,6 +5293,10 @@ _dynamic_imports: dict[str, str] = {
     "PlatformFilterFieldInfo": ".platformfilterfieldinfo",
     "PlatformFilterFieldInfoTypedDict": ".platformfilterfieldinfo",
     "PlatformFilterOperator": ".platformfilteroperator",
+    "PlatformListDepartmentsResponse": ".platformlistdepartmentsresponse",
+    "PlatformListDepartmentsResponseTypedDict": ".platformlistdepartmentsresponse",
+    "PlatformListUsersResponse": ".platformlistusersresponse",
+    "PlatformListUsersResponseTypedDict": ".platformlistusersresponse",
     "PlatformMessage": ".platformmessage",
     "PlatformMessageTypedDict": ".platformmessage",
     "PlatformMessageInput": ".platformmessage_input",
@@ -5228,6 +5308,7 @@ _dynamic_imports: dict[str, str] = {
     "PlatformMessageTextBlockInputTypedDict": ".platformmessagetextblock_input",
     "PlatformPersonReference": ".platformpersonreference",
     "PlatformPersonReferenceTypedDict": ".platformpersonreference",
+    "PlatformPersonType": ".platformpersontype",
     "PlatformProblemDetail": ".platformproblemdetail",
     "PlatformProblemDetailTypedDict": ".platformproblemdetail",
     "PlatformProblemDetailCode": ".platformproblemdetailcode",
@@ -5380,6 +5461,16 @@ _dynamic_imports: dict[str, str] = {
     "PlatformTriggerWebhookEventTypedDict": ".platformtriggerwebhookevent",
     "PlatformTriggerWithSecret": ".platformtriggerwithsecret",
     "PlatformTriggerWithSecretTypedDict": ".platformtriggerwithsecret",
+    "PlatformUser": ".platformuser",
+    "PlatformUserTypedDict": ".platformuser",
+    "PlatformUserDatasourceProfile": ".platformuserdatasourceprofile",
+    "PlatformUserDatasourceProfileTypedDict": ".platformuserdatasourceprofile",
+    "PlatformUserFilter": ".platformuserfilter",
+    "PlatformUserFilterOperator": ".platformuserfilter",
+    "PlatformUserFilterTypedDict": ".platformuserfilter",
+    "PlatformUserInclude": ".platformuserinclude",
+    "PlatformUserManager": ".platformusermanager",
+    "PlatformUserManagerTypedDict": ".platformusermanager",
     "PlatformWarning": ".platformwarning",
     "PlatformWarningTypedDict": ".platformwarning",
     "PossibleValue": ".possiblevalue",

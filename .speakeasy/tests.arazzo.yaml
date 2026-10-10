@@ -159546,3 +159546,37 @@ workflows:
               type: simple
       x-speakeasy-test-group: agents
       x-speakeasy-test-rebuild: true
+    - workflowId: platform-departments-list
+      steps:
+        - stepId: test
+          operationId: platform-departments-list
+          parameters:
+            - name: page_size
+              in: query
+              value: 50
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"results":[],"has_more":false,"request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: departments
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-users-list
+      steps:
+        - stepId: test
+          operationId: platform-users-list
+          parameters:
+            - name: page_size
+              in: query
+              value: 50
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"results":[{"user_id":"<id>","display_name":"Raina1","is_active":true}],"has_more":true,"request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: users
+      x-speakeasy-test-rebuild: true

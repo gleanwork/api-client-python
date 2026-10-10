@@ -12,11 +12,12 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class DlpExportFindingsRequestExportType(str, Enum):
-    r"""The type of export to perform"""
+    r"""The type of export to perform. FINDINGS, DOCUMENTS and ISSUES produce JSONL; FINDINGS_CSV produces one CSV row per finding."""
 
     FINDINGS = "FINDINGS"
     DOCUMENTS = "DOCUMENTS"
     ISSUES = "ISSUES"
+    FINDINGS_CSV = "FINDINGS_CSV"
 
 
 class FieldScope(str, Enum):
@@ -29,7 +30,7 @@ class FieldScope(str, Enum):
 
 class DlpExportFindingsRequestTypedDict(TypedDict):
     export_type: NotRequired[DlpExportFindingsRequestExportType]
-    r"""The type of export to perform"""
+    r"""The type of export to perform. FINDINGS, DOCUMENTS and ISSUES produce JSONL; FINDINGS_CSV produces one CSV row per finding."""
     filter_: NotRequired[DlpFindingFilterTypedDict]
     issue_filter: NotRequired[DlpIssueFilterTypedDict]
     r"""Filter for DLP issues. Includes document-level filters and issue-specific filters."""
@@ -45,7 +46,7 @@ class DlpExportFindingsRequest(BaseModel):
     export_type: Annotated[
         Optional[DlpExportFindingsRequestExportType], pydantic.Field(alias="exportType")
     ] = None
-    r"""The type of export to perform"""
+    r"""The type of export to perform. FINDINGS, DOCUMENTS and ISSUES produce JSONL; FINDINGS_CSV produces one CSV row per finding."""
 
     filter_: Annotated[Optional[DlpFindingFilter], pydantic.Field(alias="filter")] = (
         None
