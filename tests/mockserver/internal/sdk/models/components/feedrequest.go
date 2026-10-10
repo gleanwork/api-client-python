@@ -30,6 +30,7 @@ const (
 	FeedRequestCategoryZeroStateChatToolSuggestion  FeedRequestCategory = "ZERO_STATE_CHAT_TOOL_SUGGESTION"
 	FeedRequestCategoryZeroStateWorkflowCreatedByMe FeedRequestCategory = "ZERO_STATE_WORKFLOW_CREATED_BY_ME"
 	FeedRequestCategoryZeroStateWorkflowFavorites   FeedRequestCategory = "ZERO_STATE_WORKFLOW_FAVORITES"
+	FeedRequestCategoryZeroStateGleanAgentCoworkers FeedRequestCategory = "ZERO_STATE_GLEAN_AGENT_COWORKERS"
 	FeedRequestCategoryZeroStateWorkflowPopular     FeedRequestCategory = "ZERO_STATE_WORKFLOW_POPULAR"
 	FeedRequestCategoryZeroStateWorkflowRecent      FeedRequestCategory = "ZERO_STATE_WORKFLOW_RECENT"
 	FeedRequestCategoryZeroStateWorkflowSuggestion  FeedRequestCategory = "ZERO_STATE_WORKFLOW_SUGGESTION"
@@ -116,6 +117,8 @@ func (e *FeedRequestCategory) UnmarshalJSON(data []byte) error {
 	case "ZERO_STATE_WORKFLOW_CREATED_BY_ME":
 		fallthrough
 	case "ZERO_STATE_WORKFLOW_FAVORITES":
+		fallthrough
+	case "ZERO_STATE_GLEAN_AGENT_COWORKERS":
 		fallthrough
 	case "ZERO_STATE_WORKFLOW_POPULAR":
 		fallthrough

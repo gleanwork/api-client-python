@@ -18,10 +18,12 @@ if TYPE_CHECKING:
     from glean.api_client.agents import Agents
     from glean.api_client.chat_sdk import ChatSDK
     from glean.api_client.client import Client
+    from glean.api_client.departments import Departments
     from glean.api_client.indexing import Indexing
     from glean.api_client.search import Search
     from glean.api_client.skills import Skills
     from glean.api_client.triggers import Triggers
+    from glean.api_client.users import Users
 
 
 class Glean(BaseSDK):
@@ -48,6 +50,8 @@ class Glean(BaseSDK):
     chat: "ChatSDK"
     skills: "Skills"
     search: "Search"
+    departments: "Departments"
+    users: "Users"
     triggers: "Triggers"
     client: "Client"
     indexing: "Indexing"
@@ -56,6 +60,8 @@ class Glean(BaseSDK):
         "chat": ("glean.api_client.chat_sdk", "ChatSDK"),
         "skills": ("glean.api_client.skills", "Skills"),
         "search": ("glean.api_client.search", "Search"),
+        "departments": ("glean.api_client.departments", "Departments"),
+        "users": ("glean.api_client.users", "Users"),
         "triggers": ("glean.api_client.triggers", "Triggers"),
         "client": ("glean.api_client.client", "Client"),
         "indexing": ("glean.api_client.indexing", "Indexing"),

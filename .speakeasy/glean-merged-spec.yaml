@@ -2,8 +2,8 @@ openapi: 3.1.0
 info:
   version: "0.9.0"
   title: Glean API
-  x-source-commit-sha: 4b199fd04d49e624f6d8ad288c8758f99c4d1f6d
-  x-open-api-commit-sha: 4406c02294b5d882d37de283a55aa9bd4b4a339b
+  x-source-commit-sha: 898d39314aac5d76896dc42d5e330a3d5e4e23a2
+  x-open-api-commit-sha: 712a546179bbb504ecbf9824269a14d34abb0ffa
   description: |
     # Introduction
     In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This is useful, for example, for doing permissions-aware search over content in internal tools that reside on-prem as well as for searching over applications that Glean does not currently support first class. In addition these APIs allow the customer to push organization data (people info, organization structure etc) into Glean.
@@ -1437,6 +1437,171 @@ paths:
           $ref: "#/components/responses/PlatformServiceUnavailable"
       x-speakeasy-group: search
       x-speakeasy-name-override: listFilters
+      security:
+        - APIToken: []
+  /api/departments:
+    get:
+      tags:
+        - Departments
+      summary: List departments
+      description: |
+        List the departments in the Glean directory, ordered by display_name and then by department_id. A department is active when at least one active user belongs to it. A department is inactive when only inactive users, such as former employees, belong to it, or when only a usage limit names it. Inactive departments are left out unless an is_active filter includes the value "false". Department names are exact, so names that differ only by case are different departments.
+      operationId: platform-departments-list
+      x-glean-scopes:
+        legacy:
+          - PEOPLE
+        platform:
+          - departments:read
+      x-visibility: Public
+      x-glean-experimental:
+        id: 2bc9ce31-8e51-4874-996c-96ad2e10fbd7
+        introduced: "2026-10-08"
+      parameters:
+        - in: query
+          name: page_size
+          description: Maximum number of departments to return. Defaults to 50. Maximum is 100.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 50
+        - in: query
+          name: cursor
+          description: |
+            Opaque pagination cursor from a previous response. Send the same filters that the previous request used.
+          required: false
+          schema:
+            type: string
+            minLength: 1
+        - in: query
+          name: filters
+          description: |
+            JSON-encoded filters that choose which departments are returned. The only supported field is is_active, with the values "true" and "false" and the operator EQUALS. Multiple values OR within a filter. Multiple filters AND together. Without an is_active filter, only active departments are returned. To return active and inactive departments, send [{"field":"is_active","values":["true","false"]}].
+          required: false
+          content:
+            application/json:
+              schema:
+                type: array
+                minItems: 1
+                maxItems: 10
+                description: Filters on department fields, combined with AND.
+                items:
+                  $ref: "#/components/schemas/PlatformDepartmentFilter"
+                  description: One filter on a department field.
+      responses:
+        "200":
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlatformListDepartmentsResponse"
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+      x-speakeasy-group: departments
+      x-speakeasy-name-override: list
+      security:
+        - APIToken: []
+  /api/users:
+    get:
+      tags:
+        - Users
+      summary: List users
+      description: |
+        List the users in the Glean directory, ordered by display_name and then by user_id. The list includes the same people as the Glean People directory. Inactive users, such as former employees, are left out unless an is_active filter includes the value "false". Use the returned user_id values with other Platform APIs, for example as usage limit targets.
+      operationId: platform-users-list
+      x-glean-scopes:
+        legacy:
+          - PEOPLE
+        platform:
+          - users:read
+      x-visibility: Public
+      x-glean-experimental:
+        id: 284483b2-925a-412f-a60d-891c699307f6
+        introduced: "2026-10-07"
+      parameters:
+        - in: query
+          name: page_size
+          description: Maximum number of users to return. Defaults to 50. Maximum is 100.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 50
+        - in: query
+          name: cursor
+          description: |
+            Opaque pagination cursor from a previous response. Send the same filters that the previous request used.
+          required: false
+          schema:
+            type: string
+            minLength: 1
+        - in: query
+          name: filters
+          description: |
+            JSON-encoded filters that choose which users are returned. The only supported field is is_active, with the values "true" and "false" and the operator EQUALS. Multiple values OR within a filter. Multiple filters AND together. Without an is_active filter, only active users are returned. To return active and inactive users, send [{"field":"is_active","values":["true","false"]}].
+          required: false
+          content:
+            application/json:
+              schema:
+                type: array
+                minItems: 1
+                maxItems: 10
+                description: Filters on user fields, combined with AND.
+                items:
+                  $ref: "#/components/schemas/PlatformUserFilter"
+                  description: One filter on a user field.
+        - in: query
+          name: include
+          description: |
+            Optional fields to add to each user. Each value only adds fields; it does not change which users are returned.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/PlatformUserInclude"
+      responses:
+        "200":
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlatformListUsersResponse"
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+      x-speakeasy-group: users
+      x-speakeasy-name-override: list
       security:
         - APIToken: []
   /api/triggers:
@@ -9127,7 +9292,7 @@ components:
         title:
           type: string
           minLength: 1
-          description: Result title.
+          description: Display title. For a conversation, this is a title built from the participants, such as "Alice and Bob", including when the indexed title is the message body. When the result has no title, the server returns Untitled.
           example: Q2 2026 Platform Roadmap
         snippets:
           type: array
@@ -9268,6 +9433,244 @@ components:
           type: string
           minLength: 1
           description: Platform-generated request ID for support correlation.
+    PlatformDepartmentFilter:
+      type: object
+      additionalProperties: false
+      required:
+        - field
+        - values
+      description: A filter on one department field.
+      properties:
+        field:
+          type: string
+          pattern: ^is_active$
+          description: The department field to filter on. The only supported field is is_active.
+        values:
+          type: array
+          minItems: 1
+          description: The values to match. A department matches when any value matches.
+          items:
+            type: string
+            pattern: ^(true|false)$
+            description: "\"true\" matches active departments. \"false\" matches inactive departments."
+        operator:
+          allOf:
+            - $ref: "#/components/schemas/PlatformFilterOperator"
+              description: Canonical Platform filter operator.
+          enum:
+            - EQUALS
+          default: EQUALS
+          description: The only supported operator is EQUALS. Defaults to EQUALS.
+    PlatformDepartmentReference:
+      type: object
+      description: A reference to a department in the Glean directory.
+      required:
+        - department_id
+        - display_name
+      properties:
+        department_id:
+          type: string
+          description: |
+            Opaque department ID. The users and departments APIs return the same ID for the same department. A renamed department gets a new ID.
+        display_name:
+          type: string
+          description: Department name, exactly as the directory stores it.
+    PlatformDepartment:
+      description: A department in the Glean directory.
+      allOf:
+        - $ref: "#/components/schemas/PlatformDepartmentReference"
+        - type: object
+          required:
+            - is_active
+          properties:
+            is_active:
+              type: boolean
+              description: |
+                Whether at least one active user belongs to the department. A department that belongs only to inactive users, or that only a usage limit names, is inactive.
+    PlatformListDepartmentsResponse:
+      type: object
+      description: One page of departments.
+      additionalProperties: false
+      required:
+        - results
+        - has_more
+        - request_id
+      properties:
+        results:
+          type: array
+          description: |
+            The departments on this page, ordered by display_name and then by department_id.
+          items:
+            $ref: "#/components/schemas/PlatformDepartment"
+        has_more:
+          type: boolean
+          description: Whether more departments are available after this page.
+        next_cursor:
+          type:
+            - string
+            - "null"
+          description: Opaque cursor for the next page; null or absent when has_more is false.
+        request_id:
+          type: string
+          description: Request identifier for correlating this response.
+    PlatformUserFilter:
+      type: object
+      additionalProperties: false
+      required:
+        - field
+        - values
+      description: A filter on one user field.
+      properties:
+        field:
+          type: string
+          pattern: ^is_active$
+          description: The user field to filter on. The only supported field is is_active.
+        values:
+          type: array
+          minItems: 1
+          description: The values to match. A user matches when any value matches.
+          items:
+            type: string
+            pattern: ^(true|false)$
+            description: "\"true\" matches active users. \"false\" matches inactive users."
+        operator:
+          allOf:
+            - $ref: "#/components/schemas/PlatformFilterOperator"
+              description: Canonical Platform filter operator.
+          enum:
+            - EQUALS
+          default: EQUALS
+          description: The only supported operator is EQUALS. Defaults to EQUALS.
+    PlatformUserInclude:
+      type: string
+      description: An optional field group to add to each user.
+      enum:
+        - DATASOURCE_PROFILES
+      x-enumDescriptions:
+        DATASOURCE_PROFILES: Add datasource_profiles, the user's accounts in connected apps.
+      x-speakeasy-enum-descriptions:
+        DATASOURCE_PROFILES: Add datasource_profiles, the user's accounts in connected apps.
+    PlatformPersonType:
+      type: string
+      description: Person employment status or account type.
+      enum:
+        - FULL_TIME
+        - CONTRACTOR
+        - NON_EMPLOYEE
+        - FORMER_EMPLOYEE
+    PlatformUserManager:
+      type: object
+      description: The user that another user reports to.
+      additionalProperties: false
+      required:
+        - user_id
+        - display_name
+      properties:
+        user_id:
+          type: string
+          description: Opaque canonical Glean user ID of the manager.
+        display_name:
+          type: string
+          description: The name that Glean shows for the manager.
+    PlatformUserDatasourceProfile:
+      type: object
+      description: A user's account in a connected app.
+      additionalProperties: false
+      required:
+        - datasource
+        - handle
+      properties:
+        datasource:
+          type: string
+          description: Datasource of the account, for example slack or github.
+        handle:
+          type: string
+          description: The account's handle or display name in the app.
+        account_id:
+          type: string
+          description: |
+            The app's own ID for the account. Present only when Glean knows it, for example the Slack user ID.
+        profile_url:
+          type: string
+          description: Web URL of the account's profile.
+    PlatformUser:
+      type: object
+      description: A user in the Glean directory.
+      additionalProperties: false
+      required:
+        - user_id
+        - display_name
+        - is_active
+      properties:
+        user_id:
+          type: string
+          description: |
+            Opaque canonical Glean user ID. Other Platform APIs, such as usage limits, accept and return this ID.
+        display_name:
+          type: string
+          description: The name that Glean shows for the user.
+        email:
+          type: string
+          description: Primary email address.
+        alias_emails:
+          type: array
+          description: |
+            The user's other email addresses, sorted, without the primary email. Absent when the user has none or the workspace does not show alias emails.
+          items:
+            type: string
+            description: An alias email address.
+        is_active:
+          type: boolean
+          description: |
+            Whether the user is active. A user whose type is FORMER_EMPLOYEE is inactive.
+        user_type:
+          $ref: "#/components/schemas/PlatformPersonType"
+          description: |
+            Employment status or account type. Absent when the workspace hides the employee type attribute.
+        title:
+          type: string
+          description: Job title.
+        department:
+          $ref: "#/components/schemas/PlatformDepartmentReference"
+          description: The user's department. Absent when the user has no department.
+        manager:
+          $ref: "#/components/schemas/PlatformUserManager"
+          description: |
+            The user's direct manager. Absent when the user has no manager or the manager is not in the directory. An inactive manager is still returned.
+        photo_url:
+          type: string
+          description: Avatar URL.
+        datasource_profiles:
+          type: array
+          description: |
+            The user's accounts in connected apps. Present only when include contains DATASOURCE_PROFILES. Each account appears once, even when more than one connected app instance reports it.
+          items:
+            $ref: "#/components/schemas/PlatformUserDatasourceProfile"
+    PlatformListUsersResponse:
+      type: object
+      description: One page of users.
+      additionalProperties: false
+      required:
+        - results
+        - has_more
+        - request_id
+      properties:
+        results:
+          type: array
+          description: The users on this page, ordered by display_name and then by user_id.
+          items:
+            $ref: "#/components/schemas/PlatformUser"
+        has_more:
+          type: boolean
+          description: Whether more users are available after this page.
+        next_cursor:
+          type:
+            - string
+            - "null"
+          description: Opaque cursor for the next page; null or absent when has_more is false.
+        request_id:
+          type: string
+          description: Request identifier for correlating this response.
     PlatformTriggerStatus:
       type: string
       description: Current trigger lifecycle state.
@@ -9614,6 +10017,7 @@ components:
         - READY_FOR_REVIEW
         - CONVERTED_TO_DRAFT
         - WEBHOOK_UPDATED
+        - WEBHOOK_CREATED
       x-enumDescriptions:
         CREATED: The document was created.
         UPDATED: The document was updated.
@@ -9628,6 +10032,7 @@ components:
         READY_FOR_REVIEW: A draft was marked ready for review.
         CONVERTED_TO_DRAFT: The item was converted back to a draft.
         WEBHOOK_UPDATED: The source system sent a webhook update.
+        WEBHOOK_CREATED: The source system sent a webhook creation event.
       x-speakeasy-enum-descriptions:
         CREATED: The document was created.
         UPDATED: The document was updated.
@@ -9642,6 +10047,7 @@ components:
         READY_FOR_REVIEW: A draft was marked ready for review.
         CONVERTED_TO_DRAFT: The item was converted back to a draft.
         WEBHOOK_UPDATED: The source system sent a webhook update.
+        WEBHOOK_CREATED: The source system sent a webhook creation event.
     PlatformTriggerEvent:
       type: object
       required:
@@ -12805,6 +13211,10 @@ components:
           type: string
           format: url
           description: Link to profile.
+        iconUrl:
+          type: string
+          format: url
+          description: URL of the icon to display for this social network, when available.
       required:
         - name
         - profileUrl
@@ -16987,6 +17397,7 @@ components:
               - ZERO_STATE_CHAT_TOOL_SUGGESTION
               - ZERO_STATE_WORKFLOW_CREATED_BY_ME
               - ZERO_STATE_WORKFLOW_FAVORITES
+              - ZERO_STATE_GLEAN_AGENT_COWORKERS
               - ZERO_STATE_WORKFLOW_POPULAR
               - ZERO_STATE_WORKFLOW_RECENT
               - ZERO_STATE_WORKFLOW_SUGGESTION
@@ -17582,6 +17993,7 @@ components:
             - ZERO_STATE_CHAT_TOOL_SUGGESTION
             - ZERO_STATE_WORKFLOW_CREATED_BY_ME
             - ZERO_STATE_WORKFLOW_FAVORITES
+            - ZERO_STATE_GLEAN_AGENT_COWORKERS
             - ZERO_STATE_WORKFLOW_POPULAR
             - ZERO_STATE_WORKFLOW_RECENT
             - ZERO_STATE_WORKFLOW_SUGGESTION
@@ -20827,10 +21239,11 @@ components:
             - FINDINGS
             - DOCUMENTS
             - ISSUES
-          description: The type of export to perform
+            - FINDINGS_CSV
+          description: The type of export to perform. FINDINGS, DOCUMENTS and ISSUES produce JSONL; FINDINGS_CSV produces one CSV row per finding.
         filter:
           $ref: '#/components/schemas/DlpFindingFilter'
-          description: The filters used to export the findings. Set for FINDINGS and DOCUMENTS exports.
+          description: The filters used to export the findings. Set for FINDINGS, FINDINGS_CSV and DOCUMENTS exports.
         issueFilter:
           $ref: '#/components/schemas/DlpIssueFilter'
           description: The filters used for ISSUES exports.
@@ -20859,7 +21272,8 @@ components:
             - FINDINGS
             - DOCUMENTS
             - ISSUES
-          description: The type of export to perform
+            - FINDINGS_CSV
+          description: The type of export to perform. FINDINGS, DOCUMENTS and ISSUES produce JSONL; FINDINGS_CSV produces one CSV row per finding.
         filter:
           $ref: '#/components/schemas/DlpFindingFilter'
         issueFilter:

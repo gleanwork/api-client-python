@@ -30,3 +30,4 @@ value = PlatformTriggerEventReason.CREATED
 | `READY_FOR_REVIEW`       | READY_FOR_REVIEW         |
 | `CONVERTED_TO_DRAFT`     | CONVERTED_TO_DRAFT       |
 | `WEBHOOK_UPDATED`        | WEBHOOK_UPDATED          |
+| `WEBHOOK_CREATED`        | WEBHOOK_CREATED          |
