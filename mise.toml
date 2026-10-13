@@ -1,3 +1,5 @@
+min_version = "2026.10.4"
+
 [tools]
 poetry = "latest"
 
@@ -7,5 +9,5 @@ python = "3.10"
 # needed by speakeasy mockserver
 go = "1.22"
 "aqua:speakeasy-api/speakeasy" = "latest"
-"ubi:rwjblue-glean/speakeasy-helpers" = "latest"
+"github:rwjblue-glean/speakeasy-helpers" = "latest"
 

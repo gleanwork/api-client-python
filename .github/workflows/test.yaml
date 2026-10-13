@@ -20,8 +20,9 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Set up mise
-        uses: jdx/mise-action@v2
+        uses: jdx/mise-action@v5.1.1
         with:
+          version: "2026.10.4"
           cache: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
