@@ -159546,3 +159546,102 @@ workflows:
               type: simple
       x-speakeasy-test-group: agents
       x-speakeasy-test-rebuild: true
+    - workflowId: platform-admin-usage-settings-get
+      steps:
+        - stepId: test
+          operationId: platform-admin-usage-settings-get
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"usage_settings":{},"request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: usage
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-admin-usage-settings-update
+      steps:
+        - stepId: test
+          operationId: platform-admin-usage-settings-update
+          requestBody:
+            contentType: application/json
+            payload:
+                limit_increase_requests:
+                    business_justification: REQUIRED
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"usage_settings":{},"request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: usage
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-admin-idp-groups-list
+      steps:
+        - stepId: test
+          operationId: platform-admin-idp-groups-list
+          parameters:
+            - name: page_size
+              in: query
+              value: 50
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"results":[{"idp_group_id":"<id>","display_name":"Kaya52","provider":"<value>","provider_instance":"<value>","is_active":false}],"has_more":true,"request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: admin_idpgroups
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-admin-agents-list
+      steps:
+        - stepId: test
+          operationId: platform-admin-agents-list
+          parameters:
+            - name: page_size
+              in: query
+              value: 50
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"results":[],"has_more":true,"request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: admin_agents
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-departments-list
+      steps:
+        - stepId: test
+          operationId: platform-departments-list
+          parameters:
+            - name: page_size
+              in: query
+              value: 50
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"results":[],"has_more":false,"request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: departments
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-users-list
+      steps:
+        - stepId: test
+          operationId: platform-users-list
+          parameters:
+            - name: page_size
+              in: query
+              value: 50
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"results":[{"user_id":"<id>","display_name":"Raina1","is_active":true}],"has_more":true,"request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: users
+      x-speakeasy-test-rebuild: true
