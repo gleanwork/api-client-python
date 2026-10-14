@@ -2,8 +2,8 @@ openapi: 3.1.0
 info:
   version: "0.9.0"
   title: Glean API
-  x-source-commit-sha: 4b199fd04d49e624f6d8ad288c8758f99c4d1f6d
-  x-open-api-commit-sha: 4406c02294b5d882d37de283a55aa9bd4b4a339b
+  x-source-commit-sha: 86ac685e81566c1e6291496f3ff99e8f43643159
+  x-open-api-commit-sha: 8713015c980e1a60ebab9f31082a9131769b12af
   description: |
     # Introduction
     In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This is useful, for example, for doing permissions-aware search over content in internal tools that reside on-prem as well as for searching over applications that Glean does not currently support first class. In addition these APIs allow the customer to push organization data (people info, organization structure etc) into Glean.
@@ -1437,6 +1437,1271 @@ paths:
           $ref: "#/components/responses/PlatformServiceUnavailable"
       x-speakeasy-group: search
       x-speakeasy-name-override: listFilters
+      security:
+        - APIToken: []
+  /api/admin/usage/settings:
+    get:
+      tags:
+        - Usage
+      summary: Get usage settings
+      description: |
+        Retrieve workspace-wide policy from the same configuration used by Billing. Group resolution uses the configured policy and its backend defaults; business justification is currently optional. No per-user settings are read, and updated_at is omitted because no policy-update timestamp is available. Requires admin.usage.settings:read and permission to read workspace billing; a global administrator role is not required.
+      operationId: platform-admin-usage-settings-get
+      x-visibility: Public
+      x-glean-scopes:
+        legacy:
+          - ADMIN_USAGE
+        platform:
+          - admin.usage.settings:read
+      x-glean-experimental:
+        id: 8f4c2d6e-3b7a-4e1f-9c8d-5a2b6e4f7c9a
+        introduced: "2026-09-14"
+      responses:
+        "200":
+          description: Usage settings.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlatformUsageSettingsResponse"
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+      x-speakeasy-group: admin.usage
+      x-speakeasy-name-override: getSettings
+      security:
+        - APIToken: []
+    patch:
+      tags:
+        - Usage
+      summary: Update usage settings
+      description: |
+        Assign workspace-wide usage policy. Assignment is currently unavailable until a writer to authoritative Billing configuration is integrated. The backend config platform.usageSettingsWritesEnabled is disabled by default; enabling it alone does not implement assignment, and an authorized request still returns 503 without changing configuration or persisting a second copy of policy. Requires admin.usage.settings:write and permission to edit workspace billing; a global administrator role is not required.
+      operationId: platform-admin-usage-settings-update
+      x-visibility: Public
+      x-glean-scopes:
+        legacy:
+          - ADMIN_USAGE
+        platform:
+          - admin.usage.settings:write
+      x-glean-experimental:
+        id: 443aeb3c-fdee-4da8-a756-37fa13922830
+        introduced: "2026-09-14"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PlatformUsageSettingsUpdateRequest"
+            example:
+              multiple_membership_resolution:
+                per_member:
+                  idp_groups: HIGHEST
+              limit_increase_requests:
+                business_justification: REQUIRED
+      responses:
+        "200":
+          description: Updated usage settings.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlatformUsageSettingsResponse"
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+        "413":
+          $ref: "#/components/responses/PlatformRequestTooLarge"
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+      x-speakeasy-group: admin.usage
+      x-speakeasy-name-override: updateSettings
+      security:
+        - APIToken: []
+  /api/admin/usage/limits:
+    get:
+      tags:
+        - Usage
+      summary: List usage limits
+      description: |
+        List configured limits across Glean and external spend clients, plus aggregate agent limits. Organization and user limits identify their spend client; aggregate agent limits omit client_id. USER targets return the canonical user_id and, when available, the user's directory email. Requires admin.usage.limits:read and permission to read workspace billing. Optional filters match configured limits. Pages contain up to page_size matching results; the service continues scanning until the page is full or the collection is exhausted. Continue with next_cursor while has_more is true, keeping the same filters on every continuation request. The undeclared client_id and target_type query parameters are rejected; use the canonical filters parameter instead.
+      operationId: platform-admin-usage-limits-list
+      x-visibility: Public
+      x-glean-scopes:
+        legacy:
+          - ADMIN_USAGE
+        platform:
+          - admin.usage.limits:read
+      x-glean-experimental:
+        id: ca19b3e8-9a6d-4a31-8f2f-6c7d8e9f0011
+        introduced: "2026-09-16"
+      parameters:
+        - name: page_size
+          in: query
+          description: Maximum number of limits to return. Defaults to 20; the maximum allowed is 100.
+          example: 20
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+        - name: cursor
+          in: query
+          description: Opaque cursor from a previous list response; resend the same filters when continuing.
+          example: "{cursor}"
+          schema:
+            type: string
+        - name: filters
+          in: query
+          description: |
+            JSON-encoded array of filters. Supported fields are client_id and target_type; only EQUALS is supported and is the default operator. Values within a filter are OR'd; filters are AND'd, including repeated fields. Client IDs are opaque, case-sensitive strings, matched exactly without trimming; whitespace-only values are invalid. Client filters include organization, default-user, and user policies, but exclude aggregate agent policies without a client_id. target_type values are ORGANIZATION, DEFAULT_USER, USER, DEFAULT_AGENT, and AGENT. URL-encode the JSON array as one filters query value.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: false
+                  description: One equality filter on configured usage limits.
+                  required:
+                    - field
+                    - values
+                  properties:
+                    field:
+                      type: string
+                      description: Field to match; client_id or target_type.
+                    values:
+                      type: array
+                      minItems: 1
+                      description: Nonblank values to match exactly; any value may match.
+                      items:
+                        type: string
+                        minLength: 1
+                    operator:
+                      allOf:
+                        - $ref: "#/components/schemas/PlatformFilterOperator"
+                      default: EQUALS
+                      description: Comparison operator; only EQUALS is supported.
+              example:
+                - field: client_id
+                  values:
+                    - glean
+                - field: target_type
+                  values:
+                    - ORGANIZATION
+                    - USER
+                  operator: EQUALS
+      responses:
+        "200":
+          description: List of usage limits.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlatformListUsageLimitsResponse"
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+      x-speakeasy-group: admin.usage
+      x-speakeasy-name-override: listLimits
+      security:
+        - APIToken: []
+    post:
+      tags:
+        - Usage
+      summary: Upsert a usage limit
+      description: |
+        Create or replace a single usage limit by its natural key. Always returns 200 with the normalized limit. A USER target may be identified by user_id or email; an unknown user returns 404. Requires admin.usage.limits:write and permission to edit workspace billing. Personal usage grants do not allow limit changes.
+      operationId: platform-admin-usage-limits-upsert
+      x-visibility: Public
+      x-glean-scopes:
+        legacy:
+          - ADMIN_USAGE
+        platform:
+          - admin.usage.limits:write
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PlatformUsageLimit"
+            example:
+              target:
+                type: ORGANIZATION
+              usage_selector:
+                client_id: glean
+                period:
+                  type: RECURRING_CALENDAR_MONTH
+              allocation_mode: SHARED_POOL
+              value:
+                mode: FINITE
+                amount: "1000.00"
+                unit: USD
+                enforcement: HARD
+      responses:
+        "200":
+          description: The upserted usage limit.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlatformUpsertUsageLimitResponse"
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+        "413":
+          $ref: "#/components/responses/PlatformRequestTooLarge"
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+      x-speakeasy-group: admin.usage
+      x-speakeasy-name-override: upsertLimit
+      security:
+        - APIToken: []
+  /api/admin/usage/limits/reset:
+    post:
+      tags:
+        - Usage
+      summary: Reset a usage limit
+      description: |
+        Remove a configured usage limit matching the selector without clearing measured usage. A USER target may be identified by user_id or email, including a user no longer in the directory. Requires admin.usage.limits:write and permission to edit workspace billing.
+      operationId: platform-admin-usage-limits-reset
+      x-visibility: Public
+      x-glean-scopes:
+        legacy:
+          - ADMIN_USAGE
+        platform:
+          - admin.usage.limits:write
+      x-glean-experimental:
+        id: ca19b3e8-9a6d-4a31-8f2f-6c7d8e9f0013
+        introduced: "2026-09-16"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PlatformUsageLimitKey"
+            example:
+              target:
+                type: USER
+                email: user@example.com
+              usage_selector:
+                client_id: glean
+                period:
+                  type: RECURRING_CALENDAR_MONTH
+      responses:
+        "200":
+          description: Reset result.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlatformResetUsageLimitsResponse"
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+        "413":
+          $ref: "#/components/responses/PlatformRequestTooLarge"
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+      x-speakeasy-group: admin.usage
+      x-speakeasy-name-override: resetLimit
+      security:
+        - APIToken: []
+  /api/admin/usage/limits/batch:
+    post:
+      tags:
+        - Usage
+      summary: Apply usage limit policies
+      description: |
+        Apply one or more usage limit policy changes atomically. This action sets policy by natural key; it does not create addressable resources or return resource locations. Every change succeeds or none are applied. USER targets may be identified by user_id or email; each resolves to the canonical user_id before duplicate natural keys are checked. Requires admin.usage.limits:write and permission to edit workspace billing.
+      operationId: platform-admin-usage-limits-batch
+      x-visibility: Public
+      x-glean-scopes:
+        legacy:
+          - ADMIN_USAGE
+        platform:
+          - admin.usage.limits:write
+      x-glean-experimental:
+        id: ca19b3e8-9a6d-4a31-8f2f-6c7d8e9f0014
+        introduced: "2026-09-16"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              description: Usage limit policies to apply atomically.
+              minItems: 1
+              maxItems: 100
+              items:
+                $ref: "#/components/schemas/PlatformUsageLimit"
+            example:
+              - target:
+                  type: ORGANIZATION
+                usage_selector:
+                  client_id: glean
+                  period:
+                    type: RECURRING_CALENDAR_MONTH
+                allocation_mode: SHARED_POOL
+                value:
+                  mode: FINITE
+                  amount: "1000.00"
+                  unit: USD
+                  enforcement: HARD
+              - target:
+                  type: USER
+                  email: user@example.com
+                usage_selector:
+                  client_id: glean
+                  period:
+                    type: RECURRING_CALENDAR_MONTH
+                value:
+                  mode: FINITE
+                  amount: "50.00"
+                  unit: USD
+                  enforcement: HARD
+      responses:
+        "200":
+          description: The applied usage limit policies.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlatformBatchUsageLimitsResponse"
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+        "413":
+          $ref: "#/components/responses/PlatformRequestTooLarge"
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+      x-speakeasy-group: admin.usage
+      x-speakeasy-name-override: applyLimits
+      security:
+        - APIToken: []
+  /api/admin/usage/limits/evaluate:
+    post:
+      tags:
+        - Usage
+      summary: Evaluate administrative usage limit headroom
+      description: |
+        Evaluate the effective usage limits for a selector and return the current decision (AVAILABLE, WARNING, or BLOCKED) based on accrued usage. Requires admin.usage:evaluate and permission to read workspace billing, not a global administrator role. An explicit usage_selector.client_id selects the Glean or external spend client; it is never inferred from the caller. Returns all applicable limit values and counters, with effective headroom separated by unit. Agent counters retain aggregate scope. Billing readers receive exact IdP-group source identities. A USER target may be identified by user_id or email. Evaluation reports configured-budget status even when runtime enforcement switches are off; it does not perform request admission, model eligibility, or agent-run preflight checks.
+      operationId: platform-admin-usage-limits-evaluate
+      x-visibility: Public
+      x-glean-scopes:
+        legacy:
+          - ADMIN_USAGE
+        platform:
+          - admin.usage:evaluate
+      x-glean-experimental:
+        id: 70bc17be-ccdb-4e9e-b1e7-1a75256c6ee1
+        introduced: "2026-09-18"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PlatformEvaluateUsageLimitRequest"
+            example:
+              target:
+                type: USER
+                email: user@example.com
+              usage_selector:
+                client_id: glean
+                period:
+                  type: RECURRING_CALENDAR_MONTH
+      responses:
+        "200":
+          description: Evaluation result.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlatformEvaluateUsageLimitResponse"
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+        "413":
+          $ref: "#/components/responses/PlatformRequestTooLarge"
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+      x-speakeasy-group: admin.usage
+      x-speakeasy-name-override: evaluateUsage
+      security:
+        - APIToken: []
+  /api/usage/limits/evaluate:
+    post:
+      tags:
+        - Usage
+      summary: Evaluate usage limit headroom
+      description: |
+        Evaluate the effective usage limits for a selector and return the current decision (AVAILABLE, WARNING, or BLOCKED) based on accrued usage. Requires usage:evaluate, without workspace billing permission. Omit target to evaluate the authenticated canonical user. An explicit USER must identify that user by canonical ID, known alias ID, email, or known alias email; every supplied field must identify the caller. An explicit AGENT requires current owner/editor or applicable global agent-edit permission; disabled agents remain eligible. Subagents, other users, ORGANIZATION, and default targets are forbidden on this route, even for billing administrators. Missing, inaccessible, and subagent targets return the same 403 insufficient_permissions. An explicit usage_selector.client_id selects the Glean or external spend client; it is never inferred from the caller. Agent evaluation reports aggregate agent usage and the selected client's organization limit, not the caller's personal slice or a complete run preflight. All applicable limit values, used counters, decisions, and headroom are returned; USD and credits have separate effective_limits. IdP-group source identities require billing-read permission. Other callers receive an IDP_GROUP source with is_identity_restricted true and no group_id, without suppressing the policy's value, counter, or decision. Evaluation reports configured-budget status even when runtime enforcement switches are off; it does not perform request admission, model eligibility, or agent-run preflight checks.
+      operationId: platform-usage-limits-evaluate
+      x-visibility: Public
+      x-glean-scopes:
+        legacy:
+          - USAGE
+        platform:
+          - usage:evaluate
+      x-glean-experimental:
+        id: ca19b3e8-9a6d-4a31-8f2f-6c7d8e9f0015
+        introduced: "2026-09-16"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PlatformEvaluateCallerUsageLimitRequest"
+            example:
+              usage_selector:
+                client_id: glean
+                period:
+                  type: RECURRING_CALENDAR_MONTH
+      responses:
+        "200":
+          description: Evaluation result.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlatformEvaluateUsageLimitResponse"
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+        "413":
+          $ref: "#/components/responses/PlatformRequestTooLarge"
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+      x-speakeasy-group: usage
+      x-speakeasy-name-override: evaluateUsage
+      security:
+        - APIToken: []
+  /api/usage/limit-increase-requests:
+    post:
+      tags:
+        - Usage
+      summary: Submit a personal limit-increase request
+      operationId: platform-usage-requests-create
+      x-glean-scopes:
+        legacy:
+          - USAGE_LIMIT_INCREASE_REQUESTS
+        platform:
+          - usage.limit_increase_requests:write
+      x-visibility: Public
+      x-glean-experimental:
+        id: d9f125f8-85f3-4221-8627-0b39f6d5b4ab
+        introduced: "2026-09-25"
+      description: |
+        Requires usage.limit_increase_requests:write. The target is the authenticated canonical user, and requester identity comes from authentication. The caller supplies the client and optional business justification. The server assigns the request identifier and current UTC month. Billing grants do not widen this route. Requires shared Platform authentication with the required scope, experimental opt-in, and the existing request-more enablement flag. Missing opt-in or a disabled flag returns 404.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PlatformPersonalRequestCreate"
+              description: Personal request for the authenticated user and specified client.
+            example:
+              client_id: glean
+      responses:
+        "201":
+          $ref: "#/components/responses/PlatformRequestResource"
+          description: The created personal request.
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+          description: Invalid input, with field-level validation details when available.
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+          description: Authentication is missing or invalid.
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+          description: The caller lacks the required scope or current resource permission.
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+          description: |
+            Experimental opt-in is missing, the enablement flag is disabled, or the request is missing or inaccessible.
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+          description: The operation timed out.
+        "409":
+          $ref: "#/components/responses/PlatformConflict"
+          description: The request conflicts with the current stored request state.
+        "413":
+          $ref: "#/components/responses/PlatformRequestTooLarge"
+          description: The request exceeds the supported body size.
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+          description: The caller exceeded the request rate limit.
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+          description: An unexpected internal error prevented completion.
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+          description: The operation is unsupported or temporarily unavailable; ONGOING approval is unsupported.
+      x-speakeasy-group: usage
+      x-speakeasy-name-override: createLimitIncreaseRequest
+      security:
+        - APIToken: []
+    get:
+      tags:
+        - Usage
+      summary: List personal limit-increase requests
+      operationId: platform-usage-requests-list
+      x-glean-scopes:
+        legacy:
+          - USAGE_LIMIT_INCREASE_REQUESTS
+        platform:
+          - usage.limit_increase_requests:read
+      x-visibility: Public
+      x-glean-experimental:
+        id: d92d077c-81c0-4d91-868d-021eed013d8d
+        introduced: "2026-09-25"
+      description: |
+        Requires usage.limit_increase_requests:read. The collection is limited to the authenticated canonical user's requests, including resolved requests. Cursors bind the filters and current authorization context; a billing grant cannot widen results. Supported token issuance, experimental opt-in, and request-more enablement are required. Missing opt-in or a disabled flag returns 404.
+      parameters:
+        - $ref: "#/components/parameters/PageSize"
+          description: Maximum page size; defaults to 20 and cannot exceed 100.
+        - $ref: "#/components/parameters/Cursor"
+          description: Opaque continuation bound to filters and current authorization.
+        - $ref: "#/components/parameters/Filters"
+          description: Optional structured filters on request status.
+      responses:
+        "200":
+          description: A bounded page of authorized requests.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlatformRequestListResponse"
+                description: Authorized request page and continuation state.
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+          description: Invalid input, with field-level validation details when available.
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+          description: Authentication is missing or invalid.
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+          description: The caller lacks the required scope or current resource permission.
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+          description: |
+            Experimental opt-in is missing, the enablement flag is disabled, or the request is missing or inaccessible.
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+          description: The operation timed out.
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+          description: The caller exceeded the request rate limit.
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+          description: An unexpected internal error prevented completion.
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+          description: The operation is unsupported or temporarily unavailable; ONGOING approval is unsupported.
+      x-speakeasy-group: usage
+      x-speakeasy-name-override: listLimitIncreaseRequests
+      security:
+        - APIToken: []
+  /api/usage/limit-increase-requests/{request_id}:
+    parameters:
+      - $ref: "#/components/parameters/RequestId"
+        description: Opaque personal request identifier; not an authorization grant.
+    get:
+      tags:
+        - Usage
+      summary: Get a personal limit-increase request
+      operationId: platform-usage-requests-get
+      x-glean-scopes:
+        legacy:
+          - USAGE_LIMIT_INCREASE_REQUESTS
+        platform:
+          - usage.limit_increase_requests:read
+      x-visibility: Public
+      x-glean-experimental:
+        id: 29a2f132-a0c2-429f-95e7-7995de058cd3
+        introduced: "2026-09-25"
+      description: |
+        Requires usage.limit_increase_requests:read and the current user's request. Authorization precedes resource disclosure. Missing and inaccessible records return the same 404. Supported token issuance, experimental opt-in, and request-more enablement are required. Missing opt-in or a disabled flag also returns 404.
+      responses:
+        "200":
+          $ref: "#/components/responses/PlatformRequestResource"
+          description: The authorized request in its current stored state.
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+          description: Invalid input, with field-level validation details when available.
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+          description: Authentication is missing or invalid.
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+          description: The caller lacks the required scope or current resource permission.
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+          description: |
+            Experimental opt-in is missing, the enablement flag is disabled, or the request is missing or inaccessible.
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+          description: The operation timed out.
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+          description: The caller exceeded the request rate limit.
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+          description: An unexpected internal error prevented completion.
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+          description: The operation is unsupported or temporarily unavailable; ONGOING approval is unsupported.
+      x-speakeasy-group: usage
+      x-speakeasy-name-override: getLimitIncreaseRequest
+      security:
+        - APIToken: []
+  /api/admin/usage/limit-increase-requests:
+    post:
+      tags:
+        - Usage
+      summary: Submit an editable-agent limit-increase request
+      operationId: platform-admin-usage-requests-create
+      x-glean-scopes:
+        legacy:
+          - USAGE_LIMIT_INCREASE_REQUESTS
+        platform:
+          - usage.limit_increase_requests:write
+      x-visibility: Public
+      x-glean-experimental:
+        id: e28f40de-1f6c-4dc6-ab12-4054b89628c1
+        introduced: "2026-09-25"
+      description: |
+        Requires usage.limit_increase_requests:write, the same scope as personal creation, and current edit permission on the agent, not billing permissions. The caller supplies the agent, client, and optional business justification. Requester identity comes from authentication; the server assigns the request identifier and current UTC month. Requires shared Platform authentication with the required scope, experimental opt-in, and the existing request-more enablement flag. Missing opt-in or a disabled flag returns 404.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PlatformAgentRequestCreate"
+              description: Client-scoped request for an agent the caller can edit.
+            example:
+              agent_id: "{agent_id}"
+              client_id: glean
+      responses:
+        "201":
+          $ref: "#/components/responses/PlatformRequestResource"
+          description: The created editable-agent request.
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+          description: Invalid input, with field-level validation details when available.
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+          description: Authentication is missing or invalid.
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+          description: The caller lacks the required scope or current resource permission.
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+          description: |
+            Experimental opt-in is missing, the enablement flag is disabled, or the request is missing or inaccessible.
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+          description: The operation timed out.
+        "409":
+          $ref: "#/components/responses/PlatformConflict"
+          description: The request conflicts with the current stored request state.
+        "413":
+          $ref: "#/components/responses/PlatformRequestTooLarge"
+          description: The request exceeds the supported body size.
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+          description: The caller exceeded the request rate limit.
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+          description: An unexpected internal error prevented completion.
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+          description: The operation is unsupported or temporarily unavailable; ONGOING approval is unsupported.
+      x-speakeasy-group: admin.usage
+      x-speakeasy-name-override: createLimitIncreaseRequest
+      security:
+        - APIToken: []
+    get:
+      tags:
+        - Usage
+      summary: List the billing limit-increase request queue
+      operationId: platform-admin-usage-requests-list
+      x-glean-scopes:
+        legacy:
+          - ADMIN_USAGE_LIMIT_INCREASE_REQUESTS
+        platform:
+          - admin.usage.limit_increase_requests:read
+      x-visibility: Public
+      x-glean-experimental:
+        id: b02bb653-00f9-4739-b387-90f68c7385ee
+        introduced: "2026-09-25"
+      description: |
+        Requires admin.usage.limit_increase_requests:read and current workspace billing read permission. Agent ownership is not queue access. Cursors bind filters and current authorization context. Supported token issuance, experimental opt-in, and request-more enablement are required. Missing opt-in or a disabled flag returns 404, not a successful empty page.
+      parameters:
+        - $ref: "#/components/parameters/PageSize"
+          description: Maximum page size; defaults to 20 and cannot exceed 100.
+        - $ref: "#/components/parameters/Cursor"
+          description: Opaque continuation bound to filters and current authorization.
+        - $ref: "#/components/parameters/Filters"
+          description: Optional structured filters on request status.
+      responses:
+        "200":
+          description: A bounded page of authorized requests.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlatformRequestListResponse"
+                description: Authorized request page and continuation state.
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+          description: Invalid input, with field-level validation details when available.
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+          description: Authentication is missing or invalid.
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+          description: The caller lacks the required scope or current resource permission.
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+          description: |
+            Experimental opt-in is missing, the enablement flag is disabled, or the request is missing or inaccessible.
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+          description: The operation timed out.
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+          description: The caller exceeded the request rate limit.
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+          description: An unexpected internal error prevented completion.
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+          description: The operation is unsupported or temporarily unavailable; ONGOING approval is unsupported.
+      x-speakeasy-group: admin.usage
+      x-speakeasy-name-override: listLimitIncreaseRequests
+      security:
+        - APIToken: []
+  /api/admin/usage/limit-increase-requests/{request_id}:
+    parameters:
+      - $ref: "#/components/parameters/RequestId"
+        description: Opaque request identifier; not an authorization grant.
+    get:
+      tags:
+        - Usage
+      summary: Get a billing limit-increase request
+      operationId: platform-admin-usage-requests-get
+      x-glean-scopes:
+        legacy:
+          - ADMIN_USAGE_LIMIT_INCREASE_REQUESTS
+        platform:
+          - admin.usage.limit_increase_requests:read
+      x-visibility: Public
+      x-glean-experimental:
+        id: 88f1a13a-3e09-4c78-a2dc-87cc223dc003
+        introduced: "2026-09-25"
+      description: |
+        Requires admin.usage.limit_increase_requests:read and current workspace billing read permission. Authorization precedes resource disclosure. Owner-only agent reads are not supported. Supported token issuance, experimental opt-in, and request-more enablement are required. Missing opt-in or a disabled flag returns 404.
+      responses:
+        "200":
+          $ref: "#/components/responses/PlatformRequestResource"
+          description: The authorized request in its current stored state.
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+          description: Invalid input, with field-level validation details when available.
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+          description: Authentication is missing or invalid.
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+          description: The caller lacks the required scope or current resource permission.
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+          description: |
+            Experimental opt-in is missing, the enablement flag is disabled, or the request is missing or inaccessible.
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+          description: The operation timed out.
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+          description: The caller exceeded the request rate limit.
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+          description: An unexpected internal error prevented completion.
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+          description: The operation is unsupported or temporarily unavailable; ONGOING approval is unsupported.
+      x-speakeasy-group: admin.usage
+      x-speakeasy-name-override: getLimitIncreaseRequest
+      security:
+        - APIToken: []
+    patch:
+      tags:
+        - Usage
+      summary: Resolve a billing limit-increase request
+      operationId: platform-admin-usage-requests-update
+      x-glean-scopes:
+        legacy:
+          - ADMIN_USAGE_LIMIT_INCREASE_REQUESTS
+        platform:
+          - admin.usage.limit_increase_requests:write
+      x-visibility: Public
+      x-glean-experimental:
+        id: 08d999ca-f438-4fed-81ce-350c7e65c2cc
+        introduced: "2026-09-25"
+      description: |
+        Update a pending request with an approval decision or denial. Requires admin.usage.limit_increase_requests:write and current billing edit permission. A pending request can record an approved positive increase amount or be denied with an optional resolution note. PERIOD approval retains the request's stored month and requires the current UTC month; expired approvals return 409 before mutation or approval writes. A successful approval write triggers spend-limit cache refresh before reload; refresh failure logs a warning without failing the decision. The existing backend consumes eligible USER current-period grants to raise enforcement headroom without changing standing rules. This does not add capacity for agents or other unsupported targets, integrate usage settings, or promise new delivery or atomicity guarantees. Supported token issuance, experimental opt-in, and request-more enablement are required. Missing opt-in or a disabled flag returns 404. Once enabled and opted in, ONGOING returns typed 503 without reading or modifying the request; its private policy preparation is not shared with this adapter. Use the existing app operation for ongoing user approvals.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PlatformAdministrativeRequestUpdate"
+              description: Record a PERIOD approval decision or denial of a pending request.
+            example:
+              status: APPROVED
+              approved_increase_amount: "100.00"
+              scope: PERIOD
+      responses:
+        "200":
+          $ref: "#/components/responses/PlatformRequestResource"
+          description: The resolved request in its current stored state.
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+          description: Invalid input, with field-level validation details when available.
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+          description: Authentication is missing or invalid.
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+          description: The caller lacks the required scope or current resource permission.
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+          description: |
+            Experimental opt-in is missing, the enablement flag is disabled, or the request is missing or inaccessible.
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+          description: The operation timed out.
+        "409":
+          $ref: "#/components/responses/PlatformConflict"
+          description: The request conflicts with the current stored request state.
+        "413":
+          $ref: "#/components/responses/PlatformRequestTooLarge"
+          description: The request exceeds the supported body size.
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+          description: The caller exceeded the request rate limit.
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+          description: An unexpected internal error prevented completion.
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+          description: The operation is unsupported or temporarily unavailable; ONGOING approval is unsupported.
+      x-speakeasy-group: admin.usage
+      x-speakeasy-name-override: updateLimitIncreaseRequest
+      security:
+        - APIToken: []
+  /api/departments:
+    get:
+      tags:
+        - Departments
+      summary: List departments
+      description: |
+        List the departments in the Glean directory, ordered by display_name and then by department_id. A department is active when at least one active user belongs to it. A department is inactive when only inactive users, such as former employees, belong to it, or when only a usage limit names it. Inactive departments are left out unless an is_active filter includes the value "false". Department names are exact, so names that differ only by case are different departments.
+      operationId: platform-departments-list
+      x-glean-scopes:
+        legacy:
+          - PEOPLE
+        platform:
+          - departments:read
+      x-visibility: Public
+      x-glean-experimental:
+        id: 2bc9ce31-8e51-4874-996c-96ad2e10fbd7
+        introduced: "2026-10-08"
+      parameters:
+        - in: query
+          name: page_size
+          description: Maximum number of departments to return. Defaults to 50. Maximum is 100.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 50
+        - in: query
+          name: cursor
+          description: |
+            Opaque pagination cursor from a previous response. Send the same filters that the previous request used.
+          required: false
+          schema:
+            type: string
+            minLength: 1
+        - in: query
+          name: filters
+          description: |
+            JSON-encoded filters that choose which departments are returned. The only supported field is is_active, with the values "true" and "false" and the operator EQUALS. Multiple values OR within a filter. Multiple filters AND together. Without an is_active filter, only active departments are returned. To return active and inactive departments, send [{"field":"is_active","values":["true","false"]}].
+          required: false
+          content:
+            application/json:
+              schema:
+                type: array
+                minItems: 1
+                maxItems: 10
+                description: Filters on department fields, combined with AND.
+                items:
+                  $ref: "#/components/schemas/PlatformDepartmentFilter"
+                  description: One filter on a department field.
+      responses:
+        "200":
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlatformListDepartmentsResponse"
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+      x-speakeasy-group: departments
+      x-speakeasy-name-override: list
+      security:
+        - APIToken: []
+  /api/admin/idp-groups:
+    get:
+      tags:
+        - IdP Groups
+      summary: List IdP groups
+      description: |
+        List the identity provider (IdP) groups that Glean loads from the directory, ordered by display_name and then by idp_group_id. Use idp_group_id to name a group in other Platform APIs. An IdP group is active when Glean loaded it from the directory. An IdP group is inactive when only a usage limit names it, for example after the group was removed from the identity provider. Inactive IdP groups are left out unless an is_active filter includes the value "false". Usage limits apply only to IdP groups from the datasource instance that the usage settings select, so use the provider_instance filter to list only those groups. Internal O365 ownership groups and SharePoint groups are left out. The caller must be able to read the workspace configuration or the workspace billing.
+      operationId: platform-admin-idp-groups-list
+      x-glean-scopes:
+        legacy:
+          - ADMIN
+          - ADMIN_USAGE
+        platform:
+          - admin.idp_groups:read
+      x-visibility: Public
+      x-glean-experimental:
+        id: 416f645e-926e-4fb5-b9b1-03d0e7366097
+        introduced: "2026-10-09"
+      parameters:
+        - in: query
+          name: page_size
+          description: Maximum number of IdP groups to return. Defaults to 50. Maximum is 100.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 50
+        - in: query
+          name: cursor
+          description: |
+            Opaque pagination cursor from a previous response. Send the same filters that the previous request used.
+          required: false
+          schema:
+            type: string
+            minLength: 1
+        - in: query
+          name: filters
+          description: |
+            JSON-encoded filters that choose which IdP groups are returned. The supported fields are is_active, with the values "true" and "false", and provider_instance, with datasource instance names such as "okta". provider_instance values match without case. The only supported operator is EQUALS. Multiple values OR within a filter. Multiple filters AND together. Without an is_active filter, only active IdP groups are returned. To return active and inactive IdP groups, send [{"field":"is_active","values":["true","false"]}].
+          required: false
+          content:
+            application/json:
+              schema:
+                type: array
+                minItems: 1
+                maxItems: 10
+                description: Filters on IdP group fields, combined with AND.
+                items:
+                  $ref: "#/components/schemas/PlatformIdpGroupFilter"
+                  description: One filter on an IdP group field.
+      responses:
+        "200":
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlatformListIdpGroupsResponse"
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+      x-speakeasy-group: admin.idpgroups
+      x-speakeasy-name-override: list
+      security:
+        - APIToken: []
+  /api/users:
+    get:
+      tags:
+        - Users
+      summary: List users
+      description: |
+        List the users in the Glean directory, ordered by display_name and then by user_id. The list includes the same people as the Glean People directory. Inactive users, such as former employees, are left out unless an is_active filter includes the value "false". Use the returned user_id values with other Platform APIs, for example as usage limit targets.
+      operationId: platform-users-list
+      x-glean-scopes:
+        legacy:
+          - PEOPLE
+        platform:
+          - users:read
+      x-visibility: Public
+      x-glean-experimental:
+        id: 284483b2-925a-412f-a60d-891c699307f6
+        introduced: "2026-10-07"
+      parameters:
+        - in: query
+          name: page_size
+          description: Maximum number of users to return. Defaults to 50. Maximum is 100.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 50
+        - in: query
+          name: cursor
+          description: |
+            Opaque pagination cursor from a previous response. Send the same filters that the previous request used.
+          required: false
+          schema:
+            type: string
+            minLength: 1
+        - in: query
+          name: filters
+          description: |
+            JSON-encoded filters that choose which users are returned. The only supported field is is_active, with the values "true" and "false" and the operator EQUALS. Multiple values OR within a filter. Multiple filters AND together. Without an is_active filter, only active users are returned. To return active and inactive users, send [{"field":"is_active","values":["true","false"]}].
+          required: false
+          content:
+            application/json:
+              schema:
+                type: array
+                minItems: 1
+                maxItems: 10
+                description: Filters on user fields, combined with AND.
+                items:
+                  $ref: "#/components/schemas/PlatformUserFilter"
+                  description: One filter on a user field.
+        - in: query
+          name: include
+          description: |
+            Optional fields to add to each user. Each value only adds fields; it does not change which users are returned.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/PlatformUserInclude"
+      responses:
+        "200":
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlatformListUsersResponse"
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+      x-speakeasy-group: users
+      x-speakeasy-name-override: list
+      security:
+        - APIToken: []
+  /api/admin/agents:
+    get:
+      tags:
+        - Agents
+      summary: List all agents
+      description: |
+        List every agent in the workspace, ordered by display_name and then by agent_id. Unlike agent search, the list does not depend on who an agent is shared with, so it includes private and disabled agents. Deleted agents are inactive and are left out unless an is_active filter includes the value "false". Use the agent_id of an active agent with other Platform APIs, for example as a usage limit target. A deleted agent is not a valid usage limit target. The caller must be able to read all agents, administer agents, or read workspace billing.
+      operationId: platform-admin-agents-list
+      x-glean-scopes:
+        legacy:
+          - ADMIN
+          - ADMIN_USAGE
+        platform:
+          - admin.agents:read
+      x-visibility: Public
+      x-glean-experimental:
+        id: 8f66e1bd-eb48-4381-88f2-697a0e51ccc7
+        introduced: "2026-10-08"
+      parameters:
+        - in: query
+          name: page_size
+          description: Maximum number of agents to return. Defaults to 50. Maximum is 100.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 50
+        - in: query
+          name: cursor
+          description: |
+            Opaque pagination cursor from a previous response. Send the same filters that the previous request used.
+          required: false
+          schema:
+            type: string
+            minLength: 1
+        - in: query
+          name: filters
+          description: |
+            JSON-encoded filters that choose which agents are returned. The only supported field is is_active, with the values "true" and "false" and the operator EQUALS. Multiple values OR within a filter. Multiple filters AND together. Without an is_active filter, only active agents are returned. To return active and deleted agents, send [{"field":"is_active","values":["true","false"]}].
+          required: false
+          content:
+            application/json:
+              schema:
+                type: array
+                minItems: 1
+                maxItems: 10
+                description: Filters on agent fields, combined with AND.
+                items:
+                  $ref: "#/components/schemas/PlatformAdminAgentFilter"
+                  description: One filter on an agent field.
+      responses:
+        "200":
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlatformListAdminAgentsResponse"
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+      x-speakeasy-group: admin.agents
+      x-speakeasy-name-override: list
       security:
         - APIToken: []
   /api/triggers:
@@ -9127,7 +10392,7 @@ components:
         title:
           type: string
           minLength: 1
-          description: Result title.
+          description: Display title. For a conversation, this is a title built from the participants, such as "Alice and Bob", including when the indexed title is the message body. When the result has no title, the server returns Untitled.
           example: Q2 2026 Platform Roadmap
         snippets:
           type: array
@@ -9268,6 +10533,1712 @@ components:
           type: string
           minLength: 1
           description: Platform-generated request ID for support correlation.
+    PlatformPerMemberSettings:
+      type: object
+      additionalProperties: false
+      description: Resolution settings for the per-member limit family.
+      required:
+        - idp_groups
+      properties:
+        idp_groups:
+          type: string
+          enum:
+            - HIGHEST
+            - LOWEST
+          description: |
+            How to resolve effective usage limits when a user belongs to multiple IdP groups.
+    PlatformMultipleMembershipResolutionSettings:
+      type: object
+      additionalProperties: false
+      description: Settings for resolving limits across multiple memberships.
+      required:
+        - per_member
+      properties:
+        per_member:
+          $ref: "#/components/schemas/PlatformPerMemberSettings"
+          description: Resolution settings for the per-member limit family.
+    PlatformLimitIncreaseRequestSettings:
+      type: object
+      additionalProperties: false
+      description: |
+        Settings that govern usage limit increase requests.
+      required:
+        - business_justification
+      properties:
+        business_justification:
+          type: string
+          enum:
+            - OPTIONAL
+            - REQUIRED
+          description: |
+            Whether a business justification is required when requesting a usage limit increase.
+    PlatformUsageSettingsResource:
+      type: object
+      additionalProperties: false
+      description: |
+        Workspace-wide usage settings.
+      properties:
+        multiple_membership_resolution:
+          $ref: "#/components/schemas/PlatformMultipleMembershipResolutionSettings"
+          description: Settings for resolving limits across multiple memberships.
+        limit_increase_requests:
+          $ref: "#/components/schemas/PlatformLimitIncreaseRequestSettings"
+          description: Settings that govern usage limit increase requests.
+        updated_at:
+          type: string
+          format: date-time
+          description: |
+            ISO 8601 timestamp of the last settings update.
+    PlatformUsageSettingsResponse:
+      type: object
+      additionalProperties: false
+      description: |
+        Response envelope for usage settings operations.
+      required:
+        - usage_settings
+        - request_id
+      properties:
+        usage_settings:
+          $ref: "#/components/schemas/PlatformUsageSettingsResource"
+          description: Current workspace-wide usage settings.
+        request_id:
+          type: string
+          description: |
+            Opaque request identifier.
+    PlatformUsageSettingsUpdateRequest:
+      type: object
+      additionalProperties: false
+      description: |
+        Request body for updating workspace-wide usage settings.
+      required: []
+      anyOf:
+        - required:
+            - multiple_membership_resolution
+        - required:
+            - limit_increase_requests
+      properties:
+        multiple_membership_resolution:
+          $ref: "#/components/schemas/PlatformMultipleMembershipResolutionSettings"
+          description: Settings for resolving limits across multiple memberships.
+        limit_increase_requests:
+          $ref: "#/components/schemas/PlatformLimitIncreaseRequestSettings"
+          description: Settings that govern usage limit increase requests.
+    PlatformUsageTargetType:
+      type: string
+      description: Kind of governed population or inherited policy source.
+      enum:
+        - ORGANIZATION
+        - DEFAULT_USER
+        - DEFAULT_AGENT
+        - USER
+        - AGENT
+        - IDP_GROUP
+        - DEPARTMENT
+      x-enumDescriptions:
+        ORGANIZATION: Shared limit across the organization for the selected spend client.
+        DEFAULT_USER: Default per-user limit for the selected spend client.
+        DEFAULT_AGENT: Default aggregate limit applied to agents without an agent-specific limit.
+        USER: Limit for one user, identified by canonical user ID or email, and the selected spend client.
+        AGENT: Aggregate limit for one canonical agent ID, independent of spend client.
+        IDP_GROUP: Response-only source of an inherited per-user IdP-group limit.
+        DEPARTMENT: Response-only source of an inherited per-user department limit.
+      x-speakeasy-enum-descriptions:
+        ORGANIZATION: Shared limit across the organization for the selected spend client.
+        DEFAULT_USER: Default per-user limit for the selected spend client.
+        DEFAULT_AGENT: Default aggregate limit applied to agents without an agent-specific limit.
+        USER: Limit for one user, identified by canonical user ID or email, and the selected spend client.
+        AGENT: Aggregate limit for one canonical agent ID, independent of spend client.
+        IDP_GROUP: Response-only source of an inherited per-user IdP-group limit.
+        DEPARTMENT: Response-only source of an inherited per-user department limit.
+    PlatformUsageTarget:
+      type: object
+      description: |
+        Population governed by a usage limit. A target identifies policy, not access. Administrative operations require their dedicated scope and billing permissions. Non-admin evaluation accepts the authenticated USER or an AGENT the caller currently has permission to edit. Billing permission does not widen this route. Organization and user limits are scoped to a spend client; agent limits remain aggregate. Subagents cannot be configured or evaluated independently because nested spend can be attributed to the top-level agent. Reset can still remove existing subagent rules. A USER target is identified by user_id, email, or both; email is resolved to the canonical user_id, which responses always return.
+      additionalProperties: false
+      required:
+        - type
+      properties:
+        type:
+          $ref: "#/components/schemas/PlatformUsageTargetType"
+          description: Kind of governed population.
+        user_id:
+          type: string
+          minLength: 1
+          maxLength: 512
+          description: |
+            Canonical user ID; valid only when type is USER. A USER target requires user_id, email, or both.
+        email:
+          type: string
+          minLength: 3
+          maxLength: 320
+          pattern: ^[^\s@\x00-\x1f\x7f]+@[^\s@\x00-\x1f\x7f]+$
+          x-glean-experimental:
+            id: 1e7ce9ed-56af-44b2-81c1-f39e656919ea
+            introduced: "2026-09-29"
+          description: |
+            Email address of the user, including a known alias email; valid only when type is USER. Matching is case-insensitive and resolves to the canonical user_id. When user_id is also supplied, both must identify the same user. Email is never part of the stored limit key. Responses include the user's directory email when one is available.
+        agent_id:
+          type: string
+          minLength: 1
+          maxLength: 512
+          description: Canonical agent ID; required only when type is AGENT.
+      allOf:
+        - oneOf:
+            - anyOf:
+                - required:
+                    - user_id
+                - required:
+                    - email
+              properties:
+                type:
+                  description: Kind of governed population.
+                  enum:
+                    - USER
+              not:
+                required:
+                  - agent_id
+            - required:
+                - agent_id
+              properties:
+                type:
+                  description: Kind of governed population.
+                  enum:
+                    - AGENT
+              not:
+                anyOf:
+                  - required:
+                      - user_id
+                  - required:
+                      - email
+            - properties:
+                type:
+                  description: Kind of governed population.
+                  enum:
+                    - ORGANIZATION
+                    - DEFAULT_USER
+                    - DEFAULT_AGENT
+              not:
+                anyOf:
+                  - required:
+                      - user_id
+                  - required:
+                      - email
+                  - required:
+                      - agent_id
+    PlatformPeriodType:
+      type: string
+      description: Kind of period over which usage is counted.
+      enum:
+        - RECURRING_CALENDAR_MONTH
+      x-enumDescriptions:
+        RECURRING_CALENDAR_MONTH: Resets at the start of each calendar month.
+      x-speakeasy-enum-descriptions:
+        RECURRING_CALENDAR_MONTH: Resets at the start of each calendar month.
+    PlatformPeriod:
+      type: object
+      description: Period over which usage is counted for a limit.
+      additionalProperties: false
+      required:
+        - type
+      properties:
+        type:
+          $ref: "#/components/schemas/PlatformPeriodType"
+          description: Kind of usage period.
+    PlatformUsageSelector:
+      type: object
+      description: |
+        Usage counted against a configured limit, or the spend context for evaluation. Configured organization and user limits require a client; aggregate agent limits omit it. Omission never selects Glean or acts as a client wildcard.
+      additionalProperties: false
+      required:
+        - period
+      properties:
+        client_id:
+          type: string
+          x-glean-experimental:
+            id: 3a8dfb97-fbe9-4173-ac61-4fd6e6faa847
+            introduced: "2026-09-23"
+          minLength: 1
+          maxLength: 256
+          pattern: ^[^\x00-\x1f\x7f]+$
+          not:
+            anyOf:
+              - enum:
+                  - __deleted_clients__
+              - pattern: "^[ \\t-\\r\N   - \L\P  　]*$"
+          description: |
+            Opaque, case-sensitive spend-client ID, such as glean or an external gateway spend-client ID. Case and leading or trailing padding are preserved exactly; this is not inferred from the authenticating OAuth application, prefixed, or normalized. Empty and whitespace-only IDs (including Unicode whitespace), synthetic UI aggregation IDs, and control characters are invalid. Unknown IDs are valid and can have no applicable configured policies.
+        period:
+          $ref: "#/components/schemas/PlatformPeriod"
+          description: Reset cadence for counted usage.
+    PlatformAllocationMode:
+      type: string
+      description: How a usage limit budget is shared across the target population.
+      enum:
+        - SHARED_POOL
+        - PER_MEMBER
+      x-enumDescriptions:
+        SHARED_POOL: A single shared budget for the target population.
+        PER_MEMBER: A separate budget for each member of the target population.
+      x-speakeasy-enum-descriptions:
+        SHARED_POOL: A single shared budget for the target population.
+        PER_MEMBER: A separate budget for each member of the target population.
+    PlatformAmountMode:
+      type: string
+      description: Kind of configured cap or remaining headroom.
+      enum:
+        - FINITE
+        - UNLIMITED
+      x-enumDescriptions:
+        FINITE: A finite value; amount is required for a configured cap and remaining for headroom.
+        UNLIMITED: No cap or finite headroom.
+      x-speakeasy-enum-descriptions:
+        FINITE: A finite value; amount is required for a configured cap and remaining for headroom.
+        UNLIMITED: No cap or finite headroom.
+    PlatformUsageUnit:
+      type: string
+      description: Unit used by a usage limit and its counters.
+      enum:
+        - USD
+        - CREDITS
+      x-enumDescriptions:
+        USD: United States dollars.
+        CREDITS: Glean usage credits.
+      x-speakeasy-enum-descriptions:
+        USD: United States dollars.
+        CREDITS: Glean usage credits.
+    PlatformEnforcement:
+      type: string
+      description: Enforcement behavior when a usage limit is reached.
+      enum:
+        - HARD
+        - SOFT
+      x-enumDescriptions:
+        HARD: Configured hard cap; when enforced, requests are blocked at the limit.
+        SOFT: Configured soft cap; when enforced, requests are allowed but flagged at the limit.
+      x-speakeasy-enum-descriptions:
+        HARD: Configured hard cap; when enforced, requests are blocked at the limit.
+        SOFT: Configured soft cap; when enforced, requests are allowed but flagged at the limit.
+    PlatformUsageLimitValue:
+      type: object
+      description: Value and enforcement configuration for a usage limit.
+      additionalProperties: false
+      required:
+        - mode
+      properties:
+        mode:
+          $ref: "#/components/schemas/PlatformAmountMode"
+          description: Whether the limit has a finite cap or is unlimited.
+        amount:
+          type: string
+          minLength: 1
+          maxLength: 24
+          pattern: ^(0|[1-9][0-9]*)(\.[0-9]{1,6})?$
+          description: |
+            Plain non-negative decimal amount with at most six fractional digits; required when mode is FINITE and forbidden when mode is UNLIMITED. Limits use single-precision (float32) storage: inputs are rounded to that precision, and responses report the stored value rounded to six fractional digits. For example, 100.10 can be returned as 100.099998. This storage limitation does not reduce the precision of measured usage counters.
+        unit:
+          $ref: "#/components/schemas/PlatformUsageUnit"
+          description: |
+            Unit for the selected spend domain; must match its billing denomination. Aggregate agent limits use the workspace plan denomination.
+        enforcement:
+          $ref: "#/components/schemas/PlatformEnforcement"
+          description: How the limit is enforced when reached.
+      allOf:
+        - oneOf:
+            - required:
+                - amount
+                - unit
+                - enforcement
+              properties:
+                mode:
+                  description: Whether the limit has a finite cap or is unlimited.
+                  enum:
+                    - FINITE
+            - properties:
+                mode:
+                  description: Whether the limit has a finite cap or is unlimited.
+                  enum:
+                    - UNLIMITED
+              not:
+                anyOf:
+                  - required:
+                      - amount
+                  - required:
+                      - unit
+                  - required:
+                      - enforcement
+    PlatformUsageLimit:
+      type: object
+      description: A configured usage limit and its value.
+      additionalProperties: false
+      required:
+        - target
+        - usage_selector
+        - value
+      properties:
+        target:
+          $ref: "#/components/schemas/PlatformUsageTarget"
+          description: Population governed by this limit.
+        usage_selector:
+          $ref: "#/components/schemas/PlatformUsageSelector"
+          description: Usage counted against this limit.
+        allocation_mode:
+          $ref: "#/components/schemas/PlatformAllocationMode"
+          description: |
+            Required for ORGANIZATION, DEFAULT_USER, and DEFAULT_AGENT. Must not be provided for USER or AGENT targets.
+        value:
+          $ref: "#/components/schemas/PlatformUsageLimitValue"
+          description: Value, unit, and enforcement mode for the limit.
+      allOf:
+        - oneOf:
+            - required:
+                - allocation_mode
+              properties:
+                target:
+                  description: Population governed by this limit.
+                  properties:
+                    type:
+                      description: Kind of governed population.
+                      enum:
+                        - ORGANIZATION
+                allocation_mode:
+                  description: How this limit budget is allocated.
+                  enum:
+                    - SHARED_POOL
+            - required:
+                - allocation_mode
+              properties:
+                target:
+                  description: Population governed by this limit.
+                  properties:
+                    type:
+                      description: Kind of governed population.
+                      enum:
+                        - DEFAULT_USER
+                        - DEFAULT_AGENT
+                allocation_mode:
+                  description: How this limit budget is allocated.
+                  enum:
+                    - PER_MEMBER
+            - properties:
+                target:
+                  description: Population governed by this limit.
+                  properties:
+                    type:
+                      description: Kind of governed population.
+                      enum:
+                        - USER
+                        - AGENT
+              not:
+                required:
+                  - allocation_mode
+        - oneOf:
+            - properties:
+                target:
+                  description: Population governed by this client-scoped limit.
+                  properties:
+                    type:
+                      description: Kind of client-scoped population.
+                      enum:
+                        - ORGANIZATION
+                        - DEFAULT_USER
+                        - USER
+                usage_selector:
+                  description: Spend client and period for this limit.
+                  required:
+                    - client_id
+            - properties:
+                target:
+                  description: Population governed by this aggregate agent limit.
+                  properties:
+                    type:
+                      description: Kind of aggregate agent population.
+                      enum:
+                        - DEFAULT_AGENT
+                        - AGENT
+                usage_selector:
+                  description: Aggregate period without a client partition.
+                  not:
+                    required:
+                      - client_id
+    PlatformListUsageLimitsResponse:
+      type: object
+      description: Response body for listing configured usage limits.
+      additionalProperties: false
+      required:
+        - results
+        - has_more
+        - request_id
+      properties:
+        results:
+          type: array
+          description: |
+            Up to page_size matching configured limits. The service scans past omitted rules to fill the page unless the collection is exhausted. Continue with next_cursor and the same filters while has_more is true.
+          items:
+            $ref: "#/components/schemas/PlatformUsageLimit"
+        has_more:
+          type: boolean
+          description: Whether more rules remain to scan; later pages may contain no matching results.
+        next_cursor:
+          type:
+            - string
+            - "null"
+          description: Opaque cursor; null or absent when has_more is false.
+        request_id:
+          type: string
+          description: Request identifier for correlating this response.
+    PlatformUpsertUsageLimitResponse:
+      type: object
+      description: Response envelope for an upserted usage limit.
+      additionalProperties: false
+      required:
+        - usage_limit
+        - request_id
+      properties:
+        usage_limit:
+          $ref: "#/components/schemas/PlatformUsageLimit"
+          description: The normalized usage limit.
+        request_id:
+          type: string
+          description: Request identifier for correlating this response.
+    PlatformUsageLimitKey:
+      type: object
+      description: Natural key for one configured usage limit.
+      additionalProperties: false
+      required:
+        - target
+        - usage_selector
+      properties:
+        target:
+          $ref: "#/components/schemas/PlatformUsageTarget"
+          description: Population governed by the limit.
+        usage_selector:
+          $ref: "#/components/schemas/PlatformUsageSelector"
+          description: Usage counted against the limit.
+      allOf:
+        - oneOf:
+            - properties:
+                target:
+                  description: Population governed by this client-scoped limit.
+                  properties:
+                    type:
+                      description: Kind of client-scoped population.
+                      enum:
+                        - ORGANIZATION
+                        - DEFAULT_USER
+                        - USER
+                usage_selector:
+                  description: Spend client and period for this limit.
+                  required:
+                    - client_id
+            - properties:
+                target:
+                  description: Population governed by this aggregate agent limit.
+                  properties:
+                    type:
+                      description: Kind of aggregate agent population.
+                      enum:
+                        - DEFAULT_AGENT
+                        - AGENT
+                usage_selector:
+                  description: Aggregate period without a client partition.
+                  not:
+                    required:
+                      - client_id
+    PlatformResetUsageLimitsResponse:
+      type: object
+      description: Response body for resetting a usage limit.
+      additionalProperties: false
+      required:
+        - is_configuration_removed
+        - request_id
+      properties:
+        is_configuration_removed:
+          type: boolean
+          description: Whether the matching usage limit configuration was removed.
+        request_id:
+          type: string
+          description: Request identifier for correlating this response.
+    PlatformBatchUsageLimitsResponse:
+      type: object
+      additionalProperties: false
+      description: Response body for successfully applied usage limit policies.
+      required:
+        - results
+        - request_id
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/PlatformUsageLimit"
+          description: Applied usage limit policies, in the same order as the request.
+        request_id:
+          type: string
+          description: Request identifier for correlating this response.
+    PlatformEvaluateUsageLimitRequest:
+      type: object
+      additionalProperties: false
+      description: |
+        Administrative evaluation request. The target is always explicit; usage_selector and the evaluation response are shared with non-admin evaluation.
+      required:
+        - target
+        - usage_selector
+      properties:
+        target:
+          $ref: "#/components/schemas/PlatformUsageTarget"
+          description: Concrete organization, user, or agent to evaluate.
+        usage_selector:
+          $ref: "#/components/schemas/PlatformUsageSelector"
+          description: Usage to evaluate for the target.
+      allOf:
+        - properties:
+            usage_selector:
+              description: Explicit spend-client context for evaluation.
+              required:
+                - client_id
+            target:
+              description: Concrete target being evaluated.
+              properties:
+                type:
+                  description: Kind of target being evaluated.
+                  enum:
+                    - ORGANIZATION
+                    - USER
+                    - AGENT
+    PlatformUsageLimitDecision:
+      type: string
+      description: Configured-budget status for the target, independent of runtime admission switches.
+      enum:
+        - AVAILABLE
+        - WARNING
+        - BLOCKED
+      x-enumDescriptions:
+        AVAILABLE: Usage is within all applicable configured limits.
+        WARNING: Usage reached or exceeded a configured soft limit.
+        BLOCKED: Usage reached or exceeded a configured hard limit; this is not a runtime admission decision.
+      x-speakeasy-enum-descriptions:
+        AVAILABLE: Usage is within all applicable configured limits.
+        WARNING: Usage reached or exceeded a configured soft limit.
+        BLOCKED: Usage reached or exceeded a configured hard limit; this is not a runtime admission decision.
+    PlatformUsageHeadroomValue:
+      type: object
+      description: Remaining configured budget in one unit, not a configured cap or runtime admission result.
+      additionalProperties: false
+      required:
+        - mode
+      properties:
+        mode:
+          $ref: "#/components/schemas/PlatformAmountMode"
+          description: Whether remaining headroom is finite or unlimited.
+        remaining:
+          type: string
+          minLength: 1
+          maxLength: 24
+          pattern: ^(0|[1-9][0-9]*)(\.[0-9]{1,6})?$
+          description: |
+            Non-negative decimal headroom after accrued usage and approved one-period grants, clamped to zero when the configured limit is reached or exceeded. Required for FINITE; forbidden for UNLIMITED.
+        unit:
+          $ref: "#/components/schemas/PlatformUsageUnit"
+          description: Unit of finite headroom; omitted for unlimited headroom.
+        enforcement:
+          $ref: "#/components/schemas/PlatformEnforcement"
+          description: Enforcement configuration of the tightest finite policy; omitted for unlimited headroom.
+      allOf:
+        - oneOf:
+            - required:
+                - remaining
+                - unit
+                - enforcement
+              properties:
+                mode:
+                  description: Finite remaining headroom.
+                  enum:
+                    - FINITE
+                remaining:
+                  type: string
+                  description: Remaining configured budget in decimal units.
+            - properties:
+                mode:
+                  description: Unlimited remaining headroom.
+                  enum:
+                    - UNLIMITED
+              not:
+                anyOf:
+                  - required:
+                      - remaining
+                    properties:
+                      remaining:
+                        description: Forbidden for unlimited headroom.
+                  - required:
+                      - unit
+                    properties:
+                      unit:
+                        description: Forbidden for unlimited headroom.
+                  - required:
+                      - enforcement
+                    properties:
+                      enforcement:
+                        description: Forbidden for unlimited headroom.
+    PlatformUsagePolicySourceTarget:
+      type: object
+      description: |
+        Population that supplied an evaluated policy. IdP groups and departments are response-only sources, not limit-management or direct evaluation targets.
+      additionalProperties: false
+      required:
+        - type
+      properties:
+        type:
+          $ref: "#/components/schemas/PlatformUsageTargetType"
+          description: Kind of configured policy source.
+        user_id:
+          type: string
+          minLength: 1
+          description: Canonical user ID for a user-specific policy.
+        email:
+          type: string
+          minLength: 1
+          x-glean-experimental:
+            id: 618d5192-fb51-451f-ba79-51304a408b55
+            introduced: "2026-09-29"
+          description: |
+            Directory email of the user for a user-specific policy; omitted when the directory has no email for the user.
+        agent_id:
+          type: string
+          minLength: 1
+          description: Canonical agent ID for an agent-specific policy.
+        group_id:
+          type: string
+          minLength: 1
+          description: Canonical IdP group ID; returned only to billing readers.
+        department_name:
+          type: string
+          minLength: 1
+          description: Department whose per-user policy supplied the limit.
+        is_identity_restricted:
+          type: boolean
+          description: True when an IdP-group source identity is withheld from a non-billing reader.
+      allOf:
+        - oneOf:
+            - properties:
+                type:
+                  description: Organization or inherited default policy.
+                  enum:
+                    - ORGANIZATION
+                    - DEFAULT_USER
+                    - DEFAULT_AGENT
+              not:
+                anyOf:
+                  - required:
+                      - user_id
+                  - required:
+                      - email
+                  - required:
+                      - agent_id
+                  - required:
+                      - group_id
+                  - required:
+                      - department_name
+                  - required:
+                      - is_identity_restricted
+            - required:
+                - user_id
+              properties:
+                type:
+                  description: User-specific policy.
+                  enum:
+                    - USER
+              not:
+                anyOf:
+                  - required:
+                      - agent_id
+                  - required:
+                      - group_id
+                  - required:
+                      - department_name
+                  - required:
+                      - is_identity_restricted
+            - required:
+                - agent_id
+              properties:
+                type:
+                  description: Agent-specific policy.
+                  enum:
+                    - AGENT
+              not:
+                anyOf:
+                  - required:
+                      - user_id
+                  - required:
+                      - email
+                  - required:
+                      - group_id
+                  - required:
+                      - department_name
+                  - required:
+                      - is_identity_restricted
+            - required:
+                - department_name
+              properties:
+                type:
+                  description: Inherited department policy.
+                  enum:
+                    - DEPARTMENT
+              not:
+                anyOf:
+                  - required:
+                      - user_id
+                  - required:
+                      - email
+                  - required:
+                      - agent_id
+                  - required:
+                      - group_id
+                  - required:
+                      - is_identity_restricted
+            - properties:
+                type:
+                  description: Inherited IdP-group policy.
+                  enum:
+                    - IDP_GROUP
+              not:
+                anyOf:
+                  - required:
+                      - user_id
+                  - required:
+                      - email
+                  - required:
+                      - agent_id
+                  - required:
+                      - department_name
+              oneOf:
+                - required:
+                    - group_id
+                  properties:
+                    is_identity_restricted:
+                      description: An identified group is not restricted.
+                      const: false
+                - required:
+                    - is_identity_restricted
+                  properties:
+                    is_identity_restricted:
+                      description: An unidentified group has a restricted identity.
+                      const: true
+                  not:
+                    required:
+                      - group_id
+    PlatformEvaluatedLimit:
+      type: object
+      additionalProperties: false
+      description: Evaluation details for one independently applicable usage limit.
+      required:
+        - target
+        - usage_selector
+        - value
+        - used
+        - decision
+      properties:
+        target:
+          $ref: "#/components/schemas/PlatformUsagePolicySourceTarget"
+          description: |
+            Configured source of this limit. Default and group policies retain their source population; used is the concrete evaluated user's or agent's counter. IdP-group identities require billing-read permission, but all callers receive the complete limit value, counter, decision, and headroom.
+        usage_selector:
+          $ref: "#/components/schemas/PlatformUsageSelector"
+          description: |
+            Actual scope of this rule's counter. Client rules identify their client; aggregate agent rules omit client_id even when evaluation selects a client.
+        value:
+          $ref: "#/components/schemas/PlatformUsageLimitValue"
+          description: Configured cap before approved one-period grants; value.amount is not remaining headroom.
+        used:
+          type: string
+          description: Decimal amount of accrued usage for this limit.
+        decision:
+          $ref: "#/components/schemas/PlatformUsageLimitDecision"
+          description: Decision for this limit.
+    PlatformEvaluateUsageLimitResponse:
+      type: object
+      additionalProperties: false
+      description: |
+        Configured-budget evaluation for a concrete target and selector, not runtime admission, model eligibility, or agent-run preflight. AVAILABLE can mean that no configured policy applies; inspect applicable_policy_count and the exact selector echo. Configured caps are evaluated_limits[].value.amount, accrued usage is evaluated_limits[].used, and remaining budget is effective_limits[].remaining. Approved one-period grants raise headroom without changing the configured cap. Units are never combined or converted.
+      example:
+        target:
+          type: USER
+          user_id: user-123
+        usage_selector:
+          client_id: glean
+          period:
+            type: RECURRING_CALENDAR_MONTH
+        applicable_policy_count: 1
+        decision: AVAILABLE
+        effective_limits:
+          - mode: FINITE
+            remaining: "60"
+            unit: USD
+            enforcement: HARD
+        evaluated_limits:
+          - target:
+              type: DEFAULT_USER
+            usage_selector:
+              client_id: glean
+              period:
+                type: RECURRING_CALENDAR_MONTH
+            value:
+              mode: FINITE
+              amount: "80"
+              unit: USD
+              enforcement: HARD
+            used: "20"
+            decision: AVAILABLE
+        evaluated_at: "2026-10-06T18:48:16Z"
+        request_id: example-request
+      required:
+        - target
+        - usage_selector
+        - applicable_policy_count
+        - decision
+        - effective_limits
+        - evaluated_limits
+        - evaluated_at
+        - request_id
+      properties:
+        target:
+          $ref: "#/components/schemas/PlatformUsageTarget"
+          description: |
+            Normalized concrete ORGANIZATION, USER, or AGENT evaluated. USER targets contain the canonical user_id, not the supplied alias ID or email. Included even when no configured policies apply.
+        usage_selector:
+          $ref: "#/components/schemas/PlatformUsageSelector"
+          description: Exact evaluated selector, including case and padding of client_id; never normalized.
+        applicable_policy_count:
+          type: integer
+          minimum: 0
+          description: |
+            Number of applicable configured policies, including UNLIMITED policies. Zero explicitly means no configured policy matched, not an unlimited configured rule. Included even when zero.
+        decision:
+          $ref: "#/components/schemas/PlatformUsageLimitDecision"
+          description: Overall configured-budget status across all evaluated limits, not runtime admission.
+        effective_limits:
+          type: array
+          minItems: 1
+          maxItems: 2
+          items:
+            $ref: "#/components/schemas/PlatformUsageHeadroomValue"
+          description: |
+            Tightest remaining budget per finite unit, ordered USD then CREDITS. remaining is headroom after accrued usage and approved one-period grants, not a configured cap. Units are never combined or converted. When no finite policy applies, contains a single UNLIMITED entry without remaining, unit, or enforcement, including when applicable_policy_count is zero. This configured-budget result is not a runtime admission guarantee.
+        evaluated_limits:
+          type: array
+          items:
+            $ref: "#/components/schemas/PlatformEvaluatedLimit"
+          description: Per-rule evaluation details.
+        evaluated_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of when usage counters were read.
+        request_id:
+          type: string
+          description: Request identifier for correlating this response.
+    PlatformEvaluateCallerUsageLimitRequest:
+      type: object
+      additionalProperties: false
+      description: |
+        Non-admin evaluation request. Only omission of target selects the authenticated canonical user; null, empty, and incomplete targets are invalid. Explicit USER targets accept the caller's canonical ID, known alias IDs, email, or known alias emails; every supplied field must identify the caller. AGENT targets require current edit permission and evaluate aggregate agent usage, including organization limits. The authenticated identity is never replaced by the selected target.
+      required:
+        - usage_selector
+      properties:
+        target:
+          $ref: "#/components/schemas/PlatformUsageTarget"
+          description: Optional self or editable agent target. Omit to evaluate self.
+        usage_selector:
+          $ref: "#/components/schemas/PlatformUsageSelector"
+          description: Usage to evaluate for the target; always required.
+      allOf:
+        - properties:
+            usage_selector:
+              description: Explicit spend-client context; never inferred from the caller.
+              required:
+                - client_id
+    PlatformRequestStatus:
+      type: string
+      enum:
+        - PENDING
+        - APPROVED
+        - DENIED
+      description: Stored request state.
+    PlatformRequestFilter:
+      type: object
+      additionalProperties: false
+      required:
+        - field
+        - values
+      description: A status filter using the backend's status-IN matching.
+      properties:
+        field:
+          type: string
+          pattern: ^status$
+          description: Allowed field is status, spelled exactly in lowercase.
+        values:
+          type: array
+          minItems: 1
+          description: Status values to match with OR.
+          items:
+            $ref: "#/components/schemas/PlatformRequestStatus"
+            description: One supported request status.
+        operator:
+          allOf:
+            - $ref: "#/components/schemas/PlatformFilterOperator"
+              description: Canonical Platform filter operator.
+          enum:
+            - EQUALS
+          default: EQUALS
+          description: Only EQUALS is supported; defaults to EQUALS when omitted.
+    PlatformRequestResolutionFields:
+      type: object
+      description: |
+        Valid input and response combinations: PERIOD may omit both fields; USER and ALL forbid an identifier; GROUP requires a nonempty canonical IdP group ID; DEPARTMENT requires a nonempty explicit department name. ONGOING requires a resolution target.
+      allOf:
+        - oneOf:
+            - description: Omitted resolution fields for an unresolved request or PERIOD approval.
+              properties:
+                scope:
+                  description: Only PERIOD can omit the resolution target when scope is present.
+                  enum:
+                    - PERIOD
+              not:
+                anyOf:
+                  - required:
+                      - resolution_target
+                    description: Detect a resolution target.
+                  - required:
+                      - resolution_target_id
+                    description: Detect a resolution target identifier.
+            - description: USER and ALL do not have a separate resolution target identifier.
+              required:
+                - resolution_target
+              properties:
+                resolution_target:
+                  description: User or organization approval breadth.
+                  enum:
+                    - USER
+                    - ALL
+              not:
+                required:
+                  - resolution_target_id
+            - description: GROUP and DEPARTMENT require their corresponding identifier.
+              required:
+                - resolution_target
+                - resolution_target_id
+              properties:
+                resolution_target:
+                  description: Group or department approval breadth.
+                  enum:
+                    - GROUP
+                    - DEPARTMENT
+                resolution_target_id:
+                  description: Canonical IdP group ID or explicit department name.
+                  minLength: 1
+    PlatformRequestPeriod:
+      type: string
+      pattern: ^[0-9]{4}-(0[1-9]|1[0-2])$
+      description: UTC calendar month in YYYY-MM format, assigned by the server at creation.
+    PlatformApprovedIncreaseAmount:
+      type: string
+      pattern: ^([1-9][0-9]*(\.[0-9]+)?|0\.[0-9]*[1-9][0-9]*)$
+      description: |
+        Recorded positive additive increase in the applicable rule's denomination, encoded as a plain decimal string. Existing enforcement consumes eligible USER current-period grants without changing standing rules. This does not add capacity for agents or other unsupported targets. The backend stores float32 values, not arbitrary-precision decimals.
+    PlatformRequestScope:
+      type: string
+      enum:
+        - PERIOD
+        - ONGOING
+      description: |
+        PERIOD records a decision for the stored request month; approval requires the current UTC month. Existing enforcement consumes eligible USER current-period grants without changing standing rules; no agent or other unsupported target capacity is added. ONGOING identifies a standing-rule approval in existing app records; this API does not support creating ONGOING approvals.
+    PlatformRequestResolutionTarget:
+      type: string
+      enum:
+        - USER
+        - ALL
+        - DEPARTMENT
+        - GROUP
+      description: Breadth of the approved increase; GROUP identifies an IdP group.
+    PlatformLimitIncreaseRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - request_id
+        - entity_type
+        - entity_id
+        - client_id
+        - requester_user_id
+        - period
+        - status
+        - created_at
+      description: Stored user or agent request, with optional resolution fields when available.
+      properties:
+        request_id:
+          type: string
+          description: Server-assigned resource identifier, distinct from the response's trace request_id.
+        entity_type:
+          type: string
+          enum:
+            - USER
+            - AGENT
+          description: Whether the request concerns a user or an agent.
+        entity_id:
+          type: string
+          description: Canonical user ID or agent ID whose limit the request concerns.
+        client_id:
+          type: string
+          description: Spend client for this user or agent request.
+        requester_user_id:
+          type: string
+          description: Authenticated user who created the request.
+        business_justification:
+          type: string
+          description: Stored explanation of why the increase is needed, when supplied.
+        period:
+          $ref: "#/components/schemas/PlatformRequestPeriod"
+          description: Stored request month; resolution does not change this month.
+        status:
+          $ref: "#/components/schemas/PlatformRequestStatus"
+          description: Current stored request state.
+        resolved_by_user_id:
+          type: string
+          description: User who resolved the request, when available.
+        approved_increase_amount:
+          $ref: "#/components/schemas/PlatformApprovedIncreaseAmount"
+          description: Stored additive approval amount, when available.
+        scope:
+          $ref: "#/components/schemas/PlatformRequestScope"
+          description: Approval scope derived from the stored ongoing flag, when available.
+        resolution_target:
+          $ref: "#/components/schemas/PlatformRequestResolutionTarget"
+          description: Stored approval breadth, when available.
+        resolution_target_id:
+          type: string
+          description: Stored department or canonical IdP group ID, when available.
+        resolution_note:
+          type: string
+          description: Stored denial note, when supplied.
+        created_at:
+          type: string
+          format: date-time
+          description: Request creation time.
+        updated_at:
+          type: string
+          format: date-time
+          description: Last stored update time; this is the resolution time for resolved requests.
+      allOf:
+        - $ref: "#/components/schemas/PlatformRequestResolutionFields"
+          description: Shared resolution target and identifier pairings.
+    PlatformRequestListResponse:
+      type: object
+      additionalProperties: false
+      description: Bounded page of authorized requests with opaque continuation state.
+      required:
+        - results
+        - has_more
+        - request_id
+      properties:
+        results:
+          type: array
+          description: Requests visible to the caller under the current filters and authorization.
+          items:
+            $ref: "#/components/schemas/PlatformLimitIncreaseRequest"
+            description: One authorized request in the page.
+        has_more:
+          type: boolean
+          description: Whether a further page is available through next_cursor.
+        next_cursor:
+          type:
+            - string
+            - "null"
+          description: Opaque nonempty continuation when has_more is true; null or omitted otherwise.
+        request_id:
+          type: string
+          description: Trace identifier for this list response, not a request resource ID.
+      allOf:
+        - description: Continuation availability must agree with the cursor.
+          oneOf:
+            - description: A further page requires a usable continuation cursor.
+              required:
+                - next_cursor
+              properties:
+                has_more:
+                  type: boolean
+                  description: Further-page discriminator.
+                  enum:
+                    - true
+                next_cursor:
+                  type: string
+                  description: Opaque nonempty cursor for the next authorized page.
+                  minLength: 1
+            - description: The last page has no continuation cursor.
+              properties:
+                has_more:
+                  type: boolean
+                  description: Last-page discriminator.
+                  enum:
+                    - false
+                next_cursor:
+                  type: "null"
+                  description: If present on the last page, the cursor must be null.
+    PlatformPersonalRequestCreate:
+      type: object
+      additionalProperties: false
+      required:
+        - client_id
+      description: New request for the authenticated canonical user in the server's current UTC month.
+      properties:
+        client_id:
+          type: string
+          minLength: 1
+          maxLength: 256
+          pattern: ^[^\x00-\x1f\x7f]+$
+          not:
+            enum:
+              - __deleted_clients__
+          description: |
+            Explicit opaque spend-client ID, retained without normalization and not inferred from the authenticating OAuth application. Control characters and the synthetic __deleted_clients__ aggregation ID are not valid spend-client IDs.
+        business_justification:
+          type: string
+          maxLength: 4096
+          description: Optional explanation of why the increase is needed.
+    PlatformRequestResponse:
+      type: object
+      additionalProperties: false
+      description: Single authorized request with the enclosing response's trace identifier.
+      required:
+        - request
+        - request_id
+      properties:
+        request:
+          $ref: "#/components/schemas/PlatformLimitIncreaseRequest"
+          description: Authorized request at its current stored state.
+        request_id:
+          type: string
+          description: Trace identifier, distinct from the resource ID.
+    PlatformAgentRequestCreate:
+      type: object
+      additionalProperties: false
+      required:
+        - agent_id
+        - client_id
+      description: New client-scoped request for an editable agent in the server's current UTC month.
+      properties:
+        agent_id:
+          type: string
+          minLength: 1
+          maxLength: 256
+          description: Identifier of the agent whose limit the request concerns.
+        client_id:
+          type: string
+          minLength: 1
+          maxLength: 256
+          pattern: ^[^\x00-\x1f\x7f]+$
+          not:
+            enum:
+              - __deleted_clients__
+          description: |
+            Explicit opaque spend-client ID, retained without normalization and not inferred from the authenticating OAuth application. Control characters and the synthetic __deleted_clients__ aggregation ID are not valid spend-client IDs.
+        business_justification:
+          type: string
+          maxLength: 4096
+          description: Optional explanation of why the increase is needed.
+    PlatformAdministrativeRequestUpdate:
+      type: object
+      additionalProperties: false
+      required:
+        - status
+      description: |
+        Resolve a pending request. PERIOD approval records a positive additive amount for the stored current UTC month; expired approvals return 409. The existing backend consumes eligible USER current-period grants without changing standing rules; no agent or other unsupported target capacity is added. ONGOING approval is unavailable on this API and returns 503. GROUP and DEPARTMENT resolution targets are not accepted for new approvals. Request identity and period cannot change.
+      properties:
+        status:
+          type: string
+          enum:
+            - APPROVED
+            - DENIED
+          description: Requested terminal state.
+        approved_increase_amount:
+          $ref: "#/components/schemas/PlatformApprovedIncreaseAmount"
+          description: Positive increase amount to record, required only for approval.
+        scope:
+          $ref: "#/components/schemas/PlatformRequestScope"
+          default: PERIOD
+          description: Approval scope; omission selects PERIOD. ONGOING returns 503 on this API.
+        resolution_target:
+          description: Approval breadth; USER or ALL only. Required for an ONGOING approval.
+          x-go-type: RequestResolutionTarget
+          allOf:
+            - $ref: "#/components/schemas/PlatformRequestResolutionTarget"
+              description: Shared stored resolution target vocabulary.
+            - type: string
+              enum:
+                - USER
+                - ALL
+              description: Targets accepted for new approvals.
+        resolution_target_id:
+          type: string
+          maxLength: 256
+          description: |
+            Not accepted for new approvals. Stored GROUP and DEPARTMENT records retain their identifiers in request responses.
+        resolution_note:
+          type: string
+          maxLength: 4096
+          description: Optional note recorded when denying the request.
+      allOf:
+        - $ref: "#/components/schemas/PlatformRequestResolutionFields"
+          description: Shared resolution target and identifier pairings.
+        - description: Approval records an increase amount; denial can record a note.
+          oneOf:
+            - description: Record approval with a positive increase amount.
+              required:
+                - approved_increase_amount
+              properties:
+                status:
+                  description: Approval discriminator.
+                  enum:
+                    - APPROVED
+              not:
+                description: Approval does not record a resolution note.
+                required:
+                  - resolution_note
+              oneOf:
+                - description: A PERIOD approval records a current-month grant; existing enforcement consumes eligible USER grants.
+                  properties:
+                    scope:
+                      description: Period approval, also selected when scope is omitted.
+                      enum:
+                        - PERIOD
+                - description: ONGOING input is recognized but returns 503 without changing the request.
+                  required:
+                    - scope
+                    - resolution_target
+                  properties:
+                    scope:
+                      description: Ongoing approval discriminator.
+                      enum:
+                        - ONGOING
+            - description: Deny without approval fields.
+              properties:
+                status:
+                  description: Denial discriminator.
+                  enum:
+                    - DENIED
+              not:
+                description: Approval fields are not denial inputs.
+                anyOf:
+                  - required:
+                      - approved_increase_amount
+                    description: Detect an approval amount.
+                  - required:
+                      - scope
+                    description: Detect an approval scope.
+                  - required:
+                      - resolution_target
+                    description: Detect an approval target.
+                  - required:
+                      - resolution_target_id
+                    description: Detect an approval target identifier.
+    PlatformDepartmentFilter:
+      type: object
+      additionalProperties: false
+      required:
+        - field
+        - values
+      description: A filter on one department field.
+      properties:
+        field:
+          type: string
+          pattern: ^is_active$
+          description: The department field to filter on. The only supported field is is_active.
+        values:
+          type: array
+          minItems: 1
+          description: The values to match. A department matches when any value matches.
+          items:
+            type: string
+            pattern: ^(true|false)$
+            description: "\"true\" matches active departments. \"false\" matches inactive departments."
+        operator:
+          allOf:
+            - $ref: "#/components/schemas/PlatformFilterOperator"
+              description: Canonical Platform filter operator.
+          enum:
+            - EQUALS
+          default: EQUALS
+          description: The only supported operator is EQUALS. Defaults to EQUALS.
+    PlatformDepartmentReference:
+      type: object
+      description: A reference to a department in the Glean directory.
+      required:
+        - department_id
+        - display_name
+      properties:
+        department_id:
+          type: string
+          description: |
+            Opaque department ID. The users and departments APIs return the same ID for the same department. A renamed department gets a new ID.
+        display_name:
+          type: string
+          description: Department name, exactly as the directory stores it.
+    PlatformDepartment:
+      description: A department in the Glean directory.
+      allOf:
+        - $ref: "#/components/schemas/PlatformDepartmentReference"
+        - type: object
+          required:
+            - is_active
+          properties:
+            is_active:
+              type: boolean
+              description: |
+                Whether at least one active user belongs to the department. A department that belongs only to inactive users, or that only a usage limit names, is inactive.
+    PlatformListDepartmentsResponse:
+      type: object
+      description: One page of departments.
+      additionalProperties: false
+      required:
+        - results
+        - has_more
+        - request_id
+      properties:
+        results:
+          type: array
+          description: |
+            The departments on this page, ordered by display_name and then by department_id.
+          items:
+            $ref: "#/components/schemas/PlatformDepartment"
+        has_more:
+          type: boolean
+          description: Whether more departments are available after this page.
+        next_cursor:
+          type:
+            - string
+            - "null"
+          description: Opaque cursor for the next page; null or absent when has_more is false.
+        request_id:
+          type: string
+          description: Request identifier for correlating this response.
+    PlatformIdpGroupFilter:
+      type: object
+      additionalProperties: false
+      required:
+        - field
+        - values
+      description: A filter on one IdP group field.
+      properties:
+        field:
+          type: string
+          pattern: ^(is_active|provider_instance)$
+          description: |
+            The IdP group field to filter on. The supported fields are is_active and provider_instance.
+        values:
+          type: array
+          minItems: 1
+          description: The values to match. An IdP group matches when any value matches.
+          items:
+            type: string
+            minLength: 1
+            description: |
+              For is_active, "true" matches active IdP groups and "false" matches inactive IdP groups. For provider_instance, a datasource instance name.
+        operator:
+          allOf:
+            - $ref: "#/components/schemas/PlatformFilterOperator"
+              description: Canonical Platform filter operator.
+          enum:
+            - EQUALS
+          default: EQUALS
+          description: The only supported operator is EQUALS. Defaults to EQUALS.
+    PlatformIdpGroupReference:
+      type: object
+      description: A reference to an identity provider (IdP) group in the Glean directory.
+      required:
+        - idp_group_id
+        - display_name
+      properties:
+        idp_group_id:
+          type: string
+          description: |
+            Opaque IdP group ID. The same group always gets the same ID. Callers must not parse or build it.
+        display_name:
+          type: string
+          description: |
+            Group name from the identity provider. When the provider has no display name, this is the group's name or ID in the provider.
+    PlatformIdpGroup:
+      description: An IdP group in the Glean directory.
+      allOf:
+        - $ref: "#/components/schemas/PlatformIdpGroupReference"
+        - type: object
+          required:
+            - provider
+            - provider_instance
+            - is_active
+          properties:
+            provider:
+              type: string
+              description: |
+                The identity provider datasource that the group comes from, for example "okta", "gdrive", or "o365".
+            provider_instance:
+              type: string
+              description: |
+                The datasource instance that the group comes from, for example "okta". A provider can have more than one instance.
+            is_active:
+              type: boolean
+              description: |
+                Whether Glean loaded the group from the directory. A group that only a usage limit names is inactive.
+    PlatformListIdpGroupsResponse:
+      type: object
+      description: One page of IdP groups.
+      additionalProperties: false
+      required:
+        - results
+        - has_more
+        - request_id
+      properties:
+        results:
+          type: array
+          description: |
+            The IdP groups on this page, ordered by display_name and then by idp_group_id.
+          items:
+            $ref: "#/components/schemas/PlatformIdpGroup"
+        has_more:
+          type: boolean
+          description: Whether more IdP groups are available after this page.
+        next_cursor:
+          type:
+            - string
+            - "null"
+          description: Opaque cursor for the next page; null or absent when has_more is false.
+        request_id:
+          type: string
+          description: Request identifier for correlating this response.
+    PlatformUserFilter:
+      type: object
+      additionalProperties: false
+      required:
+        - field
+        - values
+      description: A filter on one user field.
+      properties:
+        field:
+          type: string
+          pattern: ^is_active$
+          description: The user field to filter on. The only supported field is is_active.
+        values:
+          type: array
+          minItems: 1
+          description: The values to match. A user matches when any value matches.
+          items:
+            type: string
+            pattern: ^(true|false)$
+            description: "\"true\" matches active users. \"false\" matches inactive users."
+        operator:
+          allOf:
+            - $ref: "#/components/schemas/PlatformFilterOperator"
+              description: Canonical Platform filter operator.
+          enum:
+            - EQUALS
+          default: EQUALS
+          description: The only supported operator is EQUALS. Defaults to EQUALS.
+    PlatformUserInclude:
+      type: string
+      description: An optional field group to add to each user.
+      enum:
+        - DATASOURCE_PROFILES
+      x-enumDescriptions:
+        DATASOURCE_PROFILES: Add datasource_profiles, the user's accounts in connected apps.
+      x-speakeasy-enum-descriptions:
+        DATASOURCE_PROFILES: Add datasource_profiles, the user's accounts in connected apps.
+    PlatformPersonType:
+      type: string
+      description: Person employment status or account type.
+      enum:
+        - FULL_TIME
+        - CONTRACTOR
+        - NON_EMPLOYEE
+        - FORMER_EMPLOYEE
+    PlatformUserManager:
+      type: object
+      description: The user that another user reports to.
+      additionalProperties: false
+      required:
+        - user_id
+        - display_name
+      properties:
+        user_id:
+          type: string
+          description: Opaque canonical Glean user ID of the manager.
+        display_name:
+          type: string
+          description: The name that Glean shows for the manager.
+    PlatformUserDatasourceProfile:
+      type: object
+      description: A user's account in a connected app.
+      additionalProperties: false
+      required:
+        - datasource
+        - handle
+      properties:
+        datasource:
+          type: string
+          description: Datasource of the account, for example slack or github.
+        handle:
+          type: string
+          description: The account's handle or display name in the app.
+        account_id:
+          type: string
+          description: |
+            The app's own ID for the account. Present only when Glean knows it, for example the Slack user ID.
+        profile_url:
+          type: string
+          description: Web URL of the account's profile.
+    PlatformUser:
+      type: object
+      description: A user in the Glean directory.
+      additionalProperties: false
+      required:
+        - user_id
+        - display_name
+        - is_active
+      properties:
+        user_id:
+          type: string
+          description: |
+            Opaque canonical Glean user ID. Other Platform APIs, such as usage limits, accept and return this ID.
+        display_name:
+          type: string
+          description: The name that Glean shows for the user.
+        email:
+          type: string
+          description: Primary email address.
+        alias_emails:
+          type: array
+          description: |
+            The user's other email addresses, sorted, without the primary email. Absent when the user has none or the workspace does not show alias emails.
+          items:
+            type: string
+            description: An alias email address.
+        is_active:
+          type: boolean
+          description: |
+            Whether the user is active. A user whose type is FORMER_EMPLOYEE is inactive.
+        user_type:
+          $ref: "#/components/schemas/PlatformPersonType"
+          description: |
+            Employment status or account type. Absent when the workspace hides the employee type attribute.
+        title:
+          type: string
+          description: Job title.
+        department:
+          $ref: "#/components/schemas/PlatformDepartmentReference"
+          description: The user's department. Absent when the user has no department.
+        manager:
+          $ref: "#/components/schemas/PlatformUserManager"
+          description: |
+            The user's direct manager. Absent when the user has no manager or the manager is not in the directory. An inactive manager is still returned.
+        photo_url:
+          type: string
+          description: Avatar URL.
+        datasource_profiles:
+          type: array
+          description: |
+            The user's accounts in connected apps. Present only when include contains DATASOURCE_PROFILES. Each account appears once, even when more than one connected app instance reports it.
+          items:
+            $ref: "#/components/schemas/PlatformUserDatasourceProfile"
+    PlatformListUsersResponse:
+      type: object
+      description: One page of users.
+      additionalProperties: false
+      required:
+        - results
+        - has_more
+        - request_id
+      properties:
+        results:
+          type: array
+          description: The users on this page, ordered by display_name and then by user_id.
+          items:
+            $ref: "#/components/schemas/PlatformUser"
+        has_more:
+          type: boolean
+          description: Whether more users are available after this page.
+        next_cursor:
+          type:
+            - string
+            - "null"
+          description: Opaque cursor for the next page; null or absent when has_more is false.
+        request_id:
+          type: string
+          description: Request identifier for correlating this response.
+    PlatformAdminAgentFilter:
+      type: object
+      additionalProperties: false
+      required:
+        - field
+        - values
+      description: A filter on one agent field.
+      properties:
+        field:
+          type: string
+          pattern: ^is_active$
+          description: The agent field to filter on. The only supported field is is_active.
+        values:
+          type: array
+          minItems: 1
+          description: The values to match. An agent matches when any value matches.
+          items:
+            type: string
+            pattern: ^(true|false)$
+            description: "\"true\" matches active agents. \"false\" matches deleted agents."
+        operator:
+          allOf:
+            - $ref: "#/components/schemas/PlatformFilterOperator"
+              description: Canonical Platform filter operator.
+          enum:
+            - EQUALS
+          default: EQUALS
+          description: The only supported operator is EQUALS. Defaults to EQUALS.
+    PlatformAdminAgent:
+      type: object
+      description: An agent in the workspace.
+      additionalProperties: false
+      required:
+        - agent_id
+        - display_name
+        - is_active
+      properties:
+        agent_id:
+          type: string
+          description: |
+            Opaque agent ID. Other Platform APIs, such as usage limits, accept and return this ID.
+        display_name:
+          type: string
+          description: The name that Glean shows for the agent.
+        is_active:
+          type: boolean
+          description: Whether the agent is active. A deleted agent is inactive.
+    PlatformListAdminAgentsResponse:
+      type: object
+      description: One page of agents.
+      additionalProperties: false
+      required:
+        - results
+        - has_more
+        - request_id
+      properties:
+        results:
+          type: array
+          description: The agents on this page, ordered by display_name and then by agent_id.
+          items:
+            $ref: "#/components/schemas/PlatformAdminAgent"
+        has_more:
+          type: boolean
+          description: Whether more agents are available after this page.
+        next_cursor:
+          type:
+            - string
+            - "null"
+          description: Opaque cursor for the next page; null or absent when has_more is false.
+        request_id:
+          type: string
+          description: Request identifier for correlating this response.
     PlatformTriggerStatus:
       type: string
       description: Current trigger lifecycle state.
@@ -9614,6 +12585,7 @@ components:
         - READY_FOR_REVIEW
         - CONVERTED_TO_DRAFT
         - WEBHOOK_UPDATED
+        - WEBHOOK_CREATED
       x-enumDescriptions:
         CREATED: The document was created.
         UPDATED: The document was updated.
@@ -9628,6 +12600,7 @@ components:
         READY_FOR_REVIEW: A draft was marked ready for review.
         CONVERTED_TO_DRAFT: The item was converted back to a draft.
         WEBHOOK_UPDATED: The source system sent a webhook update.
+        WEBHOOK_CREATED: The source system sent a webhook creation event.
       x-speakeasy-enum-descriptions:
         CREATED: The document was created.
         UPDATED: The document was updated.
@@ -9642,6 +12615,7 @@ components:
         READY_FOR_REVIEW: A draft was marked ready for review.
         CONVERTED_TO_DRAFT: The item was converted back to a draft.
         WEBHOOK_UPDATED: The source system sent a webhook update.
+        WEBHOOK_CREATED: The source system sent a webhook creation event.
     PlatformTriggerEvent:
       type: object
       required:
@@ -12805,6 +15779,10 @@ components:
           type: string
           format: url
           description: Link to profile.
+        iconUrl:
+          type: string
+          format: url
+          description: URL of the icon to display for this social network, when available.
       required:
         - name
         - profileUrl
@@ -16987,6 +19965,7 @@ components:
               - ZERO_STATE_CHAT_TOOL_SUGGESTION
               - ZERO_STATE_WORKFLOW_CREATED_BY_ME
               - ZERO_STATE_WORKFLOW_FAVORITES
+              - ZERO_STATE_GLEAN_AGENT_COWORKERS
               - ZERO_STATE_WORKFLOW_POPULAR
               - ZERO_STATE_WORKFLOW_RECENT
               - ZERO_STATE_WORKFLOW_SUGGESTION
@@ -17582,6 +20561,7 @@ components:
             - ZERO_STATE_CHAT_TOOL_SUGGESTION
             - ZERO_STATE_WORKFLOW_CREATED_BY_ME
             - ZERO_STATE_WORKFLOW_FAVORITES
+            - ZERO_STATE_GLEAN_AGENT_COWORKERS
             - ZERO_STATE_WORKFLOW_POPULAR
             - ZERO_STATE_WORKFLOW_RECENT
             - ZERO_STATE_WORKFLOW_SUGGESTION
@@ -20827,10 +23807,11 @@ components:
             - FINDINGS
             - DOCUMENTS
             - ISSUES
-          description: The type of export to perform
+            - FINDINGS_CSV
+          description: The type of export to perform. FINDINGS, DOCUMENTS and ISSUES produce JSONL; FINDINGS_CSV produces one CSV row per finding.
         filter:
           $ref: '#/components/schemas/DlpFindingFilter'
-          description: The filters used to export the findings. Set for FINDINGS and DOCUMENTS exports.
+          description: The filters used to export the findings. Set for FINDINGS, FINDINGS_CSV and DOCUMENTS exports.
         issueFilter:
           $ref: '#/components/schemas/DlpIssueFilter'
           description: The filters used for ISSUES exports.
@@ -20859,7 +23840,8 @@ components:
             - FINDINGS
             - DOCUMENTS
             - ISSUES
-          description: The type of export to perform
+            - FINDINGS_CSV
+          description: The type of export to perform. FINDINGS, DOCUMENTS and ISSUES produce JSONL; FINDINGS_CSV produces one CSV row per finding.
         filter:
           $ref: '#/components/schemas/DlpFindingFilter'
         issueFilter:
@@ -21094,6 +24076,13 @@ components:
         application/problem+json:
           schema:
             $ref: "#/components/schemas/PlatformProblemDetail"
+    PlatformRequestResource:
+      description: The authorized request in its current stored state.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/PlatformRequestResponse"
+            description: Current authorized request with a response trace identifier.
     SuccessResponse:
       description: OK
       content:
@@ -21131,6 +24120,50 @@ components:
           schema:
             $ref: '#/components/schemas/ErrorInfoResponse'
   parameters:
+    PageSize:
+      name: page_size
+      in: query
+      description: Maximum page size; defaults to 20 and cannot exceed 100. A page may contain fewer results.
+      schema:
+        type: integer
+        description: Requested upper bound on results in a page.
+        minimum: 1
+        maximum: 100
+        default: 20
+    Cursor:
+      name: cursor
+      in: query
+      description: Opaque cursor bound to filter fields, values, operators, and current authorization context.
+      schema:
+        type: string
+        description: Opaque continuation returned by a previous list response.
+        maxLength: 8192
+    Filters:
+      name: filters
+      in: query
+      description: |
+        JSON-encoded filters. Only the field status and operator EQUALS are supported. Multiple values OR within a filter. Multiple filters AND together. Cursors bind all filter fields, values, and operators.
+      content:
+        application/json:
+          schema:
+            type: array
+            minItems: 1
+            maxItems: 100
+            description: Structured status filters, combined with AND.
+            items:
+              $ref: "#/components/schemas/PlatformRequestFilter"
+              description: One status filter criterion.
+    RequestId:
+      name: request_id
+      in: path
+      required: true
+      description: Opaque request identifier; never an authorization grant.
+      example: "{request_id}"
+      schema:
+        type: string
+        description: Nonempty identifier of the stored request resource.
+        minLength: 1
+        maxLength: 256
     TriggerWebhookId:
       name: webhook-id
       in: header

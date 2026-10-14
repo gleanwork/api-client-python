@@ -15,6 +15,8 @@ class SocialNetworkTypedDict(TypedDict):
     r"""Link to profile."""
     profile_name: NotRequired[str]
     r"""Human-readable profile name."""
+    icon_url: NotRequired[str]
+    r"""URL of the icon to display for this social network, when available."""
 
 
 class SocialNetwork(BaseModel):
@@ -27,9 +29,12 @@ class SocialNetwork(BaseModel):
     profile_name: Annotated[Optional[str], pydantic.Field(alias="profileName")] = None
     r"""Human-readable profile name."""
 
+    icon_url: Annotated[Optional[str], pydantic.Field(alias="iconUrl")] = None
+    r"""URL of the icon to display for this social network, when available."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["profileName"])
+        optional_fields = set(["profileName", "iconUrl"])
         serialized = handler(self)
         m = {}
 

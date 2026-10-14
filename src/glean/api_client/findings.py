@@ -32,7 +32,7 @@ class Findings(BaseSDK):
 
         Creates a new DLP findings export job.
 
-        :param export_type: The type of export to perform
+        :param export_type: The type of export to perform. FINDINGS, DOCUMENTS and ISSUES produce JSONL; FINDINGS_CSV produces one CSV row per finding.
         :param filter_:
         :param issue_filter: Filter for DLP issues. Includes document-level filters and issue-specific filters.
         :param file_name: The name of the file to export the findings to
@@ -144,7 +144,7 @@ class Findings(BaseSDK):
 
         Creates a new DLP findings export job.
 
-        :param export_type: The type of export to perform
+        :param export_type: The type of export to perform. FINDINGS, DOCUMENTS and ISSUES produce JSONL; FINDINGS_CSV produces one CSV row per finding.
         :param filter_:
         :param issue_filter: Filter for DLP issues. Includes document-level filters and issue-specific filters.
         :param file_name: The name of the file to export the findings to

@@ -22,7 +22,7 @@ class PlatformResultTypedDict(TypedDict):
     url: str
     r"""Canonical URL of the result."""
     title: str
-    r"""Result title."""
+    r"""Display title. For a conversation, this is a title built from the participants, such as \"Alice and Bob\", including when the indexed title is the message body. When the result has no title, the server returns Untitled."""
     datasource: str
     r"""The datasource this result originates from."""
     snippets: NotRequired[List[str]]
@@ -44,7 +44,7 @@ class PlatformResult(BaseModel):
     r"""Canonical URL of the result."""
 
     title: str
-    r"""Result title."""
+    r"""Display title. For a conversation, this is a title built from the participants, such as \"Alice and Bob\", including when the indexed title is the message body. When the result has no title, the server returns Untitled."""
 
     datasource: str
     r"""The datasource this result originates from."""

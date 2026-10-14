@@ -1,0 +1,9 @@
+# PlatformUsageSettingsUpdateRequest1
+
+
+## Fields
+
+| Field                                                                                                            | Type                                                                                                             | Required                                                                                                         | Description                                                                                                      |
+| ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `multiple_membership_resolution`                                                                                 | [models.PlatformMultipleMembershipResolutionSettings](../models/platformmultiplemembershipresolutionsettings.md) | :heavy_check_mark:                                                                                               | Settings for resolving limits across multiple memberships.                                                       |
+| `limit_increase_requests`                                                                                        | [Optional[models.PlatformLimitIncreaseRequestSettings]](../models/platformlimitincreaserequestsettings.md)       | :heavy_minus_sign:                                                                                               | Settings that govern usage limit increase requests.<br/>                                                         |

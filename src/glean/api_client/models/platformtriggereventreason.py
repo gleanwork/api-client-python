@@ -34,3 +34,5 @@ class PlatformTriggerEventReason(str, Enum, metaclass=utils.OpenEnumMeta):
     CONVERTED_TO_DRAFT = "CONVERTED_TO_DRAFT"
     # The source system sent a webhook update.
     WEBHOOK_UPDATED = "WEBHOOK_UPDATED"
+    # The source system sent a webhook creation event.
+    WEBHOOK_CREATED = "WEBHOOK_CREATED"
