@@ -71,7 +71,7 @@ class Usage(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
-                tags=["Usage"],
+                tags=["Admin Usage"],
                 extensions={
                     "x-glean-experimental": {
                         "id": "8f4c2d6e-3b7a-4e1f-9c8d-5a2b6e4f7c9a",
@@ -178,7 +178,7 @@ class Usage(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
-                tags=["Usage"],
+                tags=["Admin Usage"],
                 extensions={
                     "x-glean-experimental": {
                         "id": "8f4c2d6e-3b7a-4e1f-9c8d-5a2b6e4f7c9a",
@@ -304,7 +304,7 @@ class Usage(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
-                tags=["Usage"],
+                tags=["Admin Usage"],
                 extensions={
                     "x-glean-experimental": {
                         "id": "443aeb3c-fdee-4da8-a756-37fa13922830",
@@ -430,7 +430,7 @@ class Usage(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
-                tags=["Usage"],
+                tags=["Admin Usage"],
                 extensions={
                     "x-glean-experimental": {
                         "id": "443aeb3c-fdee-4da8-a756-37fa13922830",

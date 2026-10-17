@@ -40,7 +40,7 @@ class FacetFilterValue(BaseModel):
     is_negated: Annotated[
         Optional[bool],
         pydantic.Field(
-            deprecated="warning: ** DEPRECATED ** - Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use relationType instead.",
+            deprecated="warning: ** DEPRECATED ** - Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Use relationType instead.",
             alias="isNegated",
         ),
     ] = None

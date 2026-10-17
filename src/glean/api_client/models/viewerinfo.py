@@ -12,7 +12,7 @@ from typing_extensions import Annotated, NotRequired, TypedDict, deprecated
 
 
 @deprecated(
-    "warning: ** DEPRECATED ** - Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use permissions instead."
+    "warning: ** DEPRECATED ** - Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Use permissions instead."
 )
 class ViewerInfoRole(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""DEPRECATED - use permissions instead. Viewer's role on the specific document."""
@@ -32,7 +32,7 @@ class ViewerInfo(BaseModel):
     role: Annotated[
         Optional[ViewerInfoRole],
         pydantic.Field(
-            deprecated="warning: ** DEPRECATED ** - Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use permissions instead."
+            deprecated="warning: ** DEPRECATED ** - Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Use permissions instead."
         ),
     ] = None
     r"""DEPRECATED - use permissions instead. Viewer's role on the specific document."""

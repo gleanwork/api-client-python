@@ -4,12 +4,14 @@ from .basesdk import BaseSDK
 from .sdkconfiguration import SDKConfiguration
 from glean.api_client.admin_agents import AdminAgents
 from glean.api_client.admin_idpgroups import AdminIdpgroups
+from glean.api_client.oauth import Oauth
 from glean.api_client.usage import Usage
 from typing import Optional
 
 
 class Admin(BaseSDK):
     usage: Usage
+    oauth: Oauth
     idpgroups: AdminIdpgroups
     agents: AdminAgents
 
@@ -22,6 +24,7 @@ class Admin(BaseSDK):
 
     def _init_sdks(self):
         self.usage = Usage(self.sdk_configuration, parent_ref=self.parent_ref)
+        self.oauth = Oauth(self.sdk_configuration, parent_ref=self.parent_ref)
         self.idpgroups = AdminIdpgroups(
             self.sdk_configuration, parent_ref=self.parent_ref
         )

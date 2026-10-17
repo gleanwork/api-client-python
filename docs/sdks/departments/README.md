@@ -5,6 +5,7 @@
 ### Available Operations
 
 * [list](#list) - List departments
+* [get](#get) - Get a department
 
 ## list
 
@@ -42,6 +43,49 @@ with Glean(
 ### Response
 
 **[models.PlatformListDepartmentsResponse](../../models/platformlistdepartmentsresponse.md)**
+
+### Errors
+
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| errors.PlatformProblemDetailError | 400, 401, 403, 404, 408, 429      | application/problem+json          |
+| errors.PlatformProblemDetailError | 500, 503                          | application/problem+json          |
+| errors.GleanError                 | 4XX, 5XX                          | \*/\*                             |
+
+## get
+
+Get one department by its department_id. Inactive departments are returned, so a caller can show the name of a department that a usage limit still names. A department is active when at least one active user belongs to it. A department is inactive when only inactive users, such as former employees, belong to it, or when only a usage limit names it. A department_id that is not valid, or that no user and no usage limit uses, returns 404 resource_not_found. A department_id comes from the exact department name, so a renamed department gets a new ID, and a name that is used again gets its old ID back.
+
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="platform-departments-get" method="get" path="/api/departments/{department_id}" -->
+```python
+from glean.api_client import Glean
+import os
+
+
+with Glean(
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+) as glean:
+
+    res = glean.departments.get(department_id="{department_id}")
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                                                                    | Type                                                                                                                         | Required                                                                                                                     | Description                                                                                                                  | Example                                                                                                                      |
+| ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `department_id`                                                                                                              | *str*                                                                                                                        | :heavy_check_mark:                                                                                                           | The department_id from a list departments response or from a user's department. IDs are opaque. Do not parse or build them.<br/> | {department_id}                                                                                                              |
+| `retries`                                                                                                                    | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                             | :heavy_minus_sign:                                                                                                           | Configuration to override the default retry behavior of the client.                                                          |                                                                                                                              |
+
+### Response
+
+**[models.PlatformGetDepartmentResponse](../../models/platformgetdepartmentresponse.md)**
 
 ### Errors
 

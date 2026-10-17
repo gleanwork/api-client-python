@@ -2,8 +2,8 @@ openapi: 3.1.0
 info:
   version: "0.9.0"
   title: Glean API
-  x-source-commit-sha: 86ac685e81566c1e6291496f3ff99e8f43643159
-  x-open-api-commit-sha: 8713015c980e1a60ebab9f31082a9131769b12af
+  x-source-commit-sha: 65c245976fd485759a232b1b76d30f861783753e
+  x-open-api-commit-sha: 02619bae50e4f52b02487b496f1d075e140fc355
   description: |
     # Introduction
     In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This is useful, for example, for doing permissions-aware search over content in internal tools that reside on-prem as well as for searching over applications that Glean does not currently support first class. In addition these APIs allow the customer to push organization data (people info, organization structure etc) into Glean.
@@ -1442,7 +1442,7 @@ paths:
   /api/admin/usage/settings:
     get:
       tags:
-        - Usage
+        - Admin Usage
       summary: Get usage settings
       description: |
         Retrieve workspace-wide policy from the same configuration used by Billing. Group resolution uses the configured policy and its backend defaults; business justification is currently optional. No per-user settings are read, and updated_at is omitted because no policy-update timestamp is available. Requires admin.usage.settings:read and permission to read workspace billing; a global administrator role is not required.
@@ -1485,7 +1485,7 @@ paths:
         - APIToken: []
     patch:
       tags:
-        - Usage
+        - Admin Usage
       summary: Update usage settings
       description: |
         Assign workspace-wide usage policy. Assignment is currently unavailable until a writer to authoritative Billing configuration is integrated. The backend config platform.usageSettingsWritesEnabled is disabled by default; enabling it alone does not implement assignment, and an authorized request still returns 503 without changing configuration or persisting a second copy of policy. Requires admin.usage.settings:write and permission to edit workspace billing; a global administrator role is not required.
@@ -1543,7 +1543,7 @@ paths:
   /api/admin/usage/limits:
     get:
       tags:
-        - Usage
+        - Admin Usage
       summary: List usage limits
       description: |
         List configured limits across Glean and external spend clients, plus aggregate agent limits. Organization and user limits identify their spend client; aggregate agent limits omit client_id. USER targets return the canonical user_id and, when available, the user's directory email. Requires admin.usage.limits:read and permission to read workspace billing. Optional filters match configured limits. Pages contain up to page_size matching results; the service continues scanning until the page is full or the collection is exhausted. Continue with next_cursor while has_more is true, keeping the same filters on every continuation request. The undeclared client_id and target_type query parameters are rejected; use the canonical filters parameter instead.
@@ -1642,7 +1642,7 @@ paths:
         - APIToken: []
     post:
       tags:
-        - Usage
+        - Admin Usage
       summary: Upsert a usage limit
       description: |
         Create or replace a single usage limit by its natural key. Always returns 200 with the normalized limit. A USER target may be identified by user_id or email; an unknown user returns 404. Requires admin.usage.limits:write and permission to edit workspace billing. Personal usage grants do not allow limit changes.
@@ -1704,7 +1704,7 @@ paths:
   /api/admin/usage/limits/reset:
     post:
       tags:
-        - Usage
+        - Admin Usage
       summary: Reset a usage limit
       description: |
         Remove a configured usage limit matching the selector without clearing measured usage. A USER target may be identified by user_id or email, including a user no longer in the directory. Requires admin.usage.limits:write and permission to edit workspace billing.
@@ -1764,7 +1764,7 @@ paths:
   /api/admin/usage/limits/batch:
     post:
       tags:
-        - Usage
+        - Admin Usage
       summary: Apply usage limit policies
       description: |
         Apply one or more usage limit policy changes atomically. This action sets policy by natural key; it does not create addressable resources or return resource locations. Every change succeeds or none are applied. USER targets may be identified by user_id or email; each resolves to the canonical user_id before duplicate natural keys are checked. Requires admin.usage.limits:write and permission to edit workspace billing.
@@ -1846,7 +1846,7 @@ paths:
   /api/admin/usage/limits/evaluate:
     post:
       tags:
-        - Usage
+        - Admin Usage
       summary: Evaluate administrative usage limit headroom
       description: |
         Evaluate the effective usage limits for a selector and return the current decision (AVAILABLE, WARNING, or BLOCKED) based on accrued usage. Requires admin.usage:evaluate and permission to read workspace billing, not a global administrator role. An explicit usage_selector.client_id selects the Glean or external spend client; it is never inferred from the caller. Returns all applicable limit values and counters, with effective headroom separated by unit. Agent counters retain aggregate scope. Billing readers receive exact IdP-group source identities. A USER target may be identified by user_id or email. Evaluation reports configured-budget status even when runtime enforcement switches are off; it does not perform request admission, model eligibility, or agent-run preflight checks.
@@ -2141,7 +2141,7 @@ paths:
   /api/admin/usage/limit-increase-requests:
     post:
       tags:
-        - Usage
+        - Admin Usage
       summary: Submit an editable-agent limit-increase request
       operationId: platform-admin-usage-requests-create
       x-glean-scopes:
@@ -2206,7 +2206,7 @@ paths:
         - APIToken: []
     get:
       tags:
-        - Usage
+        - Admin Usage
       summary: List the billing limit-increase request queue
       operationId: platform-admin-usage-requests-list
       x-glean-scopes:
@@ -2270,7 +2270,7 @@ paths:
         description: Opaque request identifier; not an authorization grant.
     get:
       tags:
-        - Usage
+        - Admin Usage
       summary: Get a billing limit-increase request
       operationId: platform-admin-usage-requests-get
       x-glean-scopes:
@@ -2319,7 +2319,7 @@ paths:
         - APIToken: []
     patch:
       tags:
-        - Usage
+        - Admin Usage
       summary: Resolve a billing limit-increase request
       operationId: platform-admin-usage-requests-update
       x-glean-scopes:
@@ -2381,6 +2381,84 @@ paths:
           description: The operation is unsupported or temporarily unavailable; ONGOING approval is unsupported.
       x-speakeasy-group: admin.usage
       x-speakeasy-name-override: updateLimitIncreaseRequest
+      security:
+        - APIToken: []
+  /api/admin/oauth/clients:
+    get:
+      tags:
+        - OAuth clients
+      summary: List OAuth clients
+      description: |
+        List the static OAuth clients that admins created for this workspace, ordered by display_name and then by client_id. Dynamically registered clients and Glean's own clients, such as Glean Desktop, are not listed. A client is active when it is enabled. Inactive clients are left out unless an is_active filter includes the value "false". To set a usage limit for a client, send its ai_gateway.usage_client_id, not its client_id, to the usage APIs. The caller needs admin read or billing read permission.
+      operationId: platform-admin-oauth-clients-list
+      x-glean-scopes:
+        legacy:
+          - ADMIN
+          - ADMIN_USAGE
+        platform:
+          - admin.oauth.clients:read
+      x-visibility: Public
+      x-glean-experimental:
+        id: 0be15d1f-0e4f-49f8-9dd1-1746b019abd7
+        introduced: "2026-10-09"
+      parameters:
+        - in: query
+          name: page_size
+          description: Maximum number of clients to return. Defaults to 50. Maximum is 100.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 50
+        - in: query
+          name: cursor
+          description: |
+            Opaque pagination cursor from a previous response. Send the same filters that the previous request used.
+          required: false
+          schema:
+            type: string
+            minLength: 1
+        - in: query
+          name: filters
+          description: |
+            JSON-encoded filters that choose which clients are returned. The only supported field is is_active, with the values "true" and "false" and the operator EQUALS. Multiple values OR within a filter. Multiple filters AND together. Without an is_active filter, only active clients are returned. To return active and inactive clients, send [{"field":"is_active","values":["true","false"]}].
+          required: false
+          content:
+            application/json:
+              schema:
+                type: array
+                minItems: 1
+                maxItems: 10
+                description: Filters on client fields, combined with AND.
+                items:
+                  $ref: "#/components/schemas/PlatformOAuthClientFilter"
+                  description: One filter on a client field.
+      responses:
+        "200":
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlatformListOAuthClientsResponse"
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+      x-speakeasy-group: admin.oauth.clients
+      x-speakeasy-name-override: list
       security:
         - APIToken: []
   /api/departments:
@@ -2460,6 +2538,60 @@ paths:
       x-speakeasy-name-override: list
       security:
         - APIToken: []
+  /api/departments/{department_id}:
+    get:
+      tags:
+        - Departments
+      summary: Get a department
+      description: |
+        Get one department by its department_id. Inactive departments are returned, so a caller can show the name of a department that a usage limit still names. A department is active when at least one active user belongs to it. A department is inactive when only inactive users, such as former employees, belong to it, or when only a usage limit names it. A department_id that is not valid, or that no user and no usage limit uses, returns 404 resource_not_found. A department_id comes from the exact department name, so a renamed department gets a new ID, and a name that is used again gets its old ID back.
+      operationId: platform-departments-get
+      x-glean-scopes:
+        legacy:
+          - PEOPLE
+        platform:
+          - departments:read
+      x-visibility: Public
+      x-glean-experimental:
+        id: c1a67d89-cc04-4f37-b314-ff9f08694ea9
+        introduced: "2026-10-15"
+      parameters:
+        - in: path
+          name: department_id
+          description: |
+            The department_id from a list departments response or from a user's department. IDs are opaque. Do not parse or build them.
+          required: true
+          example: "{department_id}"
+          schema:
+            type: string
+            minLength: 1
+      responses:
+        "200":
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlatformGetDepartmentResponse"
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+      x-speakeasy-group: departments
+      x-speakeasy-name-override: get
+      security:
+        - APIToken: []
   /api/admin/idp-groups:
     get:
       tags:
@@ -2536,6 +2668,61 @@ paths:
           $ref: "#/components/responses/PlatformServiceUnavailable"
       x-speakeasy-group: admin.idpgroups
       x-speakeasy-name-override: list
+      security:
+        - APIToken: []
+  /api/admin/idp-groups/{idp_group_id}:
+    get:
+      tags:
+        - IdP Groups
+      summary: Get an IdP group
+      description: |
+        Get one identity provider (IdP) group by its idp_group_id. Inactive IdP groups are returned, so a caller can still show a group after it was removed from the identity provider. An IdP group is active when Glean loaded it from the directory. An IdP group is inactive when only a usage limit names it, for example after the group was removed from the identity provider. An idp_group_id that is not valid, or that names no group that the list returns, returns 404 resource_not_found. The caller must be able to read the workspace configuration or the workspace billing.
+      operationId: platform-admin-idp-groups-get
+      x-glean-scopes:
+        legacy:
+          - ADMIN
+          - ADMIN_USAGE
+        platform:
+          - admin.idp_groups:read
+      x-visibility: Public
+      x-glean-experimental:
+        id: a725ef7b-baf5-48a4-b19f-d460398e30bb
+        introduced: "2026-10-15"
+      parameters:
+        - in: path
+          name: idp_group_id
+          description: |
+            The idp_group_id from a list IdP groups response. IDs are opaque. Do not parse or build them. The group_id in usage limit responses is not an idp_group_id and returns 404.
+          required: true
+          example: "{idp_group_id}"
+          schema:
+            type: string
+            minLength: 1
+      responses:
+        "200":
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlatformGetIdpGroupResponse"
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+      x-speakeasy-group: admin.idpgroups
+      x-speakeasy-name-override: get
       security:
         - APIToken: []
   /api/users:
@@ -2626,10 +2813,74 @@ paths:
       x-speakeasy-name-override: list
       security:
         - APIToken: []
+  /api/users/{user_id}:
+    get:
+      tags:
+        - Users
+      summary: Get user
+      description: |
+        Get one user in the Glean directory by user_id. The user can be any person that the list returns, including an inactive user such as a former employee, which is returned with is_active set to false. A user_id that is not in the directory returns 404 resource_not_found. This includes a deleted user and a person that the People directory does not show. An alias ID of a merged person returns the person's canonical user_id.
+      operationId: platform-users-get
+      x-glean-scopes:
+        legacy:
+          - PEOPLE
+        platform:
+          - users:read
+      x-visibility: Public
+      x-glean-experimental:
+        id: b5ed1294-d3cb-47dd-8dc0-0272549f00f9
+        introduced: "2026-10-15"
+      parameters:
+        - in: path
+          name: user_id
+          description: Canonical Glean user ID, as the list returns it.
+          required: true
+          example: "{user_id}"
+          schema:
+            type: string
+            minLength: 1
+        - in: query
+          name: include
+          description: |
+            Optional fields to add to the user. Each value only adds fields.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/PlatformUserInclude"
+      responses:
+        "200":
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlatformGetUserResponse"
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+      x-speakeasy-group: users
+      x-speakeasy-name-override: get
+      security:
+        - APIToken: []
   /api/admin/agents:
     get:
       tags:
-        - Agents
+        - Admin Agents
       summary: List all agents
       description: |
         List every agent in the workspace, ordered by display_name and then by agent_id. Unlike agent search, the list does not depend on who an agent is shared with, so it includes private and disabled agents. Deleted agents are inactive and are left out unless an is_active filter includes the value "false". Use the agent_id of an active agent with other Platform APIs, for example as a usage limit target. A deleted agent is not a valid usage limit target. The caller must be able to read all agents, administer agents, or read workspace billing.
@@ -3793,8 +4044,8 @@ paths:
         id: 4c0923bd-64c7-45b9-99a5-b36f2705e618
         introduced: "2026-01-21"
         message: Answer boards have been removed and this endpoint no longer serves a purpose
-        removal: "2026-10-15"
-      x-speakeasy-deprecation-message: "Deprecated on 2026-01-21, removal scheduled for 2026-10-15: Answer boards have been removed and this endpoint no longer serves a purpose"
+        removal: "2027-01-15"
+      x-speakeasy-deprecation-message: "Deprecated on 2026-01-21, removal scheduled for 2027-01-15: Answer boards have been removed and this endpoint no longer serves a purpose"
       x-speakeasy-name-override: list
       x-speakeasy-group: client.answers
   /rest/api/v1/checkdatasourceauth:
@@ -7023,8 +7274,8 @@ paths:
         id: 7eec0433-78fd-49f9-a34f-cca83640ec24
         introduced: "2026-02-03"
         message: Endpoint is deprecated
-        removal: "2026-10-15"
-      x-speakeasy-deprecation-message: "Deprecated on 2026-02-03, removal scheduled for 2026-10-15: Endpoint is deprecated"
+        removal: "2027-01-15"
+      x-speakeasy-deprecation-message: "Deprecated on 2026-02-03, removal scheduled for 2027-01-15: Endpoint is deprecated"
       x-speakeasy-group: indexing.documents
       x-speakeasy-name-override: status
   /api/index/v1/getdocumentcount:
@@ -7063,8 +7314,8 @@ paths:
         id: c164089c-9412-4724-acf6-caf3b0d2a527
         introduced: "2026-02-03"
         message: Endpoint is deprecated
-        removal: "2026-10-15"
-      x-speakeasy-deprecation-message: "Deprecated on 2026-02-03, removal scheduled for 2026-10-15: Endpoint is deprecated"
+        removal: "2027-01-15"
+      x-speakeasy-deprecation-message: "Deprecated on 2026-02-03, removal scheduled for 2027-01-15: Endpoint is deprecated"
       x-speakeasy-group: indexing.documents
       x-speakeasy-name-override: count
   /api/index/v1/getusercount:
@@ -7103,8 +7354,8 @@ paths:
         id: 4f5df873-385e-4539-8183-cb764b0f06b9
         introduced: "2026-02-03"
         message: Endpoint is deprecated
-        removal: "2026-10-15"
-      x-speakeasy-deprecation-message: "Deprecated on 2026-02-03, removal scheduled for 2026-10-15: Endpoint is deprecated"
+        removal: "2027-01-15"
+      x-speakeasy-deprecation-message: "Deprecated on 2026-02-03, removal scheduled for 2027-01-15: Endpoint is deprecated"
       x-speakeasy-name-override: count
       x-speakeasy-group: indexing.people
   /api/index/v1/betausers:
@@ -11537,11 +11788,11 @@ components:
       type: string
       pattern: ^[0-9]{4}-(0[1-9]|1[0-2])$
       description: UTC calendar month in YYYY-MM format, assigned by the server at creation.
-    PlatformApprovedIncreaseAmount:
+    PlatformRecordedApprovedAmount:
       type: string
-      pattern: ^([1-9][0-9]*(\.[0-9]+)?|0\.[0-9]*[1-9][0-9]*)$
+      pattern: ^-?([1-9][0-9]*(\.[0-9]+)?|0\.[0-9]*[1-9][0-9]*)$
       description: |
-        Recorded positive additive increase in the applicable rule's denomination, encoded as a plain decimal string. Existing enforcement consumes eligible USER current-period grants without changing standing rules. This does not add capacity for agents or other unsupported targets. The backend stores float32 values, not arbitrary-precision decimals.
+        Recorded additive amount in the applicable rule's denomination, encoded as a plain decimal string. Positive for approved increases; negative for an administrator's PERIOD decrease of the current period's approved increases. The backend stores float32 values, not arbitrary-precision decimals.
     PlatformRequestScope:
       type: string
       enum:
@@ -11602,7 +11853,7 @@ components:
           type: string
           description: User who resolved the request, when available.
         approved_increase_amount:
-          $ref: "#/components/schemas/PlatformApprovedIncreaseAmount"
+          $ref: "#/components/schemas/PlatformRecordedApprovedAmount"
           description: Stored additive approval amount, when available.
         scope:
           $ref: "#/components/schemas/PlatformRequestScope"
@@ -11741,6 +11992,11 @@ components:
           type: string
           maxLength: 4096
           description: Optional explanation of why the increase is needed.
+    PlatformApprovedIncreaseAmount:
+      type: string
+      pattern: ^([1-9][0-9]*(\.[0-9]+)?|0\.[0-9]*[1-9][0-9]*)$
+      description: |
+        Recorded positive additive increase in the applicable rule's denomination, encoded as a plain decimal string. Existing enforcement consumes eligible USER current-period grants without changing standing rules. This does not add capacity for agents or other unsupported targets. The backend stores float32 values, not arbitrary-precision decimals.
     PlatformAdministrativeRequestUpdate:
       type: object
       additionalProperties: false
@@ -11836,6 +12092,189 @@ components:
                   - required:
                       - resolution_target_id
                     description: Detect an approval target identifier.
+    PlatformOAuthClientFilter:
+      type: object
+      additionalProperties: false
+      required:
+        - field
+        - values
+      description: A filter on one OAuth client field.
+      properties:
+        field:
+          type: string
+          pattern: ^is_active$
+          description: The client field to filter on. The only supported field is is_active.
+        values:
+          type: array
+          minItems: 1
+          description: The values to match. A client matches when any value matches.
+          items:
+            type: string
+            pattern: ^(true|false)$
+            description: "\"true\" matches active clients. \"false\" matches inactive clients."
+        operator:
+          allOf:
+            - $ref: "#/components/schemas/PlatformFilterOperator"
+              description: Canonical Platform filter operator.
+          enum:
+            - EQUALS
+          default: EQUALS
+          description: The only supported operator is EQUALS. Defaults to EQUALS.
+    PlatformOAuthClientRegistrationType:
+      type: string
+      description: How an OAuth client was registered.
+      enum:
+        - STATIC
+      x-enumDescriptions:
+        STATIC: An admin created the client.
+      x-speakeasy-enum-descriptions:
+        STATIC: An admin created the client.
+    PlatformOAuthClientType:
+      type: string
+      description: Whether an OAuth client can keep a secret.
+      enum:
+        - CONFIDENTIAL
+        - PUBLIC
+      x-enumDescriptions:
+        CONFIDENTIAL: The client can keep a secret, for example a server-side application.
+        PUBLIC: The client cannot keep a secret, for example a desktop or command-line application.
+      x-speakeasy-enum-descriptions:
+        CONFIDENTIAL: The client can keep a secret, for example a server-side application.
+        PUBLIC: The client cannot keep a secret, for example a desktop or command-line application.
+    PlatformOAuthGrantType:
+      type: string
+      description: An OAuth grant type.
+      enum:
+        - AUTHORIZATION_CODE
+        - CLIENT_CREDENTIALS
+        - REFRESH_TOKEN
+        - DEVICE_CODE
+        - TOKEN_EXCHANGE
+        - JWT_BEARER
+      x-enumDescriptions:
+        AUTHORIZATION_CODE: The authorization code grant.
+        CLIENT_CREDENTIALS: The client credentials grant.
+        REFRESH_TOKEN: The refresh token grant.
+        DEVICE_CODE: The device authorization grant.
+        TOKEN_EXCHANGE: The token exchange grant.
+        JWT_BEARER: The JWT bearer assertion grant.
+      x-speakeasy-enum-descriptions:
+        AUTHORIZATION_CODE: The authorization code grant.
+        CLIENT_CREDENTIALS: The client credentials grant.
+        REFRESH_TOKEN: The refresh token grant.
+        DEVICE_CODE: The device authorization grant.
+        TOKEN_EXCHANGE: The token exchange grant.
+        JWT_BEARER: The JWT bearer assertion grant.
+    PlatformOAuthTokenEndpointAuthMethod:
+      type: string
+      description: How an OAuth client authenticates to the token endpoint.
+      enum:
+        - CLIENT_SECRET_BASIC
+        - CLIENT_SECRET_POST
+        - NO_AUTHENTICATION
+        - PRIVATE_KEY_JWT
+        - TLS_CLIENT_AUTH
+      x-enumDescriptions:
+        CLIENT_SECRET_BASIC: The client sends its secret in an HTTP Basic Authorization header.
+        CLIENT_SECRET_POST: The client sends its secret in the request body.
+        NO_AUTHENTICATION: The client does not authenticate. Public clients use this method.
+        PRIVATE_KEY_JWT: The client signs a JWT with its private key.
+        TLS_CLIENT_AUTH: The client authenticates with a mutual TLS certificate.
+      x-speakeasy-enum-descriptions:
+        CLIENT_SECRET_BASIC: The client sends its secret in an HTTP Basic Authorization header.
+        CLIENT_SECRET_POST: The client sends its secret in the request body.
+        NO_AUTHENTICATION: The client does not authenticate. Public clients use this method.
+        PRIVATE_KEY_JWT: The client signs a JWT with its private key.
+        TLS_CLIENT_AUTH: The client authenticates with a mutual TLS certificate.
+    PlatformOAuthClientAiGateway:
+      type: object
+      description: LLM Gateway details of an OAuth client.
+      additionalProperties: false
+      required:
+        - usage_client_id
+      properties:
+        usage_client_id:
+          type: string
+          description: |
+            The spend-client ID that usage records and usage limits use for this client. Send it as the client_id of a usage limit. It is an opaque, case-sensitive string; do not build it from client_id.
+    PlatformOAuthClient:
+      type: object
+      description: An OAuth client that an admin created for the workspace.
+      additionalProperties: false
+      required:
+        - client_id
+        - display_name
+        - registration_type
+        - grant_types
+        - redirect_uris
+        - is_active
+      properties:
+        client_id:
+          type: string
+          description: |
+            The OAuth client_id that the client sends to the authorization server. This is not the ID that usage records and usage limits use; see ai_gateway.usage_client_id.
+        display_name:
+          type: string
+          description: The client name that admins gave the client, or client_id when it has no name.
+        registration_type:
+          $ref: "#/components/schemas/PlatformOAuthClientRegistrationType"
+          description: How the client was registered.
+        client_type:
+          $ref: "#/components/schemas/PlatformOAuthClientType"
+          description: Whether the client can keep a secret. Absent when it is not set.
+        grant_types:
+          type: array
+          description: The OAuth grant types that the client can use.
+          items:
+            $ref: "#/components/schemas/PlatformOAuthGrantType"
+            description: An OAuth grant type.
+        token_endpoint_auth_method:
+          $ref: "#/components/schemas/PlatformOAuthTokenEndpointAuthMethod"
+          description: |
+            How the client authenticates to the token endpoint. Absent when it is not set.
+        redirect_uris:
+          type: array
+          description: The redirect URIs that the client can use.
+          items:
+            type: string
+            description: A redirect URI.
+        is_active:
+          type: boolean
+          description: |
+            Whether the client is active. A client that an admin disabled is inactive and cannot authenticate.
+        created_at:
+          type: string
+          format: date-time
+          description: When the client was created. Absent when it is not known.
+        ai_gateway:
+          $ref: "#/components/schemas/PlatformOAuthClientAiGateway"
+          description: |
+            LLM Gateway details. Present only when the client can call the Glean LLM Gateway.
+    PlatformListOAuthClientsResponse:
+      type: object
+      description: One page of OAuth clients.
+      additionalProperties: false
+      required:
+        - results
+        - has_more
+        - request_id
+      properties:
+        results:
+          type: array
+          description: The clients on this page, ordered by display_name and then by client_id.
+          items:
+            $ref: "#/components/schemas/PlatformOAuthClient"
+        has_more:
+          type: boolean
+          description: Whether more clients are available after this page.
+        next_cursor:
+          type:
+            - string
+            - "null"
+          description: Opaque cursor for the next page; null or absent when has_more is false.
+        request_id:
+          type: string
+          description: Request identifier for correlating this response.
     PlatformDepartmentFilter:
       type: object
       additionalProperties: false
@@ -11913,6 +12352,19 @@ components:
             - string
             - "null"
           description: Opaque cursor for the next page; null or absent when has_more is false.
+        request_id:
+          type: string
+          description: Request identifier for correlating this response.
+    PlatformGetDepartmentResponse:
+      type: object
+      description: One department.
+      additionalProperties: false
+      required:
+        - department
+        - request_id
+      properties:
+        department:
+          $ref: "#/components/schemas/PlatformDepartment"
         request_id:
           type: string
           description: Request identifier for correlating this response.
@@ -12006,6 +12458,20 @@ components:
             - string
             - "null"
           description: Opaque cursor for the next page; null or absent when has_more is false.
+        request_id:
+          type: string
+          description: Request identifier for correlating this response.
+    PlatformGetIdpGroupResponse:
+      type: object
+      description: One IdP group.
+      additionalProperties: false
+      required:
+        - idp_group
+        - request_id
+      properties:
+        idp_group:
+          $ref: "#/components/schemas/PlatformIdpGroup"
+          description: The IdP group identified by the requested idp_group_id.
         request_id:
           type: string
           description: Request identifier for correlating this response.
@@ -12164,6 +12630,20 @@ components:
             - string
             - "null"
           description: Opaque cursor for the next page; null or absent when has_more is false.
+        request_id:
+          type: string
+          description: Request identifier for correlating this response.
+    PlatformGetUserResponse:
+      type: object
+      description: One user.
+      additionalProperties: false
+      required:
+        - user
+        - request_id
+      properties:
+        user:
+          $ref: "#/components/schemas/PlatformUser"
+          description: The requested user.
         request_id:
           type: string
           description: Request identifier for correlating this response.
@@ -13670,8 +14150,8 @@ components:
             id: 75a48c79-b36a-4171-a0a0-4af7189da66e
             introduced: "2026-02-05"
             message: Use relationType instead
-            removal: "2026-10-15"
-          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use relationType instead"
+            removal: "2027-01-15"
+          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Use relationType instead"
     FacetFilter:
       properties:
         fieldName:
@@ -14480,8 +14960,8 @@ components:
             id: 3729bc64-8859-4159-b93c-ce2d5f0e7304
             introduced: "2026-02-05"
             message: Answer Boards no longer supported
-            removal: "2026-10-15"
-          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Answer Boards no longer supported"
+            removal: "2027-01-15"
+          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Answer Boards no longer supported"
         audienceFilters:
           type: array
           items:
@@ -15466,8 +15946,8 @@ components:
             id: 68de0429-b0cc-4b40-8061-f848788079a2
             introduced: "2026-02-05"
             message: Field is deprecated
-            removal: "2026-10-15"
-          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Field is deprecated"
+            removal: "2027-01-15"
+          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Field is deprecated"
         results:
           type: array
           items:
@@ -15533,9 +16013,9 @@ components:
             id: e55ddf30-7c47-43a5-b775-d78f8b29411a
             introduced: "2026-02-05"
             message: Use 'text' field instead
-            removal: "2026-10-15"
+            removal: "2027-01-15"
           x-includeEmpty: true
-          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use 'text' field instead"
+          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Use 'text' field instead"
       example:
         snippet: snippet
         mimeType: mimeType
@@ -15846,8 +16326,8 @@ components:
             id: 1d3cd23f-9085-4378-b466-9bdc2e344a71
             introduced: "2026-02-05"
             message: Use ChannelInviteInfo instead
-            removal: "2026-10-15"
-          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use ChannelInviteInfo instead"
+            removal: "2027-01-15"
+          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Use ChannelInviteInfo instead"
         inviteTime:
           type: string
           format: date-time
@@ -15857,8 +16337,8 @@ components:
             id: 2dc3f572-cded-483d-af07-fc9fc7fd0ae4
             introduced: "2026-02-05"
             message: Use ChannelInviteInfo instead
-            removal: "2026-10-15"
-          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use ChannelInviteInfo instead"
+            removal: "2027-01-15"
+          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Use ChannelInviteInfo instead"
         reminderTime:
           type: string
           format: date-time
@@ -15868,8 +16348,8 @@ components:
             id: d02d58cf-eb90-45d0-ab90-f7a9d707ae3c
             introduced: "2026-02-05"
             message: Use ChannelInviteInfo instead
-            removal: "2026-10-15"
-          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use ChannelInviteInfo instead"
+            removal: "2027-01-15"
+          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Use ChannelInviteInfo instead"
       description: Information regarding the invite status of a person.
     ReadPermission:
       properties:
@@ -16231,8 +16711,8 @@ components:
             id: cd754845-6eec-480f-b395-c93478aff563
             introduced: "2026-02-05"
             message: Use reacts instead
-            removal: "2026-10-15"
-          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use reacts instead"
+            removal: "2027-01-15"
+          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Use reacts instead"
         reacts:
           type: array
           items:
@@ -16259,8 +16739,8 @@ components:
               introduced: "2026-02-05"
               kind: property
               message: Use permissions instead
-              removal: "2026-10-15"
-          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use permissions instead"
+              removal: "2027-01-15"
+          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Use permissions instead"
         lastViewedTime:
           type: string
           format: date-time
@@ -17320,8 +17800,8 @@ components:
             id: 6446f85e-c90e-4c00-9717-796f9db3dc61
             introduced: "2026-02-06"
             message: Use inline citations via ChatMessageFragment.citation and ChatMessageCitation.referenceRanges instead. This field is still populated for backward compatibility.
-            removal: "2026-10-15"
-          x-speakeasy-deprecation-message: "Deprecated on 2026-02-06, removal scheduled for 2026-10-15: Use inline citations via ChatMessageFragment.citation and ChatMessageCitation.referenceRanges instead. This field is still populated for backward compatibility."
+            removal: "2027-01-15"
+          x-speakeasy-deprecation-message: "Deprecated on 2026-02-06, removal scheduled for 2027-01-15: Use inline citations via ChatMessageFragment.citation and ChatMessageCitation.referenceRanges instead. This field is still populated for backward compatibility."
         uploadedFileIds:
           type: array
           items:
@@ -18341,6 +18821,9 @@ components:
           x-speakeasy-deprecation-message: "Deprecated on 2026-05-07, removal scheduled for 2027-01-15: Use `collection.trackingToken` instead."
     ListCollectionsRequest:
       properties:
+        query:
+          type: string
+          description: Case-insensitive substring search on collection names. Leading and trailing whitespace is ignored. An empty query does not filter collections.
         includeAudience:
           type: boolean
           description: Whether to include the audience filters with the listed Collections.
@@ -19175,8 +19658,8 @@ components:
             id: 15850758-4d95-4d98-8d57-39c50663a796
             introduced: "2026-02-05"
             message: Field is deprecated
-            removal: "2026-10-15"
-          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Field is deprecated"
+            removal: "2027-01-15"
+          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Field is deprecated"
         overviewResponse:
           $ref: '#/components/schemas/InsightsOverviewResponse'
         assistantResponse:
@@ -20002,6 +20485,7 @@ components:
               - MANAGER_INVITE
               - ONBOARDING_AUTHORIZATION
               - CHAT_REMINDER
+              - DISCOVER
           description: Categories of content requested. An allowlist gives flexibility to request content separately or together.
         requestOptions:
           $ref: '#/components/schemas/FeedRequestOptions'
@@ -20495,6 +20979,7 @@ components:
             - MANAGER_INVITE
             - ONBOARDING_AUTHORIZATION
             - CHAT_REMINDER
+            - DISCOVER
           description: Type of the justification.
         justification:
           type: string
@@ -20598,6 +21083,7 @@ components:
             - MANAGER_INVITE
             - ONBOARDING_AUTHORIZATION
             - CHAT_REMINDER
+            - DISCOVER
           description: Category of the result, one of the requested categories in incoming request.
         primaryEntry:
           $ref: '#/components/schemas/FeedEntry'
@@ -22224,8 +22710,8 @@ components:
             id: a7f6fbaa-0eaf-4c0c-a4f5-ab90347f73fd
             introduced: "2026-02-05"
             message: Field is deprecated
-            removal: "2026-10-15"
-          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Field is deprecated"
+            removal: "2027-01-15"
+          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Field is deprecated"
         structuredLocation:
           $ref: '#/components/schemas/StructuredLocation'
           description: Detailed location with information about country, state, city etc.
@@ -23144,8 +23630,8 @@ components:
               introduced: "2026-02-05"
               kind: property
               message: Field is deprecated
-              removal: "2026-10-15"
-          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Field is deprecated"
+              removal: "2027-01-15"
+          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Field is deprecated"
         infoType:
           type: string
           description: Text representation of an info-type to scan for.
@@ -23175,8 +23661,8 @@ components:
             id: e022aaa5-56e6-4b57-bca3-b11943da76a0
             introduced: "2026-02-05"
             message: Field is deprecated
-            removal: "2026-10-15"
-          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Field is deprecated"
+            removal: "2027-01-15"
+          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Field is deprecated"
         datasourcesType:
           type: string
           enum:
@@ -23193,8 +23679,8 @@ components:
             id: 97e35970-e0ed-4248-be13-2af8c22e7894
             introduced: "2026-02-05"
             message: Use datasourceInstances instead
-            removal: "2026-10-15"
-          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use datasourceInstances instead"
+            removal: "2027-01-15"
+          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Use datasourceInstances instead"
         datasourceInstances:
           type: array
           items:
@@ -23226,8 +23712,8 @@ components:
             id: e9260be6-209b-4ce2-a4b3-f7f22879dd86
             introduced: "2026-02-05"
             message: Field is deprecated
-            removal: "2026-10-15"
-          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Field is deprecated"
+            removal: "2027-01-15"
+          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Field is deprecated"
         threshold:
           type: integer
           description: The minimum number of users the document is shared with.
@@ -23241,8 +23727,8 @@ components:
             id: 30646ced-e0db-43ef-8412-64a67c5d0f53
             introduced: "2026-02-05"
             message: Field is deprecated
-            removal: "2026-10-15"
-          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Field is deprecated"
+            removal: "2027-01-15"
+          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Field is deprecated"
         anyoneInternalEnabled:
           type: boolean
           description: Only users within the organization can access the document.
@@ -23271,8 +23757,8 @@ components:
         id: 7c9e4a1d-3f8b-4e2c-9a5d-6b0f1c8e2d4a
         introduced: "2026-02-05"
         message: Use broadSharingOptions instead
-        removal: "2026-10-15"
-      x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use broadSharingOptions instead"
+        removal: "2027-01-15"
+      x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Use broadSharingOptions instead"
     HotwordProximity:
       properties:
         windowBefore:
@@ -23344,8 +23830,8 @@ components:
             id: 3497cb1c-f7aa-42d8-81b8-309c3adeed84
             introduced: "2026-02-05"
             message: Use customSensitiveExpressions instead
-            removal: "2026-10-15"
-          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use customSensitiveExpressions instead"
+            removal: "2027-01-15"
+          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Use customSensitiveExpressions instead"
         sensitiveTerms:
           type: array
           items:
@@ -23356,8 +23842,8 @@ components:
             id: b0713b37-472e-4c29-80ba-6f5d6f2b449c
             introduced: "2026-02-05"
             message: Use customSensitiveExpressions instead
-            removal: "2026-10-15"
-          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use customSensitiveExpressions instead"
+            removal: "2027-01-15"
+          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Use customSensitiveExpressions instead"
         sensitiveRegexes:
           type: array
           items:
@@ -23368,8 +23854,8 @@ components:
             id: a26e1920-36b6-4c0f-981f-57b09a9ebce3
             introduced: "2026-02-05"
             message: Use customSensitiveExpressions instead
-            removal: "2026-10-15"
-          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use customSensitiveExpressions instead"
+            removal: "2027-01-15"
+          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Use customSensitiveExpressions instead"
         customSensitiveExpressions:
           type: array
           items:
@@ -23427,8 +23913,8 @@ components:
             id: 60d6d182-e9d0-448d-af75-137f68bbdcbf
             introduced: "2026-02-05"
             message: Use sensitiveContentOptions instead
-            removal: "2026-10-15"
-          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use sensitiveContentOptions instead"
+            removal: "2027-01-15"
+          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Use sensitiveContentOptions instead"
         inputOptions:
           $ref: '#/components/schemas/InputOptions'
           description: Options for documents to include or exclude in a report
@@ -23440,8 +23926,8 @@ components:
             id: 6484ec17-a133-4176-b2ce-28e25b0e9065
             introduced: "2026-02-05"
             message: Use broadSharingOptions instead
-            removal: "2026-10-15"
-          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use broadSharingOptions instead"
+            removal: "2027-01-15"
+          x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Use broadSharingOptions instead"
         broadSharingOptions:
           $ref: '#/components/schemas/SharingOptions'
           description: Options for defining documents to scan for sensitive content.
@@ -24241,6 +24727,32 @@ components:
       schema:
         type: string
         example: o365sharepoint_abc123
+x-glean-platform-tag-groups:
+  - name: Agents & AI
+    tags:
+      - Agents
+      - Chat
+      - CORL
+      - Skills
+  - name: Search & Data
+    tags:
+      - Search
+  - name: Automation
+    tags:
+      - Triggers
+  - name: People
+    tags:
+      - Departments
+      - Users
+  - name: Account
+    tags:
+      - Usage
+  - name: Administration
+    tags:
+      - Admin Agents
+      - IdP Groups
+      - OAuth clients
+      - Admin Usage
 tags:
   - name: Datasources
     description: Manage datasources.
