@@ -87,3 +87,4 @@ value = JustificationType.FREQUENTLY_ACCESSED
 | `MANAGER_INVITE`                        | MANAGER_INVITE                          |
 | `ONBOARDING_AUTHORIZATION`              | ONBOARDING_AUTHORIZATION                |
 | `CHAT_REMINDER`                         | CHAT_REMINDER                           |
+| `DISCOVER`                              | DISCOVER                                |

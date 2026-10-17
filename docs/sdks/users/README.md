@@ -5,6 +5,7 @@
 ### Available Operations
 
 * [list](#list) - List users
+* [get](#get) - Get user
 
 ## list
 
@@ -43,6 +44,50 @@ with Glean(
 ### Response
 
 **[models.PlatformListUsersResponse](../../models/platformlistusersresponse.md)**
+
+### Errors
+
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| errors.PlatformProblemDetailError | 400, 401, 403, 404, 408, 429      | application/problem+json          |
+| errors.PlatformProblemDetailError | 500, 503                          | application/problem+json          |
+| errors.GleanError                 | 4XX, 5XX                          | \*/\*                             |
+
+## get
+
+Get one user in the Glean directory by user_id. The user can be any person that the list returns, including an inactive user such as a former employee, which is returned with is_active set to false. A user_id that is not in the directory returns 404 resource_not_found. This includes a deleted user and a person that the People directory does not show. An alias ID of a merged person returns the person's canonical user_id.
+
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="platform-users-get" method="get" path="/api/users/{user_id}" -->
+```python
+from glean.api_client import Glean
+import os
+
+
+with Glean(
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+) as glean:
+
+    res = glean.users.get(user_id="{user_id}")
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                               | Type                                                                    | Required                                                                | Description                                                             | Example                                                                 |
+| ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| `user_id`                                                               | *str*                                                                   | :heavy_check_mark:                                                      | Canonical Glean user ID, as the list returns it.                        | {user_id}                                                               |
+| `include`                                                               | List[[models.PlatformUserInclude](../../models/platformuserinclude.md)] | :heavy_minus_sign:                                                      | Optional fields to add to the user. Each value only adds fields.<br/>   |                                                                         |
+| `retries`                                                               | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)        | :heavy_minus_sign:                                                      | Configuration to override the default retry behavior of the client.     |                                                                         |
+
+### Response
+
+**[models.PlatformGetUserResponse](../../models/platformgetuserresponse.md)**
 
 ### Errors
 

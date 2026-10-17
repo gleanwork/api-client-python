@@ -93,7 +93,7 @@ class AdminAgents(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
-                tags=["Agents"],
+                tags=["Admin Agents"],
                 extensions={
                     "x-glean-experimental": {
                         "id": "8f66e1bd-eb48-4381-88f2-697a0e51ccc7",
@@ -222,7 +222,7 @@ class AdminAgents(BaseSDK):
                 security_source=get_security_from_env(
                     self.sdk_configuration.security, models.Security
                 ),
-                tags=["Agents"],
+                tags=["Admin Agents"],
                 extensions={
                     "x-glean-experimental": {
                         "id": "8f66e1bd-eb48-4381-88f2-697a0e51ccc7",

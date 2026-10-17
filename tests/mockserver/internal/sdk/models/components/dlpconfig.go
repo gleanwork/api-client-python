@@ -8,11 +8,11 @@ type DlpConfig struct {
 	Version *int64 `json:"version,omitempty"`
 	// DEPRECATED - use `sensitiveContentOptions` instead.
 	//
-	// Deprecated: Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use sensitiveContentOptions instead.
+	// Deprecated: Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Use sensitiveContentOptions instead.
 	SensitiveInfoTypes []SensitiveInfoType `json:"sensitiveInfoTypes,omitempty"`
 	// Controls which data-sources and what time-range to include in scans.
 	InputOptions *InputOptions `json:"inputOptions,omitempty"`
-	// Deprecated: Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use broadSharingOptions instead.
+	// Deprecated: Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Use broadSharingOptions instead.
 	ExternalSharingOptions *ExternalSharingOptions `json:"externalSharingOptions,omitempty"`
 	// Controls how "shared" a document must be to get picked for scans.
 	BroadSharingOptions *SharingOptions `json:"broadSharingOptions,omitempty"`

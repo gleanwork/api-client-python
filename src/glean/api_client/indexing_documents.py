@@ -1660,7 +1660,7 @@ class IndexingDocuments(BaseSDK):
         raise errors.GleanError("Unexpected response received", http_res)
 
     @deprecated(
-        "warning: ** DEPRECATED ** - Deprecated on 2026-02-03, removal scheduled for 2026-10-15: Endpoint is deprecated."
+        "warning: ** DEPRECATED ** - Deprecated on 2026-02-03, removal scheduled for 2027-01-15: Endpoint is deprecated."
     )
     def status(
         self,
@@ -1747,7 +1747,7 @@ class IndexingDocuments(BaseSDK):
                         "id": "7eec0433-78fd-49f9-a34f-cca83640ec24",
                         "introduced": "2026-02-03",
                         "message": "Endpoint is deprecated",
-                        "removal": "2026-10-15",
+                        "removal": "2027-01-15",
                     }
                 },
             ),
@@ -1768,7 +1768,7 @@ class IndexingDocuments(BaseSDK):
         raise errors.GleanError("Unexpected response received", http_res)
 
     @deprecated(
-        "warning: ** DEPRECATED ** - Deprecated on 2026-02-03, removal scheduled for 2026-10-15: Endpoint is deprecated."
+        "warning: ** DEPRECATED ** - Deprecated on 2026-02-03, removal scheduled for 2027-01-15: Endpoint is deprecated."
     )
     async def status_async(
         self,
@@ -1855,7 +1855,7 @@ class IndexingDocuments(BaseSDK):
                         "id": "7eec0433-78fd-49f9-a34f-cca83640ec24",
                         "introduced": "2026-02-03",
                         "message": "Endpoint is deprecated",
-                        "removal": "2026-10-15",
+                        "removal": "2027-01-15",
                     }
                 },
             ),
@@ -1876,7 +1876,7 @@ class IndexingDocuments(BaseSDK):
         raise errors.GleanError("Unexpected response received", http_res)
 
     @deprecated(
-        "warning: ** DEPRECATED ** - Deprecated on 2026-02-03, removal scheduled for 2026-10-15: Endpoint is deprecated."
+        "warning: ** DEPRECATED ** - Deprecated on 2026-02-03, removal scheduled for 2027-01-15: Endpoint is deprecated."
     )
     def count(
         self,
@@ -1957,7 +1957,7 @@ class IndexingDocuments(BaseSDK):
                         "id": "c164089c-9412-4724-acf6-caf3b0d2a527",
                         "introduced": "2026-02-03",
                         "message": "Endpoint is deprecated",
-                        "removal": "2026-10-15",
+                        "removal": "2027-01-15",
                     }
                 },
             ),
@@ -1978,7 +1978,7 @@ class IndexingDocuments(BaseSDK):
         raise errors.GleanError("Unexpected response received", http_res)
 
     @deprecated(
-        "warning: ** DEPRECATED ** - Deprecated on 2026-02-03, removal scheduled for 2026-10-15: Endpoint is deprecated."
+        "warning: ** DEPRECATED ** - Deprecated on 2026-02-03, removal scheduled for 2027-01-15: Endpoint is deprecated."
     )
     async def count_async(
         self,
@@ -2059,7 +2059,7 @@ class IndexingDocuments(BaseSDK):
                         "id": "c164089c-9412-4724-acf6-caf3b0d2a527",
                         "introduced": "2026-02-03",
                         "message": "Endpoint is deprecated",
-                        "removal": "2026-10-15",
+                        "removal": "2027-01-15",
                     }
                 },
             ),

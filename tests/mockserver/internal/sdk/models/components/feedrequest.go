@@ -67,6 +67,7 @@ const (
 	FeedRequestCategoryManagerInvite                FeedRequestCategory = "MANAGER_INVITE"
 	FeedRequestCategoryOnboardingAuthorization      FeedRequestCategory = "ONBOARDING_AUTHORIZATION"
 	FeedRequestCategoryChatReminder                 FeedRequestCategory = "CHAT_REMINDER"
+	FeedRequestCategoryDiscover                     FeedRequestCategory = "DISCOVER"
 )
 
 func (e FeedRequestCategory) ToPointer() *FeedRequestCategory {
@@ -191,6 +192,8 @@ func (e *FeedRequestCategory) UnmarshalJSON(data []byte) error {
 	case "ONBOARDING_AUTHORIZATION":
 		fallthrough
 	case "CHAT_REMINDER":
+		fallthrough
+	case "DISCOVER":
 		*e = FeedRequestCategory(v)
 		return nil
 	default:
