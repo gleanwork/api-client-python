@@ -20,7 +20,7 @@ class PlatformAdminIdpGroupsListRequestTypedDict(TypedDict):
 
     """
     filters: NotRequired[List[PlatformIdpGroupFilterTypedDict]]
-    r"""JSON-encoded filters that choose which IdP groups are returned. The supported fields are is_active, with the values \"true\" and \"false\", and provider_instance, with datasource instance names such as \"okta\". provider_instance values match without case. The only supported operator is EQUALS. Multiple values OR within a filter. Multiple filters AND together. Without an is_active filter, only active IdP groups are returned. To return active and inactive IdP groups, send [{\"field\":\"is_active\",\"values\":[\"true\",\"false\"]}].
+    r"""JSON-encoded filters that choose which IdP groups are returned. The only supported field is provider_instance, with datasource instance names such as \"okta\". provider_instance values match without case. The only supported operator is EQUALS. Multiple values OR within a filter. Multiple filters AND together.
 
     """
 
@@ -44,7 +44,7 @@ class PlatformAdminIdpGroupsListRequest(BaseModel):
         Optional[List[PlatformIdpGroupFilter]],
         FieldMetadata(query=QueryParamMetadata(serialization="json")),
     ] = None
-    r"""JSON-encoded filters that choose which IdP groups are returned. The supported fields are is_active, with the values \"true\" and \"false\", and provider_instance, with datasource instance names such as \"okta\". provider_instance values match without case. The only supported operator is EQUALS. Multiple values OR within a filter. Multiple filters AND together. Without an is_active filter, only active IdP groups are returned. To return active and inactive IdP groups, send [{\"field\":\"is_active\",\"values\":[\"true\",\"false\"]}].
+    r"""JSON-encoded filters that choose which IdP groups are returned. The only supported field is provider_instance, with datasource instance names such as \"okta\". provider_instance values match without case. The only supported operator is EQUALS. Multiple values OR within a filter. Multiple filters AND together.
 
     """
 

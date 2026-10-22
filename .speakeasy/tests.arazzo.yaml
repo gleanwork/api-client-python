@@ -159590,7 +159590,7 @@ workflows:
             - condition: $response.header.Content-Type == application/json
             - context: $response.body
               condition: |
-                {"results":[{"idp_group_id":"<id>","display_name":"Kaya52","provider":"<value>","provider_instance":"<value>","is_active":false}],"has_more":true,"request_id":"<id>"}
+                {"results":[{"idp_group_id":"<id>","display_name":"Kaya52","provider":"<value>","provider_instance":"<value>"}],"has_more":true,"request_id":"<id>"}
               type: simple
       x-speakeasy-test-group: admin_idpgroups
       x-speakeasy-test-rebuild: true
@@ -159641,7 +159641,113 @@ workflows:
             - condition: $response.header.Content-Type == application/json
             - context: $response.body
               condition: |
-                {"results":[{"user_id":"<id>","display_name":"Raina1","is_active":true}],"has_more":true,"request_id":"<id>"}
+                {"results":[{"user_id":"<id>","display_name":"Raina1"}],"has_more":true,"request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: users
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-chat-update
+      steps:
+        - stepId: test
+          operationId: platform-chat-update
+          parameters:
+            - name: chat_id
+              in: path
+              value: '{chat_id}'
+          requestBody:
+            contentType: application/json
+            payload:
+                name: <value>
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"chat":{"chat_id":"<id>","name":"<value>"},"request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: chat_SDK
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-admin-oauth-clients-list
+      steps:
+        - stepId: test
+          operationId: platform-admin-oauth-clients-list
+          parameters:
+            - name: page_size
+              in: query
+              value: 50
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"results":[],"has_more":true,"request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: clients
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-admin-oauth-clients-get
+      steps:
+        - stepId: test
+          operationId: platform-admin-oauth-clients-get
+          parameters:
+            - name: client_id
+              in: path
+              value: '{client_id}'
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"client":{"client_id":"<id>","display_name":"Janie_Von32","registration_type":"STATIC","grant_types":[],"redirect_uris":["<value 1>"],"is_active":false},"request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: clients
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-admin-idp-groups-get
+      steps:
+        - stepId: test
+          operationId: platform-admin-idp-groups-get
+          parameters:
+            - name: idp_group_id
+              in: path
+              value: '{idp_group_id}'
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"idp_group":{"idp_group_id":"<id>","display_name":"Keely.Spencer24","provider":"<value>","provider_instance":"<value>"},"request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: admin_idpgroups
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-departments-get
+      steps:
+        - stepId: test
+          operationId: platform-departments-get
+          parameters:
+            - name: department_id
+              in: path
+              value: '{department_id}'
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"department":{"department_id":"<id>","display_name":"Ryley_Ward"},"request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: departments
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-users-get
+      steps:
+        - stepId: test
+          operationId: platform-users-get
+          parameters:
+            - name: user_id
+              in: path
+              value: '{user_id}'
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"user":{"user_id":"<id>","display_name":"Sadie.Skiles5"},"request_id":"<id>"}
               type: simple
       x-speakeasy-test-group: users
       x-speakeasy-test-rebuild: true

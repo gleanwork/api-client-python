@@ -46,7 +46,7 @@ func testPlatformDepartmentsListPlatformDepartmentsList0(w http.ResponseWriter, 
 		return
 	}
 	var respBody *components.PlatformListDepartmentsResponse = &components.PlatformListDepartmentsResponse{
-		Results:   []components.PlatformDepartment{},
+		Results:   []components.PlatformDepartmentReference{},
 		HasMore:   false,
 		RequestID: "<id>",
 	}

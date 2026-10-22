@@ -13,7 +13,7 @@ type PlatformAdminIdpGroupsListRequest struct {
 	// Opaque pagination cursor from a previous response. Send the same filters that the previous request used.
 	//
 	Cursor *string `queryParam:"style=form,explode=true,name=cursor"`
-	// JSON-encoded filters that choose which IdP groups are returned. The supported fields are is_active, with the values "true" and "false", and provider_instance, with datasource instance names such as "okta". provider_instance values match without case. The only supported operator is EQUALS. Multiple values OR within a filter. Multiple filters AND together. Without an is_active filter, only active IdP groups are returned. To return active and inactive IdP groups, send [{"field":"is_active","values":["true","false"]}].
+	// JSON-encoded filters that choose which IdP groups are returned. The only supported field is provider_instance, with datasource instance names such as "okta". provider_instance values match without case. The only supported operator is EQUALS. Multiple values OR within a filter. Multiple filters AND together.
 	//
 	Filters []components.PlatformIdpGroupFilter `queryParam:"serialization=json,name=filters"`
 }

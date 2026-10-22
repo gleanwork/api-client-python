@@ -5,6 +5,7 @@
 ### Available Operations
 
 * [create](#create) - Create a chat response
+* [update](#update) - Update a chat
 * [create_stream](#create_stream) - Create a streaming chat response
 
 ## create
@@ -73,6 +74,49 @@ with Glean(
 | errors.PlatformProblemDetailError      | 400, 401, 403, 404, 408, 413, 422, 429 | application/problem+json               |
 | errors.PlatformProblemDetailError      | 500, 503                               | application/problem+json               |
 | errors.GleanError                      | 4XX, 5XX                               | \*/\*                                  |
+
+## update
+
+Update the name of a chat. Only the chat owner can update it.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="platform-chat-update" method="patch" path="/api/chats/{chat_id}" -->
+```python
+from glean.api_client import Glean
+import os
+
+
+with Glean(
+    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+) as glean:
+
+    res = glean.chat.update(chat_id="{chat_id}", name="Quarterly planning notes")
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                                                | Type                                                                                                     | Required                                                                                                 | Description                                                                                              | Example                                                                                                  |
+| -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `chat_id`                                                                                                | *str*                                                                                                    | :heavy_check_mark:                                                                                       | The ID of the chat to update.                                                                            | {chat_id}                                                                                                |
+| `name`                                                                                                   | *str*                                                                                                    | :heavy_check_mark:                                                                                       | The new name for the chat. Names longer than 80 Unicode code points are truncated to 80 before storage.<br/> |                                                                                                          |
+| `retries`                                                                                                | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                         | :heavy_minus_sign:                                                                                       | Configuration to override the default retry behavior of the client.                                      |                                                                                                          |
+
+### Response
+
+**[models.PlatformChatUpdateResponse](../../models/platformchatupdateresponse.md)**
+
+### Errors
+
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| errors.PlatformProblemDetailError | 400, 401, 403, 404, 405, 413, 429 | application/problem+json          |
+| errors.PlatformProblemDetailError | 500                               | application/problem+json          |
+| errors.GleanError                 | 4XX, 5XX                          | \*/\*                             |
 
 ## create_stream
 

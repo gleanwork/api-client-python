@@ -17,3 +17,17 @@ def test_users_platform_users_list():
 
         res = glean.users.list(page_size=50)
         assert res is not None
+
+
+def test_users_platform_users_get():
+    test_http_client = create_test_http_client("platform-users-get")
+
+    with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
+        client=test_http_client,
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+    ) as glean:
+        assert glean is not None
+
+        res = glean.users.get(user_id="{user_id}")
+        assert res is not None

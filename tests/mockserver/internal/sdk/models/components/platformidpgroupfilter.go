@@ -49,7 +49,7 @@ func (e *PlatformIdpGroupFilterOperator) UnmarshalJSON(data []byte) error {
 
 // PlatformIdpGroupFilter - A filter on one IdP group field.
 type PlatformIdpGroupFilter struct {
-	// The IdP group field to filter on. The supported fields are is_active and provider_instance.
+	// The IdP group field to filter on. The only supported field is provider_instance.
 	//
 	Field string `json:"field"`
 	// The values to match. An IdP group matches when any value matches.

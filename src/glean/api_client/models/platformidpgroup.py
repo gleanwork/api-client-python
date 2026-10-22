@@ -24,10 +24,6 @@ class PlatformIdpGroupTypedDict(TypedDict):
     r"""The datasource instance that the group comes from, for example \"okta\". A provider can have more than one instance.
 
     """
-    is_active: bool
-    r"""Whether Glean loaded the group from the directory. A group that only a usage limit names is inactive.
-
-    """
 
 
 class PlatformIdpGroup(BaseModel):
@@ -50,10 +46,5 @@ class PlatformIdpGroup(BaseModel):
 
     provider_instance: str
     r"""The datasource instance that the group comes from, for example \"okta\". A provider can have more than one instance.
-
-    """
-
-    is_active: bool
-    r"""Whether Glean loaded the group from the directory. A group that only a usage limit names is inactive.
 
     """

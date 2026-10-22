@@ -23,7 +23,7 @@ class PlatformIdpGroupFilterTypedDict(TypedDict):
     r"""A filter on one IdP group field."""
 
     field: str
-    r"""The IdP group field to filter on. The supported fields are is_active and provider_instance.
+    r"""The IdP group field to filter on. The only supported field is provider_instance.
 
     """
     values: List[str]
@@ -36,7 +36,7 @@ class PlatformIdpGroupFilter(BaseModel):
     r"""A filter on one IdP group field."""
 
     field: str
-    r"""The IdP group field to filter on. The supported fields are is_active and provider_instance.
+    r"""The IdP group field to filter on. The only supported field is provider_instance.
 
     """
 

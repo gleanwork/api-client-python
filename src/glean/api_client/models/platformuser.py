@@ -27,10 +27,6 @@ class PlatformUserTypedDict(TypedDict):
     """
     display_name: str
     r"""The name that Glean shows for the user."""
-    is_active: bool
-    r"""Whether the user is active. A user whose type is FORMER_EMPLOYEE is inactive.
-
-    """
     email: NotRequired[str]
     r"""Primary email address."""
     alias_emails: NotRequired[List[str]]
@@ -63,11 +59,6 @@ class PlatformUser(BaseModel):
 
     display_name: str
     r"""The name that Glean shows for the user."""
-
-    is_active: bool
-    r"""Whether the user is active. A user whose type is FORMER_EMPLOYEE is inactive.
-
-    """
 
     email: Optional[str] = None
     r"""Primary email address."""

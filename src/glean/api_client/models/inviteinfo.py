@@ -43,7 +43,7 @@ class InviteInfo(BaseModel):
     invite_time: Annotated[
         Optional[datetime],
         pydantic.Field(
-            deprecated="warning: ** DEPRECATED ** - Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use ChannelInviteInfo instead.",
+            deprecated="warning: ** DEPRECATED ** - Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Use ChannelInviteInfo instead.",
             alias="inviteTime",
         ),
     ] = None
@@ -52,7 +52,7 @@ class InviteInfo(BaseModel):
     reminder_time: Annotated[
         Optional[datetime],
         pydantic.Field(
-            deprecated="warning: ** DEPRECATED ** - Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use ChannelInviteInfo instead.",
+            deprecated="warning: ** DEPRECATED ** - Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Use ChannelInviteInfo instead.",
             alias="reminderTime",
         ),
     ] = None

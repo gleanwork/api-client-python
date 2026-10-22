@@ -11,7 +11,7 @@ import (
 
 // ViewerInfoRole - DEPRECATED - use permissions instead. Viewer's role on the specific document.
 //
-// Deprecated: Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use permissions instead.
+// Deprecated: Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Use permissions instead.
 type ViewerInfoRole string
 
 const (
@@ -44,7 +44,7 @@ func (e *ViewerInfoRole) UnmarshalJSON(data []byte) error {
 type ViewerInfo struct {
 	// DEPRECATED - use permissions instead. Viewer's role on the specific document.
 	//
-	// Deprecated: Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use permissions instead.
+	// Deprecated: Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Use permissions instead.
 	Role           *ViewerInfoRole `json:"role,omitempty"`
 	LastViewedTime *time.Time      `json:"lastViewedTime,omitempty"`
 }

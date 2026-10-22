@@ -322,11 +322,12 @@ For more information on obtaining the appropriate token type, please contact you
 ### [Admin.Idpgroups](docs/sdks/adminidpgroups/README.md)
 
 * [list](docs/sdks/adminidpgroups/README.md#list) - List IdP groups
+* [get](docs/sdks/adminidpgroups/README.md#get) - Get an IdP group
 
-### [Admin.Usage](docs/sdks/usage/README.md)
+### [Admin.Oauth.Clients](docs/sdks/clients/README.md)
 
-* [get_settings](docs/sdks/usage/README.md#get_settings) - Get usage settings
-* [update_settings](docs/sdks/usage/README.md#update_settings) - Update usage settings
+* [list](docs/sdks/clients/README.md#list) - List OAuth clients
+* [get](docs/sdks/clients/README.md#get) - Get an OAuth client
 
 ### [Agents](docs/sdks/agents/README.md)
 
@@ -341,6 +342,7 @@ For more information on obtaining the appropriate token type, please contact you
 ### [Chat](docs/sdks/chatsdk/README.md)
 
 * [create](docs/sdks/chatsdk/README.md#create) - Create a chat response
+* [update](docs/sdks/chatsdk/README.md#update) - Update a chat
 * [create_stream](docs/sdks/chatsdk/README.md#create_stream) - Create a streaming chat response
 
 ### [Client.Activity](docs/sdks/clientactivity/README.md)
@@ -500,6 +502,7 @@ For more information on obtaining the appropriate token type, please contact you
 ### [Departments](docs/sdks/departments/README.md)
 
 * [list](docs/sdks/departments/README.md#list) - List departments
+* [get](docs/sdks/departments/README.md#get) - Get a department
 
 ### [Indexing.Authentication](docs/sdks/indexingauthentication/README.md)
 
@@ -613,6 +616,7 @@ For more information on obtaining the appropriate token type, please contact you
 ### [Users](docs/sdks/users/README.md)
 
 * [list](docs/sdks/users/README.md#list) - List users
+* [get](docs/sdks/users/README.md#get) - Get user
 
 </details>
 <!-- End Available Resources and Operations [operations] -->

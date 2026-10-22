@@ -49,7 +49,19 @@ func (e *PlatformUserFilterOperator) UnmarshalJSON(data []byte) error {
 
 // PlatformUserFilter - A filter on one user field.
 type PlatformUserFilter struct {
-	// The user field to filter on. The only supported field is is_active.
+	// The user field to filter on.
+	// - name: matches users whose display_name contains the value, ignoring
+	//   case and surrounding whitespace. Each value is at most 256 characters.
+	//
+	// - email: matches the user with the email, ignoring case. An alias email
+	//   matches only when the list would return it in alias_emails.
+	//
+	// - manager_id: matches the direct reports of the user with this user_id. An
+	//   alias ID of a merged person matches the same reports.
+	//
+	// - department_id: matches users in the department, as returned in
+	//   department.department_id.
+	//
 	Field string `json:"field"`
 	// The values to match. A user matches when any value matches.
 	Values []string `json:"values"`

@@ -29,13 +29,13 @@ class Users(BaseSDK):
     ) -> models.PlatformListUsersResponse:
         r"""List users
 
-        List the users in the Glean directory, ordered by display_name and then by user_id. The list includes the same people as the Glean People directory. Inactive users, such as former employees, are left out unless an is_active filter includes the value \"false\". Use the returned user_id values with other Platform APIs, for example as usage limit targets.
+        List the users in the Glean directory, ordered by display_name and then by user_id. The list includes the same people as the Glean People directory. Filter by name, email, manager_id, or department_id to find specific users. Use the returned user_id values with other Platform APIs, for example as usage limit targets.
 
 
         :param page_size: Maximum number of users to return. Defaults to 50. Maximum is 100.
         :param cursor: Opaque pagination cursor from a previous response. Send the same filters that the previous request used.
 
-        :param filters: JSON-encoded filters that choose which users are returned. The only supported field is is_active, with the values \"true\" and \"false\" and the operator EQUALS. Multiple values OR within a filter. Multiple filters AND together. Without an is_active filter, only active users are returned. To return active and inactive users, send [{\"field\":\"is_active\",\"values\":[\"true\",\"false\"]}].
+        :param filters: JSON-encoded filters that choose which users are returned. The supported fields are name, email, manager_id, and department_id, each with the operator EQUALS. Multiple values OR within a filter. Multiple filters AND together. Each field may appear in only one filter. A value that matches no user, such as an unknown email or department_id, returns no users rather than an error.
 
         :param include: Optional fields to add to each user. Each value only adds fields; it does not change which users are returned.
 
@@ -162,13 +162,13 @@ class Users(BaseSDK):
     ) -> models.PlatformListUsersResponse:
         r"""List users
 
-        List the users in the Glean directory, ordered by display_name and then by user_id. The list includes the same people as the Glean People directory. Inactive users, such as former employees, are left out unless an is_active filter includes the value \"false\". Use the returned user_id values with other Platform APIs, for example as usage limit targets.
+        List the users in the Glean directory, ordered by display_name and then by user_id. The list includes the same people as the Glean People directory. Filter by name, email, manager_id, or department_id to find specific users. Use the returned user_id values with other Platform APIs, for example as usage limit targets.
 
 
         :param page_size: Maximum number of users to return. Defaults to 50. Maximum is 100.
         :param cursor: Opaque pagination cursor from a previous response. Send the same filters that the previous request used.
 
-        :param filters: JSON-encoded filters that choose which users are returned. The only supported field is is_active, with the values \"true\" and \"false\" and the operator EQUALS. Multiple values OR within a filter. Multiple filters AND together. Without an is_active filter, only active users are returned. To return active and inactive users, send [{\"field\":\"is_active\",\"values\":[\"true\",\"false\"]}].
+        :param filters: JSON-encoded filters that choose which users are returned. The supported fields are name, email, manager_id, and department_id, each with the operator EQUALS. Multiple values OR within a filter. Multiple filters AND together. Each field may appear in only one filter. A value that matches no user, such as an unknown email or department_id, returns no users rather than an error.
 
         :param include: Optional fields to add to each user. Each value only adds fields; it does not change which users are returned.
 
@@ -253,6 +253,242 @@ class Users(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return unmarshal_json_response(models.PlatformListUsersResponse, http_res)
+        if utils.match_response(
+            http_res,
+            ["400", "401", "403", "404", "408", "429"],
+            "application/problem+json",
+        ):
+            response_data = unmarshal_json_response(
+                errors.PlatformProblemDetailErrorData, http_res
+            )
+            raise errors.PlatformProblemDetailError(response_data, http_res)
+        if utils.match_response(http_res, ["500", "503"], "application/problem+json"):
+            response_data = unmarshal_json_response(
+                errors.PlatformProblemDetailErrorData, http_res
+            )
+            raise errors.PlatformProblemDetailError(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
+
+        raise errors.GleanError("Unexpected response received", http_res)
+
+    def get(
+        self,
+        *,
+        user_id: str,
+        include: Optional[Iterable[models.PlatformUserInclude]] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.PlatformGetUserResponse:
+        r"""Get user
+
+        Get one user in the Glean directory by user_id. The user can be any person that the list returns. A user_id that is not in the directory returns 404 resource_not_found. This includes a deleted user and a person that the People directory does not show. An alias ID of a merged person returns the person's canonical user_id.
+
+
+        :param user_id: Canonical Glean user ID, as the list returns it.
+        :param include: Optional fields to add to the user. Each value only adds fields.
+
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.PlatformUsersGetRequest(
+            user_id=user_id,
+            include=utils.unmarshal(
+                include, Optional[List[models.PlatformUserInclude]]
+            ),
+        )
+
+        req = self._build_request(
+            method="GET",
+            path="/api/users/{user_id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="platform-users-get",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Users"],
+                extensions={
+                    "x-glean-experimental": {
+                        "id": "b5ed1294-d3cb-47dd-8dc0-0272549f00f9",
+                        "introduced": "2026-10-15",
+                    },
+                    "x-glean-scopes": {
+                        "legacy": ["PEOPLE"],
+                        "platform": ["users:read"],
+                    },
+                    "x-visibility": "Public",
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.PlatformGetUserResponse, http_res)
+        if utils.match_response(
+            http_res,
+            ["400", "401", "403", "404", "408", "429"],
+            "application/problem+json",
+        ):
+            response_data = unmarshal_json_response(
+                errors.PlatformProblemDetailErrorData, http_res
+            )
+            raise errors.PlatformProblemDetailError(response_data, http_res)
+        if utils.match_response(http_res, ["500", "503"], "application/problem+json"):
+            response_data = unmarshal_json_response(
+                errors.PlatformProblemDetailErrorData, http_res
+            )
+            raise errors.PlatformProblemDetailError(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
+
+        raise errors.GleanError("Unexpected response received", http_res)
+
+    async def get_async(
+        self,
+        *,
+        user_id: str,
+        include: Optional[Iterable[models.PlatformUserInclude]] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.PlatformGetUserResponse:
+        r"""Get user
+
+        Get one user in the Glean directory by user_id. The user can be any person that the list returns. A user_id that is not in the directory returns 404 resource_not_found. This includes a deleted user and a person that the People directory does not show. An alias ID of a merged person returns the person's canonical user_id.
+
+
+        :param user_id: Canonical Glean user ID, as the list returns it.
+        :param include: Optional fields to add to the user. Each value only adds fields.
+
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.PlatformUsersGetRequest(
+            user_id=user_id,
+            include=utils.unmarshal(
+                include, Optional[List[models.PlatformUserInclude]]
+            ),
+        )
+
+        req = self._build_request_async(
+            method="GET",
+            path="/api/users/{user_id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="platform-users-get",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Users"],
+                extensions={
+                    "x-glean-experimental": {
+                        "id": "b5ed1294-d3cb-47dd-8dc0-0272549f00f9",
+                        "introduced": "2026-10-15",
+                    },
+                    "x-glean-scopes": {
+                        "legacy": ["PEOPLE"],
+                        "platform": ["users:read"],
+                    },
+                    "x-visibility": "Public",
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.PlatformGetUserResponse, http_res)
         if utils.match_response(
             http_res,
             ["400", "401", "403", "404", "408", "429"],

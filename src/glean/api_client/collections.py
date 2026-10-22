@@ -1750,6 +1750,7 @@ class Collections(BaseSDK):
         self,
         *,
         locale: Optional[str] = None,
+        query: Optional[str] = None,
         include_audience: Optional[bool] = None,
         include_roles: Optional[bool] = None,
         allowed_datasource: Optional[str] = None,
@@ -1763,6 +1764,7 @@ class Collections(BaseSDK):
         List all existing Collections.
 
         :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
+        :param query: Case-insensitive substring search on collection names. Leading and trailing whitespace is ignored. An empty query does not filter collections.
         :param include_audience: Whether to include the audience filters with the listed Collections.
         :param include_roles: Whether to include the editor roles with the listed Collections.
         :param allowed_datasource: The datasource type this Collection can hold.
@@ -1785,6 +1787,7 @@ class Collections(BaseSDK):
         request = models.ListcollectionsRequestRequest(
             locale=locale,
             list_collections_request=models.ListCollectionsRequest(
+                query=query,
                 include_audience=include_audience,
                 include_roles=include_roles,
                 allowed_datasource=allowed_datasource,
@@ -1858,6 +1861,7 @@ class Collections(BaseSDK):
         self,
         *,
         locale: Optional[str] = None,
+        query: Optional[str] = None,
         include_audience: Optional[bool] = None,
         include_roles: Optional[bool] = None,
         allowed_datasource: Optional[str] = None,
@@ -1871,6 +1875,7 @@ class Collections(BaseSDK):
         List all existing Collections.
 
         :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
+        :param query: Case-insensitive substring search on collection names. Leading and trailing whitespace is ignored. An empty query does not filter collections.
         :param include_audience: Whether to include the audience filters with the listed Collections.
         :param include_roles: Whether to include the editor roles with the listed Collections.
         :param allowed_datasource: The datasource type this Collection can hold.
@@ -1893,6 +1898,7 @@ class Collections(BaseSDK):
         request = models.ListcollectionsRequestRequest(
             locale=locale,
             list_collections_request=models.ListCollectionsRequest(
+                query=query,
                 include_audience=include_audience,
                 include_roles=include_roles,
                 allowed_datasource=allowed_datasource,
