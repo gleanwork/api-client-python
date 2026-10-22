@@ -17,3 +17,17 @@ def test_admin_idpgroups_platform_admin_idp_groups_list():
 
         res = glean.admin.idpgroups.list(page_size=50)
         assert res is not None
+
+
+def test_admin_idpgroups_platform_admin_idp_groups_get():
+    test_http_client = create_test_http_client("platform-admin-idp-groups-get")
+
+    with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
+        client=test_http_client,
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+    ) as glean:
+        assert glean is not None
+
+        res = glean.admin.idpgroups.get(idp_group_id="{idp_group_id}")
+        assert res is not None

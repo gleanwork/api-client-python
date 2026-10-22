@@ -123,7 +123,7 @@ class EmployeeInfoDefinition(BaseModel):
     location: Annotated[
         Optional[str],
         pydantic.Field(
-            deprecated="warning: ** DEPRECATED ** - Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Field is deprecated."
+            deprecated="warning: ** DEPRECATED ** - Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Field is deprecated."
         ),
     ] = None
     r"""The employee's location (city/office name etc)."""

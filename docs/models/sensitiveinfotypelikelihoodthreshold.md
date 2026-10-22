@@ -1,6 +1,6 @@
 # ~~SensitiveInfoTypeLikelihoodThreshold~~
 
-> :warning: **DEPRECATED**: Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Field is deprecated.
+> :warning: **DEPRECATED**: Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Field is deprecated.
 
 ## Example Usage
 

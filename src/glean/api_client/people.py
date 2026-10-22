@@ -214,7 +214,7 @@ class People(BaseSDK):
         raise errors.GleanError("Unexpected response received", http_res)
 
     @deprecated(
-        "warning: ** DEPRECATED ** - Deprecated on 2026-02-03, removal scheduled for 2026-10-15: Endpoint is deprecated."
+        "warning: ** DEPRECATED ** - Deprecated on 2026-02-03, removal scheduled for 2027-01-15: Endpoint is deprecated."
     )
     def count(
         self,
@@ -295,7 +295,7 @@ class People(BaseSDK):
                         "id": "4f5df873-385e-4539-8183-cb764b0f06b9",
                         "introduced": "2026-02-03",
                         "message": "Endpoint is deprecated",
-                        "removal": "2026-10-15",
+                        "removal": "2027-01-15",
                     }
                 },
             ),
@@ -316,7 +316,7 @@ class People(BaseSDK):
         raise errors.GleanError("Unexpected response received", http_res)
 
     @deprecated(
-        "warning: ** DEPRECATED ** - Deprecated on 2026-02-03, removal scheduled for 2026-10-15: Endpoint is deprecated."
+        "warning: ** DEPRECATED ** - Deprecated on 2026-02-03, removal scheduled for 2027-01-15: Endpoint is deprecated."
     )
     async def count_async(
         self,
@@ -397,7 +397,7 @@ class People(BaseSDK):
                         "id": "4f5df873-385e-4539-8183-cb764b0f06b9",
                         "introduced": "2026-02-03",
                         "message": "Endpoint is deprecated",
-                        "removal": "2026-10-15",
+                        "removal": "2027-01-15",
                     }
                 },
             ),

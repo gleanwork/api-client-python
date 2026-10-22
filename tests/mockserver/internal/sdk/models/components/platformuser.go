@@ -14,9 +14,6 @@ type PlatformUser struct {
 	// The user's other email addresses, sorted, without the primary email. Absent when the user has none or the workspace does not show alias emails.
 	//
 	AliasEmails []string `json:"alias_emails,omitempty"`
-	// Whether the user is active. A user whose type is FORMER_EMPLOYEE is inactive.
-	//
-	IsActive bool `json:"is_active"`
 	// Person employment status or account type.
 	UserType *PlatformPersonType `json:"user_type,omitempty"`
 	// Job title.
@@ -58,13 +55,6 @@ func (o *PlatformUser) GetAliasEmails() []string {
 		return nil
 	}
 	return o.AliasEmails
-}
-
-func (o *PlatformUser) GetIsActive() bool {
-	if o == nil {
-		return false
-	}
-	return o.IsActive
 }
 
 func (o *PlatformUser) GetUserType() *PlatformPersonType {

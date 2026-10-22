@@ -28,13 +28,13 @@ class AdminIdpgroups(BaseSDK):
     ) -> models.PlatformListIdpGroupsResponse:
         r"""List IdP groups
 
-        List the identity provider (IdP) groups that Glean loads from the directory, ordered by display_name and then by idp_group_id. Use idp_group_id to name a group in other Platform APIs. An IdP group is active when Glean loaded it from the directory. An IdP group is inactive when only a usage limit names it, for example after the group was removed from the identity provider. Inactive IdP groups are left out unless an is_active filter includes the value \"false\". Usage limits apply only to IdP groups from the datasource instance that the usage settings select, so use the provider_instance filter to list only those groups. Internal O365 ownership groups and SharePoint groups are left out. The caller must be able to read the workspace configuration or the workspace billing.
+        List the identity provider (IdP) groups that Glean loads from the directory, ordered by display_name and then by idp_group_id. Use idp_group_id to name a group in other Platform APIs, such as the usage limit evaluation and limit increase request APIs. Usage limits apply only to IdP groups from the datasource instance in usage_settings.user_grouping.idp_group_provider_instance of the get usage settings response, and this API always lists that instance's groups. To list only those groups, pass that value in a provider_instance filter of the filters parameter, for example `filters=[{\"field\":\"provider_instance\",\"operator\":\"EQUALS\",\"values\":[\"okta\"]}]`, URL-encoded as `filters=%5B%7B%22field%22%3A%22provider_instance%22%2C%22operator%22%3A%22EQUALS%22%2C%22values%22%3A%5B%22okta%22%5D%7D%5D`. Internal O365 ownership groups and SharePoint groups are left out. The caller must be able to read the workspace configuration or the workspace billing.
 
 
         :param page_size: Maximum number of IdP groups to return. Defaults to 50. Maximum is 100.
         :param cursor: Opaque pagination cursor from a previous response. Send the same filters that the previous request used.
 
-        :param filters: JSON-encoded filters that choose which IdP groups are returned. The supported fields are is_active, with the values \"true\" and \"false\", and provider_instance, with datasource instance names such as \"okta\". provider_instance values match without case. The only supported operator is EQUALS. Multiple values OR within a filter. Multiple filters AND together. Without an is_active filter, only active IdP groups are returned. To return active and inactive IdP groups, send [{\"field\":\"is_active\",\"values\":[\"true\",\"false\"]}].
+        :param filters: JSON-encoded filters that choose which IdP groups are returned. The only supported field is provider_instance, with datasource instance names such as \"okta\". provider_instance values match without case. The only supported operator is EQUALS. Multiple values OR within a filter. Multiple filters AND together.
 
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -157,13 +157,13 @@ class AdminIdpgroups(BaseSDK):
     ) -> models.PlatformListIdpGroupsResponse:
         r"""List IdP groups
 
-        List the identity provider (IdP) groups that Glean loads from the directory, ordered by display_name and then by idp_group_id. Use idp_group_id to name a group in other Platform APIs. An IdP group is active when Glean loaded it from the directory. An IdP group is inactive when only a usage limit names it, for example after the group was removed from the identity provider. Inactive IdP groups are left out unless an is_active filter includes the value \"false\". Usage limits apply only to IdP groups from the datasource instance that the usage settings select, so use the provider_instance filter to list only those groups. Internal O365 ownership groups and SharePoint groups are left out. The caller must be able to read the workspace configuration or the workspace billing.
+        List the identity provider (IdP) groups that Glean loads from the directory, ordered by display_name and then by idp_group_id. Use idp_group_id to name a group in other Platform APIs, such as the usage limit evaluation and limit increase request APIs. Usage limits apply only to IdP groups from the datasource instance in usage_settings.user_grouping.idp_group_provider_instance of the get usage settings response, and this API always lists that instance's groups. To list only those groups, pass that value in a provider_instance filter of the filters parameter, for example `filters=[{\"field\":\"provider_instance\",\"operator\":\"EQUALS\",\"values\":[\"okta\"]}]`, URL-encoded as `filters=%5B%7B%22field%22%3A%22provider_instance%22%2C%22operator%22%3A%22EQUALS%22%2C%22values%22%3A%5B%22okta%22%5D%7D%5D`. Internal O365 ownership groups and SharePoint groups are left out. The caller must be able to read the workspace configuration or the workspace billing.
 
 
         :param page_size: Maximum number of IdP groups to return. Defaults to 50. Maximum is 100.
         :param cursor: Opaque pagination cursor from a previous response. Send the same filters that the previous request used.
 
-        :param filters: JSON-encoded filters that choose which IdP groups are returned. The supported fields are is_active, with the values \"true\" and \"false\", and provider_instance, with datasource instance names such as \"okta\". provider_instance values match without case. The only supported operator is EQUALS. Multiple values OR within a filter. Multiple filters AND together. Without an is_active filter, only active IdP groups are returned. To return active and inactive IdP groups, send [{\"field\":\"is_active\",\"values\":[\"true\",\"false\"]}].
+        :param filters: JSON-encoded filters that choose which IdP groups are returned. The only supported field is provider_instance, with datasource instance names such as \"okta\". provider_instance values match without case. The only supported operator is EQUALS. Multiple values OR within a filter. Multiple filters AND together.
 
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -245,6 +245,232 @@ class AdminIdpgroups(BaseSDK):
             return unmarshal_json_response(
                 models.PlatformListIdpGroupsResponse, http_res
             )
+        if utils.match_response(
+            http_res,
+            ["400", "401", "403", "404", "408", "429"],
+            "application/problem+json",
+        ):
+            response_data = unmarshal_json_response(
+                errors.PlatformProblemDetailErrorData, http_res
+            )
+            raise errors.PlatformProblemDetailError(response_data, http_res)
+        if utils.match_response(http_res, ["500", "503"], "application/problem+json"):
+            response_data = unmarshal_json_response(
+                errors.PlatformProblemDetailErrorData, http_res
+            )
+            raise errors.PlatformProblemDetailError(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
+
+        raise errors.GleanError("Unexpected response received", http_res)
+
+    def get(
+        self,
+        *,
+        idp_group_id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.PlatformGetIdpGroupResponse:
+        r"""Get an IdP group
+
+        Get one identity provider (IdP) group by its idp_group_id. An idp_group_id that is not valid, or that names no group that the list returns, returns 404 resource_not_found. A group that was removed from the identity provider returns 404 after Glean reloads the directory. The caller must be able to read the workspace configuration or the workspace billing.
+
+
+        :param idp_group_id: The idp_group_id from a list IdP groups response or a usage API response. IDs are opaque. Do not parse or build them.
+
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.PlatformAdminIdpGroupsGetRequest(
+            idp_group_id=idp_group_id,
+        )
+
+        req = self._build_request(
+            method="GET",
+            path="/api/admin/idp-groups/{idp_group_id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="platform-admin-idp-groups-get",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["IdP Groups"],
+                extensions={
+                    "x-glean-experimental": {
+                        "id": "a725ef7b-baf5-48a4-b19f-d460398e30bb",
+                        "introduced": "2026-10-15",
+                    },
+                    "x-glean-scopes": {
+                        "legacy": ["ADMIN", "ADMIN_USAGE"],
+                        "platform": ["admin.idp_groups:read"],
+                    },
+                    "x-visibility": "Public",
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.PlatformGetIdpGroupResponse, http_res)
+        if utils.match_response(
+            http_res,
+            ["400", "401", "403", "404", "408", "429"],
+            "application/problem+json",
+        ):
+            response_data = unmarshal_json_response(
+                errors.PlatformProblemDetailErrorData, http_res
+            )
+            raise errors.PlatformProblemDetailError(response_data, http_res)
+        if utils.match_response(http_res, ["500", "503"], "application/problem+json"):
+            response_data = unmarshal_json_response(
+                errors.PlatformProblemDetailErrorData, http_res
+            )
+            raise errors.PlatformProblemDetailError(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
+
+        raise errors.GleanError("Unexpected response received", http_res)
+
+    async def get_async(
+        self,
+        *,
+        idp_group_id: str,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.PlatformGetIdpGroupResponse:
+        r"""Get an IdP group
+
+        Get one identity provider (IdP) group by its idp_group_id. An idp_group_id that is not valid, or that names no group that the list returns, returns 404 resource_not_found. A group that was removed from the identity provider returns 404 after Glean reloads the directory. The caller must be able to read the workspace configuration or the workspace billing.
+
+
+        :param idp_group_id: The idp_group_id from a list IdP groups response or a usage API response. IDs are opaque. Do not parse or build them.
+
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.PlatformAdminIdpGroupsGetRequest(
+            idp_group_id=idp_group_id,
+        )
+
+        req = self._build_request_async(
+            method="GET",
+            path="/api/admin/idp-groups/{idp_group_id}",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="platform-admin-idp-groups-get",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["IdP Groups"],
+                extensions={
+                    "x-glean-experimental": {
+                        "id": "a725ef7b-baf5-48a4-b19f-d460398e30bb",
+                        "introduced": "2026-10-15",
+                    },
+                    "x-glean-scopes": {
+                        "legacy": ["ADMIN", "ADMIN_USAGE"],
+                        "platform": ["admin.idp_groups:read"],
+                    },
+                    "x-visibility": "Public",
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(models.PlatformGetIdpGroupResponse, http_res)
         if utils.match_response(
             http_res,
             ["400", "401", "403", "404", "408", "429"],

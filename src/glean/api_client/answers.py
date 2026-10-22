@@ -1002,7 +1002,7 @@ class Answers(BaseSDK):
         raise errors.GleanError("Unexpected response received", http_res)
 
     @deprecated(
-        "warning: ** DEPRECATED ** - Deprecated on 2026-01-21, removal scheduled for 2026-10-15: Answer boards have been removed and this endpoint no longer serves a purpose."
+        "warning: ** DEPRECATED ** - Deprecated on 2026-01-21, removal scheduled for 2027-01-15: Answer boards have been removed and this endpoint no longer serves a purpose."
     )
     def list(
         self,
@@ -1090,7 +1090,7 @@ class Answers(BaseSDK):
                         "id": "4c0923bd-64c7-45b9-99a5-b36f2705e618",
                         "introduced": "2026-01-21",
                         "message": "Answer boards have been removed and this endpoint no longer serves a purpose",
-                        "removal": "2026-10-15",
+                        "removal": "2027-01-15",
                     },
                     "x-visibility": "Public",
                 },
@@ -1112,7 +1112,7 @@ class Answers(BaseSDK):
         raise errors.GleanError("Unexpected response received", http_res)
 
     @deprecated(
-        "warning: ** DEPRECATED ** - Deprecated on 2026-01-21, removal scheduled for 2026-10-15: Answer boards have been removed and this endpoint no longer serves a purpose."
+        "warning: ** DEPRECATED ** - Deprecated on 2026-01-21, removal scheduled for 2027-01-15: Answer boards have been removed and this endpoint no longer serves a purpose."
     )
     async def list_async(
         self,
@@ -1200,7 +1200,7 @@ class Answers(BaseSDK):
                         "id": "4c0923bd-64c7-45b9-99a5-b36f2705e618",
                         "introduced": "2026-01-21",
                         "message": "Answer boards have been removed and this endpoint no longer serves a purpose",
-                        "removal": "2026-10-15",
+                        "removal": "2027-01-15",
                     },
                     "x-visibility": "Public",
                 },

@@ -50,7 +50,6 @@ func testPlatformUsersListPlatformUsersList0(w http.ResponseWriter, req *http.Re
 			components.PlatformUser{
 				UserID:      "<id>",
 				DisplayName: "Raina1",
-				IsActive:    true,
 			},
 		},
 		HasMore:   true,

@@ -9,6 +9,8 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class ListCollectionsRequestTypedDict(TypedDict):
+    query: NotRequired[str]
+    r"""Case-insensitive substring search on collection names. Leading and trailing whitespace is ignored. An empty query does not filter collections."""
     include_audience: NotRequired[bool]
     r"""Whether to include the audience filters with the listed Collections."""
     include_roles: NotRequired[bool]
@@ -20,6 +22,9 @@ class ListCollectionsRequestTypedDict(TypedDict):
 
 
 class ListCollectionsRequest(BaseModel):
+    query: Optional[str] = None
+    r"""Case-insensitive substring search on collection names. Leading and trailing whitespace is ignored. An empty query does not filter collections."""
+
     include_audience: Annotated[
         Optional[bool], pydantic.Field(alias="includeAudience")
     ] = None
@@ -39,7 +44,9 @@ class ListCollectionsRequest(BaseModel):
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["includeAudience", "includeRoles", "allowedDatasource"])
+        optional_fields = set(
+            ["query", "includeAudience", "includeRoles", "allowedDatasource"]
+        )
         serialized = handler(self)
         m = {}
 

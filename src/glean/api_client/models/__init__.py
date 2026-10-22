@@ -1288,9 +1288,21 @@ if TYPE_CHECKING:
         PlatformAdminAgentsListRequest,
         PlatformAdminAgentsListRequestTypedDict,
     )
+    from .platform_admin_idp_groups_getop import (
+        PlatformAdminIdpGroupsGetRequest,
+        PlatformAdminIdpGroupsGetRequestTypedDict,
+    )
     from .platform_admin_idp_groups_listop import (
         PlatformAdminIdpGroupsListRequest,
         PlatformAdminIdpGroupsListRequestTypedDict,
+    )
+    from .platform_admin_oauth_clients_getop import (
+        PlatformAdminOauthClientsGetRequest,
+        PlatformAdminOauthClientsGetRequestTypedDict,
+    )
+    from .platform_admin_oauth_clients_listop import (
+        PlatformAdminOauthClientsListRequest,
+        PlatformAdminOauthClientsListRequestTypedDict,
     )
     from .platform_agents_cancel_runop import (
         PlatformAgentsCancelRunRequest,
@@ -1337,6 +1349,14 @@ if TYPE_CHECKING:
         PlatformChatCreateRequestTypedDict,
         PlatformChatCreateText,
         PlatformChatCreateTextTypedDict,
+    )
+    from .platform_chat_updateop import (
+        PlatformChatUpdateRequestRequest,
+        PlatformChatUpdateRequestRequestTypedDict,
+    )
+    from .platform_departments_getop import (
+        PlatformDepartmentsGetRequest,
+        PlatformDepartmentsGetRequestTypedDict,
     )
     from .platform_departments_listop import (
         PlatformDepartmentsListRequest,
@@ -1440,6 +1460,10 @@ if TYPE_CHECKING:
         PlatformTriggersUpdateRequest,
         PlatformTriggersUpdateRequestTypedDict,
     )
+    from .platform_users_getop import (
+        PlatformUsersGetRequest,
+        PlatformUsersGetRequestTypedDict,
+    )
     from .platform_users_listop import (
         PlatformUsersListRequest,
         PlatformUsersListRequestTypedDict,
@@ -1517,6 +1541,7 @@ if TYPE_CHECKING:
         PlatformAuthenticationSuggestion,
         PlatformAuthenticationSuggestionTypedDict,
     )
+    from .platformchat import PlatformChat, PlatformChatTypedDict
     from .platformchatcitationannotation import (
         PlatformChatCitationAnnotation,
         PlatformChatCitationAnnotationType,
@@ -1657,6 +1682,14 @@ if TYPE_CHECKING:
         PlatformChatTextFormatType,
         PlatformChatTextFormatTypedDict,
     )
+    from .platformchatupdaterequest import (
+        PlatformChatUpdateRequest,
+        PlatformChatUpdateRequestTypedDict,
+    )
+    from .platformchatupdateresponse import (
+        PlatformChatUpdateResponse,
+        PlatformChatUpdateResponseTypedDict,
+    )
     from .platformcontentschedulewebhookevent import (
         PlatformContentScheduleWebhookEvent,
         PlatformContentScheduleWebhookEventTypedDict,
@@ -1665,12 +1698,6 @@ if TYPE_CHECKING:
     from .platformdatasourcefilterinfo import (
         PlatformDatasourceFilterInfo,
         PlatformDatasourceFilterInfoTypedDict,
-    )
-    from .platformdepartment import PlatformDepartment, PlatformDepartmentTypedDict
-    from .platformdepartmentfilter import (
-        PlatformDepartmentFilter,
-        PlatformDepartmentFilterOperator,
-        PlatformDepartmentFilterTypedDict,
     )
     from .platformdepartmentreference import (
         PlatformDepartmentReference,
@@ -1690,16 +1717,27 @@ if TYPE_CHECKING:
         PlatformFilterFieldInfoTypedDict,
     )
     from .platformfilteroperator import PlatformFilterOperator
+    from .platformgetdepartmentresponse import (
+        PlatformGetDepartmentResponse,
+        PlatformGetDepartmentResponseTypedDict,
+    )
+    from .platformgetidpgroupresponse import (
+        PlatformGetIdpGroupResponse,
+        PlatformGetIdpGroupResponseTypedDict,
+    )
+    from .platformgetoauthclientresponse import (
+        PlatformGetOAuthClientResponse,
+        PlatformGetOAuthClientResponseTypedDict,
+    )
+    from .platformgetuserresponse import (
+        PlatformGetUserResponse,
+        PlatformGetUserResponseTypedDict,
+    )
     from .platformidpgroup import PlatformIdpGroup, PlatformIdpGroupTypedDict
     from .platformidpgroupfilter import (
         PlatformIdpGroupFilter,
         PlatformIdpGroupFilterOperator,
         PlatformIdpGroupFilterTypedDict,
-    )
-    from .platformlimitincreaserequestsettings import (
-        BusinessJustification,
-        PlatformLimitIncreaseRequestSettings,
-        PlatformLimitIncreaseRequestSettingsTypedDict,
     )
     from .platformlistadminagentsresponse import (
         PlatformListAdminAgentsResponse,
@@ -1712,6 +1750,10 @@ if TYPE_CHECKING:
     from .platformlistidpgroupsresponse import (
         PlatformListIdpGroupsResponse,
         PlatformListIdpGroupsResponseTypedDict,
+    )
+    from .platformlistoauthclientsresponse import (
+        PlatformListOAuthClientsResponse,
+        PlatformListOAuthClientsResponseTypedDict,
     )
     from .platformlistusersresponse import (
         PlatformListUsersResponse,
@@ -1731,14 +1773,21 @@ if TYPE_CHECKING:
         PlatformMessageTextBlockInput,
         PlatformMessageTextBlockInputTypedDict,
     )
-    from .platformmultiplemembershipresolutionsettings import (
-        PlatformMultipleMembershipResolutionSettings,
-        PlatformMultipleMembershipResolutionSettingsTypedDict,
+    from .platformoauthclient import PlatformOAuthClient, PlatformOAuthClientTypedDict
+    from .platformoauthclientaigateway import (
+        PlatformOAuthClientAiGateway,
+        PlatformOAuthClientAiGatewayTypedDict,
     )
-    from .platformpermembersettings import (
-        IdpGroups,
-        PlatformPerMemberSettings,
-        PlatformPerMemberSettingsTypedDict,
+    from .platformoauthclientfilter import (
+        PlatformOAuthClientFilter,
+        PlatformOAuthClientFilterOperator,
+        PlatformOAuthClientFilterTypedDict,
+    )
+    from .platformoauthclientregistrationtype import PlatformOAuthClientRegistrationType
+    from .platformoauthclienttype import PlatformOAuthClientType
+    from .platformoauthgranttype import PlatformOAuthGrantType
+    from .platformoauthtokenendpointauthmethod import (
+        PlatformOAuthTokenEndpointAuthMethod,
     )
     from .platformpersonreference import (
         PlatformPersonReference,
@@ -2014,22 +2063,6 @@ if TYPE_CHECKING:
     from .platformtriggerwithsecret import (
         PlatformTriggerWithSecret,
         PlatformTriggerWithSecretTypedDict,
-    )
-    from .platformusagesettingsresource import (
-        PlatformUsageSettingsResource,
-        PlatformUsageSettingsResourceTypedDict,
-    )
-    from .platformusagesettingsresponse import (
-        PlatformUsageSettingsResponse,
-        PlatformUsageSettingsResponseTypedDict,
-    )
-    from .platformusagesettingsupdaterequest_union import (
-        PlatformUsageSettingsUpdateRequest1,
-        PlatformUsageSettingsUpdateRequest1TypedDict,
-        PlatformUsageSettingsUpdateRequest2,
-        PlatformUsageSettingsUpdateRequest2TypedDict,
-        PlatformUsageSettingsUpdateRequestUnion,
-        PlatformUsageSettingsUpdateRequestUnionTypedDict,
     )
     from .platformuser import PlatformUser, PlatformUserTypedDict
     from .platformuserdatasourceprofile import (
@@ -2611,7 +2644,6 @@ __all__ = [
     "BulkUploadHistoryEventTypedDict",
     "Bundle",
     "BundleTypedDict",
-    "BusinessJustification",
     "CalendarAttendee",
     "CalendarAttendeeTypedDict",
     "CalendarAttendees",
@@ -3233,7 +3265,6 @@ __all__ = [
     "IconType",
     "Identity",
     "IdentityTypedDict",
-    "IdpGroups",
     "ImportAgentRequest",
     "ImportAgentRequestRequest",
     "ImportAgentRequestRequestTypedDict",
@@ -3450,8 +3481,14 @@ __all__ = [
     "PlatformAdminAgentTypedDict",
     "PlatformAdminAgentsListRequest",
     "PlatformAdminAgentsListRequestTypedDict",
+    "PlatformAdminIdpGroupsGetRequest",
+    "PlatformAdminIdpGroupsGetRequestTypedDict",
     "PlatformAdminIdpGroupsListRequest",
     "PlatformAdminIdpGroupsListRequestTypedDict",
+    "PlatformAdminOauthClientsGetRequest",
+    "PlatformAdminOauthClientsGetRequestTypedDict",
+    "PlatformAdminOauthClientsListRequest",
+    "PlatformAdminOauthClientsListRequestTypedDict",
     "PlatformAgent",
     "PlatformAgentCapabilities",
     "PlatformAgentCapabilitiesTypedDict",
@@ -3501,6 +3538,7 @@ __all__ = [
     "PlatformAgentsSearchResponseTypedDict",
     "PlatformAuthenticationSuggestion",
     "PlatformAuthenticationSuggestionTypedDict",
+    "PlatformChat",
     "PlatformChatCitationAnnotation",
     "PlatformChatCitationAnnotationType",
     "PlatformChatCitationAnnotationTypedDict",
@@ -3599,18 +3637,22 @@ __all__ = [
     "PlatformChatTextFormat",
     "PlatformChatTextFormatType",
     "PlatformChatTextFormatTypedDict",
+    "PlatformChatTypedDict",
+    "PlatformChatUpdateRequest",
+    "PlatformChatUpdateRequestRequest",
+    "PlatformChatUpdateRequestRequestTypedDict",
+    "PlatformChatUpdateRequestTypedDict",
+    "PlatformChatUpdateResponse",
+    "PlatformChatUpdateResponseTypedDict",
     "PlatformContentScheduleWebhookEvent",
     "PlatformContentScheduleWebhookEventTypedDict",
     "PlatformContentType",
     "PlatformDatasourceFilterInfo",
     "PlatformDatasourceFilterInfoTypedDict",
-    "PlatformDepartment",
-    "PlatformDepartmentFilter",
-    "PlatformDepartmentFilterOperator",
-    "PlatformDepartmentFilterTypedDict",
     "PlatformDepartmentReference",
     "PlatformDepartmentReferenceTypedDict",
-    "PlatformDepartmentTypedDict",
+    "PlatformDepartmentsGetRequest",
+    "PlatformDepartmentsGetRequestTypedDict",
     "PlatformDepartmentsListRequest",
     "PlatformDepartmentsListRequestTypedDict",
     "PlatformDocumentChangeWebhookEvent",
@@ -3622,19 +3664,27 @@ __all__ = [
     "PlatformFilterFieldInfoTypedDict",
     "PlatformFilterOperator",
     "PlatformFilterTypedDict",
+    "PlatformGetDepartmentResponse",
+    "PlatformGetDepartmentResponseTypedDict",
+    "PlatformGetIdpGroupResponse",
+    "PlatformGetIdpGroupResponseTypedDict",
+    "PlatformGetOAuthClientResponse",
+    "PlatformGetOAuthClientResponseTypedDict",
+    "PlatformGetUserResponse",
+    "PlatformGetUserResponseTypedDict",
     "PlatformIdpGroup",
     "PlatformIdpGroupFilter",
     "PlatformIdpGroupFilterOperator",
     "PlatformIdpGroupFilterTypedDict",
     "PlatformIdpGroupTypedDict",
-    "PlatformLimitIncreaseRequestSettings",
-    "PlatformLimitIncreaseRequestSettingsTypedDict",
     "PlatformListAdminAgentsResponse",
     "PlatformListAdminAgentsResponseTypedDict",
     "PlatformListDepartmentsResponse",
     "PlatformListDepartmentsResponseTypedDict",
     "PlatformListIdpGroupsResponse",
     "PlatformListIdpGroupsResponseTypedDict",
+    "PlatformListOAuthClientsResponse",
+    "PlatformListOAuthClientsResponseTypedDict",
     "PlatformListUsersResponse",
     "PlatformListUsersResponseTypedDict",
     "PlatformMessage",
@@ -3646,10 +3696,17 @@ __all__ = [
     "PlatformMessageTextBlockInputTypedDict",
     "PlatformMessageTextBlockTypedDict",
     "PlatformMessageTypedDict",
-    "PlatformMultipleMembershipResolutionSettings",
-    "PlatformMultipleMembershipResolutionSettingsTypedDict",
-    "PlatformPerMemberSettings",
-    "PlatformPerMemberSettingsTypedDict",
+    "PlatformOAuthClient",
+    "PlatformOAuthClientAiGateway",
+    "PlatformOAuthClientAiGatewayTypedDict",
+    "PlatformOAuthClientFilter",
+    "PlatformOAuthClientFilterOperator",
+    "PlatformOAuthClientFilterTypedDict",
+    "PlatformOAuthClientRegistrationType",
+    "PlatformOAuthClientType",
+    "PlatformOAuthClientTypedDict",
+    "PlatformOAuthGrantType",
+    "PlatformOAuthTokenEndpointAuthMethod",
     "PlatformPersonReference",
     "PlatformPersonReferenceTypedDict",
     "PlatformPersonType",
@@ -3857,16 +3914,6 @@ __all__ = [
     "PlatformTriggersListRequestTypedDict",
     "PlatformTriggersUpdateRequest",
     "PlatformTriggersUpdateRequestTypedDict",
-    "PlatformUsageSettingsResource",
-    "PlatformUsageSettingsResourceTypedDict",
-    "PlatformUsageSettingsResponse",
-    "PlatformUsageSettingsResponseTypedDict",
-    "PlatformUsageSettingsUpdateRequest1",
-    "PlatformUsageSettingsUpdateRequest1TypedDict",
-    "PlatformUsageSettingsUpdateRequest2",
-    "PlatformUsageSettingsUpdateRequest2TypedDict",
-    "PlatformUsageSettingsUpdateRequestUnion",
-    "PlatformUsageSettingsUpdateRequestUnionTypedDict",
     "PlatformUser",
     "PlatformUserDatasourceProfile",
     "PlatformUserDatasourceProfileTypedDict",
@@ -3877,6 +3924,8 @@ __all__ = [
     "PlatformUserManager",
     "PlatformUserManagerTypedDict",
     "PlatformUserTypedDict",
+    "PlatformUsersGetRequest",
+    "PlatformUsersGetRequestTypedDict",
     "PlatformUsersListRequest",
     "PlatformUsersListRequestTypedDict",
     "PlatformWarning",
@@ -5159,8 +5208,14 @@ _dynamic_imports: dict[str, str] = {
     "PinRequestTypedDict": ".pinrequest",
     "PlatformAdminAgentsListRequest": ".platform_admin_agents_listop",
     "PlatformAdminAgentsListRequestTypedDict": ".platform_admin_agents_listop",
+    "PlatformAdminIdpGroupsGetRequest": ".platform_admin_idp_groups_getop",
+    "PlatformAdminIdpGroupsGetRequestTypedDict": ".platform_admin_idp_groups_getop",
     "PlatformAdminIdpGroupsListRequest": ".platform_admin_idp_groups_listop",
     "PlatformAdminIdpGroupsListRequestTypedDict": ".platform_admin_idp_groups_listop",
+    "PlatformAdminOauthClientsGetRequest": ".platform_admin_oauth_clients_getop",
+    "PlatformAdminOauthClientsGetRequestTypedDict": ".platform_admin_oauth_clients_getop",
+    "PlatformAdminOauthClientsListRequest": ".platform_admin_oauth_clients_listop",
+    "PlatformAdminOauthClientsListRequestTypedDict": ".platform_admin_oauth_clients_listop",
     "PlatformAgentsCancelRunRequest": ".platform_agents_cancel_runop",
     "PlatformAgentsCancelRunRequestTypedDict": ".platform_agents_cancel_runop",
     "PlatformAgentsCreateRunResponsesRequest": ".platform_agents_create_run_responsesop",
@@ -5191,6 +5246,10 @@ _dynamic_imports: dict[str, str] = {
     "PlatformChatCreateRequestTypedDict": ".platform_chat_createop",
     "PlatformChatCreateText": ".platform_chat_createop",
     "PlatformChatCreateTextTypedDict": ".platform_chat_createop",
+    "PlatformChatUpdateRequestRequest": ".platform_chat_updateop",
+    "PlatformChatUpdateRequestRequestTypedDict": ".platform_chat_updateop",
+    "PlatformDepartmentsGetRequest": ".platform_departments_getop",
+    "PlatformDepartmentsGetRequestTypedDict": ".platform_departments_getop",
     "PlatformDepartmentsListRequest": ".platform_departments_listop",
     "PlatformDepartmentsListRequestTypedDict": ".platform_departments_listop",
     "PlatformSearchFiltersRequest": ".platform_search_filtersop",
@@ -5245,6 +5304,8 @@ _dynamic_imports: dict[str, str] = {
     "PlatformTriggersListRequestTypedDict": ".platform_triggers_listop",
     "PlatformTriggersUpdateRequest": ".platform_triggers_updateop",
     "PlatformTriggersUpdateRequestTypedDict": ".platform_triggers_updateop",
+    "PlatformUsersGetRequest": ".platform_users_getop",
+    "PlatformUsersGetRequestTypedDict": ".platform_users_getop",
     "PlatformUsersListRequest": ".platform_users_listop",
     "PlatformUsersListRequestTypedDict": ".platform_users_listop",
     "PlatformActionSummary": ".platformactionsummary",
@@ -5291,6 +5352,8 @@ _dynamic_imports: dict[str, str] = {
     "PlatformAgentsSearchResponseTypedDict": ".platformagentssearchresponse",
     "PlatformAuthenticationSuggestion": ".platformauthenticationsuggestion",
     "PlatformAuthenticationSuggestionTypedDict": ".platformauthenticationsuggestion",
+    "PlatformChat": ".platformchat",
+    "PlatformChatTypedDict": ".platformchat",
     "PlatformChatCitationAnnotation": ".platformchatcitationannotation",
     "PlatformChatCitationAnnotationType": ".platformchatcitationannotation",
     "PlatformChatCitationAnnotationTypedDict": ".platformchatcitationannotation",
@@ -5375,16 +5438,15 @@ _dynamic_imports: dict[str, str] = {
     "PlatformChatTextFormat": ".platformchattextformat",
     "PlatformChatTextFormatType": ".platformchattextformat",
     "PlatformChatTextFormatTypedDict": ".platformchattextformat",
+    "PlatformChatUpdateRequest": ".platformchatupdaterequest",
+    "PlatformChatUpdateRequestTypedDict": ".platformchatupdaterequest",
+    "PlatformChatUpdateResponse": ".platformchatupdateresponse",
+    "PlatformChatUpdateResponseTypedDict": ".platformchatupdateresponse",
     "PlatformContentScheduleWebhookEvent": ".platformcontentschedulewebhookevent",
     "PlatformContentScheduleWebhookEventTypedDict": ".platformcontentschedulewebhookevent",
     "PlatformContentType": ".platformcontenttype",
     "PlatformDatasourceFilterInfo": ".platformdatasourcefilterinfo",
     "PlatformDatasourceFilterInfoTypedDict": ".platformdatasourcefilterinfo",
-    "PlatformDepartment": ".platformdepartment",
-    "PlatformDepartmentTypedDict": ".platformdepartment",
-    "PlatformDepartmentFilter": ".platformdepartmentfilter",
-    "PlatformDepartmentFilterOperator": ".platformdepartmentfilter",
-    "PlatformDepartmentFilterTypedDict": ".platformdepartmentfilter",
     "PlatformDepartmentReference": ".platformdepartmentreference",
     "PlatformDepartmentReferenceTypedDict": ".platformdepartmentreference",
     "PlatformDocumentChangeWebhookEvent": ".platformdocumentchangewebhookevent",
@@ -5396,20 +5458,27 @@ _dynamic_imports: dict[str, str] = {
     "PlatformFilterFieldInfo": ".platformfilterfieldinfo",
     "PlatformFilterFieldInfoTypedDict": ".platformfilterfieldinfo",
     "PlatformFilterOperator": ".platformfilteroperator",
+    "PlatformGetDepartmentResponse": ".platformgetdepartmentresponse",
+    "PlatformGetDepartmentResponseTypedDict": ".platformgetdepartmentresponse",
+    "PlatformGetIdpGroupResponse": ".platformgetidpgroupresponse",
+    "PlatformGetIdpGroupResponseTypedDict": ".platformgetidpgroupresponse",
+    "PlatformGetOAuthClientResponse": ".platformgetoauthclientresponse",
+    "PlatformGetOAuthClientResponseTypedDict": ".platformgetoauthclientresponse",
+    "PlatformGetUserResponse": ".platformgetuserresponse",
+    "PlatformGetUserResponseTypedDict": ".platformgetuserresponse",
     "PlatformIdpGroup": ".platformidpgroup",
     "PlatformIdpGroupTypedDict": ".platformidpgroup",
     "PlatformIdpGroupFilter": ".platformidpgroupfilter",
     "PlatformIdpGroupFilterOperator": ".platformidpgroupfilter",
     "PlatformIdpGroupFilterTypedDict": ".platformidpgroupfilter",
-    "BusinessJustification": ".platformlimitincreaserequestsettings",
-    "PlatformLimitIncreaseRequestSettings": ".platformlimitincreaserequestsettings",
-    "PlatformLimitIncreaseRequestSettingsTypedDict": ".platformlimitincreaserequestsettings",
     "PlatformListAdminAgentsResponse": ".platformlistadminagentsresponse",
     "PlatformListAdminAgentsResponseTypedDict": ".platformlistadminagentsresponse",
     "PlatformListDepartmentsResponse": ".platformlistdepartmentsresponse",
     "PlatformListDepartmentsResponseTypedDict": ".platformlistdepartmentsresponse",
     "PlatformListIdpGroupsResponse": ".platformlistidpgroupsresponse",
     "PlatformListIdpGroupsResponseTypedDict": ".platformlistidpgroupsresponse",
+    "PlatformListOAuthClientsResponse": ".platformlistoauthclientsresponse",
+    "PlatformListOAuthClientsResponseTypedDict": ".platformlistoauthclientsresponse",
     "PlatformListUsersResponse": ".platformlistusersresponse",
     "PlatformListUsersResponseTypedDict": ".platformlistusersresponse",
     "PlatformMessage": ".platformmessage",
@@ -5421,11 +5490,17 @@ _dynamic_imports: dict[str, str] = {
     "PlatformMessageTextBlockTypedDict": ".platformmessagetextblock",
     "PlatformMessageTextBlockInput": ".platformmessagetextblock_input",
     "PlatformMessageTextBlockInputTypedDict": ".platformmessagetextblock_input",
-    "PlatformMultipleMembershipResolutionSettings": ".platformmultiplemembershipresolutionsettings",
-    "PlatformMultipleMembershipResolutionSettingsTypedDict": ".platformmultiplemembershipresolutionsettings",
-    "IdpGroups": ".platformpermembersettings",
-    "PlatformPerMemberSettings": ".platformpermembersettings",
-    "PlatformPerMemberSettingsTypedDict": ".platformpermembersettings",
+    "PlatformOAuthClient": ".platformoauthclient",
+    "PlatformOAuthClientTypedDict": ".platformoauthclient",
+    "PlatformOAuthClientAiGateway": ".platformoauthclientaigateway",
+    "PlatformOAuthClientAiGatewayTypedDict": ".platformoauthclientaigateway",
+    "PlatformOAuthClientFilter": ".platformoauthclientfilter",
+    "PlatformOAuthClientFilterOperator": ".platformoauthclientfilter",
+    "PlatformOAuthClientFilterTypedDict": ".platformoauthclientfilter",
+    "PlatformOAuthClientRegistrationType": ".platformoauthclientregistrationtype",
+    "PlatformOAuthClientType": ".platformoauthclienttype",
+    "PlatformOAuthGrantType": ".platformoauthgranttype",
+    "PlatformOAuthTokenEndpointAuthMethod": ".platformoauthtokenendpointauthmethod",
     "PlatformPersonReference": ".platformpersonreference",
     "PlatformPersonReferenceTypedDict": ".platformpersonreference",
     "PlatformPersonType": ".platformpersontype",
@@ -5581,16 +5656,6 @@ _dynamic_imports: dict[str, str] = {
     "PlatformTriggerWebhookEventTypedDict": ".platformtriggerwebhookevent",
     "PlatformTriggerWithSecret": ".platformtriggerwithsecret",
     "PlatformTriggerWithSecretTypedDict": ".platformtriggerwithsecret",
-    "PlatformUsageSettingsResource": ".platformusagesettingsresource",
-    "PlatformUsageSettingsResourceTypedDict": ".platformusagesettingsresource",
-    "PlatformUsageSettingsResponse": ".platformusagesettingsresponse",
-    "PlatformUsageSettingsResponseTypedDict": ".platformusagesettingsresponse",
-    "PlatformUsageSettingsUpdateRequest1": ".platformusagesettingsupdaterequest_union",
-    "PlatformUsageSettingsUpdateRequest1TypedDict": ".platformusagesettingsupdaterequest_union",
-    "PlatformUsageSettingsUpdateRequest2": ".platformusagesettingsupdaterequest_union",
-    "PlatformUsageSettingsUpdateRequest2TypedDict": ".platformusagesettingsupdaterequest_union",
-    "PlatformUsageSettingsUpdateRequestUnion": ".platformusagesettingsupdaterequest_union",
-    "PlatformUsageSettingsUpdateRequestUnionTypedDict": ".platformusagesettingsupdaterequest_union",
     "PlatformUser": ".platformuser",
     "PlatformUserTypedDict": ".platformuser",
     "PlatformUserDatasourceProfile": ".platformuserdatasourceprofile",

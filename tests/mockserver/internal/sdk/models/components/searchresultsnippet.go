@@ -19,7 +19,7 @@ type SearchResultSnippet struct {
 	URL *string `json:"url,omitempty"`
 	// A matching snippet from the document. Query term matches are marked by the unicode characters uE006 and uE007. Use 'text' field instead.
 	//
-	// Deprecated: Deprecated on 2026-02-05, removal scheduled for 2026-10-15: Use 'text' field instead.
+	// Deprecated: Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Use 'text' field instead.
 	Snippet *string `json:"snippet,omitempty"`
 }
 

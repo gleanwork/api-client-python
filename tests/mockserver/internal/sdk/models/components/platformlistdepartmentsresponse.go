@@ -10,7 +10,7 @@ import (
 type PlatformListDepartmentsResponse struct {
 	// The departments on this page, ordered by display_name and then by department_id.
 	//
-	Results []PlatformDepartment `json:"results"`
+	Results []PlatformDepartmentReference `json:"results"`
 	// Whether more departments are available after this page.
 	HasMore bool `json:"has_more"`
 	// Opaque cursor for the next page; null or absent when has_more is false.
@@ -19,9 +19,9 @@ type PlatformListDepartmentsResponse struct {
 	RequestID string `json:"request_id"`
 }
 
-func (o *PlatformListDepartmentsResponse) GetResults() []PlatformDepartment {
+func (o *PlatformListDepartmentsResponse) GetResults() []PlatformDepartmentReference {
 	if o == nil {
-		return []PlatformDepartment{}
+		return []PlatformDepartmentReference{}
 	}
 	return o.Results
 }

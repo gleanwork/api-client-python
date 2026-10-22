@@ -42,3 +42,17 @@ def test_chat_sdk_platform_chat_create():
             },
         )
         assert res is not None
+
+
+def test_chat_sdk_platform_chat_update():
+    test_http_client = create_test_http_client("platform-chat-update")
+
+    with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
+        client=test_http_client,
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+    ) as glean:
+        assert glean is not None
+
+        res = glean.chat.update(chat_id="{chat_id}", name="<value>")
+        assert res is not None

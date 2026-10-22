@@ -74,3 +74,4 @@ value = FeedResultCategory.DOCUMENT_SUGGESTION
 | `MANAGER_INVITE`                    | MANAGER_INVITE                      |
 | `ONBOARDING_AUTHORIZATION`          | ONBOARDING_AUTHORIZATION            |
 | `CHAT_REMINDER`                     | CHAT_REMINDER                       |
+| `DISCOVER`                          | DISCOVER                            |
