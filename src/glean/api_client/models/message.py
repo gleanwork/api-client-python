@@ -7,9 +7,10 @@ from .chatcitationannotation import (
 )
 from .contenttype import ContentType
 from glean.api_client.types import BaseModel, UNSET_SENTINEL
+import pydantic
 from pydantic import model_serializer
 from typing import List, Optional
-from typing_extensions import NotRequired, TypedDict
+from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class MessageTextBlockTypedDict(TypedDict):
@@ -47,6 +48,8 @@ class MessageTypedDict(TypedDict):
     r"""The role of the message."""
     content: NotRequired[List[MessageTextBlockTypedDict]]
     r"""The content of the message."""
+    message_tracking_token: NotRequired[str]
+    r"""An opaque token that represents this particular agent message. Populated only on `GLEAN_AI` messages in responses. To record feedback, pass the token of the message being rated (typically the final `GLEAN_AI` message of the run) as the single entry in `trackingTokens` to `/feedback`, with `category: CHAT`."""
 
 
 class Message(BaseModel):
@@ -56,9 +59,14 @@ class Message(BaseModel):
     content: Optional[List[MessageTextBlock]] = None
     r"""The content of the message."""
 
+    message_tracking_token: Annotated[
+        Optional[str], pydantic.Field(alias="messageTrackingToken")
+    ] = None
+    r"""An opaque token that represents this particular agent message. Populated only on `GLEAN_AI` messages in responses. To record feedback, pass the token of the message being rated (typically the final `GLEAN_AI` message of the run) as the single entry in `trackingTokens` to `/feedback`, with `category: CHAT`."""
+
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
-        optional_fields = set(["role", "content"])
+        optional_fields = set(["role", "content", "messageTrackingToken"])
         serialized = handler(self)
         m = {}
 
@@ -71,3 +79,9 @@ class Message(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    Message.model_rebuild()
+except NameError:
+    pass

@@ -23,7 +23,15 @@ class PlatformIdpGroupFilterTypedDict(TypedDict):
     r"""A filter on one IdP group field."""
 
     field: str
-    r"""The IdP group field to filter on. The only supported field is provider_instance.
+    r"""The IdP group field to filter on.
+    - provider_instance: matches groups from the datasource instance, such as
+    \"okta\", ignoring case.
+
+    - provider: matches groups from the identity provider, such as \"okta\", ignoring
+    case.
+
+    - name: matches groups whose display_name contains the value, ignoring case and
+    surrounding whitespace. Each value is at most 256 characters.
 
     """
     values: List[str]
@@ -36,7 +44,15 @@ class PlatformIdpGroupFilter(BaseModel):
     r"""A filter on one IdP group field."""
 
     field: str
-    r"""The IdP group field to filter on. The only supported field is provider_instance.
+    r"""The IdP group field to filter on.
+    - provider_instance: matches groups from the datasource instance, such as
+    \"okta\", ignoring case.
+
+    - provider: matches groups from the identity provider, such as \"okta\", ignoring
+    case.
+
+    - name: matches groups whose display_name contains the value, ignoring case and
+    surrounding whitespace. Each value is at most 256 characters.
 
     """
 
