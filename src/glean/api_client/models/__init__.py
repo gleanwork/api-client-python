@@ -1699,6 +1699,11 @@ if TYPE_CHECKING:
         PlatformDatasourceFilterInfo,
         PlatformDatasourceFilterInfoTypedDict,
     )
+    from .platformdepartmentfilter import (
+        PlatformDepartmentFilter,
+        PlatformDepartmentFilterOperator,
+        PlatformDepartmentFilterTypedDict,
+    )
     from .platformdepartmentreference import (
         PlatformDepartmentReference,
         PlatformDepartmentReferenceTypedDict,
@@ -3649,6 +3654,9 @@ __all__ = [
     "PlatformContentType",
     "PlatformDatasourceFilterInfo",
     "PlatformDatasourceFilterInfoTypedDict",
+    "PlatformDepartmentFilter",
+    "PlatformDepartmentFilterOperator",
+    "PlatformDepartmentFilterTypedDict",
     "PlatformDepartmentReference",
     "PlatformDepartmentReferenceTypedDict",
     "PlatformDepartmentsGetRequest",
@@ -5447,6 +5455,9 @@ _dynamic_imports: dict[str, str] = {
     "PlatformContentType": ".platformcontenttype",
     "PlatformDatasourceFilterInfo": ".platformdatasourcefilterinfo",
     "PlatformDatasourceFilterInfoTypedDict": ".platformdatasourcefilterinfo",
+    "PlatformDepartmentFilter": ".platformdepartmentfilter",
+    "PlatformDepartmentFilterOperator": ".platformdepartmentfilter",
+    "PlatformDepartmentFilterTypedDict": ".platformdepartmentfilter",
     "PlatformDepartmentReference": ".platformdepartmentreference",
     "PlatformDepartmentReferenceTypedDict": ".platformdepartmentreference",
     "PlatformDocumentChangeWebhookEvent": ".platformdocumentchangewebhookevent",

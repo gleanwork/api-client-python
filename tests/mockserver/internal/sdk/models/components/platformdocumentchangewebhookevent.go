@@ -27,10 +27,12 @@ type PlatformDocumentChangeWebhookEvent struct {
 	Title string `json:"title"`
 	// Relevant event time. Document changes use the source-observed time when available and otherwise the document ingestion time; content schedules use the scheduled time. Omitted when no timestamp is available.
 	EventTime *time.Time `json:"event_time,omitempty"`
-	// Email body content when the event is for an email document.
+	// Email body content when the event is for an email document, or the message text when the event is for a Slack message.
 	Content *string `json:"content,omitempty"`
 	// Present and true when source content exceeded the delivery size limit.
 	ContentTruncated *bool `json:"content_truncated,omitempty"`
+	// Facets of a Slack message as the event saw them, keyed as trigger filters key them, for example `from`, `mentions` and `channel`. Person facets carry the person's name. Each key lists up to 50 distinct values. Omitted for other documents and when the event has no facets.
+	Facets map[string][]string `json:"facets,omitempty"`
 }
 
 func (p PlatformDocumentChangeWebhookEvent) MarshalJSON() ([]byte, error) {
@@ -126,4 +128,11 @@ func (o *PlatformDocumentChangeWebhookEvent) GetContentTruncated() *bool {
 		return nil
 	}
 	return o.ContentTruncated
+}
+
+func (o *PlatformDocumentChangeWebhookEvent) GetFacets() map[string][]string {
+	if o == nil {
+		return nil
+	}
+	return o.Facets
 }

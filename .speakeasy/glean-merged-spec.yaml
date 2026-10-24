@@ -2,8 +2,8 @@ openapi: 3.1.0
 info:
   version: "0.9.0"
   title: Glean API
-  x-source-commit-sha: a867a686a6645ed82261417da199dab121c93738
-  x-open-api-commit-sha: fe88ab139b3676484d0c44cc0b1c5043e8340915
+  x-source-commit-sha: b4406917305e1aa53e557f2461246cbe38988af4
+  x-open-api-commit-sha: fe7de61176904ecf3f474f9d621f5f75fb29dd9e
   description: |
     # Introduction
     In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This is useful, for example, for doing permissions-aware search over content in internal tools that reside on-prem as well as for searching over applications that Glean does not currently support first class. In addition these APIs allow the customer to push organization data (people info, organization structure etc) into Glean.
@@ -2575,7 +2575,7 @@ paths:
         - Departments
       summary: List departments
       description: |
-        List the departments in the Glean directory, ordered by display_name and then by department_id. The list includes every department that at least one user belongs to or that a usage limit names, so a caller can show the name of a department that a usage limit still names after its users leave it. Department names are exact, so names that differ only by case are different departments.
+        List the departments in the Glean directory, ordered by display_name and then by department_id. The list includes every department that at least one user belongs to or that a usage limit names, so a caller can show the name of a department that a usage limit still names after its users leave it. Department names are exact, so names that differ only by case are different departments. Send a name filter to return only the departments whose display_name contains a value.
       operationId: platform-departments-list
       x-glean-scopes:
         legacy:
@@ -2598,11 +2598,34 @@ paths:
             default: 50
         - in: query
           name: cursor
-          description: Opaque pagination cursor from a previous response.
+          description: |
+            Opaque pagination cursor from a previous response. Send the same filters that the previous request used.
           required: false
           schema:
             type: string
             minLength: 1
+        - in: query
+          name: filters
+          description: |
+            JSON-encoded filters that choose which departments are returned. The only supported field is name, with the operator EQUALS. Multiple values OR within a filter. The field may appear in only one filter. A value that matches no department returns no departments rather than an error.
+          required: false
+          content:
+            application/json:
+              schema:
+                type: array
+                minItems: 1
+                maxItems: 10
+                description: Filters on department fields, combined with AND.
+                items:
+                  $ref: "#/components/schemas/PlatformDepartmentFilter"
+                  description: One filter on a department field.
+              examples:
+                name:
+                  summary: Departments whose display name contains "engineering"
+                  value:
+                    - field: name
+                      values:
+                        - engineering
       responses:
         "200":
           description: Successful response.
@@ -2690,7 +2713,7 @@ paths:
         - IdP Groups
       summary: List IdP groups
       description: |
-        List the identity provider (IdP) groups that Glean loads from the directory, ordered by display_name and then by idp_group_id. Use idp_group_id to name a group in other Platform APIs, such as the usage limit evaluation and limit increase request APIs. Usage limits apply only to IdP groups from the datasource instance in usage_settings.user_grouping.idp_group_provider_instance of the get usage settings response, and this API always lists that instance's groups. To list only those groups, pass that value in a provider_instance filter of the filters parameter, for example `filters=[{"field":"provider_instance","operator":"EQUALS","values":["okta"]}]`, URL-encoded as `filters=%5B%7B%22field%22%3A%22provider_instance%22%2C%22operator%22%3A%22EQUALS%22%2C%22values%22%3A%5B%22okta%22%5D%7D%5D`. Internal O365 ownership groups and SharePoint groups are left out. The caller must be able to read the workspace configuration or the workspace billing.
+        List the identity provider (IdP) groups that Glean loads from the directory, ordered by display_name and then by idp_group_id. Use idp_group_id to name a group in other Platform APIs, such as the usage limit evaluation and limit increase request APIs. Usage limits apply only to IdP groups from the datasource instance in usage_settings.user_grouping.idp_group_provider_instance of the get usage settings response, and this API always lists that instance's groups. To list only those groups, pass that value in a provider_instance filter of the filters parameter, for example `filters=[{"field":"provider_instance","operator":"EQUALS","values":["okta"]}]`, URL-encoded as `filters=%5B%7B%22field%22%3A%22provider_instance%22%2C%22operator%22%3A%22EQUALS%22%2C%22values%22%3A%5B%22okta%22%5D%7D%5D`. Send a provider filter to list only one provider's groups, and a name filter to list only the groups whose display_name contains a value. Internal O365 ownership groups and SharePoint groups are left out. The caller must be able to read the workspace configuration or the workspace billing.
       operationId: platform-admin-idp-groups-list
       x-glean-scopes:
         legacy:
@@ -2723,7 +2746,7 @@ paths:
         - in: query
           name: filters
           description: |
-            JSON-encoded filters that choose which IdP groups are returned. The only supported field is provider_instance, with datasource instance names such as "okta". provider_instance values match without case. The only supported operator is EQUALS. Multiple values OR within a filter. Multiple filters AND together.
+            JSON-encoded filters that choose which IdP groups are returned. The supported fields are provider_instance, provider, and name. The only supported operator is EQUALS. Multiple values OR within a filter. Multiple filters AND together. The name field may appear in only one filter. A value that matches no IdP group returns no IdP groups rather than an error.
           required: false
           content:
             application/json:
@@ -2735,6 +2758,16 @@ paths:
                 items:
                   $ref: "#/components/schemas/PlatformIdpGroupFilter"
                   description: One filter on an IdP group field.
+              examples:
+                provider_and_name:
+                  summary: Okta groups whose display name contains "engineering"
+                  value:
+                    - field: provider
+                      values:
+                        - okta
+                    - field: name
+                      values:
+                        - engineering
       responses:
         "200":
           description: Successful response.
@@ -12553,6 +12586,36 @@ components:
         request_id:
           type: string
           description: Request identifier for correlating this response.
+    PlatformDepartmentFilter:
+      type: object
+      additionalProperties: false
+      required:
+        - field
+        - values
+      description: A filter on one department field.
+      properties:
+        field:
+          type: string
+          pattern: ^name$
+          description: |
+            The department field to filter on. The only supported field is name, which matches departments whose display_name contains the value, ignoring case and surrounding whitespace. Each value is at most 256 characters. To find the department with an exact name, such as a department_name from a usage limit response, filter by the name and compare display_name exactly.
+        values:
+          type: array
+          minItems: 1
+          maxItems: 100
+          description: The values to match. A department matches when any value matches.
+          items:
+            type: string
+            minLength: 1
+            description: A value to match. Blank values are rejected.
+        operator:
+          allOf:
+            - $ref: "#/components/schemas/PlatformFilterOperator"
+              description: Canonical Platform filter operator.
+          enum:
+            - EQUALS
+          default: EQUALS
+          description: The only supported operator is EQUALS. Defaults to EQUALS.
     PlatformDepartmentReference:
       type: object
       description: A reference to a department in the Glean directory.
@@ -12620,17 +12683,26 @@ components:
       properties:
         field:
           type: string
-          pattern: ^provider_instance$
+          pattern: ^(provider_instance|provider|name)$
           description: |
-            The IdP group field to filter on. The only supported field is provider_instance.
+            The IdP group field to filter on.
+            - provider_instance: matches groups from the datasource instance, such as
+              "okta", ignoring case.
+
+            - provider: matches groups from the identity provider, such as "okta", ignoring
+              case.
+
+            - name: matches groups whose display_name contains the value, ignoring case and
+              surrounding whitespace. Each value is at most 256 characters.
         values:
           type: array
           minItems: 1
+          maxItems: 100
           description: The values to match. An IdP group matches when any value matches.
           items:
             type: string
             minLength: 1
-            description: A datasource instance name for provider_instance.
+            description: A value to match. Empty values, and blank name values, are rejected.
         operator:
           allOf:
             - $ref: "#/components/schemas/PlatformFilterOperator"
@@ -13182,10 +13254,17 @@ components:
               pattern: ^DOCUMENT_CHANGE$
             content:
               type: string
-              description: Email body content when the event is for an email document.
+              description: Email body content when the event is for an email document, or the message text when the event is for a Slack message.
             content_truncated:
               type: boolean
               description: Present and true when source content exceeded the delivery size limit.
+            facets:
+              type: object
+              description: Facets of a Slack message as the event saw them, keyed as trigger filters key them, for example `from`, `mentions` and `channel`. Person facets carry the person's name. Each key lists up to 50 distinct values. Omitted for other documents and when the event has no facets.
+              additionalProperties:
+                type: array
+                items:
+                  type: string
       example:
         version: "1"
         trigger_id: trigger_test_123
@@ -18809,6 +18888,10 @@ components:
               - type
           title: Content
           description: The content of the message.
+        messageTrackingToken:
+          type: string
+          description: 'An opaque token that represents this particular agent message. Populated only on `GLEAN_AI` messages in responses. To record feedback, pass the token of the message being rated (typically the final `GLEAN_AI` message of the run) as the single entry in `trackingTokens` to `/feedback`, with `category: CHAT`.'
+          readOnly: true
     AgentRunCreate:
       type: object
       properties:
