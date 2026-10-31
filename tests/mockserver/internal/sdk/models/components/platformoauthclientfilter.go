@@ -49,7 +49,23 @@ func (e *PlatformOAuthClientFilterOperator) UnmarshalJSON(data []byte) error {
 
 // PlatformOAuthClientFilter - A filter on one OAuth client field.
 type PlatformOAuthClientFilter struct {
-	// The client field to filter on. The only supported field is is_active.
+	// The client field to filter on.
+	// - is_enabled: "true" matches enabled clients, and "false" matches disabled
+	//   clients.
+	//
+	// - name: matches clients whose display_name contains the value, ignoring
+	//   case and surrounding whitespace. Each value is at most 256 characters.
+	//
+	// - client_id: matches the client with this OAuth client_id.
+	// - usage_client_id: matches the client with this ai_gateway.usage_client_id.
+	// - has_ai_gateway: "true" matches clients that can call the Glean LLM
+	//   Gateway, which are the clients with ai_gateway. "false" matches the
+	//   other clients.
+	//
+	// - supported_app: matches clients whose ai_gateway.supported_apps contains
+	//   the value, such as CLAUDE_CODE. The values are the OAuthClientSupportedApp
+	//   values.
+	//
 	Field string `json:"field"`
 	// The values to match. A client matches when any value matches.
 	Values []string `json:"values"`

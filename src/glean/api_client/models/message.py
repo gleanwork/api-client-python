@@ -6,10 +6,16 @@ from .chatcitationannotation import (
     ChatCitationAnnotationTypedDict,
 )
 from .contenttype import ContentType
-from glean.api_client.types import BaseModel, UNSET_SENTINEL
+from glean.api_client.types import (
+    BaseModel,
+    UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
+)
+import pydantic
 from pydantic import model_serializer
 from typing import List, Optional
-from typing_extensions import NotRequired, TypedDict
+from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class MessageTextBlockTypedDict(TypedDict):
@@ -26,13 +32,19 @@ class MessageTextBlock(BaseModel):
     annotations: Optional[List[ChatCitationAnnotation]] = None
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(["annotations"])
+        exclude_none = current_exclude_none()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and exclude_none is False:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -47,6 +59,8 @@ class MessageTypedDict(TypedDict):
     r"""The role of the message."""
     content: NotRequired[List[MessageTextBlockTypedDict]]
     r"""The content of the message."""
+    message_tracking_token: NotRequired[str]
+    r"""An opaque token that represents this particular agent message. Populated only on `GLEAN_AI` messages in responses. To record feedback, pass the token of the message being rated (typically the final `GLEAN_AI` message of the run) as the single entry in `trackingTokens` to `/feedback`, with `category: CHAT`."""
 
 
 class Message(BaseModel):
@@ -56,14 +70,25 @@ class Message(BaseModel):
     content: Optional[List[MessageTextBlock]] = None
     r"""The content of the message."""
 
+    message_tracking_token: Annotated[
+        Optional[str], pydantic.Field(alias="messageTrackingToken")
+    ] = None
+    r"""An opaque token that represents this particular agent message. Populated only on `GLEAN_AI` messages in responses. To record feedback, pass the token of the message being rated (typically the final `GLEAN_AI` message of the run) as the single entry in `trackingTokens` to `/feedback`, with `category: CHAT`."""
+
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
-        optional_fields = set(["role", "content"])
+        optional_fields = set(["role", "content", "messageTrackingToken"])
+        exclude_none = current_exclude_none()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and exclude_none is False:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:
@@ -71,3 +96,9 @@ class Message(BaseModel):
                     m[k] = val
 
         return m
+
+
+try:
+    Message.model_rebuild()
+except NameError:
+    pass

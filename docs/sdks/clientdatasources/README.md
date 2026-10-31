@@ -23,7 +23,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.client.datasources.retrieve_configuration(datasource_id="o365sharepoint", instance_id="o365sharepoint_abc123")
@@ -66,7 +66,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.client.datasources.update_configuration(datasource_id="o365sharepoint", instance_id="o365sharepoint_abc123", configuration={
@@ -114,7 +114,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.client.datasources.retrieve_credential_status(datasource_instance_id="o365sharepoint_abc123")
@@ -157,7 +157,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.client.datasources.rotate_credentials(datasource_instance_id="o365sharepoint_abc123", credentials={

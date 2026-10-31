@@ -49,7 +49,8 @@ func (e *PlatformAdminAgentFilterOperator) UnmarshalJSON(data []byte) error {
 
 // PlatformAdminAgentFilter - A filter on one agent field.
 type PlatformAdminAgentFilter struct {
-	// The agent field to filter on. The only supported field is is_active.
+	// The agent field to filter on. name matches agents whose name contains the value. description matches agents whose description contains the value. Matching ignores case and surrounding whitespace. Each value is at most 256 characters.
+	//
 	Field string `json:"field"`
 	// The values to match. An agent matches when any value matches.
 	Values []string `json:"values"`

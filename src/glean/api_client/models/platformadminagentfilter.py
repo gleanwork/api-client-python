@@ -2,7 +2,12 @@
 
 from __future__ import annotations
 from enum import Enum
-from glean.api_client.types import BaseModel, UNSET_SENTINEL
+from glean.api_client.types import (
+    BaseModel,
+    UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
+)
 from pydantic import model_serializer
 from typing import List, Optional
 from typing_extensions import NotRequired, TypedDict
@@ -23,7 +28,9 @@ class PlatformAdminAgentFilterTypedDict(TypedDict):
     r"""A filter on one agent field."""
 
     field: str
-    r"""The agent field to filter on. The only supported field is is_active."""
+    r"""The agent field to filter on. name matches agents whose name contains the value. description matches agents whose description contains the value. Matching ignores case and surrounding whitespace. Each value is at most 256 characters.
+
+    """
     values: List[str]
     r"""The values to match. An agent matches when any value matches."""
     operator: NotRequired[PlatformAdminAgentFilterOperator]
@@ -34,7 +41,9 @@ class PlatformAdminAgentFilter(BaseModel):
     r"""A filter on one agent field."""
 
     field: str
-    r"""The agent field to filter on. The only supported field is is_active."""
+    r"""The agent field to filter on. name matches agents whose name contains the value. description matches agents whose description contains the value. Matching ignores case and surrounding whitespace. Each value is at most 256 characters.
+
+    """
 
     values: List[str]
     r"""The values to match. An agent matches when any value matches."""
@@ -45,13 +54,19 @@ class PlatformAdminAgentFilter(BaseModel):
     r"""The only supported operator is EQUALS. Defaults to EQUALS."""
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(["operator"])
+        exclude_none = current_exclude_none()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and exclude_none is False:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:

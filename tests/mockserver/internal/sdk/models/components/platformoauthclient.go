@@ -24,9 +24,9 @@ type PlatformOAuthClient struct {
 	TokenEndpointAuthMethod *PlatformOAuthTokenEndpointAuthMethod `json:"token_endpoint_auth_method,omitempty"`
 	// The redirect URIs that the client can use.
 	RedirectUris []string `json:"redirect_uris"`
-	// Whether the client is active. A client that an admin disabled is inactive and cannot authenticate.
+	// Whether the client is enabled. A client that an admin disabled cannot authenticate.
 	//
-	IsActive bool `json:"is_active"`
+	IsEnabled bool `json:"is_enabled"`
 	// When the client was created. Absent when it is not known.
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// LLM Gateway details of an OAuth client.
@@ -38,7 +38,7 @@ func (p PlatformOAuthClient) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PlatformOAuthClient) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"client_id", "display_name", "registration_type", "grant_types", "redirect_uris", "is_active"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &p, "", false, []string{"client_id", "display_name", "registration_type", "grant_types", "redirect_uris", "is_enabled"}); err != nil {
 		return err
 	}
 	return nil
@@ -93,11 +93,11 @@ func (o *PlatformOAuthClient) GetRedirectUris() []string {
 	return o.RedirectUris
 }
 
-func (o *PlatformOAuthClient) GetIsActive() bool {
+func (o *PlatformOAuthClient) GetIsEnabled() bool {
 	if o == nil {
 		return false
 	}
-	return o.IsActive
+	return o.IsEnabled
 }
 
 func (o *PlatformOAuthClient) GetCreatedAt() *time.Time {

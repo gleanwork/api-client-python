@@ -2,9 +2,14 @@
 
 from __future__ import annotations
 from datetime import datetime
-from glean.api_client.types import BaseModel, UNSET_SENTINEL
+from glean.api_client.types import (
+    BaseModel,
+    UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
+)
 from pydantic import model_serializer
-from typing import Optional
+from typing import Dict, List, Optional
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -29,9 +34,11 @@ class PlatformDocumentChangeWebhookEventTypedDict(TypedDict):
     event_time: NotRequired[datetime]
     r"""Relevant event time. Document changes use the source-observed time when available and otherwise the document ingestion time; content schedules use the scheduled time. Omitted when no timestamp is available."""
     content: NotRequired[str]
-    r"""Email body content when the event is for an email document."""
+    r"""Email body content when the event is for an email document, or the message text when the event is for a Slack message."""
     content_truncated: NotRequired[bool]
     r"""Present and true when source content exceeded the delivery size limit."""
+    facets: NotRequired[Dict[str, List[str]]]
+    r"""Facets of a Slack message as the event saw them, keyed as trigger filters key them, for example `from`, `mentions` and `channel`. Person facets carry the person's name. Each key lists up to 50 distinct values. Omitted for other documents and when the event has no facets."""
 
 
 class PlatformDocumentChangeWebhookEvent(BaseModel):
@@ -65,19 +72,28 @@ class PlatformDocumentChangeWebhookEvent(BaseModel):
     r"""Relevant event time. Document changes use the source-observed time when available and otherwise the document ingestion time; content schedules use the scheduled time. Omitted when no timestamp is available."""
 
     content: Optional[str] = None
-    r"""Email body content when the event is for an email document."""
+    r"""Email body content when the event is for an email document, or the message text when the event is for a Slack message."""
 
     content_truncated: Optional[bool] = None
     r"""Present and true when source content exceeded the delivery size limit."""
 
+    facets: Optional[Dict[str, List[str]]] = None
+    r"""Facets of a Slack message as the event saw them, keyed as trigger filters key them, for example `from`, `mentions` and `channel`. Person facets carry the person's name. Each key lists up to 50 distinct values. Omitted for other documents and when the event has no facets."""
+
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
-        optional_fields = set(["event_time", "content", "content_truncated"])
+        optional_fields = set(["event_time", "content", "content_truncated", "facets"])
+        exclude_none = current_exclude_none()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and exclude_none is False:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:

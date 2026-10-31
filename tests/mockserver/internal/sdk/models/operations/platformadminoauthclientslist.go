@@ -13,7 +13,7 @@ type PlatformAdminOauthClientsListRequest struct {
 	// Opaque pagination cursor from a previous response. Send the same filters that the previous request used.
 	//
 	Cursor *string `queryParam:"style=form,explode=true,name=cursor"`
-	// JSON-encoded filters that choose which clients are returned. The only supported field is is_active, with the values "true" and "false" and the operator EQUALS. Multiple values OR within a filter. Multiple filters AND together. Without an is_active filter, only active clients are returned. To return active and inactive clients, send [{"field":"is_active","values":["true","false"]}].
+	// JSON-encoded filters that choose which clients are returned. The supported fields are is_enabled, name, client_id, usage_client_id, has_ai_gateway, and supported_app, with the operator EQUALS. Multiple values OR within a filter. Multiple filters AND together. Each field can appear in only one filter. Without an is_enabled filter, only enabled clients are returned. To return enabled and disabled clients, send [{"field":"is_enabled","values":["true","false"]}]. To find the Claude Code clients, send [{"field":"supported_app","values":["CLAUDE_CODE"]}].
 	//
 	Filters []components.PlatformOAuthClientFilter `queryParam:"serialization=json,name=filters"`
 }

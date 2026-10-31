@@ -11,7 +11,12 @@ from .platformoauthgranttype import PlatformOAuthGrantType
 from .platformoauthtokenendpointauthmethod import PlatformOAuthTokenEndpointAuthMethod
 from datetime import datetime
 from glean.api_client import models
-from glean.api_client.types import BaseModel, UNSET_SENTINEL
+from glean.api_client.types import (
+    BaseModel,
+    UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
+)
 from pydantic import field_serializer, model_serializer
 from typing import List, Optional
 from typing_extensions import NotRequired, TypedDict
@@ -32,8 +37,8 @@ class PlatformOAuthClientTypedDict(TypedDict):
     r"""The OAuth grant types that the client can use."""
     redirect_uris: List[str]
     r"""The redirect URIs that the client can use."""
-    is_active: bool
-    r"""Whether the client is active. A client that an admin disabled is inactive and cannot authenticate.
+    is_enabled: bool
+    r"""Whether the client is enabled. A client that an admin disabled cannot authenticate.
 
     """
     client_type: NotRequired[PlatformOAuthClientType]
@@ -66,8 +71,8 @@ class PlatformOAuthClient(BaseModel):
     redirect_uris: List[str]
     r"""The redirect URIs that the client can use."""
 
-    is_active: bool
-    r"""Whether the client is active. A client that an admin disabled is inactive and cannot authenticate.
+    is_enabled: bool
+    r"""Whether the client is enabled. A client that an admin disabled cannot authenticate.
 
     """
 
@@ -102,15 +107,21 @@ class PlatformOAuthClient(BaseModel):
         return value
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(
             ["client_type", "token_endpoint_auth_method", "created_at", "ai_gateway"]
         )
+        exclude_none = current_exclude_none()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and exclude_none is False:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:

@@ -598,7 +598,7 @@ class IndexingDatasources(BaseSDK):
         Validates and asynchronously processes a datasource-specific submission.
 
         :param datasource_instance: Datasource instance that should process the submission
-        :param type: Submission type registered for the datasource
+        :param type_: Submission type registered for the datasource
         :param request_body:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -712,7 +712,7 @@ class IndexingDatasources(BaseSDK):
         Validates and asynchronously processes a datasource-specific submission.
 
         :param datasource_instance: Datasource instance that should process the submission
-        :param type: Submission type registered for the datasource
+        :param type_: Submission type registered for the datasource
         :param request_body:
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method

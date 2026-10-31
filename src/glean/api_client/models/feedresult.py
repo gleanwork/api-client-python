@@ -4,7 +4,12 @@ from __future__ import annotations
 from .feedentry import FeedEntry, FeedEntryTypedDict
 from enum import Enum
 from glean.api_client import models, utils
-from glean.api_client.types import BaseModel, UNSET_SENTINEL
+from glean.api_client.types import (
+    BaseModel,
+    UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
+)
 import pydantic
 from pydantic import field_serializer, model_serializer
 from typing import List, Optional
@@ -57,6 +62,7 @@ class FeedResultCategory(str, Enum, metaclass=utils.OpenEnumMeta):
     PROJECT_FOCUS_BLOCK = "PROJECT_FOCUS_BLOCK"
     PROJECT_NEXT_STEP = "PROJECT_NEXT_STEP"
     DEMO_CARD = "DEMO_CARD"
+    PERSONAL_AGENT_NUX = "PERSONAL_AGENT_NUX"
     RESOLVE_MEETING_CONFLICT = "RESOLVE_MEETING_CONFLICT"
     FINDING_MEETING_ROOM = "FINDING_MEETING_ROOM"
     OOO_PLANNER = "OOO_PLANNER"
@@ -132,13 +138,19 @@ class FeedResult(BaseModel):
         return value
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(["secondaryEntries", "rank", "placementReason"])
+        exclude_none = current_exclude_none()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and exclude_none is False:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:

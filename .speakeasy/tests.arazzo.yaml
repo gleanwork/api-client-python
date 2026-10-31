@@ -159696,7 +159696,7 @@ workflows:
             - condition: $response.header.Content-Type == application/json
             - context: $response.body
               condition: |
-                {"client":{"client_id":"<id>","display_name":"Janie_Von32","registration_type":"STATIC","grant_types":[],"redirect_uris":["<value 1>"],"is_active":false},"request_id":"<id>"}
+                {"client":{"client_id":"<id>","display_name":"Janie_Von32","registration_type":"STATIC","grant_types":[],"redirect_uris":["<value 1>"],"is_enabled":true},"request_id":"<id>"}
               type: simple
       x-speakeasy-test-group: clients
       x-speakeasy-test-rebuild: true

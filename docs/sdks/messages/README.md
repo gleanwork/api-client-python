@@ -19,7 +19,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.client.messages.retrieve(id_type=models.IDType.CONVERSATION_ID, id="<id>", datasource=models.Datasource.GCHAT)

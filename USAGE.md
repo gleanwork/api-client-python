@@ -6,7 +6,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.client.chat.create(messages=[
@@ -36,7 +36,7 @@ import os
 async def main():
 
     async with Glean(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
+        api_token=os.getenv("GLEAN_API_TOKEN"),
     ) as glean:
 
         res = await glean.client.chat.create_async(messages=[
@@ -62,7 +62,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.client.chat.create_stream(messages=[
@@ -92,7 +92,7 @@ import os
 async def main():
 
     async with Glean(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
+        api_token=os.getenv("GLEAN_API_TOKEN"),
     ) as glean:
 
         res = await glean.client.chat.create_stream_async(messages=[
