@@ -18,7 +18,7 @@ def test_summarize_summarize():
         res = glean.client.documents.summarize(
             document_specs=[
                 {
-                    "url": "https://dim-glider.com/",
+                    "url": "https://judicious-squid.info",
                 },
                 {
                     "id": "<id>",

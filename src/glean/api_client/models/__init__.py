@@ -1472,7 +1472,6 @@ if TYPE_CHECKING:
         PlatformActionSummary,
         PlatformActionSummaryTypedDict,
     )
-    from .platformadminagent import PlatformAdminAgent, PlatformAdminAgentTypedDict
     from .platformadminagentfilter import (
         PlatformAdminAgentFilter,
         PlatformAdminAgentFilterOperator,
@@ -1699,6 +1698,11 @@ if TYPE_CHECKING:
         PlatformDatasourceFilterInfo,
         PlatformDatasourceFilterInfoTypedDict,
     )
+    from .platformdepartmentfilter import (
+        PlatformDepartmentFilter,
+        PlatformDepartmentFilterOperator,
+        PlatformDepartmentFilterTypedDict,
+    )
     from .platformdepartmentreference import (
         PlatformDepartmentReference,
         PlatformDepartmentReferenceTypedDict,
@@ -1784,6 +1788,7 @@ if TYPE_CHECKING:
         PlatformOAuthClientFilterTypedDict,
     )
     from .platformoauthclientregistrationtype import PlatformOAuthClientRegistrationType
+    from .platformoauthclientsupportedapp import PlatformOAuthClientSupportedApp
     from .platformoauthclienttype import PlatformOAuthClientType
     from .platformoauthgranttype import PlatformOAuthGrantType
     from .platformoauthtokenendpointauthmethod import (
@@ -3474,11 +3479,9 @@ __all__ = [
     "PlacementReason",
     "PlatformActionSummary",
     "PlatformActionSummaryTypedDict",
-    "PlatformAdminAgent",
     "PlatformAdminAgentFilter",
     "PlatformAdminAgentFilterOperator",
     "PlatformAdminAgentFilterTypedDict",
-    "PlatformAdminAgentTypedDict",
     "PlatformAdminAgentsListRequest",
     "PlatformAdminAgentsListRequestTypedDict",
     "PlatformAdminIdpGroupsGetRequest",
@@ -3649,6 +3652,9 @@ __all__ = [
     "PlatformContentType",
     "PlatformDatasourceFilterInfo",
     "PlatformDatasourceFilterInfoTypedDict",
+    "PlatformDepartmentFilter",
+    "PlatformDepartmentFilterOperator",
+    "PlatformDepartmentFilterTypedDict",
     "PlatformDepartmentReference",
     "PlatformDepartmentReferenceTypedDict",
     "PlatformDepartmentsGetRequest",
@@ -3703,6 +3709,7 @@ __all__ = [
     "PlatformOAuthClientFilterOperator",
     "PlatformOAuthClientFilterTypedDict",
     "PlatformOAuthClientRegistrationType",
+    "PlatformOAuthClientSupportedApp",
     "PlatformOAuthClientType",
     "PlatformOAuthClientTypedDict",
     "PlatformOAuthGrantType",
@@ -5310,8 +5317,6 @@ _dynamic_imports: dict[str, str] = {
     "PlatformUsersListRequestTypedDict": ".platform_users_listop",
     "PlatformActionSummary": ".platformactionsummary",
     "PlatformActionSummaryTypedDict": ".platformactionsummary",
-    "PlatformAdminAgent": ".platformadminagent",
-    "PlatformAdminAgentTypedDict": ".platformadminagent",
     "PlatformAdminAgentFilter": ".platformadminagentfilter",
     "PlatformAdminAgentFilterOperator": ".platformadminagentfilter",
     "PlatformAdminAgentFilterTypedDict": ".platformadminagentfilter",
@@ -5447,6 +5452,9 @@ _dynamic_imports: dict[str, str] = {
     "PlatformContentType": ".platformcontenttype",
     "PlatformDatasourceFilterInfo": ".platformdatasourcefilterinfo",
     "PlatformDatasourceFilterInfoTypedDict": ".platformdatasourcefilterinfo",
+    "PlatformDepartmentFilter": ".platformdepartmentfilter",
+    "PlatformDepartmentFilterOperator": ".platformdepartmentfilter",
+    "PlatformDepartmentFilterTypedDict": ".platformdepartmentfilter",
     "PlatformDepartmentReference": ".platformdepartmentreference",
     "PlatformDepartmentReferenceTypedDict": ".platformdepartmentreference",
     "PlatformDocumentChangeWebhookEvent": ".platformdocumentchangewebhookevent",
@@ -5498,6 +5506,7 @@ _dynamic_imports: dict[str, str] = {
     "PlatformOAuthClientFilterOperator": ".platformoauthclientfilter",
     "PlatformOAuthClientFilterTypedDict": ".platformoauthclientfilter",
     "PlatformOAuthClientRegistrationType": ".platformoauthclientregistrationtype",
+    "PlatformOAuthClientSupportedApp": ".platformoauthclientsupportedapp",
     "PlatformOAuthClientType": ".platformoauthclienttype",
     "PlatformOAuthGrantType": ".platformoauthgranttype",
     "PlatformOAuthTokenEndpointAuthMethod": ".platformoauthtokenendpointauthmethod",

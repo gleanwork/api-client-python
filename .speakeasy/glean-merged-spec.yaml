@@ -2,8 +2,8 @@ openapi: 3.1.0
 info:
   version: "0.9.0"
   title: Glean API
-  x-source-commit-sha: a867a686a6645ed82261417da199dab121c93738
-  x-open-api-commit-sha: fe88ab139b3676484d0c44cc0b1c5043e8340915
+  x-source-commit-sha: 1dd554463247991aa7a52b40626dde560b176099
+  x-open-api-commit-sha: bc69c400e1d62e10133b3f20ad9002aa37ddfe49
   description: |
     # Introduction
     In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This is useful, for example, for doing permissions-aware search over content in internal tools that reside on-prem as well as for searching over applications that Glean does not currently support first class. In addition these APIs allow the customer to push organization data (people info, organization structure etc) into Glean.
@@ -2449,7 +2449,7 @@ paths:
         - OAuth clients
       summary: List OAuth clients
       description: |
-        List the static OAuth clients that admins created for this workspace, ordered by display_name and then by client_id. Dynamically registered clients and Glean's own clients, such as Glean Desktop, are not listed. A client is active when it is enabled. Inactive clients are left out unless an is_active filter includes the value "false". To set a usage limit for a client, send its ai_gateway.usage_client_id, not its client_id, to the usage APIs. The caller needs admin read or billing read permission.
+        List the static OAuth clients that admins created for this workspace, ordered by display_name and then by client_id. Dynamically registered clients and Glean's own clients, such as Glean Desktop, are not listed. Disabled clients are left out unless an is_enabled filter includes the value "false". Use filters to find clients by name, client_id, usage_client_id, LLM Gateway access, or supported app. To set a usage limit for a client, send its ai_gateway.usage_client_id, not its client_id, to the usage APIs. The caller needs admin read or billing read permission.
       operationId: platform-admin-oauth-clients-list
       x-glean-scopes:
         legacy:
@@ -2482,7 +2482,7 @@ paths:
         - in: query
           name: filters
           description: |
-            JSON-encoded filters that choose which clients are returned. The only supported field is is_active, with the values "true" and "false" and the operator EQUALS. Multiple values OR within a filter. Multiple filters AND together. Without an is_active filter, only active clients are returned. To return active and inactive clients, send [{"field":"is_active","values":["true","false"]}].
+            JSON-encoded filters that choose which clients are returned. The supported fields are is_enabled, name, client_id, usage_client_id, has_ai_gateway, and supported_app, with the operator EQUALS. Multiple values OR within a filter. Multiple filters AND together. Each field can appear in only one filter. Without an is_enabled filter, only enabled clients are returned. To return enabled and disabled clients, send [{"field":"is_enabled","values":["true","false"]}]. To find the Claude Code clients, send [{"field":"supported_app","values":["CLAUDE_CODE"]}].
           required: false
           content:
             application/json:
@@ -2527,7 +2527,7 @@ paths:
         - OAuth clients
       summary: Get an OAuth client
       description: |
-        Get one static OAuth client that an admin created for this workspace. A client that an admin disabled is returned with is_active false. A deleted client, a dynamically registered client, one of Glean's own clients, such as Glean Desktop, and an unknown client_id all return 404. The path takes the OAuth client_id, not ai_gateway.usage_client_id. The caller needs admin read or billing read permission.
+        Get one static OAuth client that an admin created for this workspace. A client that an admin disabled is returned with is_enabled false. A deleted client, a dynamically registered client, one of Glean's own clients, such as Glean Desktop, and an unknown client_id all return 404. The path takes the OAuth client_id, not ai_gateway.usage_client_id. The caller needs admin read or billing read permission.
       operationId: platform-admin-oauth-clients-get
       x-glean-scopes:
         legacy:
@@ -2575,7 +2575,7 @@ paths:
         - Departments
       summary: List departments
       description: |
-        List the departments in the Glean directory, ordered by display_name and then by department_id. The list includes every department that at least one user belongs to or that a usage limit names, so a caller can show the name of a department that a usage limit still names after its users leave it. Department names are exact, so names that differ only by case are different departments.
+        List the departments in the Glean directory, ordered by display_name and then by department_id. The list includes every department that at least one user belongs to or that a usage limit names, so a caller can show the name of a department that a usage limit still names after its users leave it. Department names are exact, so names that differ only by case are different departments. Send a name filter to return only the departments whose display_name contains a value.
       operationId: platform-departments-list
       x-glean-scopes:
         legacy:
@@ -2598,11 +2598,34 @@ paths:
             default: 50
         - in: query
           name: cursor
-          description: Opaque pagination cursor from a previous response.
+          description: |
+            Opaque pagination cursor from a previous response. Send the same filters that the previous request used.
           required: false
           schema:
             type: string
             minLength: 1
+        - in: query
+          name: filters
+          description: |
+            JSON-encoded filters that choose which departments are returned. The only supported field is name, with the operator EQUALS. Multiple values OR within a filter. The field may appear in only one filter. A value that matches no department returns no departments rather than an error.
+          required: false
+          content:
+            application/json:
+              schema:
+                type: array
+                minItems: 1
+                maxItems: 10
+                description: Filters on department fields, combined with AND.
+                items:
+                  $ref: "#/components/schemas/PlatformDepartmentFilter"
+                  description: One filter on a department field.
+              examples:
+                name:
+                  summary: Departments whose display name contains "engineering"
+                  value:
+                    - field: name
+                      values:
+                        - engineering
       responses:
         "200":
           description: Successful response.
@@ -2690,7 +2713,7 @@ paths:
         - IdP Groups
       summary: List IdP groups
       description: |
-        List the identity provider (IdP) groups that Glean loads from the directory, ordered by display_name and then by idp_group_id. Use idp_group_id to name a group in other Platform APIs, such as the usage limit evaluation and limit increase request APIs. Usage limits apply only to IdP groups from the datasource instance in usage_settings.user_grouping.idp_group_provider_instance of the get usage settings response, and this API always lists that instance's groups. To list only those groups, pass that value in a provider_instance filter of the filters parameter, for example `filters=[{"field":"provider_instance","operator":"EQUALS","values":["okta"]}]`, URL-encoded as `filters=%5B%7B%22field%22%3A%22provider_instance%22%2C%22operator%22%3A%22EQUALS%22%2C%22values%22%3A%5B%22okta%22%5D%7D%5D`. Internal O365 ownership groups and SharePoint groups are left out. The caller must be able to read the workspace configuration or the workspace billing.
+        List the identity provider (IdP) groups that Glean loads from the directory, ordered by display_name and then by idp_group_id. Use idp_group_id to name a group in other Platform APIs, such as the usage limit evaluation and limit increase request APIs. Usage limits apply only to IdP groups from the datasource instance in usage_settings.user_grouping.idp_group_provider_instance of the get usage settings response, and this API always lists that instance's groups. To list only those groups, pass that value in a provider_instance filter of the filters parameter, for example `filters=[{"field":"provider_instance","operator":"EQUALS","values":["okta"]}]`, URL-encoded as `filters=%5B%7B%22field%22%3A%22provider_instance%22%2C%22operator%22%3A%22EQUALS%22%2C%22values%22%3A%5B%22okta%22%5D%7D%5D`. Send a provider filter to list only one provider's groups, and a name filter to list only the groups whose display_name contains a value. Internal O365 ownership groups and SharePoint groups are left out. The caller must be able to read the workspace configuration or the workspace billing.
       operationId: platform-admin-idp-groups-list
       x-glean-scopes:
         legacy:
@@ -2723,7 +2746,7 @@ paths:
         - in: query
           name: filters
           description: |
-            JSON-encoded filters that choose which IdP groups are returned. The only supported field is provider_instance, with datasource instance names such as "okta". provider_instance values match without case. The only supported operator is EQUALS. Multiple values OR within a filter. Multiple filters AND together.
+            JSON-encoded filters that choose which IdP groups are returned. The supported fields are provider_instance, provider, and name. The only supported operator is EQUALS. Multiple values OR within a filter. Multiple filters AND together. The name field may appear in only one filter. A value that matches no IdP group returns no IdP groups rather than an error.
           required: false
           content:
             application/json:
@@ -2735,6 +2758,16 @@ paths:
                 items:
                   $ref: "#/components/schemas/PlatformIdpGroupFilter"
                   description: One filter on an IdP group field.
+              examples:
+                provider_and_name:
+                  summary: Okta groups whose display name contains "engineering"
+                  value:
+                    - field: provider
+                      values:
+                        - okta
+                    - field: name
+                      values:
+                        - engineering
       responses:
         "200":
           description: Successful response.
@@ -3000,7 +3033,7 @@ paths:
         - Admin Agents
       summary: List all agents
       description: |
-        List every agent in the workspace, ordered by display_name and then by agent_id. Unlike agent search, the list does not depend on who an agent is shared with, so it includes private and disabled agents. Deleted agents are inactive and are left out unless an is_active filter includes the value "false". Use the agent_id of an active agent with other Platform APIs, for example as a usage limit target. A deleted agent is not a valid usage limit target. The caller must be able to read all agents, administer agents, or read workspace billing.
+        List every agent in the workspace, ordered by name and then by agent_id. Each agent has the same shape that Get agent returns. Unlike agent search, the list does not depend on who an agent is shared with, so it includes private and disabled agents. Deleted agents are left out. Use the agent_id with other Platform APIs, for example as a usage limit target. The caller must be able to read all agents, administer agents, or read workspace billing.
       operationId: platform-admin-agents-list
       x-glean-scopes:
         legacy:
@@ -3033,7 +3066,7 @@ paths:
         - in: query
           name: filters
           description: |
-            JSON-encoded filters that choose which agents are returned. The only supported field is is_active, with the values "true" and "false" and the operator EQUALS. Multiple values OR within a filter. Multiple filters AND together. Without an is_active filter, only active agents are returned. To return active and deleted agents, send [{"field":"is_active","values":["true","false"]}].
+            JSON-encoded filters that choose which agents are returned. The supported fields are name and description, with the operator EQUALS. Multiple values OR within a filter. Multiple filters AND together, and each field can appear in only one filter. For example, to return agents whose name contains "HR", send [{"field":"name","values":["HR"]}].
           required: false
           content:
             application/json:
@@ -12366,16 +12399,33 @@ components:
       properties:
         field:
           type: string
-          pattern: ^is_active$
-          description: The client field to filter on. The only supported field is is_active.
+          pattern: ^(is_enabled|name|client_id|usage_client_id|has_ai_gateway|supported_app)$
+          description: |
+            The client field to filter on.
+            - is_enabled: "true" matches enabled clients, and "false" matches disabled
+              clients.
+
+            - name: matches clients whose display_name contains the value, ignoring
+              case and surrounding whitespace. Each value is at most 256 characters.
+
+            - client_id: matches the client with this OAuth client_id.
+            - usage_client_id: matches the client with this ai_gateway.usage_client_id.
+            - has_ai_gateway: "true" matches clients that can call the Glean LLM
+              Gateway, which are the clients with ai_gateway. "false" matches the
+              other clients.
+
+            - supported_app: matches clients whose ai_gateway.supported_apps contains
+              the value, such as CLAUDE_CODE. The values are the OAuthClientSupportedApp
+              values.
         values:
           type: array
           minItems: 1
+          maxItems: 100
           description: The values to match. A client matches when any value matches.
           items:
             type: string
-            pattern: ^(true|false)$
-            description: "\"true\" matches active clients. \"false\" matches inactive clients."
+            minLength: 1
+            description: A value to match. Blank values are rejected.
         operator:
           allOf:
             - $ref: "#/components/schemas/PlatformFilterOperator"
@@ -12450,17 +12500,37 @@ components:
         NO_AUTHENTICATION: The client does not authenticate. Public clients use this method.
         PRIVATE_KEY_JWT: The client signs a JWT with its private key.
         TLS_CLIENT_AUTH: The client authenticates with a mutual TLS certificate.
+    PlatformOAuthClientSupportedApp:
+      type: string
+      description: An app that an LLM Gateway client is set up for.
+      enum:
+        - CLAUDE_CODE
+        - CODEX
+      x-enumDescriptions:
+        CLAUDE_CODE: Claude Code.
+        CODEX: OpenAI Codex.
+      x-speakeasy-enum-descriptions:
+        CLAUDE_CODE: Claude Code.
+        CODEX: OpenAI Codex.
     PlatformOAuthClientAiGateway:
       type: object
       description: LLM Gateway details of an OAuth client.
       additionalProperties: false
       required:
         - usage_client_id
+        - supported_apps
       properties:
         usage_client_id:
           type: string
           description: |
             The spend-client ID that usage records and usage limits use for this client. Send it as the client_id of a usage limit. It is an opaque, case-sensitive string; do not build it from client_id.
+        supported_apps:
+          type: array
+          description: |
+            The apps that the client is set up for, in alphabetical order. Empty when no app is recorded for the client.
+          items:
+            $ref: "#/components/schemas/PlatformOAuthClientSupportedApp"
+            description: An app that the client is set up for.
     PlatformOAuthClient:
       type: object
       description: An OAuth client that an admin created for the workspace.
@@ -12471,7 +12541,7 @@ components:
         - registration_type
         - grant_types
         - redirect_uris
-        - is_active
+        - is_enabled
       properties:
         client_id:
           type: string
@@ -12502,10 +12572,10 @@ components:
           items:
             type: string
             description: A redirect URI.
-        is_active:
+        is_enabled:
           type: boolean
           description: |
-            Whether the client is active. A client that an admin disabled is inactive and cannot authenticate.
+            Whether the client is enabled. A client that an admin disabled cannot authenticate.
         created_at:
           type: string
           format: date-time
@@ -12553,6 +12623,36 @@ components:
         request_id:
           type: string
           description: Request identifier for correlating this response.
+    PlatformDepartmentFilter:
+      type: object
+      additionalProperties: false
+      required:
+        - field
+        - values
+      description: A filter on one department field.
+      properties:
+        field:
+          type: string
+          pattern: ^name$
+          description: |
+            The department field to filter on. The only supported field is name, which matches departments whose display_name contains the value, ignoring case and surrounding whitespace. Each value is at most 256 characters. To find the department with an exact name, such as a department_name from a usage limit response, filter by the name and compare display_name exactly.
+        values:
+          type: array
+          minItems: 1
+          maxItems: 100
+          description: The values to match. A department matches when any value matches.
+          items:
+            type: string
+            minLength: 1
+            description: A value to match. Blank values are rejected.
+        operator:
+          allOf:
+            - $ref: "#/components/schemas/PlatformFilterOperator"
+              description: Canonical Platform filter operator.
+          enum:
+            - EQUALS
+          default: EQUALS
+          description: The only supported operator is EQUALS. Defaults to EQUALS.
     PlatformDepartmentReference:
       type: object
       description: A reference to a department in the Glean directory.
@@ -12620,17 +12720,26 @@ components:
       properties:
         field:
           type: string
-          pattern: ^provider_instance$
+          pattern: ^(provider_instance|provider|name)$
           description: |
-            The IdP group field to filter on. The only supported field is provider_instance.
+            The IdP group field to filter on.
+            - provider_instance: matches groups from the datasource instance, such as
+              "okta", ignoring case.
+
+            - provider: matches groups from the identity provider, such as "okta", ignoring
+              case.
+
+            - name: matches groups whose display_name contains the value, ignoring case and
+              surrounding whitespace. Each value is at most 256 characters.
         values:
           type: array
           minItems: 1
+          maxItems: 100
           description: The values to match. An IdP group matches when any value matches.
           items:
             type: string
             minLength: 1
-            description: A datasource instance name for provider_instance.
+            description: A value to match. Empty values, and blank name values, are rejected.
         operator:
           allOf:
             - $ref: "#/components/schemas/PlatformFilterOperator"
@@ -12901,16 +13010,18 @@ components:
       properties:
         field:
           type: string
-          pattern: ^is_active$
-          description: The agent field to filter on. The only supported field is is_active.
+          pattern: ^(name|description)$
+          description: |
+            The agent field to filter on. name matches agents whose name contains the value. description matches agents whose description contains the value. Matching ignores case and surrounding whitespace. Each value is at most 256 characters.
         values:
           type: array
           minItems: 1
+          maxItems: 100
           description: The values to match. An agent matches when any value matches.
           items:
             type: string
-            pattern: ^(true|false)$
-            description: "\"true\" matches active agents. \"false\" matches deleted agents."
+            minLength: 1
+            description: A value to match. Blank values are rejected.
         operator:
           allOf:
             - $ref: "#/components/schemas/PlatformFilterOperator"
@@ -12919,25 +13030,6 @@ components:
             - EQUALS
           default: EQUALS
           description: The only supported operator is EQUALS. Defaults to EQUALS.
-    PlatformAdminAgent:
-      type: object
-      description: An agent in the workspace.
-      additionalProperties: false
-      required:
-        - agent_id
-        - display_name
-        - is_active
-      properties:
-        agent_id:
-          type: string
-          description: |
-            Opaque agent ID. Other Platform APIs, such as usage limits, accept and return this ID.
-        display_name:
-          type: string
-          description: The name that Glean shows for the agent.
-        is_active:
-          type: boolean
-          description: Whether the agent is active. A deleted agent is inactive.
     PlatformListAdminAgentsResponse:
       type: object
       description: One page of agents.
@@ -12949,9 +13041,9 @@ components:
       properties:
         results:
           type: array
-          description: The agents on this page, ordered by display_name and then by agent_id.
+          description: The agents on this page, ordered by name and then by agent_id.
           items:
-            $ref: "#/components/schemas/PlatformAdminAgent"
+            $ref: "#/components/schemas/PlatformAgent"
         has_more:
           type: boolean
           description: Whether more agents are available after this page.
@@ -13182,10 +13274,17 @@ components:
               pattern: ^DOCUMENT_CHANGE$
             content:
               type: string
-              description: Email body content when the event is for an email document.
+              description: Email body content when the event is for an email document, or the message text when the event is for a Slack message.
             content_truncated:
               type: boolean
               description: Present and true when source content exceeded the delivery size limit.
+            facets:
+              type: object
+              description: Facets of a Slack message as the event saw them, keyed as trigger filters key them, for example `from`, `mentions` and `channel`. Person facets carry the person's name. Each key lists up to 50 distinct values. Omitted for other documents and when the event has no facets.
+              additionalProperties:
+                type: array
+                items:
+                  type: string
       example:
         version: "1"
         trigger_id: trigger_test_123
@@ -18809,6 +18908,10 @@ components:
               - type
           title: Content
           description: The content of the message.
+        messageTrackingToken:
+          type: string
+          description: 'An opaque token that represents this particular agent message. Populated only on `GLEAN_AI` messages in responses. To record feedback, pass the token of the message being rated (typically the final `GLEAN_AI` message of the run) as the single entry in `trackingTokens` to `/feedback`, with `category: CHAT`.'
+          readOnly: true
     AgentRunCreate:
       type: object
       properties:
@@ -20715,6 +20818,7 @@ components:
               - PROJECT_FOCUS_BLOCK
               - PROJECT_NEXT_STEP
               - DEMO_CARD
+              - PERSONAL_AGENT_NUX
               - RESOLVE_MEETING_CONFLICT
               - FINDING_MEETING_ROOM
               - OOO_PLANNER
@@ -21209,6 +21313,7 @@ components:
             - PROJECT_FOCUS_BLOCK
             - PROJECT_NEXT_STEP
             - DEMO_CARD
+            - PERSONAL_AGENT_NUX
             - RESOLVE_MEETING_CONFLICT
             - FINDING_MEETING_ROOM
             - OOO_PLANNER
@@ -21313,6 +21418,7 @@ components:
             - PROJECT_FOCUS_BLOCK
             - PROJECT_NEXT_STEP
             - DEMO_CARD
+            - PERSONAL_AGENT_NUX
             - RESOLVE_MEETING_CONFLICT
             - FINDING_MEETING_ROOM
             - OOO_PLANNER

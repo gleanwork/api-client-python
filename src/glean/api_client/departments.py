@@ -6,7 +6,7 @@ from glean.api_client._hooks import HookContext
 from glean.api_client.types import OptionalNullable, UNSET
 from glean.api_client.utils import get_security_from_env
 from glean.api_client.utils.unmarshal_json_response import unmarshal_json_response
-from typing import Any, Mapping, Optional
+from typing import Any, Iterable, List, Mapping, Optional, Union
 
 
 class Departments(BaseSDK):
@@ -15,6 +15,12 @@ class Departments(BaseSDK):
         *,
         page_size: Optional[int] = 50,
         cursor: Optional[str] = None,
+        filters: Optional[
+            Union[
+                Iterable[models.PlatformDepartmentFilter],
+                Iterable[models.PlatformDepartmentFilterTypedDict],
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -22,11 +28,14 @@ class Departments(BaseSDK):
     ) -> models.PlatformListDepartmentsResponse:
         r"""List departments
 
-        List the departments in the Glean directory, ordered by display_name and then by department_id. The list includes every department that at least one user belongs to or that a usage limit names, so a caller can show the name of a department that a usage limit still names after its users leave it. Department names are exact, so names that differ only by case are different departments.
+        List the departments in the Glean directory, ordered by display_name and then by department_id. The list includes every department that at least one user belongs to or that a usage limit names, so a caller can show the name of a department that a usage limit still names after its users leave it. Department names are exact, so names that differ only by case are different departments. Send a name filter to return only the departments whose display_name contains a value.
 
 
         :param page_size: Maximum number of departments to return. Defaults to 50. Maximum is 100.
-        :param cursor: Opaque pagination cursor from a previous response.
+        :param cursor: Opaque pagination cursor from a previous response. Send the same filters that the previous request used.
+
+        :param filters: JSON-encoded filters that choose which departments are returned. The only supported field is name, with the operator EQUALS. Multiple values OR within a filter. The field may appear in only one filter. A value that matches no department returns no departments rather than an error.
+
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -45,6 +54,9 @@ class Departments(BaseSDK):
         request = models.PlatformDepartmentsListRequest(
             page_size=page_size,
             cursor=cursor,
+            filters=utils.get_pydantic_model(
+                filters, Optional[List[models.PlatformDepartmentFilter]]
+            ),
         )
 
         req = self._build_request(
@@ -132,6 +144,12 @@ class Departments(BaseSDK):
         *,
         page_size: Optional[int] = 50,
         cursor: Optional[str] = None,
+        filters: Optional[
+            Union[
+                Iterable[models.PlatformDepartmentFilter],
+                Iterable[models.PlatformDepartmentFilterTypedDict],
+            ]
+        ] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -139,11 +157,14 @@ class Departments(BaseSDK):
     ) -> models.PlatformListDepartmentsResponse:
         r"""List departments
 
-        List the departments in the Glean directory, ordered by display_name and then by department_id. The list includes every department that at least one user belongs to or that a usage limit names, so a caller can show the name of a department that a usage limit still names after its users leave it. Department names are exact, so names that differ only by case are different departments.
+        List the departments in the Glean directory, ordered by display_name and then by department_id. The list includes every department that at least one user belongs to or that a usage limit names, so a caller can show the name of a department that a usage limit still names after its users leave it. Department names are exact, so names that differ only by case are different departments. Send a name filter to return only the departments whose display_name contains a value.
 
 
         :param page_size: Maximum number of departments to return. Defaults to 50. Maximum is 100.
-        :param cursor: Opaque pagination cursor from a previous response.
+        :param cursor: Opaque pagination cursor from a previous response. Send the same filters that the previous request used.
+
+        :param filters: JSON-encoded filters that choose which departments are returned. The only supported field is name, with the operator EQUALS. Multiple values OR within a filter. The field may appear in only one filter. A value that matches no department returns no departments rather than an error.
+
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -162,6 +183,9 @@ class Departments(BaseSDK):
         request = models.PlatformDepartmentsListRequest(
             page_size=page_size,
             cursor=cursor,
+            filters=utils.get_pydantic_model(
+                filters, Optional[List[models.PlatformDepartmentFilter]]
+            ),
         )
 
         req = self._build_request_async(

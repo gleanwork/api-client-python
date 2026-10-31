@@ -5,7 +5,12 @@ from .platformadminagentfilter import (
     PlatformAdminAgentFilter,
     PlatformAdminAgentFilterTypedDict,
 )
-from glean.api_client.types import BaseModel, UNSET_SENTINEL
+from glean.api_client.types import (
+    BaseModel,
+    UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
+)
 from glean.api_client.utils import FieldMetadata, QueryParamMetadata
 from pydantic import model_serializer
 from typing import List, Optional
@@ -20,7 +25,7 @@ class PlatformAdminAgentsListRequestTypedDict(TypedDict):
 
     """
     filters: NotRequired[List[PlatformAdminAgentFilterTypedDict]]
-    r"""JSON-encoded filters that choose which agents are returned. The only supported field is is_active, with the values \"true\" and \"false\" and the operator EQUALS. Multiple values OR within a filter. Multiple filters AND together. Without an is_active filter, only active agents are returned. To return active and deleted agents, send [{\"field\":\"is_active\",\"values\":[\"true\",\"false\"]}].
+    r"""JSON-encoded filters that choose which agents are returned. The supported fields are name and description, with the operator EQUALS. Multiple values OR within a filter. Multiple filters AND together, and each field can appear in only one filter. For example, to return agents whose name contains \"HR\", send [{\"field\":\"name\",\"values\":[\"HR\"]}].
 
     """
 
@@ -44,18 +49,24 @@ class PlatformAdminAgentsListRequest(BaseModel):
         Optional[List[PlatformAdminAgentFilter]],
         FieldMetadata(query=QueryParamMetadata(serialization="json")),
     ] = None
-    r"""JSON-encoded filters that choose which agents are returned. The only supported field is is_active, with the values \"true\" and \"false\" and the operator EQUALS. Multiple values OR within a filter. Multiple filters AND together. Without an is_active filter, only active agents are returned. To return active and deleted agents, send [{\"field\":\"is_active\",\"values\":[\"true\",\"false\"]}].
+    r"""JSON-encoded filters that choose which agents are returned. The supported fields are name and description, with the operator EQUALS. Multiple values OR within a filter. Multiple filters AND together, and each field can appear in only one filter. For example, to return agents whose name contains \"HR\", send [{\"field\":\"name\",\"values\":[\"HR\"]}].
 
     """
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(["page_size", "cursor", "filters"])
+        exclude_none = current_exclude_none()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and exclude_none is False:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:

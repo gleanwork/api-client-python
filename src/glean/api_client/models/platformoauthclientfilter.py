@@ -2,7 +2,12 @@
 
 from __future__ import annotations
 from enum import Enum
-from glean.api_client.types import BaseModel, UNSET_SENTINEL
+from glean.api_client.types import (
+    BaseModel,
+    UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
+)
 from pydantic import model_serializer
 from typing import List, Optional
 from typing_extensions import NotRequired, TypedDict
@@ -23,7 +28,24 @@ class PlatformOAuthClientFilterTypedDict(TypedDict):
     r"""A filter on one OAuth client field."""
 
     field: str
-    r"""The client field to filter on. The only supported field is is_active."""
+    r"""The client field to filter on.
+    - is_enabled: \"true\" matches enabled clients, and \"false\" matches disabled
+    clients.
+
+    - name: matches clients whose display_name contains the value, ignoring
+    case and surrounding whitespace. Each value is at most 256 characters.
+
+    - client_id: matches the client with this OAuth client_id.
+    - usage_client_id: matches the client with this ai_gateway.usage_client_id.
+    - has_ai_gateway: \"true\" matches clients that can call the Glean LLM
+    Gateway, which are the clients with ai_gateway. \"false\" matches the
+    other clients.
+
+    - supported_app: matches clients whose ai_gateway.supported_apps contains
+    the value, such as CLAUDE_CODE. The values are the OAuthClientSupportedApp
+    values.
+
+    """
     values: List[str]
     r"""The values to match. A client matches when any value matches."""
     operator: NotRequired[PlatformOAuthClientFilterOperator]
@@ -34,7 +56,24 @@ class PlatformOAuthClientFilter(BaseModel):
     r"""A filter on one OAuth client field."""
 
     field: str
-    r"""The client field to filter on. The only supported field is is_active."""
+    r"""The client field to filter on.
+    - is_enabled: \"true\" matches enabled clients, and \"false\" matches disabled
+    clients.
+
+    - name: matches clients whose display_name contains the value, ignoring
+    case and surrounding whitespace. Each value is at most 256 characters.
+
+    - client_id: matches the client with this OAuth client_id.
+    - usage_client_id: matches the client with this ai_gateway.usage_client_id.
+    - has_ai_gateway: \"true\" matches clients that can call the Glean LLM
+    Gateway, which are the clients with ai_gateway. \"false\" matches the
+    other clients.
+
+    - supported_app: matches clients whose ai_gateway.supported_apps contains
+    the value, such as CLAUDE_CODE. The values are the OAuthClientSupportedApp
+    values.
+
+    """
 
     values: List[str]
     r"""The values to match. A client matches when any value matches."""
@@ -45,13 +84,19 @@ class PlatformOAuthClientFilter(BaseModel):
     r"""The only supported operator is EQUALS. Defaults to EQUALS."""
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(["operator"])
+        exclude_none = current_exclude_none()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and exclude_none is False:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:

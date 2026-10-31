@@ -35,7 +35,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: true
 python:
-  version: 0.17.18
+  version: 0.17.19
   additionalDependencies:
     dev: {}
     main: {}
@@ -87,6 +87,7 @@ python:
   methodArguments: infer-optional-args
   methodTimeoutArgument: timeout-ms
   methodTimeoutUnits: milliseconds
+  modelSerializationMethods: false
   moduleName: glean.api_client
   multipartArrayFormat: standard
   optionalDependencies: {}
@@ -94,6 +95,7 @@ python:
   packageManager: poetry
   packageName: glean-api-client
   preApplyUnionDiscriminators: false
+  preserveUnknownFields: false
   pytestFilterWarnings: []
   pytestTimeout: 0
   rawResponseHelpers: false

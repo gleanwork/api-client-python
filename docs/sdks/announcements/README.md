@@ -22,7 +22,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.client.announcements.create(start_time=parse_datetime("2023-05-01T12:02:10.816Z"), end_time=parse_datetime("2024-03-17T14:19:30.278Z"), title="<value>", body={
@@ -1120,7 +1120,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     glean.client.announcements.delete(id=458809)
@@ -1157,7 +1157,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.client.announcements.update(start_time=parse_datetime("2023-10-24T01:53:24.440Z"), end_time=parse_datetime("2024-10-30T07:24:12.087Z"), title="<value>", id=210913, body={

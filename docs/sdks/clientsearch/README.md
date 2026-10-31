@@ -24,7 +24,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.client.search.query_as_admin(query="vacation policy", tracking_token="trackingToken", source_document=models.Document(
@@ -183,7 +183,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.client.search.autocomplete(tracking_token="trackingToken", query="what is a que", datasource="GDRIVE", result_size=10, auth_tokens=[
@@ -239,7 +239,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.client.search.retrieve_feed(timeout_millis=5000)
@@ -284,7 +284,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.client.search.recommendations(source_document=models.Document(
@@ -510,7 +510,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.client.search.query(query="vacation policy", tracking_token="trackingToken", source_document=models.Document(

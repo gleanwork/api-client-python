@@ -5,7 +5,12 @@ from .platformtriggerdelivery import (
     PlatformTriggerDelivery,
     PlatformTriggerDeliveryTypedDict,
 )
-from glean.api_client.types import BaseModel, UNSET_SENTINEL
+from glean.api_client.types import (
+    BaseModel,
+    UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
+)
 from pydantic import model_serializer
 from typing import Any, Dict, Optional
 from typing_extensions import NotRequired, TypedDict
@@ -34,13 +39,19 @@ class PlatformTriggerCreateRequest(BaseModel):
     r"""Values for the preset's inputs."""
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(["description", "inputs"])
+        exclude_none = current_exclude_none()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and exclude_none is False:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:

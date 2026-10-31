@@ -5,7 +5,12 @@ from .platformidpgroupfilter import (
     PlatformIdpGroupFilter,
     PlatformIdpGroupFilterTypedDict,
 )
-from glean.api_client.types import BaseModel, UNSET_SENTINEL
+from glean.api_client.types import (
+    BaseModel,
+    UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
+)
 from glean.api_client.utils import FieldMetadata, QueryParamMetadata
 from pydantic import model_serializer
 from typing import List, Optional
@@ -20,7 +25,7 @@ class PlatformAdminIdpGroupsListRequestTypedDict(TypedDict):
 
     """
     filters: NotRequired[List[PlatformIdpGroupFilterTypedDict]]
-    r"""JSON-encoded filters that choose which IdP groups are returned. The only supported field is provider_instance, with datasource instance names such as \"okta\". provider_instance values match without case. The only supported operator is EQUALS. Multiple values OR within a filter. Multiple filters AND together.
+    r"""JSON-encoded filters that choose which IdP groups are returned. The supported fields are provider_instance, provider, and name. The only supported operator is EQUALS. Multiple values OR within a filter. Multiple filters AND together. The name field may appear in only one filter. A value that matches no IdP group returns no IdP groups rather than an error.
 
     """
 
@@ -44,18 +49,24 @@ class PlatformAdminIdpGroupsListRequest(BaseModel):
         Optional[List[PlatformIdpGroupFilter]],
         FieldMetadata(query=QueryParamMetadata(serialization="json")),
     ] = None
-    r"""JSON-encoded filters that choose which IdP groups are returned. The only supported field is provider_instance, with datasource instance names such as \"okta\". provider_instance values match without case. The only supported operator is EQUALS. Multiple values OR within a filter. Multiple filters AND together.
+    r"""JSON-encoded filters that choose which IdP groups are returned. The supported fields are provider_instance, provider, and name. The only supported operator is EQUALS. Multiple values OR within a filter. Multiple filters AND together. The name field may appear in only one filter. A value that matches no IdP group returns no IdP groups rather than an error.
 
     """
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(["page_size", "cursor", "filters"])
+        exclude_none = current_exclude_none()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and exclude_none is False:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:

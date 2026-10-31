@@ -28,13 +28,13 @@ class AdminAgents(BaseSDK):
     ) -> models.PlatformListAdminAgentsResponse:
         r"""List all agents
 
-        List every agent in the workspace, ordered by display_name and then by agent_id. Unlike agent search, the list does not depend on who an agent is shared with, so it includes private and disabled agents. Deleted agents are inactive and are left out unless an is_active filter includes the value \"false\". Use the agent_id of an active agent with other Platform APIs, for example as a usage limit target. A deleted agent is not a valid usage limit target. The caller must be able to read all agents, administer agents, or read workspace billing.
+        List every agent in the workspace, ordered by name and then by agent_id. Each agent has the same shape that Get agent returns. Unlike agent search, the list does not depend on who an agent is shared with, so it includes private and disabled agents. Deleted agents are left out. Use the agent_id with other Platform APIs, for example as a usage limit target. The caller must be able to read all agents, administer agents, or read workspace billing.
 
 
         :param page_size: Maximum number of agents to return. Defaults to 50. Maximum is 100.
         :param cursor: Opaque pagination cursor from a previous response. Send the same filters that the previous request used.
 
-        :param filters: JSON-encoded filters that choose which agents are returned. The only supported field is is_active, with the values \"true\" and \"false\" and the operator EQUALS. Multiple values OR within a filter. Multiple filters AND together. Without an is_active filter, only active agents are returned. To return active and deleted agents, send [{\"field\":\"is_active\",\"values\":[\"true\",\"false\"]}].
+        :param filters: JSON-encoded filters that choose which agents are returned. The supported fields are name and description, with the operator EQUALS. Multiple values OR within a filter. Multiple filters AND together, and each field can appear in only one filter. For example, to return agents whose name contains \"HR\", send [{\"field\":\"name\",\"values\":[\"HR\"]}].
 
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -157,13 +157,13 @@ class AdminAgents(BaseSDK):
     ) -> models.PlatformListAdminAgentsResponse:
         r"""List all agents
 
-        List every agent in the workspace, ordered by display_name and then by agent_id. Unlike agent search, the list does not depend on who an agent is shared with, so it includes private and disabled agents. Deleted agents are inactive and are left out unless an is_active filter includes the value \"false\". Use the agent_id of an active agent with other Platform APIs, for example as a usage limit target. A deleted agent is not a valid usage limit target. The caller must be able to read all agents, administer agents, or read workspace billing.
+        List every agent in the workspace, ordered by name and then by agent_id. Each agent has the same shape that Get agent returns. Unlike agent search, the list does not depend on who an agent is shared with, so it includes private and disabled agents. Deleted agents are left out. Use the agent_id with other Platform APIs, for example as a usage limit target. The caller must be able to read all agents, administer agents, or read workspace billing.
 
 
         :param page_size: Maximum number of agents to return. Defaults to 50. Maximum is 100.
         :param cursor: Opaque pagination cursor from a previous response. Send the same filters that the previous request used.
 
-        :param filters: JSON-encoded filters that choose which agents are returned. The only supported field is is_active, with the values \"true\" and \"false\" and the operator EQUALS. Multiple values OR within a filter. Multiple filters AND together. Without an is_active filter, only active agents are returned. To return active and deleted agents, send [{\"field\":\"is_active\",\"values\":[\"true\",\"false\"]}].
+        :param filters: JSON-encoded filters that choose which agents are returned. The supported fields are name and description, with the operator EQUALS. Multiple values OR within a filter. Multiple filters AND together, and each field can appear in only one filter. For example, to return agents whose name contains \"HR\", send [{\"field\":\"name\",\"values\":[\"HR\"]}].
 
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
