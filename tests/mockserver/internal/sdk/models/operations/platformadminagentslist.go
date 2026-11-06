@@ -13,7 +13,7 @@ type PlatformAdminAgentsListRequest struct {
 	// Opaque pagination cursor from a previous response. Send the same filters that the previous request used.
 	//
 	Cursor *string `queryParam:"style=form,explode=true,name=cursor"`
-	// JSON-encoded filters that choose which agents are returned. The only supported field is is_active, with the values "true" and "false" and the operator EQUALS. Multiple values OR within a filter. Multiple filters AND together. Without an is_active filter, only active agents are returned. To return active and deleted agents, send [{"field":"is_active","values":["true","false"]}].
+	// JSON-encoded filters that choose which agents are returned. The supported fields are name and description, with the operator EQUALS. Multiple values OR within a filter. Multiple filters AND together, and each field can appear in only one filter. For example, to return agents whose name contains "HR", send [{"field":"name","values":["HR"]}].
 	//
 	Filters []components.PlatformAdminAgentFilter `queryParam:"serialization=json,name=filters"`
 }

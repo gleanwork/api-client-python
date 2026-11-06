@@ -2,8 +2,8 @@ openapi: 3.1.0
 info:
   version: "0.9.0"
   title: Glean API
-  x-source-commit-sha: a867a686a6645ed82261417da199dab121c93738
-  x-open-api-commit-sha: fe88ab139b3676484d0c44cc0b1c5043e8340915
+  x-source-commit-sha: cac4e27e181c765a2f49b6e54f227438a778af1c
+  x-open-api-commit-sha: 08e2e3163e93c6851f5d010db8806d6db8e76c31
   description: |
     # Introduction
     In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This is useful, for example, for doing permissions-aware search over content in internal tools that reside on-prem as well as for searching over applications that Glean does not currently support first class. In addition these APIs allow the customer to push organization data (people info, organization structure etc) into Glean.
@@ -1718,14 +1718,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/PlatformUsageLimit"
+              $ref: "#/components/schemas/PlatformUsageLimitWrite"
             example:
               target:
                 type: ORGANIZATION
-              usage_selector:
                 client_id: glean
-                period:
-                  type: RECURRING_CALENDAR_MONTH
+              period:
+                type: RECURRING_CALENDAR_MONTH
               allocation_mode: SHARED_POOL
               value:
                 mode: FINITE
@@ -1767,7 +1766,7 @@ paths:
         - Admin Usage
       summary: Reset a usage limit
       description: |
-        Remove a configured usage limit matching the selector without clearing measured usage. A USER target may be identified by user_id or email, including a user no longer in the directory. Requires admin.usage.limits:write and permission to edit workspace billing.
+        Remove a configured usage limit matching (target, period) without clearing measured usage. A USER target may be identified by user_id or email, including a user no longer in the directory. Requires admin.usage.limits:write and permission to edit workspace billing.
       operationId: platform-admin-usage-limits-reset
       x-visibility: Public
       x-glean-scopes:
@@ -1788,10 +1787,9 @@ paths:
               target:
                 type: USER
                 email: user@example.com
-              usage_selector:
                 client_id: glean
-                period:
-                  type: RECURRING_CALENDAR_MONTH
+              period:
+                type: RECURRING_CALENDAR_MONTH
       responses:
         "200":
           description: Reset result.
@@ -1848,14 +1846,13 @@ paths:
               minItems: 1
               maxItems: 100
               items:
-                $ref: "#/components/schemas/PlatformUsageLimit"
+                $ref: "#/components/schemas/PlatformUsageLimitWrite"
             example:
               - target:
                   type: ORGANIZATION
-                usage_selector:
                   client_id: glean
-                  period:
-                    type: RECURRING_CALENDAR_MONTH
+                period:
+                  type: RECURRING_CALENDAR_MONTH
                 allocation_mode: SHARED_POOL
                 value:
                   mode: FINITE
@@ -1865,10 +1862,9 @@ paths:
               - target:
                   type: USER
                   email: user@example.com
-                usage_selector:
                   client_id: glean
-                  period:
-                    type: RECURRING_CALENDAR_MONTH
+                period:
+                  type: RECURRING_CALENDAR_MONTH
                 value:
                   mode: FINITE
                   amount: "50.00"
@@ -1909,7 +1905,7 @@ paths:
         - Admin Usage
       summary: Evaluate administrative usage limit headroom
       description: |
-        Evaluate the effective usage limits for a selector and return the current decision (AVAILABLE, WARNING, or BLOCKED) based on accrued usage. Requires admin.usage:evaluate and permission to read workspace billing, not a global administrator role. An explicit usage_selector.client_id selects the Glean or external spend client; it is never inferred from the caller. Returns all applicable limit values and counters, with effective headroom separated by unit. Agent counters retain aggregate scope. Billing readers receive exact IdP-group source identities as idp_group_id values. A USER target may be identified by user_id or email. Evaluation reports configured-budget status even when runtime enforcement switches are off; it does not perform request admission, model eligibility, or agent-run preflight checks.
+        Evaluate the effective usage limits for a target and period and return the current decision (AVAILABLE, WARNING, or BLOCKED) based on accrued usage. Requires admin.usage:evaluate and permission to read workspace billing, not a global administrator role. An explicit target.client_id selects the Glean or external spend client; it is never inferred from the caller. Returns all applicable limit values and counters, with effective headroom separated by unit. Agent counters retain aggregate scope. Billing readers receive exact IdP-group source identities as idp_group_id values. A USER target may be identified by user_id or email. Evaluation reports configured-budget status even when runtime enforcement switches are off; it does not perform request admission, model eligibility, or agent-run preflight checks.
       operationId: platform-admin-usage-limits-evaluate
       x-visibility: Public
       x-glean-scopes:
@@ -1930,10 +1926,9 @@ paths:
               target:
                 type: USER
                 email: user@example.com
-              usage_selector:
                 client_id: glean
-                period:
-                  type: RECURRING_CALENDAR_MONTH
+              period:
+                type: RECURRING_CALENDAR_MONTH
       responses:
         "200":
           description: Evaluation result.
@@ -1969,7 +1964,7 @@ paths:
         - Usage
       summary: Evaluate usage limit headroom
       description: |
-        Evaluate the effective usage limits for a selector and return the current decision (AVAILABLE, WARNING, or BLOCKED) based on accrued usage. Requires usage:evaluate, without workspace billing permission. Omit target to evaluate the authenticated canonical user. An explicit USER must identify that user by canonical ID, known alias ID, email, or known alias email; every supplied field must identify the caller. An explicit AGENT requires current owner/editor or applicable global agent-edit permission; disabled agents remain eligible. Subagents, other users, ORGANIZATION, and default targets are forbidden on this route, even for billing administrators. Missing, inaccessible, and subagent targets return the same 403 insufficient_permissions. An explicit usage_selector.client_id selects the Glean or external spend client; it is never inferred from the caller. Agent evaluation reports aggregate agent usage, not the caller's personal slice or a complete run preflight. Returns only the target's own policies, such as user, default, department, IdP-group, and agent limits, with their values, used counters, decisions, and headroom; USD and credits have separate effective_limits. Shared budgets, such as the selected client's organization limit, are never itemized and never contribute values, counters, warnings, or headroom; a reached shared hard limit still makes decision BLOCKED and adds a decision_causes entry with budget_scope SHARED and its source_type. The response is the same for every caller, including billing administrators. IDP_GROUP sources always have is_identity_restricted true and no idp_group_id. Use the administrative route for shared-budget details. Evaluation reports configured-budget status even when runtime enforcement switches are off; it does not perform request admission, model eligibility, or agent-run preflight checks.
+        Evaluate the effective usage limits for a target and period and return the current decision (AVAILABLE, WARNING, or BLOCKED) based on accrued usage. Requires usage:evaluate, without workspace billing permission. Omit target identity to evaluate the caller, while supplying target.client_id. An explicit USER identifies the caller by canonical ID, known alias ID, email, or known alias email; every supplied field must identify the caller. An explicit AGENT requires current owner/editor or applicable global agent-edit permission; disabled agents remain eligible. Subagents, other users, ORGANIZATION, and default targets are forbidden on this route, even for billing administrators. Missing, inaccessible, and subagent targets return the same 403 insufficient_permissions. An explicit target.client_id selects the Glean or external spend client; it is never inferred from the caller. Agent evaluation reports aggregate agent usage, not the caller's personal slice or a complete run preflight. Returns only the target's own policies, such as user, default, department, IdP-group, and agent limits, with their values, used counters, decisions, and headroom; USD and credits have separate effective_limits. Shared budgets, such as the selected client's organization limit, are never itemized and never contribute values, counters, warnings, or headroom; a reached shared hard limit still makes decision BLOCKED and adds a decision_causes entry with budget_scope SHARED and its source_type. The response is the same for every caller, including billing administrators. IDP_GROUP sources always have is_identity_restricted true and no idp_group_id. Use the administrative route for shared-budget details. Evaluation reports configured-budget status even when runtime enforcement switches are off; it does not perform request admission, model eligibility, or agent-run preflight checks.
       operationId: platform-usage-limits-evaluate
       x-visibility: Public
       x-glean-scopes:
@@ -1987,10 +1982,10 @@ paths:
             schema:
               $ref: "#/components/schemas/PlatformEvaluateCallerUsageLimitRequest"
             example:
-              usage_selector:
+              target:
                 client_id: glean
-                period:
-                  type: RECURRING_CALENDAR_MONTH
+              period:
+                type: RECURRING_CALENDAR_MONTH
       responses:
         "200":
           description: Evaluation result.
@@ -2449,7 +2444,7 @@ paths:
         - OAuth clients
       summary: List OAuth clients
       description: |
-        List the static OAuth clients that admins created for this workspace, ordered by display_name and then by client_id. Dynamically registered clients and Glean's own clients, such as Glean Desktop, are not listed. A client is active when it is enabled. Inactive clients are left out unless an is_active filter includes the value "false". To set a usage limit for a client, send its ai_gateway.usage_client_id, not its client_id, to the usage APIs. The caller needs admin read or billing read permission.
+        List the static OAuth clients that admins created for this workspace, ordered by display_name and then by client_id. Dynamically registered clients and Glean's own clients, such as Glean Desktop, are not listed. Disabled clients are left out unless an is_enabled filter includes the value "false". Use filters to find clients by name, client_id, usage_client_id, LLM Gateway access, or supported app. To set a usage limit for a client, send its ai_gateway.usage_client_id, not its client_id, to the usage APIs. The caller needs admin read or billing read permission.
       operationId: platform-admin-oauth-clients-list
       x-glean-scopes:
         legacy:
@@ -2482,7 +2477,7 @@ paths:
         - in: query
           name: filters
           description: |
-            JSON-encoded filters that choose which clients are returned. The only supported field is is_active, with the values "true" and "false" and the operator EQUALS. Multiple values OR within a filter. Multiple filters AND together. Without an is_active filter, only active clients are returned. To return active and inactive clients, send [{"field":"is_active","values":["true","false"]}].
+            JSON-encoded filters that choose which clients are returned. The supported fields are is_enabled, name, client_id, usage_client_id, has_ai_gateway, and supported_app, with the operator EQUALS. Multiple values OR within a filter. Multiple filters AND together. Each field can appear in only one filter. Without an is_enabled filter, only enabled clients are returned. To return enabled and disabled clients, send [{"field":"is_enabled","values":["true","false"]}]. To find the Claude Code clients, send [{"field":"supported_app","values":["CLAUDE_CODE"]}].
           required: false
           content:
             application/json:
@@ -2527,7 +2522,7 @@ paths:
         - OAuth clients
       summary: Get an OAuth client
       description: |
-        Get one static OAuth client that an admin created for this workspace. A client that an admin disabled is returned with is_active false. A deleted client, a dynamically registered client, one of Glean's own clients, such as Glean Desktop, and an unknown client_id all return 404. The path takes the OAuth client_id, not ai_gateway.usage_client_id. The caller needs admin read or billing read permission.
+        Get one static OAuth client that an admin created for this workspace. A client that an admin disabled is returned with is_enabled false. A deleted client, a dynamically registered client, one of Glean's own clients, such as Glean Desktop, and an unknown client_id all return 404. The path takes the OAuth client_id, not ai_gateway.usage_client_id. The caller needs admin read or billing read permission.
       operationId: platform-admin-oauth-clients-get
       x-glean-scopes:
         legacy:
@@ -2575,7 +2570,7 @@ paths:
         - Departments
       summary: List departments
       description: |
-        List the departments in the Glean directory, ordered by display_name and then by department_id. The list includes every department that at least one user belongs to or that a usage limit names, so a caller can show the name of a department that a usage limit still names after its users leave it. Department names are exact, so names that differ only by case are different departments.
+        List the departments in the Glean directory, ordered by display_name and then by department_id. The list includes every department that at least one user belongs to or that a usage limit names, so a caller can show the name of a department that a usage limit still names after its users leave it. Department names are exact, so names that differ only by case are different departments. Send a name filter to return only the departments whose display_name contains a value.
       operationId: platform-departments-list
       x-glean-scopes:
         legacy:
@@ -2598,11 +2593,34 @@ paths:
             default: 50
         - in: query
           name: cursor
-          description: Opaque pagination cursor from a previous response.
+          description: |
+            Opaque pagination cursor from a previous response. Send the same filters that the previous request used.
           required: false
           schema:
             type: string
             minLength: 1
+        - in: query
+          name: filters
+          description: |
+            JSON-encoded filters that choose which departments are returned. The only supported field is name, with the operator EQUALS. Multiple values OR within a filter. The field may appear in only one filter. A value that matches no department returns no departments rather than an error.
+          required: false
+          content:
+            application/json:
+              schema:
+                type: array
+                minItems: 1
+                maxItems: 10
+                description: Filters on department fields, combined with AND.
+                items:
+                  $ref: "#/components/schemas/PlatformDepartmentFilter"
+                  description: One filter on a department field.
+              examples:
+                name:
+                  summary: Departments whose display name contains "engineering"
+                  value:
+                    - field: name
+                      values:
+                        - engineering
       responses:
         "200":
           description: Successful response.
@@ -2690,7 +2708,7 @@ paths:
         - IdP Groups
       summary: List IdP groups
       description: |
-        List the identity provider (IdP) groups that Glean loads from the directory, ordered by display_name and then by idp_group_id. Use idp_group_id to name a group in other Platform APIs, such as the usage limit evaluation and limit increase request APIs. Usage limits apply only to IdP groups from the datasource instance in usage_settings.user_grouping.idp_group_provider_instance of the get usage settings response, and this API always lists that instance's groups. To list only those groups, pass that value in a provider_instance filter of the filters parameter, for example `filters=[{"field":"provider_instance","operator":"EQUALS","values":["okta"]}]`, URL-encoded as `filters=%5B%7B%22field%22%3A%22provider_instance%22%2C%22operator%22%3A%22EQUALS%22%2C%22values%22%3A%5B%22okta%22%5D%7D%5D`. Internal O365 ownership groups and SharePoint groups are left out. The caller must be able to read the workspace configuration or the workspace billing.
+        List the identity provider (IdP) groups that Glean loads from the directory, ordered by display_name and then by idp_group_id. Use idp_group_id to name a group in other Platform APIs, such as the usage limit evaluation and limit increase request APIs. Usage limits apply only to IdP groups from the datasource instance in usage_settings.user_grouping.idp_group_provider_instance of the get usage settings response, and this API always lists that instance's groups. To list only those groups, pass that value in a provider_instance filter of the filters parameter, for example `filters=[{"field":"provider_instance","operator":"EQUALS","values":["okta"]}]`, URL-encoded as `filters=%5B%7B%22field%22%3A%22provider_instance%22%2C%22operator%22%3A%22EQUALS%22%2C%22values%22%3A%5B%22okta%22%5D%7D%5D`. Send a provider filter to list only one provider's groups, and a name filter to list only the groups whose display_name contains a value. Internal O365 ownership groups and SharePoint groups are left out. The caller must be able to read the workspace configuration or the workspace billing.
       operationId: platform-admin-idp-groups-list
       x-glean-scopes:
         legacy:
@@ -2723,7 +2741,7 @@ paths:
         - in: query
           name: filters
           description: |
-            JSON-encoded filters that choose which IdP groups are returned. The only supported field is provider_instance, with datasource instance names such as "okta". provider_instance values match without case. The only supported operator is EQUALS. Multiple values OR within a filter. Multiple filters AND together.
+            JSON-encoded filters that choose which IdP groups are returned. The supported fields are provider_instance, provider, and name. The only supported operator is EQUALS. Multiple values OR within a filter. Multiple filters AND together. The name field may appear in only one filter. A value that matches no IdP group returns no IdP groups rather than an error.
           required: false
           content:
             application/json:
@@ -2735,6 +2753,16 @@ paths:
                 items:
                   $ref: "#/components/schemas/PlatformIdpGroupFilter"
                   description: One filter on an IdP group field.
+              examples:
+                provider_and_name:
+                  summary: Okta groups whose display name contains "engineering"
+                  value:
+                    - field: provider
+                      values:
+                        - okta
+                    - field: name
+                      values:
+                        - engineering
       responses:
         "200":
           description: Successful response.
@@ -3000,7 +3028,7 @@ paths:
         - Admin Agents
       summary: List all agents
       description: |
-        List every agent in the workspace, ordered by display_name and then by agent_id. Unlike agent search, the list does not depend on who an agent is shared with, so it includes private and disabled agents. Deleted agents are inactive and are left out unless an is_active filter includes the value "false". Use the agent_id of an active agent with other Platform APIs, for example as a usage limit target. A deleted agent is not a valid usage limit target. The caller must be able to read all agents, administer agents, or read workspace billing.
+        List every agent in the workspace, ordered by name and then by agent_id. Each agent has the same shape that Get agent returns. Unlike agent search, the list does not depend on who an agent is shared with, so it includes private and disabled agents. Deleted agents are left out. Use the agent_id with other Platform APIs, for example as a usage limit target. The caller must be able to read all agents, administer agents, or read workspace billing.
       operationId: platform-admin-agents-list
       x-glean-scopes:
         legacy:
@@ -3033,7 +3061,7 @@ paths:
         - in: query
           name: filters
           description: |
-            JSON-encoded filters that choose which agents are returned. The only supported field is is_active, with the values "true" and "false" and the operator EQUALS. Multiple values OR within a filter. Multiple filters AND together. Without an is_active filter, only active agents are returned. To return active and deleted agents, send [{"field":"is_active","values":["true","false"]}].
+            JSON-encoded filters that choose which agents are returned. The supported fields are name and description, with the operator EQUALS. Multiple values OR within a filter. Multiple filters AND together, and each field can appear in only one filter. For example, to return agents whose name contains "HR", send [{"field":"name","values":["HR"]}].
           required: false
           content:
             application/json:
@@ -3070,6 +3098,169 @@ paths:
           $ref: "#/components/responses/PlatformServiceUnavailable"
       x-speakeasy-group: admin.agents
       x-speakeasy-name-override: list
+      security:
+        - APIToken: []
+  /api/documents:
+    get:
+      tags:
+        - Documents
+      summary: Get document by URL
+      description: |
+        Retrieve one permission-visible indexed document by URL. The url is the lookup key that Platform search returns. Many URLs can resolve to one document. The response is a single document, not a list. The returned url is the permalink and may differ from the submitted URL. Gmail and Outlook search results and chat citations carry caller-specific IDs that get document by ID cannot resolve, so retrieve them by URL here. A Gmail or Outlook URL that Platform search returned can still return 404, as it can with legacy getdocuments. Retrieving search results is best-effort parity with legacy getdocuments. Federated results and go-link shortcut documents are not retrievable in this release.
+      operationId: platform-documents-get-by-url
+      x-glean-scopes:
+        legacy:
+          - DOCUMENTS
+        platform:
+          - documents:read
+      x-visibility: Public
+      parameters:
+        - in: query
+          name: url
+          description: URL of the document to retrieve.
+          required: true
+          example: "{url}"
+          schema:
+            type: string
+            minLength: 1
+            format: uri
+        - $ref: "#/components/parameters/Include"
+      responses:
+        "200":
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlatformDocumentGetResponse"
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+      x-glean-experimental:
+        id: 418eeb85-8a15-4fcb-95e2-eea016eb365d
+        introduced: "2026-09-10"
+      x-speakeasy-group: documents
+      x-speakeasy-name-override: getByUrl
+      security:
+        - APIToken: []
+  /api/documents/{document_id}:
+    get:
+      tags:
+        - Documents
+      summary: Get document by ID
+      description: |
+        Retrieve one permission-visible indexed document by its Glean store ID. Gmail and Outlook search results and chat citations can carry caller-specific IDs that this operation cannot resolve. Try get document by URL for those documents. URL lookup does not resolve every Gmail or Outlook result.
+      operationId: platform-documents-get
+      x-glean-scopes:
+        legacy:
+          - DOCUMENTS
+        platform:
+          - documents:read
+      x-visibility: Public
+      parameters:
+        - in: path
+          name: document_id
+          description: |
+            Indexed Glean store ID. For a Gmail or Outlook citation with a caller-specific ID, try get document by URL instead.
+          required: true
+          example: "{document_id}"
+          schema:
+            type: string
+            minLength: 1
+        - $ref: "#/components/parameters/Include"
+      responses:
+        "200":
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlatformDocumentGetResponse"
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+      x-glean-experimental:
+        id: ee55a9f0-39b5-46fc-9863-d4bace465a8b
+        introduced: "2026-09-10"
+      x-speakeasy-group: documents
+      x-speakeasy-name-override: getById
+      security:
+        - APIToken: []
+  /api/documents/batch:
+    post:
+      tags:
+        - Documents
+      summary: Batch get documents
+      description: |
+        Retrieve up to 100 permission-visible indexed documents by URL or document_id. Found items are in results. Complete misses are warnings correlated by index. Incomplete store work fails the whole request. Retrieving search results is best-effort parity with legacy getdocuments. Gmail and Outlook caller-specific citation IDs are not accepted as document_id selectors. Use URL selectors for them. A Gmail or Outlook URL can still return a resource_not_found warning. Federated results and go-link shortcut documents are not retrievable in this release.
+      operationId: platform-documents-batch
+      x-glean-scopes:
+        legacy:
+          - DOCUMENTS
+        platform:
+          - documents:read
+      x-visibility: Public
+      x-codegen-request-body-name: payload
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PlatformDocumentsBatchRequest"
+      responses:
+        "200":
+          description: Successful batch retrieval.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlatformDocumentsBatchResponse"
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+        "413":
+          $ref: "#/components/responses/PlatformRequestTooLarge"
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+      x-glean-experimental:
+        id: fb55e732-e3ce-41fa-ba3d-7e5e5f708e43
+        introduced: "2026-09-10"
+      x-speakeasy-group: documents
+      x-speakeasy-name-override: batch
       security:
         - APIToken: []
   /api/triggers:
@@ -4448,7 +4639,7 @@ paths:
     post:
       operationId: getchat
       summary: Retrieves a Chat
-      description: Retrieves the chat history between Glean Assistant and the user for a given Chat.
+      description: Retrieves the chat history between Glean Assistant and the user for a given Chat. Omit pagination fields to return the full message history (existing behavior). Use last alone for the latest page, last with before for older messages, or first with after for newer messages. Each page is chronological and includes pagination cursors and page flags.
       tags:
         - Chat
       security:
@@ -4471,7 +4662,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/GetChatResponse'
         "400":
-          description: Invalid request
+          description: Invalid request, page size, or cursor
         "401":
           description: Not Authorized
         "403":
@@ -7631,8 +7822,8 @@ paths:
         id: ce596f49-55c4-465e-bf3c-5a3a33906e1f
         introduced: "2026-02-03"
         message: Endpoint is deprecated
-        removal: "2027-01-15"
-      x-speakeasy-deprecation-message: "Deprecated on 2026-02-03, removal scheduled for 2027-01-15: Endpoint is deprecated"
+        removal: "2027-04-15"
+      x-speakeasy-deprecation-message: "Deprecated on 2026-02-03, removal scheduled for 2027-04-15: Endpoint is deprecated"
       x-speakeasy-name-override: bulkIndex
       x-speakeasy-group: indexing.people
   /api/index/v1/indexemployeelist: {}
@@ -8918,6 +9109,7 @@ components:
         - invalid_request
         - missing_required_field
         - invalid_parameter
+        - unsupported_action_target
         - invalid_cursor
         - expired_cursor
         - invalid_filter
@@ -8948,6 +9140,9 @@ components:
         invalid_parameter:
           status: 400
           title: Invalid Parameter
+        unsupported_action_target:
+          status: 400
+          title: Unsupported Action Target
         invalid_cursor:
           status: 400
           title: Invalid Pagination Cursor
@@ -10625,6 +10820,9 @@ components:
           description: Whether this is the latest version of the skill.
         created_by:
           $ref: "#/components/schemas/PlatformPersonReference"
+        updated_by:
+          $ref: "#/components/schemas/PlatformPersonReference"
+          description: Person who last saved this version.
         created_at:
           type: string
           format: date-time
@@ -11126,6 +11324,21 @@ components:
         type:
           $ref: "#/components/schemas/PlatformUsageTargetType"
           description: Kind of governed population.
+        client_id:
+          type: string
+          x-glean-experimental:
+            id: 3a8dfb97-fbe9-4173-ac61-4fd6e6faa847
+            introduced: "2026-09-23"
+          minLength: 1
+          maxLength: 256
+          pattern: ^[^\x00-\x1f\x7f]+$
+          not:
+            anyOf:
+              - enum:
+                  - __deleted_clients__
+              - pattern: "^[ \\t-\\r\N   - \L\P  　]*$"
+          description: |
+            Opaque, case-sensitive spend-client ID, such as glean or an external gateway spend-client ID. Case and leading or trailing padding are preserved exactly; this is not inferred from the authenticating OAuth application, prefixed, or normalized. Empty and whitespace-only IDs (including Unicode whitespace), synthetic UI aggregation IDs, and control characters are invalid. Unknown IDs are valid and can have no applicable configured policies. Required for ORGANIZATION, DEFAULT_USER, and USER configurations; forbidden for configured aggregate DEFAULT_AGENT and AGENT policies. Evaluation always requires a concrete client, including for agents. The reserved * client is valid only for the Phase 1 DEFAULT_USER actions-only premium policy, not a cross-client budget or evaluation client. Omission never selects Glean or acts as a wildcard.
         user_id:
           type: string
           minLength: 1
@@ -11209,32 +11422,6 @@ components:
         type:
           $ref: "#/components/schemas/PlatformPeriodType"
           description: Kind of usage period.
-    PlatformUsageSelector:
-      type: object
-      description: |
-        Usage counted against a configured limit, or the spend context for evaluation. Configured organization and user limits require a client; aggregate agent limits omit it. Omission never selects Glean or acts as a client wildcard.
-      additionalProperties: false
-      required:
-        - period
-      properties:
-        client_id:
-          type: string
-          x-glean-experimental:
-            id: 3a8dfb97-fbe9-4173-ac61-4fd6e6faa847
-            introduced: "2026-09-23"
-          minLength: 1
-          maxLength: 256
-          pattern: ^[^\x00-\x1f\x7f]+$
-          not:
-            anyOf:
-              - enum:
-                  - __deleted_clients__
-              - pattern: "^[ \\t-\\r\N   - \L\P  　]*$"
-          description: |
-            Opaque, case-sensitive spend-client ID, such as glean or an external gateway spend-client ID. Case and leading or trailing padding are preserved exactly; this is not inferred from the authenticating OAuth application, prefixed, or normalized. Empty and whitespace-only IDs (including Unicode whitespace), synthetic UI aggregation IDs, and control characters are invalid. Unknown IDs are valid and can have no applicable configured policies.
-        period:
-          $ref: "#/components/schemas/PlatformPeriod"
-          description: Reset cadence for counted usage.
     PlatformAllocationMode:
       type: string
       description: How a usage limit budget is shared across the target population.
@@ -11331,65 +11518,189 @@ components:
                       - unit
                   - required:
                       - enforcement
+    PlatformUsageLimitActionType:
+      type: string
+      description: Threshold action kind. Clients must tolerate unknown response values.
+      enum:
+        - NOTIFY
+        - RESTRICT_MODELS
+        - BLOCK
+      x-enumDescriptions:
+        NOTIFY: Notify administrators at an integer percent greater than zero and at most 100.
+        RESTRICT_MODELS: Restrict access to allowlisted models at a percent from zero up to but not including 100.
+        BLOCK: Response-only action representing a hard cap at 100 percent.
+      x-speakeasy-enum-descriptions:
+        NOTIFY: Notify administrators at an integer percent greater than zero and at most 100.
+        RESTRICT_MODELS: Restrict access to allowlisted models at a percent from zero up to but not including 100.
+        BLOCK: Response-only action representing a hard cap at 100 percent.
+    PlatformUsageModelFilter:
+      type: object
+      additionalProperties: false
+      description: |
+        Nonempty allowlist of model IDs. Reads preserve legacy policies, including IDs and list sizes accepted by older writers. Model tiers are deferred.
+      required:
+        - models
+      properties:
+        models:
+          type: array
+          minItems: 1
+          uniqueItems: true
+          description: Distinct model IDs from the stored allowlist.
+          items:
+            type: string
+    PlatformUsageLimitAction:
+      type: object
+      additionalProperties: false
+      description: |
+        Phase 1 accepts NOTIFY only on ordinary ORGANIZATION, DEFAULT_USER, and DEFAULT_AGENT policies. Its at_percent must be an integer in (0, 100] and allow must be omitted. RESTRICT_MODELS is accepted only as the single DEFAULT_USER/* action, requires allow, and uses at_percent in [0, 100). BLOCK is response-only. Restricted continuation at 100 is not supported.
+      required:
+        - type
+        - at_percent
+      properties:
+        type:
+          $ref: "#/components/schemas/PlatformUsageLimitActionType"
+          description: Action kind; BLOCK cannot be configured.
+        at_percent:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 100
+          description: |
+            Percent that triggers the action. RESTRICT_MODELS uses the resolved limit plus current-period approved increases; NOTIFY uses the resolved base limit, matching the existing notification service.
+        allow:
+          $ref: "#/components/schemas/PlatformUsageModelFilter"
+          description: Required only for RESTRICT_MODELS; reads preserve legacy model IDs.
     PlatformUsageLimit:
       type: object
-      description: A configured usage limit and its value.
+      description: |
+        A configured usage limit. Ordinary limits require value and their existing allocation mode. Phase 1 exposes the workspace premium policy only at DEFAULT_USER with client_id *. That key forbids value and allocation_mode and requires actions, containing zero or one RESTRICT_MODELS action. Ordinary actions-only policies, per-rule model restrictions, model targets, usage filters, daily windows, and restricted continuation are not supported.
       additionalProperties: false
       required:
         - target
-        - usage_selector
-        - value
+        - period
       properties:
         target:
           $ref: "#/components/schemas/PlatformUsageTarget"
-          description: Population governed by this limit.
-        usage_selector:
-          $ref: "#/components/schemas/PlatformUsageSelector"
-          description: Usage counted against this limit.
+          description: Population and spend client governed by this limit.
+        period:
+          $ref: "#/components/schemas/PlatformPeriod"
+          x-glean-experimental:
+            id: 3e43afc4-7169-43ee-92e5-7aa34004d126
+            introduced: "2026-10-30"
+          description: Reset cadence for counted usage.
         allocation_mode:
           $ref: "#/components/schemas/PlatformAllocationMode"
           description: |
-            Required for ORGANIZATION, DEFAULT_USER, and DEFAULT_AGENT. Must not be provided for USER or AGENT targets.
+            SHARED_POOL for ORGANIZATION and PER_MEMBER for ordinary DEFAULT_USER and DEFAULT_AGENT. Forbidden for USER, AGENT, and DEFAULT_USER/*.
         value:
           $ref: "#/components/schemas/PlatformUsageLimitValue"
-          description: Value, unit, and enforcement mode for the limit.
+          description: Required for ordinary limits; forbidden for DEFAULT_USER/*.
+        actions:
+          type: array
+          description: |
+            Ordered threshold actions. Omission preserves existing actions; [] clears them. Phase 1 supports NOTIFY on ordinary ORGANIZATION, DEFAULT_USER, and DEFAULT_AGENT policies, and only a singleton RESTRICT_MODELS action on DEFAULT_USER/*. No other action placements or actions-only rows are supported.
+          items:
+            $ref: "#/components/schemas/PlatformUsageLimitAction"
       allOf:
         - oneOf:
+            - required:
+                - actions
+              properties:
+                target:
+                  description: Workspace-wide premium model policy.
+                  required:
+                    - client_id
+                  properties:
+                    type:
+                      description: All-clients per-user default.
+                      enum:
+                        - DEFAULT_USER
+                    client_id:
+                      type: string
+                      description: Reserved all-clients policy key, not an aggregate counter.
+                      maxLength: 1
+                      pattern: ^\*$
+                actions:
+                  description: Zero or one premium restriction; an empty list clears it.
+                  maxItems: 1
+              not:
+                anyOf:
+                  - required:
+                      - value
+                  - required:
+                      - allocation_mode
+            - required:
+                - value
+              properties:
+                target:
+                  description: Ordinary policy; * is reserved for the premium policy.
+                  properties:
+                    client_id:
+                      description: Concrete spend client.
+                      not:
+                        type: string
+                        maxLength: 1
+                        pattern: ^\*$
+        - oneOf:
+            - properties:
+                target:
+                  description: Actions-only workspace premium policy.
+                  required:
+                    - client_id
+                  properties:
+                    type:
+                      description: All-clients per-user default.
+                      enum:
+                        - DEFAULT_USER
+                    client_id:
+                      type: string
+                      description: Reserved premium policy key.
+                      maxLength: 1
+                      pattern: ^\*$
+              not:
+                required:
+                  - allocation_mode
             - required:
                 - allocation_mode
               properties:
                 target:
-                  description: Population governed by this limit.
+                  description: Organization pool.
                   properties:
                     type:
-                      description: Kind of governed population.
+                      description: Organization policy.
                       enum:
                         - ORGANIZATION
                 allocation_mode:
-                  description: How this limit budget is allocated.
+                  description: Shared organization budget.
                   enum:
                     - SHARED_POOL
             - required:
                 - allocation_mode
               properties:
                 target:
-                  description: Population governed by this limit.
+                  description: Per-member default.
                   properties:
                     type:
-                      description: Kind of governed population.
+                      description: User or agent default.
                       enum:
                         - DEFAULT_USER
                         - DEFAULT_AGENT
+                    client_id:
+                      description: Concrete client when present.
+                      not:
+                        type: string
+                        maxLength: 1
+                        pattern: ^\*$
                 allocation_mode:
-                  description: How this limit budget is allocated.
+                  description: Separate member budgets.
                   enum:
                     - PER_MEMBER
             - properties:
                 target:
-                  description: Population governed by this limit.
+                  description: Individual policy; actions are unavailable in phase 1.
                   properties:
                     type:
-                      description: Kind of governed population.
+                      description: User or agent policy.
                       enum:
                         - USER
                         - AGENT
@@ -11399,29 +11710,25 @@ components:
         - oneOf:
             - properties:
                 target:
-                  description: Population governed by this client-scoped limit.
+                  description: Client-scoped policy.
+                  required:
+                    - client_id
                   properties:
                     type:
-                      description: Kind of client-scoped population.
+                      description: Client-scoped population.
                       enum:
                         - ORGANIZATION
                         - DEFAULT_USER
                         - USER
-                usage_selector:
-                  description: Spend client and period for this limit.
-                  required:
-                    - client_id
             - properties:
                 target:
-                  description: Population governed by this aggregate agent limit.
+                  description: Aggregate agent policy.
                   properties:
                     type:
-                      description: Kind of aggregate agent population.
+                      description: Aggregate agent population.
                       enum:
                         - DEFAULT_AGENT
                         - AGENT
-                usage_selector:
-                  description: Aggregate period without a client partition.
                   not:
                     required:
                       - client_id
@@ -11451,6 +11758,39 @@ components:
         request_id:
           type: string
           description: Request identifier for correlating this response.
+    PlatformUsageLimitWrite:
+      type: object
+      x-go-type: UsageLimit
+      description: |
+        Usage limit assignment with bounds for new actions and model allowlists. Responses preserve legacy policies accepted by earlier writers.
+      allOf:
+        - $ref: "#/components/schemas/PlatformUsageLimit"
+        - type: object
+          properties:
+            actions:
+              type: array
+              maxItems: 20
+              description: At most 20 configured threshold actions per assignment.
+              items:
+                type: object
+                properties:
+                  allow:
+                    type: object
+                    description: Model allowlist with bounds for new assignments.
+                    properties:
+                      models:
+                        type: array
+                        minItems: 1
+                        maxItems: 100
+                        uniqueItems: true
+                        description: Distinct, nonblank model IDs for a new premium policy.
+                        items:
+                          type: string
+                          minLength: 1
+                          maxLength: 256
+                          pattern: ^[^\x00-\x1f\x7f-\x9f]+$
+                          not:
+                            pattern: "^[ \\t-\\r\N   - \L\P  　]*$"
     PlatformUpsertUsageLimitResponse:
       type: object
       description: Response envelope for an upserted usage limit.
@@ -11467,23 +11807,28 @@ components:
           description: Request identifier for correlating this response.
     PlatformUsageLimitKey:
       type: object
-      description: Natural key for one configured usage limit.
+      description: Natural key (target, period) for one configured usage limit.
       additionalProperties: false
       required:
         - target
-        - usage_selector
+        - period
       properties:
         target:
           $ref: "#/components/schemas/PlatformUsageTarget"
-          description: Population governed by the limit.
-        usage_selector:
-          $ref: "#/components/schemas/PlatformUsageSelector"
-          description: Usage counted against the limit.
+          description: Population and spend client governed by the limit.
+        period:
+          $ref: "#/components/schemas/PlatformPeriod"
+          x-glean-experimental:
+            id: 3c2cc466-dd60-442f-ba72-e0cd5e8a650b
+            introduced: "2026-10-30"
+          description: Reset cadence for counted usage.
       allOf:
         - oneOf:
             - properties:
                 target:
-                  description: Population governed by this client-scoped limit.
+                  description: Client-scoped organization or user policy.
+                  required:
+                    - client_id
                   properties:
                     type:
                       description: Kind of client-scoped population.
@@ -11491,21 +11836,15 @@ components:
                         - ORGANIZATION
                         - DEFAULT_USER
                         - USER
-                usage_selector:
-                  description: Spend client and period for this limit.
-                  required:
-                    - client_id
             - properties:
                 target:
-                  description: Population governed by this aggregate agent limit.
+                  description: Aggregate agent policy without a client partition.
                   properties:
                     type:
                       description: Kind of aggregate agent population.
                       enum:
                         - DEFAULT_AGENT
                         - AGENT
-                usage_selector:
-                  description: Aggregate period without a client partition.
                   not:
                     required:
                       - client_id
@@ -11543,25 +11882,26 @@ components:
       type: object
       additionalProperties: false
       description: |
-        Administrative evaluation request. The target is always explicit; usage_selector and the evaluation response are shared with non-admin evaluation.
+        Administrative evaluation request. The concrete target and spend client are explicit, including client context for aggregate agent evaluation.
       required:
         - target
-        - usage_selector
+        - period
       properties:
         target:
           $ref: "#/components/schemas/PlatformUsageTarget"
-          description: Concrete organization, user, or agent to evaluate.
-        usage_selector:
-          $ref: "#/components/schemas/PlatformUsageSelector"
-          description: Usage to evaluate for the target.
+          description: Concrete organization, user, or agent and spend client to evaluate.
+        period:
+          $ref: "#/components/schemas/PlatformPeriod"
+          x-glean-experimental:
+            id: 3d965112-7c52-4e2e-85cb-48273a3795fe
+            introduced: "2026-10-30"
+          description: Evaluation period.
       allOf:
         - properties:
-            usage_selector:
-              description: Explicit spend-client context for evaluation.
+            target:
+              description: Concrete target and explicit spend-client context.
               required:
                 - client_id
-            target:
-              description: Concrete target being evaluated.
               properties:
                 type:
                   description: Kind of target being evaluated.
@@ -11569,112 +11909,12 @@ components:
                     - ORGANIZATION
                     - USER
                     - AGENT
-    PlatformUsageLimitDecision:
-      type: string
-      description: Configured-budget status for the target, independent of runtime admission switches.
-      enum:
-        - AVAILABLE
-        - WARNING
-        - BLOCKED
-      x-enumDescriptions:
-        AVAILABLE: Usage is within all applicable configured limits.
-        WARNING: Usage reached or exceeded a configured soft limit.
-        BLOCKED: Usage reached or exceeded a configured hard limit; this is not a runtime admission decision.
-      x-speakeasy-enum-descriptions:
-        AVAILABLE: Usage is within all applicable configured limits.
-        WARNING: Usage reached or exceeded a configured soft limit.
-        BLOCKED: Usage reached or exceeded a configured hard limit; this is not a runtime admission decision.
-    PlatformUsageBudgetScope:
-      type: string
-      description: Whose counter a reached usage limit measures, relative to the evaluated target.
-      enum:
-        - TARGET
-        - SHARED
-      x-enumDescriptions:
-        TARGET: The evaluated user's or agent's own allowance, including allowances inherited from default, department, or IdP-group per-member policies. It is listed in evaluated_limits and reflected in effective_limits.
-        SHARED: A budget pooled with other users or agents, such as the organization budget. Non-admin evaluation never lists it in evaluated_limits or effective_limits, so BLOCKED means usage is unavailable regardless of the target's remaining headroom.
-      x-speakeasy-enum-descriptions:
-        TARGET: The evaluated user's or agent's own allowance, including allowances inherited from default, department, or IdP-group per-member policies. It is listed in evaluated_limits and reflected in effective_limits.
-        SHARED: A budget pooled with other users or agents, such as the organization budget. Non-admin evaluation never lists it in evaluated_limits or effective_limits, so BLOCKED means usage is unavailable regardless of the target's remaining headroom.
-    PlatformUsageDecisionCause:
-      type: object
-      additionalProperties: false
-      description: |
-        Category of limit that reached a soft or hard cap. Identifies what kind of budget is responsible without disclosing its amount, usage, or identity. Treat an unrecognized budget_scope as SHARED and an unrecognized source_type as an opaque population; decision remains authoritative.
-      required:
-        - decision
-        - budget_scope
-        - source_type
-      properties:
-        decision:
-          $ref: "#/components/schemas/PlatformUsageLimitDecision"
-          description: WARNING for a reached soft limit or BLOCKED for a reached hard limit; never AVAILABLE.
-        budget_scope:
-          $ref: "#/components/schemas/PlatformUsageBudgetScope"
-          description: Whether the reached budget belongs to the evaluated target or is shared with others.
-        source_type:
-          $ref: "#/components/schemas/PlatformUsageTargetType"
-          description: |
-            Population that supplied the reached policy, such as ORGANIZATION for the organization budget or DEPARTMENT for an inherited department allowance. New shared pool levels add values here rather than new budget scopes.
-    PlatformUsageHeadroomValue:
-      type: object
-      description: Remaining configured budget in one unit, not a configured cap or runtime admission result.
-      additionalProperties: false
-      required:
-        - mode
-      properties:
-        mode:
-          $ref: "#/components/schemas/PlatformAmountMode"
-          description: Whether remaining headroom is finite or unlimited.
-        remaining:
-          type: string
-          minLength: 1
-          maxLength: 24
-          pattern: ^(0|[1-9][0-9]*)(\.[0-9]{1,6})?$
-          description: |
-            Non-negative decimal headroom after accrued usage and approved one-period grants, clamped to zero when the configured limit is reached or exceeded. Required for FINITE; forbidden for UNLIMITED.
-        unit:
-          $ref: "#/components/schemas/PlatformUsageUnit"
-          description: Unit of finite headroom; omitted for unlimited headroom.
-        enforcement:
-          $ref: "#/components/schemas/PlatformEnforcement"
-          description: Enforcement configuration of the tightest finite policy; omitted for unlimited headroom.
-      allOf:
-        - oneOf:
-            - required:
-                - remaining
-                - unit
-                - enforcement
-              properties:
-                mode:
-                  description: Finite remaining headroom.
-                  enum:
-                    - FINITE
-                remaining:
-                  type: string
-                  description: Remaining configured budget in decimal units.
-            - properties:
-                mode:
-                  description: Unlimited remaining headroom.
-                  enum:
-                    - UNLIMITED
-              not:
-                anyOf:
-                  - required:
-                      - remaining
-                    properties:
-                      remaining:
-                        description: Forbidden for unlimited headroom.
-                  - required:
-                      - unit
-                    properties:
-                      unit:
-                        description: Forbidden for unlimited headroom.
-                  - required:
-                      - enforcement
-                    properties:
-                      enforcement:
-                        description: Forbidden for unlimited headroom.
+                client_id:
+                  description: Concrete evaluation client, never the wildcard policy key.
+                  not:
+                    type: string
+                    maxLength: 1
+                    pattern: ^\*$
     PlatformIdpGroupId:
       type: string
       minLength: 1
@@ -11691,6 +11931,15 @@ components:
         type:
           $ref: "#/components/schemas/PlatformUsageTargetType"
           description: Kind of configured policy source.
+        client_id:
+          type: string
+          x-glean-experimental:
+            id: a6a3f695-ed21-4184-9cef-3dd805d87a2b
+            introduced: "2026-10-30"
+          minLength: 1
+          maxLength: 256
+          description: |
+            Opaque spend-client ID of this policy, preserving case and padding; omitted for aggregate agent policies. * identifies only the Phase 1 DEFAULT_USER actions-only premium policy, not a cross-client budget.
         user_id:
           type: string
           minLength: 1
@@ -11827,25 +12076,184 @@ components:
                   not:
                     required:
                       - idp_group_id
+    PlatformUsageRestriction:
+      type: object
+      additionalProperties: false
+      description: Active model restriction. All returned allowlists intersect; decision is unchanged.
+      required:
+        - type
+        - allow
+        - source
+      properties:
+        type:
+          $ref: "#/components/schemas/PlatformUsageLimitActionType"
+          description: Restriction kind; currently RESTRICT_MODELS.
+        allow:
+          $ref: "#/components/schemas/PlatformUsageModelFilter"
+          description: Models admitted by this restriction.
+        source:
+          $ref: "#/components/schemas/PlatformUsagePolicySourceTarget"
+          description: Configured policy supplying this restriction.
+    PlatformUsageLimitDecision:
+      type: string
+      description: Configured-budget status for the target, independent of runtime admission switches.
+      enum:
+        - AVAILABLE
+        - WARNING
+        - BLOCKED
+      x-enumDescriptions:
+        AVAILABLE: Usage is within all applicable configured limits.
+        WARNING: Usage reached or exceeded a configured soft limit.
+        BLOCKED: Usage reached or exceeded a configured hard limit; this is not a runtime admission decision.
+      x-speakeasy-enum-descriptions:
+        AVAILABLE: Usage is within all applicable configured limits.
+        WARNING: Usage reached or exceeded a configured soft limit.
+        BLOCKED: Usage reached or exceeded a configured hard limit; this is not a runtime admission decision.
+    PlatformUsageBudgetScope:
+      type: string
+      description: Whose counter a reached usage limit measures, relative to the evaluated target.
+      enum:
+        - TARGET
+        - SHARED
+      x-enumDescriptions:
+        TARGET: "The evaluated target's own budget: the organization budget for an ORGANIZATION target, or a user's or agent's own allowance, including allowances inherited from default, department, or IdP-group per-member policies. It is listed in evaluated_limits and reflected in effective_limits."
+        SHARED: A budget pooled with other users or agents, such as the organization budget when evaluating a user or agent. Non-admin evaluation never lists it in evaluated_limits or effective_limits, so BLOCKED means usage is unavailable regardless of the target's remaining headroom.
+      x-speakeasy-enum-descriptions:
+        TARGET: "The evaluated target's own budget: the organization budget for an ORGANIZATION target, or a user's or agent's own allowance, including allowances inherited from default, department, or IdP-group per-member policies. It is listed in evaluated_limits and reflected in effective_limits."
+        SHARED: A budget pooled with other users or agents, such as the organization budget when evaluating a user or agent. Non-admin evaluation never lists it in evaluated_limits or effective_limits, so BLOCKED means usage is unavailable regardless of the target's remaining headroom.
+    PlatformUsageDecisionCause:
+      type: object
+      additionalProperties: false
+      description: |
+        Category of limit that reached a soft or hard cap. Identifies what kind of budget is responsible without disclosing its amount, usage, or identity. Treat an unrecognized budget_scope as SHARED and an unrecognized source_type as an opaque population; decision remains authoritative.
+      required:
+        - decision
+        - budget_scope
+        - source_type
+      properties:
+        decision:
+          $ref: "#/components/schemas/PlatformUsageLimitDecision"
+          description: WARNING for a reached soft limit or BLOCKED for a reached hard limit; never AVAILABLE.
+        budget_scope:
+          $ref: "#/components/schemas/PlatformUsageBudgetScope"
+          description: Whether the reached budget belongs to the evaluated target or is shared with others.
+        source_type:
+          $ref: "#/components/schemas/PlatformUsageTargetType"
+          description: |
+            Population that supplied the reached policy, such as ORGANIZATION for the organization budget or DEPARTMENT for an inherited department allowance. New shared pool levels add values here rather than new budget scopes.
+    PlatformUsageHeadroomValue:
+      type: object
+      description: Remaining configured budget in one unit, not a configured cap or runtime admission result.
+      additionalProperties: false
+      required:
+        - mode
+      properties:
+        mode:
+          $ref: "#/components/schemas/PlatformAmountMode"
+          description: Whether remaining headroom is finite or unlimited.
+        remaining:
+          type: string
+          minLength: 1
+          maxLength: 24
+          pattern: ^(0|[1-9][0-9]*)(\.[0-9]{1,6})?$
+          description: |
+            Non-negative decimal headroom after accrued usage and approved one-period grants, clamped to zero when the configured limit is reached or exceeded. Required for FINITE; forbidden for UNLIMITED.
+        unit:
+          $ref: "#/components/schemas/PlatformUsageUnit"
+          description: Unit of finite headroom; omitted for unlimited headroom.
+        enforcement:
+          $ref: "#/components/schemas/PlatformEnforcement"
+          description: Enforcement configuration of the tightest finite policy; omitted for unlimited headroom.
+      allOf:
+        - oneOf:
+            - required:
+                - remaining
+                - unit
+                - enforcement
+              properties:
+                mode:
+                  description: Finite remaining headroom.
+                  enum:
+                    - FINITE
+                remaining:
+                  type: string
+                  description: Remaining configured budget in decimal units.
+            - properties:
+                mode:
+                  description: Unlimited remaining headroom.
+                  enum:
+                    - UNLIMITED
+              not:
+                anyOf:
+                  - required:
+                      - remaining
+                    properties:
+                      remaining:
+                        description: Forbidden for unlimited headroom.
+                  - required:
+                      - unit
+                    properties:
+                      unit:
+                        description: Forbidden for unlimited headroom.
+                  - required:
+                      - enforcement
+                    properties:
+                      enforcement:
+                        description: Forbidden for unlimited headroom.
+    PlatformEvaluatedUsageLimitAction:
+      type: object
+      additionalProperties: false
+      description: Active or upcoming threshold action on a resolved limit.
+      required:
+        - type
+        - at_percent
+      properties:
+        type:
+          $ref: "#/components/schemas/PlatformUsageLimitActionType"
+          description: Action kind, including response-only BLOCK.
+        at_percent:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 100
+          description: |
+            Percent of the resolved base limit for NOTIFY, or the limit plus current-period approved increases for RESTRICT_MODELS and BLOCK. Premium thresholds retain runtime float32 rounding; BLOCK uses exact micro-unit counters.
+        allow:
+          $ref: "#/components/schemas/PlatformUsageModelFilter"
+          description: Model allowlist for RESTRICT_MODELS.
+        inherited_from:
+          $ref: "#/components/schemas/PlatformUsagePolicySourceTarget"
+          description: Source of an inherited action; omitted for local and implicit actions.
     PlatformEvaluatedLimit:
       type: object
       additionalProperties: false
       description: Evaluation details for one independently applicable usage limit.
       required:
         - target
-        - usage_selector
+        - period
         - value
         - used
         - decision
+        - active_actions
       properties:
         target:
           $ref: "#/components/schemas/PlatformUsagePolicySourceTarget"
           description: |
             Configured source of this limit. Default and group policies retain their source population; used is the concrete evaluated user's or agent's counter. Non-admin evaluation withholds IdP-group identities but returns the limit value, counter, and decision of every policy it lists.
-        usage_selector:
-          $ref: "#/components/schemas/PlatformUsageSelector"
-          description: |
-            Actual scope of this rule's counter. Client rules identify their client; aggregate agent rules omit client_id even when evaluation selects a client.
+        period:
+          $ref: "#/components/schemas/PlatformPeriod"
+          x-glean-experimental:
+            id: 6fce16b8-3dea-48e5-9148-943efb62bb52
+            introduced: "2026-10-30"
+          description: Counter period; target.client_id identifies client scope and is omitted for aggregate agent rules.
+        active_actions:
+          type: array
+          description: Actions active at current usage, with their inheritance source.
+          items:
+            $ref: "#/components/schemas/PlatformEvaluatedUsageLimitAction"
+        next_action:
+          $ref: "#/components/schemas/PlatformEvaluatedUsageLimitAction"
+          description: Next threshold action; hard limits include an implicit BLOCK at 100 percent.
         value:
           $ref: "#/components/schemas/PlatformUsageLimitValue"
           description: Configured cap before approved one-period grants; value.amount is not remaining headroom.
@@ -11859,15 +12267,14 @@ components:
       type: object
       additionalProperties: false
       description: |
-        Configured-budget evaluation for a concrete target and selector, not runtime admission, model eligibility, or agent-run preflight. AVAILABLE can mean that no configured policy applies; inspect applicable_policy_count and the exact selector echo. Configured caps are evaluated_limits[].value.amount, accrued usage is evaluated_limits[].used, and remaining budget is effective_limits[].remaining. Approved one-period grants raise headroom without changing the configured cap. Units are never combined or converted. Non-admin evaluation omits shared budgets from applicable_policy_count, evaluated_limits, and effective_limits; decision can be BLOCKED by a shared budget even when the target's own limits show remaining headroom. decision_causes explains every non-AVAILABLE decision, including one caused by a budget that is not listed.
+        Configured-budget evaluation for a concrete target and period, not runtime admission, model eligibility, or agent-run preflight. AVAILABLE can mean that no configured policy applies; inspect applicable_policy_count and the normalized target and exact period echo. Configured caps are evaluated_limits[].value.amount, accrued usage is evaluated_limits[].used, and remaining budget is effective_limits[].remaining. Approved one-period grants raise headroom without changing the configured cap. Units are never combined or converted. Non-admin evaluation omits shared budgets from applicable_policy_count, evaluated_limits, and effective_limits; decision can be BLOCKED by a shared budget even when the target's own limits show remaining headroom. decision_causes explains every non-AVAILABLE decision, including one caused by a budget that is not listed.
       example:
         target:
           type: USER
           user_id: user-123
-        usage_selector:
-          client_id: glean
-          period:
-            type: RECURRING_CALENDAR_MONTH
+          client_id: claude_code
+        period:
+          type: RECURRING_CALENDAR_MONTH
         applicable_policy_count: 1
         decision: BLOCKED
         decision_causes:
@@ -11882,10 +12289,9 @@ components:
         evaluated_limits:
           - target:
               type: DEFAULT_USER
-            usage_selector:
-              client_id: glean
-              period:
-                type: RECURRING_CALENDAR_MONTH
+              client_id: claude_code
+            period:
+              type: RECURRING_CALENDAR_MONTH
             value:
               mode: FINITE
               amount: "80"
@@ -11893,11 +12299,34 @@ components:
               enforcement: HARD
             used: "20"
             decision: AVAILABLE
+            active_actions:
+              - type: RESTRICT_MODELS
+                at_percent: 25
+                allow:
+                  models:
+                    - model-a
+                    - model-b
+                inherited_from:
+                  type: DEFAULT_USER
+                  client_id: "*"
+            next_action:
+              type: BLOCK
+              at_percent: 100
+        restrictions:
+          - type: RESTRICT_MODELS
+            allow:
+              models:
+                - model-a
+                - model-b
+            source:
+              type: DEFAULT_USER
+              client_id: "*"
         evaluated_at: "2026-10-06T18:48:16Z"
         request_id: example-request
       required:
         - target
-        - usage_selector
+        - period
+        - restrictions
         - applicable_policy_count
         - decision
         - decision_causes
@@ -11910,9 +12339,17 @@ components:
           $ref: "#/components/schemas/PlatformUsageTarget"
           description: |
             Normalized concrete ORGANIZATION, USER, or AGENT evaluated. USER targets contain the canonical user_id, not the supplied alias ID or email. Included even when no configured policies apply.
-        usage_selector:
-          $ref: "#/components/schemas/PlatformUsageSelector"
-          description: Exact evaluated selector, including case and padding of client_id; never normalized.
+        period:
+          $ref: "#/components/schemas/PlatformPeriod"
+          x-glean-experimental:
+            id: 6a059c59-3fbc-498d-8a44-f05465f9e8ad
+            introduced: "2026-10-30"
+          description: Exact evaluated period; target.client_id preserves case and padding.
+        restrictions:
+          type: array
+          description: Active restrictions, combined by intersection. Empty when unrestricted.
+          items:
+            $ref: "#/components/schemas/PlatformUsageRestriction"
         applicable_policy_count:
           type: integer
           minimum: 0
@@ -11948,26 +12385,124 @@ components:
         request_id:
           type: string
           description: Request identifier for correlating this response.
+    Platformclient_id:
+      type: string
+      x-glean-experimental:
+        id: 3a8dfb97-fbe9-4173-ac61-4fd6e6faa847
+        introduced: "2026-09-23"
+      minLength: 1
+      maxLength: 256
+      pattern: ^[^\x00-\x1f\x7f]+$
+      not:
+        anyOf:
+          - enum:
+              - __deleted_clients__
+          - pattern: "^[ \\t-\\r\N   - \L\P  　]*$"
+      description: |
+        Opaque, case-sensitive spend-client ID, such as glean or an external gateway spend-client ID. Case and leading or trailing padding are preserved exactly; this is not inferred from the authenticating OAuth application, prefixed, or normalized. Empty and whitespace-only IDs (including Unicode whitespace), synthetic UI aggregation IDs, and control characters are invalid. Unknown IDs are valid and can have no applicable configured policies. Required for ORGANIZATION, DEFAULT_USER, and USER configurations; forbidden for configured aggregate DEFAULT_AGENT and AGENT policies. Evaluation always requires a concrete client, including for agents. The reserved * client is valid only for the Phase 1 DEFAULT_USER actions-only premium policy, not a cross-client budget or evaluation client. Omission never selects Glean or acts as a wildcard.
+    Platformuser_id:
+      type: string
+      minLength: 1
+      maxLength: 512
+      description: |
+        Canonical user ID; valid only when type is USER. A USER target requires user_id, email, or both.
+    Platformemail:
+      type: string
+      minLength: 3
+      maxLength: 320
+      pattern: ^[^\s@\x00-\x1f\x7f]+@[^\s@\x00-\x1f\x7f]+$
+      x-glean-experimental:
+        id: 1e7ce9ed-56af-44b2-81c1-f39e656919ea
+        introduced: "2026-09-29"
+      description: |
+        Email address of the user, including a known alias email; valid only when type is USER. Matching is case-insensitive and resolves to the canonical user_id. When user_id is also supplied, both must identify the same user. Email is never part of the stored limit key. Responses include the user's directory email when one is available.
+    Platformagent_id:
+      type: string
+      minLength: 1
+      maxLength: 512
+      description: Canonical agent ID; required only when type is AGENT.
     PlatformEvaluateCallerUsageLimitRequest:
       type: object
       additionalProperties: false
       description: |
-        Non-admin evaluation request. Only omission of target selects the authenticated canonical user; null, empty, and incomplete targets are invalid. Explicit USER targets accept the caller's canonical ID, known alias IDs, email, or known alias emails; every supplied field must identify the caller. AGENT targets require current edit permission and evaluate aggregate agent usage. Shared budgets affect only the overall decision. The authenticated identity is never replaced by the selected target.
+        Non-admin evaluation request. Omit target identity fields to select the caller. USER targets accept the caller's canonical ID, known alias IDs, email, or known alias emails; every supplied identity field must identify the caller. AGENT targets require current edit permission and evaluate aggregate agent usage. Spend-client context is always explicit. Shared budgets affect only the overall decision. The authenticated identity is never replaced by the selected target.
       required:
-        - usage_selector
+        - period
       properties:
         target:
-          $ref: "#/components/schemas/PlatformUsageTarget"
-          description: Optional self or editable agent target. Omit to evaluate self.
-        usage_selector:
-          $ref: "#/components/schemas/PlatformUsageSelector"
-          description: Usage to evaluate for the target; always required.
+          type: object
+          x-go-type: "*UsageTarget"
+          additionalProperties: false
+          description: |
+            Explicit spend-client context. Omit type and identity fields to evaluate the authenticated user. USER may also omit identity fields to select self.
+          required:
+            - client_id
+          properties:
+            type:
+              $ref: "#/components/schemas/PlatformUsageTargetType"
+              description: USER (the default) or an editable AGENT.
+            client_id:
+              $ref: "#/components/schemas/Platformclient_id"
+              x-glean-experimental:
+                id: 6df95a62-42d4-4589-ac86-2304b4dfab72
+                introduced: "2026-10-30"
+              description: Explicit spend client, including for aggregate agent evaluation.
+            user_id:
+              $ref: "#/components/schemas/Platformuser_id"
+              description: Optional caller user ID.
+            email:
+              $ref: "#/components/schemas/Platformemail"
+              x-glean-experimental:
+                id: d9e2ce7e-0f85-4bdd-a600-629f9b25c912
+                introduced: "2026-09-29"
+              description: Optional caller email.
+            agent_id:
+              $ref: "#/components/schemas/Platformagent_id"
+              description: Canonical ID of an editable agent.
+          oneOf:
+            - properties:
+                type:
+                  description: Caller evaluation, including when identity is omitted.
+                  enum:
+                    - USER
+              not:
+                required:
+                  - agent_id
+            - required:
+                - type
+                - agent_id
+              properties:
+                type:
+                  description: Aggregate agent evaluation with explicit client context.
+                  enum:
+                    - AGENT
+              not:
+                anyOf:
+                  - required:
+                      - user_id
+                  - required:
+                      - email
+        period:
+          $ref: "#/components/schemas/PlatformPeriod"
+          x-glean-experimental:
+            id: bf96af1d-4d8d-440e-8437-6be4a8d4bc79
+            introduced: "2026-10-30"
+          description: Evaluation period.
       allOf:
-        - properties:
-            usage_selector:
-              description: Explicit spend-client context; never inferred from the caller.
+        - required:
+            - target
+          properties:
+            target:
+              description: Self or editable agent and explicit spend client.
               required:
                 - client_id
+              properties:
+                client_id:
+                  description: Concrete evaluation client, never the wildcard policy key.
+                  not:
+                    type: string
+                    maxLength: 1
+                    pattern: ^\*$
     PlatformRequestStatus:
       type: string
       enum:
@@ -12366,16 +12901,33 @@ components:
       properties:
         field:
           type: string
-          pattern: ^is_active$
-          description: The client field to filter on. The only supported field is is_active.
+          pattern: ^(is_enabled|name|client_id|usage_client_id|has_ai_gateway|supported_app)$
+          description: |
+            The client field to filter on.
+            - is_enabled: "true" matches enabled clients, and "false" matches disabled
+              clients.
+
+            - name: matches clients whose display_name contains the value, ignoring
+              case and surrounding whitespace. Each value is at most 256 characters.
+
+            - client_id: matches the client with this OAuth client_id.
+            - usage_client_id: matches the client with this ai_gateway.usage_client_id.
+            - has_ai_gateway: "true" matches clients that can call the Glean LLM
+              Gateway, which are the clients with ai_gateway. "false" matches the
+              other clients.
+
+            - supported_app: matches clients whose ai_gateway.supported_apps contains
+              the value, such as CLAUDE_CODE. The values are the OAuthClientSupportedApp
+              values.
         values:
           type: array
           minItems: 1
+          maxItems: 100
           description: The values to match. A client matches when any value matches.
           items:
             type: string
-            pattern: ^(true|false)$
-            description: "\"true\" matches active clients. \"false\" matches inactive clients."
+            minLength: 1
+            description: A value to match. Blank values are rejected.
         operator:
           allOf:
             - $ref: "#/components/schemas/PlatformFilterOperator"
@@ -12450,17 +13002,37 @@ components:
         NO_AUTHENTICATION: The client does not authenticate. Public clients use this method.
         PRIVATE_KEY_JWT: The client signs a JWT with its private key.
         TLS_CLIENT_AUTH: The client authenticates with a mutual TLS certificate.
+    PlatformOAuthClientSupportedApp:
+      type: string
+      description: An app that an LLM Gateway client is set up for.
+      enum:
+        - CLAUDE_CODE
+        - CODEX
+      x-enumDescriptions:
+        CLAUDE_CODE: Claude Code.
+        CODEX: OpenAI Codex.
+      x-speakeasy-enum-descriptions:
+        CLAUDE_CODE: Claude Code.
+        CODEX: OpenAI Codex.
     PlatformOAuthClientAiGateway:
       type: object
       description: LLM Gateway details of an OAuth client.
       additionalProperties: false
       required:
         - usage_client_id
+        - supported_apps
       properties:
         usage_client_id:
           type: string
           description: |
             The spend-client ID that usage records and usage limits use for this client. Send it as the client_id of a usage limit. It is an opaque, case-sensitive string; do not build it from client_id.
+        supported_apps:
+          type: array
+          description: |
+            The apps that the client is set up for, in alphabetical order. Empty when no app is recorded for the client.
+          items:
+            $ref: "#/components/schemas/PlatformOAuthClientSupportedApp"
+            description: An app that the client is set up for.
     PlatformOAuthClient:
       type: object
       description: An OAuth client that an admin created for the workspace.
@@ -12471,7 +13043,7 @@ components:
         - registration_type
         - grant_types
         - redirect_uris
-        - is_active
+        - is_enabled
       properties:
         client_id:
           type: string
@@ -12502,10 +13074,10 @@ components:
           items:
             type: string
             description: A redirect URI.
-        is_active:
+        is_enabled:
           type: boolean
           description: |
-            Whether the client is active. A client that an admin disabled is inactive and cannot authenticate.
+            Whether the client is enabled. A client that an admin disabled cannot authenticate.
         created_at:
           type: string
           format: date-time
@@ -12553,6 +13125,36 @@ components:
         request_id:
           type: string
           description: Request identifier for correlating this response.
+    PlatformDepartmentFilter:
+      type: object
+      additionalProperties: false
+      required:
+        - field
+        - values
+      description: A filter on one department field.
+      properties:
+        field:
+          type: string
+          pattern: ^name$
+          description: |
+            The department field to filter on. The only supported field is name, which matches departments whose display_name contains the value, ignoring case and surrounding whitespace. Each value is at most 256 characters. To find the department with an exact name, such as a department_name from a usage limit response, filter by the name and compare display_name exactly.
+        values:
+          type: array
+          minItems: 1
+          maxItems: 100
+          description: The values to match. A department matches when any value matches.
+          items:
+            type: string
+            minLength: 1
+            description: A value to match. Blank values are rejected.
+        operator:
+          allOf:
+            - $ref: "#/components/schemas/PlatformFilterOperator"
+              description: Canonical Platform filter operator.
+          enum:
+            - EQUALS
+          default: EQUALS
+          description: The only supported operator is EQUALS. Defaults to EQUALS.
     PlatformDepartmentReference:
       type: object
       description: A reference to a department in the Glean directory.
@@ -12620,17 +13222,26 @@ components:
       properties:
         field:
           type: string
-          pattern: ^provider_instance$
+          pattern: ^(provider_instance|provider|name)$
           description: |
-            The IdP group field to filter on. The only supported field is provider_instance.
+            The IdP group field to filter on.
+            - provider_instance: matches groups from the datasource instance, such as
+              "okta", ignoring case.
+
+            - provider: matches groups from the identity provider, such as "okta", ignoring
+              case.
+
+            - name: matches groups whose display_name contains the value, ignoring case and
+              surrounding whitespace. Each value is at most 256 characters.
         values:
           type: array
           minItems: 1
+          maxItems: 100
           description: The values to match. An IdP group matches when any value matches.
           items:
             type: string
             minLength: 1
-            description: A datasource instance name for provider_instance.
+            description: A value to match. Empty values, and blank name values, are rejected.
         operator:
           allOf:
             - $ref: "#/components/schemas/PlatformFilterOperator"
@@ -12901,16 +13512,18 @@ components:
       properties:
         field:
           type: string
-          pattern: ^is_active$
-          description: The agent field to filter on. The only supported field is is_active.
+          pattern: ^(name|description)$
+          description: |
+            The agent field to filter on. name matches agents whose name contains the value. description matches agents whose description contains the value. Matching ignores case and surrounding whitespace. Each value is at most 256 characters.
         values:
           type: array
           minItems: 1
+          maxItems: 100
           description: The values to match. An agent matches when any value matches.
           items:
             type: string
-            pattern: ^(true|false)$
-            description: "\"true\" matches active agents. \"false\" matches deleted agents."
+            minLength: 1
+            description: A value to match. Blank values are rejected.
         operator:
           allOf:
             - $ref: "#/components/schemas/PlatformFilterOperator"
@@ -12919,25 +13532,6 @@ components:
             - EQUALS
           default: EQUALS
           description: The only supported operator is EQUALS. Defaults to EQUALS.
-    PlatformAdminAgent:
-      type: object
-      description: An agent in the workspace.
-      additionalProperties: false
-      required:
-        - agent_id
-        - display_name
-        - is_active
-      properties:
-        agent_id:
-          type: string
-          description: |
-            Opaque agent ID. Other Platform APIs, such as usage limits, accept and return this ID.
-        display_name:
-          type: string
-          description: The name that Glean shows for the agent.
-        is_active:
-          type: boolean
-          description: Whether the agent is active. A deleted agent is inactive.
     PlatformListAdminAgentsResponse:
       type: object
       description: One page of agents.
@@ -12949,9 +13543,9 @@ components:
       properties:
         results:
           type: array
-          description: The agents on this page, ordered by display_name and then by agent_id.
+          description: The agents on this page, ordered by name and then by agent_id.
           items:
-            $ref: "#/components/schemas/PlatformAdminAgent"
+            $ref: "#/components/schemas/PlatformAgent"
         has_more:
           type: boolean
           description: Whether more agents are available after this page.
@@ -12963,6 +13557,220 @@ components:
         request_id:
           type: string
           description: Request identifier for correlating this response.
+    PlatformDocumentInclude:
+      type: string
+      description: Optional document projection.
+      enum:
+        - CONTENT
+      x-enumDescriptions:
+        CONTENT: Add content, the document's extracted text.
+      x-speakeasy-enum-descriptions:
+        CONTENT: Add content, the document's extracted text.
+    PlatformDocumentContent:
+      type: object
+      additionalProperties: false
+      required:
+        - full_text_list
+      properties:
+        full_text_list:
+          type: array
+          description: |
+            Extracted plain-text segments. Empty when Glean has no extracted text for the document after a complete content read.
+          items:
+            type: string
+    PlatformDocument:
+      type: object
+      additionalProperties: false
+      required:
+        - document_id
+        - url
+        - title
+        - datasource
+        - document_type
+        - updated_at
+        - created_at
+      properties:
+        document_id:
+          type: string
+          minLength: 1
+          description: Indexed Glean store ID. Get document by ID accepts it.
+        url:
+          type: string
+          format: uri
+          minLength: 1
+          description: |
+            Permalink of the document. Pass it to get document by URL to retrieve the document again. May differ from a submitted lookup URL.
+        title:
+          type: string
+          minLength: 1
+          description: Document title. The server returns the placeholder title, Untitled, when the source item has no title.
+        datasource:
+          type: string
+          minLength: 1
+          description: Origin datasource.
+        document_type:
+          type:
+            - string
+            - "null"
+          minLength: 1
+          x-omitempty: false
+          description: Datasource-specific document type.
+        mime_type:
+          type: string
+          minLength: 1
+          description: Source MIME type. Omitted when absent.
+        creator:
+          $ref: "#/components/schemas/PlatformPersonReference"
+        owner:
+          $ref: "#/components/schemas/PlatformPersonReference"
+        updated_at:
+          type:
+            - string
+            - "null"
+          format: date-time
+          x-omitempty: false
+          description: When the document was last modified.
+        created_at:
+          type:
+            - string
+            - "null"
+          format: date-time
+          x-omitempty: false
+          description: When the document was created.
+        content:
+          $ref: "#/components/schemas/PlatformDocumentContent"
+          description: |
+            Extracted text. Present on every found document when include contains CONTENT; omitted otherwise. A failure to retrieve requested content fails the request rather than returning a document without it.
+    PlatformDocumentGetResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - document
+        - request_id
+      properties:
+        document:
+          $ref: "#/components/schemas/PlatformDocument"
+        request_id:
+          type: string
+          minLength: 1
+          description: Platform-generated request ID for support correlation.
+    PlatformDocumentsBatchSpecById:
+      type: object
+      additionalProperties: false
+      required:
+        - document_id
+      properties:
+        document_id:
+          type: string
+          minLength: 1
+          description: |
+            Indexed Glean store ID. For Gmail or Outlook caller-specific citation IDs, try a URL selector instead.
+    PlatformDocumentsBatchSpecByUrl:
+      type: object
+      additionalProperties: false
+      required:
+        - url
+      properties:
+        url:
+          type: string
+          description: |
+            Document URL to resolve. An empty or malformed URL is not a schema 400. The batch response reports it as a warning after a complete read.
+    PlatformDocumentsBatchRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - document_specs
+      example:
+        document_specs:
+          - document_id: "{document_id}"
+          - url: https://company.atlassian.net/wiki/spaces/ENG/pages/12345
+      properties:
+        document_specs:
+          type: array
+          minItems: 1
+          maxItems: 100
+          description: Selectors to retrieve. Each item is exactly one of document_id or url.
+          items:
+            oneOf:
+              - $ref: "#/components/schemas/PlatformDocumentsBatchSpecById"
+              - $ref: "#/components/schemas/PlatformDocumentsBatchSpecByUrl"
+        include:
+          type: array
+          description: |
+            Optional field groups applied to every document in results. CONTENT adds content to every found document. Each value only adds fields; it does not change which documents are returned.
+          items:
+            $ref: "#/components/schemas/PlatformDocumentInclude"
+    PlatformDocumentsBatchResult:
+      type: object
+      additionalProperties: false
+      required:
+        - index
+        - document
+      properties:
+        index:
+          type: integer
+          minimum: 0
+          description: Zero-based index into document_specs.
+        document:
+          $ref: "#/components/schemas/PlatformDocument"
+    PlatformDocumentsBatchWarningContext:
+      type: object
+      additionalProperties: false
+      required:
+        - index
+      properties:
+        index:
+          type: integer
+          minimum: 0
+          description: Zero-based index into document_specs.
+        document_id:
+          type: string
+          minLength: 1
+          description: Submitted document_id when the spec was an ID.
+        url:
+          type: string
+          description: |
+            Submitted URL when the spec was a URL. Empty when the caller sent an empty url.
+    PlatformDocumentsBatchWarning:
+      type: object
+      additionalProperties: false
+      required:
+        - code
+        - message
+        - context
+      properties:
+        code:
+          type: string
+          minLength: 1
+          description: Warning code such as resource_not_found or invalid_parameter.
+        message:
+          type: string
+          minLength: 1
+          description: Human-readable warning.
+        context:
+          $ref: "#/components/schemas/PlatformDocumentsBatchWarningContext"
+    PlatformDocumentsBatchResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - results
+        - warnings
+        - request_id
+      properties:
+        results:
+          type: array
+          description: Found documents, correlated by index into document_specs.
+          items:
+            $ref: "#/components/schemas/PlatformDocumentsBatchResult"
+        warnings:
+          type: array
+          description: Complete per-item failures. Empty when every spec was found.
+          items:
+            $ref: "#/components/schemas/PlatformDocumentsBatchWarning"
+        request_id:
+          type: string
+          minLength: 1
+          description: Platform-generated request ID for support correlation.
     PlatformTriggerStatus:
       type: string
       description: Current trigger lifecycle state.
@@ -13182,10 +13990,17 @@ components:
               pattern: ^DOCUMENT_CHANGE$
             content:
               type: string
-              description: Email body content when the event is for an email document.
+              description: Email body content when the event is for an email document, or the message text when the event is for a Slack message.
             content_truncated:
               type: boolean
               description: Present and true when source content exceeded the delivery size limit.
+            facets:
+              type: object
+              description: Facets of a Slack message as the event saw them, keyed as trigger filters key them, for example `from`, `mentions` and `channel`. Person facets carry the person's name. Each key lists up to 50 distinct values. Omitted for other documents and when the event has no facets.
+              additionalProperties:
+                type: array
+                items:
+                  type: string
       example:
         version: "1"
         trigger_id: trigger_test_123
@@ -18220,8 +19035,23 @@ components:
         id:
           type: string
           description: The id of the Chat to be retrieved.
+        first:
+          type: integer
+          format: int32
+          description: Maximum number of messages to return from the start of the chat, or after the cursor when after is set. Pair with after for newer messages; alone returns the earliest messages. Mutually exclusive with last and before.
+        after:
+          type: string
+          description: An opaque message cursor from this chat. Returns messages strictly newer than this cursor. Pair with first. Mutually exclusive with before; cannot be combined with last.
+        last:
+          type: integer
+          format: int32
+          description: Maximum number of messages to return from the end of the chat, or before the cursor when before is set. Alone returns the latest messages; pair with before for older messages. Mutually exclusive with first and after.
+        before:
+          type: string
+          description: An opaque message cursor from this chat. Returns messages strictly older than this cursor. Pair with last. Mutually exclusive with after; cannot be combined with first.
       required:
         - id
+      description: 'Retrieves a Chat. Omit pagination fields to return the full message history. When paginating, messages are returned in chronological order. Allowed combinations: last alone (latest page), last with before (older messages), first alone (earliest page), or first with after (newer messages). first and last are mutually exclusive; before and after are mutually exclusive; first cannot be combined with before; last cannot be combined with after.'
     Chat:
       allOf:
         - $ref: '#/components/schemas/ChatMetadata'
@@ -18245,10 +19075,31 @@ components:
         trackingToken:
           type: string
           description: An opaque token that represents this particular Chat. To be used for `/feedback` reporting.
+    GetChatPagination:
+      properties:
+        startCursor:
+          type: string
+          description: Cursor of the first (oldest) returned message. Omitted for an empty page.
+        endCursor:
+          type: string
+          description: Cursor of the last (newest) returned message. Omitted for an empty page.
+        hasNextPage:
+          type: boolean
+          description: Whether visible messages exist after endCursor in chronological order.
+        hasPreviousPage:
+          type: boolean
+          description: Whether visible messages exist before startCursor in chronological order.
+      required:
+        - hasNextPage
+        - hasPreviousPage
+      description: Pagination cursors and page flags for a getchat message page.
     GetChatResponse:
       properties:
         chatResult:
           $ref: '#/components/schemas/ChatResult'
+        pagination:
+          $ref: '#/components/schemas/GetChatPagination'
+          description: Always present. When the request omits pagination fields and the full message history is returned, hasNextPage and hasPreviousPage are both false and cursors may be omitted for an empty page.
     AccessRequestPermissionDeniedResponse:
       type: object
       properties:
@@ -18809,6 +19660,14 @@ components:
               - type
           title: Content
           description: The content of the message.
+        messageTrackingToken:
+          type: string
+          description: 'An opaque token that represents this particular agent message. Populated only on `GLEAN_AI` messages in responses. To record feedback, pass the token of the message being rated (typically the final `GLEAN_AI` message of the run) as the single entry in `trackingTokens` to `/feedback`, with `category: CHAT`.'
+          readOnly: true
+        traceId:
+          type: string
+          description: The agent trace ID for the run that produced this message. Populated only on `GLEAN_AI` messages in responses, when the run was traced. To attach the trace to manual feedback, pass it as `manualFeedbackInfo.traceId` to `/feedback`, together with this message's `messageTrackingToken` in `trackingTokens`. The feedback must be sent by the same user who ran the agent.
+          readOnly: true
     AgentRunCreate:
       type: object
       properties:
@@ -20715,6 +21574,7 @@ components:
               - PROJECT_FOCUS_BLOCK
               - PROJECT_NEXT_STEP
               - DEMO_CARD
+              - PERSONAL_AGENT_NUX
               - RESOLVE_MEETING_CONFLICT
               - FINDING_MEETING_ROOM
               - OOO_PLANNER
@@ -21209,6 +22069,7 @@ components:
             - PROJECT_FOCUS_BLOCK
             - PROJECT_NEXT_STEP
             - DEMO_CARD
+            - PERSONAL_AGENT_NUX
             - RESOLVE_MEETING_CONFLICT
             - FINDING_MEETING_ROOM
             - OOO_PLANNER
@@ -21313,6 +22174,7 @@ components:
             - PROJECT_FOCUS_BLOCK
             - PROJECT_NEXT_STEP
             - DEMO_CARD
+            - PERSONAL_AGENT_NUX
             - RESOLVE_MEETING_CONFLICT
             - FINDING_MEETING_ROOM
             - OOO_PLANNER
@@ -23613,6 +24475,7 @@ components:
             - AGENTS
             - AI_CONVERSATION
             - AI_ARTIFACT
+            - UGC_SKILL
           description: The document category of this object type.
         propertyDefinitions:
           type: array
@@ -24911,6 +25774,18 @@ components:
         description: Nonempty OAuth client_id.
         minLength: 1
         maxLength: 256
+    Include:
+      in: query
+      name: include
+      description: |
+        Optional field groups to add to each found document. Each value only adds fields; it does not change which documents are returned.
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: array
+        items:
+          $ref: "#/components/schemas/PlatformDocumentInclude"
     TriggerWebhookId:
       name: webhook-id
       in: header
@@ -24994,10 +25869,12 @@ x-glean-platform-tag-groups:
       - Agents
       - Chat
       - CORL
+      - Models
       - Skills
   - name: Search & Data
     tags:
       - Search
+      - Documents
   - name: Automation
     tags:
       - Triggers

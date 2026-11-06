@@ -18,6 +18,8 @@ type PlatformSkillVersion struct {
 	IsLatest bool `json:"is_latest"`
 	// A lightweight reference to a person, used where a payload merely points at someone.
 	CreatedBy PlatformPersonReference `json:"created_by"`
+	// A lightweight reference to a person, used where a payload merely points at someone.
+	UpdatedBy *PlatformPersonReference `json:"updated_by,omitempty"`
 	// Time this version was created.
 	CreatedAt time.Time `json:"created_at"`
 	// Time this version was last updated.
@@ -69,6 +71,13 @@ func (o *PlatformSkillVersion) GetCreatedBy() PlatformPersonReference {
 		return PlatformPersonReference{}
 	}
 	return o.CreatedBy
+}
+
+func (o *PlatformSkillVersion) GetUpdatedBy() *PlatformPersonReference {
+	if o == nil {
+		return nil
+	}
+	return o.UpdatedBy
 }
 
 func (o *PlatformSkillVersion) GetCreatedAt() time.Time {
