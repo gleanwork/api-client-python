@@ -31,7 +31,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.indexing.people.debug(datasource="<value>", email="u1@foo.com")
@@ -77,7 +77,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.indexing.people.count(datasource="<value>")
@@ -117,7 +117,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     glean.indexing.people.index(employee={
@@ -153,7 +153,7 @@ with Glean(
 
 Replaces all the currently indexed employees using paginated batch API calls. Please refer to the [bulk indexing](https://developers.glean.com/indexing/documents/bulk-upload-model) documentation for an explanation of how to use bulk endpoints.
 
-> :warning: **DEPRECATED**: Deprecated on 2026-02-03, removal scheduled for 2027-01-15: Endpoint is deprecated.
+> :warning: **DEPRECATED**: Deprecated on 2026-02-03, removal scheduled for 2027-04-15: Endpoint is deprecated.
 
 ### Example Usage
 
@@ -164,7 +164,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     glean.indexing.people.bulk_index(upload_id="<id>", employees=[
@@ -216,7 +216,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     glean.indexing.people.process_all_employees_and_teams()
@@ -250,7 +250,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     glean.indexing.people.delete(employee_email="<value>")
@@ -286,7 +286,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     glean.indexing.people.index_team(team={
@@ -336,7 +336,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     glean.indexing.people.delete_team(id="<id>")
@@ -371,7 +371,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     glean.indexing.people.bulk_index_teams(upload_id="<id>", teams=[

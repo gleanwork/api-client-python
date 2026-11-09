@@ -29,7 +29,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.client.chat.create(messages=[], timeout_millis=30000)
@@ -47,7 +47,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.client.chat.create(messages=[
@@ -73,7 +73,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.client.chat.create(messages=[
@@ -101,7 +101,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.client.chat.create(messages=[], timeout_millis=30000)
@@ -119,7 +119,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.client.chat.create(messages=[], timeout_millis=30000)
@@ -171,7 +171,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     glean.client.chat.delete_all()
@@ -207,7 +207,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     glean.client.chat.delete(ids=[])
@@ -233,7 +233,7 @@ with Glean(
 
 ## retrieve
 
-Retrieves the chat history between Glean Assistant and the user for a given Chat.
+Retrieves the chat history between Glean Assistant and the user for a given Chat. Omit pagination fields to return the full message history (existing behavior). Use last alone for the latest page, last with before for older messages, or first with after for newer messages. Each page is chronological and includes pagination cursors and page flags.
 
 ### Example Usage
 
@@ -244,7 +244,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.client.chat.retrieve(id="<id>")
@@ -256,12 +256,16 @@ with Glean(
 
 ### Parameters
 
-| Parameter                                                                                                                                                                                           | Type                                                                                                                                                                                                | Required                                                                                                                                                                                            | Description                                                                                                                                                                                         |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `id`                                                                                                                                                                                                | *str*                                                                                                                                                                                               | :heavy_check_mark:                                                                                                                                                                                  | The id of the Chat to be retrieved.                                                                                                                                                                 |
-| `locale`                                                                                                                                                                                            | *Optional[str]*                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                  | The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`. |
-| `timezone_offset`                                                                                                                                                                                   | *Optional[int]*                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                  | The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.                                                                                          |
-| `retries`                                                                                                                                                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                  | Configuration to override the default retry behavior of the client.                                                                                                                                 |
+| Parameter                                                                                                                                                                                                                 | Type                                                                                                                                                                                                                      | Required                                                                                                                                                                                                                  | Description                                                                                                                                                                                                               |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`                                                                                                                                                                                                                      | *str*                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                        | The id of the Chat to be retrieved.                                                                                                                                                                                       |
+| `locale`                                                                                                                                                                                                                  | *Optional[str]*                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                        | The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.                       |
+| `timezone_offset`                                                                                                                                                                                                         | *Optional[int]*                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                        | The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.                                                                                                                |
+| `first`                                                                                                                                                                                                                   | *Optional[int]*                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                        | Maximum number of messages to return from the start of the chat, or after the cursor when after is set. Pair with after for newer messages; alone returns the earliest messages. Mutually exclusive with last and before. |
+| `after`                                                                                                                                                                                                                   | *Optional[str]*                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                        | An opaque message cursor from this chat. Returns messages strictly newer than this cursor. Pair with first. Mutually exclusive with before; cannot be combined with last.                                                 |
+| `last`                                                                                                                                                                                                                    | *Optional[int]*                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                        | Maximum number of messages to return from the end of the chat, or before the cursor when before is set. Alone returns the latest messages; pair with before for older messages. Mutually exclusive with first and after.  |
+| `before`                                                                                                                                                                                                                  | *Optional[str]*                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                        | An opaque message cursor from this chat. Returns messages strictly older than this cursor. Pair with last. Mutually exclusive with after; cannot be combined with first.                                                  |
+| `retries`                                                                                                                                                                                                                 | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                        | Configuration to override the default retry behavior of the client.                                                                                                                                                       |
 
 ### Response
 
@@ -287,7 +291,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.client.chat.list()
@@ -328,7 +332,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.client.chat.retrieve_application(id="<id>")
@@ -370,7 +374,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.client.chat.upload_files(files=[])
@@ -412,7 +416,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.client.chat.retrieve_files(file_ids=[
@@ -456,7 +460,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     glean.client.chat.delete_files(file_ids=[
@@ -498,7 +502,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.client.chat.retrieve_file(file_id="<id>")
@@ -539,7 +543,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.client.chat.create_stream(messages=[], timeout_millis=30000)
@@ -557,7 +561,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.client.chat.create_stream(messages=[
@@ -583,7 +587,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.client.chat.create_stream(messages=[
@@ -611,7 +615,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.client.chat.create_stream(messages=[], timeout_millis=30000)
@@ -629,7 +633,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.client.chat.create_stream(messages=[], timeout_millis=30000)

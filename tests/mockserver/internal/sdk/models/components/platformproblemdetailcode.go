@@ -14,6 +14,7 @@ const (
 	PlatformProblemDetailCodeInvalidRequest          PlatformProblemDetailCode = "invalid_request"
 	PlatformProblemDetailCodeMissingRequiredField    PlatformProblemDetailCode = "missing_required_field"
 	PlatformProblemDetailCodeInvalidParameter        PlatformProblemDetailCode = "invalid_parameter"
+	PlatformProblemDetailCodeUnsupportedActionTarget PlatformProblemDetailCode = "unsupported_action_target"
 	PlatformProblemDetailCodeInvalidCursor           PlatformProblemDetailCode = "invalid_cursor"
 	PlatformProblemDetailCodeExpiredCursor           PlatformProblemDetailCode = "expired_cursor"
 	PlatformProblemDetailCodeInvalidFilter           PlatformProblemDetailCode = "invalid_filter"
@@ -50,6 +51,8 @@ func (e *PlatformProblemDetailCode) UnmarshalJSON(data []byte) error {
 	case "missing_required_field":
 		fallthrough
 	case "invalid_parameter":
+		fallthrough
+	case "unsupported_action_target":
 		fallthrough
 	case "invalid_cursor":
 		fallthrough

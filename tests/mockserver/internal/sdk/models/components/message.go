@@ -34,6 +34,10 @@ type Message struct {
 	Role *string `json:"role,omitempty"`
 	// The content of the message.
 	Content []MessageTextBlock `json:"content,omitempty"`
+	// An opaque token that represents this particular agent message. Populated only on `GLEAN_AI` messages in responses. To record feedback, pass the token of the message being rated (typically the final `GLEAN_AI` message of the run) as the single entry in `trackingTokens` to `/feedback`, with `category: CHAT`.
+	MessageTrackingToken *string `json:"messageTrackingToken,omitempty"`
+	// The agent trace ID for the run that produced this message. Populated only on `GLEAN_AI` messages in responses, when the run was traced. To attach the trace to manual feedback, pass it as `manualFeedbackInfo.traceId` to `/feedback`, together with this message's `messageTrackingToken` in `trackingTokens`. The feedback must be sent by the same user who ran the agent.
+	TraceID *string `json:"traceId,omitempty"`
 }
 
 func (o *Message) GetRole() *string {
@@ -48,4 +52,18 @@ func (o *Message) GetContent() []MessageTextBlock {
 		return nil
 	}
 	return o.Content
+}
+
+func (o *Message) GetMessageTrackingToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.MessageTrackingToken
+}
+
+func (o *Message) GetTraceID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TraceID
 }

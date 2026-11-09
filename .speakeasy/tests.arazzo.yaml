@@ -159696,7 +159696,7 @@ workflows:
             - condition: $response.header.Content-Type == application/json
             - context: $response.body
               condition: |
-                {"client":{"client_id":"<id>","display_name":"Janie_Von32","registration_type":"STATIC","grant_types":[],"redirect_uris":["<value 1>"],"is_active":false},"request_id":"<id>"}
+                {"client":{"client_id":"<id>","display_name":"Janie_Von32","registration_type":"STATIC","grant_types":[],"redirect_uris":["<value 1>"],"is_enabled":true},"request_id":"<id>"}
               type: simple
       x-speakeasy-test-group: clients
       x-speakeasy-test-rebuild: true
@@ -159750,4 +159750,57 @@ workflows:
                 {"user":{"user_id":"<id>","display_name":"Sadie.Skiles5"},"request_id":"<id>"}
               type: simple
       x-speakeasy-test-group: users
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-documents-get-by-url
+      steps:
+        - stepId: test
+          operationId: platform-documents-get-by-url
+          parameters:
+            - name: url
+              in: query
+              value: '{url}'
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"document":{"document_id":"<id>","url":"https://exotic-typewriter.net/","title":"<value>","datasource":"<value>","document_type":"<value>","updated_at":null,"created_at":"2025-02-04T03:38:50.354Z"},"request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: documents_SDK
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-documents-get
+      steps:
+        - stepId: test
+          operationId: platform-documents-get
+          parameters:
+            - name: document_id
+              in: path
+              value: '{document_id}'
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"document":{"document_id":"<id>","url":"https://bulky-marimba.net/","title":"<value>","datasource":"<value>","document_type":"<value>","updated_at":"2026-12-04T01:22:07.759Z","created_at":"2025-11-15T08:00:14.405Z"},"request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: documents_SDK
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-documents-batch
+      steps:
+        - stepId: test
+          operationId: platform-documents-batch
+          requestBody:
+            contentType: application/json
+            payload:
+                document_specs:
+                    - document_id: '{document_id}'
+                    - url: https://company.atlassian.net/wiki/spaces/ENG/pages/12345
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"results":[],"warnings":[{"code":"<value>","message":"<value>","context":{"index":700576}}],"request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: documents_SDK
       x-speakeasy-test-rebuild: true
