@@ -37,3 +37,4 @@ value = DocCategory.UNCATEGORIZED
 | `AGENTS`                | AGENTS                  |
 | `AI_CONVERSATION`       | AI_CONVERSATION         |
 | `AI_ARTIFACT`           | AI_ARTIFACT             |
+| `UGC_SKILL`             | UGC_SKILL               |

@@ -25,7 +25,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.client.tools.list()
@@ -65,7 +65,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.client.tools.run(name="<value>", parameters={
@@ -111,7 +111,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.client.tools.retrieve_action_pack_auth_status(action_pack_id="<id>")
@@ -158,7 +158,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.client.tools.authorize_action_pack(action_pack_id="<id>", return_url="https://merry-allocation.org/")
@@ -201,7 +201,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.client.tools.retrieve_tool_server_auth_status(server_id="<id>")
@@ -248,7 +248,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.client.tools.authorize_tool_server(server_id="<id>", return_url="https://lucky-disadvantage.com")
@@ -299,7 +299,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.client.tools.get_tool_server_tools(server_id="<id>", tool_names=[

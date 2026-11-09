@@ -705,6 +705,10 @@ class ClientChat(BaseSDK):
         id: str,
         locale: Optional[str] = None,
         timezone_offset: Optional[int] = None,
+        first: Optional[int] = None,
+        after: Optional[str] = None,
+        last: Optional[int] = None,
+        before: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -712,11 +716,15 @@ class ClientChat(BaseSDK):
     ) -> models.GetChatResponse:
         r"""Retrieves a Chat
 
-        Retrieves the chat history between Glean Assistant and the user for a given Chat.
+        Retrieves the chat history between Glean Assistant and the user for a given Chat. Omit pagination fields to return the full message history (existing behavior). Use last alone for the latest page, last with before for older messages, or first with after for newer messages. Each page is chronological and includes pagination cursors and page flags.
 
         :param id: The id of the Chat to be retrieved.
         :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
+        :param first: Maximum number of messages to return from the start of the chat, or after the cursor when after is set. Pair with after for newer messages; alone returns the earliest messages. Mutually exclusive with last and before.
+        :param after: An opaque message cursor from this chat. Returns messages strictly newer than this cursor. Pair with first. Mutually exclusive with before; cannot be combined with last.
+        :param last: Maximum number of messages to return from the end of the chat, or before the cursor when before is set. Alone returns the latest messages; pair with before for older messages. Mutually exclusive with first and after.
+        :param before: An opaque message cursor from this chat. Returns messages strictly older than this cursor. Pair with last. Mutually exclusive with after; cannot be combined with first.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -737,6 +745,10 @@ class ClientChat(BaseSDK):
             timezone_offset=timezone_offset,
             get_chat_request=models.GetChatRequest(
                 id=id,
+                first=first,
+                after=after,
+                last=last,
+                before=before,
             ),
         )
 
@@ -813,6 +825,10 @@ class ClientChat(BaseSDK):
         id: str,
         locale: Optional[str] = None,
         timezone_offset: Optional[int] = None,
+        first: Optional[int] = None,
+        after: Optional[str] = None,
+        last: Optional[int] = None,
+        before: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -820,11 +836,15 @@ class ClientChat(BaseSDK):
     ) -> models.GetChatResponse:
         r"""Retrieves a Chat
 
-        Retrieves the chat history between Glean Assistant and the user for a given Chat.
+        Retrieves the chat history between Glean Assistant and the user for a given Chat. Omit pagination fields to return the full message history (existing behavior). Use last alone for the latest page, last with before for older messages, or first with after for newer messages. Each page is chronological and includes pagination cursors and page flags.
 
         :param id: The id of the Chat to be retrieved.
         :param locale: The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`.
         :param timezone_offset: The offset of the client's timezone in minutes from UTC. e.g. PDT is -420 because it's 7 hours behind UTC.
+        :param first: Maximum number of messages to return from the start of the chat, or after the cursor when after is set. Pair with after for newer messages; alone returns the earliest messages. Mutually exclusive with last and before.
+        :param after: An opaque message cursor from this chat. Returns messages strictly newer than this cursor. Pair with first. Mutually exclusive with before; cannot be combined with last.
+        :param last: Maximum number of messages to return from the end of the chat, or before the cursor when before is set. Alone returns the latest messages; pair with before for older messages. Mutually exclusive with first and after.
+        :param before: An opaque message cursor from this chat. Returns messages strictly older than this cursor. Pair with last. Mutually exclusive with after; cannot be combined with first.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -845,6 +865,10 @@ class ClientChat(BaseSDK):
             timezone_offset=timezone_offset,
             get_chat_request=models.GetChatRequest(
                 id=id,
+                first=first,
+                after=after,
+                last=last,
+                before=before,
             ),
         )
 

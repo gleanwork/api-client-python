@@ -7,6 +7,9 @@ type PlatformOAuthClientAiGateway struct {
 	// The spend-client ID that usage records and usage limits use for this client. Send it as the client_id of a usage limit. It is an opaque, case-sensitive string; do not build it from client_id.
 	//
 	UsageClientID string `json:"usage_client_id"`
+	// The apps that the client is set up for, in alphabetical order. Empty when no app is recorded for the client.
+	//
+	SupportedApps []PlatformOAuthClientSupportedApp `json:"supported_apps"`
 }
 
 func (o *PlatformOAuthClientAiGateway) GetUsageClientID() string {
@@ -14,4 +17,11 @@ func (o *PlatformOAuthClientAiGateway) GetUsageClientID() string {
 		return ""
 	}
 	return o.UsageClientID
+}
+
+func (o *PlatformOAuthClientAiGateway) GetSupportedApps() []PlatformOAuthClientSupportedApp {
+	if o == nil {
+		return []PlatformOAuthClientSupportedApp{}
+	}
+	return o.SupportedApps
 }

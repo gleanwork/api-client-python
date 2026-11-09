@@ -22,7 +22,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.chat.create(input="Summarize our parental leave policy as JSON.", store=True, text={
@@ -88,7 +88,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.chat.update(chat_id="{chat_id}", name="Quarterly planning notes")
@@ -132,7 +132,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.chat.create_stream(input="Summarize our parental leave policy as JSON.", store=True, text={

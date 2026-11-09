@@ -23,7 +23,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.client.governance.data.policies.retrieve(id="<id>")
@@ -64,7 +64,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.client.governance.data.policies.update(id="<id>")
@@ -109,7 +109,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.client.governance.data.policies.list()
@@ -150,7 +150,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.client.governance.data.policies.create()
@@ -193,7 +193,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.client.governance.data.policies.download(id="<id>")

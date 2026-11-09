@@ -28,13 +28,13 @@ class Clients(BaseSDK):
     ) -> models.PlatformListOAuthClientsResponse:
         r"""List OAuth clients
 
-        List the static OAuth clients that admins created for this workspace, ordered by display_name and then by client_id. Dynamically registered clients and Glean's own clients, such as Glean Desktop, are not listed. A client is active when it is enabled. Inactive clients are left out unless an is_active filter includes the value \"false\". To set a usage limit for a client, send its ai_gateway.usage_client_id, not its client_id, to the usage APIs. The caller needs admin read or billing read permission.
+        List the static OAuth clients that admins created for this workspace, ordered by display_name and then by client_id. Dynamically registered clients and Glean's own clients, such as Glean Desktop, are not listed. Disabled clients are left out unless an is_enabled filter includes the value \"false\". Use filters to find clients by name, client_id, usage_client_id, LLM Gateway access, or supported app. To set a usage limit for a client, send its ai_gateway.usage_client_id, not its client_id, to the usage APIs. The caller needs admin read or billing read permission.
 
 
         :param page_size: Maximum number of clients to return. Defaults to 50. Maximum is 100.
         :param cursor: Opaque pagination cursor from a previous response. Send the same filters that the previous request used.
 
-        :param filters: JSON-encoded filters that choose which clients are returned. The only supported field is is_active, with the values \"true\" and \"false\" and the operator EQUALS. Multiple values OR within a filter. Multiple filters AND together. Without an is_active filter, only active clients are returned. To return active and inactive clients, send [{\"field\":\"is_active\",\"values\":[\"true\",\"false\"]}].
+        :param filters: JSON-encoded filters that choose which clients are returned. The supported fields are is_enabled, name, client_id, usage_client_id, has_ai_gateway, and supported_app, with the operator EQUALS. Multiple values OR within a filter. Multiple filters AND together. Each field can appear in only one filter. Without an is_enabled filter, only enabled clients are returned. To return enabled and disabled clients, send [{\"field\":\"is_enabled\",\"values\":[\"true\",\"false\"]}]. To find the Claude Code clients, send [{\"field\":\"supported_app\",\"values\":[\"CLAUDE_CODE\"]}].
 
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -157,13 +157,13 @@ class Clients(BaseSDK):
     ) -> models.PlatformListOAuthClientsResponse:
         r"""List OAuth clients
 
-        List the static OAuth clients that admins created for this workspace, ordered by display_name and then by client_id. Dynamically registered clients and Glean's own clients, such as Glean Desktop, are not listed. A client is active when it is enabled. Inactive clients are left out unless an is_active filter includes the value \"false\". To set a usage limit for a client, send its ai_gateway.usage_client_id, not its client_id, to the usage APIs. The caller needs admin read or billing read permission.
+        List the static OAuth clients that admins created for this workspace, ordered by display_name and then by client_id. Dynamically registered clients and Glean's own clients, such as Glean Desktop, are not listed. Disabled clients are left out unless an is_enabled filter includes the value \"false\". Use filters to find clients by name, client_id, usage_client_id, LLM Gateway access, or supported app. To set a usage limit for a client, send its ai_gateway.usage_client_id, not its client_id, to the usage APIs. The caller needs admin read or billing read permission.
 
 
         :param page_size: Maximum number of clients to return. Defaults to 50. Maximum is 100.
         :param cursor: Opaque pagination cursor from a previous response. Send the same filters that the previous request used.
 
-        :param filters: JSON-encoded filters that choose which clients are returned. The only supported field is is_active, with the values \"true\" and \"false\" and the operator EQUALS. Multiple values OR within a filter. Multiple filters AND together. Without an is_active filter, only active clients are returned. To return active and inactive clients, send [{\"field\":\"is_active\",\"values\":[\"true\",\"false\"]}].
+        :param filters: JSON-encoded filters that choose which clients are returned. The supported fields are is_enabled, name, client_id, usage_client_id, has_ai_gateway, and supported_app, with the operator EQUALS. Multiple values OR within a filter. Multiple filters AND together. Each field can appear in only one filter. Without an is_enabled filter, only enabled clients are returned. To return enabled and disabled clients, send [{\"field\":\"is_enabled\",\"values\":[\"true\",\"false\"]}]. To find the Claude Code clients, send [{\"field\":\"supported_app\",\"values\":[\"CLAUDE_CODE\"]}].
 
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -279,7 +279,7 @@ class Clients(BaseSDK):
     ) -> models.PlatformGetOAuthClientResponse:
         r"""Get an OAuth client
 
-        Get one static OAuth client that an admin created for this workspace. A client that an admin disabled is returned with is_active false. A deleted client, a dynamically registered client, one of Glean's own clients, such as Glean Desktop, and an unknown client_id all return 404. The path takes the OAuth client_id, not ai_gateway.usage_client_id. The caller needs admin read or billing read permission.
+        Get one static OAuth client that an admin created for this workspace. A client that an admin disabled is returned with is_enabled false. A deleted client, a dynamically registered client, one of Glean's own clients, such as Glean Desktop, and an unknown client_id all return 404. The path takes the OAuth client_id, not ai_gateway.usage_client_id. The caller needs admin read or billing read permission.
 
 
         :param client_id: The OAuth client_id of the client.
@@ -393,7 +393,7 @@ class Clients(BaseSDK):
     ) -> models.PlatformGetOAuthClientResponse:
         r"""Get an OAuth client
 
-        Get one static OAuth client that an admin created for this workspace. A client that an admin disabled is returned with is_active false. A deleted client, a dynamically registered client, one of Glean's own clients, such as Glean Desktop, and an unknown client_id all return 404. The path takes the OAuth client_id, not ai_gateway.usage_client_id. The caller needs admin read or billing read permission.
+        Get one static OAuth client that an admin created for this workspace. A client that an admin disabled is returned with is_enabled false. A deleted client, a dynamically registered client, one of Glean's own clients, such as Glean Desktop, and an unknown client_id all return 404. The path takes the OAuth client_id, not ai_gateway.usage_client_id. The caller needs admin read or billing read permission.
 
 
         :param client_id: The OAuth client_id of the client.
