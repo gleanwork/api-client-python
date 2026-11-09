@@ -5,7 +5,13 @@ from .platformoauthclientfilter import (
     PlatformOAuthClientFilter,
     PlatformOAuthClientFilterTypedDict,
 )
-from glean.api_client.types import BaseModel, UNSET_SENTINEL
+from glean.api_client.types import (
+    BaseModel,
+    UNSET_SENTINEL,
+    current_exclude_none,
+    serialize_with_info,
+)
+from glean.api_client.types.basemodel import current_filtered_dump
 from glean.api_client.utils import FieldMetadata, QueryParamMetadata
 from pydantic import model_serializer
 from typing import List, Optional
@@ -20,7 +26,7 @@ class PlatformAdminOauthClientsListRequestTypedDict(TypedDict):
 
     """
     filters: NotRequired[List[PlatformOAuthClientFilterTypedDict]]
-    r"""JSON-encoded filters that choose which clients are returned. The only supported field is is_active, with the values \"true\" and \"false\" and the operator EQUALS. Multiple values OR within a filter. Multiple filters AND together. Without an is_active filter, only active clients are returned. To return active and inactive clients, send [{\"field\":\"is_active\",\"values\":[\"true\",\"false\"]}].
+    r"""JSON-encoded filters that choose which clients are returned. The supported fields are is_enabled, name, client_id, usage_client_id, has_ai_gateway, and supported_app, with the operator EQUALS. Multiple values OR within a filter. Multiple filters AND together. Each field can appear in only one filter. Without an is_enabled filter, only enabled clients are returned. To return enabled and disabled clients, send [{\"field\":\"is_enabled\",\"values\":[\"true\",\"false\"]}]. To find the Claude Code clients, send [{\"field\":\"supported_app\",\"values\":[\"CLAUDE_CODE\"]}].
 
     """
 
@@ -44,18 +50,25 @@ class PlatformAdminOauthClientsListRequest(BaseModel):
         Optional[List[PlatformOAuthClientFilter]],
         FieldMetadata(query=QueryParamMetadata(serialization="json")),
     ] = None
-    r"""JSON-encoded filters that choose which clients are returned. The only supported field is is_active, with the values \"true\" and \"false\" and the operator EQUALS. Multiple values OR within a filter. Multiple filters AND together. Without an is_active filter, only active clients are returned. To return active and inactive clients, send [{\"field\":\"is_active\",\"values\":[\"true\",\"false\"]}].
+    r"""JSON-encoded filters that choose which clients are returned. The supported fields are is_enabled, name, client_id, usage_client_id, has_ai_gateway, and supported_app, with the operator EQUALS. Multiple values OR within a filter. Multiple filters AND together. Each field can appear in only one filter. Without an is_enabled filter, only enabled clients are returned. To return enabled and disabled clients, send [{\"field\":\"is_enabled\",\"values\":[\"true\",\"false\"]}]. To find the Claude Code clients, send [{\"field\":\"supported_app\",\"values\":[\"CLAUDE_CODE\"]}].
 
     """
 
     @model_serializer(mode="wrap")
+    def _serialize_model_with_info(self, handler, info):
+        return serialize_with_info(self.serialize_model, handler, info)
+
     def serialize_model(self, handler):
         optional_fields = set(["page_size", "cursor", "filters"])
+        exclude_none = current_exclude_none()
+        skip_filtered = exclude_none is False or current_filtered_dump()
         serialized = handler(self)
         m = {}
 
         for n, f in type(self).model_fields.items():
-            k = f.alias or n
+            k = f.alias if f.alias is not None else n
+            if k not in serialized and n not in serialized and skip_filtered:
+                continue
             val = serialized.get(k, serialized.get(n))
 
             if val != UNSET_SENTINEL:

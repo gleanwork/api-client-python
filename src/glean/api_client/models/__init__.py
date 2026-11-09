@@ -909,6 +909,7 @@ if TYPE_CHECKING:
         GetChatFilesResponseTypedDict,
     )
     from .getchatop import GetchatRequestRequest, GetchatRequestRequestTypedDict
+    from .getchatpagination import GetChatPagination, GetChatPaginationTypedDict
     from .getchatrequest import GetChatRequest, GetChatRequestTypedDict
     from .getchatresponse import GetChatResponse, GetChatResponseTypedDict
     from .getcollectionop import (
@@ -1362,6 +1363,14 @@ if TYPE_CHECKING:
         PlatformDepartmentsListRequest,
         PlatformDepartmentsListRequestTypedDict,
     )
+    from .platform_documents_get_by_urlop import (
+        PlatformDocumentsGetByURLRequest,
+        PlatformDocumentsGetByURLRequestTypedDict,
+    )
+    from .platform_documents_getop import (
+        PlatformDocumentsGetRequest,
+        PlatformDocumentsGetRequestTypedDict,
+    )
     from .platform_search_filtersop import (
         PlatformSearchFiltersRequest,
         PlatformSearchFiltersRequestTypedDict,
@@ -1472,7 +1481,6 @@ if TYPE_CHECKING:
         PlatformActionSummary,
         PlatformActionSummaryTypedDict,
     )
-    from .platformadminagent import PlatformAdminAgent, PlatformAdminAgentTypedDict
     from .platformadminagentfilter import (
         PlatformAdminAgentFilter,
         PlatformAdminAgentFilterOperator,
@@ -1699,13 +1707,58 @@ if TYPE_CHECKING:
         PlatformDatasourceFilterInfo,
         PlatformDatasourceFilterInfoTypedDict,
     )
+    from .platformdepartmentfilter import (
+        PlatformDepartmentFilter,
+        PlatformDepartmentFilterOperator,
+        PlatformDepartmentFilterTypedDict,
+    )
     from .platformdepartmentreference import (
         PlatformDepartmentReference,
         PlatformDepartmentReferenceTypedDict,
     )
+    from .platformdocument import PlatformDocument, PlatformDocumentTypedDict
     from .platformdocumentchangewebhookevent import (
         PlatformDocumentChangeWebhookEvent,
         PlatformDocumentChangeWebhookEventTypedDict,
+    )
+    from .platformdocumentcontent import (
+        PlatformDocumentContent,
+        PlatformDocumentContentTypedDict,
+    )
+    from .platformdocumentgetresponse import (
+        PlatformDocumentGetResponse,
+        PlatformDocumentGetResponseTypedDict,
+    )
+    from .platformdocumentinclude import PlatformDocumentInclude
+    from .platformdocumentsbatchrequest import (
+        PlatformDocumentsBatchRequest,
+        PlatformDocumentsBatchRequestDocumentSpec,
+        PlatformDocumentsBatchRequestDocumentSpecTypedDict,
+        PlatformDocumentsBatchRequestTypedDict,
+    )
+    from .platformdocumentsbatchresponse import (
+        PlatformDocumentsBatchResponse,
+        PlatformDocumentsBatchResponseTypedDict,
+    )
+    from .platformdocumentsbatchresult import (
+        PlatformDocumentsBatchResult,
+        PlatformDocumentsBatchResultTypedDict,
+    )
+    from .platformdocumentsbatchspecbyid import (
+        PlatformDocumentsBatchSpecByID,
+        PlatformDocumentsBatchSpecByIDTypedDict,
+    )
+    from .platformdocumentsbatchspecbyurl import (
+        PlatformDocumentsBatchSpecByURL,
+        PlatformDocumentsBatchSpecByURLTypedDict,
+    )
+    from .platformdocumentsbatchwarning import (
+        PlatformDocumentsBatchWarning,
+        PlatformDocumentsBatchWarningTypedDict,
+    )
+    from .platformdocumentsbatchwarningcontext import (
+        PlatformDocumentsBatchWarningContext,
+        PlatformDocumentsBatchWarningContextTypedDict,
     )
     from .platformdurableagentrun import (
         PlatformDurableAgentRun,
@@ -1784,6 +1837,7 @@ if TYPE_CHECKING:
         PlatformOAuthClientFilterTypedDict,
     )
     from .platformoauthclientregistrationtype import PlatformOAuthClientRegistrationType
+    from .platformoauthclientsupportedapp import PlatformOAuthClientSupportedApp
     from .platformoauthclienttype import PlatformOAuthClientType
     from .platformoauthgranttype import PlatformOAuthGrantType
     from .platformoauthtokenendpointauthmethod import (
@@ -3148,6 +3202,8 @@ __all__ = [
     "GetChatFilesRequestTypedDict",
     "GetChatFilesResponse",
     "GetChatFilesResponseTypedDict",
+    "GetChatPagination",
+    "GetChatPaginationTypedDict",
     "GetChatRequest",
     "GetChatRequestTypedDict",
     "GetChatResponse",
@@ -3474,11 +3530,9 @@ __all__ = [
     "PlacementReason",
     "PlatformActionSummary",
     "PlatformActionSummaryTypedDict",
-    "PlatformAdminAgent",
     "PlatformAdminAgentFilter",
     "PlatformAdminAgentFilterOperator",
     "PlatformAdminAgentFilterTypedDict",
-    "PlatformAdminAgentTypedDict",
     "PlatformAdminAgentsListRequest",
     "PlatformAdminAgentsListRequestTypedDict",
     "PlatformAdminIdpGroupsGetRequest",
@@ -3649,14 +3703,44 @@ __all__ = [
     "PlatformContentType",
     "PlatformDatasourceFilterInfo",
     "PlatformDatasourceFilterInfoTypedDict",
+    "PlatformDepartmentFilter",
+    "PlatformDepartmentFilterOperator",
+    "PlatformDepartmentFilterTypedDict",
     "PlatformDepartmentReference",
     "PlatformDepartmentReferenceTypedDict",
     "PlatformDepartmentsGetRequest",
     "PlatformDepartmentsGetRequestTypedDict",
     "PlatformDepartmentsListRequest",
     "PlatformDepartmentsListRequestTypedDict",
+    "PlatformDocument",
     "PlatformDocumentChangeWebhookEvent",
     "PlatformDocumentChangeWebhookEventTypedDict",
+    "PlatformDocumentContent",
+    "PlatformDocumentContentTypedDict",
+    "PlatformDocumentGetResponse",
+    "PlatformDocumentGetResponseTypedDict",
+    "PlatformDocumentInclude",
+    "PlatformDocumentTypedDict",
+    "PlatformDocumentsBatchRequest",
+    "PlatformDocumentsBatchRequestDocumentSpec",
+    "PlatformDocumentsBatchRequestDocumentSpecTypedDict",
+    "PlatformDocumentsBatchRequestTypedDict",
+    "PlatformDocumentsBatchResponse",
+    "PlatformDocumentsBatchResponseTypedDict",
+    "PlatformDocumentsBatchResult",
+    "PlatformDocumentsBatchResultTypedDict",
+    "PlatformDocumentsBatchSpecByID",
+    "PlatformDocumentsBatchSpecByIDTypedDict",
+    "PlatformDocumentsBatchSpecByURL",
+    "PlatformDocumentsBatchSpecByURLTypedDict",
+    "PlatformDocumentsBatchWarning",
+    "PlatformDocumentsBatchWarningContext",
+    "PlatformDocumentsBatchWarningContextTypedDict",
+    "PlatformDocumentsBatchWarningTypedDict",
+    "PlatformDocumentsGetByURLRequest",
+    "PlatformDocumentsGetByURLRequestTypedDict",
+    "PlatformDocumentsGetRequest",
+    "PlatformDocumentsGetRequestTypedDict",
     "PlatformDurableAgentRun",
     "PlatformDurableAgentRunTypedDict",
     "PlatformFilter",
@@ -3703,6 +3787,7 @@ __all__ = [
     "PlatformOAuthClientFilterOperator",
     "PlatformOAuthClientFilterTypedDict",
     "PlatformOAuthClientRegistrationType",
+    "PlatformOAuthClientSupportedApp",
     "PlatformOAuthClientType",
     "PlatformOAuthClientTypedDict",
     "PlatformOAuthGrantType",
@@ -4919,6 +5004,8 @@ _dynamic_imports: dict[str, str] = {
     "GetChatFilesResponseTypedDict": ".getchatfilesresponse",
     "GetchatRequestRequest": ".getchatop",
     "GetchatRequestRequestTypedDict": ".getchatop",
+    "GetChatPagination": ".getchatpagination",
+    "GetChatPaginationTypedDict": ".getchatpagination",
     "GetChatRequest": ".getchatrequest",
     "GetChatRequestTypedDict": ".getchatrequest",
     "GetChatResponse": ".getchatresponse",
@@ -5252,6 +5339,10 @@ _dynamic_imports: dict[str, str] = {
     "PlatformDepartmentsGetRequestTypedDict": ".platform_departments_getop",
     "PlatformDepartmentsListRequest": ".platform_departments_listop",
     "PlatformDepartmentsListRequestTypedDict": ".platform_departments_listop",
+    "PlatformDocumentsGetByURLRequest": ".platform_documents_get_by_urlop",
+    "PlatformDocumentsGetByURLRequestTypedDict": ".platform_documents_get_by_urlop",
+    "PlatformDocumentsGetRequest": ".platform_documents_getop",
+    "PlatformDocumentsGetRequestTypedDict": ".platform_documents_getop",
     "PlatformSearchFiltersRequest": ".platform_search_filtersop",
     "PlatformSearchFiltersRequestTypedDict": ".platform_search_filtersop",
     "PlatformSearchFiltersResponseResponse": ".platform_search_filtersop",
@@ -5310,8 +5401,6 @@ _dynamic_imports: dict[str, str] = {
     "PlatformUsersListRequestTypedDict": ".platform_users_listop",
     "PlatformActionSummary": ".platformactionsummary",
     "PlatformActionSummaryTypedDict": ".platformactionsummary",
-    "PlatformAdminAgent": ".platformadminagent",
-    "PlatformAdminAgentTypedDict": ".platformadminagent",
     "PlatformAdminAgentFilter": ".platformadminagentfilter",
     "PlatformAdminAgentFilterOperator": ".platformadminagentfilter",
     "PlatformAdminAgentFilterTypedDict": ".platformadminagentfilter",
@@ -5447,10 +5536,36 @@ _dynamic_imports: dict[str, str] = {
     "PlatformContentType": ".platformcontenttype",
     "PlatformDatasourceFilterInfo": ".platformdatasourcefilterinfo",
     "PlatformDatasourceFilterInfoTypedDict": ".platformdatasourcefilterinfo",
+    "PlatformDepartmentFilter": ".platformdepartmentfilter",
+    "PlatformDepartmentFilterOperator": ".platformdepartmentfilter",
+    "PlatformDepartmentFilterTypedDict": ".platformdepartmentfilter",
     "PlatformDepartmentReference": ".platformdepartmentreference",
     "PlatformDepartmentReferenceTypedDict": ".platformdepartmentreference",
+    "PlatformDocument": ".platformdocument",
+    "PlatformDocumentTypedDict": ".platformdocument",
     "PlatformDocumentChangeWebhookEvent": ".platformdocumentchangewebhookevent",
     "PlatformDocumentChangeWebhookEventTypedDict": ".platformdocumentchangewebhookevent",
+    "PlatformDocumentContent": ".platformdocumentcontent",
+    "PlatformDocumentContentTypedDict": ".platformdocumentcontent",
+    "PlatformDocumentGetResponse": ".platformdocumentgetresponse",
+    "PlatformDocumentGetResponseTypedDict": ".platformdocumentgetresponse",
+    "PlatformDocumentInclude": ".platformdocumentinclude",
+    "PlatformDocumentsBatchRequest": ".platformdocumentsbatchrequest",
+    "PlatformDocumentsBatchRequestDocumentSpec": ".platformdocumentsbatchrequest",
+    "PlatformDocumentsBatchRequestDocumentSpecTypedDict": ".platformdocumentsbatchrequest",
+    "PlatformDocumentsBatchRequestTypedDict": ".platformdocumentsbatchrequest",
+    "PlatformDocumentsBatchResponse": ".platformdocumentsbatchresponse",
+    "PlatformDocumentsBatchResponseTypedDict": ".platformdocumentsbatchresponse",
+    "PlatformDocumentsBatchResult": ".platformdocumentsbatchresult",
+    "PlatformDocumentsBatchResultTypedDict": ".platformdocumentsbatchresult",
+    "PlatformDocumentsBatchSpecByID": ".platformdocumentsbatchspecbyid",
+    "PlatformDocumentsBatchSpecByIDTypedDict": ".platformdocumentsbatchspecbyid",
+    "PlatformDocumentsBatchSpecByURL": ".platformdocumentsbatchspecbyurl",
+    "PlatformDocumentsBatchSpecByURLTypedDict": ".platformdocumentsbatchspecbyurl",
+    "PlatformDocumentsBatchWarning": ".platformdocumentsbatchwarning",
+    "PlatformDocumentsBatchWarningTypedDict": ".platformdocumentsbatchwarning",
+    "PlatformDocumentsBatchWarningContext": ".platformdocumentsbatchwarningcontext",
+    "PlatformDocumentsBatchWarningContextTypedDict": ".platformdocumentsbatchwarningcontext",
     "PlatformDurableAgentRun": ".platformdurableagentrun",
     "PlatformDurableAgentRunTypedDict": ".platformdurableagentrun",
     "PlatformFilter": ".platformfilter",
@@ -5498,6 +5613,7 @@ _dynamic_imports: dict[str, str] = {
     "PlatformOAuthClientFilterOperator": ".platformoauthclientfilter",
     "PlatformOAuthClientFilterTypedDict": ".platformoauthclientfilter",
     "PlatformOAuthClientRegistrationType": ".platformoauthclientregistrationtype",
+    "PlatformOAuthClientSupportedApp": ".platformoauthclientsupportedapp",
     "PlatformOAuthClientType": ".platformoauthclienttype",
     "PlatformOAuthGrantType": ".platformoauthgranttype",
     "PlatformOAuthTokenEndpointAuthMethod": ".platformoauthtokenendpointauthmethod",

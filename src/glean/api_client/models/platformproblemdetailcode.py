@@ -11,6 +11,7 @@ class PlatformProblemDetailCode(str, Enum, metaclass=utils.OpenEnumMeta):
     INVALID_REQUEST = "invalid_request"
     MISSING_REQUIRED_FIELD = "missing_required_field"
     INVALID_PARAMETER = "invalid_parameter"
+    UNSUPPORTED_ACTION_TARGET = "unsupported_action_target"
     INVALID_CURSOR = "invalid_cursor"
     EXPIRED_CURSOR = "expired_cursor"
     INVALID_FILTER = "invalid_filter"

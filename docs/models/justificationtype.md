@@ -73,6 +73,7 @@ value = JustificationType.FREQUENTLY_ACCESSED
 | `PROJECT_FOCUS_BLOCK`                   | PROJECT_FOCUS_BLOCK                     |
 | `PROJECT_NEXT_STEP`                     | PROJECT_NEXT_STEP                       |
 | `DEMO_CARD`                             | DEMO_CARD                               |
+| `PERSONAL_AGENT_NUX`                    | PERSONAL_AGENT_NUX                      |
 | `RESOLVE_MEETING_CONFLICT`              | RESOLVE_MEETING_CONFLICT                |
 | `FINDING_MEETING_ROOM`                  | FINDING_MEETING_ROOM                    |
 | `OOO_PLANNER`                           | OOO_PLANNER                             |

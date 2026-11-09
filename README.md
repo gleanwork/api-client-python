@@ -143,7 +143,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.client.chat.create(messages=[
@@ -173,7 +173,7 @@ import os
 async def main():
 
     async with Glean(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
+        api_token=os.getenv("GLEAN_API_TOKEN"),
     ) as glean:
 
         res = await glean.client.chat.create_async(messages=[
@@ -201,7 +201,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.client.chat.create_stream(messages=[
@@ -231,7 +231,7 @@ import os
 async def main():
 
     async with Glean(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
+        api_token=os.getenv("GLEAN_API_TOKEN"),
     ) as glean:
 
         res = await glean.client.chat.create_stream_async(messages=[
@@ -269,7 +269,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.agents.search(name="HR Policy Agent")
@@ -504,6 +504,12 @@ For more information on obtaining the appropriate token type, please contact you
 * [list](docs/sdks/departments/README.md#list) - List departments
 * [get](docs/sdks/departments/README.md#get) - Get a department
 
+### [Documents](docs/sdks/documentssdk/README.md)
+
+* [get_by_url](docs/sdks/documentssdk/README.md#get_by_url) - Get document by URL
+* [get_by_id](docs/sdks/documentssdk/README.md#get_by_id) - Get document by ID
+* [batch](docs/sdks/documentssdk/README.md#batch) - Batch get documents
+
 ### [Indexing.Authentication](docs/sdks/indexingauthentication/README.md)
 
 * [rotate_token](docs/sdks/indexingauthentication/README.md#rotate_token) - Rotate token
@@ -639,7 +645,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.chat.create_stream(input="Summarize our parental leave policy as JSON.", store=True, text={
@@ -693,7 +699,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.skills.create(file={
@@ -720,7 +726,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.agents.search(name="HR Policy Agent",
@@ -740,7 +746,7 @@ import os
 
 with Glean(
     retry_config=RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False),
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.agents.search(name="HR Policy Agent")
@@ -856,7 +862,7 @@ import os
 with Glean(
     server_idx=0,
     instance="instance-name",
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.agents.search(name="HR Policy Agent")
@@ -876,7 +882,7 @@ import os
 
 with Glean(
     server_url="https://instance-name-be.glean.com",
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.agents.search(name="HR Policy Agent")
@@ -895,7 +901,7 @@ import os
 
 
 with Glean(
-    api_token=os.getenv("GLEAN_API_TOKEN", ""),
+    api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
     res = glean.indexing.datasources.submit(datasource_instance="<value>", type_="<value>", request_body={
@@ -1018,18 +1024,20 @@ import os
 def main():
 
     with Glean(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
+        api_token=os.getenv("GLEAN_API_TOKEN"),
     ) as glean:
         # Rest of application here...
+        pass
 
 
 # Or when using async:
 async def amain():
 
     async with Glean(
-        api_token=os.getenv("GLEAN_API_TOKEN", ""),
+        api_token=os.getenv("GLEAN_API_TOKEN"),
     ) as glean:
         # Rest of application here...
+        pass
 ```
 <!-- End Resource Management [resource-management] -->
 
