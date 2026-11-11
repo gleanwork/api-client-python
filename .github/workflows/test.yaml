@@ -7,7 +7,12 @@ on:
 
 jobs:
   test:
+    name: Test (Python ${{ matrix.python-version }})
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.12"]
 
     # NOTE: when ran from a fork, the secrets will not be available -- just skip the
     # job instead of failing
@@ -15,6 +20,9 @@ jobs:
 
     env:
       SPEAKEASY_API_KEY: ${{ secrets.SPEAKEASY_API_KEY }}
+      # Overrides python in mise.toml for this job. Set on the job so later
+      # steps keep the matrix interpreter. 3.10 stays the mise.toml default.
+      MISE_PYTHON_VERSION: ${{ matrix.python-version }}
 
     steps:
       - uses: actions/checkout@v4
@@ -24,8 +32,12 @@ jobs:
         with:
           version: "2026.10.4"
           cache: true
+          cache_key: "{{default}}-python${{ matrix.python-version }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check Python version
+        run: python -c 'import sys; got="{}.{}".format(*sys.version_info[:2]); assert got == "${{ matrix.python-version }}", sys.version; print(sys.version)'
 
       - name: "Ensure README-PYPI.md is created"
         run: python scripts/prepare_readme.py
@@ -37,6 +49,6 @@ jobs:
         uses: dorny/test-reporter@v1
         if: ${{ !cancelled() }} # run even if prior step failed
         with:
-          name: Speakeasy Tests
+          name: Speakeasy Tests (Python ${{ matrix.python-version }})
           path: './.speakeasy/reports/tests.xml'
           reporter: java-junit
