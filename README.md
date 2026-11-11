@@ -1055,7 +1055,7 @@ logging.basicConfig(level=logging.DEBUG)
 s = Glean(debug_logger=logging.getLogger("glean.api_client"))
 ```
 
-You can also enable a default debug logger by setting an environment variable `GLEAN_DEBUG` to true.
+You can also enable a default debug logger by setting an environment variable `GLEAN_DEBUG` to `true`, `1`, `yes` or `on` (case-insensitive). Any other value leaves it off.
 <!-- End Debugging [debug] -->
 
 ## Experimental Features and Deprecation Testing
