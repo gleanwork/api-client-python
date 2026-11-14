@@ -159057,24 +159057,9 @@ workflows:
           requestBody:
             contentType: application/json
             payload:
-                input: Summarize our parental leave policy as JSON.
+                input: Summarize our parental leave policy.
                 store: true
                 stream: false
-                text:
-                    format:
-                        name: policy_summary
-                        schema:
-                            properties:
-                                duration_weeks:
-                                    type: integer
-                                eligible_employees:
-                                    type: string
-                            required:
-                                - eligible_employees
-                                - duration_weeks
-                            type: object
-                        strict: true
-                        type: JSON_SCHEMA
           successCriteria:
             - condition: $statusCode == 200
             - condition: $response.header.Content-Type == application/json
@@ -159803,4 +159788,24 @@ workflows:
                 {"results":[],"warnings":[{"code":"<value>","message":"<value>","context":{"index":700576}}],"request_id":"<id>"}
               type: simple
       x-speakeasy-test-group: documents_SDK
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-search-enumeration
+      steps:
+        - stepId: test
+          operationId: platform-search-enumeration
+          requestBody:
+            contentType: application/json
+            payload:
+                datasources:
+                    - gdrive
+                page_size: 500
+                query: amoxicillin
+          successCriteria:
+            - condition: $statusCode == 200
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"results":[],"has_more":false,"next_cursor":null,"request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: search
       x-speakeasy-test-rebuild: true

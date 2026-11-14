@@ -2,8 +2,8 @@ openapi: 3.1.0
 info:
   version: "0.9.0"
   title: Glean API
-  x-source-commit-sha: 77999be6fb7bac7ce1b740a5f554037282298b5d
-  x-open-api-commit-sha: ea654b06c64649ac0076b89cdcea6e0792daec11
+  x-source-commit-sha: a5193504f26953323c52c4328673b41773e35ff2
+  x-open-api-commit-sha: fb3487aa2e8874c279cdf13158cdca96e91b0482
   description: |
     # Introduction
     In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This is useful, for example, for doing permissions-aware search over content in internal tools that reside on-prem as well as for searching over applications that Glean does not currently support first class. In addition these APIs allow the customer to push organization data (people info, organization structure etc) into Glean.
@@ -1494,6 +1494,63 @@ paths:
           $ref: "#/components/responses/PlatformServiceUnavailable"
       x-speakeasy-group: search
       x-speakeasy-name-override: listFilters
+      security:
+        - APIToken: []
+  /api/search/enumeration:
+    post:
+      tags:
+        - Search
+      summary: Enumerate matching documents
+      description: |
+        Walk every indexed document that matches a selection and that the caller is permitted to see. Returns document references with minimal metadata and never bodies; request `SNIPPETS` via `include` for query-relevant excerpts, and hydrate full documents with `POST /api/documents/batch`. Unlike `POST /api/search`, `query` is optional: omit it to enumerate by `datasources`, `filters`, and `time_range` alone. Results are ordered for completeness, not relevance.
+        Follow `next_cursor` until `has_more` is `false`, regardless of page size. This is a live scan, not a snapshot: concurrent index changes can cause duplicates or omissions. Deduplicate by `document_id`.
+        A page is either complete at its cursor position or an error. A shard or datasource failure returns HTTP 503 and the same cursor stays valid for retry; this endpoint never returns a partial page. A cursor reused with a different selection returns HTTP 400 `invalid_cursor`.
+      operationId: platform-search-enumeration
+      x-glean-scopes:
+        legacy:
+          - SEARCH
+        platform:
+          - search:query
+      x-visibility: Public
+      x-glean-experimental:
+        id: 9ce7bb73-1e30-460a-a917-cae09ac3a3ea
+        introduced: "2026-11-02"
+      x-codegen-request-body-name: payload
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PlatformSearchEnumerationRequest"
+      responses:
+        "200":
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlatformSearchEnumerationResponse"
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+        "413":
+          $ref: "#/components/responses/PlatformRequestTooLarge"
+        "422":
+          $ref: "#/components/responses/PlatformUnprocessableEntity"
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+      x-speakeasy-group: search
+      x-speakeasy-name-override: enumerate
       security:
         - APIToken: []
   /api/admin/usage/settings:
@@ -9840,72 +9897,13 @@ components:
         content:
           type: string
           minLength: 1
-    PlatformChatTextFormat:
-      type: object
-      additionalProperties: false
-      description: Unconstrained plain-text assistant output.
-      required:
-        - type
-      properties:
-        type:
-          type: string
-          description: Discriminator. Must be TEXT.
-          enum:
-            - TEXT
-    PlatformChatJsonSchemaFormat:
-      type: object
-      additionalProperties: false
-      description: Constrains the assistant response to a caller-supplied JSON Schema.
-      required:
-        - type
-        - name
-        - schema
-      properties:
-        type:
-          type: string
-          description: Discriminator. Must be JSON_SCHEMA.
-          enum:
-            - JSON_SCHEMA
-        name:
-          type: string
-          minLength: 1
-          maxLength: 64
-          description: A stable identifier for the schema.
-        description:
-          type: string
-          maxLength: 1024
-          description: An optional human-readable description of the schema.
-        schema:
-          type: object
-          additionalProperties: true
-          description: A JSON Schema object describing the desired output shape.
-        strict:
-          type: boolean
-          default: true
-          description: |
-            When true, the provider validates the response against the schema. Unsupported by some providers; defaults to true.
     PlatformChatCreateRequest:
       type: object
       additionalProperties: false
       required:
         - input
       example:
-        input: Summarize our parental leave policy as JSON.
-        text:
-          format:
-            type: JSON_SCHEMA
-            name: policy_summary
-            schema:
-              type: object
-              properties:
-                eligible_employees:
-                  type: string
-                duration_weeks:
-                  type: integer
-              required:
-                - eligible_employees
-                - duration_weeks
-            strict: true
+        input: Summarize our parental leave policy.
       properties:
         input:
           description: |
@@ -9932,18 +9930,6 @@ components:
           minLength: 1
           description: |
             Continue an existing stored conversation. Incompatible with message-array `input` and with `store: false`.
-        text:
-          type: object
-          additionalProperties: false
-          description: |
-            Optional configuration for the assistant's text response. When `format.type` is `JSON_SCHEMA`, the response is constrained to the supplied JSON schema and returned in `output[*].content[*].structured_output`. Structured output is not supported when `stream` is true.
-          properties:
-            format:
-              description: |
-                Output format for the assistant text. TEXT is unconstrained. JSON_SCHEMA constrains the response to the supplied schema.
-              oneOf:
-                - $ref: "#/components/schemas/PlatformChatTextFormat"
-                - $ref: "#/components/schemas/PlatformChatJsonSchemaFormat"
     PlatformChatStreamResponseId:
       type: string
       minLength: 1
@@ -9963,12 +9949,6 @@ components:
             - OUTPUT_TEXT
         text:
           type: string
-        structured_output:
-          type:
-            - object
-            - "null"
-          description: |
-            Parsed and validated JSON object when structured output was requested. Present only when the request included `text.format.type: JSON_SCHEMA`.
         annotations:
           type: array
           items:
@@ -11140,6 +11120,158 @@ components:
             Datasources visible to the authenticated user. Each `datasource` is an identifier you can pass to `POST /api/search` `datasources`. An empty array means no visible datasources.
           items:
             $ref: "#/components/schemas/PlatformDatasourceFilterInfo"
+        request_id:
+          type: string
+          minLength: 1
+          description: Platform-generated request ID for support correlation.
+    PlatformSearchEnumerationInclude:
+      type: string
+      description: Optional document reference projection.
+      enum:
+        - SNIPPETS
+      x-enumDescriptions:
+        SNIPPETS: Add snippets, query-relevant plain-text excerpts from the document body. Only produced when `query` is present; a scope-only scan has nothing to excerpt.
+      x-speakeasy-enum-descriptions:
+        SNIPPETS: Add snippets, query-relevant plain-text excerpts from the document body. Only produced when `query` is present; a scope-only scan has nothing to excerpt.
+    PlatformSearchEnumerationRequest:
+      type: object
+      additionalProperties: false
+      description: |
+        Selection to enumerate. At least one of `datasources`, `query`, or `filters` must be set.
+      example:
+        query: amoxicillin
+        datasources:
+          - gdrive
+        page_size: 500
+      properties:
+        query:
+          type: string
+          minLength: 1
+          description: |
+            The search query string. Supports inline operators such as `from:jane type:document app:confluence`. Inline operators are AND'd with structured `filters`.
+        datasources:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            minLength: 1
+          description: |
+            Restrict results to specific datasource identifiers returned by `GET /api/search/filters`. Scopes by datasource type and may include results from multiple instances of that type. Omit to enumerate across all visible datasources matching `query` or `filters`.
+        filters:
+          type: array
+          minItems: 1
+          items:
+            $ref: "#/components/schemas/PlatformFilter"
+          description: |
+            Structured filters applied to search results. Multiple values within a filter with `EQUALS` are OR'd; separate filters are AND'd. Conflicting constraints on the same field (for example, `type:document` in `query` and `type:spreadsheet` in a filter) return an empty result set. See `Filter.field` for built-in field names and operators. Other nonblank field names are accepted as custom filters without validation; behavior depends on your connected sources.
+        time_range:
+          $ref: "#/components/schemas/PlatformTimeRange"
+        page_size:
+          type: integer
+          minimum: 1
+          maximum: 1000
+          default: 100
+          description: Number of results to return per page.
+        cursor:
+          type:
+            - string
+            - "null"
+          description: |
+            Opaque pagination token from a previous response's `next_cursor` field. Omit on the first request. Cursors do not expire and are valid only for the original selection.
+        include:
+          type: array
+          minItems: 1
+          uniqueItems: true
+          items:
+            $ref: "#/components/schemas/PlatformSearchEnumerationInclude"
+          description: |
+            Optional field groups to add to each document reference. Each value only adds fields; it does not change which documents are returned.
+    PlatformDocumentReference:
+      type: object
+      additionalProperties: false
+      required:
+        - document_id
+        - url
+        - title
+        - datasource
+      properties:
+        document_id:
+          type: string
+          minLength: 1
+          description: |
+            Indexed Glean store ID. Stable identity for deduplication and the selector accepted by `POST /api/documents/batch`.
+          example: doc_123
+        url:
+          type: string
+          format: uri
+          minLength: 1
+          description: Canonical URL of the result.
+          example: https://docs.google.com/spreadsheets/d/abc
+        title:
+          type: string
+          minLength: 1
+          description: Display title. For a conversation, this is a title built from the participants, such as "Alice and Bob", including when the indexed title is the message body. When the result has no title, the server returns Untitled.
+          example: Amoxicillin inventory
+        datasource:
+          type: string
+          minLength: 1
+          description: The datasource this result originates from.
+          example: gdrive
+        document_type:
+          type:
+            - string
+            - "null"
+          minLength: 1
+          description: The document type within the datasource.
+          example: spreadsheet
+        creator:
+          $ref: "#/components/schemas/PlatformPersonReference"
+        owner:
+          $ref: "#/components/schemas/PlatformPersonReference"
+        updated_at:
+          type:
+            - string
+            - "null"
+          format: date-time
+          description: When the result was last modified.
+        created_at:
+          type:
+            - string
+            - "null"
+          format: date-time
+          description: When the result was created.
+        snippets:
+          type: array
+          items:
+            type: string
+            minLength: 1
+          description: |
+            Query-relevant plain-text excerpts from the document body. Present only when the request's `include` contains `SNIPPETS` and `query` is set.
+          example:
+            - Amoxicillin 500mg inventory was last counted on...
+    PlatformSearchEnumerationResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - results
+        - has_more
+        - next_cursor
+        - request_id
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/PlatformDocumentReference"
+          description: Document references at this cursor position.
+        has_more:
+          type: boolean
+          description: Indicates whether additional pages of results are available.
+        next_cursor:
+          type:
+            - string
+            - "null"
+          description: |
+            Opaque token to pass as `cursor` in the next request. Null exactly when `has_more` is false.
         request_id:
           type: string
           minLength: 1

@@ -587,6 +587,7 @@ For more information on obtaining the appropriate token type, please contact you
 
 * [query](docs/sdks/search/README.md#query) - Search
 * [list_filters](docs/sdks/search/README.md#list_filters) - List search filters
+* [enumerate](docs/sdks/search/README.md#enumerate) - Enumerate matching documents
 
 ### [Skills](docs/sdks/skills/README.md)
 
@@ -640,7 +641,7 @@ The stream is also a [Context Manager][context-manager] and can be used with the
 underlying connection when the context is exited.
 
 ```python
-from glean.api_client import Glean, models
+from glean.api_client import Glean
 import os
 
 
@@ -648,28 +649,7 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
-    res = glean.chat.create_stream(input="Summarize our parental leave policy as JSON.", store=True, text={
-        "format_": {
-            "type": models.PlatformChatJSONSchemaFormatType.JSON_SCHEMA,
-            "name": "policy_summary",
-            "schema_": {
-                "type": "object",
-                "properties": {
-                    "eligible_employees": {
-                        "type": "string",
-                    },
-                    "duration_weeks": {
-                        "type": "integer",
-                    },
-                },
-                "required": [
-                    "eligible_employees",
-                    "duration_weeks",
-                ],
-            },
-            "strict": True,
-        },
-    })
+    res = glean.chat.create_stream(input="Summarize our parental leave policy.", store=True)
 
     with res as event_stream:
         for event in event_stream:

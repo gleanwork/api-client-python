@@ -2258,3 +2258,32 @@ def test_search_platform_search_filters():
 
         res = glean.search.list_filters()
         assert res is not None
+
+
+def test_search_platform_search_enumeration():
+    test_http_client = create_test_http_client("platform-search-enumeration")
+
+    with Glean(
+        server_url=os.getenv("TEST_SERVER_URL", "http://localhost:18080"),
+        client=test_http_client,
+        api_token=os.getenv("GLEAN_API_TOKEN", "value"),
+    ) as glean:
+        assert glean is not None
+
+        res = glean.search.enumerate(
+            query="amoxicillin",
+            datasources=[
+                "gdrive",
+            ],
+            filters=[
+                {
+                    "field": "type",
+                    "values": [
+                        "spreadsheet",
+                        "presentation",
+                    ],
+                },
+            ],
+            page_size=500,
+        )
+        assert res is not None
