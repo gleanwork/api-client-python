@@ -533,3 +533,315 @@ class Search(BaseSDK):
             raise errors.GleanError("API error occurred", http_res, http_res_text)
 
         raise errors.GleanError("Unexpected response received", http_res)
+
+    def enumerate(
+        self,
+        *,
+        query: Optional[str] = None,
+        datasources: Optional[Iterable[str]] = None,
+        filters: Optional[
+            Union[
+                Iterable[models.PlatformFilter],
+                Iterable[models.PlatformFilterTypedDict],
+            ]
+        ] = None,
+        time_range: Optional[
+            Union[models.PlatformTimeRange, models.PlatformTimeRangeTypedDict]
+        ] = None,
+        page_size: Optional[int] = 100,
+        cursor: OptionalNullable[str] = UNSET,
+        include: Optional[Iterable[models.PlatformSearchEnumerationInclude]] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.PlatformSearchEnumerationResponse:
+        r"""Enumerate matching documents
+
+        Walk every indexed document that matches a selection and that the caller is permitted to see. Returns document references with minimal metadata and never bodies; request `SNIPPETS` via `include` for query-relevant excerpts, and hydrate full documents with `POST /api/documents/batch`. Unlike `POST /api/search`, `query` is optional: omit it to enumerate by `datasources`, `filters`, and `time_range` alone. Results are ordered for completeness, not relevance.
+        Follow `next_cursor` until `has_more` is `false`, regardless of page size. This is a live scan, not a snapshot: concurrent index changes can cause duplicates or omissions. Deduplicate by `document_id`.
+        A page is either complete at its cursor position or an error. A shard or datasource failure returns HTTP 503 and the same cursor stays valid for retry; this endpoint never returns a partial page. A cursor reused with a different selection returns HTTP 400 `invalid_cursor`.
+
+
+        :param query: The search query string. Supports inline operators such as `from:jane type:document app:confluence`. Inline operators are AND'd with structured `filters`.
+
+        :param datasources: Restrict results to specific datasource identifiers returned by `GET /api/search/filters`. Scopes by datasource type and may include results from multiple instances of that type. Omit to enumerate across all visible datasources matching `query` or `filters`.
+
+        :param filters: Structured filters applied to search results. Multiple values within a filter with `EQUALS` are OR'd; separate filters are AND'd. Conflicting constraints on the same field (for example, `type:document` in `query` and `type:spreadsheet` in a filter) return an empty result set. See `Filter.field` for built-in field names and operators. Other nonblank field names are accepted as custom filters without validation; behavior depends on your connected sources.
+
+        :param time_range: Filter results to those last updated within this range.
+        :param page_size: Number of results to return per page.
+        :param cursor: Opaque pagination token from a previous response's `next_cursor` field. Omit on the first request. Cursors do not expire and are valid only for the original selection.
+
+        :param include: Optional field groups to add to each document reference. Each value only adds fields; it does not change which documents are returned.
+
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.PlatformSearchEnumerationRequest(
+            query=query,
+            datasources=utils.unmarshal(datasources, Optional[List[str]]),
+            filters=utils.get_pydantic_model(
+                filters, Optional[List[models.PlatformFilter]]
+            ),
+            time_range=utils.get_pydantic_model(
+                time_range, Optional[models.PlatformTimeRange]
+            ),
+            page_size=page_size,
+            cursor=cursor,
+            include=utils.unmarshal(
+                include, Optional[List[models.PlatformSearchEnumerationInclude]]
+            ),
+        )
+
+        req = self._build_request(
+            method="POST",
+            path="/api/search/enumeration",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request, False, False, "json", models.PlatformSearchEnumerationRequest
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="platform-search-enumeration",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Search"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-glean-experimental": {
+                        "id": "9ce7bb73-1e30-460a-a917-cae09ac3a3ea",
+                        "introduced": "2026-11-02",
+                    },
+                    "x-glean-scopes": {
+                        "legacy": ["SEARCH"],
+                        "platform": ["search:query"],
+                    },
+                    "x-visibility": "Public",
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                models.PlatformSearchEnumerationResponse, http_res
+            )
+        if utils.match_response(
+            http_res,
+            ["400", "401", "403", "404", "408", "413", "422", "429"],
+            "application/problem+json",
+        ):
+            response_data = unmarshal_json_response(
+                errors.PlatformProblemDetailErrorData, http_res
+            )
+            raise errors.PlatformProblemDetailError(response_data, http_res)
+        if utils.match_response(http_res, ["500", "503"], "application/problem+json"):
+            response_data = unmarshal_json_response(
+                errors.PlatformProblemDetailErrorData, http_res
+            )
+            raise errors.PlatformProblemDetailError(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
+
+        raise errors.GleanError("Unexpected response received", http_res)
+
+    async def enumerate_async(
+        self,
+        *,
+        query: Optional[str] = None,
+        datasources: Optional[Iterable[str]] = None,
+        filters: Optional[
+            Union[
+                Iterable[models.PlatformFilter],
+                Iterable[models.PlatformFilterTypedDict],
+            ]
+        ] = None,
+        time_range: Optional[
+            Union[models.PlatformTimeRange, models.PlatformTimeRangeTypedDict]
+        ] = None,
+        page_size: Optional[int] = 100,
+        cursor: OptionalNullable[str] = UNSET,
+        include: Optional[Iterable[models.PlatformSearchEnumerationInclude]] = None,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> models.PlatformSearchEnumerationResponse:
+        r"""Enumerate matching documents
+
+        Walk every indexed document that matches a selection and that the caller is permitted to see. Returns document references with minimal metadata and never bodies; request `SNIPPETS` via `include` for query-relevant excerpts, and hydrate full documents with `POST /api/documents/batch`. Unlike `POST /api/search`, `query` is optional: omit it to enumerate by `datasources`, `filters`, and `time_range` alone. Results are ordered for completeness, not relevance.
+        Follow `next_cursor` until `has_more` is `false`, regardless of page size. This is a live scan, not a snapshot: concurrent index changes can cause duplicates or omissions. Deduplicate by `document_id`.
+        A page is either complete at its cursor position or an error. A shard or datasource failure returns HTTP 503 and the same cursor stays valid for retry; this endpoint never returns a partial page. A cursor reused with a different selection returns HTTP 400 `invalid_cursor`.
+
+
+        :param query: The search query string. Supports inline operators such as `from:jane type:document app:confluence`. Inline operators are AND'd with structured `filters`.
+
+        :param datasources: Restrict results to specific datasource identifiers returned by `GET /api/search/filters`. Scopes by datasource type and may include results from multiple instances of that type. Omit to enumerate across all visible datasources matching `query` or `filters`.
+
+        :param filters: Structured filters applied to search results. Multiple values within a filter with `EQUALS` are OR'd; separate filters are AND'd. Conflicting constraints on the same field (for example, `type:document` in `query` and `type:spreadsheet` in a filter) return an empty result set. See `Filter.field` for built-in field names and operators. Other nonblank field names are accepted as custom filters without validation; behavior depends on your connected sources.
+
+        :param time_range: Filter results to those last updated within this range.
+        :param page_size: Number of results to return per page.
+        :param cursor: Opaque pagination token from a previous response's `next_cursor` field. Omit on the first request. Cursors do not expire and are valid only for the original selection.
+
+        :param include: Optional field groups to add to each document reference. Each value only adds fields; it does not change which documents are returned.
+
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if server_url is not None:
+            base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
+
+        request = models.PlatformSearchEnumerationRequest(
+            query=query,
+            datasources=utils.unmarshal(datasources, Optional[List[str]]),
+            filters=utils.get_pydantic_model(
+                filters, Optional[List[models.PlatformFilter]]
+            ),
+            time_range=utils.get_pydantic_model(
+                time_range, Optional[models.PlatformTimeRange]
+            ),
+            page_size=page_size,
+            cursor=cursor,
+            include=utils.unmarshal(
+                include, Optional[List[models.PlatformSearchEnumerationInclude]]
+            ),
+        )
+
+        req = self._build_request_async(
+            method="POST",
+            path="/api/search/enumeration",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=True,
+            request_has_path_params=False,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            get_serialized_body=lambda: utils.serialize_request_body(
+                request, False, False, "json", models.PlatformSearchEnumerationRequest
+            ),
+            allow_empty_value=None,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                config=self.sdk_configuration,
+                base_url=base_url or "",
+                operation_id="platform-search-enumeration",
+                oauth2_scopes=None,
+                security_source=get_security_from_env(
+                    self.sdk_configuration.security, models.Security
+                ),
+                tags=["Search"],
+                extensions={
+                    "x-codegen-request-body-name": "payload",
+                    "x-glean-experimental": {
+                        "id": "9ce7bb73-1e30-460a-a917-cae09ac3a3ea",
+                        "introduced": "2026-11-02",
+                    },
+                    "x-glean-scopes": {
+                        "legacy": ["SEARCH"],
+                        "platform": ["search:query"],
+                    },
+                    "x-visibility": "Public",
+                },
+            ),
+            request=req,
+            is_error_status_code=lambda c: utils.match_status_codes(["4XX", "5XX"], c),
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return unmarshal_json_response(
+                models.PlatformSearchEnumerationResponse, http_res
+            )
+        if utils.match_response(
+            http_res,
+            ["400", "401", "403", "404", "408", "413", "422", "429"],
+            "application/problem+json",
+        ):
+            response_data = unmarshal_json_response(
+                errors.PlatformProblemDetailErrorData, http_res
+            )
+            raise errors.PlatformProblemDetailError(response_data, http_res)
+        if utils.match_response(http_res, ["500", "503"], "application/problem+json"):
+            response_data = unmarshal_json_response(
+                errors.PlatformProblemDetailErrorData, http_res
+            )
+            raise errors.PlatformProblemDetailError(response_data, http_res)
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.GleanError("API error occurred", http_res, http_res_text)
+
+        raise errors.GleanError("Unexpected response received", http_res)

@@ -1332,24 +1332,16 @@ if TYPE_CHECKING:
         PlatformAgentsGetRequestTypedDict,
     )
     from .platform_chat_create_streamop import (
-        PlatformChatCreateStreamFormat,
-        PlatformChatCreateStreamFormatTypedDict,
         PlatformChatCreateStreamInput,
         PlatformChatCreateStreamInputTypedDict,
         PlatformChatCreateStreamRequest,
         PlatformChatCreateStreamRequestTypedDict,
-        PlatformChatCreateStreamText,
-        PlatformChatCreateStreamTextTypedDict,
     )
     from .platform_chat_createop import (
-        PlatformChatCreateFormat,
-        PlatformChatCreateFormatTypedDict,
         PlatformChatCreateInput,
         PlatformChatCreateInputTypedDict,
         PlatformChatCreateRequest,
         PlatformChatCreateRequestTypedDict,
-        PlatformChatCreateText,
-        PlatformChatCreateTextTypedDict,
     )
     from .platform_chat_updateop import (
         PlatformChatUpdateRequestRequest,
@@ -1600,11 +1592,6 @@ if TYPE_CHECKING:
         PlatformChatInputMessageRole,
         PlatformChatInputMessageTypedDict,
     )
-    from .platformchatjsonschemaformat import (
-        PlatformChatJSONSchemaFormat,
-        PlatformChatJSONSchemaFormatType,
-        PlatformChatJSONSchemaFormatTypedDict,
-    )
     from .platformchatoutputmessage import (
         PlatformChatOutputMessage,
         PlatformChatOutputMessageRole,
@@ -1615,8 +1602,6 @@ if TYPE_CHECKING:
         PlatformChatOutputTextContent,
         PlatformChatOutputTextContentType,
         PlatformChatOutputTextContentTypedDict,
-        StructuredOutput,
-        StructuredOutputTypedDict,
     )
     from .platformchatpersonsource import (
         PlatformChatPersonSource,
@@ -1685,11 +1670,6 @@ if TYPE_CHECKING:
         PlatformChatStreamResponseFailedServerSentEvent,
         PlatformChatStreamResponseFailedServerSentEventTypedDict,
     )
-    from .platformchattextformat import (
-        PlatformChatTextFormat,
-        PlatformChatTextFormatType,
-        PlatformChatTextFormatTypedDict,
-    )
     from .platformchatupdaterequest import (
         PlatformChatUpdateRequest,
         PlatformChatUpdateRequestTypedDict,
@@ -1730,6 +1710,10 @@ if TYPE_CHECKING:
         PlatformDocumentGetResponseTypedDict,
     )
     from .platformdocumentinclude import PlatformDocumentInclude
+    from .platformdocumentreference import (
+        PlatformDocumentReference,
+        PlatformDocumentReferenceTypedDict,
+    )
     from .platformdocumentsbatchrequest import (
         PlatformDocumentsBatchRequest,
         PlatformDocumentsBatchRequestDocumentSpec,
@@ -1858,6 +1842,15 @@ if TYPE_CHECKING:
         PlatformProblemDetailErrorTypedDict,
     )
     from .platformresult import PlatformResult, PlatformResultTypedDict
+    from .platformsearchenumerationinclude import PlatformSearchEnumerationInclude
+    from .platformsearchenumerationrequest import (
+        PlatformSearchEnumerationRequest,
+        PlatformSearchEnumerationRequestTypedDict,
+    )
+    from .platformsearchenumerationresponse import (
+        PlatformSearchEnumerationResponse,
+        PlatformSearchEnumerationResponseTypedDict,
+    )
     from .platformsearchfiltersresponse import (
         PlatformSearchFiltersResponse,
         PlatformSearchFiltersResponseTypedDict,
@@ -3604,22 +3597,14 @@ __all__ = [
     "PlatformChatCompletedResponseObject",
     "PlatformChatCompletedResponseStatus",
     "PlatformChatCompletedResponseTypedDict",
-    "PlatformChatCreateFormat",
-    "PlatformChatCreateFormatTypedDict",
     "PlatformChatCreateInput",
     "PlatformChatCreateInputTypedDict",
     "PlatformChatCreateRequest",
     "PlatformChatCreateRequestTypedDict",
-    "PlatformChatCreateStreamFormat",
-    "PlatformChatCreateStreamFormatTypedDict",
     "PlatformChatCreateStreamInput",
     "PlatformChatCreateStreamInputTypedDict",
     "PlatformChatCreateStreamRequest",
     "PlatformChatCreateStreamRequestTypedDict",
-    "PlatformChatCreateStreamText",
-    "PlatformChatCreateStreamTextTypedDict",
-    "PlatformChatCreateText",
-    "PlatformChatCreateTextTypedDict",
     "PlatformChatCustomEntitySource",
     "PlatformChatCustomEntitySourceType",
     "PlatformChatCustomEntitySourceTypedDict",
@@ -3641,9 +3626,6 @@ __all__ = [
     "PlatformChatInputMessage",
     "PlatformChatInputMessageRole",
     "PlatformChatInputMessageTypedDict",
-    "PlatformChatJSONSchemaFormat",
-    "PlatformChatJSONSchemaFormatType",
-    "PlatformChatJSONSchemaFormatTypedDict",
     "PlatformChatOutputMessage",
     "PlatformChatOutputMessageRole",
     "PlatformChatOutputMessageType",
@@ -3688,9 +3670,6 @@ __all__ = [
     "PlatformChatStreamResponseFailedServerSentEventTypedDict",
     "PlatformChatStreamResponseFailedType",
     "PlatformChatStreamResponseFailedTypedDict",
-    "PlatformChatTextFormat",
-    "PlatformChatTextFormatType",
-    "PlatformChatTextFormatTypedDict",
     "PlatformChatTypedDict",
     "PlatformChatUpdateRequest",
     "PlatformChatUpdateRequestRequest",
@@ -3720,6 +3699,8 @@ __all__ = [
     "PlatformDocumentGetResponse",
     "PlatformDocumentGetResponseTypedDict",
     "PlatformDocumentInclude",
+    "PlatformDocumentReference",
+    "PlatformDocumentReferenceTypedDict",
     "PlatformDocumentTypedDict",
     "PlatformDocumentsBatchRequest",
     "PlatformDocumentsBatchRequestDocumentSpec",
@@ -3802,6 +3783,11 @@ __all__ = [
     "PlatformProblemDetailTypedDict",
     "PlatformResult",
     "PlatformResultTypedDict",
+    "PlatformSearchEnumerationInclude",
+    "PlatformSearchEnumerationRequest",
+    "PlatformSearchEnumerationRequestTypedDict",
+    "PlatformSearchEnumerationResponse",
+    "PlatformSearchEnumerationResponseTypedDict",
     "PlatformSearchFiltersRequest",
     "PlatformSearchFiltersRequestTypedDict",
     "PlatformSearchFiltersResponse",
@@ -4187,8 +4173,6 @@ __all__ = [
     "StructuredLinkTypedDict",
     "StructuredLocation",
     "StructuredLocationTypedDict",
-    "StructuredOutput",
-    "StructuredOutputTypedDict",
     "StructuredResult",
     "StructuredResultSource",
     "StructuredResultTypedDict",
@@ -5317,22 +5301,14 @@ _dynamic_imports: dict[str, str] = {
     "PlatformAgentsGetSchemasRequestTypedDict": ".platform_agents_get_schemasop",
     "PlatformAgentsGetRequest": ".platform_agents_getop",
     "PlatformAgentsGetRequestTypedDict": ".platform_agents_getop",
-    "PlatformChatCreateStreamFormat": ".platform_chat_create_streamop",
-    "PlatformChatCreateStreamFormatTypedDict": ".platform_chat_create_streamop",
     "PlatformChatCreateStreamInput": ".platform_chat_create_streamop",
     "PlatformChatCreateStreamInputTypedDict": ".platform_chat_create_streamop",
     "PlatformChatCreateStreamRequest": ".platform_chat_create_streamop",
     "PlatformChatCreateStreamRequestTypedDict": ".platform_chat_create_streamop",
-    "PlatformChatCreateStreamText": ".platform_chat_create_streamop",
-    "PlatformChatCreateStreamTextTypedDict": ".platform_chat_create_streamop",
-    "PlatformChatCreateFormat": ".platform_chat_createop",
-    "PlatformChatCreateFormatTypedDict": ".platform_chat_createop",
     "PlatformChatCreateInput": ".platform_chat_createop",
     "PlatformChatCreateInputTypedDict": ".platform_chat_createop",
     "PlatformChatCreateRequest": ".platform_chat_createop",
     "PlatformChatCreateRequestTypedDict": ".platform_chat_createop",
-    "PlatformChatCreateText": ".platform_chat_createop",
-    "PlatformChatCreateTextTypedDict": ".platform_chat_createop",
     "PlatformChatUpdateRequestRequest": ".platform_chat_updateop",
     "PlatformChatUpdateRequestRequestTypedDict": ".platform_chat_updateop",
     "PlatformDepartmentsGetRequest": ".platform_departments_getop",
@@ -5475,9 +5451,6 @@ _dynamic_imports: dict[str, str] = {
     "PlatformChatInputMessage": ".platformchatinputmessage",
     "PlatformChatInputMessageRole": ".platformchatinputmessage",
     "PlatformChatInputMessageTypedDict": ".platformchatinputmessage",
-    "PlatformChatJSONSchemaFormat": ".platformchatjsonschemaformat",
-    "PlatformChatJSONSchemaFormatType": ".platformchatjsonschemaformat",
-    "PlatformChatJSONSchemaFormatTypedDict": ".platformchatjsonschemaformat",
     "PlatformChatOutputMessage": ".platformchatoutputmessage",
     "PlatformChatOutputMessageRole": ".platformchatoutputmessage",
     "PlatformChatOutputMessageType": ".platformchatoutputmessage",
@@ -5485,8 +5458,6 @@ _dynamic_imports: dict[str, str] = {
     "PlatformChatOutputTextContent": ".platformchatoutputtextcontent",
     "PlatformChatOutputTextContentType": ".platformchatoutputtextcontent",
     "PlatformChatOutputTextContentTypedDict": ".platformchatoutputtextcontent",
-    "StructuredOutput": ".platformchatoutputtextcontent",
-    "StructuredOutputTypedDict": ".platformchatoutputtextcontent",
     "PlatformChatPersonSource": ".platformchatpersonsource",
     "PlatformChatPersonSourceType": ".platformchatpersonsource",
     "PlatformChatPersonSourceTypedDict": ".platformchatpersonsource",
@@ -5524,9 +5495,6 @@ _dynamic_imports: dict[str, str] = {
     "PlatformChatStreamResponseFailedTypedDict": ".platformchatstreamresponsefailed",
     "PlatformChatStreamResponseFailedServerSentEvent": ".platformchatstreamresponsefailedserversentevent",
     "PlatformChatStreamResponseFailedServerSentEventTypedDict": ".platformchatstreamresponsefailedserversentevent",
-    "PlatformChatTextFormat": ".platformchattextformat",
-    "PlatformChatTextFormatType": ".platformchattextformat",
-    "PlatformChatTextFormatTypedDict": ".platformchattextformat",
     "PlatformChatUpdateRequest": ".platformchatupdaterequest",
     "PlatformChatUpdateRequestTypedDict": ".platformchatupdaterequest",
     "PlatformChatUpdateResponse": ".platformchatupdateresponse",
@@ -5550,6 +5518,8 @@ _dynamic_imports: dict[str, str] = {
     "PlatformDocumentGetResponse": ".platformdocumentgetresponse",
     "PlatformDocumentGetResponseTypedDict": ".platformdocumentgetresponse",
     "PlatformDocumentInclude": ".platformdocumentinclude",
+    "PlatformDocumentReference": ".platformdocumentreference",
+    "PlatformDocumentReferenceTypedDict": ".platformdocumentreference",
     "PlatformDocumentsBatchRequest": ".platformdocumentsbatchrequest",
     "PlatformDocumentsBatchRequestDocumentSpec": ".platformdocumentsbatchrequest",
     "PlatformDocumentsBatchRequestDocumentSpecTypedDict": ".platformdocumentsbatchrequest",
@@ -5627,6 +5597,11 @@ _dynamic_imports: dict[str, str] = {
     "PlatformProblemDetailErrorTypedDict": ".platformproblemdetailerror",
     "PlatformResult": ".platformresult",
     "PlatformResultTypedDict": ".platformresult",
+    "PlatformSearchEnumerationInclude": ".platformsearchenumerationinclude",
+    "PlatformSearchEnumerationRequest": ".platformsearchenumerationrequest",
+    "PlatformSearchEnumerationRequestTypedDict": ".platformsearchenumerationrequest",
+    "PlatformSearchEnumerationResponse": ".platformsearchenumerationresponse",
+    "PlatformSearchEnumerationResponseTypedDict": ".platformsearchenumerationresponse",
     "PlatformSearchFiltersResponse": ".platformsearchfiltersresponse",
     "PlatformSearchFiltersResponseTypedDict": ".platformsearchfiltersresponse",
     "PlatformSearchRequest": ".platformsearchrequest",
