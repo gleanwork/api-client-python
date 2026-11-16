@@ -31,3 +31,5 @@ value = PlatformTriggerEventReason.CREATED
 | `CONVERTED_TO_DRAFT`     | CONVERTED_TO_DRAFT       |
 | `WEBHOOK_UPDATED`        | WEBHOOK_UPDATED          |
 | `WEBHOOK_CREATED`        | WEBHOOK_CREATED          |
+| `CLOSED`                 | CLOSED                   |
+| `COMMENT_ADDED`          | COMMENT_ADDED            |
