@@ -94,6 +94,7 @@ func GeneratedHandlers(ctx context.Context, dir *logging.HTTPFileDirectory, rt *
 		NewGeneratedHandler(ctx, http.MethodPost, "/api/index/v1/rotatetoken", pathPostAPIIndexV1Rotatetoken(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodPost, "/api/index/v1/updatepermissions", pathPostAPIIndexV1Updatepermissions(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodPost, "/api/search", pathPostAPISearch(dir, rt)),
+		NewGeneratedHandler(ctx, http.MethodPost, "/api/search/enumeration", pathPostAPISearchEnumeration(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodPost, "/api/skills", pathPostAPISkills(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodPost, "/api/skills/import", pathPostAPISkillsImport(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodPost, "/api/skills/sources/preview", pathPostAPISkillsSourcesPreview(dir, rt)),

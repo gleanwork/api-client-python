@@ -36,3 +36,7 @@ class PlatformTriggerEventReason(str, Enum, metaclass=utils.OpenEnumMeta):
     WEBHOOK_UPDATED = "WEBHOOK_UPDATED"
     # The source system sent a webhook creation event.
     WEBHOOK_CREATED = "WEBHOOK_CREATED"
+    # The item was closed.
+    CLOSED = "CLOSED"
+    # A comment was added to the item.
+    COMMENT_ADDED = "COMMENT_ADDED"
