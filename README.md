@@ -587,7 +587,6 @@ For more information on obtaining the appropriate token type, please contact you
 
 * [query](docs/sdks/search/README.md#query) - Search
 * [list_filters](docs/sdks/search/README.md#list_filters) - List search filters
-* [enumerate](docs/sdks/search/README.md#enumerate) - Enumerate matching documents
 
 ### [Skills](docs/sdks/skills/README.md)
 

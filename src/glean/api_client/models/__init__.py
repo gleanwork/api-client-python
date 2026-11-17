@@ -1710,10 +1710,6 @@ if TYPE_CHECKING:
         PlatformDocumentGetResponseTypedDict,
     )
     from .platformdocumentinclude import PlatformDocumentInclude
-    from .platformdocumentreference import (
-        PlatformDocumentReference,
-        PlatformDocumentReferenceTypedDict,
-    )
     from .platformdocumentsbatchrequest import (
         PlatformDocumentsBatchRequest,
         PlatformDocumentsBatchRequestDocumentSpec,
@@ -1842,15 +1838,6 @@ if TYPE_CHECKING:
         PlatformProblemDetailErrorTypedDict,
     )
     from .platformresult import PlatformResult, PlatformResultTypedDict
-    from .platformsearchenumerationinclude import PlatformSearchEnumerationInclude
-    from .platformsearchenumerationrequest import (
-        PlatformSearchEnumerationRequest,
-        PlatformSearchEnumerationRequestTypedDict,
-    )
-    from .platformsearchenumerationresponse import (
-        PlatformSearchEnumerationResponse,
-        PlatformSearchEnumerationResponseTypedDict,
-    )
     from .platformsearchfiltersresponse import (
         PlatformSearchFiltersResponse,
         PlatformSearchFiltersResponseTypedDict,
@@ -3699,8 +3686,6 @@ __all__ = [
     "PlatformDocumentGetResponse",
     "PlatformDocumentGetResponseTypedDict",
     "PlatformDocumentInclude",
-    "PlatformDocumentReference",
-    "PlatformDocumentReferenceTypedDict",
     "PlatformDocumentTypedDict",
     "PlatformDocumentsBatchRequest",
     "PlatformDocumentsBatchRequestDocumentSpec",
@@ -3783,11 +3768,6 @@ __all__ = [
     "PlatformProblemDetailTypedDict",
     "PlatformResult",
     "PlatformResultTypedDict",
-    "PlatformSearchEnumerationInclude",
-    "PlatformSearchEnumerationRequest",
-    "PlatformSearchEnumerationRequestTypedDict",
-    "PlatformSearchEnumerationResponse",
-    "PlatformSearchEnumerationResponseTypedDict",
     "PlatformSearchFiltersRequest",
     "PlatformSearchFiltersRequestTypedDict",
     "PlatformSearchFiltersResponse",
@@ -5518,8 +5498,6 @@ _dynamic_imports: dict[str, str] = {
     "PlatformDocumentGetResponse": ".platformdocumentgetresponse",
     "PlatformDocumentGetResponseTypedDict": ".platformdocumentgetresponse",
     "PlatformDocumentInclude": ".platformdocumentinclude",
-    "PlatformDocumentReference": ".platformdocumentreference",
-    "PlatformDocumentReferenceTypedDict": ".platformdocumentreference",
     "PlatformDocumentsBatchRequest": ".platformdocumentsbatchrequest",
     "PlatformDocumentsBatchRequestDocumentSpec": ".platformdocumentsbatchrequest",
     "PlatformDocumentsBatchRequestDocumentSpecTypedDict": ".platformdocumentsbatchrequest",
@@ -5597,11 +5575,6 @@ _dynamic_imports: dict[str, str] = {
     "PlatformProblemDetailErrorTypedDict": ".platformproblemdetailerror",
     "PlatformResult": ".platformresult",
     "PlatformResultTypedDict": ".platformresult",
-    "PlatformSearchEnumerationInclude": ".platformsearchenumerationinclude",
-    "PlatformSearchEnumerationRequest": ".platformsearchenumerationrequest",
-    "PlatformSearchEnumerationRequestTypedDict": ".platformsearchenumerationrequest",
-    "PlatformSearchEnumerationResponse": ".platformsearchenumerationresponse",
-    "PlatformSearchEnumerationResponseTypedDict": ".platformsearchenumerationresponse",
     "PlatformSearchFiltersResponse": ".platformsearchfiltersresponse",
     "PlatformSearchFiltersResponseTypedDict": ".platformsearchfiltersresponse",
     "PlatformSearchRequest": ".platformsearchrequest",
