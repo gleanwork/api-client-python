@@ -2,8 +2,8 @@ openapi: 3.1.0
 info:
   version: "0.9.0"
   title: Glean API
-  x-source-commit-sha: 92084e408d64f4792098b2dcd1013e0af7abe611
-  x-open-api-commit-sha: fee2a7ed1565ad90159fb31b1a05283058c83f3f
+  x-source-commit-sha: 2f6fc4fe9fed01ad76ee9aa694041c743bd74875
+  x-open-api-commit-sha: 241062eca12866ea62b6e58d504ef481935fcf48
   description: |
     # Introduction
     In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This is useful, for example, for doing permissions-aware search over content in internal tools that reside on-prem as well as for searching over applications that Glean does not currently support first class. In addition these APIs allow the customer to push organization data (people info, organization structure etc) into Glean.
@@ -1494,63 +1494,6 @@ paths:
           $ref: "#/components/responses/PlatformServiceUnavailable"
       x-speakeasy-group: search
       x-speakeasy-name-override: listFilters
-      security:
-        - APIToken: []
-  /api/search/enumeration:
-    post:
-      tags:
-        - Search
-      summary: Enumerate matching documents
-      description: |
-        Walk every indexed document that matches a selection and that the caller is permitted to see. Returns document references with minimal metadata and never bodies; request `SNIPPETS` via `include` for query-relevant excerpts, and hydrate full documents with `POST /api/documents/batch`. Unlike `POST /api/search`, `query` is optional: omit it to enumerate by `datasources`, `filters`, and `time_range` alone. Results are ordered for completeness, not relevance.
-        Follow `next_cursor` until `has_more` is `false`, regardless of page size. This is a live scan, not a snapshot: concurrent index changes can cause duplicates or omissions. Deduplicate by `document_id`.
-        A page is either complete at its cursor position or an error. A shard or datasource failure returns HTTP 503 and the same cursor stays valid for retry; this endpoint never returns a partial page. A cursor reused with a different selection returns HTTP 400 `invalid_cursor`.
-      operationId: platform-search-enumeration
-      x-glean-scopes:
-        legacy:
-          - SEARCH
-        platform:
-          - search:query
-      x-visibility: Public
-      x-glean-experimental:
-        id: 9ce7bb73-1e30-460a-a917-cae09ac3a3ea
-        introduced: "2026-11-02"
-      x-codegen-request-body-name: payload
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/PlatformSearchEnumerationRequest"
-      responses:
-        "200":
-          description: Successful response.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/PlatformSearchEnumerationResponse"
-        "400":
-          $ref: "#/components/responses/PlatformBadRequest"
-        "401":
-          $ref: "#/components/responses/PlatformUnauthorized"
-        "403":
-          $ref: "#/components/responses/PlatformForbidden"
-        "404":
-          $ref: "#/components/responses/PlatformNotFound"
-        "408":
-          $ref: "#/components/responses/PlatformRequestTimeout"
-        "413":
-          $ref: "#/components/responses/PlatformRequestTooLarge"
-        "422":
-          $ref: "#/components/responses/PlatformUnprocessableEntity"
-        "429":
-          $ref: "#/components/responses/PlatformTooManyRequests"
-        "500":
-          $ref: "#/components/responses/PlatformInternalServerError"
-        "503":
-          $ref: "#/components/responses/PlatformServiceUnavailable"
-      x-speakeasy-group: search
-      x-speakeasy-name-override: enumerate
       security:
         - APIToken: []
   /api/admin/usage/settings:
@@ -11124,158 +11067,6 @@ components:
           type: string
           minLength: 1
           description: Platform-generated request ID for support correlation.
-    PlatformSearchEnumerationInclude:
-      type: string
-      description: Optional document reference projection.
-      enum:
-        - SNIPPETS
-      x-enumDescriptions:
-        SNIPPETS: Add snippets, query-relevant plain-text excerpts from the document body. Only produced when `query` is present; a scope-only scan has nothing to excerpt.
-      x-speakeasy-enum-descriptions:
-        SNIPPETS: Add snippets, query-relevant plain-text excerpts from the document body. Only produced when `query` is present; a scope-only scan has nothing to excerpt.
-    PlatformSearchEnumerationRequest:
-      type: object
-      additionalProperties: false
-      description: |
-        Selection to enumerate. At least one of `datasources`, `query`, or `filters` must be set.
-      example:
-        query: amoxicillin
-        datasources:
-          - gdrive
-        page_size: 500
-      properties:
-        query:
-          type: string
-          minLength: 1
-          description: |
-            The search query string. Supports inline operators such as `from:jane type:document app:confluence`. Inline operators are AND'd with structured `filters`.
-        datasources:
-          type: array
-          minItems: 1
-          items:
-            type: string
-            minLength: 1
-          description: |
-            Restrict results to specific datasource identifiers returned by `GET /api/search/filters`. Scopes by datasource type and may include results from multiple instances of that type. Omit to enumerate across all visible datasources matching `query` or `filters`.
-        filters:
-          type: array
-          minItems: 1
-          items:
-            $ref: "#/components/schemas/PlatformFilter"
-          description: |
-            Structured filters applied to search results. Multiple values within a filter with `EQUALS` are OR'd; separate filters are AND'd. Conflicting constraints on the same field (for example, `type:document` in `query` and `type:spreadsheet` in a filter) return an empty result set. See `Filter.field` for built-in field names and operators. Other nonblank field names are accepted as custom filters without validation; behavior depends on your connected sources.
-        time_range:
-          $ref: "#/components/schemas/PlatformTimeRange"
-        page_size:
-          type: integer
-          minimum: 1
-          maximum: 1000
-          default: 100
-          description: Number of results to return per page.
-        cursor:
-          type:
-            - string
-            - "null"
-          description: |
-            Opaque pagination token from a previous response's `next_cursor` field. Omit on the first request. Cursors do not expire and are valid only for the original selection.
-        include:
-          type: array
-          minItems: 1
-          uniqueItems: true
-          items:
-            $ref: "#/components/schemas/PlatformSearchEnumerationInclude"
-          description: |
-            Optional field groups to add to each document reference. Each value only adds fields; it does not change which documents are returned.
-    PlatformDocumentReference:
-      type: object
-      additionalProperties: false
-      required:
-        - document_id
-        - url
-        - title
-        - datasource
-      properties:
-        document_id:
-          type: string
-          minLength: 1
-          description: |
-            Indexed Glean store ID. Stable identity for deduplication and the selector accepted by `POST /api/documents/batch`.
-          example: doc_123
-        url:
-          type: string
-          format: uri
-          minLength: 1
-          description: Canonical URL of the result.
-          example: https://docs.google.com/spreadsheets/d/abc
-        title:
-          type: string
-          minLength: 1
-          description: Display title. For a conversation, this is a title built from the participants, such as "Alice and Bob", including when the indexed title is the message body. When the result has no title, the server returns Untitled.
-          example: Amoxicillin inventory
-        datasource:
-          type: string
-          minLength: 1
-          description: The datasource this result originates from.
-          example: gdrive
-        document_type:
-          type:
-            - string
-            - "null"
-          minLength: 1
-          description: The document type within the datasource.
-          example: spreadsheet
-        creator:
-          $ref: "#/components/schemas/PlatformPersonReference"
-        owner:
-          $ref: "#/components/schemas/PlatformPersonReference"
-        updated_at:
-          type:
-            - string
-            - "null"
-          format: date-time
-          description: When the result was last modified.
-        created_at:
-          type:
-            - string
-            - "null"
-          format: date-time
-          description: When the result was created.
-        snippets:
-          type: array
-          items:
-            type: string
-            minLength: 1
-          description: |
-            Query-relevant plain-text excerpts from the document body. Present only when the request's `include` contains `SNIPPETS` and `query` is set.
-          example:
-            - Amoxicillin 500mg inventory was last counted on...
-    PlatformSearchEnumerationResponse:
-      type: object
-      additionalProperties: false
-      required:
-        - results
-        - has_more
-        - next_cursor
-        - request_id
-      properties:
-        results:
-          type: array
-          items:
-            $ref: "#/components/schemas/PlatformDocumentReference"
-          description: Document references at this cursor position.
-        has_more:
-          type: boolean
-          description: Indicates whether additional pages of results are available.
-        next_cursor:
-          type:
-            - string
-            - "null"
-          description: |
-            Opaque token to pass as `cursor` in the next request. Null exactly when `has_more` is false.
-        request_id:
-          type: string
-          minLength: 1
-          description: Platform-generated request ID for support correlation.
     PlatformPerMemberSettings:
       type: object
       additionalProperties: false
@@ -12227,6 +12018,38 @@ components:
         source:
           $ref: "#/components/schemas/PlatformUsagePolicySourceTarget"
           description: Configured policy supplying this restriction.
+    PlatformUsageUsedValue:
+      type: object
+      additionalProperties: false
+      description: Accrued usage in one unit, without combining or converting units.
+      required:
+        - used
+        - unit
+      properties:
+        used:
+          type: string
+          minLength: 1
+          maxLength: 24
+          pattern: ^(0|[1-9][0-9]*)(\.[0-9]{1,6})?$
+          description: Nonnegative decimal usage with at most six fractional digits.
+        unit:
+          $ref: "#/components/schemas/PlatformUsageUnit"
+          description: Unit of accrued usage.
+    PlatformUsageAggregateUsage:
+      type: object
+      additionalProperties: false
+      description: |
+        Existing clientless AGENT counter usage in the current UTC calendar month, independent of agent/default policies and the selected spend client. This records aggregate attribution, not certified run lineage or exact app usage. Counter failures omit aggregate_usage, never fabricate zero amounts.
+      required:
+        - used_by_unit
+      properties:
+        used_by_unit:
+          type: array
+          minItems: 2
+          maxItems: 2
+          description: Existing aggregate counters in USD then CREDITS, including zero amounts.
+          items:
+            $ref: "#/components/schemas/PlatformUsageUsedValue"
     PlatformUsageLimitDecision:
       type: string
       description: Configured-budget status for the target, independent of runtime admission switches.
@@ -12366,6 +12189,7 @@ components:
         - period
         - value
         - used
+        - used_unit
         - decision
         - active_actions
       properties:
@@ -12392,7 +12216,13 @@ components:
           description: Configured cap before approved one-period grants; value.amount is not remaining headroom.
         used:
           type: string
-          description: Decimal amount of accrued usage for this limit.
+          description: Decimal amount of accrued usage for this limit in used_unit.
+        used_unit:
+          $ref: "#/components/schemas/PlatformUsageUnit"
+          x-glean-experimental:
+            id: 5c21ff70-7182-49f9-89c7-9c8f4929695f
+            introduced: "2026-11-16"
+          description: Resolved counter denomination, including when value.mode is UNLIMITED.
         current_period_amount:
           type: string
           minLength: 1
@@ -12453,7 +12283,7 @@ components:
       type: object
       additionalProperties: false
       description: |
-        Configured-budget evaluation for a concrete target and period, not runtime admission, model eligibility, or agent-run preflight. AVAILABLE can mean that no configured policy applies; inspect applicable_policy_count and the normalized target and exact period echo. Configured caps are evaluated_limits[].value.amount, accrued usage is evaluated_limits[].used, the cap enforced this period is evaluated_limits[].current_period_amount, per-rule headroom is evaluated_limits[].remaining, and tightest headroom is effective_limits[].remaining. Approved one-period grants raise the current-period amount and headroom without changing the configured cap. Units are never combined or converted. Non-admin evaluation omits shared budgets from applicable_policy_count, evaluated_limits, and effective_limits; decision can be BLOCKED by a shared budget even when the target's own limits show remaining headroom. decision_causes explains every non-AVAILABLE decision, including one caused by a budget that is not listed.
+        Configured-budget evaluation for a concrete target and period, not runtime admission, model eligibility, or agent-run preflight. AVAILABLE can mean that no configured policy applies; inspect applicable_policy_count and the normalized target and exact period echo. Optional used_by_unit reports exact subject and app usage for USER and ORGANIZATION, independent of policies; AGENT omits it and instead returns clientless aggregate_usage independent of configured policies. Both are omitted, as unknown, when their counters are unavailable; a counter failure returns 503 only when an applicable policy needs a counter. Non-admin evaluation omits shared budgets regardless of the caller's permissions. Hidden shared budgets can block the decision but never contribute counts or soft warnings. Configured caps are evaluated_limits[].value.amount, policy counter usage is evaluated_limits[].used, the cap enforced this period is evaluated_limits[].current_period_amount, per-rule headroom is evaluated_limits[].remaining, and tightest headroom is effective_limits[].remaining. Approved one-period grants raise the current-period amount and headroom without changing the configured cap. Units are never combined or converted. Non-admin evaluation omits shared budgets from applicable_policy_count, evaluated_limits, and effective_limits; decision can be BLOCKED by a shared budget even when the target's own limits show remaining headroom. decision_causes explains every non-AVAILABLE decision, including one caused by a budget that is not listed.
       example:
         target:
           type: USER
@@ -12462,6 +12292,11 @@ components:
         period:
           type: RECURRING_CALENDAR_MONTH
         applicable_policy_count: 1
+        used_by_unit:
+          - used: "20"
+            unit: USD
+          - used: "0"
+            unit: CREDITS
         decision: BLOCKED
         decision_causes:
           - decision: BLOCKED
@@ -12484,6 +12319,7 @@ components:
               unit: USD
               enforcement: HARD
             used: "20"
+            used_unit: USD
             current_period_amount: "80"
             remaining: "60"
             decision: AVAILABLE
@@ -12543,6 +12379,25 @@ components:
           minimum: 0
           description: |
             Number of applicable configured policies returned in evaluated_limits, including UNLIMITED policies. Zero explicitly means no returned policy matched, not an unlimited configured rule. Non-admin evaluation excludes shared budgets. Included even when zero.
+        aggregate_usage:
+          $ref: "#/components/schemas/PlatformUsageAggregateUsage"
+          x-glean-experimental:
+            id: 3a6dcfc9-9429-45da-ba71-945c43c1dfd7
+            introduced: "2026-11-16"
+          description: |
+            Present only for AGENT, including without configured policies. Existing clientless AGENT counters, never relabeled as selected-client usage. Omitted, as unknown, when the counters are unavailable.
+        used_by_unit:
+          type: array
+          x-go-type-skip-optional-pointer: true
+          x-glean-experimental:
+            id: 9d805f36-84ee-43de-a21a-a41426dce590
+            introduced: "2026-11-16"
+          minItems: 2
+          maxItems: 2
+          items:
+            $ref: "#/components/schemas/PlatformUsageUsedValue"
+          description: |
+            Live accrued usage for exactly the normalized USER or ORGANIZATION and selected app in the current UTC calendar month. When present, contains USD then CREDITS, including zero amounts and when no policy applies. AGENT omits this field until exact per-app counters are ready; existing agent policy evaluation, usage, headroom and decisions remain available. Also omitted when the counters are unavailable. Absence is unknown, not zero or relabeled aggregate usage. This field is not a sum of policy counters or workspace constraints.
         decision:
           $ref: "#/components/schemas/PlatformUsageLimitDecision"
           description: |
@@ -12560,7 +12415,7 @@ components:
           items:
             $ref: "#/components/schemas/PlatformUsageHeadroomValue"
           description: |
-            Tightest remaining budget per finite unit, ordered USD then CREDITS. remaining is headroom after accrued usage and approved one-period grants, not a configured cap. Units are never combined or converted. When no finite policy applies, contains a single UNLIMITED entry without remaining, unit, or enforcement, including when applicable_policy_count is zero. Covers only returned evaluated_limits, so non-admin headroom excludes shared budgets. This configured-budget result is not a runtime admission guarantee.
+            Tightest visible remaining budget per finite unit, ordered USD then CREDITS. remaining is headroom after accrued usage and approved one-period grants, not a configured cap. Units are never combined or converted. When no visible finite policy applies, contains a single UNLIMITED entry without remaining, unit, or enforcement, including when applicable_policy_count is zero. Covers only returned evaluated_limits, so non-admin headroom excludes shared budgets and is not evidence that they are unlimited or available. This configured-budget result is not a runtime admission guarantee.
         evaluated_limits:
           type: array
           items:
@@ -12754,6 +12609,11 @@ components:
                 next_cursor:
                   type: "null"
                   description: If present on the last page, the cursor must be null.
+    PlatformDesiredLimitAmount:
+      type: string
+      pattern: ^([1-9][0-9]*(\.[0-9]+)?|0\.[0-9]*[1-9][0-9]*)$
+      description: |
+        Desired new total monthly limit in the applicable limit's denomination, encoded as a positive plain decimal string, not an additive increase. Required on creation when the workspace requires an amount and business justification; otherwise optional. The backend stores float32 values, not arbitrary-precision decimals. This is a request, not an approval.
     PlatformRequestEntityType:
       type: string
       enum:
@@ -12784,6 +12644,9 @@ components:
       description: |
         A request as its requester or agent editor sees it: the outcome, approved amount, and note, but not who resolved it or how broadly. The Glean app shows those details only to billing readers, through AdministrativeLimitIncreaseRequest.
       properties:
+        desired_limit_amount:
+          $ref: "#/components/schemas/PlatformDesiredLimitAmount"
+          description: Stored desired total monthly limit, when supplied; older requests may omit it.
         request_id:
           type: string
           description: Server-assigned resource identifier, distinct from the response's trace request_id.
@@ -12894,7 +12757,11 @@ components:
           type: string
           maxLength: 4096
           description: |
-            Explanation of why the increase is needed. Required, and nonblank, when the workspace's request-more configuration requires a business justification.
+            Explanation of why the increase is needed. Required, and nonblank, when the workspace's request-more configuration requires an amount and business justification.
+        desired_limit_amount:
+          $ref: "#/components/schemas/PlatformDesiredLimitAmount"
+          description: |
+            Desired total limit for the current UTC month. Required when the workspace requires an amount and justification.
     PlatformPersonalRequestResponse:
       type: object
       additionalProperties: false
@@ -12984,6 +12851,9 @@ components:
       description: |
         A request as a billing reader sees it: every PersonalLimitIncreaseRequest field, plus who resolved it and the approval's scope and breadth.
       properties:
+        desired_limit_amount:
+          $ref: "#/components/schemas/PlatformDesiredLimitAmount"
+          description: Stored desired total monthly limit, when supplied; older requests may omit it.
         request_id:
           type: string
           description: Server-assigned resource identifier, distinct from the response's trace request_id.
@@ -13128,7 +12998,11 @@ components:
           type: string
           maxLength: 4096
           description: |
-            Explanation of why the increase is needed. Required, and nonblank, when the workspace's request-more configuration requires a business justification.
+            Explanation of why the increase is needed. Required, and nonblank, when the workspace's request-more configuration requires an amount and business justification.
+        desired_limit_amount:
+          $ref: "#/components/schemas/PlatformDesiredLimitAmount"
+          description: |
+            Desired total agent limit for the current UTC month. Required when the workspace requires an amount and justification.
     PlatformAdministrativeRequestResponse:
       type: object
       additionalProperties: false
