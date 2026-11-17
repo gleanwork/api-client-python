@@ -23,6 +23,8 @@ type InsightsOverviewResponse struct {
 	UgcSummary           *CurrentActiveUsers    `json:"ugcSummary,omitempty"`
 	// Unix timestamp of the last update for the insights data in the response.
 	LastUpdatedTs *int64 `json:"lastUpdatedTs,omitempty"`
+	// Number of current employees in the specified departments who had signed up 7 days before the latest day of insights data. Compare with totalSignups for week-over-week signup change.
+	TotalSignupsWeekAgo *int64 `json:"totalSignupsWeekAgo,omitempty"`
 	// Search session satisfaction rate, over the specified time period in the specified departments.
 	//
 	// Deprecated: Deprecated on 2026-05-13, removal scheduled for 2027-01-15: This property is no longer supported. Please contact Support for alternatives..
@@ -150,6 +152,13 @@ func (o *InsightsOverviewResponse) GetLastUpdatedTs() *int64 {
 		return nil
 	}
 	return o.LastUpdatedTs
+}
+
+func (o *InsightsOverviewResponse) GetTotalSignupsWeekAgo() *int64 {
+	if o == nil {
+		return nil
+	}
+	return o.TotalSignupsWeekAgo
 }
 
 func (o *InsightsOverviewResponse) GetSearchSessionSatisfaction() *float32 {
