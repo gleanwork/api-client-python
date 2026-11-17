@@ -2,8 +2,8 @@ openapi: 3.1.0
 info:
   version: "0.9.0"
   title: Glean API
-  x-source-commit-sha: 74225def94ec0e1d0281e9ed827c93f85ccb2152
-  x-open-api-commit-sha: d781217a7cfce20ac740646c1b7242f059d850cb
+  x-source-commit-sha: 92084e408d64f4792098b2dcd1013e0af7abe611
+  x-open-api-commit-sha: fee2a7ed1565ad90159fb31b1a05283058c83f3f
   description: |
     # Introduction
     In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This is useful, for example, for doing permissions-aware search over content in internal tools that reside on-prem as well as for searching over applications that Glean does not currently support first class. In addition these APIs allow the customer to push organization data (people info, organization structure etc) into Glean.
@@ -1559,7 +1559,7 @@ paths:
         - Admin Usage
       summary: Get usage settings
       description: |
-        Retrieve workspace-wide policy from the same configuration used by Billing. Group resolution uses the configured policy and its backend defaults; business justification is currently optional. No per-user settings are read, and updated_at is omitted because no policy-update timestamp is available. Requires admin.usage.settings:read and permission to read workspace billing; a global administrator role is not required.
+        Retrieve workspace-wide policy from the same configuration used by Billing. Group resolution uses the configured policy and its backend defaults. Business justification is REQUIRED when request-more configuration requires it for user or agent requests, and OPTIONAL otherwise. No per-user settings are read, and updated_at is omitted because no policy-update timestamp is available. Requires admin.usage.settings:read and permission to read workspace billing; a global administrator role is not required.
       operationId: platform-admin-usage-settings-get
       x-visibility: Public
       x-glean-scopes:
@@ -1962,7 +1962,7 @@ paths:
         - Admin Usage
       summary: Evaluate administrative usage limit headroom
       description: |
-        Evaluate the effective usage limits for a target and period and return the current decision (AVAILABLE, WARNING, or BLOCKED) based on accrued usage. Requires admin.usage:evaluate and permission to read workspace billing, not a global administrator role. An explicit target.client_id selects the Glean or external spend client; it is never inferred from the caller. Returns all applicable limit values and counters, with effective headroom separated by unit. Agent counters retain aggregate scope. Billing readers receive exact IdP-group source identities as idp_group_id values. A USER target may be identified by user_id or email. Evaluation reports configured-budget status even when runtime enforcement switches are off; it does not perform request admission, model eligibility, or agent-run preflight checks.
+        Evaluate the effective usage limits for one ORGANIZATION, USER, or AGENT target and period and return the current decision (AVAILABLE, WARNING, or BLOCKED) based on accrued usage. Requires admin.usage:evaluate and permission to read workspace billing, not a global administrator role. An explicit target.client_id selects the Glean or external spend client; it is never inferred from the caller. Returns all applicable limit values and counters, with effective headroom separated by unit. Agent counters retain aggregate scope. Billing readers receive exact IdP-group source identities as idp_group_id values. A USER target may be identified by user_id or email. Evaluation reports configured-budget status even when runtime enforcement switches are off; it does not perform request admission, model eligibility, or agent-run preflight checks.
       operationId: platform-admin-usage-limits-evaluate
       x-visibility: Public
       x-glean-scopes:
@@ -2088,7 +2088,7 @@ paths:
         id: d9f125f8-85f3-4221-8627-0b39f6d5b4ab
         introduced: "2026-09-25"
       description: |
-        Requires usage.limit_increase_requests:write. The target is the authenticated canonical user, and requester identity comes from authentication. The caller supplies the client and optional business justification. The server assigns the request identifier and current UTC month. Billing grants do not widen this route. Requires shared Platform authentication with the required scope, experimental opt-in, and the existing request-more enablement flag. Missing opt-in or a disabled flag returns 404.
+        Requires usage.limit_increase_requests:write. The target is the authenticated canonical user, and requester identity comes from authentication. The caller supplies the client and a business justification, which returns 400 when blank and the workspace requires one for user requests. The server assigns the request identifier and current UTC month. Billing grants do not widen this route. Requires shared Platform authentication with the required scope, experimental opt-in, and the existing request-more enablement flag. Missing opt-in or a disabled flag returns 404.
       requestBody:
         required: true
         content:
@@ -2266,7 +2266,7 @@ paths:
         id: e28f40de-1f6c-4dc6-ab12-4054b89628c1
         introduced: "2026-09-25"
       description: |
-        Requires usage.limit_increase_requests:write, the same scope as personal creation, and current edit permission on the agent, not billing permissions. The caller supplies the agent, client, and optional business justification. Requester identity comes from authentication; the server assigns the request identifier and current UTC month. Requires shared Platform authentication with the required scope, experimental opt-in, and the existing request-more enablement flag. Missing opt-in or a disabled flag returns 404.
+        Requires usage.limit_increase_requests:write, the same scope as personal creation, and current edit permission on the agent, not billing permissions. The caller supplies the agent, client, and a business justification, which returns 400 when blank and the workspace requires one for agent requests. Requester identity comes from authentication; the server assigns the request identifier and current UTC month. Requires shared Platform authentication with the required scope, experimental opt-in, and the existing request-more enablement flag. Missing opt-in or a disabled flag returns 404.
       requestBody:
         required: true
         content:
@@ -2445,7 +2445,7 @@ paths:
         id: 08d999ca-f438-4fed-81ce-350c7e65c2cc
         introduced: "2026-09-25"
       description: |
-        Update a pending request with an approval decision or denial. Requires admin.usage.limit_increase_requests:write and current billing edit permission. A pending request can record an approved positive increase amount or be denied with an optional resolution note. PERIOD approval retains the request's stored month and requires the current UTC month; expired approvals return 409 before mutation or approval writes. A successful approval write triggers spend-limit cache refresh before reload; refresh failure logs a warning without failing the decision. The existing backend consumes eligible USER current-period grants to raise enforcement headroom without changing standing rules. This does not add capacity for agents or other unsupported targets, integrate usage settings, or promise new delivery or atomicity guarantees. Supported token issuance, experimental opt-in, and request-more enablement are required. Missing opt-in or a disabled flag returns 404. Once enabled and opted in, ONGOING returns typed 503 without reading or modifying the request; its private policy preparation is not shared with this adapter. Use the existing app operation for ongoing user approvals.
+        Update a pending request with an approval decision or denial. Requires admin.usage.limit_increase_requests:write and current billing edit permission. A pending request can record an approved positive increase amount or be denied with an optional resolution note. PERIOD approval retains the request's stored month and requires the current UTC month; expired approvals return 409 before mutation or approval writes. A successful approval write triggers spend-limit cache refresh before reload; refresh failure logs a warning without failing the decision. The existing backend consumes eligible USER and AGENT current-period grants to raise evaluated and enforced headroom without changing standing rules. This does not add capacity for other targets, integrate usage settings, or promise new delivery or atomicity guarantees. Supported token issuance, experimental opt-in, and request-more enablement are required. Missing opt-in or a disabled flag returns 404. Once enabled and opted in, ONGOING returns typed 503 without reading or modifying the request; its private policy preparation is not shared with this adapter. Use the existing app operation for ongoing user approvals.
       requestBody:
         required: true
         content:
@@ -12393,14 +12393,67 @@ components:
         used:
           type: string
           description: Decimal amount of accrued usage for this limit.
+        current_period_amount:
+          type: string
+          minLength: 1
+          maxLength: 24
+          pattern: ^(0|[1-9][0-9]*)(\.[0-9]{1,6})?$
+          x-glean-experimental:
+            id: 3ad9a7ba-123c-4ee5-b6c9-b4dc59ec7ebc
+            introduced: "2026-11-16"
+          description: |
+            The cap this rule enforces in the current period: configured cap plus approved current-period grants. Present for FINITE rules and omitted for UNLIMITED rules. Show usage as used against current_period_amount; used can exceed it once a rule is over its limit.
+        remaining:
+          type: string
+          minLength: 1
+          maxLength: 24
+          pattern: ^(0|[1-9][0-9]*)(\.[0-9]{1,6})?$
+          x-glean-experimental:
+            id: 003db27d-ea53-4ec4-a147-8012a1b0cb7c
+            introduced: "2026-11-16"
+          description: |
+            This rule's nonnegative headroom: current_period_amount minus used, floored at zero. Present for FINITE rules and omitted for UNLIMITED rules. Over the limit, used + remaining exceeds current_period_amount. This is independent of the tightest effective_limits[].remaining and is not runtime admission.
         decision:
           $ref: "#/components/schemas/PlatformUsageLimitDecision"
           description: Decision for this limit.
+      allOf:
+        - oneOf:
+            - required:
+                - current_period_amount
+                - remaining
+              properties:
+                value:
+                  description: Finite configured cap.
+                  properties:
+                    mode:
+                      description: Whether the limit has a finite cap or is unlimited.
+                      enum:
+                        - FINITE
+            - properties:
+                value:
+                  description: Unlimited configured cap.
+                  properties:
+                    mode:
+                      description: Whether the limit has a finite cap or is unlimited.
+                      enum:
+                        - UNLIMITED
+              not:
+                anyOf:
+                  - required:
+                      - current_period_amount
+                    properties:
+                      current_period_amount:
+                        description: Forbidden for unlimited rules.
+                  - required:
+                      - remaining
+                    properties:
+                      remaining:
+                        description: Forbidden for unlimited rules.
     PlatformEvaluateUsageLimitResponse:
       type: object
       additionalProperties: false
       description: |
-        Configured-budget evaluation for a concrete target and period, not runtime admission, model eligibility, or agent-run preflight. AVAILABLE can mean that no configured policy applies; inspect applicable_policy_count and the normalized target and exact period echo. Configured caps are evaluated_limits[].value.amount, accrued usage is evaluated_limits[].used, and remaining budget is effective_limits[].remaining. Approved one-period grants raise headroom without changing the configured cap. Units are never combined or converted. Non-admin evaluation omits shared budgets from applicable_policy_count, evaluated_limits, and effective_limits; decision can be BLOCKED by a shared budget even when the target's own limits show remaining headroom. decision_causes explains every non-AVAILABLE decision, including one caused by a budget that is not listed.
+        Configured-budget evaluation for a concrete target and period, not runtime admission, model eligibility, or agent-run preflight. AVAILABLE can mean that no configured policy applies; inspect applicable_policy_count and the normalized target and exact period echo. Configured caps are evaluated_limits[].value.amount, accrued usage is evaluated_limits[].used, the cap enforced this period is evaluated_limits[].current_period_amount, per-rule headroom is evaluated_limits[].remaining, and tightest headroom is effective_limits[].remaining. Approved one-period grants raise the current-period amount and headroom without changing the configured cap. Units are never combined or converted. Non-admin evaluation omits shared budgets from applicable_policy_count, evaluated_limits, and effective_limits; decision can be BLOCKED by a shared budget even when the target's own limits show remaining headroom. decision_causes explains every non-AVAILABLE decision, including one caused by a budget that is not listed.
       example:
         target:
           type: USER
@@ -12431,6 +12484,8 @@ components:
               unit: USD
               enforcement: HARD
             used: "20"
+            current_period_amount: "80"
+            remaining: "60"
             decision: AVAILABLE
             active_actions:
               - type: RESTRICT_MODELS
@@ -12838,7 +12893,8 @@ components:
         business_justification:
           type: string
           maxLength: 4096
-          description: Optional explanation of why the increase is needed.
+          description: |
+            Explanation of why the increase is needed. Required, and nonblank, when the workspace's request-more configuration requires a business justification.
     PlatformPersonalRequestResponse:
       type: object
       additionalProperties: false
@@ -12904,7 +12960,7 @@ components:
         - PERIOD
         - ONGOING
       description: |
-        PERIOD records a decision for the stored request month; approval requires the current UTC month. Existing enforcement consumes eligible USER current-period grants without changing standing rules; no agent or other unsupported target capacity is added. ONGOING identifies a standing-rule approval in existing app records; this API does not support creating ONGOING approvals.
+        PERIOD records a decision for the stored request month; approval requires the current UTC month. Existing enforcement consumes eligible USER and AGENT current-period grants without changing standing rules; no capacity is added for other targets. ONGOING identifies a standing-rule approval in existing app records; this API does not support creating ONGOING approvals.
     PlatformRequestResolutionTarget:
       type: string
       enum:
@@ -13071,7 +13127,8 @@ components:
         business_justification:
           type: string
           maxLength: 4096
-          description: Optional explanation of why the increase is needed.
+          description: |
+            Explanation of why the increase is needed. Required, and nonblank, when the workspace's request-more configuration requires a business justification.
     PlatformAdministrativeRequestResponse:
       type: object
       additionalProperties: false
@@ -13090,14 +13147,14 @@ components:
       type: string
       pattern: ^([1-9][0-9]*(\.[0-9]+)?|0\.[0-9]*[1-9][0-9]*)$
       description: |
-        Recorded positive additive increase in the applicable rule's denomination, encoded as a plain decimal string. Existing enforcement consumes eligible USER current-period grants without changing standing rules. This does not add capacity for agents or other unsupported targets. The backend stores float32 values, not arbitrary-precision decimals.
+        Recorded positive additive increase in the applicable rule's denomination, encoded as a plain decimal string. Existing enforcement consumes eligible USER and AGENT current-period grants without changing standing rules. This does not add capacity for other targets. The backend stores float32 values, not arbitrary-precision decimals.
     PlatformAdministrativeRequestUpdate:
       type: object
       additionalProperties: false
       required:
         - status
       description: |
-        Resolve a pending request. PERIOD approval records a positive additive amount for the stored current UTC month; expired approvals return 409. The existing backend consumes eligible USER current-period grants without changing standing rules; no agent or other unsupported target capacity is added. ONGOING approval is unavailable on this API and returns 503. GROUP and DEPARTMENT resolution targets are not accepted for new approvals. Request identity and period cannot change.
+        Resolve a pending request. PERIOD approval records a positive additive amount for the stored current UTC month; expired approvals return 409. The existing backend consumes eligible USER and AGENT current-period grants without changing standing rules; no capacity is added for other targets. ONGOING approval is unavailable on this API and returns 503. GROUP and DEPARTMENT resolution targets are not accepted for new approvals. Request identity and period cannot change.
       properties:
         status:
           type: string
@@ -13150,7 +13207,7 @@ components:
                 required:
                   - resolution_note
               oneOf:
-                - description: A PERIOD approval records a current-month grant; existing enforcement consumes eligible USER grants.
+                - description: A PERIOD approval records a current-month grant; existing enforcement consumes eligible USER and AGENT grants.
                   properties:
                     scope:
                       description: Period approval, also selected when scope is omitted.
@@ -20634,6 +20691,9 @@ components:
             lastUpdatedTs:
               type: integer
               description: Unix timestamp of the last update for the insights data in the response.
+            totalSignupsWeekAgo:
+              type: integer
+              description: Number of current employees in the specified departments who had signed up 7 days before the latest day of insights data. Compare with totalSignups for week-over-week signup change.
             searchSessionSatisfaction:
               type: number
               format: float

@@ -40,6 +40,8 @@ class InsightsOverviewResponseTypedDict(TypedDict):
     ugc_summary: NotRequired[CurrentActiveUsersTypedDict]
     last_updated_ts: NotRequired[int]
     r"""Unix timestamp of the last update for the insights data in the response."""
+    total_signups_week_ago: NotRequired[int]
+    r"""Number of current employees in the specified departments who had signed up 7 days before the latest day of insights data. Compare with totalSignups for week-over-week signup change."""
     search_session_satisfaction: NotRequired[float]
     r"""Search session satisfaction rate, over the specified time period in the specified departments."""
     monthly_active_user_timeseries: NotRequired[LabeledCountInfoTypedDict]
@@ -127,6 +129,11 @@ class InsightsOverviewResponse(BaseModel):
         None
     )
     r"""Unix timestamp of the last update for the insights data in the response."""
+
+    total_signups_week_ago: Annotated[
+        Optional[int], pydantic.Field(alias="totalSignupsWeekAgo")
+    ] = None
+    r"""Number of current employees in the specified departments who had signed up 7 days before the latest day of insights data. Compare with totalSignups for week-over-week signup change."""
 
     search_session_satisfaction: Annotated[
         Optional[float],
@@ -261,6 +268,7 @@ class InsightsOverviewResponse(BaseModel):
                 "extensionSummary",
                 "ugcSummary",
                 "lastUpdatedTs",
+                "totalSignupsWeekAgo",
                 "searchSessionSatisfaction",
                 "monthlyActiveUserTimeseries",
                 "weeklyActiveUserTimeseries",

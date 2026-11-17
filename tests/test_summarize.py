@@ -18,10 +18,10 @@ def test_summarize_summarize():
         res = glean.client.documents.summarize(
             document_specs=[
                 {
-                    "url": "https://judicious-squid.info",
+                    "url": "https://intelligent-lyre.net",
                 },
                 {
-                    "id": "<id>",
+                    "url": "https://intelligent-lyre.net",
                 },
             ]
         )
