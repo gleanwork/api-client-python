@@ -373,6 +373,29 @@ def test_include_beta(clean_x_glean_env, beta_env, experimental_env, config, exp
     assert "X-Glean-Beta" not in result.headers
 
 
+def send_query(**kwargs) -> httpx.Request:
+    """Send one request through a real Glean client and return what went out."""
+    captured = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        captured.append(request)
+        return httpx.Response(200, json={})
+
+    glean = Glean(
+        api_token="test-token",
+        server_url="https://example.com",
+        client=httpx.Client(transport=httpx.MockTransport(handler)),
+        **kwargs,
+    )
+    try:
+        glean.search.query(query="test")
+    except Exception:  # pylint: disable=broad-exception-caught
+        pass  # The empty response body may not validate; only the request matters.
+
+    assert captured, "expected a request to be sent"
+    return captured[0]
+
+
 @pytest.mark.parametrize(
     "env, expected",
     [
@@ -393,25 +416,63 @@ def test_sdk_sends_include_experimental_header(clean_x_glean_env, env, expected)
     for name, value in env.items():
         clean_x_glean_env.setenv(name, value)
 
-    captured = []
+    request = send_query()
 
-    def handler(request: httpx.Request) -> httpx.Response:
-        captured.append(request)
-        return httpx.Response(200, json={})
+    assert request.headers.get(INCLUDE_EXPERIMENTAL_HEADER) == expected
+    assert "X-Glean-Beta" not in request.headers
 
-    glean = Glean(
-        api_token="test-token",
-        server_url="https://example.com",
-        client=httpx.Client(transport=httpx.MockTransport(handler)),
-    )
-    try:
-        glean.search.query(query="test")
-    except Exception:  # pylint: disable=broad-exception-caught
-        pass  # The empty response body may not validate; only the request matters.
 
-    assert captured, "expected a request to be sent"
-    assert captured[0].headers.get(INCLUDE_EXPERIMENTAL_HEADER) == expected
-    assert "X-Glean-Beta" not in captured[0].headers
+@pytest.mark.parametrize(
+    "kwargs, expected_experimental, expected_deprecated",
+    [
+        pytest.param({}, None, None, id="no options"),
+        pytest.param({"include_beta": True}, "true", None, id="include_beta=True"),
+        pytest.param({"include_beta": False}, None, None, id="include_beta=False"),
+        pytest.param(
+            {"include_experimental": True}, "true", None, id="include_experimental=True"
+        ),
+        pytest.param(
+            {"include_beta": False, "include_experimental": True},
+            "true",
+            None,
+            id="include_beta=False does not turn off include_experimental",
+        ),
+        pytest.param(
+            {"exclude_deprecated_after": "2026-10-15"},
+            None,
+            "2026-10-15",
+            id="exclude_deprecated_after",
+        ),
+        pytest.param(
+            {"exclude_deprecated_after": "2026-10-15", "include_beta": True},
+            "true",
+            "2026-10-15",
+            id="all options",
+        ),
+    ],
+)
+def test_sdk_constructor_options(
+    clean_x_glean_env, kwargs, expected_experimental, expected_deprecated
+):
+    """The Glean constructor accepts the X-Glean options and sends their headers.
+
+    These options live in generated files (sdk.py and sdkconfiguration.py) and a
+    regeneration has dropped them before, so this guards against that.
+    """
+    request = send_query(**kwargs)
+
+    assert request.headers.get(INCLUDE_EXPERIMENTAL_HEADER) == expected_experimental
+    assert request.headers.get(EXCLUDE_DEPRECATED_AFTER_HEADER) == expected_deprecated
+    assert "X-Glean-Beta" not in request.headers
+
+
+def test_env_var_overrides_constructor_option(clean_x_glean_env):
+    """X_GLEAN_INCLUDE_BETA takes precedence over the include_beta constructor option."""
+    clean_x_glean_env.setenv(INCLUDE_BETA_ENV_VAR, "false")
+
+    request = send_query(include_beta=True)
+
+    assert INCLUDE_EXPERIMENTAL_HEADER not in request.headers
 
 
 if __name__ == "__main__":
