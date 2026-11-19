@@ -1041,7 +1041,7 @@ You can also enable a default debug logger by setting an environment variable `G
 
 The SDK provides options to test upcoming API changes before they become the default behavior. This is useful for:
 
-- **Testing experimental features** before they are generally available
+- **Testing beta features** before they are generally available
 - **Preparing for deprecations** by excluding deprecated endpoints ahead of their removal
 
 ### Configuration Options
@@ -1055,7 +1055,7 @@ import os
 
 # Set environment variables before initializing the SDK
 os.environ["X_GLEAN_EXCLUDE_DEPRECATED_AFTER"] = "2026-10-15"
-os.environ["X_GLEAN_INCLUDE_EXPERIMENTAL"] = "true"
+os.environ["X_GLEAN_INCLUDE_BETA"] = "true"
 
 from glean.api_client import Glean
 
@@ -1076,7 +1076,7 @@ glean = Glean(
     api_token=os.environ.get("GLEAN_API_TOKEN", ""),
     server_url="https://mycompany-be.glean.com",
     exclude_deprecated_after="2026-10-15",
-    include_experimental=True,
+    include_beta=True,
 )
 ```
 
@@ -1085,13 +1085,16 @@ glean = Glean(
 | Option | Environment Variable | Type | Description |
 | ------ | -------------------- | ---- | ----------- |
 | `exclude_deprecated_after` | `X_GLEAN_EXCLUDE_DEPRECATED_AFTER` | `str` (date) | Exclude API endpoints that will be deprecated after this date (format: `YYYY-MM-DD`). Use this to test your integration against upcoming deprecations. |
-| `include_experimental` | `X_GLEAN_INCLUDE_EXPERIMENTAL` | `bool` | When `True`, enables experimental API features that are not yet generally available. Use this to preview and test new functionality. |
+| `include_beta` | `X_GLEAN_INCLUDE_BETA` | `bool` | When `True`, enables beta API features that are not yet generally available. Use this to preview and test new functionality. |
+| `include_experimental` | `X_GLEAN_INCLUDE_EXPERIMENTAL` | `bool` | Alias of `include_beta`. Existing code that uses it keeps working. |
 
 > [!NOTE]
-> Environment variables take precedence over SDK constructor options when both are set.
+> Environment variables take precedence over SDK constructor options when both are set. `X_GLEAN_INCLUDE_BETA=true` (case-insensitive) enables beta features, and any other non-empty value overrides `include_beta=True`.
+>
+> `include_beta` and `include_experimental` are resolved separately, and either one enables beta features. Disabling one does not disable the other. Both send the `X-Glean-Include-Experimental: true` header.
 
 > [!WARNING]
-> Experimental features may change or be removed without notice. Do not rely on experimental features in production environments.
+> Beta features may change or be removed without notice. Do not rely on beta features in production environments.
 
 <!-- Placeholder for Future Speakeasy SDK Sections -->
 

@@ -1,4 +1,4 @@
-"""Hook to set X-Glean headers for experimental features and deprecation testing."""
+"""Hook to set X-Glean headers for beta features and deprecation testing."""
 
 import os
 from typing import Optional, Union
@@ -12,6 +12,7 @@ INCLUDE_EXPERIMENTAL_HEADER = "X-Glean-Include-Experimental"
 # Environment variable names
 EXCLUDE_DEPRECATED_AFTER_ENV_VAR = "X_GLEAN_EXCLUDE_DEPRECATED_AFTER"
 INCLUDE_EXPERIMENTAL_ENV_VAR = "X_GLEAN_INCLUDE_EXPERIMENTAL"
+INCLUDE_BETA_ENV_VAR = "X_GLEAN_INCLUDE_BETA"
 
 
 def _get_first_value(
@@ -29,13 +30,26 @@ def _get_first_value(
     return None
 
 
+def _resolve_boolean_option(env_value: Optional[str], config_value: object) -> bool:
+    """Resolve a boolean opt-in from its environment variable and SDK option.
+
+    The environment variable takes precedence: "true" (case-insensitive)
+    enables it, any other non-empty value disables it, and an unset or blank
+    value falls back to the SDK option.
+    """
+    if env_value is not None and env_value.strip():
+        return env_value.strip().lower() == "true"
+    return config_value is True
+
+
 class XGlean(BeforeRequestHook):
     """
-    Hook that sets X-Glean headers for experimental features and deprecation testing.
+    Hook that sets X-Glean headers for beta features and deprecation testing.
 
     This hook adds the following headers when configured:
     - X-Glean-Exclude-Deprecated-After: Excludes API endpoints deprecated after this date
-    - X-Glean-Include-Experimental: Enables experimental API features
+    - X-Glean-Include-Experimental: Enables beta API features. Set by either
+      include_beta or its include_experimental alias.
 
     Configuration can be done via environment variables or SDK constructor options.
     Environment variables take precedence over SDK constructor options.
@@ -68,6 +82,16 @@ class XGlean(BeforeRequestHook):
             os.environ.get(INCLUDE_EXPERIMENTAL_ENV_VAR),
             config_experimental,
         )
+
+        # include_experimental is an alias of include_beta. Each one resolves on
+        # its own, and either one enables the header. Disabling one never
+        # disables the other. Keep sending X-Glean-Include-Experimental for both:
+        # older deployments do not allow X-Glean-Beta in their CORS preflight.
+        if _resolve_boolean_option(
+            os.environ.get(INCLUDE_BETA_ENV_VAR),
+            getattr(hook_ctx.config, "include_beta", None),
+        ):
+            experimental_value = "true"
 
         if deprecated_value:
             request.headers[EXCLUDE_DEPRECATED_AFTER_HEADER] = deprecated_value

@@ -29,7 +29,8 @@ generation:
   versioningStrategy: automatic
   mockServer:
     disabled: false
-  persistentEdits: {}
+  persistentEdits:
+    enabled: "true"
   tests:
     generateTests: true
     generateNewTests: true

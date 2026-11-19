@@ -12,7 +12,9 @@ from src.glean.api_client._hooks.x_glean import (
     INCLUDE_EXPERIMENTAL_HEADER,
     EXCLUDE_DEPRECATED_AFTER_ENV_VAR,
     INCLUDE_EXPERIMENTAL_ENV_VAR,
+    INCLUDE_BETA_ENV_VAR,
 )
+from src.glean.api_client import Glean
 from src.glean.api_client._hooks.types import BeforeRequestContext, HookContext
 from src.glean.api_client.sdkconfiguration import SDKConfiguration
 
@@ -25,11 +27,13 @@ def create_mock_request() -> httpx.Request:
 def create_mock_context(
     exclude_deprecated_after: str = None,
     include_experimental: bool = None,
+    include_beta: bool = None,
 ) -> BeforeRequestContext:
     """Create a mock BeforeRequestContext with the given SDK configuration options."""
     config = Mock(spec=SDKConfiguration)
     config.exclude_deprecated_after = exclude_deprecated_after
     config.include_experimental = include_experimental
+    config.include_beta = include_beta
 
     hook_ctx = Mock(spec=HookContext)
     hook_ctx.config = config
@@ -51,12 +55,19 @@ class TestXGleanHook:
         # Store original values
         original_deprecated = os.environ.get(EXCLUDE_DEPRECATED_AFTER_ENV_VAR)
         original_experimental = os.environ.get(INCLUDE_EXPERIMENTAL_ENV_VAR)
+        original_beta = os.environ.get(INCLUDE_BETA_ENV_VAR)
 
         # Clear for test
         os.environ.pop(EXCLUDE_DEPRECATED_AFTER_ENV_VAR, None)
         os.environ.pop(INCLUDE_EXPERIMENTAL_ENV_VAR, None)
+        os.environ.pop(INCLUDE_BETA_ENV_VAR, None)
 
         yield
+
+        if original_beta is not None:
+            os.environ[INCLUDE_BETA_ENV_VAR] = original_beta
+        else:
+            os.environ.pop(INCLUDE_BETA_ENV_VAR, None)
 
         # Restore original values
         if original_deprecated is not None:
@@ -265,6 +276,203 @@ class TestXGleanHook:
 
         assert result.headers.get(INCLUDE_EXPERIMENTAL_HEADER) == "true"
         assert result.method == "POST"
+
+
+@pytest.fixture(name="clean_x_glean_env")
+def fixture_clean_x_glean_env(monkeypatch):
+    """Unset every X-Glean environment variable for the test."""
+    for name in (
+        EXCLUDE_DEPRECATED_AFTER_ENV_VAR,
+        INCLUDE_EXPERIMENTAL_ENV_VAR,
+        INCLUDE_BETA_ENV_VAR,
+    ):
+        monkeypatch.delenv(name, raising=False)
+    return monkeypatch
+
+
+@pytest.mark.parametrize(
+    "beta_env, experimental_env, config, expected",
+    [
+        pytest.param(None, None, {}, None, id="neither option set"),
+        pytest.param(None, None, {"include_beta": True}, "true", id="include_beta alone"),
+        pytest.param(None, None, {"include_beta": False}, None, id="include_beta false"),
+        pytest.param(
+            None, None, {"include_experimental": True}, "true", id="include_experimental alone"
+        ),
+        pytest.param(
+            None,
+            None,
+            {"include_beta": True, "include_experimental": True},
+            "true",
+            id="both options true",
+        ),
+        pytest.param(
+            None,
+            None,
+            {"include_beta": True, "include_experimental": False},
+            "true",
+            id="include_beta true, include_experimental false",
+        ),
+        pytest.param("true", None, {}, "true", id="X_GLEAN_INCLUDE_BETA alone"),
+        pytest.param(" TRUE ", None, {}, "true", id="X_GLEAN_INCLUDE_BETA is case-insensitive"),
+        pytest.param("true", "true", {}, "true", id="both env vars true"),
+        pytest.param(
+            "false",
+            None,
+            {"include_beta": True},
+            None,
+            id="X_GLEAN_INCLUDE_BETA=false overrides include_beta",
+        ),
+        pytest.param(
+            "true",
+            None,
+            {"include_beta": False},
+            "true",
+            id="X_GLEAN_INCLUDE_BETA=true overrides include_beta=False",
+        ),
+        pytest.param(
+            " ",
+            None,
+            {"include_beta": True},
+            "true",
+            id="empty X_GLEAN_INCLUDE_BETA falls back to include_beta",
+        ),
+        pytest.param(
+            "false",
+            None,
+            {"include_experimental": True},
+            "true",
+            id="X_GLEAN_INCLUDE_BETA=false does not turn off include_experimental",
+        ),
+        pytest.param(
+            "false",
+            "true",
+            {},
+            "true",
+            id="X_GLEAN_INCLUDE_BETA=false does not turn off X_GLEAN_INCLUDE_EXPERIMENTAL",
+        ),
+        pytest.param(
+            None,
+            "false",
+            {"include_beta": True},
+            "true",
+            id="X_GLEAN_INCLUDE_EXPERIMENTAL=false does not turn off include_beta",
+        ),
+    ],
+)
+def test_include_beta(clean_x_glean_env, beta_env, experimental_env, config, expected):
+    """include_beta and its include_experimental alias both set X-Glean-Include-Experimental."""
+    if beta_env is not None:
+        clean_x_glean_env.setenv(INCLUDE_BETA_ENV_VAR, beta_env)
+    if experimental_env is not None:
+        clean_x_glean_env.setenv(INCLUDE_EXPERIMENTAL_ENV_VAR, experimental_env)
+
+    result = XGlean().before_request(create_mock_context(**config), create_mock_request())
+
+    assert result.headers.get(INCLUDE_EXPERIMENTAL_HEADER) == expected
+    assert "X-Glean-Beta" not in result.headers
+
+
+def send_query(**kwargs) -> httpx.Request:
+    """Send one request through a real Glean client and return what went out."""
+    captured = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        captured.append(request)
+        return httpx.Response(200, json={})
+
+    glean = Glean(
+        api_token="test-token",
+        server_url="https://example.com",
+        client=httpx.Client(transport=httpx.MockTransport(handler)),
+        **kwargs,
+    )
+    try:
+        glean.search.query(query="test")
+    except Exception:  # pylint: disable=broad-exception-caught
+        pass  # The empty response body may not validate; only the request matters.
+
+    assert captured, "expected a request to be sent"
+    return captured[0]
+
+
+@pytest.mark.parametrize(
+    "env, expected",
+    [
+        pytest.param({}, None, id="neither env var"),
+        pytest.param({INCLUDE_BETA_ENV_VAR: "true"}, "true", id="X_GLEAN_INCLUDE_BETA"),
+        pytest.param(
+            {INCLUDE_EXPERIMENTAL_ENV_VAR: "true"}, "true", id="X_GLEAN_INCLUDE_EXPERIMENTAL"
+        ),
+        pytest.param(
+            {INCLUDE_BETA_ENV_VAR: "true", INCLUDE_EXPERIMENTAL_ENV_VAR: "true"},
+            "true",
+            id="both env vars",
+        ),
+    ],
+)
+def test_sdk_sends_include_experimental_header(clean_x_glean_env, env, expected):
+    """A real Glean client sends the header that the env vars ask for."""
+    for name, value in env.items():
+        clean_x_glean_env.setenv(name, value)
+
+    request = send_query()
+
+    assert request.headers.get(INCLUDE_EXPERIMENTAL_HEADER) == expected
+    assert "X-Glean-Beta" not in request.headers
+
+
+@pytest.mark.parametrize(
+    "kwargs, expected_experimental, expected_deprecated",
+    [
+        pytest.param({}, None, None, id="no options"),
+        pytest.param({"include_beta": True}, "true", None, id="include_beta=True"),
+        pytest.param({"include_beta": False}, None, None, id="include_beta=False"),
+        pytest.param(
+            {"include_experimental": True}, "true", None, id="include_experimental=True"
+        ),
+        pytest.param(
+            {"include_beta": False, "include_experimental": True},
+            "true",
+            None,
+            id="include_beta=False does not turn off include_experimental",
+        ),
+        pytest.param(
+            {"exclude_deprecated_after": "2026-10-15"},
+            None,
+            "2026-10-15",
+            id="exclude_deprecated_after",
+        ),
+        pytest.param(
+            {"exclude_deprecated_after": "2026-10-15", "include_beta": True},
+            "true",
+            "2026-10-15",
+            id="all options",
+        ),
+    ],
+)
+def test_sdk_constructor_options(
+    clean_x_glean_env, kwargs, expected_experimental, expected_deprecated
+):
+    """The Glean constructor accepts the X-Glean options and sends their headers.
+
+    These options live in generated files (sdk.py and sdkconfiguration.py) and a
+    regeneration has dropped them before, so this guards against that.
+    """
+    request = send_query(**kwargs)
+
+    assert request.headers.get(INCLUDE_EXPERIMENTAL_HEADER) == expected_experimental
+    assert request.headers.get(EXCLUDE_DEPRECATED_AFTER_HEADER) == expected_deprecated
+    assert "X-Glean-Beta" not in request.headers
+
+
+def test_env_var_overrides_constructor_option(clean_x_glean_env):
+    """X_GLEAN_INCLUDE_BETA takes precedence over the include_beta constructor option."""
+    clean_x_glean_env.setenv(INCLUDE_BETA_ENV_VAR, "false")
+
+    request = send_query(include_beta=True)
+
+    assert INCLUDE_EXPERIMENTAL_HEADER not in request.headers
 
 
 if __name__ == "__main__":
