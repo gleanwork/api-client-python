@@ -1,0 +1,12 @@
+# PlatformChatFileSource
+
+
+## Fields
+
+| Field                                                                        | Type                                                                         | Required                                                                     | Description                                                                  |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `type`                                                                       | [models.PlatformChatFileSourceType](../models/platformchatfilesourcetype.md) | :heavy_check_mark:                                                           | N/A                                                                          |
+| `file_id`                                                                    | *str*                                                                        | :heavy_check_mark:                                                           | N/A                                                                          |
+| `title`                                                                      | *Optional[str]*                                                              | :heavy_minus_sign:                                                           | N/A                                                                          |
+| `url`                                                                        | *Optional[str]*                                                              | :heavy_minus_sign:                                                           | N/A                                                                          |
+| `datasource`                                                                 | *Optional[str]*                                                              | :heavy_minus_sign:                                                           | N/A                                                                          |

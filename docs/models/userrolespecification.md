@@ -1,0 +1,11 @@
+# UserRoleSpecification
+
+
+## Fields
+
+| Field                                                                | Type                                                                 | Required                                                             | Description                                                          | Example                                                              |
+| -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `source_document_spec`                                               | [Optional[models.DocumentSpecUnion]](../models/documentspecunion.md) | :heavy_minus_sign:                                                   | N/A                                                                  |                                                                      |
+| `person`                                                             | [Optional[models.Person]](../models/person.md)                       | :heavy_minus_sign:                                                   | N/A                                                                  | {<br/>"name": "George Clooney",<br/>"obfuscatedId": "abc123"<br/>}   |
+| `group`                                                              | [Optional[models.Group]](../models/group.md)                         | :heavy_minus_sign:                                                   | N/A                                                                  |                                                                      |
+| `role`                                                               | [models.UserRole](../models/userrole.md)                             | :heavy_check_mark:                                                   | A user's role with respect to a specific document.                   |                                                                      |
