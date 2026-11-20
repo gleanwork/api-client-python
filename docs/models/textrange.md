@@ -1,0 +1,14 @@
+# TextRange
+
+A subsection of a given string to which some special formatting should be applied.
+
+
+## Fields
+
+| Field                                                                                           | Type                                                                                            | Required                                                                                        | Description                                                                                     |
+| ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `start_index`                                                                                   | *int*                                                                                           | :heavy_check_mark:                                                                              | The inclusive start index of the range.                                                         |
+| `end_index`                                                                                     | *Optional[int]*                                                                                 | :heavy_minus_sign:                                                                              | The exclusive end index of the range.                                                           |
+| `type`                                                                                          | [Optional[models.TextRangeType]](../models/textrangetype.md)                                    | :heavy_minus_sign:                                                                              | N/A                                                                                             |
+| `url`                                                                                           | *Optional[str]*                                                                                 | :heavy_minus_sign:                                                                              | The URL associated with the range, if applicable. For example, the linked URL for a LINK range. |
+| `document`                                                                                      | [Optional[models.Document]](../models/document.md)                                              | :heavy_minus_sign:                                                                              | N/A                                                                                             |
