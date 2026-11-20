@@ -1,0 +1,13 @@
+# PlatformAgentSlackChannel
+
+Slack deployment of the agent.
+
+
+## Fields
+
+| Field                                                                                          | Type                                                                                           | Required                                                                                       | Description                                                                                    |
+| ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `service_credential_id`                                                                        | *Optional[str]*                                                                                | :heavy_minus_sign:                                                                             | ID of the service credential for the Slack app.                                                |
+| `channel_mappings`                                                                             | List[[models.PlatformAgentSlackChannelMapping](../models/platformagentslackchannelmapping.md)] | :heavy_minus_sign:                                                                             | Slack channels the agent is mapped to.                                                         |
+| `engagement_filter_instructions`                                                               | *Optional[str]*                                                                                | :heavy_minus_sign:                                                                             | Instructions that decide which messages the agent engages with.                                |
+| `allow_mentions_outside_channel_mappings`                                                      | *Optional[bool]*                                                                               | :heavy_minus_sign:                                                                             | Whether the agent responds to mentions in channels that are not mapped.                        |

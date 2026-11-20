@@ -1,0 +1,11 @@
+# PlatformDepartmentReference
+
+A reference to a department in the Glean directory.
+
+
+## Fields
+
+| Field                                                                                                                                 | Type                                                                                                                                  | Required                                                                                                                              | Description                                                                                                                           |
+| ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `department_id`                                                                                                                       | *str*                                                                                                                                 | :heavy_check_mark:                                                                                                                    | Opaque department ID. The users and departments APIs return the same ID for the same department. A renamed department gets a new ID.<br/> |
+| `display_name`                                                                                                                        | *str*                                                                                                                                 | :heavy_check_mark:                                                                                                                    | Department name, exactly as the directory stores it.                                                                                  |

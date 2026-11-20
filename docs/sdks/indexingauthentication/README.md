@@ -1,0 +1,46 @@
+# Indexing.Authentication
+
+## Overview
+
+### Available Operations
+
+* [rotate_token](#rotate_token) - Rotate token
+
+## rotate_token
+
+Rotates the secret value inside the Indexing API token and returns the new raw secret. All other properties of the token are unchanged. In order to rotate the secret value, include the token as the bearer token in the `/rotatetoken` request. Please refer to [Token rotation](https://developers.glean.com/indexing/authentication/token-rotation) documentation for more information.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="post_/api/index/v1/rotatetoken" method="post" path="/api/index/v1/rotatetoken" -->
+```python
+from glean.api_client import Glean
+import os
+
+
+with Glean(
+    api_token=os.getenv("GLEAN_API_TOKEN"),
+) as glean:
+
+    res = glean.indexing.authentication.rotate_token()
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Response
+
+**[models.RotateTokenResponse](../../models/rotatetokenresponse.md)**
+
+### Errors
+
+| Error Type        | Status Code       | Content Type      |
+| ----------------- | ----------------- | ----------------- |
+| errors.GleanError | 4XX, 5XX          | \*/\*             |

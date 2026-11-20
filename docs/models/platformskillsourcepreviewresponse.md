@@ -1,0 +1,10 @@
+# PlatformSkillSourcePreviewResponse
+
+
+## Fields
+
+| Field                                                                                            | Type                                                                                             | Required                                                                                         | Description                                                                                      |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| `skills`                                                                                         | List[[models.PlatformSkillSourcePreview](../models/platformskillsourcepreview.md)]               | :heavy_check_mark:                                                                               | Valid skills discovered at the source URL.                                                       |
+| `failures`                                                                                       | List[[models.PlatformSkillSourcePreviewFailure](../models/platformskillsourcepreviewfailure.md)] | :heavy_check_mark:                                                                               | Discovered entries that could not be included in the preview.                                    |
+| `request_id`                                                                                     | *str*                                                                                            | :heavy_check_mark:                                                                               | Platform-generated request ID for support correlation.                                           |
