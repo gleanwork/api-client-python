@@ -1,0 +1,10 @@
+# McpHostApplicationBreakdown
+
+
+## Fields
+
+| Field                                                                                   | Type                                                                                    | Required                                                                                | Description                                                                             |
+| --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `host_application`                                                                      | *Optional[str]*                                                                         | :heavy_minus_sign:                                                                      | Host application name.                                                                  |
+| `total_calls`                                                                           | *Optional[int]*                                                                         | :heavy_minus_sign:                                                                      | Total number of MCP calls made from this host application in the specified time period. |
+| `active_users`                                                                          | *Optional[int]*                                                                         | :heavy_minus_sign:                                                                      | Total number of active users from this host application in the specified time period.   |
