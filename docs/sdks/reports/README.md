@@ -1,0 +1,130 @@
+# Client.Governance.Data.Reports
+
+## Overview
+
+### Available Operations
+
+* [create](#create) - Creates new one-time report
+* [download](#download) - Downloads violations CSV for report
+* [status](#status) - Fetches report run status
+
+## create
+
+Creates a new one-time report and executes its batch job.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="createreport" method="post" path="/rest/api/v1/governance/data/reports" -->
+```python
+from glean.api_client import Glean
+import os
+
+
+with Glean(
+    api_token=os.getenv("GLEAN_API_TOKEN"),
+) as glean:
+
+    res = glean.client.governance.data.reports.create()
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                       | Type                                                                            | Required                                                                        | Description                                                                     |
+| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `config`                                                                        | [Optional[models.DlpConfig]](../../models/dlpconfig.md)                         | :heavy_minus_sign:                                                              | Detailed configuration of what documents and sensitive content will be scanned. |
+| `frequency`                                                                     | *Optional[str]*                                                                 | :heavy_minus_sign:                                                              | Only "ONCE" is supported for reports.                                           |
+| `retries`                                                                       | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                | :heavy_minus_sign:                                                              | Configuration to override the default retry behavior of the client.             |
+
+### Response
+
+**[models.UpdateDlpConfigResponse](../../models/updatedlpconfigresponse.md)**
+
+### Errors
+
+| Error Type        | Status Code       | Content Type      |
+| ----------------- | ----------------- | ----------------- |
+| errors.GleanError | 4XX, 5XX          | \*/\*             |
+
+## download
+
+Downloads CSV violations report for a specific report id.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="downloadreportcsv" method="get" path="/rest/api/v1/governance/data/reports/{id}/download" -->
+```python
+from glean.api_client import Glean
+import os
+
+
+with Glean(
+    api_token=os.getenv("GLEAN_API_TOKEN"),
+) as glean:
+
+    res = glean.client.governance.data.reports.download(id="<id>")
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `id`                                                                | *str*                                                               | :heavy_check_mark:                                                  | The id of the report to download violations for.                    |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Response
+
+**[str](../../models/.md)**
+
+### Errors
+
+| Error Type        | Status Code       | Content Type      |
+| ----------------- | ----------------- | ----------------- |
+| errors.GleanError | 4XX, 5XX          | \*/\*             |
+
+## status
+
+Fetches the status of the run corresponding to the report-id.
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="getreportstatus" method="get" path="/rest/api/v1/governance/data/reports/{id}/status" -->
+```python
+from glean.api_client import Glean
+import os
+
+
+with Glean(
+    api_token=os.getenv("GLEAN_API_TOKEN"),
+) as glean:
+
+    res = glean.client.governance.data.reports.status(id="<id>")
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `id`                                                                | *str*                                                               | :heavy_check_mark:                                                  | The id of the report to get run status for.                         |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Response
+
+**[models.ReportStatusResponse](../../models/reportstatusresponse.md)**
+
+### Errors
+
+| Error Type        | Status Code       | Content Type      |
+| ----------------- | ----------------- | ----------------- |
+| errors.GleanError | 4XX, 5XX          | \*/\*             |

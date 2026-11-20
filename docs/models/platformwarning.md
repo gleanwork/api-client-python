@@ -1,0 +1,11 @@
+# PlatformWarning
+
+Non-blocking warning attached to a successful Platform response.
+
+
+## Fields
+
+| Field                                                                                                       | Type                                                                                                        | Required                                                                                                    | Description                                                                                                 | Example                                                                                                     |
+| ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `code`                                                                                                      | *str*                                                                                                       | :heavy_check_mark:                                                                                          | Open snake_case warning code. Clients must tolerate unknown values; the set of codes is not a closed enum.<br/> | results_incomplete                                                                                          |
+| `message`                                                                                                   | *str*                                                                                                       | :heavy_check_mark:                                                                                          | Human-readable warning message.                                                                             |                                                                                                             |

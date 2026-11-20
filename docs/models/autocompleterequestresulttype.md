@@ -1,0 +1,29 @@
+# AutocompleteRequestResultType
+
+## Example Usage
+
+```python
+from glean.api_client.models import AutocompleteRequestResultType
+
+value = AutocompleteRequestResultType.ADDITIONAL_DOCUMENT
+```
+
+
+## Values
+
+| Name                  | Value                 |
+| --------------------- | --------------------- |
+| `ADDITIONAL_DOCUMENT` | ADDITIONAL_DOCUMENT   |
+| `APP`                 | APP                   |
+| `BROWSER_HISTORY`     | BROWSER_HISTORY       |
+| `CHAT_HISTORY`        | CHAT_HISTORY          |
+| `DATASOURCE`          | DATASOURCE            |
+| `DOCUMENT`            | DOCUMENT              |
+| `ENTITY`              | ENTITY                |
+| `GOLINK`              | GOLINK                |
+| `HISTORY`             | HISTORY               |
+| `NEW_CHAT`            | NEW_CHAT              |
+| `OPERATOR`            | OPERATOR              |
+| `OPERATOR_VALUE`      | OPERATOR_VALUE        |
+| `QUICKLINK`           | QUICKLINK             |
+| `SUGGESTION`          | SUGGESTION            |

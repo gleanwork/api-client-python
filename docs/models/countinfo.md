@@ -1,0 +1,10 @@
+# CountInfo
+
+
+## Fields
+
+| Field                                                                                              | Type                                                                                               | Required                                                                                           | Description                                                                                        |
+| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `count`                                                                                            | *int*                                                                                              | :heavy_check_mark:                                                                                 | The counter value                                                                                  |
+| `period`                                                                                           | [Optional[models.Period]](../models/period.md)                                                     | :heavy_minus_sign:                                                                                 | N/A                                                                                                |
+| `org`                                                                                              | *Optional[str]*                                                                                    | :heavy_minus_sign:                                                                                 | The unit of organization over which we did the count aggregation, e.g. org (department) or company |
