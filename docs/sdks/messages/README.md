@@ -1,0 +1,55 @@
+# Client.Messages
+
+## Overview
+
+### Available Operations
+
+* [retrieve](#retrieve) - Read messages
+
+## retrieve
+
+Retrieves list of messages from messaging/chat datasources (e.g. Slack, Teams).
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="messages" method="post" path="/rest/api/v1/messages" -->
+```python
+from glean.api_client import Glean, models
+import os
+
+
+with Glean(
+    api_token=os.getenv("GLEAN_API_TOKEN"),
+) as glean:
+
+    res = glean.client.messages.retrieve(id_type=models.IDType.CONVERSATION_ID, id="<id>", datasource=models.Datasource.GCHAT)
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                                           | Type                                                                                                                                                                                                | Required                                                                                                                                                                                            | Description                                                                                                                                                                                         |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id_type`                                                                                                                                                                                           | [models.IDType](../../models/idtype.md)                                                                                                                                                             | :heavy_check_mark:                                                                                                                                                                                  | Type of the id in the incoming request.                                                                                                                                                             |
+| `id`                                                                                                                                                                                                | *str*                                                                                                                                                                                               | :heavy_check_mark:                                                                                                                                                                                  | ID corresponding to the requested idType. Note that channel and threads are represented by the underlying datasource's ID and conversations are represented by their document's ID.                 |
+| `datasource`                                                                                                                                                                                        | [models.Datasource](../../models/datasource.md)                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                  | The type of the data source.                                                                                                                                                                        |
+| `locale`                                                                                                                                                                                            | *Optional[str]*                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                  | The client's preferred locale in rfc5646 format (e.g. `en`, `ja`, `pt-BR`). If omitted, the `Accept-Language` will be used. If not present or not supported, defaults to the closest match or `en`. |
+| `workspace_id`                                                                                                                                                                                      | *Optional[str]*                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                  | Id for the for the workspace in case of multiple workspaces.                                                                                                                                        |
+| `direction`                                                                                                                                                                                         | [Optional[models.MessagesRequestDirection]](../../models/messagesrequestdirection.md)                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                  | The direction of the results asked with respect to the reference timestamp. Missing field defaults to OLDER. Only applicable when using a message_id.                                               |
+| `timestamp_millis`                                                                                                                                                                                  | *Optional[int]*                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                  | Timestamp in millis of the reference message. Only applicable when using a message_id.                                                                                                              |
+| `include_root_message`                                                                                                                                                                              | *Optional[bool]*                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                  | Whether to include root message in response.                                                                                                                                                        |
+| `datasource_instance_display_name`                                                                                                                                                                  | *Optional[str]*                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                  | The datasource instance display name from which the document was extracted. This is used for appinstance facet filter for datasources that support multiple instances.                              |
+| `retries`                                                                                                                                                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                  | Configuration to override the default retry behavior of the client.                                                                                                                                 |
+
+### Response
+
+**[models.MessagesResponse](../../models/messagesresponse.md)**
+
+### Errors
+
+| Error Type        | Status Code       | Content Type      |
+| ----------------- | ----------------- | ----------------- |
+| errors.GleanError | 4XX, 5XX          | \*/\*             |

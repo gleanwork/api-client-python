@@ -1,0 +1,12 @@
+# IndexMembershipRequest
+
+Describes the request body of the /indexmembership API call
+
+
+## Fields
+
+| Field                                                                                                           | Type                                                                                                            | Required                                                                                                        | Description                                                                                                     |
+| --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| `version`                                                                                                       | *Optional[int]*                                                                                                 | :heavy_minus_sign:                                                                                              | Version number for document for optimistic concurrency control. If absent or 0 then no version checks are done. |
+| `datasource`                                                                                                    | *str*                                                                                                           | :heavy_check_mark:                                                                                              | The datasource for which the membership is added                                                                |
+| `membership`                                                                                                    | [models.DatasourceMembershipDefinition](../models/datasourcemembershipdefinition.md)                            | :heavy_check_mark:                                                                                              | describes the membership row of a group. Only one of memberUserId and memberGroupName can be specified.         |
