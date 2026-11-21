@@ -158751,7 +158751,7 @@ workflows:
             - condition: $response.header.Content-Type == application/json
             - context: $response.body
               condition: |
-                {"agent":{"agent_id":"mho4lwzylcozgoc2","name":"HR Policy Agent","capabilities":{}},"request_id":"<id>"}
+                {"agent":{"name":"HR Policy Agent","agent_id":"mho4lwzylcozgoc2","capabilities":{},"subagents":[{"name":"HR Policy Agent"}]},"request_id":"<id>"}
               type: simple
       x-speakeasy-test-group: agents
       x-speakeasy-test-rebuild: true

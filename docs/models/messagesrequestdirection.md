@@ -1,13 +1,13 @@
-# Direction
+# MessagesRequestDirection
 
 The direction of the results asked with respect to the reference timestamp. Missing field defaults to OLDER. Only applicable when using a message_id.
 
 ## Example Usage
 
 ```python
-from glean.api_client.models import Direction
+from glean.api_client.models import MessagesRequestDirection
 
-value = Direction.OLDER
+value = MessagesRequestDirection.OLDER
 ```
 
 
