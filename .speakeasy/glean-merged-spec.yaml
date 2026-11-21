@@ -2,8 +2,8 @@ openapi: 3.1.0
 info:
   version: "0.9.0"
   title: Glean API
-  x-source-commit-sha: 2f6fc4fe9fed01ad76ee9aa694041c743bd74875
-  x-open-api-commit-sha: 241062eca12866ea62b6e58d504ef481935fcf48
+  x-source-commit-sha: c16beb4539f6a43a71a2f70c6e86f9a021116c0a
+  x-open-api-commit-sha: 336b38f28214e97b6845ab48d2f0477d57be9343
   description: |
     # Introduction
     In addition to the data sources that Glean has built-in support for, Glean also provides a REST API that enables customers to put arbitrary content in the search index. This is useful, for example, for doing permissions-aware search over content in internal tools that reside on-prem as well as for searching over applications that Glean does not currently support first class. In addition these APIs allow the customer to push organization data (people info, organization structure etc) into Glean.
@@ -45,6 +45,8 @@ paths:
         platform:
           - agents:read
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       requestBody:
         required: true
@@ -95,6 +97,8 @@ paths:
         platform:
           - agents:read
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       parameters:
         - in: path
           name: agent_id
@@ -145,6 +149,8 @@ paths:
         platform:
           - agents:read
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       parameters:
         - in: path
           name: agent_id
@@ -202,6 +208,8 @@ paths:
         platform:
           - agents:run
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       parameters:
         - in: path
@@ -292,6 +300,8 @@ paths:
         platform:
           - agents:run
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       parameters:
         - in: path
           name: agent_id
@@ -352,6 +362,8 @@ paths:
         platform:
           - agents:run
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       parameters:
         - in: path
@@ -414,6 +426,8 @@ paths:
         platform:
           - agents:run
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       parameters:
         - in: path
           name: agent_id
@@ -475,6 +489,8 @@ paths:
         platform:
           - chat:write
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       requestBody:
         required: true
@@ -535,6 +551,8 @@ paths:
           - CHAT
         platform:
           - chat:write
+      x-glean-release:
+        stage: ga
       parameters:
         - name: chat_id
           in: path
@@ -593,6 +611,8 @@ paths:
         platform:
           - skills:write
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       requestBody:
         required: true
         content:
@@ -644,6 +664,8 @@ paths:
         platform:
           - skills:read
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       parameters:
         - in: query
           name: page_size
@@ -702,6 +724,8 @@ paths:
         platform:
           - skills:write
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: request
       requestBody:
         required: true
@@ -758,6 +782,8 @@ paths:
         platform:
           - skills:write
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       requestBody:
         required: true
         content:
@@ -808,6 +834,8 @@ paths:
         platform:
           - skills:write
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: request
       requestBody:
         required: true
@@ -871,6 +899,8 @@ paths:
         platform:
           - skills:write
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       parameters:
         - name: skill_id
           in: path
@@ -931,6 +961,8 @@ paths:
         platform:
           - skills:write
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       parameters:
         - name: skill_id
           in: path
@@ -976,6 +1008,8 @@ paths:
         platform:
           - skills:read
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       parameters:
         - name: skill_id
           in: path
@@ -1026,6 +1060,8 @@ paths:
         platform:
           - skills:read
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       parameters:
         - name: skill_id
           in: path
@@ -1082,6 +1118,8 @@ paths:
         platform:
           - skills:write
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       parameters:
         - name: skill_id
           in: path
@@ -1140,6 +1178,8 @@ paths:
         platform:
           - skills:write
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       parameters:
         - name: skill_id
           in: path
@@ -1200,6 +1240,8 @@ paths:
         platform:
           - skills:read
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       parameters:
         - name: skill_id
           in: path
@@ -1266,6 +1308,8 @@ paths:
         platform:
           - skills:read
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       parameters:
         - name: skill_id
           in: path
@@ -1324,6 +1368,8 @@ paths:
         platform:
           - skills:read
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       parameters:
         - name: skill_id
           in: path
@@ -1389,6 +1435,8 @@ paths:
         platform:
           - search:query
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       requestBody:
         required: true
@@ -1442,6 +1490,8 @@ paths:
         platform:
           - search:query
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       parameters:
         - in: query
           name: datasources
@@ -1510,8 +1560,8 @@ paths:
           - ADMIN_USAGE
         platform:
           - admin.usage.settings:read
-      x-glean-experimental:
-        id: 8f4c2d6e-3b7a-4e1f-9c8d-5a2b6e4f7c9a
+      x-glean-release:
+        stage: beta
         introduced: "2026-09-14"
       responses:
         "200":
@@ -1553,8 +1603,8 @@ paths:
           - ADMIN_USAGE
         platform:
           - admin.usage.settings:write
-      x-glean-experimental:
-        id: 443aeb3c-fdee-4da8-a756-37fa13922830
+      x-glean-release:
+        stage: beta
         introduced: "2026-09-14"
       requestBody:
         required: true
@@ -1611,8 +1661,8 @@ paths:
           - ADMIN_USAGE
         platform:
           - admin.usage.limits:read
-      x-glean-experimental:
-        id: ca19b3e8-9a6d-4a31-8f2f-6c7d8e9f0011
+      x-glean-release:
+        stage: beta
         introduced: "2026-09-16"
       parameters:
         - name: page_size
@@ -1710,8 +1760,8 @@ paths:
           - ADMIN_USAGE
         platform:
           - admin.usage.limits:write
-      x-glean-experimental:
-        id: 557d0028-3cd2-475b-bd9d-ed44e9a19c82
+      x-glean-release:
+        stage: beta
         introduced: "2026-10-15"
       requestBody:
         required: true
@@ -1774,8 +1824,8 @@ paths:
           - ADMIN_USAGE
         platform:
           - admin.usage.limits:write
-      x-glean-experimental:
-        id: ca19b3e8-9a6d-4a31-8f2f-6c7d8e9f0013
+      x-glean-release:
+        stage: beta
         introduced: "2026-09-16"
       requestBody:
         required: true
@@ -1833,8 +1883,8 @@ paths:
           - ADMIN_USAGE
         platform:
           - admin.usage.limits:write
-      x-glean-experimental:
-        id: ca19b3e8-9a6d-4a31-8f2f-6c7d8e9f0014
+      x-glean-release:
+        stage: beta
         introduced: "2026-09-16"
       requestBody:
         required: true
@@ -1899,6 +1949,139 @@ paths:
       x-speakeasy-name-override: applyLimits
       security:
         - APIToken: []
+  /api/usage/search:
+    post:
+      tags:
+        - Usage
+      summary: Search measured usage
+      description: |
+        Search delayed measured spend, not live enforcement counters or invoices. Principal filters select the scope; there is no target. With no user_id or agent_id filter, the scope is the authenticated user. A single-value EQUALS user_id filter must name the caller. A single-value EQUALS agent_id filter, with no user_id filter, must name a top-level agent the caller can currently edit, including disabled agents, and measures that agent. Any other principal filter needs an organization read, so like other-user, subagent, and principal-dimension requests it is accepted structurally but returns 403 insufficient_permissions. Unknown product and feature values remain in OTHER; absent attribution remains null. Results, totals, and cursor pages share one pinned read snapshot. Totals cover observed stored rows, not certified exports or verified absent usage. AGENT uses app-compatible best-effort recorded top-agent/root attribution and same-run AGENT/LLM_CALL events, not complete run lineage. Source freshness and earliest historical coverage are null when unsupported. Usage billed in GCU on full-consumption plans isn't reported yet and is excluded from results and totals. A month whose source rows exceed 200,000 at the day and user detail the query needs, or whose source read exceeds its size, billed-byte or 30-second limit, returns 422 unprocessable_query; use a coarser granularity, fewer dimensions, or a shorter range.
+      operationId: platform-usage-search
+      x-visibility: Public
+      x-glean-scopes:
+        legacy:
+          - USAGE
+        platform:
+          - usage:read
+      x-glean-release:
+        stage: beta
+        introduced: "2026-10-09"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PlatformSearchCallerUsageRequest"
+            example:
+              time_range:
+                start: "2026-09-01T00:00:00Z"
+                end: "2026-10-01T00:00:00Z"
+              group_by:
+                - CLIENT_ID
+              include:
+                - DISPLAY_NAMES
+      responses:
+        "200":
+          description: Measured usage buckets and complete-query totals.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlatformSearchUsageResponse"
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+        "413":
+          $ref: "#/components/responses/PlatformRequestTooLarge"
+        "422":
+          $ref: "#/components/responses/PlatformUnprocessableEntity"
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+      x-speakeasy-group: usage
+      x-speakeasy-name-override: search
+      security:
+        - APIToken: []
+  /api/admin/usage/search:
+    post:
+      tags:
+        - Admin Usage
+      summary: Search workspace measured usage
+      description: |
+        Search delayed measured spend. Principal filters select the scope; there is no target. With no user_id or agent_id filter, the scope is the organization. A single-value EQUALS user_id filter reads that user's measured events. A single-value EQUALS agent_id filter, with no user_id filter, reads that top-level agent. Any other principal filter reads the organization, then narrows rows. Requires admin.usage:read and workspace billing read permission; an administrator role alone is not sufficient. USER_ID grouping is supported; DEPARTMENT_NAME and GROUP_ID are deferred and return invalid_parameter. The calculation and response are shared with personal search. Labels remain subject to current resource visibility, not billing access. Historical agent attribution is never reparented at query time. AGENT uses app-compatible best-effort recorded top-agent/root attribution and same-run AGENT/LLM_CALL events, not complete run lineage. Totals describe the observed stored snapshot, not certified billing history. Usage billed in GCU on full-consumption plans isn't reported yet and is excluded from results and totals. A month whose source rows exceed 200,000 at the day and user detail the query needs, or whose source read exceeds its size, billed-byte or 30-second limit, returns 422 unprocessable_query; use a coarser granularity, fewer dimensions, or a shorter range. Organization and agent reads return 503 while the directory loads. In workspaces with more than 100,000 directory identities, reads that group or filter by user return 503.
+      operationId: platform-admin-usage-search
+      x-visibility: Public
+      x-glean-scopes:
+        legacy:
+          - ADMIN_USAGE
+        platform:
+          - admin.usage:read
+      x-glean-release:
+        stage: beta
+        introduced: "2026-10-09"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PlatformSearchAdminUsageRequest"
+            example:
+              time_range:
+                start: "2026-09-01T00:00:00Z"
+                end: "2026-10-01T00:00:00Z"
+              group_by:
+                - USER_ID
+              filters:
+                - field: client_id
+                  values:
+                    - glean
+              sort:
+                field: USED
+                direction: DESC
+                unit: CREDITS
+              include:
+                - TOTAL_COUNT
+              page_size: 100
+      responses:
+        "200":
+          description: Measured usage buckets and complete-query totals.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlatformSearchUsageResponse"
+        "400":
+          $ref: "#/components/responses/PlatformBadRequest"
+        "401":
+          $ref: "#/components/responses/PlatformUnauthorized"
+        "403":
+          $ref: "#/components/responses/PlatformForbidden"
+        "404":
+          $ref: "#/components/responses/PlatformNotFound"
+        "408":
+          $ref: "#/components/responses/PlatformRequestTimeout"
+        "413":
+          $ref: "#/components/responses/PlatformRequestTooLarge"
+        "422":
+          $ref: "#/components/responses/PlatformUnprocessableEntity"
+        "429":
+          $ref: "#/components/responses/PlatformTooManyRequests"
+        "500":
+          $ref: "#/components/responses/PlatformInternalServerError"
+        "503":
+          $ref: "#/components/responses/PlatformServiceUnavailable"
+      x-speakeasy-group: admin.usage
+      x-speakeasy-name-override: search
+      security:
+        - APIToken: []
   /api/admin/usage/limits/evaluate:
     post:
       tags:
@@ -1913,8 +2096,8 @@ paths:
           - ADMIN_USAGE
         platform:
           - admin.usage:evaluate
-      x-glean-experimental:
-        id: 70bc17be-ccdb-4e9e-b1e7-1a75256c6ee1
+      x-glean-release:
+        stage: beta
         introduced: "2026-09-18"
       requestBody:
         required: true
@@ -1972,8 +2155,8 @@ paths:
           - USAGE
         platform:
           - usage:evaluate
-      x-glean-experimental:
-        id: ca19b3e8-9a6d-4a31-8f2f-6c7d8e9f0015
+      x-glean-release:
+        stage: beta
         introduced: "2026-09-16"
       requestBody:
         required: true
@@ -2027,8 +2210,8 @@ paths:
         platform:
           - usage.limit_increase_requests:write
       x-visibility: Public
-      x-glean-experimental:
-        id: d9f125f8-85f3-4221-8627-0b39f6d5b4ab
+      x-glean-release:
+        stage: beta
         introduced: "2026-09-25"
       description: |
         Requires usage.limit_increase_requests:write. The target is the authenticated canonical user, and requester identity comes from authentication. The caller supplies the client and a business justification, which returns 400 when blank and the workspace requires one for user requests. The server assigns the request identifier and current UTC month. Billing grants do not widen this route. Requires shared Platform authentication with the required scope, experimental opt-in, and the existing request-more enablement flag. Missing opt-in or a disabled flag returns 404.
@@ -2091,8 +2274,8 @@ paths:
         platform:
           - usage.limit_increase_requests:read
       x-visibility: Public
-      x-glean-experimental:
-        id: d92d077c-81c0-4d91-868d-021eed013d8d
+      x-glean-release:
+        stage: beta
         introduced: "2026-09-25"
       description: |
         Requires usage.limit_increase_requests:read. The collection is limited to the authenticated canonical user's requests, including resolved requests. Cursors bind the filters and current authorization context; a billing grant cannot widen results. Supported token issuance, experimental opt-in, and request-more enablement are required. Missing opt-in or a disabled flag returns 404.
@@ -2155,8 +2338,8 @@ paths:
         platform:
           - usage.limit_increase_requests:read
       x-visibility: Public
-      x-glean-experimental:
-        id: 29a2f132-a0c2-429f-95e7-7995de058cd3
+      x-glean-release:
+        stage: beta
         introduced: "2026-09-25"
       description: |
         Requires usage.limit_increase_requests:read and the current user's request. Authorization precedes resource disclosure. Missing and inaccessible records return the same 404. Supported token issuance, experimental opt-in, and request-more enablement are required. Missing opt-in or a disabled flag also returns 404.
@@ -2205,8 +2388,8 @@ paths:
         platform:
           - usage.limit_increase_requests:write
       x-visibility: Public
-      x-glean-experimental:
-        id: e28f40de-1f6c-4dc6-ab12-4054b89628c1
+      x-glean-release:
+        stage: beta
         introduced: "2026-09-25"
       description: |
         Requires usage.limit_increase_requests:write, the same scope as personal creation, and current edit permission on the agent, not billing permissions. The caller supplies the agent, client, and a business justification, which returns 400 when blank and the workspace requires one for agent requests. Requester identity comes from authentication; the server assigns the request identifier and current UTC month. Requires shared Platform authentication with the required scope, experimental opt-in, and the existing request-more enablement flag. Missing opt-in or a disabled flag returns 404.
@@ -2271,8 +2454,8 @@ paths:
         platform:
           - admin.usage.limit_increase_requests:read
       x-visibility: Public
-      x-glean-experimental:
-        id: b02bb653-00f9-4739-b387-90f68c7385ee
+      x-glean-release:
+        stage: beta
         introduced: "2026-09-25"
       description: |
         Requires admin.usage.limit_increase_requests:read and current workspace billing read permission. Agent ownership is not queue access. Cursors bind filters and current authorization context. Supported token issuance, experimental opt-in, and request-more enablement are required. Missing opt-in or a disabled flag returns 404, not a successful empty page.
@@ -2335,8 +2518,8 @@ paths:
         platform:
           - admin.usage.limit_increase_requests:read
       x-visibility: Public
-      x-glean-experimental:
-        id: 88f1a13a-3e09-4c78-a2dc-87cc223dc003
+      x-glean-release:
+        stage: beta
         introduced: "2026-09-25"
       description: |
         Requires admin.usage.limit_increase_requests:read and current workspace billing read permission. Authorization precedes resource disclosure. Owner-only agent reads are not supported. Supported token issuance, experimental opt-in, and request-more enablement are required. Missing opt-in or a disabled flag returns 404.
@@ -2384,8 +2567,8 @@ paths:
         platform:
           - admin.usage.limit_increase_requests:write
       x-visibility: Public
-      x-glean-experimental:
-        id: 08d999ca-f438-4fed-81ce-350c7e65c2cc
+      x-glean-release:
+        stage: beta
         introduced: "2026-09-25"
       description: |
         Update a pending request with an approval decision or denial. Requires admin.usage.limit_increase_requests:write and current billing edit permission. A pending request can record an approved positive increase amount or be denied with an optional resolution note. PERIOD approval retains the request's stored month and requires the current UTC month; expired approvals return 409 before mutation or approval writes. A successful approval write triggers spend-limit cache refresh before reload; refresh failure logs a warning without failing the decision. The existing backend consumes eligible USER and AGENT current-period grants to raise evaluated and enforced headroom without changing standing rules. This does not add capacity for other targets, integrate usage settings, or promise new delivery or atomicity guarantees. Supported token issuance, experimental opt-in, and request-more enablement are required. Missing opt-in or a disabled flag returns 404. Once enabled and opted in, ONGOING returns typed 503 without reading or modifying the request; its private policy preparation is not shared with this adapter. Use the existing app operation for ongoing user approvals.
@@ -2454,8 +2637,8 @@ paths:
         platform:
           - admin.oauth.clients:read
       x-visibility: Public
-      x-glean-experimental:
-        id: 0be15d1f-0e4f-49f8-9dd1-1746b019abd7
+      x-glean-release:
+        stage: beta
         introduced: "2026-10-09"
       parameters:
         - in: query
@@ -2532,8 +2715,8 @@ paths:
         platform:
           - admin.oauth.clients:read
       x-visibility: Public
-      x-glean-experimental:
-        id: d1f2871d-dbd9-4b2e-ad5e-dd78f83f5ab5
+      x-glean-release:
+        stage: beta
         introduced: "2026-10-15"
       parameters:
         - $ref: "#/components/parameters/ClientId"
@@ -2579,8 +2762,8 @@ paths:
         platform:
           - departments:read
       x-visibility: Public
-      x-glean-experimental:
-        id: 2bc9ce31-8e51-4874-996c-96ad2e10fbd7
+      x-glean-release:
+        stage: beta
         introduced: "2026-10-08"
       parameters:
         - in: query
@@ -2663,8 +2846,8 @@ paths:
         platform:
           - departments:read
       x-visibility: Public
-      x-glean-experimental:
-        id: c1a67d89-cc04-4f37-b314-ff9f08694ea9
+      x-glean-release:
+        stage: beta
         introduced: "2026-10-15"
       parameters:
         - in: path
@@ -2718,8 +2901,8 @@ paths:
         platform:
           - admin.idp_groups:read
       x-visibility: Public
-      x-glean-experimental:
-        id: 416f645e-926e-4fb5-b9b1-03d0e7366097
+      x-glean-release:
+        stage: beta
         introduced: "2026-10-09"
       parameters:
         - in: query
@@ -2806,8 +2989,8 @@ paths:
         platform:
           - admin.idp_groups:read
       x-visibility: Public
-      x-glean-experimental:
-        id: a725ef7b-baf5-48a4-b19f-d460398e30bb
+      x-glean-release:
+        stage: beta
         introduced: "2026-10-15"
       parameters:
         - in: path
@@ -2860,8 +3043,8 @@ paths:
         platform:
           - users:read
       x-visibility: Public
-      x-glean-experimental:
-        id: 284483b2-925a-412f-a60d-891c699307f6
+      x-glean-release:
+        stage: beta
         introduced: "2026-10-07"
       parameters:
         - in: query
@@ -2973,8 +3156,8 @@ paths:
         platform:
           - users:read
       x-visibility: Public
-      x-glean-experimental:
-        id: b5ed1294-d3cb-47dd-8dc0-0272549f00f9
+      x-glean-release:
+        stage: beta
         introduced: "2026-10-15"
       parameters:
         - in: path
@@ -3038,8 +3221,8 @@ paths:
         platform:
           - admin.agents:read
       x-visibility: Public
-      x-glean-experimental:
-        id: 8f66e1bd-eb48-4381-88f2-697a0e51ccc7
+      x-glean-release:
+        stage: beta
         introduced: "2026-10-08"
       parameters:
         - in: query
@@ -3149,8 +3332,8 @@ paths:
           $ref: "#/components/responses/PlatformInternalServerError"
         "503":
           $ref: "#/components/responses/PlatformServiceUnavailable"
-      x-glean-experimental:
-        id: 418eeb85-8a15-4fcb-95e2-eea016eb365d
+      x-glean-release:
+        stage: beta
         introduced: "2026-09-10"
       x-speakeasy-group: documents
       x-speakeasy-name-override: getByUrl
@@ -3204,8 +3387,8 @@ paths:
           $ref: "#/components/responses/PlatformInternalServerError"
         "503":
           $ref: "#/components/responses/PlatformServiceUnavailable"
-      x-glean-experimental:
-        id: ee55a9f0-39b5-46fc-9863-d4bace465a8b
+      x-glean-release:
+        stage: beta
         introduced: "2026-09-10"
       x-speakeasy-group: documents
       x-speakeasy-name-override: getById
@@ -3257,8 +3440,8 @@ paths:
           $ref: "#/components/responses/PlatformInternalServerError"
         "503":
           $ref: "#/components/responses/PlatformServiceUnavailable"
-      x-glean-experimental:
-        id: fb55e732-e3ce-41fa-ba3d-7e5e5f708e43
+      x-glean-release:
+        stage: beta
         introduced: "2026-09-10"
       x-speakeasy-group: documents
       x-speakeasy-name-override: batch
@@ -3278,8 +3461,8 @@ paths:
         platform:
           - triggers:write
       x-visibility: Public
-      x-glean-experimental:
-        id: eb175f18-74e6-4c9c-ba02-23bcc9018fc9
+      x-glean-release:
+        stage: beta
         introduced: "2026-07-06"
       x-codegen-request-body-name: payload
       requestBody:
@@ -3367,8 +3550,8 @@ paths:
         platform:
           - triggers:read
       x-visibility: Public
-      x-glean-experimental:
-        id: e3554987-e043-4561-889a-a1117b1bce06
+      x-glean-release:
+        stage: beta
         introduced: "2026-07-06"
       parameters:
         - in: query
@@ -3426,8 +3609,8 @@ paths:
         platform:
           - triggers:read
       x-visibility: Public
-      x-glean-experimental:
-        id: 46de62cb-ba31-4f71-9646-649c1d604816
+      x-glean-release:
+        stage: beta
         introduced: "2026-07-06"
       parameters:
         - in: path
@@ -3478,8 +3661,8 @@ paths:
         platform:
           - triggers:write
       x-visibility: Public
-      x-glean-experimental:
-        id: 3eb4c709-bd5c-4019-b913-0db36c766350
+      x-glean-release:
+        stage: beta
         introduced: "2026-07-06"
       x-codegen-request-body-name: payload
       parameters:
@@ -3539,8 +3722,8 @@ paths:
         platform:
           - triggers:write
       x-visibility: Public
-      x-glean-experimental:
-        id: e6564ed7-8b4b-4708-918b-eed97110859f
+      x-glean-release:
+        stage: beta
         introduced: "2026-07-06"
       parameters:
         - in: path
@@ -3588,8 +3771,8 @@ paths:
         platform:
           - triggers:read
       x-visibility: Public
-      x-glean-experimental:
-        id: c734a377-3dec-4ee2-9ec5-3848a8384f03
+      x-glean-release:
+        stage: beta
         introduced: "2026-08-07"
       parameters:
         - in: path
@@ -3649,8 +3832,8 @@ paths:
         platform:
           - triggers:read
       x-visibility: Public
-      x-glean-experimental:
-        id: f5b16196-0d4c-42f0-89bf-40313398728e
+      x-glean-release:
+        stage: beta
         introduced: "2026-07-22"
       parameters:
         - in: query
@@ -3715,8 +3898,8 @@ paths:
         platform:
           - triggers:read
       x-visibility: Public
-      x-glean-experimental:
-        id: 5277167d-909b-4eee-95d1-8958b07016bb
+      x-glean-release:
+        stage: beta
         introduced: "2026-07-22"
       parameters:
         - in: path
@@ -3768,8 +3951,8 @@ paths:
         platform:
           - triggers:read
       x-visibility: Public
-      x-glean-experimental:
-        id: 24c5675d-a57a-48cb-9d71-3dece296f28c
+      x-glean-release:
+        stage: beta
         introduced: "2026-08-06"
       parameters:
         - in: path
@@ -3836,8 +4019,8 @@ paths:
         platform:
           - triggers:read
       x-visibility: Public
-      x-glean-experimental:
-        id: a48efd80-78d6-46de-9f23-5b8c63ecd157
+      x-glean-release:
+        stage: beta
         introduced: "2026-08-12"
       parameters:
         - in: path
@@ -3897,6 +4080,8 @@ paths:
         platform:
           - chat:write
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       requestBody:
         required: true
@@ -3958,6 +4143,8 @@ paths:
         platform:
           - skills:write
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: request
       requestBody:
         required: true
@@ -4033,6 +4220,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       x-speakeasy-name-override: report
       x-speakeasy-group: client.activity
@@ -4068,6 +4257,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       x-speakeasy-group: client.activity
   /rest/api/v1/createannouncement:
@@ -4103,6 +4294,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       x-speakeasy-name-override: create
       x-speakeasy-group: client.announcements
@@ -4135,6 +4328,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       x-speakeasy-name-override: delete
       x-speakeasy-group: client.announcements
@@ -4171,6 +4366,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       x-speakeasy-name-override: update
       x-speakeasy-group: client.announcements
@@ -4207,6 +4404,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       x-speakeasy-name-override: create
       x-speakeasy-group: client.answers
@@ -4239,6 +4438,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       x-speakeasy-name-override: delete
       x-speakeasy-group: client.answers
@@ -4275,6 +4476,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       x-speakeasy-name-override: update
       x-speakeasy-group: client.answers
@@ -4311,6 +4514,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       x-speakeasy-name-override: retrieve
       x-speakeasy-group: client.answers
@@ -4349,11 +4554,12 @@ paths:
       deprecated: true
       x-visibility: Public
       x-codegen-request-body-name: payload
-      x-glean-deprecated:
-        id: 4c0923bd-64c7-45b9-99a5-b36f2705e618
-        introduced: "2026-01-21"
-        message: Answer boards have been removed and this endpoint no longer serves a purpose
-        removal: "2027-01-15"
+      x-glean-release:
+        stage: deprecated
+        deprecation:
+          introduced: "2026-01-21"
+          message: Answer boards have been removed and this endpoint no longer serves a purpose
+          removal: "2027-01-15"
       x-speakeasy-deprecation-message: "Deprecated on 2026-01-21, removal scheduled for 2027-01-15: Answer boards have been removed and this endpoint no longer serves a purpose"
       x-speakeasy-name-override: list
       x-speakeasy-group: client.answers
@@ -4386,6 +4592,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-speakeasy-name-override: checkDatasourceAuth
       x-speakeasy-group: client.authentication
   /rest/api/v1/createauthtoken:
@@ -4417,6 +4625,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-speakeasy-name-override: createToken
       x-speakeasy-group: client.authentication
   /rest/api/v1/chat:
@@ -4573,6 +4783,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       x-speakeasy-group: client.chat
       x-speakeasy-name-override: create
@@ -4599,6 +4811,8 @@ paths:
         "403":
           description: Forbidden
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       x-speakeasy-name-override: deleteAll
       x-speakeasy-group: client.chat
@@ -4633,6 +4847,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       x-speakeasy-name-override: delete
       x-speakeasy-group: client.chat
@@ -4675,6 +4891,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       x-speakeasy-name-override: retrieve
       x-speakeasy-group: client.chat
@@ -4704,6 +4922,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       x-speakeasy-name-override: list
       x-speakeasy-group: client.chat
@@ -4740,6 +4960,8 @@ paths:
         "403":
           description: Forbidden
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       x-speakeasy-name-override: retrieveApplication
       x-speakeasy-group: client.chat
@@ -4778,6 +5000,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-speakeasy-name-override: uploadFiles
       x-speakeasy-group: client.chat
   /rest/api/v1/getchatfiles:
@@ -4815,6 +5039,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-speakeasy-name-override: retrieveFiles
       x-speakeasy-group: client.chat
   /rest/api/v1/deletechatfiles:
@@ -4847,6 +5073,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-speakeasy-name-override: deleteFiles
       x-speakeasy-group: client.chat
   /rest/api/v1/chat-files/{fileId}:
@@ -4892,6 +5120,8 @@ paths:
         "500":
           description: Internal server error.
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-speakeasy-name-override: retrieveFile
       x-speakeasy-group: client.chat
   /rest/api/v1/agents:
@@ -4928,6 +5158,8 @@ paths:
         "500":
           description: Internal server error
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-speakeasy-group: client.agents
       x-speakeasy-name-override: create
   /rest/api/v1/agents/{agent_id}:
@@ -4971,12 +5203,13 @@ paths:
           description: Internal server error
       deprecated: true
       x-visibility: Public
-      x-glean-deprecated:
-        docs: https://developers.glean.com/api/platform-api/agents-overview
-        id: e01a59ea-5de0-481f-97b6-d28dd65379e6
-        introduced: "2026-08-25"
-        message: Use GET /api/agents/{agent_id} instead.
-        removal: "2027-04-15"
+      x-glean-release:
+        stage: deprecated
+        deprecation:
+          docs: https://developers.glean.com/api/platform-api/agents-overview
+          introduced: "2026-08-25"
+          message: Use GET /api/agents/{agent_id} instead.
+          removal: "2027-04-15"
       x-speakeasy-deprecation-message: "Deprecated on 2026-08-25, removal scheduled for 2027-04-15: Use GET /api/agents/{agent_id} instead."
       x-speakeasy-group: client.agents
       x-speakeasy-name-override: retrieve
@@ -5023,6 +5256,8 @@ paths:
         "500":
           description: Internal server error
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-speakeasy-group: client.agents
       x-speakeasy-name-override: update
   /rest/api/v1/agents/{agent_id}/schemas:
@@ -5072,12 +5307,13 @@ paths:
           description: Internal server error
       deprecated: true
       x-visibility: Public
-      x-glean-deprecated:
-        docs: https://developers.glean.com/api/platform-api/agents-overview
-        id: 9ca398ba-cf22-4523-9d9c-86e5f82d6ec7
-        introduced: "2026-08-25"
-        message: Use GET /api/agents/{agent_id}/schemas instead.
-        removal: "2027-04-15"
+      x-glean-release:
+        stage: deprecated
+        deprecation:
+          docs: https://developers.glean.com/api/platform-api/agents-overview
+          introduced: "2026-08-25"
+          message: Use GET /api/agents/{agent_id}/schemas instead.
+          removal: "2027-04-15"
       x-speakeasy-deprecation-message: "Deprecated on 2026-08-25, removal scheduled for 2027-04-15: Use GET /api/agents/{agent_id}/schemas instead."
       x-speakeasy-group: client.agents
       x-speakeasy-name-override: retrieveSchemas
@@ -5129,6 +5365,8 @@ paths:
         "500":
           description: Internal server error
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-speakeasy-group: client.agents
       x-speakeasy-name-override: import
   /rest/api/v1/agents/search:
@@ -5173,12 +5411,13 @@ paths:
           description: Internal server error
       deprecated: true
       x-visibility: Public
-      x-glean-deprecated:
-        docs: https://developers.glean.com/api/platform-api/agents-overview
-        id: 3ab6f4c0-0b97-4a0b-b5da-e888e4bb7706
-        introduced: "2026-08-25"
-        message: Use POST /api/agents/search instead.
-        removal: "2027-04-15"
+      x-glean-release:
+        stage: deprecated
+        deprecation:
+          docs: https://developers.glean.com/api/platform-api/agents-overview
+          introduced: "2026-08-25"
+          message: Use POST /api/agents/search instead.
+          removal: "2027-04-15"
       x-speakeasy-deprecation-message: "Deprecated on 2026-08-25, removal scheduled for 2027-04-15: Use POST /api/agents/search instead."
       x-speakeasy-group: client.agents
       x-speakeasy-name-override: list
@@ -5247,12 +5486,13 @@ paths:
           description: Internal server error
       deprecated: true
       x-visibility: Public
-      x-glean-deprecated:
-        docs: https://developers.glean.com/api/platform-api/agents-overview
-        id: db3f42a5-8820-451e-b57a-14bf6ca3915c
-        introduced: "2026-08-25"
-        message: Use POST /api/agents/{agent_id}/runs with stream=true instead.
-        removal: "2027-04-15"
+      x-glean-release:
+        stage: deprecated
+        deprecation:
+          docs: https://developers.glean.com/api/platform-api/agents-overview
+          introduced: "2026-08-25"
+          message: Use POST /api/agents/{agent_id}/runs with stream=true instead.
+          removal: "2027-04-15"
       x-speakeasy-deprecation-message: "Deprecated on 2026-08-25, removal scheduled for 2027-04-15: Use POST /api/agents/{agent_id}/runs with stream=true instead."
       x-speakeasy-group: client.agents
       x-speakeasy-name-override: runStream
@@ -5296,12 +5536,13 @@ paths:
           description: Internal server error
       deprecated: true
       x-visibility: Public
-      x-glean-deprecated:
-        docs: https://developers.glean.com/api/platform-api/agents-overview
-        id: 683b90e1-48d3-4d7a-a32d-b48eb194fcf0
-        introduced: "2026-08-25"
-        message: Use POST /api/agents/{agent_id}/runs instead.
-        removal: "2027-04-15"
+      x-glean-release:
+        stage: deprecated
+        deprecation:
+          docs: https://developers.glean.com/api/platform-api/agents-overview
+          introduced: "2026-08-25"
+          message: Use POST /api/agents/{agent_id}/runs instead.
+          removal: "2027-04-15"
       x-speakeasy-deprecation-message: "Deprecated on 2026-08-25, removal scheduled for 2027-04-15: Use POST /api/agents/{agent_id}/runs instead."
       x-speakeasy-group: client.agents
       x-speakeasy-name-override: run
@@ -5338,6 +5579,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       x-speakeasy-name-override: addItems
       x-speakeasy-group: client.collections
@@ -5380,6 +5623,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       x-speakeasy-group: client.collections
       x-speakeasy-name-override: create
@@ -5418,6 +5663,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       x-speakeasy-name-override: delete
       x-speakeasy-group: client.collections
@@ -5456,6 +5703,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       x-speakeasy-name-override: deleteItem
       x-speakeasy-group: client.collections
@@ -5498,6 +5747,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       x-speakeasy-name-override: update
       x-speakeasy-group: client.collections
@@ -5534,6 +5785,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       x-speakeasy-name-override: updateItem
       x-speakeasy-group: client.collections
@@ -5570,6 +5823,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       x-speakeasy-name-override: retrieve
       x-speakeasy-group: client.collections
@@ -5606,6 +5861,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       x-speakeasy-name-override: list
       x-speakeasy-group: client.collections
@@ -5644,6 +5901,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       x-speakeasy-name-override: retrievePermissions
       x-speakeasy-group: client.documents
@@ -5680,6 +5939,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       x-speakeasy-name-override: retrieve
       x-speakeasy-group: client.documents
@@ -5716,6 +5977,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       x-speakeasy-name-override: retrieveByFacets
       x-speakeasy-group: client.documents
@@ -5752,6 +6015,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       x-speakeasy-name-override: retrieve
       x-speakeasy-group: client.insights
@@ -5788,6 +6053,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       x-speakeasy-name-override: retrieve
       x-speakeasy-group: client.messages
@@ -5824,6 +6091,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       x-speakeasy-name-override: update
       x-speakeasy-group: client.pins
@@ -5860,6 +6129,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       x-speakeasy-name-override: retrieve
       x-speakeasy-group: client.pins
@@ -5896,6 +6167,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       x-speakeasy-name-override: list
       x-speakeasy-group: client.pins
@@ -5932,6 +6205,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       x-speakeasy-name-override: create
       x-speakeasy-group: client.pins
@@ -5966,6 +6241,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       x-speakeasy-name-override: remove
       x-speakeasy-group: client.pins
@@ -6014,6 +6291,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       x-speakeasy-group: client.search
       x-speakeasy-name-override: queryAsAdmin
@@ -6050,6 +6329,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       x-speakeasy-group: client.search
       x-speakeasy-name-override: autocomplete
@@ -6088,6 +6369,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       x-speakeasy-name-override: retrieveFeed
       x-speakeasy-group: client.search
@@ -6130,6 +6413,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       x-speakeasy-group: client.search
       x-speakeasy-name-override: recommendations
@@ -6180,6 +6465,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       x-speakeasy-group: client.search
       x-speakeasy-name-override: query
@@ -6216,6 +6503,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       x-speakeasy-group: client.entities
       x-speakeasy-name-override: list
@@ -6252,6 +6541,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       x-speakeasy-name-override: readPeople
       x-speakeasy-group: client.entities
@@ -6307,6 +6598,8 @@ paths:
         "429":
           description: Too Many Requests.
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-speakeasy-name-override: retrievePersonPhoto
       x-speakeasy-group: client.entities
   /rest/api/v1/createshortcut:
@@ -6342,6 +6635,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       x-speakeasy-name-override: create
       x-speakeasy-group: client.shortcuts
@@ -6374,6 +6669,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       x-speakeasy-name-override: delete
       x-speakeasy-group: client.shortcuts
@@ -6410,6 +6707,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       x-speakeasy-group: client.shortcuts
       x-speakeasy-name-override: retrieve
@@ -6446,6 +6745,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       x-speakeasy-group: client.shortcuts
       x-speakeasy-name-override: list
@@ -6482,6 +6783,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       x-speakeasy-group: client.shortcuts
       x-speakeasy-name-override: update
@@ -6518,6 +6821,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       x-speakeasy-name-override: summarize
       x-speakeasy-group: client.documents
@@ -6556,6 +6861,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       x-speakeasy-name-override: addReminder
       x-speakeasy-group: client.verification
@@ -6590,6 +6897,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       x-speakeasy-name-override: list
       x-speakeasy-group: client.verification
@@ -6628,6 +6937,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-codegen-request-body-name: payload
       x-speakeasy-name-override: verify
       x-speakeasy-group: client.verification
@@ -6667,6 +6978,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-speakeasy-name-override: list
       x-speakeasy-group: client.tools
   /rest/api/v1/tools/call:
@@ -6700,6 +7013,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-speakeasy-name-override: run
       x-speakeasy-group: client.tools
   /rest/api/v1/actions/actionpack/{actionPackId}/auth:
@@ -6730,6 +7045,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-speakeasy-name-override: retrieveActionPackAuthStatus
       x-speakeasy-group: client.tools
     post:
@@ -6771,6 +7088,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-speakeasy-name-override: authorizeActionPack
       x-speakeasy-group: client.tools
     parameters:
@@ -6807,8 +7126,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
-      x-glean-experimental:
-        id: 52fde6ec-c18b-4de6-b761-f82008542ae7
+      x-glean-release:
+        stage: beta
         introduced: "2026-07-02"
       x-speakeasy-name-override: retrieveToolServerAuthStatus
       x-speakeasy-group: client.tools
@@ -6851,8 +7170,8 @@ paths:
         "429":
           description: Too Many Requests
       x-visibility: Public
-      x-glean-experimental:
-        id: 1935476e-ecaf-4c1f-a9fd-1e768cf68f30
+      x-glean-release:
+        stage: beta
         introduced: "2026-07-02"
       x-speakeasy-name-override: authorizeToolServer
       x-speakeasy-group: client.tools
@@ -6911,8 +7230,8 @@ paths:
         "503":
           description: Tool schemas could not be resolved from the server
       x-visibility: Public
-      x-glean-experimental:
-        id: 332eb38f-1b5d-4896-88e3-59db5e96e4e1
+      x-glean-release:
+        stage: beta
         introduced: "2026-07-30"
       x-speakeasy-name-override: getToolServerTools
       x-speakeasy-group: client.tools
@@ -6949,6 +7268,8 @@ paths:
           description: Conflict
         "429":
           description: Too Many Requests
+      x-glean-release:
+        stage: ga
       x-speakeasy-name-override: addOrUpdate
       x-speakeasy-group: indexing.documents
   /api/index/v1/indexdocuments:
@@ -6977,6 +7298,8 @@ paths:
           description: Conflict
         "429":
           description: Too Many Requests
+      x-glean-release:
+        stage: ga
       x-speakeasy-name-override: index
       x-speakeasy-group: indexing.documents
   /api/index/v1/bulkindexdocuments:
@@ -7003,6 +7326,8 @@ paths:
           description: Not Authorized
         "409":
           description: Conflict
+      x-glean-release:
+        stage: ga
       x-speakeasy-name-override: bulkIndex
       x-speakeasy-group: indexing.documents
   /api/index/v1/updatepermissions:
@@ -7031,6 +7356,8 @@ paths:
           description: Conflict
         "429":
           description: Too Many Requests
+      x-glean-release:
+        stage: ga
       x-speakeasy-name-override: updatePermissions
       x-speakeasy-group: indexing.permissions
   /api/index/v1/processalldocuments:
@@ -7067,6 +7394,8 @@ paths:
           description: Not Authorized
         "429":
           description: Too Many Requests
+      x-glean-release:
+        stage: ga
       x-speakeasy-name-override: processAll
       x-speakeasy-group: indexing.documents
   /api/index/v1/deletedocument:
@@ -7093,6 +7422,8 @@ paths:
           description: Not Authorized
         "409":
           description: Conflict
+      x-glean-release:
+        stage: ga
       x-speakeasy-name-override: delete
       x-speakeasy-group: indexing.documents
   /api/index/v1/indexuser:
@@ -7119,6 +7450,8 @@ paths:
           description: Not Authorized
         "409":
           description: Conflict
+      x-glean-release:
+        stage: ga
       x-speakeasy-name-override: indexUser
       x-speakeasy-group: indexing.permissions
   /api/index/v1/bulkindexusers:
@@ -7147,6 +7480,8 @@ paths:
           description: Not Authorized
         "409":
           description: Conflict
+      x-glean-release:
+        stage: ga
       x-speakeasy-name-override: bulkIndexUsers
       x-speakeasy-group: indexing.permissions
   /api/index/v1/indexgroup:
@@ -7173,6 +7508,8 @@ paths:
           description: Not Authorized
         "409":
           description: Conflict
+      x-glean-release:
+        stage: ga
       x-speakeasy-name-override: indexGroup
       x-speakeasy-group: indexing.permissions
   /api/index/v1/bulkindexgroups:
@@ -7201,6 +7538,8 @@ paths:
           description: Not Authorized
         "409":
           description: Conflict
+      x-glean-release:
+        stage: ga
       x-speakeasy-name-override: bulkIndexGroups
       x-speakeasy-group: indexing.permissions
   /api/index/v1/indexmembership:
@@ -7227,6 +7566,8 @@ paths:
           description: Not Authorized
         "409":
           description: Conflict
+      x-glean-release:
+        stage: ga
       x-speakeasy-name-override: indexMembership
       x-speakeasy-group: indexing.permissions
   /api/index/v1/bulkindexmemberships:
@@ -7253,6 +7594,8 @@ paths:
           description: Not Authorized
         "409":
           description: Conflict
+      x-glean-release:
+        stage: ga
       x-speakeasy-name-override: bulkIndexMemberships
       x-speakeasy-group: indexing.permissions
   /api/index/v1/processallmemberships:
@@ -7277,6 +7620,8 @@ paths:
           description: Bad Request
         "401":
           description: Not Authorized
+      x-glean-release:
+        stage: ga
       x-speakeasy-name-override: processMemberships
       x-speakeasy-group: indexing.permissions
   /api/index/v1/deleteuser:
@@ -7305,6 +7650,8 @@ paths:
           description: Not Authorized
         "409":
           description: Conflict
+      x-glean-release:
+        stage: ga
       x-speakeasy-name-override: deleteUser
       x-speakeasy-group: indexing.permissions
   /api/index/v1/deletegroup:
@@ -7333,6 +7680,8 @@ paths:
           description: Not Authorized
         "409":
           description: Conflict
+      x-glean-release:
+        stage: ga
       x-speakeasy-name-override: deleteGroup
       x-speakeasy-group: indexing.permissions
   /api/index/v1/deletemembership:
@@ -7359,14 +7708,16 @@ paths:
           description: Not Authorized
         "409":
           description: Conflict
+      x-glean-release:
+        stage: ga
       x-speakeasy-name-override: deleteMembership
       x-speakeasy-group: indexing.permissions
   /api/index/v1/debug/{datasource}/status:
     post:
       summary: |
-        Beta: Get datasource status
+        Get datasource status
       description: |
-        Gather information about the datasource's overall status. Currently in beta, might undergo breaking changes without prior notice.
+        Gather information about the datasource's overall status.
 
         Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/indexing/debugging/datasource-config) for more information.
       tags:
@@ -7391,15 +7742,16 @@ paths:
           description: Bad Request
         "401":
           description: Not Authorized
-      x-beta: true
+      x-glean-release:
+        stage: ga
       x-speakeasy-name-override: status
       x-speakeasy-group: indexing.datasource
   /api/index/v1/debug/{datasource}/document:
     post:
       summary: |
-        Beta: Get document information
+        Get document information
       description: |
-        Gives various information that would help in debugging related to a particular document. Currently in beta, might undergo breaking changes without prior notice.
+        Gives various information that would help in debugging related to a particular document.
 
         Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/indexing/debugging/datasource-config) for more information.
       tags:
@@ -7431,15 +7783,16 @@ paths:
           description: Bad Request
         "401":
           description: Not Authorized
-      x-beta: true
+      x-glean-release:
+        stage: ga
       x-speakeasy-group: indexing.documents
       x-speakeasy-name-override: debug
   /api/index/v1/debug/{datasource}/documents:
     post:
       summary: |
-        Beta: Get information of a batch of documents
+        Get information of a batch of documents
       description: |
-        Gives various information that would help in debugging related to a batch of documents. Currently in beta, might undergo breaking changes without prior notice.
+        Gives various information that would help in debugging related to a batch of documents.
 
         Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/indexing/debugging/datasource-config) for more information.
       tags:
@@ -7471,15 +7824,16 @@ paths:
           description: Bad Request
         "401":
           description: Not Authorized
-      x-beta: true
+      x-glean-release:
+        stage: ga
       x-speakeasy-group: indexing.documents
       x-speakeasy-name-override: debugMany
   /api/index/v1/debug/{datasource}/user:
     post:
       summary: |
-        Beta: Get user information
+        Get user information
       description: |
-        Gives various information that would help in debugging related to a particular user. Currently in beta, might undergo breaking changes without prior notice.
+        Gives various information that would help in debugging related to a particular user.
 
         Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/indexing/debugging/datasource-config) for more information.
       tags:
@@ -7511,7 +7865,8 @@ paths:
           description: Bad Request
         "401":
           description: Not Authorized
-      x-beta: true
+      x-glean-release:
+        stage: ga
       x-speakeasy-name-override: debug
       x-speakeasy-group: indexing.people
   /api/index/v1/checkdocumentaccess:
@@ -7545,6 +7900,8 @@ paths:
           description: Not Authorized
         "429":
           description: Too Many Requests
+      x-glean-release:
+        stage: ga
       x-speakeasy-group: indexing.documents
       x-speakeasy-name-override: checkAccess
   /api/index/v1/getdocumentstatus:
@@ -7579,11 +7936,12 @@ paths:
         "429":
           description: Too Many Requests
       deprecated: true
-      x-glean-deprecated:
-        id: 7eec0433-78fd-49f9-a34f-cca83640ec24
-        introduced: "2026-02-03"
-        message: Endpoint is deprecated
-        removal: "2027-01-15"
+      x-glean-release:
+        stage: deprecated
+        deprecation:
+          introduced: "2026-02-03"
+          message: Endpoint is deprecated
+          removal: "2027-01-15"
       x-speakeasy-deprecation-message: "Deprecated on 2026-02-03, removal scheduled for 2027-01-15: Endpoint is deprecated"
       x-speakeasy-group: indexing.documents
       x-speakeasy-name-override: status
@@ -7619,11 +7977,12 @@ paths:
         "409":
           description: Conflict
       deprecated: true
-      x-glean-deprecated:
-        id: c164089c-9412-4724-acf6-caf3b0d2a527
-        introduced: "2026-02-03"
-        message: Endpoint is deprecated
-        removal: "2027-01-15"
+      x-glean-release:
+        stage: deprecated
+        deprecation:
+          introduced: "2026-02-03"
+          message: Endpoint is deprecated
+          removal: "2027-01-15"
       x-speakeasy-deprecation-message: "Deprecated on 2026-02-03, removal scheduled for 2027-01-15: Endpoint is deprecated"
       x-speakeasy-group: indexing.documents
       x-speakeasy-name-override: count
@@ -7659,11 +8018,12 @@ paths:
         "409":
           description: Conflict
       deprecated: true
-      x-glean-deprecated:
-        id: 4f5df873-385e-4539-8183-cb764b0f06b9
-        introduced: "2026-02-03"
-        message: Endpoint is deprecated
-        removal: "2027-01-15"
+      x-glean-release:
+        stage: deprecated
+        deprecation:
+          introduced: "2026-02-03"
+          message: Endpoint is deprecated
+          removal: "2027-01-15"
       x-speakeasy-deprecation-message: "Deprecated on 2026-02-03, removal scheduled for 2027-01-15: Endpoint is deprecated"
       x-speakeasy-name-override: count
       x-speakeasy-group: indexing.people
@@ -7691,6 +8051,8 @@ paths:
           description: Not Authorized
         "409":
           description: Conflict
+      x-glean-release:
+        stage: ga
       x-speakeasy-name-override: authorizeBetaUsers
       x-speakeasy-group: indexing.permissions
   /api/index/v1/adddatasource:
@@ -7715,6 +8077,8 @@ paths:
           description: Bad Request
         "401":
           description: Not Authorized
+      x-glean-release:
+        stage: ga
       x-speakeasy-name-override: add
       x-speakeasy-group: indexing.datasources
   /api/index/v1/getdatasourceconfig:
@@ -7745,6 +8109,8 @@ paths:
           description: Not Authorized
         "409":
           description: Conflict
+      x-glean-release:
+        stage: ga
       x-speakeasy-name-override: retrieveConfig
       x-speakeasy-group: indexing.datasources
   /api/index/v1/rotatetoken:
@@ -7766,6 +8132,8 @@ paths:
           description: Bad Request
         "401":
           description: Not Authorized
+      x-glean-release:
+        stage: ga
       x-speakeasy-name-override: rotateToken
       x-speakeasy-group: indexing.authentication
   /api/index/v1/indexemployee:
@@ -7792,6 +8160,8 @@ paths:
           description: Not Authorized
         "409":
           description: Conflict
+      x-glean-release:
+        stage: ga
       x-speakeasy-name-override: index
       x-speakeasy-group: indexing.people
   /api/index/v1/bulkindexemployees:
@@ -7819,11 +8189,12 @@ paths:
         "409":
           description: Conflict
       deprecated: true
-      x-glean-deprecated:
-        id: ce596f49-55c4-465e-bf3c-5a3a33906e1f
-        introduced: "2026-02-03"
-        message: Endpoint is deprecated
-        removal: "2027-04-15"
+      x-glean-release:
+        stage: deprecated
+        deprecation:
+          introduced: "2026-02-03"
+          message: Endpoint is deprecated
+          removal: "2027-04-15"
       x-speakeasy-deprecation-message: "Deprecated on 2026-02-03, removal scheduled for 2027-04-15: Endpoint is deprecated"
       x-speakeasy-name-override: bulkIndex
       x-speakeasy-group: indexing.people
@@ -7846,6 +8217,8 @@ paths:
           description: Not Authorized
         "429":
           description: Too Many Requests
+      x-glean-release:
+        stage: ga
       x-speakeasy-name-override: processAllEmployeesAndTeams
       x-speakeasy-group: indexing.people
   /api/index/v1/deleteemployee:
@@ -7872,6 +8245,8 @@ paths:
           description: Not Authorized
         "409":
           description: Conflict
+      x-glean-release:
+        stage: ga
       x-speakeasy-name-override: delete
       x-speakeasy-group: indexing.people
   /api/index/v1/indexteam:
@@ -7898,6 +8273,8 @@ paths:
           description: Not Authorized
         "409":
           description: Conflict
+      x-glean-release:
+        stage: ga
       x-speakeasy-name-override: indexTeam
       x-speakeasy-group: indexing.people
   /api/index/v1/deleteteam:
@@ -7924,6 +8301,8 @@ paths:
           description: Not Authorized
         "409":
           description: Conflict
+      x-glean-release:
+        stage: ga
       x-speakeasy-name-override: deleteTeam
       x-speakeasy-group: indexing.people
   /api/index/v1/bulkindexteams:
@@ -7950,6 +8329,8 @@ paths:
           description: Not Authorized
         "409":
           description: Conflict
+      x-glean-release:
+        stage: ga
       x-speakeasy-name-override: bulkIndexTeams
       x-speakeasy-group: indexing.people
   /api/index/v1/bulkindexshortcuts:
@@ -7976,6 +8357,8 @@ paths:
           description: Not Authorized
         "409":
           description: Conflict
+      x-glean-release:
+        stage: ga
       x-speakeasy-name-override: bulkIndex
       x-speakeasy-group: indexing.shortcuts
   /api/index/v1/uploadshortcuts:
@@ -8002,14 +8385,16 @@ paths:
           description: Not Authorized
         "409":
           description: Conflict
+      x-glean-release:
+        stage: ga
       x-speakeasy-name-override: upload
       x-speakeasy-group: indexing.shortcuts
   /api/index/v1/debug/{datasource}/document/events:
     post:
       summary: |
-        Beta: Get document lifecycle events
+        Get document lifecycle events
       description: |
-        Retrieves lifecycle events for a specific document including upload time, index times and deletions. Rate limited to 1 request per minute per datasource. Currently in beta, might undergo breaking changes without prior notice.
+        Retrieves lifecycle events for a specific document including upload time, index times and deletions. Rate limited to 1 request per minute per datasource.
       tags:
         - Troubleshooting
       security:
@@ -8041,7 +8426,8 @@ paths:
           description: Not Authorized
         "429":
           description: Too Many Requests
-      x-beta: true
+      x-glean-release:
+        stage: ga
       x-speakeasy-group: indexing.documents
       x-speakeasy-name-override: debugEvents
   /rest/api/index/submissions/{datasourceInstance}/{type}:
@@ -8086,6 +8472,8 @@ paths:
           $ref: '#/components/responses/InternalServerError'
         "503":
           description: Service Unavailable
+      x-glean-release:
+        stage: ga
       x-speakeasy-name-override: submit
       x-speakeasy-group: indexing.datasources
     servers:
@@ -8135,6 +8523,8 @@ paths:
           $ref: '#/components/responses/TooManyRequestsError'
         "500":
           $ref: '#/components/responses/InternalServerError'
+      x-glean-release:
+        stage: ga
       x-speakeasy-name-override: upsert
       x-speakeasy-group: indexing.customMetadata
     delete:
@@ -8157,6 +8547,8 @@ paths:
           $ref: '#/components/responses/TooManyRequestsError'
         "500":
           $ref: '#/components/responses/InternalServerError'
+      x-glean-release:
+        stage: ga
       x-speakeasy-name-override: delete
       x-speakeasy-group: indexing.customMetadata
     servers:
@@ -8201,6 +8593,8 @@ paths:
           $ref: '#/components/responses/TooManyRequestsError'
         "500":
           $ref: '#/components/responses/InternalServerError'
+      x-glean-release:
+        stage: ga
       x-speakeasy-name-override: getSchema
       x-speakeasy-group: indexing.customMetadata
     put:
@@ -8234,6 +8628,8 @@ paths:
           $ref: '#/components/responses/TooManyRequestsError'
         "500":
           $ref: '#/components/responses/InternalServerError'
+      x-glean-release:
+        stage: ga
       x-speakeasy-name-override: upsertSchema
       x-speakeasy-group: indexing.customMetadata
     delete:
@@ -8256,6 +8652,8 @@ paths:
           $ref: '#/components/responses/TooManyRequestsError'
         "500":
           $ref: '#/components/responses/InternalServerError'
+      x-glean-release:
+        stage: ga
       x-speakeasy-name-override: deleteSchema
       x-speakeasy-group: indexing.customMetadata
     servers:
@@ -8306,6 +8704,8 @@ paths:
         "500":
           description: Internal error
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-speakeasy-group: client.governance.data.policies
       x-speakeasy-name-override: retrieve
     post:
@@ -8341,6 +8741,8 @@ paths:
         "500":
           description: Internal error
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-speakeasy-group: client.governance.data.policies
       x-speakeasy-name-override: update
   /rest/api/v1/governance/data/policies:
@@ -8377,6 +8779,8 @@ paths:
         "500":
           description: Internal error
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-speakeasy-group: client.governance.data.policies
       x-speakeasy-name-override: list
     post:
@@ -8405,6 +8809,8 @@ paths:
         "500":
           description: Internal error
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-speakeasy-group: client.governance.data.policies
       x-speakeasy-name-override: create
   /rest/api/v1/governance/data/policies/{id}/download:
@@ -8438,6 +8844,8 @@ paths:
         "500":
           description: Internal error
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-speakeasy-group: client.governance.data.policies
       x-speakeasy-name-override: download
   /rest/api/v1/governance/data/reports:
@@ -8467,6 +8875,8 @@ paths:
         "500":
           description: Internal error
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-speakeasy-group: client.governance.data.reports
       x-speakeasy-name-override: create
   /rest/api/v1/governance/data/reports/{id}/download:
@@ -8498,6 +8908,8 @@ paths:
         "500":
           description: Internal error
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-speakeasy-group: client.governance.data.reports
       x-speakeasy-name-override: download
   /rest/api/v1/governance/data/reports/{id}/status:
@@ -8528,6 +8940,8 @@ paths:
         "500":
           description: Internal error
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-speakeasy-group: client.governance.data.reports
       x-speakeasy-name-override: status
   /rest/api/v1/governance/documents/visibilityoverrides:
@@ -8559,6 +8973,8 @@ paths:
         "500":
           description: Internal error
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-speakeasy-group: client.governance.documents.visibilityoverrides
       x-speakeasy-name-override: list
     post:
@@ -8587,6 +9003,8 @@ paths:
         "500":
           description: Internal error
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-speakeasy-group: client.governance.documents.visibilityoverrides
       x-speakeasy-name-override: create
   /rest/api/v1/governance/data/findings/exports:
@@ -8616,6 +9034,8 @@ paths:
         "500":
           description: Internal error
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-speakeasy-group: client.governance.data.findings
       x-speakeasy-name-override: create
     get:
@@ -8638,6 +9058,8 @@ paths:
         "500":
           description: Internal error
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-speakeasy-group: client.governance.data.findings
       x-speakeasy-name-override: list
   /rest/api/v1/governance/data/findings/exports/{id}:
@@ -8669,6 +9091,8 @@ paths:
         "500":
           description: Internal error
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-speakeasy-group: client.governance.data.findings
       x-speakeasy-name-override: download
     delete:
@@ -8695,6 +9119,8 @@ paths:
         "500":
           description: Internal error
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-speakeasy-group: client.governance.data.findings
       x-speakeasy-name-override: delete
   /rest/api/v1/configure/datasources/{datasourceId}/instances/{instanceId}:
@@ -8738,6 +9164,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-speakeasy-group: client.datasources
       x-speakeasy-name-override: retrieveConfiguration
     patch:
@@ -8786,6 +9214,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-speakeasy-group: client.datasources
       x-speakeasy-name-override: updateConfiguration
   /rest/api/v1/datasource/{datasourceInstanceId}/credentialstatus:
@@ -8828,6 +9258,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-speakeasy-group: client.datasources
       x-speakeasy-name-override: retrieveCredentialStatus
   /rest/api/v1/datasource/{datasourceInstanceId}/credentials:
@@ -8877,6 +9309,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
       x-visibility: Public
+      x-glean-release:
+        stage: ga
       x-speakeasy-group: client.datasources
       x-speakeasy-name-override: rotateCredentials
   /rest/api/v1/chat#stream:
@@ -9055,6 +9489,190 @@ components:
           type: string
           description: Case-insensitive substring to match against agent names. If omitted or empty, no name filter is applied.
           example: HR Policy Agent
+    PlatformSkillSourcePreviewFile:
+      type: object
+      description: A supporting file bundled with a skill.
+      required:
+        - path
+        - content
+      properties:
+        path:
+          type: string
+          description: Relative path within the skill bundle.
+        content:
+          type: string
+          description: UTF-8 file content.
+    PlatformAgentSkill:
+      type: object
+      description: |
+        A skill defined inline in the agent. Reference a published skill through `dependencies` instead.
+      required:
+        - display_name
+        - main_content
+      properties:
+        display_name:
+          type: string
+          description: Human-readable skill name.
+        main_content:
+          type: string
+          description: Main skill content, inlined from `SKILL.md`.
+        files:
+          type: array
+          description: Additional files bundled in the skill folder.
+          items:
+            $ref: "#/components/schemas/PlatformSkillSourcePreviewFile"
+    PlatformAgentDependency:
+      type: object
+      description: A published artifact the agent references by platform ID.
+      required:
+        - id
+        - type
+      properties:
+        id:
+          type: string
+          description: |
+            ID of the referenced artifact: the `skill_id` of a published skill when `type` is SKILL, or the `agent_id` of a published agent when `type` is AGENT.
+        type:
+          type: string
+          description: Type of a published artifact referenced as a dependency.
+          enum:
+            - SKILL
+            - AGENT
+          x-enumDescriptions:
+            SKILL: A published skill.
+            AGENT: A published agent. Not valid for subagents.
+          x-speakeasy-enum-descriptions:
+            SKILL: A published skill.
+            AGENT: A published agent. Not valid for subagents.
+    PlatformAgentSelectedTool:
+      type: object
+      description: A tool selected from a tool provider.
+      required:
+        - display_name
+      properties:
+        display_name:
+          type: string
+          description: Name of the tool within its provider.
+    PlatformAgentToolset:
+      type: object
+      description: A tool provider and the subset of its tools available to the agent.
+      required:
+        - tool_provider_id
+      properties:
+        tool_provider_id:
+          type: string
+          description: ID of the tool provider, or `native` for built-in Glean tools.
+        selected_tools:
+          type: array
+          description: Tools from the provider that are exposed to the agent.
+          items:
+            $ref: "#/components/schemas/PlatformAgentSelectedTool"
+        customisation_data:
+          type: object
+          additionalProperties: false
+          description: Settings applied to every tool in this provider entry.
+          properties:
+            skip_confirmation:
+              type: boolean
+              description: |
+                Whether tools in this entry run without asking the user for confirmation. Defaults to false.
+    PlatformAgentGleanSearchConfig:
+      type: object
+      description: |
+        Glean Search configuration. When omitted, Glean Search is disabled for the agent. An empty object searches all company knowledge available to the invoking user. Populated lists restrict search to the union of the listed datasource instances and URLs.
+      properties:
+        knowledge_profile_id:
+          type: string
+          description: |
+            ID of a knowledge profile whose permissions Glean Search uses instead of the invoking user's permissions.
+        datasource_instances:
+          type: array
+          description: |
+            Datasource instance names that search is restricted to. Each name selects one instance, not every instance of a datasource type.
+          items:
+            type: string
+            description: |
+              Datasource instance name. The default instance of a datasource uses the datasource name, for example `confluence`.
+        urls:
+          type: array
+          description: |
+            Document or folder URLs that search is restricted to. Folder URLs include every document contained in the folder.
+          items:
+            type: string
+            description: Document or folder URL.
+    PlatformAgentLlmModel:
+      type: object
+      description: Agentic model the agent runs on and its reasoning effort.
+      properties:
+        model_set_id:
+          type: string
+          description: Agentic model set ID. When omitted, the tenant default is used.
+        mode:
+          type: string
+          description: Reasoning effort per turn. Defaults to ADVANCED.
+          enum:
+            - ADVANCED
+            - FAST
+          x-enumDescriptions:
+            ADVANCED: High reasoning effort.
+            FAST: Low reasoning effort for latency-sensitive, narrow tasks.
+          x-speakeasy-enum-descriptions:
+            ADVANCED: High reasoning effort.
+            FAST: Low reasoning effort for latency-sensitive, narrow tasks.
+        auto_upgrade:
+          type: boolean
+          description: |
+            Whether the agent follows model upgrades. When omitted, a model with a `model_set_id` is pinned, and a model without one follows the tenant default.
+    PlatformAgentServiceCredential:
+      type: object
+      description: A service credential the agent uses.
+      required:
+        - service_credential_id
+      properties:
+        service_credential_id:
+          type: string
+          description: ID of the service credential.
+    PlatformAgentBase:
+      type: object
+      description: Definition fields shared by agents and subagents.
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: Human-readable name.
+          example: HR Policy Agent
+        description:
+          type: string
+          description: Description of the agent's purpose and behavior.
+        instructions:
+          type: string
+          description: System prompt the agent follows.
+        skills:
+          type: array
+          description: Skills defined inline.
+          items:
+            $ref: "#/components/schemas/PlatformAgentSkill"
+        dependencies:
+          type: array
+          description: |
+            Published artifacts referenced by platform ID. Their content is not inlined in `skills` or `subagents`.
+          items:
+            $ref: "#/components/schemas/PlatformAgentDependency"
+        tools:
+          type: array
+          description: Tool providers and the subset of their tools available to the agent.
+          items:
+            $ref: "#/components/schemas/PlatformAgentToolset"
+        glean_search_config:
+          $ref: "#/components/schemas/PlatformAgentGleanSearchConfig"
+        model:
+          $ref: "#/components/schemas/PlatformAgentLlmModel"
+        service_credentials:
+          type: array
+          description: Service credentials the agent uses to call tools.
+          items:
+            $ref: "#/components/schemas/PlatformAgentServiceCredential"
     PlatformAgentCapabilities:
       type: object
       additionalProperties: true
@@ -9065,30 +9683,316 @@ components:
         ap.io.streaming:
           type: boolean
           description: Whether the agent supports streaming output.
-    PlatformAgent:
+    PlatformAgentSlackChannelMapping:
       type: object
+      description: A Slack channel the agent is mapped to.
       required:
-        - agent_id
-        - name
-        - capabilities
+        - channel_id
       properties:
-        agent_id:
+        channel_id:
           type: string
-          description: ID of the agent.
-          example: mho4lwzylcozgoc2
-        name:
+          description: ID of the Slack channel.
+        auto_engage:
+          type: boolean
+          description: Whether the agent engages with messages without being mentioned.
+    PlatformAgentSlackChannel:
+      type: object
+      description: Slack deployment of the agent.
+      properties:
+        service_credential_id:
           type: string
-          description: Name of the agent.
-          example: HR Policy Agent
+          description: ID of the service credential for the Slack app.
+        channel_mappings:
+          type: array
+          description: Slack channels the agent is mapped to.
+          items:
+            $ref: "#/components/schemas/PlatformAgentSlackChannelMapping"
+        engagement_filter_instructions:
+          type: string
+          description: Instructions that decide which messages the agent engages with.
+        allow_mentions_outside_channel_mappings:
+          type: boolean
+          description: Whether the agent responds to mentions in channels that are not mapped.
+    PlatformAgentChannels:
+      type: object
+      description: Messaging channels the agent is deployed to. Requires `use_agent_identity`.
+      properties:
+        slack:
+          $ref: "#/components/schemas/PlatformAgentSlackChannel"
+    PlatformSubagent:
+      description: |
+        An isolated execution unit that its parent agent dispatches work to. A subagent has no trigger, channels, or subagents of its own, and its dependencies may only reference published skills.
+      allOf:
+        - $ref: "#/components/schemas/PlatformAgentBase"
+        - type: object
+          properties:
+            subagent_id:
+              type: string
+              description: |
+                ID of the subagent, unique within its parent agent. It is not an agent ID and cannot be used with other Agents APIs.
+    PlatformAgentInputFieldOption:
+      type: object
+      description: A choice of a SELECT input field.
+      required:
+        - value
+      properties:
+        value:
+          type: string
+          description: Value substituted into the field's placeholder.
+    PlatformAgentInputField:
+      type: object
+      description: |
+        A typed input of the agent, referenced from the instructions as `[[display_name]]`.
+      required:
+        - display_name
+        - type
+      properties:
+        display_name:
+          type: string
+          description: Label of the field and its placeholder name in the instructions. Unique within the agent.
+        type:
+          type: string
+          description: Type of an agent input field.
+          enum:
+            - TEXT
+            - SELECT
+            - DATE
+            - DOCUMENT
+          x-enumDescriptions:
+            TEXT: Free-form text.
+            SELECT: One choice from the declared options.
+            DATE: Calendar date in `YYYY-MM-DD` format.
+            DOCUMENT: Glean file ID of an uploaded file.
+          x-speakeasy-enum-descriptions:
+            TEXT: Free-form text.
+            SELECT: One choice from the declared options.
+            DATE: Calendar date in `YYYY-MM-DD` format.
+            DOCUMENT: Glean file ID of an uploaded file.
         description:
           type: string
-          description: Description of the agent.
-        metadata:
+          description: Helper text describing the field.
+        default_value:
+          type: string
+          description: |
+            Pre-filled value. For SELECT fields, one of the option values. For DATE fields, a `YYYY-MM-DD` date.
+        is_optional:
+          type: boolean
+          description: Whether the field accepts empty input. Defaults to false.
+        options:
+          type: array
+          description: Choices of a SELECT field.
+          items:
+            $ref: "#/components/schemas/PlatformAgentInputFieldOption"
+    PlatformAgentSchedule:
+      type: object
+      description: Wall-clock schedule for INPUT_FORM and CHAT_MESSAGE agents.
+      required:
+        - frequency
+        - timezone
+      properties:
+        frequency:
+          type: string
+          description: Five-field Unix cron expression, for example `0 9 * * 1-5`.
+        timezone:
+          type: string
+          description: IANA time zone name, for example `America/Los_Angeles`.
+        start_at:
+          type: string
+          format: date-time
+          description: |
+            ISO 8601 timestamp with an explicit offset before which the schedule stays dormant.
+    PlatformAgentPrompt:
+      type: object
+      description: A conversation starter whose template is sent as the first chat message.
+      required:
+        - display_name
+        - template
+      properties:
+        display_name:
+          type: string
+          description: Short title of the conversation starter.
+        template:
+          type: string
+          description: |
+            Chat message that starts the conversation. May contain `[[variable_name]]` placeholders.
+    PlatformAgentContentTriggerFilterOperator:
+      type: string
+      description: Operator of a content trigger filter.
+      enum:
+        - IS_ONE_OF
+        - IS_NOT_ONE_OF
+        - CONTAINS
+        - FIELD_CHANGED
+      x-enum-varnames:
+        - AgentContentTriggerFilterOperatorISONEOF
+        - AgentContentTriggerFilterOperatorISNOTONEOF
+        - AgentContentTriggerFilterOperatorCONTAINS
+        - AgentContentTriggerFilterOperatorFIELDCHANGED
+      x-enumDescriptions:
+        IS_ONE_OF: The field equals one of the values.
+        IS_NOT_ONE_OF: The field equals none of the values. Not valid for TITLE or CONTENT.
+        CONTAINS: The field contains one of the values.
+        FIELD_CHANGED: The field changed in the event. Not valid for TITLE or CONTENT.
+      x-speakeasy-enum-descriptions:
+        IS_ONE_OF: The field equals one of the values.
+        IS_NOT_ONE_OF: The field equals none of the values. Not valid for TITLE or CONTENT.
+        CONTAINS: The field contains one of the values.
+        FIELD_CHANGED: The field changed in the event. Not valid for TITLE or CONTENT.
+    PlatformAgentContentTriggerFilter:
+      type: object
+      additionalProperties: false
+      description: A filter on the document that fired a content trigger. Values are ORed.
+      required:
+        - field
+        - operator
+      properties:
+        field:
+          type: string
+          description: "`TITLE` or `CONTENT` for the document's title or body, or a facet key."
+        operator:
+          $ref: "#/components/schemas/PlatformAgentContentTriggerFilterOperator"
+        values:
+          type: array
+          description: Match values. Required except for FIELD_CHANGED.
+          items:
+            type: string
+            description: A match value.
+    PlatformAgentContentTrigger:
+      type: object
+      description: A subscribed document event and the filters that narrow it.
+      required:
+        - datasource
+        - template_id
+      properties:
+        datasource:
+          type: string
+          description: Event source in enum form, for example `JIRA`.
+        template_id:
+          type: string
+          description: Subscribed event identifier, for example `JIRA_TICKET_CREATED`.
+        document_type:
+          type: string
+          description: Document type the entry watches.
+        time_offset_seconds:
+          type: integer
+          format: int32
+          description: |
+            Seconds before an event time carried in the document at which the agent runs. Pre-event triggers only.
+        filters:
+          type: array
+          description: |
+            Filters on the document that fired the event. Every filter must match for the entry to fire. Without filters, every event for this entry fires.
+          items:
+            $ref: "#/components/schemas/PlatformAgentContentTriggerFilter"
+    PlatformAgentTrigger:
+      type: object
+      description: How the agent is invoked. Applies to top-level agents only.
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          description: Invocation mode of the agent.
+          enum:
+            - CHAT_MESSAGE
+            - INPUT_FORM
+            - CONTENT_TRIGGER
+          x-enum-varnames:
+            - AgentTriggerTypeCHATMESSAGE
+            - AgentTriggerTypeINPUTFORM
+            - AgentTriggerTypeCONTENTTRIGGER
+          x-enumDescriptions:
+            CHAT_MESSAGE: The user converses with the agent.
+            INPUT_FORM: The agent runs on typed input fields, or with no input when none are declared.
+            CONTENT_TRIGGER: The agent runs on a document event.
+          x-speakeasy-enum-descriptions:
+            CHAT_MESSAGE: The user converses with the agent.
+            INPUT_FORM: The agent runs on typed input fields, or with no input when none are declared.
+            CONTENT_TRIGGER: The agent runs on a document event.
+        input_fields:
+          type: array
+          description: |
+            Typed inputs collected when the agent is invoked. Valid for INPUT_FORM and CONTENT_TRIGGER. An INPUT_FORM trigger without input fields runs with no input.
+          items:
+            $ref: "#/components/schemas/PlatformAgentInputField"
+        schedule:
+          $ref: "#/components/schemas/PlatformAgentSchedule"
+        prompts:
+          type: array
+          description: Conversation starters. Valid only for CHAT_MESSAGE.
+          items:
+            $ref: "#/components/schemas/PlatformAgentPrompt"
+        content:
           type: object
-          description: Agent metadata.
-          additionalProperties: true
-        capabilities:
-          $ref: "#/components/schemas/PlatformAgentCapabilities"
+          description: Document events that run a CONTENT_TRIGGER agent.
+          required:
+            - triggers
+          properties:
+            triggers:
+              type: array
+              description: Event subscriptions. The agent runs when any entry matches.
+              items:
+                $ref: "#/components/schemas/PlatformAgentContentTrigger"
+    PlatformPersonReference:
+      type: object
+      description: A lightweight reference to a person, used where a payload merely points at someone.
+      required:
+        - name
+      properties:
+        id:
+          type: string
+          description: Opaque Glean person ID.
+        name:
+          type: string
+          description: Display name.
+    PlatformAgent:
+      description: An agent available to the authenticated user.
+      allOf:
+        - $ref: "#/components/schemas/PlatformAgentBase"
+        - type: object
+          required:
+            - agent_id
+            - capabilities
+          properties:
+            agent_id:
+              type: string
+              description: ID of the agent.
+              example: ef33aecf52c142a6873adf76037b642e
+            metadata:
+              type: object
+              description: Agent metadata.
+              additionalProperties: true
+            capabilities:
+              $ref: "#/components/schemas/PlatformAgentCapabilities"
+            use_agent_identity:
+              type: boolean
+              description: |
+                Whether the agent acts with its own identity instead of the invoking user's. Cannot be changed after the agent is created.
+            channels:
+              $ref: "#/components/schemas/PlatformAgentChannels"
+            subagents:
+              type: array
+              description: |
+                Subagents the agent dispatches work to. Subagents cannot contain subagents.
+              items:
+                $ref: "#/components/schemas/PlatformSubagent"
+            trigger:
+              $ref: "#/components/schemas/PlatformAgentTrigger"
+            created_by:
+              $ref: "#/components/schemas/PlatformPersonReference"
+              description: Person who created the agent. Omitted when the agent hides attribution.
+            updated_by:
+              $ref: "#/components/schemas/PlatformPersonReference"
+              description: |
+                Person who last updated the agent. Omitted when the agent hides attribution.
+            created_at:
+              type: string
+              format: date-time
+              description: Time the agent was created.
+            updated_at:
+              type: string
+              format: date-time
+              description: Time the agent was last updated.
     PlatformAgentsSearchResponse:
       type: object
       required:
@@ -10230,18 +11134,6 @@ components:
         sync_error:
           type: string
           description: Human-readable sync failure reason, present only when sync_status is SYNC_FAILED.
-    PlatformPersonReference:
-      type: object
-      description: A lightweight reference to a person, used where a payload merely points at someone.
-      required:
-        - name
-      properties:
-        id:
-          type: string
-          description: Opaque Glean person ID.
-        name:
-          type: string
-          description: Display name.
     PlatformSkill:
       type: object
       required:
@@ -10445,18 +11337,6 @@ components:
           type: boolean
           default: false
           description: Whether to stream repository scan progress using server-sent events.
-    PlatformSkillSourcePreviewFile:
-      type: object
-      required:
-        - path
-        - content
-      properties:
-        path:
-          type: string
-          description: Relative path within the skill bundle.
-        content:
-          type: string
-          description: UTF-8 file content.
     PlatformSkillSourcePreview:
       type: object
       required:
@@ -11166,8 +12046,8 @@ components:
           description: Settings that govern usage limit increase requests.
         user_grouping:
           $ref: "#/components/schemas/PlatformUserGroupingSettings"
-          x-glean-experimental:
-            id: 3fd7f7b6-e16a-4341-9ec4-40d7b8c717c0
+          x-glean-release:
+            stage: beta
             introduced: "2026-10-21"
           description: |
             How per-user limits group users. Read-only; usage settings updates do not change it.
@@ -11250,8 +12130,8 @@ components:
           description: Kind of governed population.
         client_id:
           type: string
-          x-glean-experimental:
-            id: 3a8dfb97-fbe9-4173-ac61-4fd6e6faa847
+          x-glean-release:
+            stage: beta
             introduced: "2026-09-23"
           minLength: 1
           maxLength: 256
@@ -11274,8 +12154,8 @@ components:
           minLength: 3
           maxLength: 320
           pattern: ^[^\s@\x00-\x1f\x7f]+@[^\s@\x00-\x1f\x7f]+$
-          x-glean-experimental:
-            id: 1e7ce9ed-56af-44b2-81c1-f39e656919ea
+          x-glean-release:
+            stage: beta
             introduced: "2026-09-29"
           description: |
             Email address of the user, including a known alias email; valid only when type is USER. Matching is case-insensitive and resolves to the canonical user_id. When user_id is also supplied, both must identify the same user. Email is never part of the stored limit key. Responses include the user's directory email when one is available.
@@ -11508,8 +12388,8 @@ components:
           description: Population and spend client governed by this limit.
         period:
           $ref: "#/components/schemas/PlatformPeriod"
-          x-glean-experimental:
-            id: 3e43afc4-7169-43ee-92e5-7aa34004d126
+          x-glean-release:
+            stage: beta
             introduced: "2026-10-30"
           description: Reset cadence for counted usage.
         allocation_mode:
@@ -11742,8 +12622,8 @@ components:
           description: Population and spend client governed by the limit.
         period:
           $ref: "#/components/schemas/PlatformPeriod"
-          x-glean-experimental:
-            id: 3c2cc466-dd60-442f-ba72-e0cd5e8a650b
+          x-glean-release:
+            stage: beta
             introduced: "2026-10-30"
           description: Reset cadence for counted usage.
       allOf:
@@ -11802,6 +12682,431 @@ components:
         request_id:
           type: string
           description: Request identifier for correlating this response.
+    PlatformUsageSearchTimeRange:
+      type: object
+      additionalProperties: false
+      description: |
+        UTC midnight interval, end exclusive. A new search starts no earlier than the UTC day 90 days before the request; an earlier start is 400 invalid_parameter. Cursor pages keep the bound their first page passed. NONE and MONTH allow at most 12 calendar months; DAY and WEEK allow 180 days. USER_ID grouping with DAY allows 31 days.
+      required:
+        - start
+        - end
+      properties:
+        start:
+          type: string
+          format: date-time
+          description: |
+            Inclusive UTC midnight boundary, no earlier than midnight of the UTC day that contains the request time minus 90 days.
+        end:
+          type: string
+          format: date-time
+          description: Exclusive UTC midnight boundary, strictly after start.
+      allOf:
+        - $ref: "#/components/schemas/PlatformTimeRange"
+    PlatformUsageSearchGranularity:
+      type: string
+      description: NONE omits periods; DAY, Monday-based WEEK, and MONTH are clipped to the interval.
+      default: NONE
+      enum:
+        - NONE
+        - DAY
+        - WEEK
+        - MONTH
+    PlatformUsageDimension:
+      type: string
+      description: |
+        Grouping key, named for the response dimension it fills (MODEL_ID fills model_id). USER_ID is admin-only. DEPARTMENT_NAME and GROUP_ID are admin-only and deferred. Their well-formed personal requests return 403, not 400.
+      enum:
+        - PRODUCT
+        - FEATURE
+        - MODEL_ID
+        - CLIENT_ID
+        - AGENT_ID
+        - USER_ID
+        - DEPARTMENT_NAME
+        - GROUP_ID
+      x-enum-varnames:
+        - UsageDimensionProduct
+        - UsageDimensionFeature
+        - UsageDimensionModelId
+        - UsageDimensionClientId
+        - UsageDimensionAgentId
+        - UsageDimensionUserId
+        - UsageDimensionDepartmentName
+        - UsageDimensionGroupId
+    PlatformUsageSearchFilter:
+      type: object
+      additionalProperties: false
+      description: Exact, case-sensitive filter. Values OR together; filters AND together. Null cannot be selected.
+      required:
+        - field
+        - values
+      properties:
+        field:
+          type: string
+          minLength: 1
+          description: |
+            Allowlist is product, feature, model_id, client_id, agent_id, user_id, department_name, group_id. Unknown names return invalid_filter. user_id and agent_id also select the scope (see the operation); department_name and group_id are admin-only and deferred.
+        values:
+          type: array
+          minItems: 1
+          maxItems: 100
+          description: |
+            Nonblank exact values with no trimming. client_id follows Usage limit target client_id validation: empty, whitespace-only, control, and synthetic IDs are invalid; unknown IDs are valid. PRODUCT and FEATURE match normalized taxonomy.
+          items:
+            type: string
+            minLength: 1
+            maxLength: 512
+            description: Exact value to match.
+        operator:
+          allOf:
+            - $ref: "#/components/schemas/PlatformFilterOperator"
+          enum:
+            - EQUALS
+            - NOT_EQUALS
+          default: EQUALS
+          description: EQUALS (default) or NOT_EQUALS only; range operators are invalid.
+    PlatformUsageSearchSort:
+      type: object
+      additionalProperties: false
+      description: |
+        Sort without converting units. Missing spend in the selected unit sorts last in either direction. Without unit, compare USD then CREDITS. Ties use dimension values ASC (null first), then period.start ASC.
+      required:
+        - field
+        - direction
+      properties:
+        field:
+          type: string
+          enum:
+            - USED
+            - PERIOD_START
+          description: PERIOD_START requires time granularity.
+        direction:
+          type: string
+          enum:
+            - ASC
+            - DESC
+          description: Sort direction; required whenever sort is supplied.
+        unit:
+          $ref: "#/components/schemas/PlatformUsageUnit"
+          description: Valid only with USED; omission compares USD first, then CREDITS.
+    PlatformSearchCallerUsageRequest:
+      type: object
+      description: |
+        Measured-usage query. user_id and agent_id filters select the scope; there is no target field. Structural principal acceptance does not grant permission; forbidden personal requests return 403.
+      additionalProperties: false
+      required:
+        - time_range
+      properties:
+        time_range:
+          $ref: "#/components/schemas/PlatformUsageSearchTimeRange"
+          description: |
+            UTC midnight bounds, with an exclusive end. Search requires an explicit range because an implicit default would hide an expensive warehouse scan.
+        granularity:
+          $ref: "#/components/schemas/PlatformUsageSearchGranularity"
+          description: Period size; defaults to NONE.
+        group_by:
+          type: array
+          maxItems: 5
+          uniqueItems: true
+          description: Up to five unique dimensions, at most one principal dimension; principals require the admin route.
+          items:
+            $ref: "#/components/schemas/PlatformUsageDimension"
+        filters:
+          type: array
+          maxItems: 20
+          description: Filters AND together; values within each filter OR together.
+          items:
+            $ref: "#/components/schemas/PlatformUsageSearchFilter"
+        metrics:
+          type: array
+          uniqueItems: true
+          description: USED is always returned; EVENT_COUNT sums raw billing events in both units.
+          items:
+            type: string
+            description: Optional measured-usage metric.
+            enum:
+              - USED
+              - EVENT_COUNT
+        sort:
+          $ref: "#/components/schemas/PlatformUsageSearchSort"
+          description: |
+            When omitted, defaults to PERIOD_START ASC for time series, otherwise USED DESC. When supplied, field and direction are both required.
+        include:
+          type: array
+          uniqueItems: true
+          description: Add page-only visible labels or the complete-query bucket count.
+          items:
+            type: string
+            description: Opt-in enrichment.
+            enum:
+              - DISPLAY_NAMES
+              - TOTAL_COUNT
+        page_size:
+          type: integer
+          minimum: 1
+          maximum: 1000
+          default: 100
+          description: Maximum buckets per page; defaults to 100, maximum 1,000.
+        cursor:
+          type: string
+          minLength: 1
+          maxLength: 512
+          description: |
+            Opaque cursor from a prior page. Resend the same query and page size; it is bound to the route, caller, tenant, filter-derived scope, and snapshot. Missing retained state or a snapshot older than 24 hours is expired_cursor.
+          example: ""
+    PlatformUsageSearchDimensions:
+      type: object
+      additionalProperties: false
+      x-go-type: map[string]*string
+      description: |
+        A property is present only when its field is grouped. Absent attribution is an explicit null, not omitted. Raw AGENT scopes use best-effort recorded top-agent/root attribution across same-run AGENT/LLM_CALL events, and USER scopes use the same attribution. Current hierarchy is never used to reparent historical rows; missing complete run lineage is not reconstructed.
+      properties:
+        product:
+          type:
+            - string
+            - "null"
+          description: |
+            Server-owned product taxonomy: ASSISTANT (including LLM_CALL), AGENT, DESKTOP_APP (from GLEAN_DESKTOP_APP), API, MCP, AI_GATEWAY (from LLM_GATEWAY), or OTHER for unknown nonempty event types. Values can be added.
+        feature:
+          type:
+            - string
+            - "null"
+          description: |
+            Server-owned feature taxonomy: ARTIFACT_AUDIO, ASSISTANT, DEEP_RESEARCH, DICTATION, ENGRAM_MEMORY, GLEAN_CODE, GLEAN_IN_SLACK, GLEAN_IN_TEAMS, IMAGE_GENERATION, INDEPENDENT_AGENT_MEMORY, MEETING_NOTES (from AUDIO_TRANSCRIPTION), PRESENTATION_GENERATION, PRISM_PAID, REALTIME_VOICE (from VOICE_TRANSCRIPTION), SKILL_SCAN, API, SEARCH, or OTHER for unknown nonempty subtypes. API uses the recorded entity when subtype is absent. Values can be added.
+        model_id:
+          type:
+            - string
+            - "null"
+          description: Recorded model enum ID.
+        client_id:
+          type:
+            - string
+            - "null"
+          description: |
+            Recorded spend client ID. Usage with no client and Glean Desktop gateway usage are glean.
+        agent_id:
+          type:
+            - string
+            - "null"
+          description: Recorded top-level agent ID.
+        user_id:
+          type:
+            - string
+            - "null"
+          description: Canonical user ID; admin route only.
+        department_name:
+          type:
+            - string
+            - "null"
+          description: Deferred; not returned yet.
+        group_id:
+          type:
+            - string
+            - "null"
+          description: Deferred; not returned yet.
+    PlatformUsageUsedValue:
+      type: object
+      additionalProperties: false
+      description: Accrued usage in one unit, without combining or converting units.
+      required:
+        - used
+        - unit
+      properties:
+        used:
+          type: string
+          minLength: 1
+          maxLength: 24
+          pattern: ^(0|[1-9][0-9]*)(\.[0-9]{1,6})?$
+          description: Nonnegative decimal usage with at most six fractional digits.
+        unit:
+          $ref: "#/components/schemas/PlatformUsageUnit"
+          description: Unit of accrued usage.
+    PlatformUsageSearchBucket:
+      type: object
+      additionalProperties: false
+      description: One observed period and grouped-dimension combination; empty buckets are omitted.
+      required:
+        - dimensions
+        - used_by_unit
+      properties:
+        period:
+          $ref: "#/components/schemas/PlatformUsageSearchTimeRange"
+          description: Clipped bucket interval; omitted for NONE.
+        dimensions:
+          $ref: "#/components/schemas/PlatformUsageSearchDimensions"
+          description: Grouped values for this bucket.
+        used_by_unit:
+          type: array
+          description: Observed spend units only, ordered USD then CREDITS; never combined or converted.
+          items:
+            $ref: "#/components/schemas/PlatformUsageUsedValue"
+        event_count:
+          type: integer
+          format: int64
+          minimum: 0
+          description: Raw billing events across both units; present only when requested.
+    PlatformUsageTaxonomyLabel:
+      type: object
+      additionalProperties: false
+      description: Display name of a product or feature value.
+      required:
+        - display_name
+      properties:
+        display_name:
+          type: string
+          description: Display name.
+    PlatformUsageModelLabel:
+      type: object
+      additionalProperties: false
+      description: Current model metadata.
+      required:
+        - display_name
+      properties:
+        display_name:
+          type: string
+          description: Current display name.
+        creator:
+          type: string
+          description: Model creator, when known.
+    PlatformUsageClientLabel:
+      type: object
+      additionalProperties: false
+      description: Current spend client metadata.
+      required:
+        - display_name
+      properties:
+        display_name:
+          type: string
+          description: Current application name; Glean for glean.
+    PlatformUsageAgentLabel:
+      type: object
+      additionalProperties: false
+      description: Current metadata of an agent the caller can read.
+      required:
+        - display_name
+      properties:
+        display_name:
+          type: string
+          description: Current agent name.
+    PlatformUsageUserLabel:
+      type: object
+      additionalProperties: false
+      description: Current user metadata from the People directory.
+      required:
+        - display_name
+      properties:
+        display_name:
+          type: string
+          description: Current display name.
+        email:
+          type: string
+          description: User email, when permitted and known.
+    PlatformUsageSearchLabels:
+      type: object
+      additionalProperties: false
+      description: |
+        Current visible metadata for grouped IDs on this page, one lookup per field. Missing, deleted, disabled, or hidden resources omit labels, not usage.
+      properties:
+        product:
+          type: object
+          description: Product value to label.
+          additionalProperties:
+            $ref: "#/components/schemas/PlatformUsageTaxonomyLabel"
+        feature:
+          type: object
+          description: Feature value to label.
+          additionalProperties:
+            $ref: "#/components/schemas/PlatformUsageTaxonomyLabel"
+        model_id:
+          type: object
+          description: Model ID to label.
+          additionalProperties:
+            $ref: "#/components/schemas/PlatformUsageModelLabel"
+        client_id:
+          type: object
+          description: Spend client ID to label.
+          additionalProperties:
+            $ref: "#/components/schemas/PlatformUsageClientLabel"
+        agent_id:
+          type: object
+          description: Agent ID to label.
+          additionalProperties:
+            $ref: "#/components/schemas/PlatformUsageAgentLabel"
+        user_id:
+          type: object
+          description: User ID to label.
+          additionalProperties:
+            $ref: "#/components/schemas/PlatformUsageUserLabel"
+    PlatformSearchUsageResponse:
+      type: object
+      additionalProperties: false
+      description: |
+        Measured spend observed in one pinned stored snapshot, not live counters, certified export completeness, verified absent usage or a final invoice. Source freshness and historical coverage are unknown when unsupported. Legacy rows without a unit use the app's current-plan fallback frozen at read selection; this is denomination inference, not certified historical denomination.
+      required:
+        - target
+        - results
+        - totals
+        - time_range
+        - data_updated_at
+        - earliest_available_at
+        - has_more
+        - next_cursor
+        - request_id
+      properties:
+        target:
+          $ref: "#/components/schemas/PlatformUsageTarget"
+          description: |
+            Scope measured for this query, derived from its user_id and agent_id filters: ORGANIZATION, USER with canonical user_id and known email, or AGENT.
+        results:
+          type: array
+          description: Requested page of observed buckets, at most page_size.
+          items:
+            $ref: "#/components/schemas/PlatformUsageSearchBucket"
+        totals:
+          type: array
+          description: Totals over all observed stored rows matching this query across every page; USD then CREDITS, observed units only.
+          items:
+            $ref: "#/components/schemas/PlatformUsageUsedValue"
+        total_count:
+          type: integer
+          minimum: 0
+          maximum: 100000
+          description: Bucket count across every page; present only with TOTAL_COUNT.
+        time_range:
+          $ref: "#/components/schemas/PlatformUsageSearchTimeRange"
+          description: Resolved inclusive-start, exclusive-end UTC interval.
+        data_updated_at:
+          type:
+            - string
+            - "null"
+          format: date-time
+          description: Last completed source refresh when supported, otherwise null; read selection time is not source freshness.
+        earliest_available_at:
+          type:
+            - string
+            - "null"
+          format: date-time
+          description: Earliest historical coverage when supported for this scope, otherwise null; an empty result does not verify absent usage.
+        labels:
+          $ref: "#/components/schemas/PlatformUsageSearchLabels"
+          description: |
+            With DISPLAY_NAMES, labels for grouped IDs on this page only, hydrated outside the shared measured-data cache.
+        has_more:
+          type: boolean
+          description: Whether another page exists in the pinned snapshot.
+        next_cursor:
+          type:
+            - string
+            - "null"
+          description: Opaque continuation cursor, or null when has_more is false.
+        request_id:
+          type: string
+          description: Request identifier for troubleshooting.
+    PlatformSearchAdminUsageRequest:
+      description: |
+        Administrative measured-usage query, the same shape as personal search. Without a principal filter it measures the organization. Requires billing read.
+      allOf:
+        - $ref: "#/components/schemas/PlatformSearchCallerUsageRequest"
     PlatformEvaluateUsageLimitRequest:
       type: object
       additionalProperties: false
@@ -11816,8 +13121,8 @@ components:
           description: Concrete organization, user, or agent and spend client to evaluate.
         period:
           $ref: "#/components/schemas/PlatformPeriod"
-          x-glean-experimental:
-            id: 3d965112-7c52-4e2e-85cb-48273a3795fe
+          x-glean-release:
+            stage: beta
             introduced: "2026-10-30"
           description: Evaluation period.
       allOf:
@@ -11857,8 +13162,8 @@ components:
           description: Kind of configured policy source.
         client_id:
           type: string
-          x-glean-experimental:
-            id: a6a3f695-ed21-4184-9cef-3dd805d87a2b
+          x-glean-release:
+            stage: beta
             introduced: "2026-10-30"
           minLength: 1
           maxLength: 256
@@ -11871,8 +13176,8 @@ components:
         email:
           type: string
           minLength: 1
-          x-glean-experimental:
-            id: 618d5192-fb51-451f-ba79-51304a408b55
+          x-glean-release:
+            stage: beta
             introduced: "2026-09-29"
           description: |
             Directory email of the user for a user-specific policy; omitted when the directory has no email for the user.
@@ -12018,23 +13323,6 @@ components:
         source:
           $ref: "#/components/schemas/PlatformUsagePolicySourceTarget"
           description: Configured policy supplying this restriction.
-    PlatformUsageUsedValue:
-      type: object
-      additionalProperties: false
-      description: Accrued usage in one unit, without combining or converting units.
-      required:
-        - used
-        - unit
-      properties:
-        used:
-          type: string
-          minLength: 1
-          maxLength: 24
-          pattern: ^(0|[1-9][0-9]*)(\.[0-9]{1,6})?$
-          description: Nonnegative decimal usage with at most six fractional digits.
-        unit:
-          $ref: "#/components/schemas/PlatformUsageUnit"
-          description: Unit of accrued usage.
     PlatformUsageAggregateUsage:
       type: object
       additionalProperties: false
@@ -12199,8 +13487,8 @@ components:
             Configured source of this limit. Default and group policies retain their source population; used is the concrete evaluated user's or agent's counter. Non-admin evaluation withholds IdP-group identities but returns the limit value, counter, and decision of every policy it lists.
         period:
           $ref: "#/components/schemas/PlatformPeriod"
-          x-glean-experimental:
-            id: 6fce16b8-3dea-48e5-9148-943efb62bb52
+          x-glean-release:
+            stage: beta
             introduced: "2026-10-30"
           description: Counter period; target.client_id identifies client scope and is omitted for aggregate agent rules.
         active_actions:
@@ -12219,8 +13507,8 @@ components:
           description: Decimal amount of accrued usage for this limit in used_unit.
         used_unit:
           $ref: "#/components/schemas/PlatformUsageUnit"
-          x-glean-experimental:
-            id: 5c21ff70-7182-49f9-89c7-9c8f4929695f
+          x-glean-release:
+            stage: beta
             introduced: "2026-11-16"
           description: Resolved counter denomination, including when value.mode is UNLIMITED.
         current_period_amount:
@@ -12228,8 +13516,8 @@ components:
           minLength: 1
           maxLength: 24
           pattern: ^(0|[1-9][0-9]*)(\.[0-9]{1,6})?$
-          x-glean-experimental:
-            id: 3ad9a7ba-123c-4ee5-b6c9-b4dc59ec7ebc
+          x-glean-release:
+            stage: beta
             introduced: "2026-11-16"
           description: |
             The cap this rule enforces in the current period: configured cap plus approved current-period grants. Present for FINITE rules and omitted for UNLIMITED rules. Show usage as used against current_period_amount; used can exceed it once a rule is over its limit.
@@ -12238,8 +13526,8 @@ components:
           minLength: 1
           maxLength: 24
           pattern: ^(0|[1-9][0-9]*)(\.[0-9]{1,6})?$
-          x-glean-experimental:
-            id: 003db27d-ea53-4ec4-a147-8012a1b0cb7c
+          x-glean-release:
+            stage: beta
             introduced: "2026-11-16"
           description: |
             This rule's nonnegative headroom: current_period_amount minus used, floored at zero. Present for FINITE rules and omitted for UNLIMITED rules. Over the limit, used + remaining exceeds current_period_amount. This is independent of the tightest effective_limits[].remaining and is not runtime admission.
@@ -12365,8 +13653,8 @@ components:
             Normalized concrete ORGANIZATION, USER, or AGENT evaluated. USER targets contain the canonical user_id, not the supplied alias ID or email. Included even when no configured policies apply.
         period:
           $ref: "#/components/schemas/PlatformPeriod"
-          x-glean-experimental:
-            id: 6a059c59-3fbc-498d-8a44-f05465f9e8ad
+          x-glean-release:
+            stage: beta
             introduced: "2026-10-30"
           description: Exact evaluated period; target.client_id preserves case and padding.
         restrictions:
@@ -12381,16 +13669,16 @@ components:
             Number of applicable configured policies returned in evaluated_limits, including UNLIMITED policies. Zero explicitly means no returned policy matched, not an unlimited configured rule. Non-admin evaluation excludes shared budgets. Included even when zero.
         aggregate_usage:
           $ref: "#/components/schemas/PlatformUsageAggregateUsage"
-          x-glean-experimental:
-            id: 3a6dcfc9-9429-45da-ba71-945c43c1dfd7
+          x-glean-release:
+            stage: beta
             introduced: "2026-11-16"
           description: |
             Present only for AGENT, including without configured policies. Existing clientless AGENT counters, never relabeled as selected-client usage. Omitted, as unknown, when the counters are unavailable.
         used_by_unit:
           type: array
           x-go-type-skip-optional-pointer: true
-          x-glean-experimental:
-            id: 9d805f36-84ee-43de-a21a-a41426dce590
+          x-glean-release:
+            stage: beta
             introduced: "2026-11-16"
           minItems: 2
           maxItems: 2
@@ -12430,8 +13718,8 @@ components:
           description: Request identifier for correlating this response.
     Platformclient_id:
       type: string
-      x-glean-experimental:
-        id: 3a8dfb97-fbe9-4173-ac61-4fd6e6faa847
+      x-glean-release:
+        stage: beta
         introduced: "2026-09-23"
       minLength: 1
       maxLength: 256
@@ -12454,8 +13742,8 @@ components:
       minLength: 3
       maxLength: 320
       pattern: ^[^\s@\x00-\x1f\x7f]+@[^\s@\x00-\x1f\x7f]+$
-      x-glean-experimental:
-        id: 1e7ce9ed-56af-44b2-81c1-f39e656919ea
+      x-glean-release:
+        stage: beta
         introduced: "2026-09-29"
       description: |
         Email address of the user, including a known alias email; valid only when type is USER. Matching is case-insensitive and resolves to the canonical user_id. When user_id is also supplied, both must identify the same user. Email is never part of the stored limit key. Responses include the user's directory email when one is available.
@@ -12486,8 +13774,8 @@ components:
               description: USER (the default) or an editable AGENT.
             client_id:
               $ref: "#/components/schemas/Platformclient_id"
-              x-glean-experimental:
-                id: 6df95a62-42d4-4589-ac86-2304b4dfab72
+              x-glean-release:
+                stage: beta
                 introduced: "2026-10-30"
               description: Explicit spend client, including for aggregate agent evaluation.
             user_id:
@@ -12495,8 +13783,8 @@ components:
               description: Optional caller user ID.
             email:
               $ref: "#/components/schemas/Platformemail"
-              x-glean-experimental:
-                id: d9e2ce7e-0f85-4bdd-a600-629f9b25c912
+              x-glean-release:
+                stage: beta
                 introduced: "2026-09-29"
               description: Optional caller email.
             agent_id:
@@ -12527,8 +13815,8 @@ components:
                       - email
         period:
           $ref: "#/components/schemas/PlatformPeriod"
-          x-glean-experimental:
-            id: bf96af1d-4d8d-440e-8437-6be4a8d4bc79
+          x-glean-release:
+            stage: beta
             introduced: "2026-10-30"
           description: Evaluation period.
       allOf:
@@ -15437,11 +16725,12 @@ components:
           type: boolean
           description: DEPRECATED - please use relationType instead
           deprecated: true
-          x-glean-deprecated:
-            id: 75a48c79-b36a-4171-a0a0-4af7189da66e
-            introduced: "2026-02-05"
-            message: Use relationType instead
-            removal: "2027-01-15"
+          x-glean-release:
+            stage: deprecated
+            deprecation:
+              introduced: "2026-02-05"
+              message: Use relationType instead
+              removal: "2027-01-15"
           x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Use relationType instead"
     FacetFilter:
       properties:
@@ -16247,11 +17536,12 @@ components:
           type: integer
           description: The parent board ID of this Answer, or 0 if it's a floating Answer. Adding Answers to Answer Boards is no longer permitted.
           deprecated: true
-          x-glean-deprecated:
-            id: 3729bc64-8859-4159-b93c-ce2d5f0e7304
-            introduced: "2026-02-05"
-            message: Answer Boards no longer supported
-            removal: "2027-01-15"
+          x-glean-release:
+            stage: deprecated
+            deprecation:
+              introduced: "2026-02-05"
+              message: Answer Boards no longer supported
+              removal: "2027-01-15"
           x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Answer Boards no longer supported"
         audienceFilters:
           type: array
@@ -17153,6 +18443,25 @@ components:
         key: person_icon
         iconType: GLYPH
         name: user
+    ChatStatus:
+      type: string
+      enum:
+        - SUCCESS
+        - ERROR
+        - IN_PROGRESS
+        - CANCELLED
+      description: The status of the Chat.
+      x-include-enum-class-prefix: true
+      x-enumDescriptions:
+        SUCCESS: The Chat has completed executing successfully.
+        ERROR: The Chat has completed executing unsuccessfully.
+        IN_PROGRESS: The Chat is still completing execution in the background.
+        CANCELLED: The user cancelled the Chat execution.
+      x-speakeasy-enum-descriptions:
+        SUCCESS: The Chat has completed executing successfully.
+        ERROR: The Chat has completed executing unsuccessfully.
+        IN_PROGRESS: The Chat is still completing execution in the background.
+        CANCELLED: The user cancelled the Chat execution.
     ChatMetadata:
       properties:
         id:
@@ -17178,6 +18487,8 @@ components:
           description: The display name of the AI App that this Chat is associated to.
         icon:
           $ref: '#/components/schemas/IconConfig'
+        status:
+          $ref: '#/components/schemas/ChatStatus'
       description: Metadata of a Chat a user had with Glean Assistant. This contains no actual conversational content.
     RelatedDocuments:
       properties:
@@ -17233,11 +18544,12 @@ components:
             $ref: '#/components/schemas/Document'
           description: A truncated list of documents with this relation. TO BE DEPRECATED.
           deprecated: true
-          x-glean-deprecated:
-            id: 68de0429-b0cc-4b40-8061-f848788079a2
-            introduced: "2026-02-05"
-            message: Field is deprecated
-            removal: "2027-01-15"
+          x-glean-release:
+            stage: deprecated
+            deprecation:
+              introduced: "2026-02-05"
+              message: Field is deprecated
+              removal: "2027-01-15"
           x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Field is deprecated"
         results:
           type: array
@@ -17300,11 +18612,12 @@ components:
           type: string
           description: A matching snippet from the document. Query term matches are marked by the unicode characters uE006 and uE007. Use 'text' field instead.
           deprecated: true
-          x-glean-deprecated:
-            id: e55ddf30-7c47-43a5-b775-d78f8b29411a
-            introduced: "2026-02-05"
-            message: Use 'text' field instead
-            removal: "2027-01-15"
+          x-glean-release:
+            stage: deprecated
+            deprecation:
+              introduced: "2026-02-05"
+              message: Use 'text' field instead
+              removal: "2027-01-15"
           x-includeEmpty: true
           x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Use 'text' field instead"
       example:
@@ -17613,33 +18926,36 @@ components:
           $ref: '#/components/schemas/Person'
           description: The person that invited this person.
           deprecated: true
-          x-glean-deprecated:
-            id: 1d3cd23f-9085-4378-b466-9bdc2e344a71
-            introduced: "2026-02-05"
-            message: Use ChannelInviteInfo instead
-            removal: "2027-01-15"
+          x-glean-release:
+            stage: deprecated
+            deprecation:
+              introduced: "2026-02-05"
+              message: Use ChannelInviteInfo instead
+              removal: "2027-01-15"
           x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Use ChannelInviteInfo instead"
         inviteTime:
           type: string
           format: date-time
           description: The time this person was invited in ISO format (ISO 8601).
           deprecated: true
-          x-glean-deprecated:
-            id: 2dc3f572-cded-483d-af07-fc9fc7fd0ae4
-            introduced: "2026-02-05"
-            message: Use ChannelInviteInfo instead
-            removal: "2027-01-15"
+          x-glean-release:
+            stage: deprecated
+            deprecation:
+              introduced: "2026-02-05"
+              message: Use ChannelInviteInfo instead
+              removal: "2027-01-15"
           x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Use ChannelInviteInfo instead"
         reminderTime:
           type: string
           format: date-time
           description: The time this person was reminded in ISO format (ISO 8601) if a reminder was sent.
           deprecated: true
-          x-glean-deprecated:
-            id: d02d58cf-eb90-45d0-ab90-f7a9d707ae3c
-            introduced: "2026-02-05"
-            message: Use ChannelInviteInfo instead
-            removal: "2027-01-15"
+          x-glean-release:
+            stage: deprecated
+            deprecation:
+              introduced: "2026-02-05"
+              message: Use ChannelInviteInfo instead
+              removal: "2027-01-15"
           x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Use ChannelInviteInfo instead"
       description: Information regarding the invite status of a person.
     ReadPermission:
@@ -17998,11 +19314,12 @@ components:
             type: string
           description: To be deprecated in favor of reacts. A (potentially non-exhaustive) list of reactions for the document.
           deprecated: true
-          x-glean-deprecated:
-            id: cd754845-6eec-480f-b395-c93478aff563
-            introduced: "2026-02-05"
-            message: Use reacts instead
-            removal: "2027-01-15"
+          x-glean-release:
+            stage: deprecated
+            deprecation:
+              introduced: "2026-02-05"
+              message: Use reacts instead
+              removal: "2027-01-15"
           x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Use reacts instead"
         reacts:
           type: array
@@ -18025,8 +19342,9 @@ components:
             - VIEWER
           description: DEPRECATED - use permissions instead. Viewer's role on the specific document.
           deprecated: true
-          x-glean-deprecated:
-            - id: fbc55efe-3e6c-485c-8b60-bab574c3813b
+          x-glean-release:
+            stage: deprecated
+            deprecation:
               introduced: "2026-02-05"
               kind: property
               message: Use permissions instead
@@ -18392,11 +19710,12 @@ components:
           type: string
           description: Use `answer.trackingToken` instead.
           deprecated: true
-          x-glean-deprecated:
-            id: 62de643b-f182-4d4d-a2fc-5e2cbfee7320
-            introduced: "2026-05-07"
-            message: Use `answer.trackingToken` instead.
-            removal: "2027-01-15"
+          x-glean-release:
+            stage: deprecated
+            deprecation:
+              introduced: "2026-05-07"
+              message: Use `answer.trackingToken` instead.
+              removal: "2027-01-15"
           x-speakeasy-deprecation-message: "Deprecated on 2026-05-07, removal scheduled for 2027-01-15: Use `answer.trackingToken` instead."
         favoriteInfo:
           $ref: '#/components/schemas/FavoriteInfo'
@@ -18947,8 +20266,8 @@ components:
         - requestType
         - requestId
       x-visibility: Public
-      x-glean-experimental:
-        id: 4e3ee791-45e0-4125-845f-4b7701aa983c
+      x-glean-release:
+        stage: beta
         introduced: "2026-07-02"
     ActionPreview:
       properties:
@@ -18981,8 +20300,8 @@ components:
           required:
             - toolName
       x-visibility: Public
-      x-glean-experimental:
-        id: 8544e887-4569-4b14-bde0-d1be9e90dbc3
+      x-glean-release:
+        stage: beta
         introduced: "2026-07-02"
     AuthContext:
       type: object
@@ -18993,8 +20312,8 @@ components:
       description: |
         Context for authentication responses, containing identifiers for the entity being authenticated.
       x-visibility: Public
-      x-glean-experimental:
-        id: a7c1d3e5-9f42-4b8a-b6e0-2d4f8a1c3e5b
+      x-glean-release:
+        stage: beta
         introduced: "2026-07-09"
     ServerToolResponse:
       allOf:
@@ -19042,8 +20361,8 @@ components:
         For SANDBOX_EGRESS requests:
         - isGranted: whether the sandbox egress call is approved
       x-visibility: Public
-      x-glean-experimental:
-        id: 3eae3ee7-2c06-4027-be14-98260a3ce608
+      x-glean-release:
+        stage: beta
         introduced: "2026-07-02"
     ChatMessageFragment:
       allOf:
@@ -19087,11 +20406,12 @@ components:
             $ref: '#/components/schemas/ChatMessageCitation'
           description: 'Deprecated: Use inline citations via ChatMessageFragment.citation instead. For detailed reference information, use ChatMessageCitation.referenceRanges. This field is still populated for backward compatibility.'
           deprecated: true
-          x-glean-deprecated:
-            id: 6446f85e-c90e-4c00-9717-796f9db3dc61
-            introduced: "2026-02-06"
-            message: Use inline citations via ChatMessageFragment.citation and ChatMessageCitation.referenceRanges instead. This field is still populated for backward compatibility.
-            removal: "2027-01-15"
+          x-glean-release:
+            stage: deprecated
+            deprecation:
+              introduced: "2026-02-06"
+              message: Use inline citations via ChatMessageFragment.citation and ChatMessageCitation.referenceRanges instead. This field is still populated for backward compatibility.
+              removal: "2027-01-15"
           x-speakeasy-deprecation-message: "Deprecated on 2026-02-06, removal scheduled for 2027-01-15: Use inline citations via ChatMessageFragment.citation and ChatMessageCitation.referenceRanges instead. This field is still populated for backward compatibility."
         uploadedFileIds:
           type: array
@@ -20148,11 +21468,12 @@ components:
           type: string
           description: Use `collection.trackingToken` instead.
           deprecated: true
-          x-glean-deprecated:
-            id: 2d6ca3a7-4763-4137-9ebd-740568fe8300
-            introduced: "2026-05-07"
-            message: Use `collection.trackingToken` instead.
-            removal: "2027-01-15"
+          x-glean-release:
+            stage: deprecated
+            deprecation:
+              introduced: "2026-05-07"
+              message: Use `collection.trackingToken` instead.
+              removal: "2027-01-15"
           x-speakeasy-deprecation-message: "Deprecated on 2026-05-07, removal scheduled for 2027-01-15: Use `collection.trackingToken` instead."
     ListCollectionsRequest:
       properties:
@@ -20567,17 +21888,19 @@ components:
               description: Unix timestamp of the last update for the insights data in the response.
             totalSignupsWeekAgo:
               type: integer
-              description: Number of current employees in the specified departments who had signed up 7 days before the latest day of insights data. Compare with totalSignups for week-over-week signup change.
+              description: Number of current employees in the specified departments who had signed up 7 days before the latest day of insights data. Compare with totalSignups for week-over-week signup change. Included even when zero.
+              x-includeEmpty: true
             searchSessionSatisfaction:
               type: number
               format: float
               description: Search session satisfaction rate, over the specified time period in the specified departments.
               deprecated: true
-              x-glean-deprecated:
-                id: 2652ea73-3e33-4409-ba8c-bda7b60a2c24
-                introduced: "2026-05-13"
-                message: This property is no longer supported. Please contact Support for alternatives.
-                removal: "2027-01-15"
+              x-glean-release:
+                stage: deprecated
+                deprecation:
+                  introduced: "2026-05-13"
+                  message: This property is no longer supported. Please contact Support for alternatives.
+                  removal: "2027-01-15"
               x-speakeasy-deprecation-message: "Deprecated on 2026-05-13, removal scheduled for 2027-01-15: This property is no longer supported. Please contact Support for alternatives."
             monthlyActiveUserTimeseries:
               $ref: '#/components/schemas/LabeledCountInfo'
@@ -20992,11 +22315,12 @@ components:
         gleanAssist:
           $ref: '#/components/schemas/GleanAssistInsightsResponse'
           deprecated: true
-          x-glean-deprecated:
-            id: 15850758-4d95-4d98-8d57-39c50663a796
-            introduced: "2026-02-05"
-            message: Field is deprecated
-            removal: "2027-01-15"
+          x-glean-release:
+            stage: deprecated
+            deprecation:
+              introduced: "2026-02-05"
+              message: Field is deprecated
+              removal: "2027-01-15"
           x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Field is deprecated"
         overviewResponse:
           $ref: '#/components/schemas/InsightsOverviewResponse'
@@ -24047,11 +25371,12 @@ components:
           type: string
           description: The employee's location (city/office name etc).
           deprecated: true
-          x-glean-deprecated:
-            id: a7f6fbaa-0eaf-4c0c-a4f5-ab90347f73fd
-            introduced: "2026-02-05"
-            message: Field is deprecated
-            removal: "2027-01-15"
+          x-glean-release:
+            stage: deprecated
+            deprecation:
+              introduced: "2026-02-05"
+              message: Field is deprecated
+              removal: "2027-01-15"
           x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Field is deprecated"
         structuredLocation:
           $ref: '#/components/schemas/StructuredLocation'
@@ -24967,8 +26292,9 @@ components:
             - UNLIKELY
             - VERY_UNLIKELY
           deprecated: true
-          x-glean-deprecated:
-            - id: d45039ec-d6f6-47ba-93b7-ab2307b07f84
+          x-glean-release:
+            stage: deprecated
+            deprecation:
               introduced: "2026-02-05"
               kind: property
               message: Field is deprecated
@@ -24999,11 +26325,12 @@ components:
             type: string
           description: list of url regex matching documents excluded from report
           deprecated: true
-          x-glean-deprecated:
-            id: e022aaa5-56e6-4b57-bca3-b11943da76a0
-            introduced: "2026-02-05"
-            message: Field is deprecated
-            removal: "2027-01-15"
+          x-glean-release:
+            stage: deprecated
+            deprecation:
+              introduced: "2026-02-05"
+              message: Field is deprecated
+              removal: "2027-01-15"
           x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Field is deprecated"
         datasourcesType:
           type: string
@@ -25017,11 +26344,12 @@ components:
             type: string
           description: List of datasources to consider for report. DEPRECATED - use datasourceInstances instead.
           deprecated: true
-          x-glean-deprecated:
-            id: 97e35970-e0ed-4248-be13-2af8c22e7894
-            introduced: "2026-02-05"
-            message: Use datasourceInstances instead
-            removal: "2027-01-15"
+          x-glean-release:
+            stage: deprecated
+            deprecation:
+              introduced: "2026-02-05"
+              message: Use datasourceInstances instead
+              removal: "2027-01-15"
           x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Use datasourceInstances instead"
         datasourceInstances:
           type: array
@@ -25050,11 +26378,12 @@ components:
         enabled:
           type: boolean
           deprecated: true
-          x-glean-deprecated:
-            id: e9260be6-209b-4ce2-a4b3-f7f22879dd86
-            introduced: "2026-02-05"
-            message: Field is deprecated
-            removal: "2027-01-15"
+          x-glean-release:
+            stage: deprecated
+            deprecation:
+              introduced: "2026-02-05"
+              message: Field is deprecated
+              removal: "2027-01-15"
           x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Field is deprecated"
         threshold:
           type: integer
@@ -25065,11 +26394,12 @@ components:
         anyoneWithLinkEnabled:
           type: boolean
           deprecated: true
-          x-glean-deprecated:
-            id: 30646ced-e0db-43ef-8412-64a67c5d0f53
-            introduced: "2026-02-05"
-            message: Field is deprecated
-            removal: "2027-01-15"
+          x-glean-release:
+            stage: deprecated
+            deprecation:
+              introduced: "2026-02-05"
+              message: Field is deprecated
+              removal: "2027-01-15"
           x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Field is deprecated"
         anyoneInternalEnabled:
           type: boolean
@@ -25095,11 +26425,12 @@ components:
             domainAccessEnabled:
               type: boolean
       deprecated: true
-      x-glean-deprecated:
-        id: 7c9e4a1d-3f8b-4e2c-9a5d-6b0f1c8e2d4a
-        introduced: "2026-02-05"
-        message: Use broadSharingOptions instead
-        removal: "2027-01-15"
+      x-glean-release:
+        stage: deprecated
+        deprecation:
+          introduced: "2026-02-05"
+          message: Use broadSharingOptions instead
+          removal: "2027-01-15"
       x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Use broadSharingOptions instead"
     HotwordProximity:
       properties:
@@ -25168,11 +26499,12 @@ components:
             $ref: '#/components/schemas/SensitiveInfoType'
           description: DEPRECATED - use 'customSensitiveExpressions' instead.
           deprecated: true
-          x-glean-deprecated:
-            id: 3497cb1c-f7aa-42d8-81b8-309c3adeed84
-            introduced: "2026-02-05"
-            message: Use customSensitiveExpressions instead
-            removal: "2027-01-15"
+          x-glean-release:
+            stage: deprecated
+            deprecation:
+              introduced: "2026-02-05"
+              message: Use customSensitiveExpressions instead
+              removal: "2027-01-15"
           x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Use customSensitiveExpressions instead"
         sensitiveTerms:
           type: array
@@ -25180,11 +26512,12 @@ components:
             $ref: '#/components/schemas/SensitiveExpression'
           description: DEPRECATED - use 'customSensitiveExpressions' instead.
           deprecated: true
-          x-glean-deprecated:
-            id: b0713b37-472e-4c29-80ba-6f5d6f2b449c
-            introduced: "2026-02-05"
-            message: Use customSensitiveExpressions instead
-            removal: "2027-01-15"
+          x-glean-release:
+            stage: deprecated
+            deprecation:
+              introduced: "2026-02-05"
+              message: Use customSensitiveExpressions instead
+              removal: "2027-01-15"
           x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Use customSensitiveExpressions instead"
         sensitiveRegexes:
           type: array
@@ -25192,11 +26525,12 @@ components:
             $ref: '#/components/schemas/SensitiveExpression'
           description: DEPRECATED - use 'customSensitiveExpressions' instead.
           deprecated: true
-          x-glean-deprecated:
-            id: a26e1920-36b6-4c0f-981f-57b09a9ebce3
-            introduced: "2026-02-05"
-            message: Use customSensitiveExpressions instead
-            removal: "2027-01-15"
+          x-glean-release:
+            stage: deprecated
+            deprecation:
+              introduced: "2026-02-05"
+              message: Use customSensitiveExpressions instead
+              removal: "2027-01-15"
           x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Use customSensitiveExpressions instead"
         customSensitiveExpressions:
           type: array
@@ -25251,11 +26585,12 @@ components:
             $ref: '#/components/schemas/SensitiveInfoType'
           description: DEPRECATED - use `sensitiveContentOptions` instead.
           deprecated: true
-          x-glean-deprecated:
-            id: 60d6d182-e9d0-448d-af75-137f68bbdcbf
-            introduced: "2026-02-05"
-            message: Use sensitiveContentOptions instead
-            removal: "2027-01-15"
+          x-glean-release:
+            stage: deprecated
+            deprecation:
+              introduced: "2026-02-05"
+              message: Use sensitiveContentOptions instead
+              removal: "2027-01-15"
           x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Use sensitiveContentOptions instead"
         inputOptions:
           $ref: '#/components/schemas/InputOptions'
@@ -25264,11 +26599,12 @@ components:
           $ref: '#/components/schemas/ExternalSharingOptions'
           description: DEPRECATED - use `broadSharingOptions` instead.
           deprecated: true
-          x-glean-deprecated:
-            id: 6484ec17-a133-4176-b2ce-28e25b0e9065
-            introduced: "2026-02-05"
-            message: Use broadSharingOptions instead
-            removal: "2027-01-15"
+          x-glean-release:
+            stage: deprecated
+            deprecation:
+              introduced: "2026-02-05"
+              message: Use broadSharingOptions instead
+              removal: "2027-01-15"
           x-speakeasy-deprecation-message: "Deprecated on 2026-02-05, removal scheduled for 2027-01-15: Use broadSharingOptions instead"
         broadSharingOptions:
           $ref: '#/components/schemas/SharingOptions'
@@ -26110,8 +27446,6 @@ x-glean-platform-tag-groups:
     tags:
       - Agents
       - Chat
-      - CORL
-      - Models
       - Skills
   - name: Search & Data
     tags:

@@ -4,7 +4,7 @@
 
 ### Available Operations
 
-* [debug](#debug) - Beta: Get user information
+* [debug](#debug) - Get user information
 
 * [~~count~~](#count) - Get user count :warning: **Deprecated**
 * [index](#index) - Index employee
@@ -17,7 +17,7 @@
 
 ## debug
 
-Gives various information that would help in debugging related to a particular user. Currently in beta, might undergo breaking changes without prior notice.
+Gives various information that would help in debugging related to a particular user.
 
 Tip: Refer to the [Troubleshooting tutorial](https://developers.glean.com/indexing/debugging/datasource-config) for more information.
 
