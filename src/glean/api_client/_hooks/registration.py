@@ -1,4 +1,5 @@
 from .types import Hooks
+from .answer_likes_null_fix_hook import AnswerLikesNullFixHook
 from .server_url_normalizer import ServerURLNormalizerHook
 from .multipart_fix_hook import MultipartFileFieldFixHook
 from .agent_file_upload_error_hook import AgentFileUploadErrorHook
@@ -21,6 +22,9 @@ def init_hooks(hooks: Hooks):
 
     # Register hook to fix multipart file field names that incorrectly have '[]' suffix
     hooks.register_sdk_init_hook(MultipartFileFieldFixHook())
+
+    # Register hook to normalize null likedBy payloads before response validation
+    hooks.register_sdk_init_hook(AnswerLikesNullFixHook())
 
     # Register hook to provide helpful error messages for agent file upload issues
     hooks.register_after_error_hook(AgentFileUploadErrorHook())
