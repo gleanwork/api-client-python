@@ -1,0 +1,31 @@
+# AutocompleteResultResultType
+
+## Example Usage
+
+```python
+from glean.api_client.models import AutocompleteResultResultType
+
+value = AutocompleteResultResultType.ADDITIONAL_DOCUMENT
+
+# Open enum: unrecognized values are captured as UnrecognizedStr
+```
+
+
+## Values
+
+| Name                  | Value                 |
+| --------------------- | --------------------- |
+| `ADDITIONAL_DOCUMENT` | ADDITIONAL_DOCUMENT   |
+| `APP`                 | APP                   |
+| `BROWSER_HISTORY`     | BROWSER_HISTORY       |
+| `DATASOURCE`          | DATASOURCE            |
+| `DOCUMENT`            | DOCUMENT              |
+| `ENTITY`              | ENTITY                |
+| `GOLINK`              | GOLINK                |
+| `HISTORY`             | HISTORY               |
+| `CHAT_HISTORY`        | CHAT_HISTORY          |
+| `NEW_CHAT`            | NEW_CHAT              |
+| `OPERATOR`            | OPERATOR              |
+| `OPERATOR_VALUE`      | OPERATOR_VALUE        |
+| `QUICKLINK`           | QUICKLINK             |
+| `SUGGESTION`          | SUGGESTION            |

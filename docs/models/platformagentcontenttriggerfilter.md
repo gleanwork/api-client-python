@@ -1,0 +1,12 @@
+# PlatformAgentContentTriggerFilter
+
+A filter on the document that fired a content trigger. Values are ORed.
+
+
+## Fields
+
+| Field                                                                                                      | Type                                                                                                       | Required                                                                                                   | Description                                                                                                |
+| ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `field`                                                                                                    | *str*                                                                                                      | :heavy_check_mark:                                                                                         | `TITLE` or `CONTENT` for the document's title or body, or a facet key.                                     |
+| `operator`                                                                                                 | [models.PlatformAgentContentTriggerFilterOperator](../models/platformagentcontenttriggerfilteroperator.md) | :heavy_check_mark:                                                                                         | Operator of a content trigger filter.                                                                      |
+| `values`                                                                                                   | List[*str*]                                                                                                | :heavy_minus_sign:                                                                                         | Match values. Required except for FIELD_CHANGED.                                                           |

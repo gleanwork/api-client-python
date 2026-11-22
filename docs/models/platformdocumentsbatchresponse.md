@@ -1,0 +1,10 @@
+# PlatformDocumentsBatchResponse
+
+
+## Fields
+
+| Field                                                                                    | Type                                                                                     | Required                                                                                 | Description                                                                              |
+| ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `results`                                                                                | List[[models.PlatformDocumentsBatchResult](../models/platformdocumentsbatchresult.md)]   | :heavy_check_mark:                                                                       | Found documents, correlated by index into document_specs.                                |
+| `warnings`                                                                               | List[[models.PlatformDocumentsBatchWarning](../models/platformdocumentsbatchwarning.md)] | :heavy_check_mark:                                                                       | Complete per-item failures. Empty when every spec was found.                             |
+| `request_id`                                                                             | *str*                                                                                    | :heavy_check_mark:                                                                       | Platform-generated request ID for support correlation.                                   |
