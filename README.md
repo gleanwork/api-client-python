@@ -272,7 +272,11 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
-    res = glean.agents.search(name="HR Policy Agent")
+    res = glean.agents.create(name="HR Policy Agent", instructions="Answer employee questions about HR policies and benefits.", subagents=[
+        {
+            "name": "HR Policy Agent",
+        },
+    ])
 
     # Handle response
     print(res)
@@ -331,6 +335,7 @@ For more information on obtaining the appropriate token type, please contact you
 
 ### [Agents](docs/sdks/agents/README.md)
 
+* [create](docs/sdks/agents/README.md#create) - Create agent
 * [search](docs/sdks/agents/README.md#search) - Search agents
 * [get](docs/sdks/agents/README.md#get) - Get agent
 * [get_schemas](docs/sdks/agents/README.md#get_schemas) - Get agent schemas
@@ -524,7 +529,7 @@ For more information on obtaining the appropriate token type, please contact you
 
 ### [Indexing.Datasource](docs/sdks/indexingdatasource/README.md)
 
-* [status](docs/sdks/indexingdatasource/README.md#status) - Beta: Get datasource status
+* [status](docs/sdks/indexingdatasource/README.md#status) - Get datasource status
 
 
 ### [Indexing.Datasources](docs/sdks/indexingdatasources/README.md)
@@ -540,19 +545,19 @@ For more information on obtaining the appropriate token type, please contact you
 * [bulk_index](docs/sdks/indexingdocuments/README.md#bulk_index) - Bulk index documents
 * [process_all](docs/sdks/indexingdocuments/README.md#process_all) - Schedules the processing of uploaded documents
 * [delete](docs/sdks/indexingdocuments/README.md#delete) - Delete document
-* [debug](docs/sdks/indexingdocuments/README.md#debug) - Beta: Get document information
+* [debug](docs/sdks/indexingdocuments/README.md#debug) - Get document information
 
-* [debug_many](docs/sdks/indexingdocuments/README.md#debug_many) - Beta: Get information of a batch of documents
+* [debug_many](docs/sdks/indexingdocuments/README.md#debug_many) - Get information of a batch of documents
 
 * [check_access](docs/sdks/indexingdocuments/README.md#check_access) - Check document access
 * [~~status~~](docs/sdks/indexingdocuments/README.md#status) - Get document upload and indexing status :warning: **Deprecated**
 * [~~count~~](docs/sdks/indexingdocuments/README.md#count) - Get document count :warning: **Deprecated**
-* [debug_events](docs/sdks/indexingdocuments/README.md#debug_events) - Beta: Get document lifecycle events
+* [debug_events](docs/sdks/indexingdocuments/README.md#debug_events) - Get document lifecycle events
 
 
 ### [Indexing.People](docs/sdks/people/README.md)
 
-* [debug](docs/sdks/people/README.md#debug) - Beta: Get user information
+* [debug](docs/sdks/people/README.md#debug) - Get user information
 
 * [~~count~~](docs/sdks/people/README.md#count) - Get user count :warning: **Deprecated**
 * [index](docs/sdks/people/README.md#index) - Index employee
@@ -708,7 +713,11 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
-    res = glean.agents.search(name="HR Policy Agent",
+    res = glean.agents.create(name="HR Policy Agent", instructions="Answer employee questions about HR policies and benefits.", subagents=[
+        {
+            "name": "HR Policy Agent",
+        },
+    ],
         RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False))
 
     # Handle response
@@ -728,7 +737,11 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
-    res = glean.agents.search(name="HR Policy Agent")
+    res = glean.agents.create(name="HR Policy Agent", instructions="Answer employee questions about HR policies and benefits.", subagents=[
+        {
+            "name": "HR Policy Agent",
+        },
+    ])
 
     # Handle response
     print(res)
@@ -844,7 +857,11 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
-    res = glean.agents.search(name="HR Policy Agent")
+    res = glean.agents.create(name="HR Policy Agent", instructions="Answer employee questions about HR policies and benefits.", subagents=[
+        {
+            "name": "HR Policy Agent",
+        },
+    ])
 
     # Handle response
     print(res)
@@ -864,7 +881,11 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
-    res = glean.agents.search(name="HR Policy Agent")
+    res = glean.agents.create(name="HR Policy Agent", instructions="Answer employee questions about HR policies and benefits.", subagents=[
+        {
+            "name": "HR Policy Agent",
+        },
+    ])
 
     # Handle response
     print(res)

@@ -158751,7 +158751,7 @@ workflows:
             - condition: $response.header.Content-Type == application/json
             - context: $response.body
               condition: |
-                {"agent":{"agent_id":"mho4lwzylcozgoc2","name":"HR Policy Agent","capabilities":{}},"request_id":"<id>"}
+                {"agent":{"name":"HR Policy Agent","agent_id":"mho4lwzylcozgoc2","capabilities":{},"subagents":[{"name":"HR Policy Agent"}]},"request_id":"<id>"}
               type: simple
       x-speakeasy-test-group: agents
       x-speakeasy-test-rebuild: true
@@ -159808,4 +159808,22 @@ workflows:
                 {"results":[],"has_more":false,"next_cursor":null,"request_id":"<id>"}
               type: simple
       x-speakeasy-test-group: search
+      x-speakeasy-test-rebuild: true
+    - workflowId: platform-agents-create
+      steps:
+        - stepId: test
+          operationId: platform-agents-create
+          requestBody:
+            contentType: application/json
+            payload:
+                instructions: Answer employee questions about HR policies and benefits.
+                name: HR Policy Agent
+          successCriteria:
+            - condition: $statusCode == 201
+            - condition: $response.header.Content-Type == application/json
+            - context: $response.body
+              condition: |
+                {"agent":{"name":"HR Policy Agent","agent_id":"ef33aecf52c142a6873adf76037b642e","capabilities":{},"subagents":[{"name":"HR Policy Agent"}]},"request_id":"<id>"}
+              type: simple
+      x-speakeasy-test-group: agents
       x-speakeasy-test-rebuild: true
