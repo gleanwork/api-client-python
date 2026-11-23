@@ -1,0 +1,10 @@
+# PlatformSkillSourcePreviewStreamResultServerSentEvent
+
+
+## Fields
+
+| Field                                                                                                | Type                                                                                                 | Required                                                                                             | Description                                                                                          |
+| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `id`                                                                                                 | *Optional[str]*                                                                                      | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |
+| `event`                                                                                              | *Literal["RESULT"]*                                                                                  | :heavy_check_mark:                                                                                   | N/A                                                                                                  |
+| `data`                                                                                               | [models.PlatformSkillSourcePreviewStreamResult](../models/platformskillsourcepreviewstreamresult.md) | :heavy_check_mark:                                                                                   | Terminal success event carrying the fully assembled preview.                                         |

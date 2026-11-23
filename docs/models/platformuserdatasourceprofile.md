@@ -1,0 +1,13 @@
+# PlatformUserDatasourceProfile
+
+A user's account in a connected app.
+
+
+## Fields
+
+| Field                                                                                               | Type                                                                                                | Required                                                                                            | Description                                                                                         |
+| --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `datasource`                                                                                        | *str*                                                                                               | :heavy_check_mark:                                                                                  | Datasource of the account, for example slack or github.                                             |
+| `handle`                                                                                            | *str*                                                                                               | :heavy_check_mark:                                                                                  | The account's handle or display name in the app.                                                    |
+| `account_id`                                                                                        | *Optional[str]*                                                                                     | :heavy_minus_sign:                                                                                  | The app's own ID for the account. Present only when Glean knows it, for example the Slack user ID.<br/> |
+| `profile_url`                                                                                       | *Optional[str]*                                                                                     | :heavy_minus_sign:                                                                                  | Web URL of the account's profile.                                                                   |

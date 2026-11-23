@@ -1,0 +1,10 @@
+# ClusterGroup
+
+
+## Fields
+
+| Field                                                                                    | Type                                                                                     | Required                                                                                 | Description                                                                              |
+| ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `clustered_results`                                                                      | List[[models.SearchResult](../models/searchresult.md)]                                   | :heavy_minus_sign:                                                                       | A list of results that should be displayed as associated with this result.               |
+| `cluster_type`                                                                           | [Optional[models.ClusterTypeEnum]](../models/clustertypeenum.md)                         | :heavy_minus_sign:                                                                       | The reason for inclusion of clusteredResults.                                            |
+| `visible_count_hint`                                                                     | *int*                                                                                    | :heavy_check_mark:                                                                       | The default number of results to display before truncating and showing a "see more" link |

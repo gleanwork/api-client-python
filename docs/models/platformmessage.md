@@ -1,0 +1,9 @@
+# PlatformMessage
+
+
+## Fields
+
+| Field                                                                          | Type                                                                           | Required                                                                       | Description                                                                    | Example                                                                        |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| `role`                                                                         | [models.PlatformMessageRole](../models/platformmessagerole.md)                 | :heavy_check_mark:                                                             | Role of the message author.                                                    | USER                                                                           |
+| `content`                                                                      | List[[models.PlatformMessageTextBlock](../models/platformmessagetextblock.md)] | :heavy_check_mark:                                                             | Content blocks in the message.                                                 |                                                                                |

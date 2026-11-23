@@ -1,0 +1,10 @@
+# PlatformDocumentsBatchWarning
+
+
+## Fields
+
+| Field                                                                                            | Type                                                                                             | Required                                                                                         | Description                                                                                      |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| `code`                                                                                           | *str*                                                                                            | :heavy_check_mark:                                                                               | Warning code such as resource_not_found or invalid_parameter.                                    |
+| `message`                                                                                        | *str*                                                                                            | :heavy_check_mark:                                                                               | Human-readable warning.                                                                          |
+| `context`                                                                                        | [models.PlatformDocumentsBatchWarningContext](../models/platformdocumentsbatchwarningcontext.md) | :heavy_check_mark:                                                                               | N/A                                                                                              |
