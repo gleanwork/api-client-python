@@ -1,0 +1,13 @@
+# AgentConfig
+
+Describes the agent that executes the request.
+
+
+## Fields
+
+| Field                                                                                                 | Type                                                                                                  | Required                                                                                              | Description                                                                                           |
+| ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `agent`                                                                                               | [Optional[models.AgentEnum]](../models/agentenum.md)                                                  | :heavy_minus_sign:                                                                                    | Name of the agent.                                                                                    |
+| `tool_sets`                                                                                           | [Optional[models.ToolSets]](../models/toolsets.md)                                                    | :heavy_minus_sign:                                                                                    | The types of tools that the agent is allowed to use. Only works with FAST and ADVANCED `agent` values |
+| `mode`                                                                                                | [Optional[models.AgentConfigMode]](../models/agentconfigmode.md)                                      | :heavy_minus_sign:                                                                                    | Top level modes to run GleanChat in.                                                                  |
+| `use_image_generation`                                                                                | *Optional[bool]*                                                                                      | :heavy_minus_sign:                                                                                    | Whether the agent should create an image.                                                             |

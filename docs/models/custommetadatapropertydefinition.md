@@ -1,0 +1,12 @@
+# CustomMetadataPropertyDefinition
+
+The definition for a key within a Custom Metadata schema. Only the fields applicable to Custom Metadata are exposed.
+
+
+## Fields
+
+| Field                                                                                                            | Type                                                                                                             | Required                                                                                                         | Description                                                                                                      |
+| ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `name`                                                                                                           | *str*                                                                                                            | :heavy_check_mark:                                                                                               | The name of the metadata key.                                                                                    |
+| `property_type`                                                                                                  | [models.CustomMetadataPropertyDefinitionPropertyType](../models/custommetadatapropertydefinitionpropertytype.md) | :heavy_check_mark:                                                                                               | The type of metadata key. This governs the search and faceting behavior.                                         |
+| `skip_indexing`                                                                                                  | *Optional[bool]*                                                                                                 | :heavy_minus_sign:                                                                                               | If true then the property will not be indexed for retrieval and ranking.                                         |

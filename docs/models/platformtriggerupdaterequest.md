@@ -1,0 +1,13 @@
+# PlatformTriggerUpdateRequest
+
+Partial update. Only the supplied fields are changed.
+
+
+## Fields
+
+| Field                                                                            | Type                                                                             | Required                                                                         | Description                                                                      | Example                                                                          |
+| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `status`                                                                         | [Optional[models.PlatformTriggerStatus]](../models/platformtriggerstatus.md)     | :heavy_minus_sign:                                                               | Current trigger lifecycle state.                                                 | ENABLED                                                                          |
+| `description`                                                                    | *Optional[str]*                                                                  | :heavy_minus_sign:                                                               | Optional note describing this trigger.                                           | Reviews I am tagged on, sent to my team's review channel                         |
+| `inputs`                                                                         | Dict[str, *Any*]                                                                 | :heavy_minus_sign:                                                               | Values for the preset's inputs.                                                  | {<br/>"repository": "acme/payments-api"<br/>}                                    |
+| `delivery`                                                                       | [Optional[models.PlatformTriggerDelivery]](../models/platformtriggerdelivery.md) | :heavy_minus_sign:                                                               | N/A                                                                              |                                                                                  |

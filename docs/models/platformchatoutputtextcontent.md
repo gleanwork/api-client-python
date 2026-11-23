@@ -1,0 +1,10 @@
+# PlatformChatOutputTextContent
+
+
+## Fields
+
+| Field                                                                                      | Type                                                                                       | Required                                                                                   | Description                                                                                |
+| ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
+| `type`                                                                                     | [models.PlatformChatOutputTextContentType](../models/platformchatoutputtextcontenttype.md) | :heavy_check_mark:                                                                         | N/A                                                                                        |
+| `text`                                                                                     | *str*                                                                                      | :heavy_check_mark:                                                                         | N/A                                                                                        |
+| `annotations`                                                                              | List[[models.PlatformChatCitationAnnotation](../models/platformchatcitationannotation.md)] | :heavy_minus_sign:                                                                         | N/A                                                                                        |
