@@ -1,0 +1,14 @@
+# CustomEntity
+
+
+## Fields
+
+| Field                                                                       | Type                                                                        | Required                                                                    | Description                                                                 |
+| --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `permissions`                                                               | [Optional[models.ObjectPermissions]](../models/objectpermissions.md)        | :heavy_minus_sign:                                                          | N/A                                                                         |
+| `id`                                                                        | *Optional[str]*                                                             | :heavy_minus_sign:                                                          | Unique identifier.                                                          |
+| `title`                                                                     | *Optional[str]*                                                             | :heavy_minus_sign:                                                          | Title or name of the custom entity.                                         |
+| `datasource`                                                                | *Optional[str]*                                                             | :heavy_minus_sign:                                                          | The datasource the custom entity is from.                                   |
+| `object_type`                                                               | *Optional[str]*                                                             | :heavy_minus_sign:                                                          | The type of the entity. Interpretation is specific to each datasource       |
+| `metadata`                                                                  | [Optional[models.CustomEntityMetadata]](../models/customentitymetadata.md)  | :heavy_minus_sign:                                                          | N/A                                                                         |
+| `roles`                                                                     | List[[models.UserRoleSpecification](../models/userrolespecification.md)]    | :heavy_minus_sign:                                                          | A list of user roles for the custom entity explicitly granted by the owner. |
