@@ -1,0 +1,10 @@
+# PlatformSkillSourcePreviewFailure
+
+
+## Fields
+
+| Field                                                                                              | Type                                                                                               | Required                                                                                           | Description                                                                                        |
+| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `source_url`                                                                                       | *str*                                                                                              | :heavy_check_mark:                                                                                 | Resolved URL for the entry that could not be previewed.                                            |
+| `code`                                                                                             | [models.PlatformSkillSourcePreviewFailureCode](../models/platformskillsourcepreviewfailurecode.md) | :heavy_check_mark:                                                                                 | Stable machine-readable reason a discovered entry was excluded.                                    |
+| `detail`                                                                                           | *str*                                                                                              | :heavy_check_mark:                                                                                 | Safe explanation of why the entry was excluded.                                                    |

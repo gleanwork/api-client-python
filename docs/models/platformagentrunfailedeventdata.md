@@ -1,0 +1,11 @@
+# PlatformAgentRunFailedEventData
+
+Payload for the terminal Agents SSE event `run.failed`. Emitted after HTTP 200 when a run fails mid-stream. The event name is `run.failed` (not `error`) to avoid colliding with the browser EventSource `error` event.
+
+
+
+## Fields
+
+| Field                                                                                                                                              | Type                                                                                                                                               | Required                                                                                                                                           | Description                                                                                                                                        |
+| -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `error`                                                                                                                                            | [models.PlatformProblemDetail](../models/platformproblemdetail.md)                                                                                 | :heavy_check_mark:                                                                                                                                 | Error response following RFC 9457, extended with `code` and `documentation_url` for machine-readable classification and self-service remediation.<br/> |

@@ -1,0 +1,9 @@
+# ToolsCallRequest
+
+
+## Fields
+
+| Field                                                                                                     | Type                                                                                                      | Required                                                                                                  | Description                                                                                               |
+| --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `name`                                                                                                    | *str*                                                                                                     | :heavy_check_mark:                                                                                        | Required name of the tool to execute                                                                      |
+| `parameters`                                                                                              | Dict[str, [models.ToolsCallParameter](../models/toolscallparameter.md)]                                   | :heavy_check_mark:                                                                                        | The parameters for the tool. Each key is the name of the parameter and the value is the parameter object. |

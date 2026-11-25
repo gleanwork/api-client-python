@@ -1,0 +1,14 @@
+# SummarizeRequest
+
+Summary of the document
+
+
+## Fields
+
+| Field                                                                                       | Type                                                                                        | Required                                                                                    | Description                                                                                 |
+| ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| `timestamp`                                                                                 | [date](https://docs.python.org/3/library/datetime.html#date-objects)                        | :heavy_minus_sign:                                                                          | The ISO 8601 timestamp associated with the client request.                                  |
+| `query`                                                                                     | *Optional[str]*                                                                             | :heavy_minus_sign:                                                                          | Optional query that the summary should be about                                             |
+| `preferred_summary_length`                                                                  | *Optional[int]*                                                                             | :heavy_minus_sign:                                                                          | Optional length of summary output. If not given, defaults to 500 chars.                     |
+| `document_specs`                                                                            | List[[models.DocumentSpecUnion](../models/documentspecunion.md)]                            | :heavy_check_mark:                                                                          | Specifications of documents to summarize                                                    |
+| `tracking_token`                                                                            | *Optional[str]*                                                                             | :heavy_minus_sign:                                                                          | An opaque token that represents this particular result. To be used for /feedback reporting. |
