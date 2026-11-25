@@ -1,0 +1,10 @@
+# PlatformChatStreamOutputTextDoneServerSentEvent
+
+
+## Fields
+
+| Field                                                                                    | Type                                                                                     | Required                                                                                 | Description                                                                              |
+| ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `id`                                                                                     | *Optional[str]*                                                                          | :heavy_minus_sign:                                                                       | N/A                                                                                      |
+| `event`                                                                                  | *Literal["RESPONSE_OUTPUT_TEXT_DONE"]*                                                   | :heavy_check_mark:                                                                       | N/A                                                                                      |
+| `data`                                                                                   | [models.PlatformChatStreamOutputTextDone](../models/platformchatstreamoutputtextdone.md) | :heavy_check_mark:                                                                       | N/A                                                                                      |

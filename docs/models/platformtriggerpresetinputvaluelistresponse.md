@@ -1,0 +1,10 @@
+# PlatformTriggerPresetInputValueListResponse
+
+
+## Fields
+
+| Field                                                                                         | Type                                                                                          | Required                                                                                      | Description                                                                                   |
+| --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `results`                                                                                     | List[[models.PlatformTriggerPresetInputValue](../models/platformtriggerpresetinputvalue.md)]  | :heavy_check_mark:                                                                            | The bounded set of selectable values matching the query.                                      |
+| `is_truncated`                                                                                | *bool*                                                                                        | :heavy_check_mark:                                                                            | Whether additional matches were omitted. When true, refine `query` to narrow the result set.<br/> |
+| `request_id`                                                                                  | *str*                                                                                         | :heavy_check_mark:                                                                            | Platform-generated request ID for support correlation.                                        |
