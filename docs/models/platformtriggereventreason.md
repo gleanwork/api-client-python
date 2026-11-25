@@ -33,3 +33,4 @@ value = PlatformTriggerEventReason.CREATED
 | `WEBHOOK_CREATED`        | WEBHOOK_CREATED          |
 | `CLOSED`                 | CLOSED                   |
 | `COMMENT_ADDED`          | COMMENT_ADDED            |
+| `COMMENT_RESOLVED`       | COMMENT_RESOLVED         |
