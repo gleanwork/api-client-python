@@ -272,7 +272,11 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
-    res = glean.agents.search(name="HR Policy Agent")
+    res = glean.agents.create(name="HR Policy Agent", instructions="Answer employee questions about HR policies and benefits.", subagents=[
+        {
+            "name": "HR Policy Agent",
+        },
+    ])
 
     # Handle response
     print(res)
@@ -331,18 +335,24 @@ For more information on obtaining the appropriate token type, please contact you
 
 ### [Agents](docs/sdks/agents/README.md)
 
+* [create](docs/sdks/agents/README.md#create) - Create agent
 * [search](docs/sdks/agents/README.md#search) - Search agents
 * [get](docs/sdks/agents/README.md#get) - Get agent
+* [update](docs/sdks/agents/README.md#update) - Update agent
+* [delete](docs/sdks/agents/README.md#delete) - Delete agent
 * [get_schemas](docs/sdks/agents/README.md#get_schemas) - Get agent schemas
 * [create_run](docs/sdks/agents/README.md#create_run) - Create agent run
 * [get_run](docs/sdks/agents/README.md#get_run) - Get agent run
 * [cancel_run](docs/sdks/agents/README.md#cancel_run) - Cancel an agent run
 * [respond_to_run](docs/sdks/agents/README.md#respond_to_run) - Respond to agent run approvals
+* [create_run_stream](docs/sdks/agents/README.md#create_run_stream) - Create a streaming agent run
 
 ### [Chat](docs/sdks/chatsdk/README.md)
 
 * [create](docs/sdks/chatsdk/README.md#create) - Create a chat response
 * [update](docs/sdks/chatsdk/README.md#update) - Update a chat
+* [resume](docs/sdks/chatsdk/README.md#resume) - Resume a chat stream
+* [cancel](docs/sdks/chatsdk/README.md#cancel) - Cancel a chat
 * [create_stream](docs/sdks/chatsdk/README.md#create_stream) - Create a streaming chat response
 
 ### [Client.Activity](docs/sdks/clientactivity/README.md)
@@ -524,7 +534,7 @@ For more information on obtaining the appropriate token type, please contact you
 
 ### [Indexing.Datasource](docs/sdks/indexingdatasource/README.md)
 
-* [status](docs/sdks/indexingdatasource/README.md#status) - Beta: Get datasource status
+* [status](docs/sdks/indexingdatasource/README.md#status) - Get datasource status
 
 
 ### [Indexing.Datasources](docs/sdks/indexingdatasources/README.md)
@@ -540,19 +550,19 @@ For more information on obtaining the appropriate token type, please contact you
 * [bulk_index](docs/sdks/indexingdocuments/README.md#bulk_index) - Bulk index documents
 * [process_all](docs/sdks/indexingdocuments/README.md#process_all) - Schedules the processing of uploaded documents
 * [delete](docs/sdks/indexingdocuments/README.md#delete) - Delete document
-* [debug](docs/sdks/indexingdocuments/README.md#debug) - Beta: Get document information
+* [debug](docs/sdks/indexingdocuments/README.md#debug) - Get document information
 
-* [debug_many](docs/sdks/indexingdocuments/README.md#debug_many) - Beta: Get information of a batch of documents
+* [debug_many](docs/sdks/indexingdocuments/README.md#debug_many) - Get information of a batch of documents
 
 * [check_access](docs/sdks/indexingdocuments/README.md#check_access) - Check document access
 * [~~status~~](docs/sdks/indexingdocuments/README.md#status) - Get document upload and indexing status :warning: **Deprecated**
 * [~~count~~](docs/sdks/indexingdocuments/README.md#count) - Get document count :warning: **Deprecated**
-* [debug_events](docs/sdks/indexingdocuments/README.md#debug_events) - Beta: Get document lifecycle events
+* [debug_events](docs/sdks/indexingdocuments/README.md#debug_events) - Get document lifecycle events
 
 
 ### [Indexing.People](docs/sdks/people/README.md)
 
-* [debug](docs/sdks/people/README.md#debug) - Beta: Get user information
+* [debug](docs/sdks/people/README.md#debug) - Get user information
 
 * [~~count~~](docs/sdks/people/README.md#count) - Get user count :warning: **Deprecated**
 * [index](docs/sdks/people/README.md#index) - Index employee
@@ -640,7 +650,7 @@ The stream is also a [Context Manager][context-manager] and can be used with the
 underlying connection when the context is exited.
 
 ```python
-from glean.api_client import Glean
+from glean.api_client import Glean, models
 import os
 
 
@@ -648,7 +658,17 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
-    res = glean.chat.create_stream(input="Summarize our parental leave policy.", store=True)
+    res = glean.agents.create_run_stream(agent_id="{agent_id}", messages=[
+        {
+            "role": models.PlatformMessageRole.USER,
+            "content": [
+                {
+                    "text": "What is our parental leave policy?",
+                    "type": models.PlatformContentType.TEXT,
+                },
+            ],
+        },
+    ], execution_mode=models.PlatformAgentsCreateRunStreamExecutionMode.REQUEST_BOUND)
 
     with res as event_stream:
         for event in event_stream:
@@ -708,7 +728,11 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
-    res = glean.agents.search(name="HR Policy Agent",
+    res = glean.agents.create(name="HR Policy Agent", instructions="Answer employee questions about HR policies and benefits.", subagents=[
+        {
+            "name": "HR Policy Agent",
+        },
+    ],
         RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False))
 
     # Handle response
@@ -728,7 +752,11 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
-    res = glean.agents.search(name="HR Policy Agent")
+    res = glean.agents.create(name="HR Policy Agent", instructions="Answer employee questions about HR policies and benefits.", subagents=[
+        {
+            "name": "HR Policy Agent",
+        },
+    ])
 
     # Handle response
     print(res)
@@ -844,7 +872,11 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
-    res = glean.agents.search(name="HR Policy Agent")
+    res = glean.agents.create(name="HR Policy Agent", instructions="Answer employee questions about HR policies and benefits.", subagents=[
+        {
+            "name": "HR Policy Agent",
+        },
+    ])
 
     # Handle response
     print(res)
@@ -864,7 +896,11 @@ with Glean(
     api_token=os.getenv("GLEAN_API_TOKEN"),
 ) as glean:
 
-    res = glean.agents.search(name="HR Policy Agent")
+    res = glean.agents.create(name="HR Policy Agent", instructions="Answer employee questions about HR policies and benefits.", subagents=[
+        {
+            "name": "HR Policy Agent",
+        },
+    ])
 
     # Handle response
     print(res)

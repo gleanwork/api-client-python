@@ -1,5 +1,7 @@
 # PlatformSkillSourcePreviewFile
 
+A supporting file bundled with a skill.
+
 
 ## Fields
 

@@ -9,12 +9,6 @@
 value: models.PlatformAgentRunWaitResponse = /* values here */
 ```
 
-### `str`
-
-```python
-value: str = /* values here */
-```
-
 ### `models.PlatformAgentRunResponse`
 
 ```python

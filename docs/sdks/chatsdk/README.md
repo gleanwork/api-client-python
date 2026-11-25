@@ -6,6 +6,8 @@
 
 * [create](#create) - Create a chat response
 * [update](#update) - Update a chat
+* [resume](#resume) - Resume a chat stream
+* [cancel](#cancel) - Cancel a chat
 * [create_stream](#create_stream) - Create a streaming chat response
 
 ## create
@@ -94,6 +96,95 @@ with Glean(
 | --------------------------------- | --------------------------------- | --------------------------------- |
 | errors.PlatformProblemDetailError | 400, 401, 403, 404, 405, 413, 429 | application/problem+json          |
 | errors.PlatformProblemDetailError | 500                               | application/problem+json          |
+| errors.GleanError                 | 4XX, 5XX                          | \*/\*                             |
+
+## resume
+
+Reconnect to a chat that is still running, or replay one that just finished. The response is server-sent events in the same format as the streaming response of the create endpoint. Pass the `sequence_id` of the last event you received as `last_seen_sequence_id`, or omit it to start from the beginning of the stream. The final event is `RESPONSE_COMPLETED` or `RESPONSE_FAILED`, and its text covers only the events sent on this connection. Streams are kept for a limited time, so a chat that finished long ago returns 404.
+
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="platform-chat-resume" method="get" path="/api/chats/{chat_id}/resume" -->
+```python
+from glean.api_client import Glean
+import os
+
+
+with Glean(
+    api_token=os.getenv("GLEAN_API_TOKEN"),
+) as glean:
+
+    res = glean.chat.resume(chat_id="{chat_id}", last_seen_sequence_id=0)
+
+    with res as event_stream:
+        for event in event_stream:
+            # handle event
+            print(event, flush=True)
+
+```
+
+### Parameters
+
+| Parameter                                                                                                                                        | Type                                                                                                                                             | Required                                                                                                                                         | Description                                                                                                                                      | Example                                                                                                                                          |
+| ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `chat_id`                                                                                                                                        | *str*                                                                                                                                            | :heavy_check_mark:                                                                                                                               | The ID of the chat to resume.                                                                                                                    | {chat_id}                                                                                                                                        |
+| `last_seen_sequence_id`                                                                                                                          | *Optional[int]*                                                                                                                                  | :heavy_minus_sign:                                                                                                                               | The `sequence_id` of the last event already received. The stream continues with the next event. Defaults to 0, which starts from the beginning.<br/> | 0                                                                                                                                                |
+| `retries`                                                                                                                                        | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                 | :heavy_minus_sign:                                                                                                                               | Configuration to override the default retry behavior of the client.                                                                              |                                                                                                                                                  |
+
+### Response
+
+**[Union[eventstreaming.EventStream[models.PlatformChatStreamEventServerSentEvent], eventstreaming.EventStreamAsync[models.PlatformChatStreamEventServerSentEvent]]](../../models/.md)**
+
+### Errors
+
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| errors.PlatformProblemDetailError | 400, 401, 403, 404, 429           | application/problem+json          |
+| errors.PlatformProblemDetailError | 500, 503                          | application/problem+json          |
+| errors.GleanError                 | 4XX, 5XX                          | \*/\*                             |
+
+## cancel
+
+Stop a running chat. Only users who can edit the chat can cancel it. Cancelling a chat that is not running succeeds without effect.
+
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="platform-chat-cancel" method="post" path="/api/chats/{chat_id}/cancellations" -->
+```python
+from glean.api_client import Glean
+import os
+
+
+with Glean(
+    api_token=os.getenv("GLEAN_API_TOKEN"),
+) as glean:
+
+    res = glean.chat.cancel(chat_id="{chat_id}")
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         | Example                                                             |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `chat_id`                                                           | *str*                                                               | :heavy_check_mark:                                                  | The ID of the chat to cancel.                                       | {chat_id}                                                           |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
+
+### Response
+
+**[models.PlatformChatCancelResponse](../../models/platformchatcancelresponse.md)**
+
+### Errors
+
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| errors.PlatformProblemDetailError | 400, 401, 403, 404, 429           | application/problem+json          |
+| errors.PlatformProblemDetailError | 500, 503                          | application/problem+json          |
 | errors.GleanError                 | 4XX, 5XX                          | \*/\*                             |
 
 ## create_stream
