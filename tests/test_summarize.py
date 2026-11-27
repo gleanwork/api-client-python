@@ -19,10 +19,10 @@ def test_summarize_summarize():
         res = glean.client.documents.summarize(
             document_specs=[
                 {
-                    "id": "<id>",
+                    "url": "https://coarse-surface.net",
                 },
                 {
-                    "id": "<id>",
+                    "url": "https://coarse-surface.net",
                 },
             ]
         )
