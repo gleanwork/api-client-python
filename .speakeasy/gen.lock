@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 3e3290ca-0ee8-4981-b1bc-14536048fa63
 management:
-  docChecksum: e7b30fbf6b772f70fa7d233fb240a5ac
+  docChecksum: 094550a27208e9e96bd1acb0ce2e6060
   docVersion: 0.9.0
-  speakeasyVersion: 1.812.0
-  generationVersion: 2.968.1
-  releaseVersion: 0.18.0
-  configChecksum: 9f8b69747872e31b821b6054c4633fa8
+  speakeasyVersion: 1.813.0
+  generationVersion: 2.969.4
+  releaseVersion: 0.18.1
+  configChecksum: f7bd1fc926c1ef5d32e3acf00f816bd1
   repoURL: https://github.com/gleanwork/api-client-python.git
   installationURL: https://github.com/gleanwork/api-client-python.git
   published: true
 persistentEdits:
-  generation_id: dc68bac9-121a-42bc-a476-0fbb33ed735b
-  pristine_commit_hash: 75c9477664cc7ab92b23fe38a4031afb2395c2a2
-  pristine_tree_hash: 9a3bb6ea948ac8c7b72ce1bfc756b6e15ddc01b4
+  generation_id: 561bf7de-1a84-4f17-ba62-c2d7021bdce1
+  pristine_commit_hash: d85c154a6517148e0b8e55faaaa690fcf1ca172a
+  pristine_tree_hash: 3210ac5f6e122ecb1d02ccf6f46cc0d55369fb35
 features:
   python:
     acceptHeaders: 3.0.0
@@ -4486,8 +4486,8 @@ trackedFiles:
     pristine_git_object: 79e388be87446ab6a4064b372bad0e8376d0cb5e
   pyproject.toml:
     id: 5d07e7d72637
-    last_write_checksum: sha1:d9c0cbcfa8372f820e07c3fef3113b4c13023d81
-    pristine_git_object: e93d060c4b79504e97145cb1d3c8f223cf5750ce
+    last_write_checksum: sha1:873d091a85e4aebf3335ca3324f43b106d1e1e86
+    pristine_git_object: 9e4e3c244957d9e19be70961b6caf2da38bf89dc
   scripts/prepare_readme.py:
     id: e0c5957a6035
     last_write_checksum: sha1:1ad9251ca23c3f195fed36dfc0d83254a65bd895
@@ -4514,8 +4514,8 @@ trackedFiles:
     pristine_git_object: d7f9b51b5278bc431e9787d13e98d7199e08bed4
   src/glean/api_client/_version.py:
     id: 0ce22b26136b
-    last_write_checksum: sha1:b4241a7304d0fc5134d733c1e928235789aeeeaa
-    pristine_git_object: 436e58679b1d25dba74e602d28112ba9a5d7e64b
+    last_write_checksum: sha1:20cd874ec02264ca03da8ca2e8c35454b5d4799c
+    pristine_git_object: 88adac12c28b537f872c9c88f72b7d7df2ab945f
   src/glean/api_client/admin.py:
     id: 583cfae82adf
     last_write_checksum: sha1:e73ee99e804e8bb3859346c4f8117a608da53862
@@ -12738,8 +12738,8 @@ trackedFiles:
     pristine_git_object: 839a973d9a0c4243b453cba121087bb921380823
   tests/test_messages.py:
     id: be23089b1f8b
-    last_write_checksum: sha1:e2d6779abf3562c98de25c298ddb338f0efdd225
-    pristine_git_object: ca6a9f4bdb3465e8538470fc6dc97147ea387499
+    last_write_checksum: sha1:34f6d993311df6b97fc7d772fc92121adb3cd4cf
+    pristine_git_object: 667b5caa720e1ef399d321ea0df68e54977591c8
   tests/test_people.py:
     id: 37c243940039
     last_write_checksum: sha1:7f79b5392aa4710f9ffe9cb81f1be714f5ca5b30
@@ -12766,8 +12766,8 @@ trackedFiles:
     pristine_git_object: 526919dd9f43054d8d75711a293a78e098117a59
   tests/test_summarize.py:
     id: a255d8a6f627
-    last_write_checksum: sha1:9df7644eaa9ae4bceb36706d50df87f6a40bcf26
-    pristine_git_object: f6ed813a7e9b9354f5cf06005d68f95ed93cca50
+    last_write_checksum: sha1:9d33b9bc31f71a49e7c80a92c2e3fa7d1050137f
+    pristine_git_object: 5e6c5d28fd66d2cc62fd1a87842f29c4c1e45c08
   tests/test_tools.py:
     id: 70889bdf7321
     last_write_checksum: sha1:474f60fca9f3dbfa783d7f3b822c0f44748ad915
@@ -14717,7 +14717,6 @@ generatedTests:
   platform-agents-create: "2026-11-25T16:57:49Z"
   platform-agents-update: "2026-11-25T16:57:49Z"
   platform-chat-cancel: "2026-11-25T16:57:49Z"
-releaseNotes: "## Python SDK Changes:\n* `glean.agents.create_run()`: \n  *  `request.stream` **Removed** (Breaking ⚠️)\n  *  `response.status[200].content[text/event-stream` **Removed** (Breaking ⚠️)\n* `glean.agents.create()`: **Added**\n* `glean.agents.update()`: **Added**\n* `glean.agents.delete()`: **Added**\n* `glean.agents.create_run_stream()`: **Added**\n* `glean.chat.resume()`: **Added**\n* `glean.chat.cancel()`: **Added**\n* `glean.agents.search()`:  `response.agents[]` **Changed**\n* `glean.agents.get()`:  `response.agent` **Changed**\n* `glean.chat.create_stream()`:  `response.[]` **Changed**\n* `glean.admin.agents.list()`:  `response.results[]` **Changed**\n* `glean.triggers.search_events()`:  `response.results[].reason.enum(comment_resolved)` **Added**\n* `glean.triggers.search_preset_events()`:  `response.results[].reason.enum(comment_resolved)` **Added**\n* `glean.client.announcements.create()`: \n  *  `request.body.structured_list[].document.metadata.author.related_documents[].results[].structured_results[].chat.status` **Added**\n  *  `response.body.structured_list[].document.metadata.author.related_documents[].results[].structured_results[].chat.status` **Added**\n* `glean.client.announcements.update()`: \n  *  `request.body.structured_list[].document.metadata.author.related_documents[].results[].structured_results[].chat.status` **Added**\n  *  `response.body.structured_list[].document.metadata.author.related_documents[].results[].structured_results[].chat.status` **Added**\n* `glean.client.answers.create()`: \n  *  `request.data.added_roles[].person.related_documents[].results[].structured_results[].chat.status` **Added**\n  *  `response.added_roles[].person.related_documents[].results[].structured_results[].chat.status` **Added**\n* `glean.client.answers.update()`: \n  *  `request.added_roles[].person.related_documents[].results[].structured_results[].chat.status` **Added**\n  *  `response.added_roles[].person.related_documents[].results[].structured_results[].chat.status` **Added**\n* `glean.client.answers.retrieve()`:  `response.answer_result.answer.added_roles[].person.related_documents[].results[].structured_results[].chat.status` **Added**\n* `glean.client.answers.list()`:  `response.answer_results[].answer.added_roles[].person.related_documents[].results[].structured_results[].chat.status` **Added**\n* `glean.client.chat.create()`: \n  *  `request.messages[].citations[].source_document.metadata.author.related_documents[].results[].structured_results[].chat.status` **Added**\n  *  `response.messages[].citations[].source_document.metadata.author.related_documents[].results[].structured_results[].chat.status` **Added**\n* `glean.client.chat.retrieve()`: \n  *  `response.chat_result.chat` **Changed**\n  *  `error.created_by.related_documents[].results[].structured_results[].chat.status` **Added**\n* `glean.client.chat.list()`:  `response.chat_results[].chat.status` **Added**\n* `glean.client.chat.create_stream()`: \n  *  `request.messages[].citations[].source_document.metadata.author.related_documents[].results[].structured_results[].chat.status` **Added**\n* `glean.client.agents.create()`:  `response.workflow.author.related_documents[].results[].structured_results[].chat.status` **Added**\n* `glean.client.agents.import()`:  `response.workflow_result.workflow.author.related_documents[].results[].structured_results[].chat.status` **Added**\n* `glean.client.collections.add_items()`:  `response.collection.added_roles[].person.related_documents[].results[].structured_results[].chat.status` **Added**\n* `glean.client.collections.create()`: \n  *  `request.added_roles[].person.related_documents[].results[].structured_results[].chat.status` **Added**\n  *  `response.union(class (0)).collection.added_roles[].person.related_documents[].results[].structured_results[].chat.status` **Added**\n* `glean.client.collections.delete_item()`:  `response.collection.added_roles[].person.related_documents[].results[].structured_results[].chat.status` **Added**\n* `glean.client.collections.update()`: \n  *  `request.added_roles[].person.related_documents[].results[].structured_results[].chat.status` **Added**\n  *  `response.added_roles[].person.related_documents[].results[].structured_results[].chat.status` **Added**\n* `glean.client.collections.update_item()`:  `response.collection.added_roles[].person.related_documents[].results[].structured_results[].chat.status` **Added**\n* `glean.client.collections.retrieve()`:  `response.collection.added_roles[].person.related_documents[].results[].structured_results[].chat.status` **Added**\n* `glean.client.collections.list()`:  `response.collections[].added_roles[].person.related_documents[].results[].structured_results[].chat.status` **Added**\n* `glean.client.documents.retrieve()`:  `response.documents.Map<DocumentOrError>.union(Document).metadata.author.related_documents[].results[].structured_results[].chat.status` **Added**\n* `glean.client.documents.retrieve_by_facets()`:  `response.documents[].metadata.author.related_documents[].results[].structured_results[].chat.status` **Added**\n* `glean.client.insights.retrieve()`:  `response.glean_assist.activity_insights[].user.related_documents[].results[].structured_results[].chat.status` **Added**\n* `glean.client.messages.retrieve()`:  `response.search_response.results[].structured_results[].chat.status` **Added**\n* `glean.client.pins.update()`:  `response.attribution.related_documents[].results[].structured_results[].chat.status` **Added**\n* `glean.client.pins.retrieve()`:  `response.pin.attribution.related_documents[].results[].structured_results[].chat.status` **Added**\n* `glean.client.pins.list()`:  `response.pins[].attribution.related_documents[].results[].structured_results[].chat.status` **Added**\n* `glean.client.pins.create()`:  `response.attribution.related_documents[].results[].structured_results[].chat.status` **Added**\n* `glean.client.search.query_as_admin()`: \n  *  `request.source_document.metadata.author.related_documents[].results[].structured_results[].chat.status` **Added**\n  *  `response.results[].structured_results[].chat.status` **Added**\n* `glean.client.search.autocomplete()`:  `response.results[].document.metadata.author.related_documents[].results[].structured_results[].chat.status` **Added**\n* `glean.client.search.retrieve_feed()`:  `response.results[].primary_entry` **Changed**\n* `glean.client.search.recommendations()`: \n  *  `request.source_document.metadata.author.related_documents[].results[].structured_results[].chat.status` **Added**\n  *  `response.results[].structured_results[].chat.status` **Added**\n* `glean.client.search.query()`: \n  *  `request.source_document.metadata.author.related_documents[].results[].structured_results[].chat.status` **Added**\n  *  `response.results[].structured_results[].chat.status` **Added**\n* `glean.client.entities.list()`:  `response.results[].related_documents[].results[].structured_results[].chat.status` **Added**\n* `glean.client.entities.read_people()`:  `response.results[].related_documents[].results[].structured_results[].chat.status` **Added**\n* `glean.client.shortcuts.create()`: \n  *  `request.data.added_roles[].person.related_documents[].results[].structured_results[].chat.status` **Added**\n  *  `response.shortcut.added_roles[].person.related_documents[].results[].structured_results[].chat.status` **Added**\n* `glean.client.shortcuts.retrieve()`:  `response.shortcut.added_roles[].person.related_documents[].results[].structured_results[].chat.status` **Added**\n* `glean.client.shortcuts.list()`:  `response.shortcuts[].added_roles[].person.related_documents[].results[].structured_results[].chat.status` **Added**\n* `glean.client.shortcuts.update()`: \n  *  `request.added_roles[].person.related_documents[].results[].structured_results[].chat.status` **Added**\n  *  `response.shortcut.added_roles[].person.related_documents[].results[].structured_results[].chat.status` **Added**\n* `glean.client.verification.add_reminder()`:  `response.metadata.last_verifier.related_documents[].results[].structured_results[].chat.status` **Added**\n* `glean.client.verification.list()`:  `response.documents[].metadata.last_verifier.related_documents[].results[].structured_results[].chat.status` **Added**\n* `glean.client.verification.verify()`:  `response.metadata.last_verifier.related_documents[].results[].structured_results[].chat.status` **Added**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
